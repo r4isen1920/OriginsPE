@@ -109,7 +109,7 @@
             "name": "shulk.1", 
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_shulk",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_shulk",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
 
@@ -148,7 +148,7 @@
             "name": "elytrian.1",
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_elytrian",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_elytrian",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
 
@@ -187,7 +187,7 @@
             "name": "blazeborn.1", 
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_blazeborn",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_blazeborn",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
 
@@ -262,7 +262,7 @@
             "name": "kitsune.1", 
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
 
@@ -277,7 +277,7 @@
             "name": "kitsune.2", 
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 2",
 
@@ -292,7 +292,7 @@
             "name": "kitsune.3", 
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 3",
 
@@ -331,7 +331,7 @@
             "name": "slimecican.1", 
             "commands": [
               "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
-              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_slimecican",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_slimecican",
 
               "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
 

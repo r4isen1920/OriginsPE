@@ -1,7 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.2.json",
 	"author": "r4isen1920",
-	"name": "new_originspe",
+	"name": "OriginsPE",
 	"packs": {
 		"behaviorPack": "./packs/BP",
 		"resourcePack": "./packs/RP"
@@ -34,7 +34,7 @@
 									"data/gametests/src/index.ts"
 								],
 								"bundle": true,
-								"minify": false,
+								"minify": true,
 								"format": "esm",
 								"target": "es2020"
 							},

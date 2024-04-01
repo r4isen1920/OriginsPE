@@ -1,0 +1,94 @@
+{
+  "format_version": "1.18.10",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:dialogue_handler",
+
+      "is_summonable": true,
+
+      "scripts": {
+        "animate": [ "tick" ]
+      },
+      "animations": {
+        "tick": "animation.r4isen1920_originspe.dialogue_handler.stay"
+      }
+    },
+
+    "component_groups": {
+      "originspe:instant_despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+
+    "components": {
+      "minecraft:scale": {
+        "value": 0.0
+      },
+      "minecraft:interact": {
+        "interactions": {
+          "on_interact": {
+            "filters": {
+              "all_of": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              }
+            }
+          }
+        }
+      },
+      "minecraft:health": {
+        "min": 1,
+        "value": 1
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:type_family": {
+        "family": [ "npc_handler", "originspe", "inanimate" ]
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:movement": {
+        "value": 0.0
+      },
+
+      "minecraft:collision_box": {
+        "width": 0.0,
+        "height": 0.0
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:npc": {
+        "npc_data": {}
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:environment_sensor": {
+        "triggers": {
+          "filters": {
+            "test": "distance_to_nearest_player",
+            "operator": ">",
+            "value": 48
+          },
+          "event": "originspe:instant_despawn",
+          "target": "self"
+        }
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+      }
+    },
+
+    "events": {
+      "originspe:instant_despawn": {
+        "add": {
+          "component_groups": [
+            "originspe:instant_despawn"
+          ]
+        }
+      }
+    }
+  }
+}

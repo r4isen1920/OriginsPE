@@ -1,7 +1,7 @@
 {
   /* UI developed by r4isen1920 | Under MIT LICENSE */
 
-  "$r4isen_safe_mode": false,
+  "$r4isen_safe_mode": true,
   "$use_dirt_background": false,
 
   /* Ensure color schemes are retained to vanilla */

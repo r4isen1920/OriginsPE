@@ -1,0 +1,17 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+
+    "animation.r4isen1920_originspe.dialogue_handler.stay": {
+      "loop": true,
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "/effect @s invisibility 9999 255 true",
+          "/tp @s ~~~"
+        ]
+      }
+    }
+
+  }
+}

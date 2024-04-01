@@ -10,8 +10,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
-              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior"
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_warrior"
             ]
           },
           {
@@ -21,8 +21,8 @@
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
-              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit"
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_nitwit"
             ]
           }
         ]
@@ -36,20 +36,20 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
-              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior",
-              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_warrior",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_random"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_nitwit" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_nitwit" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
-              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_archer"
             ]
           }
         ]
@@ -62,19 +62,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
-              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit"
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_nitwit"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_archer" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_archer" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
-              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
             ]
           }
         ]
@@ -87,19 +87,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
-              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_archer"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_beastmaster" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_beastmaster" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
-              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
             ]
           }
         ]
@@ -112,19 +112,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
-              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_blacksmith" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_blacksmith" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
-              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cleric"
             ]
           }
         ]
@@ -137,19 +137,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
-              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_cleric" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_cleric" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
-              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cook"
             ]
           }
         ]
@@ -162,19 +162,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
-              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cleric"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_cook" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_cook" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
-              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_explorer"
             ]
           }
         ]
@@ -187,19 +187,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
-              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cook"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_explorer" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_explorer" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
-              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_farmer"
             ]
           }
         ]
@@ -212,19 +212,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
-              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_explorer"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_farmer" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_farmer" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
-              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
             ]
           }
         ]
@@ -237,19 +237,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
-              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_farmer"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_lumberjack" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_lumberjack" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
-              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_merchant"
             ]
           }
         ]
@@ -262,19 +262,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
-              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_merchant" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_merchant" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
-              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_miner"
             ]
           }
         ]
@@ -287,19 +287,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
-              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_merchant"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_miner" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_miner" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rancher",
-              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rancher"
+              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rancher",
+              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rancher"
             ]
           }
         ]
@@ -313,19 +313,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
-              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_miner"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_rancher" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_rancher" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
-              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rogue"
             ]
           }
         ]
@@ -339,19 +339,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rancher",
-              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rancher"
+              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rancher",
+              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rancher"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_rogue" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_rogue" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
-              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior"
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_warrior"
             ]
           }
         ]
@@ -364,20 +364,20 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
-              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rogue"
             ]
           },
           {
             "name": "select",
-            "commands": [ "/event entity @initiator origins:become_class_warrior" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_warrior" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
-              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit",
-              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_nitwit",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_random"
             ]
           }
         ]
@@ -392,20 +392,20 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
-              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior",
-              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_warrior",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_random"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_nitwit" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_nitwit" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
-              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_archer"
             ]
           }
         ]
@@ -418,19 +418,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
-              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit"
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_nitwit"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_archer" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_archer" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
-              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
             ]
           }
         ]
@@ -443,19 +443,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
-              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_archer"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_beastmaster" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_beastmaster" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
-              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
             ]
           }
         ]
@@ -468,19 +468,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
-              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_blacksmith" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_blacksmith" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
-              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cleric"
             ]
           }
         ]
@@ -493,19 +493,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
-              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_cleric" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_cleric" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
-              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cook"
             ]
           }
         ]
@@ -518,19 +518,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
-              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cleric"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_cook" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_cook" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
-              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_explorer"
             ]
           }
         ]
@@ -543,19 +543,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
-              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_cook"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_explorer" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_explorer" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
-              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_farmer"
             ]
           }
         ]
@@ -568,19 +568,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
-              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_explorer"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_farmer" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_farmer" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
-              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
             ]
           }
         ]
@@ -593,19 +593,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
-              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_farmer"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_lumberjack" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_lumberjack" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
-              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_merchant"
             ]
           }
         ]
@@ -618,19 +618,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
-              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_merchant" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_merchant" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
-              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_miner"
             ]
           }
         ]
@@ -643,19 +643,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
-              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_merchant"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_miner" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_miner" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
-              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rogue"
             ]
           }
         ]
@@ -669,19 +669,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
-              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_miner"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_rancher" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_rancher" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
-              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rogue"
             ]
           }
         ]
@@ -695,19 +695,19 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
-              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_miner"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_rogue" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_rogue" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
-              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior"
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_warrior"
             ]
           }
         ]
@@ -720,20 +720,20 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
-              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_rogue"
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_warrior" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_class_pickban_warrior" ]
           },
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
-              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit",
-              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_nitwit",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_random"
             ]
           }
         ]
