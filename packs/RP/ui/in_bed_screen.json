@@ -1,0 +1,9 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "in_bed_screen@common.base_screen": {
+    "close_on_player_hurt": true
+  }
+
+}

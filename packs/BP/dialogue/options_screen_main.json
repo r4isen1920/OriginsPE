@@ -1,0 +1,581 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_options_general_root_particleon",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.general.root",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "tab.admin",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+
+          {
+            "name": "view_origin",
+            "commands": [ "/event entity @initiator origins:options_view_origin" ]
+          },
+          {
+            "name": "view_class",
+            "commands": [ "/event entity @initiator origins:options_view_class" ]
+          },
+          {
+            "name": "particle.on",
+            "commands": [
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_general_root_particleoff",
+              "/event entity @initiator origins:options_particle_off",
+              "/tag @initiator add options_particle_off"
+            ]
+          },
+          {
+            "name": "reset_player",
+            "commands": [
+              "/execute as @initiator[tag=!\"options_reset_player\"] run function reset",
+              "/execute as @initiator[tag=!\"options_reset_player\"] at @s run playsound note.pling @s ~~~ 1 3",
+              "/execute as @initiator[tag=\"options_reset_player\"] at @s run playsound note.bass @s ~~~ 1 3",
+              "/execute as @initiator[tag=\"options_reset_player\"] at @s run event entity @s origins:options_open_general_root",
+              "/tag @initiator add options_reset_player"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_general_root_particleoff",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.general.root",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "tab.admin",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+
+          {
+            "name": "view_origin",
+            "commands": [ "/event entity @initiator origins:options_view_origin" ]
+          },
+          {
+            "name": "view_class",
+            "commands": [ "/event entity @initiator origins:options_view_class" ]
+          },
+          {
+            "name": "particle.off",
+            "commands": [
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_general_root_particleon",
+              "/event entity @initiator origins:options_particle_on",
+              "/tag @initiator remove options_particle_off"
+            ]
+          },
+          {
+            "name": "reset_player",
+            "commands": [
+              "/execute as @initiator[tag=!\"options_reset_player\"] run function reset",
+              "/execute as @initiator[tag=!\"options_reset_player\"] at @s run playsound note.pling @s ~~~ 1 3",
+              "/execute as @initiator[tag=\"options_reset_player\"] at @s run playsound note.bass @s ~~~ 1 3",
+              "/execute as @initiator[tag=\"options_reset_player\"] at @s run event entity @s origins:options_open_general_root",
+              "/tag @initiator add options_reset_player"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        "scene_tag": "gui_options_admin_root",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.root",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          {
+            "name": "ban.root",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": "toggle.root",
+            "commands": [ "/event entity @initiator origins:options_open_admin_toggle_root" ]
+          },
+          {
+            "name": "reset_all",
+            "commands": [
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_root_resetconfirm",
+              "/execute as @initiator at @s run playsound note.pling @s ~~~ 1 1"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_root_resetconfirm",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          {
+            "name": "ban.root",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": "toggle.root",
+            "commands": [ "/event entity @initiator origins:options_open_admin_toggle_root" ]
+          },
+          {
+            "name": "reset_all.c",
+            "commands": [
+              "/function init",
+              "/function indexr",
+              "/function indexs",
+              "/function indexc",
+
+              "/execute as @initiator at @s run playsound note.pling @s ~~~ 1 3",
+              "/execute as @initiator run event entity @a origins:options_reset_all"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_denied",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.denied",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_ban_root",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.ban.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          {
+            "name": "ban.origins",
+            "commands": [
+              "/execute if score \"ban_human\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_human\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_avian\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_avian\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_arachnid\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_arachnid\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_elytrian\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_elytrian\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_shulk\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_shulk\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_feline\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_feline\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_enderian\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_enderian\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_merling\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_merling\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_blazeborn\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_blazeborn\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_phantom\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_phantom\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_kitsune\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_kitsune\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_slimecican\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_slimecican\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_inchling\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_inchling\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_bee\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_bee\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_piglin\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_piglin\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_starborne\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_starborne\" index 0", "/tag @s remove indexed",
+
+              "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 15.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_human"
+            ]
+          },
+          {
+            "name": "ban.classes",
+            "commands": [
+              "/execute if score \"ban_nitwit\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_nitwit\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_archer\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_archer\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_beastmaster\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_beastmaster\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_blacksmith\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_blacksmith\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_cleric\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_cleric\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_cook\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_cook\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_explorer\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_explorer\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_farmer\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_farmer\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_lumberjack\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_lumberjack\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_merchant\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_merchant\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_miner\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_miner\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_rancher\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_rancher\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_rogue\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_rogue\" index 0", "/tag @s remove indexed",
+              "/execute if score \"ban_warrior\" index matches 0..1 run tag @s add indexed", "/execute as @s[tag=!\"indexed\"] run scoreboard players set \"ban_warrior\" index 0", "/tag @s remove indexed",
+
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 if score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_limit_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_nitwit"
+            ]
+          },
+          {
+            "name": "ban.evict",
+            "commands": [
+              "/event entity @a[tag=!\"origins_admin\"] origins:options_evict_selection",
+              "/execute as @initiator at @s run playsound note.pling @s ~~~ 1 3",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0000",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1000",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0100",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0010",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0001",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1100",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1010",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1001",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0110",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0101",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0011",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_0111",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1011",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1101",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1110",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      },
+      {
+        "scene_tag": "gui_options_admin_toggle_root_1111",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.options.admin.toggle.root",
+        "buttons": [
+          {
+            "name": "return",
+            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+          },
+          {
+            "name": "tab.general",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          },
+
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+        ]
+      }
+
+    ]
+  }
+}

@@ -1,0 +1,860 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_class_banned_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.nitwit",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_warrior"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_nitwit\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_nitwit", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_archer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.archer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 if score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_limit_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_nitwit"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_archer\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_archer", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_beastmaster"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.beastmaster",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_archer"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_beastmaster\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_beastmaster", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_blacksmith"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.blacksmith",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_beastmaster"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_blacksmith\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_blacksmith", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cleric"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.cleric",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_blacksmith"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_cleric\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_cleric", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cook"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.cook",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cleric"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_cook\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_cook", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_explorer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.explorer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cook"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_explorer\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_explorer", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_farmer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.farmer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_explorer"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_farmer\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_farmer", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_lumberjack"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.lumberjack",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_farmer"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_lumberjack\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_lumberjack", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_merchant"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.merchant",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_lumberjack"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_merchant\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_merchant", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_miner"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.miner",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_merchant"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_miner\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_miner", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rancher",
+              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rancher"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "gui_class_banned_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.rancher",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_miner"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_rancher\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_rancher", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rogue"
+            ]
+          }
+        ]
+      },
+      
+      {
+        "scene_tag": "gui_class_banned_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.rogue",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rancher",
+              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rancher"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_rogue\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_rogue", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_warrior"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_banned_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.warrior",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rogue"
+            ]
+          },
+          {
+            "name": "unban_class",
+            "commands": [ "/scoreboard players set \"ban_warrior\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_warrior", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 if score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_limit_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_nitwit"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        "scene_tag": "gui_class_unbanned_limit_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.nitwit",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_warrior"
+            ]
+          },
+          {
+            "name": "ban_limit",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_unbanned_limit_nitwit" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_archer"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        "scene_tag": "gui_class_unbanned_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.nitwit",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_warrior"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_nitwit\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_nitwit", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_archer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.archer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 if score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_limit_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_nitwit"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_archer\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_archer", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_beastmaster"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.beastmaster",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_archer"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_beastmaster\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_beastmaster", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_blacksmith"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.blacksmith",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_beastmaster"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_blacksmith\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_blacksmith", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cleric"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.cleric",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_blacksmith"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_cleric\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_cleric", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cook"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.cook",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cleric"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_cook\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_cook", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_explorer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.explorer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_cook"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_explorer\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_explorer", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_farmer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.farmer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_explorer"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_farmer\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_farmer", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_lumberjack"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.lumberjack",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_farmer"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_lumberjack\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_lumberjack", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_merchant"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.merchant",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_lumberjack"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_merchant\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_merchant", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_miner"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.miner",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_merchant"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_miner\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_miner", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rogue"
+            ]
+          }
+        ]
+      },
+      
+      {
+        "scene_tag": "gui_class_unbanned_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.rancher",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_miner"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_rancher\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_rancher", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rogue"
+            ]
+          }
+        ]
+      },
+      
+      {
+        "scene_tag": "gui_class_unbanned_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.rogue",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_miner"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_rogue\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_rogue", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_warrior"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_unbanned_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banclass.warrior",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_rogue"
+            ]
+          },
+          {
+            "name": "ban_class",
+            "commands": [ "/scoreboard players set \"ban_warrior\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_banned_warrior", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_banned_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 if score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_limit_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_unbanned_nitwit"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1121 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_race_banned_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.human",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
+              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_human\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_human", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_avian",
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_avian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_avian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.avian",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 15.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_human"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_avian\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_avian", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_arachnid",
+              "/execute as @initiator unless score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_arachnid"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_arachnid",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.arachnid",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_avian",
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_avian"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_arachnid\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_arachnid", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elytrian",
+              "/execute as @initiator unless score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elytrian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_elytrian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.elytrian",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_arachnid",
+              "/execute as @initiator unless score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_arachnid"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_elytrian\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_elytrian", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_shulk",
+              "/execute as @initiator unless score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_shulk"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_shulk",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.shulk",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elytrian",
+              "/execute as @initiator unless score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elytrian"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_shulk\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_shulk", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_feline",
+              "/execute as @initiator unless score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_feline"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_feline",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.feline",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_shulk",
+              "/execute as @initiator unless score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_shulk"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_feline\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_feline", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_enderian",
+              "/execute as @initiator unless score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_enderian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_enderian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.enderian",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_feline",
+              "/execute as @initiator unless score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_feline"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_enderian\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_enderian", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_merling",
+              "/execute as @initiator unless score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_merling"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_merling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.merling",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_enderian",
+              "/execute as @initiator unless score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_enderian"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_merling\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_merling", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_blazeborn",
+              "/execute as @initiator unless score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_blazeborn"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_blazeborn",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.blazeborn",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_merling",
+              "/execute as @initiator unless score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_merling"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_blazeborn\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_blazeborn", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_phantom",
+              "/execute as @initiator unless score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_phantom"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_phantom",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.phantom",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_blazeborn",
+              "/execute as @initiator unless score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_blazeborn"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_phantom\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_phantom", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_kitsune",
+              "/execute as @initiator unless score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_kitsune"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_kitsune",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.kitsune",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_phantom",
+              "/execute as @initiator unless score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_phantom"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_kitsune\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_kitsune", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_slimecican",
+              "/execute as @initiator unless score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_slimecican"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_slimecican",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.slimecican",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_kitsune",
+              "/execute as @initiator unless score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_kitsune"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_slimecican\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_slimecican", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_inchling",
+              "/execute as @initiator unless score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_inchling"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_inchling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.inchling",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_slimecican",
+              "/execute as @initiator unless score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_slimecican"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_inchling\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_inchling", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_bee",
+              "/execute as @initiator unless score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_bee"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_bee",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.bee",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_inchling",
+              "/execute as @initiator unless score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_inchling"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_bee\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_bee", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_piglin",
+              "/execute as @initiator unless score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_piglin"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_piglin",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.piglin",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_bee",
+              "/execute as @initiator unless score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_bee"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_piglin\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_piglin", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_starborne",
+              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_starborne",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.starborne",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_piglin",
+              "/execute as @initiator unless score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_piglin"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_starborne\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_starborne", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elf",
+              "/execute as @initiator unless score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elf"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_elf",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.elf",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_starborne",
+              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_elf\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_elf", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
+              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_voidwalker",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.voidwalker",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elf",
+              "/execute as @initiator unless score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elf"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_voidwalker\" index 0", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_voidwalker", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 15.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_human"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        "scene_tag": "gui_race_unbanned_limit_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.human",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_starborne",
+              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+            ]
+          },
+          {
+            "name": "ban_limit",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_limit_human" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_avian",
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_avian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_locked_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.human",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_starborne",
+              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+            ]
+          },
+          {
+            "name": "ban_locked",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_unbanned_limit_human" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_avian",
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_avian"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        "scene_tag": "gui_race_unbanned_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.human",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
+              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_human\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_human", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_avian",
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_avian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_avian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.avian",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 15.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_human"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_avian\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_avian", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_arachnid",
+              "/execute as @initiator unless score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_arachnid"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_arachnid",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.arachnid",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_avian",
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_avian"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_arachnid\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_arachnid", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elytrian",
+              "/execute as @initiator unless score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elytrian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_elytrian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.elytrian",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_arachnid",
+              "/execute as @initiator unless score \"ban_arachnid\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_arachnid"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_elytrian\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_elytrian", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_shulk",
+              "/execute as @initiator unless score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_shulk"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_shulk",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.shulk",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elytrian",
+              "/execute as @initiator unless score \"ban_elytrian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elytrian"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_shulk\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_shulk", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_feline",
+              "/execute as @initiator unless score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_feline"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_feline",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.feline",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_shulk",
+              "/execute as @initiator unless score \"ban_shulk\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_shulk"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_feline\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_feline", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_enderian",
+              "/execute as @initiator unless score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_enderian"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_enderian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.enderian",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_feline",
+              "/execute as @initiator unless score \"ban_feline\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_feline"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_enderian\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_enderian", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_merling",
+              "/execute as @initiator unless score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_merling"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_merling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.merling",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_enderian",
+              "/execute as @initiator unless score \"ban_enderian\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_enderian"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_merling\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_merling", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_blazeborn",
+              "/execute as @initiator unless score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_blazeborn"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_blazeborn",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.blazeborn",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_merling",
+              "/execute as @initiator unless score \"ban_merling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_merling"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_blazeborn\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_blazeborn", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_phantom",
+              "/execute as @initiator unless score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_phantom"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_phantom",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.phantom",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_blazeborn",
+              "/execute as @initiator unless score \"ban_blazeborn\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_blazeborn"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_phantom\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_phantom", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_kitsune",
+              "/execute as @initiator unless score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_kitsune"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_kitsune",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.kitsune",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_phantom",
+              "/execute as @initiator unless score \"ban_phantom\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_phantom"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_kitsune\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_kitsune", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_slimecican",
+              "/execute as @initiator unless score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_slimecican"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_slimecican",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.slimecican",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_kitsune",
+              "/execute as @initiator unless score \"ban_kitsune\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_kitsune"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_slimecican\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_slimecican", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_inchling",
+              "/execute as @initiator unless score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_inchling"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_inchling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.inchling",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_slimecican",
+              "/execute as @initiator unless score \"ban_slimecican\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_slimecican"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_inchling\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_inchling", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_bee",
+              "/execute as @initiator unless score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_bee"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_bee",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.bee",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_inchling",
+              "/execute as @initiator unless score \"ban_inchling\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_inchling"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_bee\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_bee", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_piglin",
+              "/execute as @initiator unless score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_piglin"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_piglin",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.piglin",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_bee",
+              "/execute as @initiator unless score \"ban_bee\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_bee"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_piglin\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_piglin", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_starborne",
+              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_starborne",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.starborne",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_piglin",
+              "/execute as @initiator unless score \"ban_piglin\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_piglin"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_starborne\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_starborne", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elf",
+              "/execute as @initiator unless score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elf"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_elf",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.elf",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_starborne",
+              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_elf\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_elf", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
+              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_voidwalker",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.voidwalker",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_elf",
+              "/execute as @initiator unless score \"ban_elf\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_elf"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_voidwalker\" index 1", "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_race_banned_voidwalker", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_banned_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 16.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_race_unbanned_human"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

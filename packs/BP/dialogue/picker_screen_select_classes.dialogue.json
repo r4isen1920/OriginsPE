@@ -1,0 +1,743 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_class_pick_random",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.random",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:class_random" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "gui_class_pick_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.nitwit",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_nitwit" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.archer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_archer" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.beastmaster",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_beastmaster" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.blacksmith",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_blacksmith" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.cleric",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_cleric" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.cook",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_cook" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.explorer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_explorer" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.farmer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_farmer" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.lumberjack",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_lumberjack" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.merchant",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_merchant" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.miner",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_miner" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rancher",
+              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rancher"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "gui_class_pick_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.rancher",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_rancher" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+            ]
+          }
+        ]
+      },
+      
+      {
+        "scene_tag": "gui_class_pick_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.rogue",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rancher",
+              "/execute as @initiator unless score \"ban_rancher\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rancher"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_rogue" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pick_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.warrior",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+            ]
+          },
+          {
+            "name": "select",
+            "commands": [ "/event entity @initiator origins:become_class_warrior" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        "scene_tag": "gui_class_pickban_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.nitwit",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_nitwit" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.archer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_archer" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.beastmaster",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_archer",
+              "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_archer"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_beastmaster" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.blacksmith",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_beastmaster",
+              "/execute as @initiator unless score \"ban_beastmaster\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_beastmaster"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_blacksmith" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.cleric",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_blacksmith",
+              "/execute as @initiator unless score \"ban_blacksmith\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_blacksmith"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_cleric" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.cook",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cleric",
+              "/execute as @initiator unless score \"ban_cleric\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cleric"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_cook" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.explorer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_cook",
+              "/execute as @initiator unless score \"ban_cook\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_cook"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_explorer" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.farmer",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_explorer",
+              "/execute as @initiator unless score \"ban_explorer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_explorer"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_farmer" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.lumberjack",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_farmer",
+              "/execute as @initiator unless score \"ban_farmer\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_farmer"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_lumberjack" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.merchant",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_lumberjack",
+              "/execute as @initiator unless score \"ban_lumberjack\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_lumberjack"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_merchant" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.miner",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_merchant",
+              "/execute as @initiator unless score \"ban_merchant\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_merchant"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_miner" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+            ]
+          }
+        ]
+      },
+      
+      {
+        "scene_tag": "gui_class_pickban_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.rancher",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_rancher" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+            ]
+          }
+        ]
+      },
+      
+      {
+        "scene_tag": "gui_class_pickban_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.rogue",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_miner",
+              "/execute as @initiator unless score \"ban_miner\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_miner"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_rogue" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_warrior",
+              "/execute as @initiator unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_warrior"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_pickban_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickclass.warrior",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_rogue",
+              "/execute as @initiator unless score \"ban_rogue\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_rogue"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator gui_class_pickban_warrior" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pickban_nitwit",
+              "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_nitwit\" index matches 1 run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_nitwit",
+              "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=origins:dialogue_handler,c=1] @s gui_class_pick_random"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

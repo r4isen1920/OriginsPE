@@ -1,0 +1,247 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_shulk_inventory",
+
+  "shulk_inventory_cell_image": {
+    "type": "image",
+    "texture": "textures/origins/gui/shulk_inventory/cell_image",
+    "layer": 1
+  },
+
+  "shulk_inventory_grid_item@common.container_item": {
+    "$item_collection_name": "container_items",
+    "$background_images": "origin_shulk_inventory.shulk_inventory_cell_image",
+    "$item_renderer_panel_size": [ 16, 16 ]
+  },
+
+  "shulk_inventory_bg_anim": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": 7,
+    "frame_step": 300,
+    "fps": 4,
+    "reversible": true,
+    "easing": "linear"
+  },
+
+  "shulk_inventory_bg": {
+    "type": "image",
+    "texture": "textures/origins/gui/shulk_inventory/bg_image",
+    "size": [ 90, 100 ],
+    "uv_size": [ 300, 335 ],
+    "uv": "@origin_shulk_inventory.shulk_inventory_bg_anim"
+  },
+
+  "shulk_inventory_label": {
+    "type": "label",
+    "text": "origins.trait.shulk_inventory.label",
+    "text_alignment": "center",
+    "size": [ "90%", "default" ],
+    "color": "$f_color_format",
+    "layer": 2
+  },
+
+  "shulk_inventory_grid": {
+    "type": "grid",
+    "size": [ 54, "default" ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "grid_dimensions": [ 3, 3 ],
+    "grid_item_template": "origin_shulk_inventory.shulk_inventory_grid_item",
+    "collection_name": "container_items"
+  },
+
+  "shulk_inventory_part": {
+    "type": "panel",
+    "size": [ "100%", "50%" ],
+    "controls": [
+      { 
+        "inventory_label@origin_shulk_inventory.shulk_inventory_label": {
+          "offset": [ 0, -55 ]
+        }
+      },
+      {
+        "background_image@origin_shulk_inventory.shulk_inventory_bg": {
+          "clips_children": true,
+          "controls": [
+            { "inventory_grid@origin_shulk_inventory.shulk_inventory_grid": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "shulk_player_inventory@common.inventory_panel_bottom_half": {
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "size": [ "100%", 93 ],
+    "controls": [
+      { "inventory_panel@common.inventory_panel": {} },
+      {
+        "inventory_label@common.section_heading_label": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 2,
+          "text": "container.inventory"
+        }
+      }
+    ]
+  },
+
+  "shulk_inventory_anim_alpha": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 0.0,
+    "to": 0.0,
+    "duration": 1.0,
+    "next": "@origin_shulk_inventory.shulk_inventory_anim_alpha_in"
+  },
+  "shulk_inventory_anim_alpha_in": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 0.0,
+    "to": 1.0,
+    "duration": 1.0
+  },
+
+  "shulk_player_inventory_anim_offset": {
+    "anim_type": "wait",
+    "duration": 1.0,
+    "next": "@origin_shulk_inventory.shulk_player_inventory_anim_offset_out"
+  },
+  "shulk_player_inventory_anim_offset_out": {
+    "anim_type": "offset",
+    "easing": "spring",
+    "from": [ 0, 0 ],
+    "to": [ 65.25, 0 ],
+    "duration": 0.1
+  },
+
+  "shulk_inventory_screen": {
+    "type": "panel",
+    "controls": [
+      { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
+      {
+        "flying_item_renderer@common.flying_item_renderer": {
+          "layer": 14
+        }
+      },
+      { "selected_item_details_factory@common.selected_item_details_factory": {} },
+      { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
+      {
+        "root_panel@common.root_panel": {
+          "size": [ "100%", "100%" ],
+          "layer": 1,
+          "controls": [
+            { 
+              "shulk_inventory_part@origin_shulk_inventory.shulk_inventory_part": {
+                "offset": [ -87, 0 ],
+                "alpha": "@origin_shulk_inventory.shulk_inventory_anim_alpha",
+                "propagate_alpha": true
+              }
+            },
+            {
+              "player_inventory_panel": {
+                "type": "panel",
+                "offset": "@origin_shulk_inventory.shulk_player_inventory_anim_offset",
+                "controls": [
+                  { 
+                    "background@common.common_panel": {
+                      "size": [ "100%sm + 12px", "100%sm - 8px" ],
+                      "$use_compact_close_button": true,
+                      "$close_button_offset": [ -4, 3 ]
+                    }
+                  },
+                  {
+                    "foreground": {
+                      "type": "panel",
+                      "size": [ 162, "100%c" ],
+                      "offset": [ 0, -8 ],
+                      "layer": 5,
+                      "controls": [
+                        { "player_inventory@origin_shulk_inventory.shulk_player_inventory": {} },
+                        { "hotbar_grid@common.hotbar_grid_template": {} }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} },
+            { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+            { "gamepad_cursor@common.gamepad_cursor_button": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "shulk_inventory_display_access_icon_fade": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 1.0,
+    "to": 1.0,
+    "duration": 1.0,
+    "next": "@origin_shulk_inventory.shulk_inventory_display_access_icon_fade_in"
+  },
+  "shulk_inventory_display_access_icon_fade_in": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 1.0,
+    "to": 0.6,
+    "duration": 0.5
+  },
+
+  "shulk_inventory_display_access_icon_size": {
+    "anim_type": "size",
+    "easing": "linear",
+    "from": [ 22, 22 ],
+    "to": [ 22, 22 ],
+    "duration": 1.0,
+    "next": "@origin_shulk_inventory.shulk_inventory_display_access_icon_size_in"
+  },
+  "shulk_inventory_display_access_icon_size_in": {
+    "anim_type": "size",
+    "easing": "linear",
+    "from": [ 22, 22 ],
+    "to": [ 18, 18 ],
+    "duration": 0.1
+  },
+
+  "shulk_accessed_inventory_icon": {
+    "type": "image",
+    "size": "@origin_shulk_inventory.shulk_inventory_display_access_icon_size",
+    "offset": [ 106, 0 ]
+  },
+
+  "shulk_inventory_display_access_icon": {
+    "type": "panel",
+    "anchor_from": "center",
+    "anchor_to": "top_middle",
+    "offset": "$set_offset",
+    "alpha": "@origin_shulk_inventory.shulk_inventory_display_access_icon_fade",
+    "propagate_alpha": true,
+    "controls": [
+      {
+        "accessing_player_inventory@origin_shulk_inventory.shulk_accessed_inventory_icon": {
+          "texture": "textures/origins/gui/shulk_inventory/icon_player_inventory",
+          "ignored": "(not ($var_title_text = 'origins.player_inventory'))"
+        }
+      },
+      {
+        "accessing_shulk_inventory@origin_shulk_inventory.shulk_accessed_inventory_icon": {
+          "texture": "textures/origins/gui/shulk_inventory/icon_shulk_inventory",
+          "ignored": "(not ($var_title_text = 'origins.shulk_inventory'))"
+        }
+      }
+    ],
+    "$set_offset|default": [ 0, -11 ],
+    "variables": {
+      "requires": "($is_android or $is_ios)",
+      "$set_offset": [ -2, -32 ]
+    }
+  }
+
+}

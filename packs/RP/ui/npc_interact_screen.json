@@ -1,0 +1,73 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "binding_control_template": {
+    "type": "panel",
+    "controls": "$target_control",
+    "bindings": [
+      {
+        "binding_name": "#dialogtext",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  "npc_screen_render_index": {
+    "type": "panel",
+    "controls": [
+      {
+        "origin_screen_picker@npc_interact.binding_control_template": {
+          "$visible_binding": "(not ((#dialogtext = 'origin.ability_control') or (#dialogtext = 'origin.ability_control.none') or (#dialogtext = 'origin.ability_control.blocked') or (#dialogtext = 'origin.options.general.root') or (#dialogtext = 'origin.options.admin.root') or (#dialogtext = 'origin.options.admin.ban.root') or (#dialogtext = 'origin.options.admin.toggle.root') or (#dialogtext = 'origin.options.admin.denied')))",
+          "$target_control": [ { "origin_screen_picker@origin_screen_picker_common.picker_root_screen_panel": {} } ]
+        }
+      },
+      {
+        "origin_preferences_menu@npc_interact.binding_control_template": {
+          "$visible_binding": "((#dialogtext = 'origin.options.general.root') or (#dialogtext = 'origin.options.admin.root') or (#dialogtext = 'origin.options.admin.ban.root') or (#dialogtext = 'origin.options.admin.toggle.root') or (#dialogtext = 'origin.options.admin.denied'))",
+          "$target_control": [ { "origin_preferences_menu@origin_options_menu.origin_options_menu_root": {} } ]
+        }
+      }
+    ]
+  },
+
+  "npc_screen_render_bg_index": {
+    "type": "panel",
+    "controls": [
+      {
+        "origin_ability_control@npc_interact.binding_control_template": {
+          "$visible_binding": "((#dialogtext = 'origin.ability_control') or (#dialogtext = 'origin.ability_control.none') or (#dialogtext = 'origin.ability_control.blocked'))",
+          "$target_control": [ { "origin_ability_control@origin_ability_buttons.ability_buttons_root_panel": {} } ]
+        }
+      }
+    ]
+  },
+
+  "npc_screen@common.base_screen": {
+    "$screen_content": "npc_interact.npc_screen_render_index",
+    "$screen_bg_content": "npc_interact.npc_screen_render_bg_index",
+
+    "$screen_animations": [],
+
+    "cache_screen": true,
+    "close_on_player_hurt": false,
+    "low_frequency_rendering": true,
+    "is_showing_menu": true,
+    "render_game_behind": true,
+    "screen_draws_last": true,
+
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_exit",
+        "to_button_id": "button.menu_continue",
+        "mapping_type": "global"
+      }
+    ]
+  }
+
+}

@@ -1,0 +1,19 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "ui_defs": [
+    "ui/origins/_ability_buttons.r4ui",
+    "ui/origins/_buttons.r4ui",
+    "ui/origins/_common.r4ui",
+    "ui/origins/_hud_effects.r4ui",
+    "ui/origins/_options_menu.r4ui",
+    "ui/origins/_powers.r4ui",
+    "ui/origins/_resource_bar.r4ui",
+    "ui/origins/_screen_picker_common.r4ui",
+    "ui/origins/_screen_picker_list.r4ui",
+    "ui/origins/_shulk_inventory.r4ui",
+    "ui/origins/_welcome_screen.r4ui"
+  ]
+
+}

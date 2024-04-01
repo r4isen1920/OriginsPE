@@ -1,0 +1,25 @@
+{
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "$r4isen_safe_mode": false,
+  "$use_dirt_background": false,
+
+  /* Ensure color schemes are retained to vanilla */
+  "$0_color_format": [ 0.0, 0.0, 0.0 ],       // Black
+  "$1_color_format": [ 0.0, 0.0, 0.667 ],     // Dark blue
+  "$2_color_format": [ 0.0, 0.667, 0 ],       // Dark green
+  "$3_color_format": [ 0.0, 0.667, 0.667 ],   // Dark aqua
+  "$4_color_format": [ 0.667, 0.0, 0.0 ],     // Dark red
+  "$5_color_format": [ 0.667, 0.0, 0.667 ],   // Dark purple
+  "$6_color_format": [ 1.0, 0.667, 0.0 ],     // Gold
+  "$7_color_format": [ 0.667, 0.667, 0.667 ], // Gray
+  "$8_color_format": [ 0.333, 0.333, 0.333 ], // Dark gray
+  "$9_color_format": [ 0.333, 0.333, 1.0 ],   // Blue
+  "$a_color_format": [ 0.333, 1.0, 0.333 ],   // Green
+  "$b_color_format": [ 0.333, 1.0, 1.0 ],     // Aqua
+  "$c_color_format": [ 1.0, 0.333, 0.333 ],   // Red
+  "$d_color_format": [ 1.0, 0.333, 1.0 ],     // Light purple
+  "$e_color_format": [ 1.0, 1.0, 0.333 ],     // Yellow
+  "$f_color_format": [ 1.0, 1.0, 1.0 ]        // White
+
+}

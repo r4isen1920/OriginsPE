@@ -1,0 +1,202 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_resource_bar",
+
+  "img": {
+    "type": "image",
+    "texture": "(('textures/origins/hud/cooldown/' + $texture + '') - ',' - 'A:' - 'B:' - 'C:')",
+    "allow_debug_missing_texture": false
+  },
+
+  "bar_bg@img": {
+    "size": [ 71, 5 ],
+    "uv": [ 11, 2 ],
+    "uv_size": [ 71, 5 ]
+  },
+
+  "bar_fill@bar_bg": {
+    "uv": [ 11, 10 ],
+    "bilinear": true
+  },
+
+  "bar_icon@img": {
+    "size": [ 8, 8 ],
+    "uv": [ 1, 8 ],
+    "uv_size": [ 8, 8 ],
+    "keep_ratio": true
+  },
+
+  "bar_progress_anim": {
+    "anim_type": "clip",
+    "easing": "linear",
+    "from": "(1.0 - $bar_progress_from)",
+    "to": "(1.0 - $bar_progress_to)",
+    "duration": "$bar_progress_duration"
+  },
+
+  "bar_size": {
+    "$bar_size_init|default": [ "100%c", "100%c" ],
+
+    "anim_type": "size",
+    "easing": "linear",
+    "from": "$bar_size_init",
+    "to": "$bar_size_init",
+    "duration": 0.25,
+    "next": "$bar_size"
+  },
+  "bar_size_stay@bar_size": {
+    "from": [ "100%c", "100%c" ],
+    "to": [ "100%c", "100%c" ],
+    "duration": 0.25,
+    "next": ""
+  },
+  "bar_size_out@bar_size": {
+    "from": [ "100%c", "100%c" ],
+    "to": [ "100%c", 0 ],
+    "duration": 0.25,
+    "next": ""
+  },
+  "bar_size_stay_out@bar_size": {
+    "from": [ "100%c", 0 ],
+    "to": [ "100%c", 0 ],
+    "duration": 0.25,
+    "next": ""
+  },
+
+  "bar_alpha": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 1.0,
+    "to": "$bar_alpha",
+    "duration": 0.25
+  },
+
+  "resource_bar": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%cm" ],
+    "use_child_anchors": true,
+
+    "controls": [
+      {
+        "bar_icon@bar_icon": {
+          "$texture": "('%.4s' * $bar_data)"
+        }
+      },
+      { "padding@common.empty_panel": { "size": [ 2, 1 ] } },
+      {
+        "bar_panel@common.empty_panel": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "size": [ "100%cm", "100%cm" ],
+          "controls": [
+            {
+              "bar_bg@origin_resource_bar.bar_bg": {
+                "$texture": "('%.4s' * $bar_data)",
+                "layer": 1
+              }
+            },
+            {
+              "bar_fill@origin_resource_bar.bar_fill": {
+                "$texture": "('%.4s' * $bar_data)",
+
+                "$bar_clip_ratio": 100.0,
+                "$bar_progress_from": "((('%.4s' * ($bar_data - ('%.4s' * $bar_data))) - ',') / $bar_clip_ratio)",
+                "$bar_progress_to": "((('%.4s' * ($bar_data - ('%.8s' * $bar_data))) - ',') / $bar_clip_ratio)",
+                "$bar_progress_duration": "(('%.4s' * ($bar_data - ('%.12s' * $bar_data))) - ',')",
+                "clip_direction": "left",
+                "clip_pixelperfect": true,
+                "anims": [
+                  "@origin_resource_bar.bar_progress_anim"
+                ],
+
+                "layer": 2
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "resource_bar_holder@common.empty_panel": {
+    "size": [ "100%c", "100%c" ],
+    "offset": [ 0, 0 ],
+    "propagate_alpha": true,
+
+    "anims": [
+      "@origin_resource_bar.bar_size",
+      "@origin_resource_bar.bar_alpha"
+    ],
+
+    "$bar_size|default": "@origin_resource_bar.bar_size_stay",
+    "$bar_alpha|default": 1.0,
+
+    "$bar_outx|default": false,
+    "$bar_outz|default": false,
+
+    "variables": [
+      {
+        "requires": "(('%.4s' * ($bar_data - ('%.12s' * $bar_data))) = ',000')",
+        "$bar_outx": true
+      },
+      {
+        "requires": "((('%.4s' * $bar_data) - 'A' - 'B' - 'C') = ':00')",
+        "$bar_outz": true
+      },
+
+      {
+        "requires": "($bar_outx and $bar_outz)",
+        "$bar_size_init": [ "100%c", 0 ],
+        "$bar_size": "@origin_resource_bar.bar_size_stay_out",
+        "$bar_alpha": 0.0
+      },
+      {
+        "requires": "($bar_outx and not $bar_outz)",
+        "$bar_size": "@origin_resource_bar.bar_size_out",
+        "$bar_alpha": 0.0
+      }
+    ],
+
+    "controls": [
+      { "resource_bar@origin_resource_bar.resource_bar": {} }
+    ]
+  },
+
+  "resource_bar_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "size": [ "100%cm", "100%c" ],
+    "offset": "$set_offset",
+
+    "$set_offset|default": [ 50, -52 ],
+    "variables": {
+      "requires": "(not $desktop_screen)",
+      "$set_offset": [ 50, -42 ]
+    },
+
+    "controls": [
+      {
+        "bar_1@resource_bar_holder": {
+          "$bar_data": "('%.17s' * ($var_title_text - ('%.21s' * $var_title_text)))"
+        }
+      },
+      {
+        "bar_2@resource_bar_holder": {
+          "$bar_data": "('%.17s' * ($var_title_text - ('%.38s' * $var_title_text)))"
+        }
+      },
+      {
+        "bar_3@resource_bar_holder": {
+          "$bar_data": "('%.16s' * ($var_title_text - ('%.55s' * $var_title_text)))"
+        }
+      }
+    ],
+    "ignored": "(($var_title_text - 'resource_bar') = $var_title_text)"
+  }
+
+}

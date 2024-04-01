@@ -1,0 +1,482 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "controls_ability_powerless",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control.none",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_blocked",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control.blocked",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_enderian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          {
+            "name": "enderian.1", 
+            "commands": [
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+              "/scoreboard players set @initiator[tag=\"traitCd\"] ctrl 0",
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.5 1.2",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_shulk",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          {
+            "name": "shulk.1", 
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_shulk",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self",
+
+              "/tag @initiator add traitCd"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_elytrian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "elytrian.1",
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_elytrian",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self",
+
+              "/tag @initiator add traitCd"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_blazeborn",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "blazeborn.1", 
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_blazeborn",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self",
+
+              "/tag @initiator add traitCd"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_phantom",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          {
+            "name": "phantom.1", 
+            "commands": [
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+              "/scoreboard players set @initiator[tag=\"traitCd\"] ctrl 0",
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.5 1.2",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_kitsune",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "kitsune.1", 
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self",
+
+              "/tag @initiator add traitCd"
+            ]
+          },
+          { 
+            "name": "kitsune.2", 
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 2",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self",
+
+              "/tag @initiator add traitCd"
+            ]
+          },
+          { 
+            "name": "kitsune.3", 
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_kitsune",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 3",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self",
+
+              "/tag @initiator add traitCd"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_slimecican",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "slimecican.1", 
+            "commands": [
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=\"traitCd\"] controls_ability_slimecican",
+
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+
+              "/tag @initiator[tag=!\"traitCd\"] add remove_npc_on_move",
+              "/tag @initiator[tag=!\"traitCd\"] remove use_ability",
+              "/event entity @initiator[tag=!\"traitCd\"] minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_starborne",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "starborne.1", 
+            "commands": [
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 1",
+              "/scoreboard players set @initiator[tag=\"traitCd\"] ctrl 0",
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          { 
+            "name": "starborne.2", 
+            "commands": [
+              "/scoreboard players set @initiator[tag=!\"traitCd\"] ctrl 2",
+              "/scoreboard players set @initiator[tag=\"traitCd\"] ctrl 0",
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.8 1.2",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_elf",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "elf.1", 
+            "commands": [
+              "/scoreboard players set @initiator[tag=!\"traitCd\",tag=!\"elven_invigorator\"] ctrl 1",
+              "/scoreboard players set @initiator[tag=!\"traitCd\",tag=\"elven_invigorator\"] ctrl 0",
+
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"elven_invigorator\"] ~~~ 0.5 1.2",
+              "/execute as @initiator at @s run playsound note.bass @s[tag=\"traitCd\"] ~~~ 0.5 1.2",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          { 
+            "name": "elf.2", 
+            "commands": [
+              "/scoreboard players set @initiator[tag=\"elven_linker\"] ctrl 2",
+              "/scoreboard players set @initiator[tag=!\"elven_linker\"] ctrl 0",
+
+              "/execute as @initiator at @s run title @s[tag=!\"elven_linker\"] actionbar origins.dialogue.shared_senses_unlinked",
+              "/execute as @initiator at @s run playsound note.bass @s[tag=!\"elven_linker\"] ~~~ 0.5 1.2",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "controls_ability_voidwalker",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.ability_control",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          },
+          {
+            "name": "submenu",
+            "commands": [
+              "/event entity @initiator origins:options_open_general_root",
+              "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
+            ]
+          },
+
+          { 
+            "name": "voidwalker.1", 
+            "commands": [
+              "/scoreboard players set @initiator ctrl 1",
+
+              "/tag @initiator add remove_npc_on_move",
+              "/tag @initiator remove use_ability",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      }
+
+    ]
+  }
+}

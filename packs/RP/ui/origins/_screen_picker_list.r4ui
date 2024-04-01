@@ -1,0 +1,454 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_screen_picker_list",
+
+  "picker_window_races": {
+    "type": "panel",
+    "$being_type": "race",
+    "controls": [
+      {
+        "race_human@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/origins/gui/race_human",
+          "$being_difficulty": "human",
+          "$being_description": "origins.race.human.description",
+          "$being_traits": "origin_powers.none",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.human') or (#dialogtext = 'vieworigin.human') or (#dialogtext = 'changeorigin.human') or (#dialogtext = 'banorigin.human'))"
+        }
+      },
+      {
+        "race_avian@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/feather",
+          "$being_name_text": "origins.race.avian.name",
+          "$being_difficulty": "easy",
+          "$being_description": "origins.race.avian.description",
+          "$being_traits": "origin_powers.avian",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.avian') or (#dialogtext = 'vieworigin.avian') or (#dialogtext = 'changeorigin.avian') or (#dialogtext = 'banorigin.avian'))"
+        }
+      },
+      {
+        "race_arachnid@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": 1966080,
+          "$being_name_text": "origins.race.arachnid.name",
+          "$being_difficulty": "easy",
+          "$being_description": "origins.race.arachnid.description",
+          "$being_traits": "origin_powers.arachnid",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.arachnid') or (#dialogtext = 'vieworigin.arachnid') or (#dialogtext = 'changeorigin.arachnid') or (#dialogtext = 'banorigin.arachnid'))"
+        }
+      },
+      {
+        "race_elytrian@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/elytra",
+          "$being_name_text": "origins.race.elytrian.name",
+          "$being_difficulty": "easy",
+          "$being_description": "origins.race.elytrian.description",
+          "$being_traits": "origin_powers.elytrian",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.elytrian') or (#dialogtext = 'vieworigin.elytrian') or (#dialogtext = 'changeorigin.elytrian') or (#dialogtext = 'banorigin.elytrian'))"
+        }
+      },
+      {
+        "race_shulk@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/shulker_shell",
+          "$being_name_text": "origins.race.shulk.name",
+          "$being_difficulty": "medium",
+          "$being_description": "origins.race.shulk.description",
+          "$being_traits": "origin_powers.shulk",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.shulk') or (#dialogtext = 'vieworigin.shulk') or (#dialogtext = 'changeorigin.shulk') or (#dialogtext = 'banorigin.shulk'))"
+        }
+      },
+      {
+        "race_feline@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/origins/gui/orange_wool",
+          "$being_name_text": "origins.race.feline.name",
+          "$being_difficulty": "medium",
+          "$being_description": "origins.race.feline.description",
+          "$being_traits": "origin_powers.feline",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.feline') or (#dialogtext = 'vieworigin.feline') or (#dialogtext = 'changeorigin.feline') or (#dialogtext = 'banorigin.feline'))"
+        }
+      },
+      {
+        "race_enderian@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/ender_pearl",
+          "$being_name_text": "origins.race.enderian.name",
+          "$being_difficulty": "medium",
+          "$being_description": "origins.race.enderian.description",
+          "$being_traits": "origin_powers.enderian",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.enderian') or (#dialogtext = 'vieworigin.enderian') or (#dialogtext = 'changeorigin.enderian') or (#dialogtext = 'banorigin.enderian'))"
+        }
+      },
+      {
+        "race_merling@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/fish_raw",
+          "$being_name_text": "origins.race.merling.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.merling.description",
+          "$being_traits": "origin_powers.merling",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.merling') or (#dialogtext = 'vieworigin.merling') or (#dialogtext = 'changeorigin.merling') or (#dialogtext = 'banorigin.merling'))"
+        }
+      },
+      {
+        "race_blazeborn@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/blaze_powder",
+          "$being_name_text": "origins.race.blazeborn.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.blazeborn.description",
+          "$being_traits": "origin_powers.blazeborn",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.blazeborn') or (#dialogtext = 'vieworigin.blazeborn') or (#dialogtext = 'changeorigin.blazeborn') or (#dialogtext = 'banorigin.blazeborn'))"
+        }
+      },
+      {
+        "race_phantom@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/phantom_membrane",
+          "$being_name_text": "origins.race.phantom.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.phantom.description",
+          "$being_traits": "origin_powers.phantom",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.phantom') or (#dialogtext = 'vieworigin.phantom') or (#dialogtext = 'changeorigin.phantom') or (#dialogtext = 'banorigin.phantom'))"
+        }
+      },
+      {
+        "race_kitsune@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/sweet_berries",
+          "$being_name_text": "origins.race.kitsune.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.kitsune.description",
+          "$being_traits": "origin_powers.kitsune",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.kitsune') or (#dialogtext = 'vieworigin.kitsune') or (#dialogtext = 'changeorigin.kitsune') or (#dialogtext = 'banorigin.kitsune'))"
+        }
+      },
+      {
+        "race_slimecican@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/slimeball",
+          "$being_name_text": "origins.race.slimecican.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.slimecican.description",
+          "$being_traits": "origin_powers.slimecican",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.slimecican') or (#dialogtext = 'vieworigin.slimecican') or (#dialogtext = 'changeorigin.slimecican') or (#dialogtext = 'banorigin.slimecican'))"
+        }
+      },
+      {
+        "race_starborne@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/nether_star",
+          "$being_name_text": "origins.race.starborne.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.starborne.description",
+          "$being_traits": "origin_powers.starborne",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.starborne') or (#dialogtext = 'vieworigin.starborne') or (#dialogtext = 'changeorigin.starborne') or (#dialogtext = 'banorigin.starborne'))"
+        }
+      },
+      {
+        "race_inchling@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": 9502720,
+          "$being_name_text": "origins.race.inchling.name",
+          "$being_difficulty": "medium",
+          "$being_description": "origins.race.inchling.description",
+          "$being_traits": "origin_powers.inchling",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.inchling') or (#dialogtext = 'vieworigin.inchling') or (#dialogtext = 'changeorigin.inchling') or (#dialogtext = 'banorigin.inchling'))"
+        }
+      },
+      {
+        "race_bee@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/honeycomb",
+          "$being_name_text": "origins.race.bee.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.bee.description",
+          "$being_traits": "origin_powers.bee",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.bee') or (#dialogtext = 'vieworigin.bee') or (#dialogtext = 'changeorigin.bee') or (#dialogtext = 'banorigin.bee'))"
+        }
+      },
+      {
+        "race_piglin@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": 2686976,
+          "$being_name_text": "origins.race.piglin.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.piglin.description",
+          "$being_traits": "origin_powers.piglin",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.piglin') or (#dialogtext = 'vieworigin.piglin') or (#dialogtext = 'changeorigin.piglin') or (#dialogtext = 'banorigin.piglin'))"
+        }
+      },
+      {
+        "race_elf@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": 2424832,
+          "$being_name_text": "origins.race.elf.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.elf.description",
+          "$being_traits": "origin_powers.elf",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.elf') or (#dialogtext = 'vieworigin.elf') or (#dialogtext = 'changeorigin.elf') or (#dialogtext = 'banorigin.elf'))"
+        }
+      },
+      {
+        "race_voidwalker@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": 7798784,
+          "$being_name_text": "origins.race.voidwalker.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.voidwalker.description",
+          "$being_traits": "origin_powers.voidwalker",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.voidwalker') or (#dialogtext = 'vieworigin.voidwalker') or (#dialogtext = 'changeorigin.voidwalker') or (#dialogtext = 'banorigin.voidwalker'))"
+        }
+      },
+      {
+        "race_random@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "random",
+          "$being_name_text": "origins.race.random.name",
+          "$being_difficulty": "random_race",
+          "$being_description": "origins.race.random.description",
+          "$being_traits": "origin_powers.random",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "(#dialogtext = 'pickorigin.random')"
+        }
+      }
+    ]
+  },
+  
+  "picker_window_classes": {
+    "type": "panel",
+    "$being_type": "class",
+    "controls": [
+      {
+        "class_nitwit@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": 2293773,
+          "$being_name_text": "origins.class.nitwit.name",
+          "$being_difficulty": "nitwit",
+          "$being_description": "origins.class.nitwit.description",
+          "$being_traits": "origin_powers.none",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.nitwit') or (#dialogtext = 'viewclass.nitwit') or (#dialogtext = 'changeclass.nitwit') or (#dialogtext = 'banclass.nitwit'))"
+        }
+      },
+      {
+        "class_archer@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/bow_standby",
+          "$being_name_text": "origins.class.archer.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.archer.description",
+          "$being_traits": "origin_powers.class_archer",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.archer') or (#dialogtext = 'viewclass.archer') or (#dialogtext = 'changeclass.archer') or (#dialogtext = 'banclass.archer'))"
+        }
+      },
+      {
+        "class_beastmaster@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/bone",
+          "$being_name_text": "origins.class.beastmaster.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.beastmaster.description",
+          "$being_traits": "origin_powers.class_beastmaster",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.beastmaster') or (#dialogtext = 'viewclass.beastmaster') or (#dialogtext = 'changeclass.beastmaster') or (#dialogtext = 'banclass.beastmaster'))"
+        }
+      },
+      {
+        "class_blacksmith@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/iron_ingot",
+          "$being_name_text": "origins.class.blacksmith.name",
+          "$being_difficulty": "very",
+          "$being_description": "origins.class.blacksmith.description",
+          "$being_traits": "origin_powers.class_blacksmith",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.blacksmith') or (#dialogtext = 'viewclass.blacksmith') or (#dialogtext = 'changeclass.blacksmith') or (#dialogtext = 'banclass.blacksmith'))"
+        }
+      },
+      {
+        "class_cleric@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/dragons_breath",
+          "$being_name_text": "origins.class.cleric.name",
+          "$being_difficulty": "very",
+          "$being_description": "origins.class.cleric.description",
+          "$being_traits": "origin_powers.class_cleric",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.cleric') or (#dialogtext = 'viewclass.cleric') or (#dialogtext = 'changeclass.cleric') or (#dialogtext = 'banclass.cleric'))"
+        }
+      },
+      {
+        "class_cook@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/rabbit_stew",
+          "$being_name_text": "origins.class.cook.name",
+          "$being_difficulty": "very",
+          "$being_description": "origins.class.cook.description",
+          "$being_traits": "origin_powers.class_cook",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.cook') or (#dialogtext = 'viewclass.cook') or (#dialogtext = 'changeclass.cook') or (#dialogtext = 'banclass.cook'))"
+        }
+      },
+      {
+        "class_explorer@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/compass_item",
+          "$being_name_text": "origins.class.explorer.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.explorer.description",
+          "$being_traits": "origin_powers.class_explorer",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.explorer') or (#dialogtext = 'viewclass.explorer') or (#dialogtext = 'changeclass.explorer') or (#dialogtext = 'banclass.explorer'))"
+        }
+      },
+      {
+        "class_farmer@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/wheat",
+          "$being_name_text": "origins.class.farmer.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.farmer.description",
+          "$being_traits": "origin_powers.class_farmer",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.farmer') or (#dialogtext = 'viewclass.farmer') or (#dialogtext = 'changeclass.farmer') or (#dialogtext = 'banclass.farmer'))"
+        }
+      },
+      {
+        "class_lumberjack@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/iron_axe",
+          "$being_name_text": "origins.class.lumberjack.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.lumberjack.description",
+          "$being_traits": "origin_powers.class_lumberjack",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.lumberjack') or (#dialogtext = 'viewclass.lumberjack') or (#dialogtext = 'changeclass.lumberjack') or (#dialogtext = 'banclass.lumberjack'))"
+        }
+      },
+      {
+        "class_merchant@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/emerald",
+          "$being_name_text": "origins.class.merchant.name",
+          "$being_difficulty": "very",
+          "$being_description": "origins.class.merchant.description",
+          "$being_traits": "origin_powers.class_merchant",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.merchant') or (#dialogtext = 'viewclass.merchant') or (#dialogtext = 'changeclass.merchant') or (#dialogtext = 'banclass.merchant'))"
+        }
+      },
+      {
+        "class_miner@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/iron_pickaxe",
+          "$being_name_text": "origins.class.miner.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.miner.description",
+          "$being_traits": "origin_powers.class_miner",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.miner') or (#dialogtext = 'viewclass.miner') or (#dialogtext = 'changeclass.miner') or (#dialogtext = 'banclass.miner'))"
+        }
+      },
+      {
+        "class_rancher@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/lead",
+          "$being_name_text": "origins.class.rancher.name",
+          "$being_difficulty": "decent",
+          "$being_description": "origins.class.rancher.description",
+          "$being_traits": "origin_powers.class_rancher",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.rancher') or (#dialogtext = 'viewclass.rancher') or (#dialogtext = 'changeclass.rancher') or (#dialogtext = 'banclass.rancher'))"
+        }
+      },
+      {
+        "class_rogue@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/origins/gui/leather_cap",
+          "$being_name_text": "origins.class.rogue.name",
+          "$being_difficulty": "very",
+          "$being_description": "origins.class.rogue.description",
+          "$being_traits": "origin_powers.class_rogue",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.rogue') or (#dialogtext = 'viewclass.rogue') or (#dialogtext = 'changeclass.rogue') or (#dialogtext = 'banclass.rogue'))"
+        }
+      },
+      {
+        "class_warrior@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/iron_sword",
+          "$being_name_text": "origins.class.warrior.name",
+          "$being_difficulty": "very",
+          "$being_description": "origins.class.warrior.description",
+          "$being_traits": "origin_powers.class_warrior",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickclass.warrior') or (#dialogtext = 'viewclass.warrior') or (#dialogtext = 'changeclass.warrior') or (#dialogtext = 'banclass.warrior'))"
+        }
+      },
+      {
+        "class_random@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "random",
+          "$being_name_text": "origins.class.random.name",
+          "$being_difficulty": "random_class",
+          "$being_description": "origins.class.random.description",
+          "$being_traits": "origin_powers.class_random",
+          
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "(#dialogtext = 'pickclass.random')"
+        }
+      }
+    ]
+  }
+
+}

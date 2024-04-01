@@ -1,0 +1,10 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "hotbar_panel/hotbar_grid": {
+    "size": [ 224, 28 ],
+    "grid_dimensions": [ 8, 1 ]
+  }
+
+}

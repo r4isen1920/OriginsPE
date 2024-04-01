@@ -1,0 +1,530 @@
+
+--
+
+current TODO
+
+# re-write everything to scripts
+# do not use experimental features
+# avoid overwriting vanilla entries whenever possible
+
+
+# revamped Elven
+  - every time you shoot someone using a projectile arrow, another homing projectile will chase after it dealing additional damage. this can only be triggered once every 5 seconds.
+  - 
+
+# do the trailer
+
+# improve soul lock ability
+
+# do the Rancher
+  - propagate entity event changes to all entities with the entity born event
+
+# do the Voidwalker
+
+# visually, something is missing with the Elven origin - especially the Invigorate ability. its supposed to feel more magical, something soothing. but at the moment, it doesn't
+
+# use the new cooldown system
+
+# add new cooldown handler from backend
+
+# yeah maybe just move the bubble_rend to the side under the horse_heart_rend since horse_heart_rend offsets up anyway for some reason
+
+# tweak camera to hide the body from the one whose viewing it
+
+# implement new Origins
+  - Elf
+  - Voidwalker
+
+# rework current cooldown system 
+
+# implement custom origin presets
+  - up to five unique custom presets can be added
+  - in each preset, players can add existing traits and weaknesses (for example, they can add the starborne abilities + elytrian abilities)
+  - more traits and weaknesses will also be added, for which they can add to their custom origin presets - thats not available on existing origins
+  - easier said than done 
+
+
+
+# fix some bugs - Insomniadic's contribution is noticeable (replace BP/entities/ folder)
+# fix starborne trait [Nonviolent] not actually doing anything
+
+# apply piglin defense component groups depending on `piglindefs` objective count
+
+# fix class bugs
+
+# add piglin origin
+
+# down \/
+# add protection on the administrative options tab. players need a specific tag (or enter a pin) before they can access it and a unique screen stating that they cannot access it.
+
+# currently randomizer bypasses banned origins - needs fix
+
+# world index scoreboard needs to be setup when joining the world
+
+# make classes bannable
+# add evict selection functionality
+# add toggles
+# make emit particle toggle function
+# do the piglin origin
+# fix bugs
+
+# added piglin ref on UI/UX
+# implement origin and class banning system
+# implement options menu which can be triggered on the origins menu and then selecting slot number 5
+# UI brainstorming: thinking of the side panel UI thats similar to the character creator screen
+
+# finalisations and bug fixes left
+# just some cooldown bar tweaks needed: A.) hide the active abilities when full; and B.) offset the shooting star cooldown bar properly when the leaping cooldown is not visible 
+
+# starborne should have the smoke texture particle (in purple-blue gradient) instead of the fireworks particle
+
+# starborne would have a unique cast method:
+# the starborne can trigger up to two active abilities at a time. once if at least one is triggered, it would temporarily put a hold onto the stress trait, hide it and then be able to focus on skill casting.
+# once all active abilities' cooldown has been finished, return back the stress.
+  - HYPER LEAP: once triggered, the next jumps will be imbued with cosmic power, allowing the player to leap towards a direction. this is a toggleable skill. cooldown is started once the player comes into contact with ground
+  - SHOOTING STAR: once triggered, the next punch will be imbued with cosmic power, allowing the player to shoot a beam towards a direction they are looking at. similar to how the Enderian Pearl is cast
+
+# might just be saved for the next update:
+  [ ABILITY CHOICE #1 ]
+  - CELESTIAL SHIELD: once triggered, you will become immune from all incoming projectiles for a few seconds
+  - STAR DASH: once triggered, you temporarily gain increased movement speed, slowing anyone that comes into your path
+  - STELLAR STRIKE: once triggered, you will fire a light beam from the skies towards a direction you are looking at
+  - ASTRONOMIC BLAST: once triggered, all your collected stress will be converted into energy, releasing it and affecting nearby entities, power scales on the collected energy when this is used
+  - COSMIC FLARES: once triggered, the next punch will fire a beam similar to SHOOTING STAR towards a direction you are looking at, after impact it will split into multiple projectiles nearby
+  - GRAVITATIONAL DOME: once triggered, will cancel the gravity within your vicinity, allowing nearby entities to float
+
+  [ ABILITY CHOICE #2 ]
+  - COSMIC WISDOM: is a passive skill, which when obtained, allows you to meditate and ease stress even when moving
+  - WORMHOLE: once triggered, creates a gateway, and can be triggered once again, allowing you to bend space to be able to get there back quickly
+  - WARP STAR: once triggered, enters the form of light, allowing you to travel in a straight direction you are looking at. cooldown is started once your reach the ground 
+
+
+Changelog (v4.3):
+
+  This update enhances newly introduced Origin: the Elven, and resolve more reported bugs.
+
+    [ Revamped Origin: Elven ]
+      The Elven's unique traits, while beneficial in some cases, but for the most part was hard to control. Moroever, the Elven will now primarily focus on being a ranged combatant instead of support. This update hopefully resolves this issue:
+
+        - [Invocation]: Creates a spectral bow that does not utilize normal arrows, nor it consumes durability. The spectral bow can only be used by the Elven.
+        - [Blessing]: When inflicted with any fatal damage, you regenerate 50% of the damaged received. This effect can be triggered once every 60 seconds.
+        - [Focused Aim]: You inflict increased projectile damage from ranged weapons when they are fully drawn.
+        - [Agility]: Become nimble and swift, granting you increased movement speed and jump height, enabling you to traverse the terrain effortlessly.
+        - [Nature's Grace]: You will continuously replenish health and hunger whenever you are in forest biomes.
+        - [Permeable]: You take twice the damage when harmed by melee attacks or explosions.
+
+    - Fixed cleric potions not working properly when thrown
+    - Fixed content log errors regarding damage sensor components
+    - Updated Chinese translation (special thanks: skybird2333)
+
+
+Changelog (v4.2):
+
+  This update resolves issues that were reported on version 4.0:
+
+    - Updated format version 1.20.30:
+      - Relevant commands have been updated to match the format version.
+      - Item components have been updated to match the format version.
+    - Fixed [Blacksmith]-upgraded items which cannot be upgraded into netherite. They can now be upgraded as intended.
+      - Those who are in [Blacksmith] class can now upgrade normal diamond tier items into [Blacksmith] netherite tier items as well.
+    - Fixed [Blacksmith]-upgraded armors which cannot be trimmed. They can now be trimmed as intended.
+    - Fixed melon slice having the incorrect texture when it cannot be eaten.
+    - Resolved all known content log errors.
+    - Added Russian translation by fin9er.
+
+Changelog (v4.0):
+
+  This update brings you the latest 1.20 support for Minecraft Bedrock, two new Origins to choose, 1 new class to select, and a ton of bug fixes and improvements to see.
+
+  [ New Origin: Elven ]
+    Elegant and agile beings with a deep connection to nature, skilled in archery and long-range combat. Capable of invoking magic - mending wounds and invigorate beings.
+
+      - [Yggdrasil's Branch]: You can create a link between you and another mob or player, granting your passive traits to the entity you are linked with.
+      - [Shared Senses]: By using this active skill, you can look into the eyes of the mob or player you have linked with.
+      - [Golden Lifespan]: Expands your life aura to the surrounding environment. Healing every mob and player around you while hostile and undead mobs are inflicted with damage.
+      - [Nature's Grace]: You will continuously replenish health and hunger whenever you are in forest biomes.
+      - [Agility]: Become nimble and swift, granting you increased movement speed and jump height, enabling you to traverse the terrain effortlessly.
+      - [Focused Aim]: You inflict increased projectile damage from ranged weapons such as bow and crossbows when they are fully drawn.
+
+  [ New Origin: Voidwalker ]
+    Born in the depths of a sinister realm, you have acquired the ability to manipulate and harness dark energies to harm and hinder others.
+
+      - [Beelzebub]: Absorb the deaths of mobs that are slain within your vicinity as dark energy. Which can be utilized in your other abilities.
+      - [Soulreap]: Invokes a curse on the nearest player, temporarily weakening their attacks, and rendering them incapable of using their active abilities for a while. Requires a full bar of dark energy to use.
+      - [Umbral Veil]: Shrouds yourself in a dark energy when sprinting, granting additional speed and absorbing any projectile damage. Sneak and then jump (or sneak while in mid-air) to trigger aerial movement. Requires dark energy to use.
+      - [Gift of the Abyss]: You gain additional attack damage whenever you are in dark places.
+      - [Nocturnal Sight]: You can see clearly in low-light conditions, granting you night vision without the need for potions or external light sources.
+      - [Sinister Aura]: Nearby mobs are frightened with your presence, and will run away from you. Even hostile mobs, except bosses, will not try and naturally harm Voidwalkers.
+
+  [ New Class: Rancher ]
+    Making the most of animals, Ranchers are able to gather many useful resources.
+
+      - [More Births]: Animals bred when you are around have a chance to produce up to three babies.
+      - [Scavenging]: You are able to sometimes receive more material from killing mobs.
+
+  [ Origin Adjustments ]
+
+    [ Avian ]
+      - Optimized [Vegetarian] trait to make food items non-interactable in the first place instead.
+
+    [ Arachnid ]
+      - Optimized [Carnivore] trait to make food items non-interactable in the first place instead.
+
+    [ Shulk ]
+      - Increased gameplay impact value from "easy" to "medium".
+      - Hunger status effect given by [Large Appetite] now expires immediately after getting full health.
+      - Fixed an issue whereby the [Shulk Inventory] trait is not opening the inventory properly.
+
+    [ Enderian ]
+      - Opimized [Teleportation] trait to follow vanilla ender pearl behavior and physics.
+
+    [ Phantom ]
+      The Phantom's unique abilities allowed players to traverse with ease in distant places and escape situations others may not able to. This change aims to add a limit to this ability in order to promote fairness.
+
+      - Nerfed [Phantom Form] trait:
+        - Added [Essence Drift], a trait that adds a traversal drawback to this trait
+        - Added another cooldown bar to show this drawback
+        - Reduced movement speed when travelling in phantomized form
+      - Updated skin overlay when using this Origin.
+
+    [ Fox ]
+      - Changed name from "Spirit Fox" to "Fox".
+
+    [ Slimecican ]
+      The Slimecican was a capable tank that was able to take damage and knock enemies away. However, I felt that it was much stronger than I expected and deserved a bit of change.
+
+      - Adjusted [Fragmentation] trait:
+        - Increased maximum player health by default as an effect of this trait
+        - When the player's health is at 50% over the max health, they'll shrink in size
+        - This trait will no longer prevent the player from dying but instead make the player adapt its stats depending on the health it has
+        - Removed several damage resistance and mitigation
+      - Updated skin overlay when using this Origin.
+      - Fixed health glitch whereby this Origin causes the player to be invulnerable.
+
+    [ Inchling ]
+      - Camera perspective is now more accurate.
+
+    [ Bee ]
+      - Increased cooldown before the [Poisonous] trait can be used again from 1 second to 2 seconds.
+
+    [ Piglin ]
+      I realized that players find it difficult to trigger and therefore benefit from the Piglin's unique traits under conditions with no players nearby. Therefore, I decided to enhance its capabilities so it can adapt to any situation.
+
+      - Buffed [Resilience] trait:
+        - Changed name to [Tenacity]
+        - Will now trigger upon killing other mobs as well instead of just players
+        - Increased damage mitigation from 50% up to 90%
+      - Increased base attack damage given by the [Boasting Firepower] trait from 2 to 4.
+
+    [ Starborne ]
+      The Starborne provided the players a great combo of mobility and long-range combat with its adaptive abilities. This change is to hopefully make the players focus more on the [Stress] trait mechanics.
+
+      - Adjusted [Stress] trait:
+        - Increased time to reduce [Stress] from perfoming [Meditate]
+        - Rate at which [Stress] increases is now the same regardless of any situation
+        - Cooldown of other skills are now decreased when the [Stress] is at 70% instead of 50%
+        - Updated cooldown bar look to show the mark beyond the 70% threshold
+      - Adjusted [Hyper Leap] trait:
+        - Optimized the direction and accuracy of dashes
+        - Has been simplified and can no longer be consecutively be triggered, but offers a fairly short cooldown before each use
+        - Ability can no longer be triggered while the [Shooting Star] ability is in cooldown
+      - Buffed [Shooting Star] trait:
+        - Increased the number of projectiles that fires upon use
+        - Changed damage type from `entity_explosion` to `magic`
+        - Can now explode mid-air without targets but deals less damage
+        - Ability can no longer be triggered while the [Hyper Leap] ability is in cooldown
+
+  [ Miscellaneous Changes & Bug Fixes ]
+
+    - Added 1.20 support.
+    - Added back proper multiplayer support.
+
+    - Tweaked and revamped OriginsPE title.
+    - Tweaked welcome screen layout and placement of changelogs and patch notes.
+    - Tweaked Origins trait header description with ability icons on applicable traits that has a cooldown.
+    - Tweaked GUI texts to be more short and concise.
+    - Tweaked GUI texts tooltip's time before it disappears.
+    - Tweaked particle count in order to optimize performance on low-end devices.
+    - Tweaked cooldown bar animations and rendering.
+    - Tweaked [Initialize] option to reset every setting and selected Origins and classes of all offline players as well.
+
+    - Fixed some trait abilities not initializing properly upon re-joining the world.
+    - Fixed Pillager and Vindicator with banners not triggering abilities.
+    - Fixed frame drops due to cooldown bars as it has been optimized to resolve this.
+    - Fixed cooldown bar's incorrect offsets depending on the situation (e.g., riding, when in water, and the non-desktop layout).
+    - Fixed incorrect scaling of cooldown icons within the selection screen.
+    - Fixed HUD effects clipping within the screen bounds by user-specified safezone options.
+    - Fixed some texts in the GUI clipping through other elements.
+    - Fixed uninentionally rendering the built-in close button as it was causing issues to the initialization of the player's selection.
+    - Fixed an issue whereby the [Nether Inhabitant] trait does not properly teleport the player in the nether.
+    - Fixed content log errors regarding Bees - the base vanilla behaviors has been updated.
+    - Fixed content log errors regarding outdated smithing recipes.
+    - Fixed unwanted sound effects playing from dummy entities.
+    - Fixed some incorrect texts and typos.
+
+  [ Localization Information ]
+
+    If you want to properly translate the add-on to your native language, please send me a Tweet here.
+
+  [ Known Issues ]
+
+    - The new Camel entity is not supported yet and abilities will not trigger with it.
+
+Changelog (v3.3):
+
+  - Added and updated format version to support 1.19.50.
+  - Tweaked collision size to be more consistent.
+  - Fixed an issue whereby the collision becomes smaller upon death. This is an artifact behavior of the [Slimecican] Origin.
+  - Fixed [Inchling] Origin not functioning properly.
+  - Fixed [Idle particles] property not enabled by default.
+  - Fixed [Initialize players] option not resetting classes as it was intended to do so.
+  - Fixed an issue with the GUI that required you to be in survival mode in order to be navigated.
+
+Changelog (v3.2):
+
+  This update addresses some issues that most players were encountering when using the add-on. Special thanks to Insomniadic for some code contribution!
+
+  [ Tweaks & Bug Fixes ]
+    • Updated format version to 1.19.30.
+    • [Piglin] Origin no longer provokes fellow piglins.
+    • Fixed an issue where client-side idle particles were showing for all players, regardless of any condition.
+    • Fixed [Idle particles] options toggle not working properly.
+    • Fixed [Enderian]'s [Teleportation] trait inconsistency sometimes not giving immunity upon teleportation.
+    • Fixed [Enderian]'s [Familiar Face] trait not working as intended.
+    • Fixed [Phantom]'s [Phantom Form] trait not triggering properly.
+    • Fixed [Kitsune]'s [Camouflage] trait not working as intended.
+    • Fixed [Starborne]'s skill traits being heard from afar.
+    • Fixed [Starbornes]'s [Nonviolent] trait not being triggered.
+    • Fixed incorrect text showing when attempting to hurt tamed mobs as a [Beastmaster] class.
+    • Adjusted some options texts and layout.
+
+  Note that some bugs cannot be fixed as they are part of the experimental creator options - which could mean breaking every update, or not working properly.
+    • [Blacksmith] items duplicates on death.
+    • [Blacksmith] items does not properly work as a tool or equipment.
+    • Due to a glitch, the [Slimecican] Origin may become invulnerable at some instances. Server operators may choose to ban this Origin until a proper fix has been made.
+
+Changelog (v3.0):
+
+  This update aims to bring quality of life improvements, with the options menu you can have more control with the add-on, as well as bring bug fixes and general improvements.
+
+  [ Added the Piglin Origin ]
+    • Introducing the Piglin Origin: boasting with both brute strength and impenetrable defense!
+    • Inspired from the legendary Technoblade - whom we'll never forget.
+    • Added additional easter egg when naming a pig to "Technoblade", it will become completely invulnerable from any damage.
+    • This new Origin is added onto the Origins picker screen.
+
+  [ Preferences UI ]
+    • You can access this through the Origins menu.
+    • You can do the following through this menu:
+      [ General ]
+        - View Origin: shows information about your current Origin
+        - View class: shows informmation about your current class
+        - [Toggle] Idle Particles: enable or disable particles to emit from your character (default: on)
+        - Reset player: re-adds behavior components to hopefully fix any problems with your Origin
+      [ Administrative ]
+        - Ban Origins: you can prevent any Origin from ever being chosen (default: none)
+        - Ban classes: you can prevent any class from ever being selected (default: none)
+        - Evict selections: when enabled, all online players must change their Origin/class if they have already chosen one that has just been banned (default: off)
+        - [Toggle] Unique selection: only allow one Origin/class on a world per player (default: off)
+        - [Toggle] Orb of Origins: enable Orb of Origins to be useable or not (default: on)
+        - [Toggle] Resignation Paper: enable Resignation Paper to be useable or not (default: on)
+        - [Toggle] Broadcast changes: announce in the chat when a player changes their Origin or resign from their class. (default: on)
+        - Initialize All: reverts every online player's Origin back to what it was before
+
+  [ Origin changes ]
+    • Arachnid
+      - [Climbing] trait should now properly detect blocks in front of you; increased climbing speed; reduced fall damage.
+    • Shulk
+      - Fixed an issue where the [Shulk Inventory] cannot be properly opened.
+    • Blazeborn
+      - Blazeborn now properly teleports in the Nether.
+    • Spirit Fox (Kitsune)
+      - Foxes now properly picks up sweet berries dropped by a Fox Spirit Origin player.
+    • Bee
+      - [Stinger] cooldown bar now matches with the time of the actual cooldown.
+    • Starborne
+      - [Hyper Leap] no longer gets triggered when jumping and sneaking at the same time.
+      - [Shooting Star] projectile speed now travel twice as fast, and is deals twice more damage than it was before.
+
+  [ Class changes ]
+    • Blacksmith's tools now properly breaks blocks at correct speeds.
+    • Farmer's custom item [Copper Hoe] now makes the correct yield when harvesting crops.
+    • Merchant class is now considered "Game-changing".
+    • Miner's [Vein Mein] perk now mines ores properly as intended.
+
+  [ Other tweaks & bug fixes ]
+    • All idle particles are now emitted through the client-side. 
+    • Randomizer only now picks from available selections, in other words if an Origin or class is either taken or banned, it will not be chosen.
+    • Removed temporary blank item from the Creative inventory.
+    • Resignation Paper item texture updated.
+    • Properly converted every old execute command format to the new one.
+    • Origin picker screens are now cached for faster reloading.
+    • Origin picker screen elements are now offset and aligned as intended.
+    • Fixed an issue that would sometimes cause a missing cooldown bar texture to render.
+    • Fixed an issue that required players to have operator permissions to navigate the user interface.
+    • Fixed title and actionbar texts not showing properly.
+    • Fixed entity actor properties to match with new required format.
+    • Fixed where when changing Origin or resigning from a class, it doesn't announce it in the chat.
+    • Fixed slimes behavior to match updated vanilla files and allow bigger slimes to spawn.
+
+  [ Localization ]
+    • Added the following community translations:
+      - 简体中文 by xinyue0226
+      - Español (México) by DaniWo99
+    • Added translation contributors to the welcome screen.
+    • Note that community translations and are not necessarily up-to-date.
+
+  [ Known Issues ]
+    • Note that due to a major change, this version would only support Minecraft Bedrock 1.19.10 or higher.
+
+Changelog (v2.0):
+
+  Sorry for the long wait, here's the Origins v2.0 you have been waiting for! The following are the list of changes:
+
+  [ New Origins ]
+    • Implemented 5 NEW unique Origins inspired from the Origins SMP:
+        1. Kitsune: a fox-like Origin capable of pouncing its way through its foes
+        2. Slimecican: a sticky yet bouncy Origin who leaps the highest than ever 
+        3. Inchling: a very tiny but hyper Origin able to traverse the ground in a flash
+        4. Starborne: a being that fell out from the skies, capable of drawing the cosmic power
+        5. Bee: a flying Origin that can sting anyone it attacks
+    • These new Origins are still new and I would like everyone to utilize their unique abilities properly.
+
+  [ Classes ]
+    • Brings additional perks in addition to what Origin you may have. 
+    • Can be chosen once after you choose your Origin at the start.
+    • Alternatively, you can not have any Class by choosing the [Nitwit] class.
+    • Available classes you can pick:
+        1. Archer: profound bow skills, allowing them to take targets down from a distance
+        2. Beastmaster: a friend of the animals, granting tamed animals a permanent buff
+        3. Blacksmith: excellent crafting skills for making equipment, maximizing efficiency and damage
+        4. Cleric: experts at brewing, for creating more longer and potent potions
+        5. Cook: gives cooked food more saturation, and craft stews and soups that may rejuvenate
+        6. Explorer: travellers who traverse through biomes and terrain that does not deplete it's hunger easily for sprinting
+        7. Farmer: utilizes a new custom copper hoe at their best, yielding more per harvest
+        8. Lumberjack: can instantly take down an entire forest, and sometimes return the favor back to earth by replanting them
+        9. Merchant: it's charisma allows villagers to haggle down their prices lower 
+        10. Miner: experienced excavators of the deep, allowing them to effectively mine more resources quicker
+        11. Rogue: moves within the shadows, sneaking behind it's targets and dealing damage to them
+        12. Warrior: the mightiest who favors in combat with great courage as it faces it's foes with strength scaling over time
+
+  [ Custom Items ]
+    • Added [Orb of Origins]
+      - A unique and legendary item that's used for changing your Origin
+      - Can be obtained through the Starborne Origin
+      - Very small chance to drop from a Wither
+    • Added [Resignation Paper]
+      - An item used for resigning from your current class
+      - Can be crafted with 1 golden nugget, 1 paper, and 1 ink sac
+      - Can also be traded with villagers
+    • Added [Copper Hoe]
+      - A fairly durable hoe, sitting somewhere in between iron and diamond
+      - Used best by the [Farmer] class, allowing each harvest to have a chance of reaping double the sow
+      - Can be crafted by using 2 copper ingots and 2 sticks
+    • Enhanced variants of vanilla items:
+      - Armor, tools and equipment from the [Blacksmith] class
+      - Potions, splash potions, and lingering potions from the [Cleric] class
+      - More saturated cooked food, and rejuvenating stews from the [Cook] class
+
+  [ Origin Changes ]
+    • Avian
+      - [Tailwind] has now a consistent speed boost, even if you're not on ground. Added a bit more speed when sprinting as well.
+      - [Featherweight] can now mitigate fall damage received by half. Also making the slow falling effect remove near-instantly now as soon as you sneak.
+      - Improved [Vegetarian] trait.
+      - With changes in world height, you now need to sleep at an altitude of 151 blocks (previously 86) with the [Fresh Air] trait in effect. Also improved consistency of this trait.
+    • Arachnid
+      - Improved [Webbing] effects and buffed it's effects. Additionally now works against other players, unless if they are that of the Archnid Origin.
+      - [Webbing] will no longer trigger if you immediately kill the target.
+      - Changed [Venom Resistance] to [Web Cocoon], allowing you to mitigate up to 50% of any damage taken as long as you're standing in a cobweb.
+      - Improved [Climbing] usage and consistency.
+      - Improved [Carnivore] trait.
+      - Now part of the "arthropod" mob-type family. 
+    • Elytrian
+      - [Gift of the Winds] improved triggering with new touch control schemes.
+      - [Gift of the Winds] has been buffed and will now destroy every block on the ceiling against you. In addition, the launch height distance has been increased.
+      - [Gift of the Winds]'s cooldown now resets if you have not gained significant altitude from using it.
+      - Tweaked [Gift of the Winds] particle and sound effects.
+    • Shulk
+      - [Hoarder] is now a trait that will allow you to store up to 9 more item slots.
+      - Added [Unwieldy] trait which will prevent you from using any shield properly.
+      - Removed [Tough Shell] and [Extra Weight].
+      - Tweaked [Sturdy Skin] to mitigate 25% of any damage received instead of a fixed 10 HP damage reduction. 
+    • Feline
+      - With the effect [Cat Vision] at night, it will now give speed instead of strength status effect.
+      - [Weak Arms] now also weakens the attack. And will now debuff if not using the correct tools in hand, instead of just holding barehandedly.
+    • Enderian
+      - [Teleportation] improved triggering with new touch control schemes.
+      - [Teleportation] now happens instanteneously to whatever block you are looking at, instead of teleporting as if you simply had infinite ender pearls. This way it gives more of a unique approach in my opinion.
+      - Added subtle vignette whenever teleporting with [Teleportation].
+      - Removed [Hyperspace Immunity] as it was redundant that's supposed to be part of the [Teleportation] in the first place.
+      - Trail particles should now emit properly.
+    • Merling
+      - Added [Sea Inhabitant] trait which will prevent underwater mobs from naturally attacking the [Merling] Origin. 
+      - Added [Conduit Power] trait where previously multiple traits are simply combined into this one.
+      - Added [Ocean's Gift] trait which makes it immune from any trident damage.
+      - You now get a temporary water breathing upon choosing this Origin, so you can have a headstart.
+      - Now part of the "fish" mob-type family.
+      - Tweaked status effects being granted when being underwater or not.
+      - Fixed an issue where after changing from the [Merling] Origin, you would still be able to breathe underwater.
+    • Blazeborn
+      - Added [Burning Wrath] trait which buffs the blazeborn if it's on fire as it was originally designed.
+      - Tweaked [Nether Inhabitant] trait's teleporter to the nether so that it is more stable and consistent.
+      - Removed the [Fireball] trait due to crash reported issues.
+    • Phantom
+      - Adjusted [Phatom Form] trait -- uses the new "spectator" mode.
+      - Replaced [Fast Metabolism] trait with the new [Perish] trait, which offers a better downside to the [Phantom Form] to balance it out.
+      - [Spiritual Body] - or the [Invisibility] - trait now behaves as if you were not there, and cannot be attacked nor punched. But at the same time you can't be able to do it to others too. 
+      - [Photoallergic] has been turned into the [Undead] trait, not only limiting your access to daylight but also healing effects.
+      - You now get a temporary fire resistance so as to not immediately burn from the daylight once you pick this Origin.
+      - Fixed an issue where due to the effects of the [Photoallergic] trait, causes the player to burn in daylight even in creative mode.
+
+  [ Technical & UI Changes ]
+    • Origins picker screen:
+      - Added additional screens for changing, picking, and viewing classes.
+      - Added ability icons next to trait names to show if it's an active ability you can trigger.
+      - Added a mix of item AUX ID and item texture rendering for Origin/class icons.
+      - Improved user interface layout for changing Origins and classes.
+      - Improved controller/keyboard support with button mapping.
+      - Improved scrollbar appearance.
+      - Tweaked when changing current Origin so that it would first display which Origin you were previously.
+      - Tweaked button placements to match the Java mod.
+      - Removed some unecessary texts, and "+", "-", and "=" sprites as it was too gimmicky.
+      - Removed dirt background.
+    • Cooldown bar:
+      - Up to 2 concurrent bars can now be visible.
+      - Texture parity to the Java mod.
+      - Will now dynamically offset depending on the situation.
+    • Added a star icon next to some custom-made items that require more attention.
+    • Added welcome pop-up information upon player joining. This is persistent even after rejoining, and has a vital reason for existing.
+    • Added new particle effects!
+    • Origin abilities now resets it's cooldown when rejoining.
+    • You can no longer change your Origin/class if there's an active cooldown running.
+    • Updated file paths and rewritten JSON UI code & structure.
+    • Origin traits are now seperately stored in each of their own controller animations. This way, should you want to customize your experience, it will be much easier.
+    • Origin/Class change will now be announced in the chat.
+    • UI dialogue is now triggered within the player's NPC component and no longer requires a seperate ticking NPC entity.
+  
+  [ Bug Fixes ]
+    • Fixed where the cooldown bar is sometimes is in the incorrect offset.
+    • Fixed an issue where buttons won't work properly. This is an issue on the game's end and only a workaround has simply been made to counter this.
+    • Fixed a bug where the bubble renderer would still render regardless if you're underwater or not.
+    • Fixed a bug where Origin traits would not properly function when rejoining.
+    • Fixed an issue where player component groups would have lingering artifacts of other component groups causing multiple unintended behaviour.
+    • Fixed Origin icons not showing the proper icon image on the picker screen.
+    • Fixed incorrect version "gamma" specified on the pack's manifest.
+
+  [ Known Issues ]
+    • May require a pretty beefy host to have a better experience in playing with this add-on in multiplayer.
+    • Uses [player.json] in order to further improve gameplay experience, this means it will not be compatible with other add-ons that use the [player.json]. Otherwise, it should work for that add-on as well.
+    • Origin/class picker screen does not act as a menu and has some weird touch behaviours. This is due to how JSON UI screen's property cannot be dynamically changed.
+    • Incorrect death message for when the [Merling] Origin has dried out.
+    • Cooldown bar is situated more on the client-side than it is with the server-side and thus may not be in sync.
+    • Cooldown bar is not retained when changing away from the HUD screen.
+    • Potion names are fixed (not dynamic) and cannot be localized.
+    • Camera view is not adjusted properly whenever the player is scaled down or up. This due to technical limitations as of the moment.
+    • Sometimes the [Slimecican] Origin will completely become invulnerable from any damage. Just leave and re log them back into the world to fix it.
+    • [Carnivore] nad [Vegetarian] traits would sometimes still allow the player to eat or consume food items they are not supposed to. This will be fixed in the future.
+    • Movement controls are accessible on touch on Origin picker screens.
+
+  [ Localization ]
+    • Localization support, for the time being, has been removed due to many changes implemented in this update. It will be back once it is settled in.

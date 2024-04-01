@@ -1,0 +1,414 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_class_view_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.nitwit",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.nitwit.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.archer",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.archer.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true",
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.beastmaster",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.beastmaster.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.blacksmith",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.blacksmith.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.cleric",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.cleric.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.cook",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.cook.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.explorer",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.explorer.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.farmer",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.farmer.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.lumberjack",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.lumberjack.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.merchant",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.merchant.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.miner",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.miner.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.rancher",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.rancher.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.rogue",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.rogue.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_view_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.warrior",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.warrior.name\"}]}}]}", 
+              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
+              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
+              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "gui_class_viewonly_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.nitwit",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.archer",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.beastmaster",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.blacksmith",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.cleric",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.cook",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.explorer",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.farmer",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.lumberjack",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.merchant",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.miner",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.rancher",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.rogue",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_viewonly_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "viewclass.warrior",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      }
+    ]
+  }
+}

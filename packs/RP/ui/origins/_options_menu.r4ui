@@ -1,0 +1,1002 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_options_menu",
+
+  "origin_options_menu_root": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      { "window_tabs@origin_options_menu.origin_options_tab_stack": {} },
+      { "window_main@origin_options_menu.origins_menu_window": {} },
+      { "window_close_button@origin_options_menu.close_button": {} },
+      { "screen_label@origin_screen_picker_common.picker_title_text_control": {} },
+      {
+        "screen_background_custom": {
+          "type": "panel",
+          "anchor_to": "center",
+          "anchor_from": "center",
+          "size": [ "100% + 180px", "100% + 200px" ],
+          "allow_clipping": false,
+          "layer": 1,
+          "controls": [
+            {
+              "translucent_background": {
+                "ignored": "$use_dirt_background",
+
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "texture": "textures/ui/White",
+                "color": [ 0.0, 0.0, 0.0 ],
+                "alpha": 0.6,
+                "layer": 1
+              }
+            },
+            {
+              "legacy_dirt_background": {
+                "ignored": "(not $use_dirt_background)",
+
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "texture": "textures/origins/gui/screen_background",
+                "tiled": true,
+                "tiled_scale": [ 1, 1 ],
+                "layer": 1
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "origin_options_tab_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "collection_name": "student_buttons_collection",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ "100%cm", "100%c" ],
+    "offset": [ -99, -64 ],
+    "controls": [
+      {
+        "general_tab@common.empty_panel": {
+          "collection_index": 1,
+          "size": [ "100%cm", "100%cm" ],
+          "controls": [
+            {
+              "control_button@origin_options_menu.tab_button_selection_control": {
+                "$tab_button_texture_pos": "top",
+                "$tab_button_texture": "Left",
+                "$visible_binding": "(not (#student_button_text = 'tab.general'))"
+              }
+            },
+            {
+              "tab_icon": {
+                "type": "image",
+                "size": [ 16, 16 ],
+                "texture": "textures/origins/gui/options/tab_general",
+                "layer": 45
+              }
+            }
+          ]
+        }
+      },
+      {
+        "admin_tab@common.empty_panel": {
+          "collection_index": 1,
+          "size": [ "100%cm", "100%cm" ],
+          "controls": [
+            {
+              "control_button@origin_options_menu.tab_button_selection_control": {
+                "$tab_button_texture_pos": "middle",
+                "$tab_button_texture": "Left",
+                "$visible_binding": "(not (#student_button_text = 'tab.admin'))"
+              }
+            },
+            {
+              "tab_icon": {
+                "type": "image",
+                "size": [ 16, 16 ],
+                "texture": "textures/origins/gui/options/tab_admin",
+                "layer": 45
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "origins_menu_window@origin_common.origin_picker_window_template": {
+    "$child_control": "origin_options_menu.origin_options_window_content_panel",
+    "size": [ 180, 180 ]
+  },
+
+  "origin_options_window_content_panel": {
+    "type": "panel",
+    "size": [ "100%", 121 ],
+    "controls": [
+      {
+        "screen_description": {
+          "type": "panel",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "size": [ "100%", "100%c" ],
+          "offset": [ 0, -18 ],
+          "layer": 3,
+          "controls": [
+            { "screen_description@origin_options_menu.screen_description": {} }
+          ]
+        }
+      },
+      { "padding@common.empty_panel": { "size": [ 1, 2 ] } },
+      {
+        "options_stack": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
+          "offset": [ 0, 4 ],
+          "layer": 3,
+          "$show_scrolling_panel": false,
+          "controls": [
+            {
+              "scrollable_panel@origin_common.scrolling_panel": {
+                "ignored": "(not $show_scrolling_panel)",
+
+                "$scroll_box_image_control": "origin_common.scroll_box_active",
+                "$scroll_track_image_control": "common.container_scrollbar_track",
+                "$scroll_track_offset": [ -9, 0 ],
+
+                "$scroll_bar_left_padding_size": [ 0, 0 ],
+                "$scroll_bar_right_padding_size": [ 0, 0 ],
+
+                "size": [ "100%", "100%" ],
+                "offset": [ 6, 0 ],
+                "layer": 1,
+                "$scroll_size": [ 10, 109 ],
+                "$scroll_view_port_size": [ 142, 121 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$scrolling_pane_size": [ "100%", "100%" ],
+                "$scrolling_pane_offset": [ 0, 0 ],
+                "$scrolling_content": "origin_options_menu.options_stack"
+              }
+            },
+            {
+              "fixed_panel@origin_options_menu.options_stack": {
+                "offset": [ 2, 0 ],
+                "ignored": "$show_scrolling_panel"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "admin_access_denied@common.empty_panel": {
+          "size": [ "100%", "100%cm" ],
+          "controls": [
+            {
+              "access_info_stack": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "label_description_0_centerer@common.empty_panel": {
+                      "size": [ "100%", "100%c" ],
+                      "controls": [
+                        {
+                          "label_description_0@origin_common.text_label": {
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "size": [ "default", "default" ],
+                            "max_size": [ "100% - 16px", "default" ],
+                            "offset": [ 8, 0 ],
+                            "text": "origins.gui.options.admin_denied.description1",
+                            "text_alignment": "left",
+                            "color": "$7_color_format",
+                            "layer": 30
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "padding_0@common.empty_panel": { "size": [ 1, 4 ] } },
+                  {
+                    "custom_underline_centerer@common.empty_panel": {
+                      "size": [ "100%", "100%c" ],
+                      "controls": [
+                        {
+                          "custom_underline": {
+                            "type": "image",
+                            "size": [ "100% - 16px", 1 ],
+                            "offset": [ 8, 0 ],
+                            "anchor_from": "bottom_left",
+                            "anchor_to": "bottom_left",
+                            "texture": "textures/ui/underline",
+                            "tiled": "x",
+                            "layer": 30
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "padding_1@common.empty_panel": { "size": [ 1, 4 ] } },
+                  {
+                    "label_description_1_centerer@common.empty_panel": {
+                      "size": [ "100%", "100%c" ],
+                      "controls": [
+                        {
+                          "label_description_1@origin_common.text_label": {
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "size": [ "default", "default" ],
+                            "offset": [ 8, 0 ],
+                            "max_size": [ "100% - 16px", "default" ],
+                            "text": "origins.gui.options.admin_denied.description2",
+                            "text_alignment": "left",
+                            "color": "$7_color_format",
+                            "layer": 30
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "padding_2@common.empty_panel": { "size": [ 1, 2 ] } },
+                  {
+                    "label_description_2_centerer@common.empty_panel": {
+                      "size": [ "100%", "100%c" ],
+                      "controls": [
+                        {
+                          "label_description_2@origin_common.text_label": {
+                            "size": [ "default", "default" ],
+                            "max_size": [ "100% - 4px", "default" ],
+                            "text": "/tag §e<name>§f add origins_admin",
+                            "text_alignment": "center",
+                            "color": "$f_color_format",
+                            "layer": 30
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_type": "global",
+              "binding_name": "#dialogtext"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#dialogtext = 'origin.options.admin.denied')",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "tab_button_selection_control@common.empty_panel": {
+    "size": [ 28, 31 ],
+    "controls": [
+      {
+        "unselected@origin_options_menu.tab_button_control": {
+          "$is_tab_selected": false,
+          "layer": 14
+        }
+      },
+      {
+        "selected@origin_options_menu.tab_button_control": {
+          "$is_tab_selected": true,
+          "layer": 15,
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_name": "#student_button_text",
+              "binding_collection_name": "student_buttons_collection"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "$visible_binding",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "tab_button_control@common.empty_panel": {
+    "size": [ 28, 31 ],
+
+    "$tab_button_texture_pos|default": "middle",
+    "$tab_button_texture|default": "Left",
+    "$is_tab_selected|default": false,
+
+    "variables": [
+      {
+        "requires": "(($tab_button_texture_pos = 'top') and not $is_tab_selected)",
+        "$default_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'BackTopMost')",
+        "$hover_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'BackTopMostHover')",
+        "$pressed_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontTopMost')"
+      },
+      {
+        "requires": "(($tab_button_texture_pos = 'middle') and not $is_tab_selected)",
+        "$default_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'Back')",
+        "$hover_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'BackHover')",
+        "$pressed_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'Front')"
+      },
+      {
+        "requires": "(($tab_button_texture_pos = 'bottom') and not $is_tab_selected)",
+        "$default_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'BackBottomMost')",
+        "$hover_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'BackBottomMostHover')",
+        "$pressed_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontBottomMost')"
+      },
+
+      {
+        "requires": "(($tab_button_texture_pos = 'top') and $is_tab_selected)",
+        "$default_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontTopMost')",
+        "$hover_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontTopMostHover')",
+        "$pressed_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontTopMost')"
+      },
+      {
+        "requires": "(($tab_button_texture_pos = 'middle') and $is_tab_selected)",
+        "$default_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'Front')",
+        "$hover_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontHover')",
+        "$pressed_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'Front')"
+      },
+      {
+        "requires": "(($tab_button_texture_pos = 'bottom') and $is_tab_selected)",
+        "$default_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontBottomMost')",
+        "$hover_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontBottomMostHover')",
+        "$pressed_button_texture": "('textures/ui/Tab' + $tab_button_texture + 'FrontBottomMost')"
+      }
+    ],
+    "controls": [
+      {
+        "button@common_buttons.light_text_button": {
+          "$border_visible": false,
+
+          "$button_type_panel": "common.empty_panel",
+          "$pressed_button_name": "button.student_button",
+
+          "size": [ "100%", "100%" ],
+          "layer": 10,
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "student_buttons_collection",
+              "binding_collection_prefix": "student_buttons"
+            }
+          ],
+          "button_mappings": [
+            {
+              "ignored": "$is_tab_selected",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            },
+            {
+              "ignored": "$is_tab_selected",
+              "from_button_id": "button.menu_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            },
+            {
+              "ignored": "$is_tab_selected",
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "focused"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "options_button_icon@origin_ability_buttons.ability_icon_image": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "offset": [ 0, 2 ],
+    "texture": "('textures/origins/gui/options/icon_' + $options_button_icon)",
+    "layer": 20
+  },
+
+  "options_button_label@origin_common.text_label": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "text_alignment": "left",
+    "color": "$8_color_format",
+    "shadow": false,
+    "layer": 20,
+    "$visible_binding|default": " ",
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_name": "#student_button_text",
+        "binding_collection_name": "student_buttons_collection"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  "options_button_control@common.empty_panel": {
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "button@common_buttons.light_text_button": {
+          "$hover_button_texture": "$default_button_texture",
+          "$pressed_button_texture": "$default_button_texture",
+
+          "$show_hover_content": true,
+          "$hover_content": "origin_options_menu.options_button_hover_control",
+          "$hover_content_anchor": "top_left",
+          "$pressed_button_name": "button.student_button",
+
+          "size": [ "100%", "100%" ],
+          "layer": 3,
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "student_buttons_collection",
+              "binding_collection_prefix": "student_buttons"
+            }
+          ],
+          "button_mappings": [
+            {
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "focused"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "options_button_template_item": {
+    "type": "panel",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "size": [ "100% - 4px", 26 ],
+    "layer": 10,
+
+    "$options_index|default": 1,
+
+    "controls": [
+      {
+        "button_icon_and_label": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100% - 16px", "100% - 2px" ],
+          "controls": [
+            {
+              "options_button_icon@common.empty_panel": {
+                "size": [ 20, 20 ],
+                "controls": [
+                  { "view_origin@origin_options_menu.options_button_icon": { "$options_button_icon": "view_origin", "$visible_binding": "(#student_button_text = 'view_origin')" } },
+                  { "view_class@origin_options_menu.options_button_icon": { "$options_button_icon": "view_class", "$visible_binding": "(#student_button_text = 'view_class')" } },
+                  { "toggle_particle@origin_options_menu.options_button_icon": { "$options_button_icon": "toggle_particle", "$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))" } },
+                  { "reset_player@origin_options_menu.options_button_icon": { "$options_button_icon": "reset_player", "$visible_binding": "(#student_button_text = 'reset_player')" } },
+
+                  { "ban.root@origin_options_menu.options_button_icon": { "$options_button_icon": "ban", "$visible_binding": "(#student_button_text = 'ban.root')" } },
+                  { "ban.origins@origin_options_menu.options_button_icon": { "$options_button_icon": "ban_origins", "$visible_binding": "(#student_button_text = 'ban.origins')" } },
+                  { "ban.classes@origin_options_menu.options_button_icon": { "$options_button_icon": "ban_classes", "$visible_binding": "(#student_button_text = 'ban.classes')" } },
+                  { "ban.evict@origin_options_menu.options_button_icon": { "$options_button_icon": "ban_evict", "$visible_binding": "(#student_button_text = 'ban.evict')" } },
+                  { "toggle.root@origin_options_menu.options_button_icon": { "$options_button_icon": "toggle", "$visible_binding": "(#student_button_text = 'toggle.root')" } },
+                  { "toggle.unique@origin_options_menu.options_button_icon": { "$options_button_icon": "toggle_unique", "$visible_binding": "((#student_button_text = 'unique.on') or (#student_button_text = 'unique.off'))" } },
+                  { "toggle.orb@origin_options_menu.options_button_icon": { "$options_button_icon": "toggle_orb", "$visible_binding": "((#student_button_text = 'orb.on') or (#student_button_text = 'orb.off'))" } },
+                  { "toggle.paper@origin_options_menu.options_button_icon": { "$options_button_icon": "toggle_paper", "$visible_binding": "((#student_button_text = 'paper.on') or (#student_button_text = 'paper.off'))" } },
+                  { "toggle.announce@origin_options_menu.options_button_icon": { "$options_button_icon": "toggle_announce", "$visible_binding": "((#student_button_text = 'announce.on') or (#student_button_text = 'announce.off'))" } },
+                  { "reset_all@origin_options_menu.options_button_icon": { "$options_button_icon": "reset_all", "$visible_binding": "((#student_button_text = 'reset_all') or (#student_button_text = 'reset_all.c'))" } }
+                ]
+              }
+            },
+            { "padding@common.empty_panel": { "size": [ 4, "100%" ] } },
+            {
+              "options_button_label@common.empty_panel": {
+                "size": [ "100% - 24px", "100%" ],
+                "controls": [
+                  { "view_origin@origin_options_menu.options_button_label": { "text": "origins.gui.options.view_origin.name", "$visible_binding": "(#student_button_text = 'view_origin')" } },
+                  { "view_class@origin_options_menu.options_button_label": { "text": "origins.gui.options.view_class.name", "$visible_binding": "(#student_button_text = 'view_class')" } },
+                  { "toggle_particle@origin_options_menu.options_button_label": { "text": "origins.gui.options.toggle_particle.name", "$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))" } },
+                  { "reset_player@origin_options_menu.options_button_label": { "text": "origins.gui.options.reset_player.name", "$visible_binding": "(#student_button_text = 'reset_player')" } },
+
+                  { "ban.root@origin_options_menu.options_button_label": { "text": "origins.gui.options.ban.root.name", "$visible_binding": "(#student_button_text = 'ban.root')" } },
+                  { "ban.origins@origin_options_menu.options_button_label": { "text": "origins.gui.options.ban.origins.name", "$visible_binding": "(#student_button_text = 'ban.origins')" } },
+                  { "ban.classes@origin_options_menu.options_button_label": { "text": "origins.gui.options.ban.classes.name", "$visible_binding": "(#student_button_text = 'ban.classes')" } },
+                  { "ban.evict@origin_options_menu.options_button_label": { "text": "origins.gui.options.ban.evict.name", "$visible_binding": "(#student_button_text = 'ban.evict')" } },
+                  { "toggle.root@origin_options_menu.options_button_label": { "text": "origins.gui.options.toggle.root.name", "$visible_binding": "(#student_button_text = 'toggle.root')" } },
+                  { "toggle.unique@origin_options_menu.options_button_label": { "text": "origins.gui.options.toggle.unique.name", "$visible_binding": "((#student_button_text = 'unique.on') or (#student_button_text = 'unique.off'))" } },
+                  { "toggle.orb@origin_options_menu.options_button_label": { "text": "origins.gui.options.toggle.orb.name", "$visible_binding": "((#student_button_text = 'orb.on') or (#student_button_text = 'orb.off'))" } },
+                  { "toggle.paper@origin_options_menu.options_button_label": { "text": "origins.gui.options.toggle.paper.name", "$visible_binding": "((#student_button_text = 'paper.on') or (#student_button_text = 'paper.off'))" } },
+                  { "toggle.announce@origin_options_menu.options_button_label": { "text": "origins.gui.options.toggle.announce.name", "$visible_binding": "((#student_button_text = 'announce.on') or (#student_button_text = 'announce.off'))" } },
+                  { "reset_all@origin_options_menu.options_button_label": { "text": "origins.gui.options.reset_all.name", "$visible_binding": "(#student_button_text = 'reset_all')" } },
+                  { "reset_all_confirm@origin_options_menu.options_button_label": { "text": "origins.gui.options.reset_all.name", "alpha": "@origin_common.anim_beat_alpha_01", "$visible_binding": "(#student_button_text = 'reset_all.c')" } }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "toggled_button_icon@common.empty_panel": {
+          "size": [ "100%c", "100%c" ],
+          "offset": [ 70, 0 ],
+          "controls": [
+            {
+              "toggle_on": {
+                "type": "image",
+                "size": [ 10, 10 ],
+                "offset": [ -4, 0 ],
+                "texture": "textures/origins/gui/options/toggle_on",
+                "layer": 29,
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_name": "#student_button_text",
+                    "binding_collection_name": "student_buttons_collection"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "((#student_button_text = 'particle.on') or (#student_button_text = 'unique.on') or (#student_button_text = 'orb.on') or (#student_button_text = 'paper.on') or (#student_button_text = 'announce.on'))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "toggle_off": {
+                "type": "image",
+                "size": [ 10, 10 ],
+                "offset": [ -4, 0 ],
+                "texture": "textures/origins/gui/options/toggle_off",
+                "layer": 29,
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_name": "#student_button_text",
+                    "binding_collection_name": "student_buttons_collection"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "((#student_button_text = 'particle.off') or (#student_button_text = 'unique.off') or (#student_button_text = 'orb.off') or (#student_button_text = 'paper.off') or (#student_button_text = 'announce.off'))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "clickable_button_control@origin_options_menu.options_button_control": {} }
+    ],
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_name": "#student_button_text",
+        "binding_collection_name": "student_buttons_collection"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not (#student_button_text = ''))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  "options_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "collection_name": "student_buttons_collection",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "option_1@origin_options_menu.options_button_template_item": {
+          "collection_index": 2,
+          "$option_index": "1"
+        }
+      },
+      { "padding_0@common.empty_panel": { "size": [ "100%", 1 ] } },
+      {
+        "option_2@origin_options_menu.options_button_template_item": {
+          "collection_index": 3,
+          "$option_index": "2"
+        }
+      },
+      { "padding_1@common.empty_panel": { "size": [ "100%", 1 ] } },
+      {
+        "option_3@origin_options_menu.options_button_template_item": {
+          "collection_index": 4,
+          "$option_index": "3"
+        }
+      },
+      { "padding_2@common.empty_panel": { "size": [ "100%", 1 ] } },
+      {
+        "option_4@origin_options_menu.options_button_template_item": {
+          "collection_index": 5,
+          "$option_index": "4"
+        }
+      },
+      { "padding_3@common.empty_panel": { "size": [ "100%", 1 ] } },
+      {
+        "option_5@origin_options_menu.options_button_template_item": {
+          "collection_index": 6,
+          "$option_index": "5"
+        }
+      }
+    ]
+  },
+
+  "options_button_hover_control@common.empty_panel": {
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "button_guide_on_hover@common.empty_panel": {
+          "size": [ "100%c", "100%c" ],
+          "offset": [ 70, 0 ],
+          "controls": [
+            {
+              "button_hover_chevron_image": {
+                "type": "image",
+                "size": [ 16, 16 ],
+                "texture": "textures/origins/gui/options/hover",
+                "anims": [ "@origin_common.sway_right_anim_01" ],
+                "layer": 30,
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_name": "#student_button_text",
+                    "binding_collection_name": "student_buttons_collection"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "(not ((#student_button_text = 'particle.on') or (#student_button_text = 'unique.on') or (#student_button_text = 'orb.on') or (#student_button_text = 'paper.on') or (#student_button_text = 'announce.on') or (#student_button_text = 'particle.off') or (#student_button_text = 'unique.off') or (#student_button_text = 'orb.off') or (#student_button_text = 'paper.off') or (#student_button_text = 'announce.off')))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "button_hover_toggle_image": {
+                "type": "image",
+                "size": [ 10, 10 ],
+                "offset": [ -4, 0 ],
+                "texture": "textures/origins/gui/options/toggle_hover",
+                "anims": [ "@origin_common.anim_beat_alpha_01" ],
+                "layer": 30,
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_name": "#student_button_text",
+                    "binding_collection_name": "student_buttons_collection"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "((#student_button_text = 'particle.on') or (#student_button_text = 'unique.on') or (#student_button_text = 'orb.on') or (#student_button_text = 'paper.on') or (#student_button_text = 'announce.on') or (#student_button_text = 'particle.off') or (#student_button_text = 'unique.off') or (#student_button_text = 'orb.off') or (#student_button_text = 'paper.off') or (#student_button_text = 'announce.off'))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "button_description_on_hover@origin_options_menu.options_button_description_list": {} }
+    ]
+  },
+
+  "options_button_description_list@common.empty_panel": {
+    "$option_index|default": "0",
+    "$set_offset|default": [ 0, 0 ],
+    "offset": "$set_offset",
+    "controls": [
+      { "view_origin@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.view_origin.description", "$visible_binding": "(#student_button_text = 'view_origin')" } },
+      { "view_class@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.view_class.description", "$visible_binding": "(#student_button_text = 'view_class')" } },
+      { "toggle_particle@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle_particle.description", "$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))" } },
+      { "reset_player@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.reset_player.description", "$visible_binding": "(#student_button_text = 'reset_player')" } },
+
+      { "ban.root@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.ban.root.description", "$visible_binding": "(#student_button_text = 'ban.root')" } },
+      { "ban.origins@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.ban.origins.description", "$visible_binding": "(#student_button_text = 'ban.origins')" } },
+      { "ban.classes@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.ban.classes.description", "$visible_binding": "(#student_button_text = 'ban.classes')" } },
+      { "ban.evict@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.ban.evict.description", "$visible_binding": "(#student_button_text = 'ban.evict')" } },
+      { "toggle.root@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle.root.description", "$visible_binding": "(#student_button_text = 'toggle.root')" } },
+      { "toggle.unique@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle.unique.description", "$visible_binding": "((#student_button_text = 'unique.on') or (#student_button_text = 'unique.off'))" } },
+      { "toggle.orb@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle.orb.description", "$visible_binding": "((#student_button_text = 'orb.on') or (#student_button_text = 'orb.off'))" } },
+      { "toggle.paper@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle.paper.description", "$visible_binding": "((#student_button_text = 'paper.on') or (#student_button_text = 'paper.off'))" } },
+      { "toggle.announce@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle.announce.description", "$visible_binding": "((#student_button_text = 'announce.on') or (#student_button_text = 'announce.off'))" } },
+      { "reset_all@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.reset_all.description", "$visible_binding": "(#student_button_text = 'reset_all')" } },
+      {
+        "reset_all@origin_options_menu.options_button_description": {
+          "$hover_text": "origins.gui.options.reset_all.description",
+          "$hover_text_2": "origins.gui.options.reset_all.description_confirm",
+          "$hover_text_2_color": "$c_color_format",
+          "$visible_binding": "(#student_button_text = 'reset_all.c')"
+        }
+      }
+    ],
+    "variables": [
+      { "requires": "($option_index = '1')", "$set_offset": [ 0, -26 ] },
+      { "requires": "($option_index = '2')", "$set_offset": [ 0, -53 ] },
+      { "requires": "($option_index = '3')", "$set_offset": [ 0, -80 ] },
+      { "requires": "($option_index = '4')", "$set_offset": [ 0, -107 ] },
+      { "requires": "($option_index = '5')", "$set_offset": [ 0, -134 ] }
+    ]
+  },
+
+  "options_button_description@common.empty_panel": {
+    "size": "$hover_size",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 150,
+
+    "$hover_size|default": [ "100%", "100%" ],
+    "$hover_offset|default": [ 178, 0 ],
+    "$hover_text|default": "This is a hover.",
+    "$hover_text_color|default": "$f_color_format",
+    "$hover_text_2|default": "none",
+    "$hover_text_2_color|default": "$f_color_format",
+
+    "controls": [
+      {
+        "hover_text_image": {
+          "type": "image",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [ "120px", "100%c + 8px" ],
+          "offset": "$hover_offset",
+          "texture": "textures/origins/gui/banners",
+          "layer": 151,
+          "allow_clipping": false,
+          "controls": [
+            {
+              "hover_text_stack": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [ "100%", "100%c" ],
+                "use_child_anchors": true,
+                "controls": [
+                  {
+                    "hover_text_label": {
+                      "type": "label",
+                      "size": [ "100% - 8px", "default" ],
+                      "text": "$hover_text",
+                      "text_alignment": "left",
+                      "color": "$hover_text_color",
+                      "localize": true,
+                      "layer": 152
+                    }
+                  },
+                  { "padding@common.empty_panel": { "size": [ 1, 4 ], "ignored": "($hover_text_2 = 'none')" } },
+                  {
+                    "hover_text_label_2": {
+                      "ignored": "($hover_text_2 = 'none')",
+                      "type": "label",
+                      "size": [ "100% - 8px", "default" ],
+                      "text": "$hover_text_2",
+                      "text_alignment": "left",
+                      "color": "$hover_text_2_color",
+                      "localize": true,
+                      "layer": 152
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_name": "#student_button_text",
+        "binding_collection_name": "student_buttons_collection"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  "screen_description@common.empty_panel": {
+    "size": [ "100%", "100%cm" ],
+    "controls": [
+      {
+        "root_general@origin_options_menu.screen_directory_info": {
+          "$screen_directory": "root",
+          "$screen_name": "origins.gui.options.general_root",
+          "$visible_binding": "(#dialogtext = 'origin.options.general.root')"
+        }
+      },
+      {
+        "root_admin@origin_options_menu.screen_directory_info": {
+          "$screen_directory": "root",
+          "$screen_name": "origins.gui.options.admin_root",
+          "$visible_binding": "(#dialogtext = 'origin.options.admin.root')"
+        }
+      },
+      {
+        "root_admin_denied@origin_options_menu.screen_directory_info": {
+          "$screen_directory": "tab_admin_denied",
+          "$screen_name": "origins.gui.options.admin_denied.name",
+          "$visible_binding": "(#dialogtext = 'origin.options.admin.denied')"
+        }
+      },
+      {
+        "ban_root@origin_options_menu.screen_directory_info": {
+          "$screen_directory": "tab_admin",
+          "$screen_name": "origins.gui.options.ban.root.name",
+          "$visible_binding": "(#dialogtext = 'origin.options.admin.ban.root')"
+        }
+      },
+      {
+        "toggle_root@origin_options_menu.screen_directory_info": {
+          "$screen_directory": "tab_admin",
+          "$screen_name": "origins.gui.options.toggle.root.name",
+          "$visible_binding": "(#dialogtext = 'origin.options.admin.toggle.root')"
+        }
+      }
+    ]
+  },
+
+  "screen_directory_info@common.empty_panel": {
+    "size": [ "100% - 4px", "100%c" ],
+    "controls": [
+      {
+        "text_background": {
+          "type": "image",
+          "size": [ "100%", "100%c + 6px" ],
+          "texture": "textures/origins/gui/banners",
+          "clips_children": true,
+          "alpha": 0.7,
+
+          "$screen_directory|default": "root",
+          "$screen_name|default": "screen_name",
+
+          "controls": [
+            {
+              "content_body": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "offset": [ 0, 2 ],
+                "size": [ "100% - 8px", "100%cm" ],
+                "controls": [
+                  {
+                    "screen_directory_centerer@common.empty_panel": {
+                      "size": [ "100%cm", "100%cm" ],
+                      "controls": [
+                        {
+                          "screen_directory": {
+                            "type": "image",
+                            "size": [ 14, 14 ],
+                            "offset": [ 0, -2 ],
+                            "texture": "$set_texture",
+                            "layer": 59,
+                            "variables": [
+                              { "requires": "($screen_directory = 'root')", "$set_texture": "textures/origins/hud/controls/submenu" },
+                              { "requires": "($screen_directory = 'tab_general')", "$set_texture": "textures/origins/gui/options/tab_general" },
+                              { "requires": "($screen_directory = 'tab_admin')", "$set_texture": "textures/origins/gui/options/tab_admin" },
+                              { "requires": "($screen_directory = 'tab_admin_denied')", "$set_texture": "textures/origins/gui/options/tab_admin_denied" }
+                            ],
+                            "controls": [
+                              {
+                                "screen_diretory_seperator@origin_common.text_label": {
+                                  "size": [ "default", "default" ],
+                                  "offset": [ "50% + 4px", 0 ],
+                                  "text": "$set_text",
+                                  "text_alignment": "left",
+                                  "color": "$7_color_format",
+                                  "localize": false,
+                                  "layer": 59,
+                                  "$set_text|default": "/",
+                                  "variables": {
+                                    "requires": "($screen_directory = 'tab_admin_denied')",
+                                    "$set_text": "-"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "padding@common.empty_panel": { "size": [ 10, 1 ] } },
+                  {
+                    "screen_name@origin_common.text_label": {
+                      "size": [ "default", "default" ],
+                      "max_size": [ "100% - 18px", "16px" ],
+                      "text": "$screen_name",
+                      "text_alignment": "left",
+                      "color": "$f_color_format",
+                      "localize": true,
+                      "layer": 60,
+                      "controls": [
+                        {
+                          "custom_underline": {
+                            "type": "image",
+                            "size": [ "100%", 1 ],
+                            "offset": [ -0.5, 0 ],
+                            "anchor_from": "bottom_left",
+                            "anchor_to": "bottom_left",
+                            "texture": "textures/ui/underline",
+                            "tiled": "x",
+                            "layer": 60
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "global",
+        "binding_name": "#dialogtext"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  "close_button": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "collection_name": "student_buttons_collection",
+    "anchor_from": "center",
+    "anchor_to": "bottom_middle",
+    "size": [ "100%cm", 22 ],
+    "offset": [ 0, "9% + 90px" ],
+    "controls": [
+      {
+        "button_base@common.empty_panel": {
+          "collection_index": 0,
+          "size": [ "100%c", "100%c" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "button_control@origin_buttons.origin_selector_button": {
+                "$button_type": "cancel",
+                "size": [ 75, 21 ],
+                "anchor_from": "center",
+                "anchor_to": "center"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+
+}

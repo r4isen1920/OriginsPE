@@ -1,0 +1,498 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_race_view_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.human",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.human.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_avian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.avian",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.avian.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_arachnid",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.arachnid",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.arachnid.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_elytrian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.elytrian",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.elytrian.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_shulk",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.shulk",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.shulk.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_feline",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.feline",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.feline.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_enderian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.enderian",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.enderian.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_merling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.merling",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.merling.name\"}]}}]}", 
+              "/effect @s[tainitiator=\"has_any_class\"] water_breathing 60 0 true", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_blazeborn",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.blazeborn",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.blazeborn.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator run event entity @s[tag=!\"nether_tp\",tag=\"change_origin\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_phantom",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.phantom",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.phantom.name\"}]}}]}", 
+              "/effect @s[tainitiator=\"has_any_class\"] fire_resistance 30 0 true",
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_kitsune",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.kitsune",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.kitsune.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_slimecican",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.slimecican",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.slimecican.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_starborne",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.starborne",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.starborne.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_inchling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.inchling",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.inchling.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_bee",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.bee",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.bee.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_piglin",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.piglin",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.piglin.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator run event entity @s[tag=!\"nether_tp\",tag=\"change_origin\"] origins:nether_spawn_trait_teleport",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_elf",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.elf",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.elf.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_view_voidwalker",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.voidwalker",
+        "buttons": [
+          {
+            "name": "start",
+            "commands": [ 
+              "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.voidwalker.name\"}]}}]}", 
+              "/event entity @initiator[tag=\"has_any_class\"] minecraft:disable_npc_dialogue_to_self", 
+              "/dialogue open @e[type=origins:dialogue_handler,c=1] @initiator[tag=!\"has_any_class\"] gui_class_pick_nitwit",
+              "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
+            ]
+          }
+        ]
+      },
+
+      {
+        "scene_tag": "gui_race_viewonly_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.human",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_avian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.avian",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_arachnid",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.arachnid",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_elytrian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.elytrian",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_shulk",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.shulk",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_feline",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.feline",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_enderian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.enderian",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_merling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.merling",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_blazeborn",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.blazeborn",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_phantom",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.phantom",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_kitsune",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.kitsune",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_slimecican",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.slimecican",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_starborne",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.starborne",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_inchling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.inchling",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_bee",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.bee",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_piglin",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.piglin",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_elf",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.elf",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_viewonly_voidwalker",
+        "npc_name": "origins.custom_dialogue",
+        "text": "vieworigin.voidwalker",
+        "buttons": [
+          {
+            "name": "return_start",
+            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,450 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_common",
+
+  "anim_beat_alpha_01": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.8,
+    "from": 1.0,
+    "to": 0.0,
+    "next": "@origin_common.anim_beat_alpha_02"
+  },
+  "anim_beat_alpha_02": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.2,
+    "from": 0.0,
+    "to": 1.0,
+    "next": "@origin_common.anim_beat_alpha_01"
+  },
+
+  "anim_beat_size_01": {
+    "anim_type": "size",
+    "easing": "linear",
+    "duration": 0.8,
+    "from": [ 188, 208 ],
+    "to": [ 186, 206 ],
+    "next": "@origin_common.anim_beat_size_02"
+  },
+  "anim_beat_size_02": {
+    "anim_type": "size",
+    "easing": "linear",
+    "duration": 0.2,
+    "from": [ 186, 206 ],
+    "to": [ 188, 208 ],
+    "next": "@origin_common.anim_beat_size_01"
+  },
+
+  "sway_right_anim_01": {
+    "anim_type": "offset",
+    "easing": "linear",
+    "duration": 0.125,
+    "from": [ 1.5, 0 ],
+    "to": [ 0, 0 ],
+    "next": "@origin_common.sway_right_anim_02"
+  },
+  "sway_right_anim_02": {
+    "anim_type": "offset",
+    "easing": "linear",
+    "duration": 0.25,
+    "from": [ 0, 0 ],
+    "to": [ -1.5, 0 ],
+    "next": "@origin_common.sway_right_anim_03"
+  },
+  "sway_right_anim_03": {
+    "anim_type": "wait",
+    "duration": 0.125,
+    "next": "@origin_common.sway_right_anim_01"
+  },
+
+  "text_label": {
+    "type": "label",
+    "size": [ "100%", "default" ],
+    "shadow": true,
+    "localize": true
+  },
+
+  "image_with_text_description": {
+    "type": "image",
+    "size": [ "100%", "100%c - 5px" ],
+    "texture": "textures/origins/gui/banners",
+    "clips_children": true,
+
+    "$image_icon|default": "pack_icon",
+    "$text_header|default": "header",
+    "$text_body|default": "body",
+    "$show_header_underline|default": true,
+
+    "controls": [
+      {
+        "image_icon": {
+          "type": "image",
+          "layer": 1,
+          "size": [ 16, 16 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 2.5, 4 ],
+          "texture": "$image_icon"
+        }
+      },
+      {
+        "text_header@origin_common.text_label": {
+          "layer": 100,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 20, 4 ],
+          "size": [ "default", "default" ],
+          "text": "$text_header",
+          "controls": [
+            {
+              "custom_underline": {
+                "type": "image",
+                "size": [ "100%", 1 ],
+                "offset": [ -0.5, 0 ],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "texture": "textures/ui/underline",
+                "tiled": "x",
+                "ignored": "(not $show_header_underline)",
+                "layer": 105
+              }
+            }
+          ]
+        }
+      },
+      {
+        "text_body@origin_common.text_label": {
+          "layer": 100,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 20, 16 ],
+          "size": [ "85%", "default" ],
+          "text": "$text_body",
+          "color": "$7_color_format",
+          "localize": true
+        }
+      }
+    ]
+  },
+
+  "text_description": {
+    "type": "image",
+    "size": [ "100%cm + 2px", "100%c + 2px" ],
+    "texture": "textures/origins/gui/banners",
+    "clips_children": true,
+    "alpha": 0.7,
+
+    "$text_body|default": "body",
+
+    "controls": [
+      {
+        "text_body@origin_common.text_label": {
+          "layer": 100,
+          "size": [ "default", "default" ],
+          "max_size": [ "100px", "default" ],
+          "text": "$text_body",
+          "text_alignment": "left",
+          "color": "$f_color_format",
+          "localize": true
+        }
+      }
+    ]
+  },
+
+  "picker_title_text": {
+    "type": "image",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ "100%c + 8px", "100%c + 3px" ],
+    "texture": "textures/ui/hud_tip_text_background",
+    "alpha": 0.0,
+    "controls": [
+      {
+        "text_content": {
+          "type": "label",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "color": "$f_color_format",
+          "text": "$screen_title_text",
+          "localize": true,
+          "shadow": true,
+          "alpha": 1.0,
+          "layer": 2
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#dialogtext",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  
+  "picker_window_panel_shine": {
+    "type": "image",
+    "allow_clipping": false,
+    "offset": [ 0, -4 ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "size": "@origin_common.anim_beat_size_01",
+    "alpha": "@origin_common.anim_beat_alpha_01",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#dialogtext",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  
+  "hoverable_image": {
+    "type": "image",
+    "texture": "$image_texture",
+    "size": "$hover_size",
+    "layer": "$panel_base_layer",
+    "alpha": "$image_texture_alpha",
+    "propagate_alpha": false,
+
+    "$image_texture|default": "pack_icon",
+    "$image_texture_alpha|default": 1.0,
+
+    "$hover_text|default": "hover_text",
+    "$hover_text_color|default": "$f_color_format",
+    "$hover_image_border|default": "disabled",
+
+    "$hover_size|default": [ "100%", "100%" ],
+    "$hover_offset|default": [ 8, -20 ],
+
+    "$panel_base_layer|default": 150,
+
+    "controls": [
+      {
+        "hover_panel@common.button": {
+          "size": "$hover_size",
+          "$pressed_button_name": "unset",
+          "sound_volume": 0.0,
+          "layer": "$panel_base_layer",
+          "controls": [
+            {
+              "hover@common.empty_panel": {
+                "size": "$hover_size",
+                "layer": "$panel_base_layer",
+                "controls": [
+                  {
+                    "hover_text_image": {
+                      "type": "image",
+                      "allow_clipping": false,
+                      "texture": "textures/ui/purpleBorder",
+                      "size": [ "100%c + 9px", "100%c + 8px" ],
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "offset": "$hover_offset",
+                      "layer": "($panel_base_layer + 1)",
+                      "controls": [
+                        {
+                          "hover_text_label": {
+                            "type": "label",
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_left",
+                            "size": [ "default", "default" ],
+                            "max_size": [ "145px", "default" ],
+                            "offset": [ 4, 3 ],
+                            "text": "$hover_text",
+                            "color": "$hover_text_color",
+                            "localize": true,
+                            "layer": "($panel_base_layer + 2)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "hover_image_border": {
+                      "type": "image",
+                      "size": "$hover_size",
+                      "texture": "$hover_image_border",
+                      "alpha": 1.0,
+                      "layer": "$panel_base_layer",
+                      "ignored": "($hover_image_border = 'disabled')"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "scroll_box_active": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "alpha": 1.0,
+    "propagate_alpha": true,
+    "allow_clipping": false,
+    "controls": [
+      {
+        "scroll_box_handle": {
+          "type": "image",
+          "texture": "textures/ui/ScrollBox",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 1,
+          "controls": [
+            {
+              "scroll_box_grip": {
+                "type": "image",
+                "texture": "textures/origins/gui/scroll_box_grip",
+                "size": [ "90%", "90%" ],
+                "offset": [ -0.1, 0 ],
+                "layer": 1
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  
+  "scrolling_panel@common.scrolling_panel": {
+    "$scroll_track_offset": [ -18, 0 ],
+    "$scroll_track_image_control": "common.empty_panel",
+    "$scroll_box_mouse_image_control": "$scroll_box_image_control",
+    "$scroll_box_touch_image_control": "$scroll_box_image_control",
+    "controls": [
+      {
+        "scroll_base@origin_common.scrolling_panel_base": {
+          "size": "$scrolling_pane_size",
+          "offset": "$scrolling_pane_offset"
+        }
+      }
+    ]
+  },
+  
+  "scrolling_panel_base@common.scrolling_panel_base": {
+    "controls": [
+      { 
+        "$scroll_view_name@common.scroll_view_control": {
+          "controls": [
+            {
+              "panel": {
+                "type": "panel",
+                "anchor_to": "top_left",
+                "anchor_from": "top_left",
+                "$view_port_size|default": [ "100%", "100%" ],
+                "clips_children": true,
+                "controls": [
+                  { "viewport@origin_common.viewport": {} },
+                  { "bar_and_track@origin_common.bar_and_track": {} }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "viewport@common.scroll_background_and_viewport": {
+    "controls": [
+      {
+        "scrolling_view_port": {
+          "layer": 1,
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": "$scroll_view_port_offset",
+          "size": "$scroll_view_port_size",
+          "controls": [
+            {
+              "scrolling_content@$scrolling_content": {
+                "layer": 2,
+                "$scrolling_content_anchor_from|default": "top_left",
+                "$scrolling_content_anchor_to|default": "top_left",
+                "anchor_from": "$scrolling_content_anchor_from",
+                "anchor_to": "$scrolling_content_anchor_to"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  
+  "bar_and_track@common.scroll_bar_and_track": {
+    "size": "$scrolling_pane_size",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "centered_panel": {
+          "type": "panel",
+          "size": "$scroll_size",
+          "anchor_from": "$bar_and_track_anchor_from",
+          "anchor_to": "$bar_and_track_anchor_to",
+          "$bar_side|default": "scroll_right",
+          "offset": "$scroll_track_offset",
+          "variables": [
+            {
+              "requires": "($bar_side = scroll_left)",
+              "$bar_and_track_anchor_from": "top_left",
+              "$bar_and_track_anchor_to": "top_left"
+            },
+            {
+              "requires": "($bar_side = scroll_right)",
+              "$bar_and_track_anchor_from": "top_right",
+              "$bar_and_track_anchor_to": "top_right"
+            }
+          ],
+          "controls": [
+            {
+              "track@common.scrollbar_track": {
+                "layer": 20,
+                "anchor_from": "center",
+                "anchor_to": "center"
+              }
+            },
+            {
+              "scroll_box@common.scroll_box": {
+                "layer": 25,
+                "anchor_from": "center",
+                "anchor_to": "center"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "origin_picker_window_template@common_dialogs.main_panel_no_title_no_buttons": {
+    "size": [ 180, 180 ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "$show_close_button": "$r4isen_safe_mode",
+    "$dialog_background_texture": "textures/ui/Banners",
+    "clips_children": true,
+
+    "$set_offset|default": [ 0, -4 ],
+    "$set_layer|default": 3,
+
+    "offset": "$set_offset",
+    "layer": "$set_layer"
+  }
+
+}

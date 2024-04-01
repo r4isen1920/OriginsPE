@@ -1,0 +1,277 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_race_change_human",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.human",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_avian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.avian",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_arachnid",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.arachnid",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_elytrian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.elytrian",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_shulk",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.shulk",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_feline",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.feline",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_enderian",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.enderian",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_merling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.merling",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_blazeborn",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.blazeborn",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_phantom",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.phantom",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_kitsune",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.kitsune",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_slimecican",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.slimecican",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_starborne",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.starborne",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_inchling",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.inchling",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_bee",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.bee",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_piglin",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.piglin",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_elf",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.elf",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_change_voidwalker",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.voidwalker",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/event entity @initiator origins:become_unknown" ]
+          }
+        ]
+      }
+    ]
+  }
+}

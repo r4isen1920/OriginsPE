@@ -1,0 +1,27 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "small_chest_screen@common.inventory_screen_common": {
+    "$close_on_player_hurt|default": true,
+    "cache_screen": "(not ($container_title = 'origins.shulk_inventory'))",
+    "close_on_player_hurt": "$close_on_player_hurt",
+    "variables": [
+      {
+        "requires": "($desktop_screen and not ($container_title = 'origins.shulk_inventory'))",
+        "$screen_content": "chest.small_chest_panel",
+        "$screen_bg_content": "common.screen_background"
+      },
+      {
+        "requires": "($pocket_screen and not ($container_title = 'origins.shulk_inventory'))",
+        "$screen_content": "pocket_containers.small_chest_panel"
+      },
+      {
+        "requires": "($container_title = 'origins.shulk_inventory')",
+        "$screen_content": "origin_shulk_inventory.shulk_inventory_screen",
+        "$screen_bg_content": "common.screen_background"
+      }
+    ]
+  }
+
+}

@@ -1,0 +1,151 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_welcome_screen",
+
+  "welcome_screen_entry_offset": {
+    "anim_type": "offset",
+    "easing": "spring",
+    "duration": 0.8,
+    "from": [ 0, 40 ],
+    "to": [ 0, 0 ]
+  },
+  "welcome_screen_entry_alpha": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.8,
+    "from": 0.0,
+    "to": 1.0
+  },
+
+  "welcome_screen_description_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "layer": 100,
+    "controls": [
+      {
+        "text_description@origin_common.text_label": {
+          "text": "origins.welcome_message",
+          "size": [ "98%", "default" ]
+        }
+      },
+      {
+        "text_padding_0": {
+          "type": "panel",
+          "size": [ "100%", 7.5 ]
+        }
+      },
+      {
+        "created_by@origin_common.image_with_text_description": {
+          "$image_icon": "textures/items/apple_golden",
+          "$text_header": "© r4isen1920", /* proudly and originally created by yours truly - if you take the UI and change this i will be sad.. very sad */
+          "$text_body": "Original work by APACE100",
+          "$show_header_underline": false
+        }
+      },
+      {
+        "text_padding_1": {
+          "type": "panel",
+          "size": [ "100%", 7.5 ]
+        }
+      },
+      {
+        "text_description@origin_common.text_label": {
+          "text": "origins.changelog_message",
+          "size": [ "98%", "default" ],
+          "font_scale_factor": 0.8,
+          "color": "$7_color_format"
+        }
+      },
+      {
+        "text_padding_2": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
+        }
+      },
+      {
+        "version@origin_common.image_with_text_description": {
+          "$image_icon": "textures/items/paper",
+          "$text_header": "v4.3 changelog",
+          "$text_body": " - Add support for 1.20.31+\n - Elven revamp\n - Bug fixes and tweaks!"
+        }
+      },
+      {
+        "text_padding_2": {
+          "type": "panel",
+          "size": [ "100%", 5 ]
+        }
+      },
+      {
+        "version@origin_common.image_with_text_description": {
+          "$image_icon": "textures/items/map_locked",
+          "$text_header": "Translators",
+          "$text_body": "- xinyue0226\n- fin9er\n- skybird2333"
+        }
+      }
+    ]
+  },
+
+  "welcome_screen": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "offset": [ 0, 0 ],
+
+    "controls": [
+      {
+        "header_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "clips_children": true,
+          "controls": [
+            {
+              "title_image": {
+                "type": "image",
+                "texture": "textures/origins/title",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "size": [ 125, 23 ],
+                "uv_size": [ 174, 32 ],
+                "offset": [ 0, -2 ],
+                "bilinear": true,
+                "layer": 100
+              }
+            }
+          ]
+        }
+      },
+      {
+        "description_panel": {
+          "type": "panel",
+          "size": [ "100%", 121 ],
+          "layer": 1,
+          "controls": [
+            {
+              "scrollable_panel@origin_common.scrolling_panel": {
+                "$scroll_box_image_control": "origin_common.scroll_box_active",
+                "$scroll_track_image_control": "common.container_scrollbar_track",
+                "$scroll_track_offset": [ -9, 0 ],
+                
+                "$scroll_bar_left_padding_size": [ 0, 0 ],
+                "$scroll_bar_right_padding_size": [ 0, 0 ],
+                
+                "size": [ "100%", "100%" ],
+                "offset": [ 6, 0 ],
+                "layer": 1,
+                "$scroll_size": [ 10, 109 ],
+                "$scroll_view_port_size": [ 142, 121 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$scrolling_pane_size": [ "100%", "100%" ],
+                "$scrolling_pane_offset": [ 0, 0 ],
+                "$scrolling_content": "origin_welcome_screen.welcome_screen_description_panel"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+
+}

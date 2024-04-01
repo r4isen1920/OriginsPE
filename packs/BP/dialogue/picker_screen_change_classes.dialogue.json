@@ -1,0 +1,217 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "gui_class_change_nitwit",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.nitwit",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_archer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.archer",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_beastmaster",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.beastmaster",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_blacksmith",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.blacksmith",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_cleric",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.cleric",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_cook",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.cook",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_explorer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.explorer",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_farmer",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.farmer",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_lumberjack",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.lumberjack",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_merchant",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.merchant",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_miner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.miner",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_rancher",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.rancher",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_rogue",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.rogue",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_class_change_warrior",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeclass.warrior",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+          },
+          {
+            "name": "continue_class",
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:resignation_paper 0 1", "/event entity @initiator origins:class_unknown" ]
+          }
+        ]
+      }
+    ]
+  }
+}

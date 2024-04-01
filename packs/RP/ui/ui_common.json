@@ -1,0 +1,15 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "empty_panel": {
+    "type": "panel"
+  },
+
+  "hotbar_grid_template": {
+    "size": [ 144, 18 ],
+    "offset": [ -9, -5 ],
+    "grid_dimensions": [ 8, 1 ]
+  }
+
+}
