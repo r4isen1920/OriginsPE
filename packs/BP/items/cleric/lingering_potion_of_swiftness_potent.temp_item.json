@@ -1,36 +1,38 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:cleric_lingering_potion_of_swiftness_potent",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:cleric_lingering_potion_of_swiftness_potent",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "potion_lingering_swiftness"
       },
       "minecraft:display_name": {
         "value": "Lingering Potion of Swiftness \n§9Speed III (0:22)§r\n\n§5When Applied:§r\n§9+40%% Speed"
       },
 
-			"minecraft:projectile": {
-				"projectile_entity": "origins:cleric_lingering_potion<origins:cleric_lingering_potion_swiftness_potent>",
-				"minimum_critical_power": 0.0
-			},
-			"minecraft:throwable": {
-				"do_swing_animation": true,
-				"max_draw_duration": 2
-			},
+      "minecraft:projectile": {
+        "projectile_entity": "origins:cleric_lingering_potion<origins:cleric_lingering_potion_swiftness_potent>",
+        "minimum_critical_power": 0.0
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": true,
+        "max_draw_duration": 2
+      },
 
       "minecraft:max_stack_size": 1,
       "minecraft:glint": {
         "value": true
       },
 
-			"minecraft:use_duration": 1.0,
-			"minecraft:use_animation": "none"
-		}
-	}
+      "minecraft:use_duration": 1.0,
+      "minecraft:use_animation": "none"
+    }
+  }
 }

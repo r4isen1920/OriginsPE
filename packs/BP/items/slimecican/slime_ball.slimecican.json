@@ -1,65 +1,75 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:slimecican_slime_ball",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:slimecican_slime_ball",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "slimeball"
       },
       "minecraft:display_name": {
         "value": "item.slime_ball.name"
       },
-			"minecraft:food": {
-				"nutrition": 0,
-				 
-				"can_always_eat": true,
-				"on_consume": {
-					"event": "origins:on_consume",
-					"target": "self"
-				}
-			},
+      "minecraft:food": {
+        "nutrition": 0,
+
+        "can_always_eat": true,
+        "on_consume": {
+          "event": "origins:on_consume",
+          "target": "self"
+        }
+      },
 
       "minecraft:max_stack_size": 64,
 
       "minecraft:stacked_by_data": false,
-			"minecraft:use_duration": 1.6,
-			"minecraft:use_animation": "eat"
-		},
+      "minecraft:use_duration": 1.6,
+      "minecraft:use_animation": "eat"
+    },
 
-		"events": {
-			"origins:on_consume": {
-				"condition": "q.scoreboard('trait') == 12",
-				"sequence": [
-					{
-						"condition": "q.scoreboard('slimesize') == 3",
-						"add_mob_effect": {
-							"effect": "regeneration",
-							"target": "holder",
-							"duration": 3,
-							"amplifier": 0
-						}
-					},
-					{
-						"condition": "q.scoreboard('slimesize') == 2",
-						"run_command": {
-							"command": [ "scoreboard players set @s slimesize 3", "effect @s instant_health 1 10 true", "playsound mob.slime.attack @s ~~~ 1.0 0.9" ],
-							"target": "holder"
-						}
-					},
-					{
-						"condition": "q.scoreboard('slimesize') == 1",
-						"run_command": {
-							"command": [ "scoreboard players set @s slimesize 2", "effect @s instant_health 1 10 true","playsound mob.slime.attack @s ~~~ 1.0 0.9" ],
-							"target": "holder"
-						}
-					}
-				]
-			}
-		}
-	}
+    "events": {
+      "origins:on_consume": {
+        "condition": "q.scoreboard('trait') == 12",
+        "sequence": [
+          {
+            "condition": "q.scoreboard('slimesize') == 3",
+            "add_mob_effect": {
+              "effect": "regeneration",
+              "target": "holder",
+              "duration": 3,
+              "amplifier": 0
+            }
+          },
+          {
+            "condition": "q.scoreboard('slimesize') == 2",
+            "run_command": {
+              "command": [
+                "scoreboard players set @s slimesize 3",
+                "effect @s instant_health 1 10 true",
+                "playsound mob.slime.attack @s ~~~ 1.0 0.9"
+              ],
+              "target": "holder"
+            }
+          },
+          {
+            "condition": "q.scoreboard('slimesize') == 1",
+            "run_command": {
+              "command": [
+                "scoreboard players set @s slimesize 2",
+                "effect @s instant_health 1 10 true",
+                "playsound mob.slime.attack @s ~~~ 1.0 0.9"
+              ],
+              "target": "holder"
+            }
+          }
+        ]
+      }
+    }
+  }
 }

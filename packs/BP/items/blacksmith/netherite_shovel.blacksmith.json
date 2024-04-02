@@ -1,12 +1,14 @@
 {
-  "format_version": "1.20.30",
+  "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
       "identifier": "r4isen1920_originspe:blacksmith_netherite_shovel",
-      "category": "Commands",
-      "is_hidden_in_commands": true
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
     },
-    
+
     "components": {
       "minecraft:icon": {
         "texture": "netherite_shovel"
@@ -43,11 +45,14 @@
             ]
           },
           {
-            "items": [ "minecraft:netherite_ingot", "minecraft:netherite_shovel" ],
+            "items": [
+              "minecraft:netherite_ingot",
+              "minecraft:netherite_shovel"
+            ],
             "repair_amount": 762
           },
           {
-            "items": [ "origins:blacksmith_netherite_shovel" ],
+            "items": ["origins:blacksmith_netherite_shovel"],
             "repair_amount": 2031
           }
         ]
@@ -55,21 +60,81 @@
       "minecraft:digger": {
         "use_efficiency": true,
         "destroy_speeds": [
-          { "block": "minecraft:concretepowder", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:clay", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:snow", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:podzol", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mycelium", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:soul_soil", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:soul_sand", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dirt_with_roots", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dirt", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:sand", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:grass", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:gravel", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:snow_layer", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:snow", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:powder_snow", "speed": 22, "on_dig": { "event": "origins:damage_on_block_break_select" } }
+          {
+            "block": "minecraft:concretepowder",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:clay",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:snow",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:podzol",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mycelium",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:soul_soil",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:soul_sand",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dirt_with_roots",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dirt",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:sand",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:grass",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:gravel",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:snow_layer",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:snow",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:powder_snow",
+            "speed": 22,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          }
         ],
         "on_dig": {
           "event": "origins:damage_on_block_break_any"
@@ -90,51 +155,51 @@
         "value": true
       },
 
-      "minecraft:hand_equipped": true 
+      "minecraft:hand_equipped": true
     },
 
     "events": {
       "on_tool_used": {
         "sequence": [
           {
-            "damage": { 
-              "type": "durability", 
+            "damage": {
+              "type": "durability",
               "amount": 1
             }
           },
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "command": ["particle origins:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
         ]
       },
       "origins:damage_on_block_break_any": {
-        "damage": { 
-          "type": "durability", 
+        "damage": {
+          "type": "durability",
           "amount": 1
         }
       },
       "origins:damage_on_block_break_select": {
         "sequence": [
           {
-            "damage": { 
-              "type": "durability", 
+            "damage": {
+              "type": "durability",
               "amount": 1
             }
           },
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "command": ["particle origins:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
         ]
       },
       "origins:damage_on_attack_entity": {
-        "damage": { 
-          "type": "durability", 
+        "damage": {
+          "type": "durability",
           "amount": 2
         }
       }

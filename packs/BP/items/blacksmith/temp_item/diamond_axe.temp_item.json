@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.30",
+  "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
       "identifier": "r4isen1920_originspe:temp_diamond_axe",
@@ -21,7 +21,7 @@
       "minecraft:enchantable": {
         "value": 10,
         "slot": "axe"
-      } 
+      }
     }
   }
 }

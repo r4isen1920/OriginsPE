@@ -1,14 +1,16 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:uneatable_enchanted_golden_apple",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:uneatable_enchanted_golden_apple",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "apple_golden"
       },
       "minecraft:display_name": {
@@ -20,6 +22,6 @@
         "value": true
       },
       "minecraft:stacked_by_data": false
-		}
-	}
+    }
+  }
 }

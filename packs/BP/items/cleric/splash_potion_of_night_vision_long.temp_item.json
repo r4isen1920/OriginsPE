@@ -1,36 +1,38 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:cleric_splash_potion_of_night_vision_long",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:cleric_splash_potion_of_night_vision_long",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "potion_splash_night_vision"
       },
       "minecraft:display_name": {
         "value": "Splash Potion of Night Vision \n§9Night Vision (8:00)§r"
       },
-			
-			"minecraft:projectile": {
-				"projectile_entity": "origins:cleric_splash_potion<origins:cleric_splash_potion_night_vision_long>",
-				"minimum_critical_power": 0.0
-			},
-			"minecraft:throwable": {
-				"do_swing_animation": true,
-				"max_draw_duration": 2
-			},
+
+      "minecraft:projectile": {
+        "projectile_entity": "origins:cleric_splash_potion<origins:cleric_splash_potion_night_vision_long>",
+        "minimum_critical_power": 0.0
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": true,
+        "max_draw_duration": 2
+      },
 
       "minecraft:max_stack_size": 1,
       "minecraft:glint": {
         "value": true
       },
 
-			"minecraft:use_duration": 1.0,
-			"minecraft:use_animation": "none"
-		}
-	}
+      "minecraft:use_duration": 1.0,
+      "minecraft:use_animation": "none"
+    }
+  }
 }

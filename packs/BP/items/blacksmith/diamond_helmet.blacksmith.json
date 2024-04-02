@@ -1,10 +1,12 @@
 {
-  "format_version": "1.20.30",
+  "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
       "identifier": "r4isen1920_originspe:blacksmith_diamond_helmet",
-      "category": "Commands",
-      "is_hidden_in_commands": true
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
     },
 
     "components": {
@@ -43,11 +45,11 @@
             ]
           },
           {
-            "items": [ "minecraft:diamond" ],
+            "items": ["minecraft:diamond"],
             "repair_amount": "q.max_durability * 0.25"
           },
           {
-            "items": [ "origins:blacksmith_diamond_helmet" ],
+            "items": ["origins:blacksmith_diamond_helmet"],
             "repair_amount": "q.max_durability"
           }
         ]

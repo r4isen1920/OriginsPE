@@ -1,12 +1,14 @@
 {
-  "format_version": "1.20.30",
+  "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
       "identifier": "r4isen1920_originspe:blacksmith_wooden_axe",
-      "category": "Commands",
-      "is_hidden_in_commands": true
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
     },
-    
+
     "components": {
       "minecraft:icon": {
         "texture": "wooden_axe"
@@ -37,21 +39,18 @@
           },
           {
             "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
-            "items": [
-              "origins:blacksmith_wooden_axe",
-              "minecraft:wooden_axe"
-            ]
+            "items": ["origins:blacksmith_wooden_axe", "minecraft:wooden_axe"]
           },
           {
-            "items": [ "minecraft:planks", "minecraft:wooden_axe" ],
+            "items": ["minecraft:planks", "minecraft:wooden_axe"],
             "repair_amount": 22
           },
           {
-            "items": [ "minecraft:stick" ],
+            "items": ["minecraft:stick"],
             "repair_amount": 5
           },
           {
-            "items": [ "origins:blacksmith_wooden_axe" ],
+            "items": ["origins:blacksmith_wooden_axe"],
             "repair_amount": 59
           }
         ]
@@ -59,116 +58,552 @@
       "minecraft:digger": {
         "use_efficiency": true,
         "destroy_speeds": [
-          { "block": "minecraft:acacia_button", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:acacia_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:acacia_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:acacia_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:acacia_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:acacia_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:bamboo", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:bed", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:bee_nest", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:beehive", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:birch_button", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:birch_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:birch_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:birch_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:birch_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:birch_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:bookshelf", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:brown_mushroom_block", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:campfire", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:cartography_table", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:chest", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:composter", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crafting_table", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_fence", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_planks", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_slab", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_stem", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:crimson_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dark_oak_button", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dark_oak_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dark_oak_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dark_oak_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dark_oak_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:dark_oak_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:daylight_detector", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:double_wooden_slab", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:fence", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jukebox", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jungle_button", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jungle_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jungle_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jungle_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jungle_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:jungle_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:ladder", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:lectern", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:lit_pumpkin", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:log2", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:loom", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_fence", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_planks", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_slab", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:mangrove_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:melon_block", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:noteblock", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:oak_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:planks", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:red_mushroom_block", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:spruce_button", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:spruce_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:spruce_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:spruce_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:spruce_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:spruce_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_acacia_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_birch_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_crimson_stem", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_dark_oak_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_jungle_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_mangrove_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_mangrove_wood", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_oak_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_spruce_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:stripped_warped_stem", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:trapped_chest", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:vine", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_fence", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_fence_gate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_planks", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_slab", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_stairs", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_stem", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:warped_trapdoor", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:wooden_button", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:wooden_door", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:wooden_pressure_plate", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:wooden_slab", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "origins:temp_acacia_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "origins:temp_birch_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "origins:temp_dark_oak_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "origins:temp_jungle_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "origins:temp_oak_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "origins:temp_spruce_log", "speed": 8, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          {
+            "block": "minecraft:acacia_button",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:acacia_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:acacia_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:acacia_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:acacia_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:acacia_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:bamboo",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:bed",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:bee_nest",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:beehive",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:birch_button",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:birch_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:birch_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:birch_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:birch_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:birch_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:bookshelf",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:brown_mushroom_block",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:campfire",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:cartography_table",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:chest",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:composter",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crafting_table",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_fence",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_planks",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_slab",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_stem",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:crimson_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dark_oak_button",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dark_oak_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dark_oak_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dark_oak_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dark_oak_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:dark_oak_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:daylight_detector",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:double_wooden_slab",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:fence",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jukebox",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jungle_button",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jungle_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jungle_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jungle_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jungle_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:jungle_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:ladder",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:lectern",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:lit_pumpkin",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:log2",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:loom",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_fence",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_planks",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_slab",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:mangrove_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:melon_block",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:noteblock",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:oak_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:planks",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:red_mushroom_block",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:spruce_button",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:spruce_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:spruce_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:spruce_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:spruce_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:spruce_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_acacia_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_birch_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_crimson_stem",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_dark_oak_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_jungle_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_mangrove_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_mangrove_wood",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_oak_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_spruce_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:stripped_warped_stem",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:trapped_chest",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:vine",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_fence",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_fence_gate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_planks",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_slab",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_stairs",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_stem",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:warped_trapdoor",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:wooden_button",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:wooden_door",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:wooden_pressure_plate",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:wooden_slab",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "origins:temp_acacia_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "origins:temp_birch_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "origins:temp_dark_oak_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "origins:temp_jungle_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "origins:temp_oak_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "origins:temp_spruce_log",
+            "speed": 8,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
 
-          { "block": "minecraft:carved_pumpkin", "speed": 6, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:lit_pumpkin", "speed": 6, "on_dig": { "event": "origins:damage_on_block_break_select" } },
-          { "block": "minecraft:pumpkin", "speed": 6, "on_dig": { "event": "origins:damage_on_block_break_select" } }
+          {
+            "block": "minecraft:carved_pumpkin",
+            "speed": 6,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:lit_pumpkin",
+            "speed": 6,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          },
+          {
+            "block": "minecraft:pumpkin",
+            "speed": 6,
+            "on_dig": { "event": "origins:damage_on_block_break_select" }
+          }
         ],
         "on_dig": {
           "event": "origins:damage_on_block_break_any"
@@ -189,43 +624,43 @@
         "value": true
       },
 
-      "minecraft:hand_equipped": true 
+      "minecraft:hand_equipped": true
     },
 
     "events": {
       "on_tool_used": {
         "sequence": [
           {
-            "damage": { 
-              "type": "durability", 
+            "damage": {
+              "type": "durability",
               "amount": 1
             }
           },
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "command": ["particle origins:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
         ]
       },
       "origins:damage_on_block_break_any": {
-        "damage": { 
-          "type": "durability", 
+        "damage": {
+          "type": "durability",
           "amount": 1
         }
       },
       "origins:damage_on_block_break_select": {
         "sequence": [
           {
-            "damage": { 
-              "type": "durability", 
+            "damage": {
+              "type": "durability",
               "amount": 1
             }
           },
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "command": ["particle origins:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
@@ -235,7 +670,7 @@
         "sequence": [
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_smite ~~0.1~" ],
+              "command": ["particle origins:blacksmiths_smite ~~0.1~"],
               "target": "other"
             }
           },
@@ -248,8 +683,8 @@
             }
           },
           {
-            "damage": { 
-              "type": "durability", 
+            "damage": {
+              "type": "durability",
               "amount": 2
             }
           }

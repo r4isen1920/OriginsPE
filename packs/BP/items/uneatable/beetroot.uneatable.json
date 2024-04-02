@@ -1,29 +1,31 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:uneatable_beetroot",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:uneatable_beetroot",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "beetroot"
       },
       "minecraft:display_name": {
         "value": "item.beetroot.name"
       },
 
-			"minecraft:block_placer": {
-				"block": "minecraft:beetroot",
-				"use_block_description": true,
-				"use_on": [ "minecraft:farmland" ]
-			},
+      "minecraft:block_placer": {
+        "block": "minecraft:beetroot",
+        "use_block_description": true,
+        "use_on": [ "minecraft:farmland" ]
+      },
 
       "minecraft:max_stack_size": 64,
 
       "minecraft:stacked_by_data": false
-		}
-	}
+    }
+  }
 }

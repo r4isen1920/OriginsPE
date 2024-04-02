@@ -1,25 +1,27 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:cleric_potion_of_turtle_master_potent",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:cleric_potion_of_turtle_master_potent",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "potion_bottle_turtle_master"
       },
       "minecraft:display_name": {
         "value": "Potion of the Turtle Master \n§cSlowness VI (0:40)§r\n§9Resistance VI (0:40)§r\n\n§5When Applied:§r\n§c-90%% Speed"
       },
-			"minecraft:food": {
-				"nutrition": 0,
-				 
-				"can_always_eat": true,
-				"using_converts_to": "minecraft:glass_bottle"
-			},
+      "minecraft:food": {
+        "nutrition": 0,
+
+        "can_always_eat": true,
+        "using_converts_to": "minecraft:glass_bottle"
+      },
 
       "minecraft:on_use": {
         "on_use": {
@@ -32,31 +34,31 @@
         "value": true
       },
 
-			"minecraft:use_duration": 1.6,
-			"minecraft:use_animation": "drink"
-		},
+      "minecraft:use_duration": 1.6,
+      "minecraft:use_animation": "drink"
+    },
 
-		"events": {
-			"origins:on_consume": {
-				"sequence": [
-					{
-						"add_mob_effect": {
-							"effect": "slowness",
-							"target": "holder",
-							"duration": 40,
-							"amplifier": 5
-						}
-					},
-					{
-						"add_mob_effect": {
-							"effect": "resistance",
-							"target": "holder",
-							"duration": 40,
-							"amplifier": 5
-						}
-					}
-				]
-			}
-		}
-	}
+    "events": {
+      "origins:on_consume": {
+        "sequence": [
+          {
+            "add_mob_effect": {
+              "effect": "slowness",
+              "target": "holder",
+              "duration": 40,
+              "amplifier": 5
+            }
+          },
+          {
+            "add_mob_effect": {
+              "effect": "resistance",
+              "target": "holder",
+              "duration": 40,
+              "amplifier": 5
+            }
+          }
+        ]
+      }
+    }
+  }
 }

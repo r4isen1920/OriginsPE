@@ -1,14 +1,16 @@
 {
-	"format_version": "1.20.30",
-	"minecraft:item": {
-		"description": {
-			"identifier": "r4isen1920_originspe:uneatable_steak",
-			"category": "Commands",
-      "is_hidden_in_commands": true
-		},
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:uneatable_steak",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
 
-		"components": {
-			"minecraft:icon": {
+    "components": {
+      "minecraft:icon": {
         "texture": "beef_cooked"
       },
       "minecraft:display_name": {
@@ -18,6 +20,6 @@
       "minecraft:max_stack_size": 64,
 
       "minecraft:stacked_by_data": false
-		}
-	}
+    }
+  }
 }

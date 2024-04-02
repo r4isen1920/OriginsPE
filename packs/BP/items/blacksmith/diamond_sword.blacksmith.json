@@ -1,10 +1,12 @@
 {
-  "format_version": "1.20.30",
+  "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
       "identifier": "r4isen1920_originspe:blacksmith_diamond_sword",
-      "category": "Commands",
-      "is_hidden_in_commands": true
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
     },
 
     "components": {
@@ -43,26 +45,62 @@
             ]
           },
           {
-            "items": [ "minecraft:diamond", "minecraft:diamond_sword" ],
+            "items": ["minecraft:diamond", "minecraft:diamond_sword"],
             "repair_amount": 586
           },
           {
-            "items": [ "origins:blacksmith_diamond_sword" ],
+            "items": ["origins:blacksmith_diamond_sword"],
             "repair_amount": 1562
           }
         ]
       },
       "minecraft:digger": {
         "destroy_speeds": [
-          { "block": "minecraft:web", "speed": 16, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:bamboo", "speed": 16, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:pumpkin", "speed": 6, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:carved_pumpkin", "speed": 6, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:lit_pumpkin", "speed": 6, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:cocoa", "speed": 18, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:leaves", "speed": 16, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:leaves2", "speed": 16, "on_dig": { "event": "origins:damage_select_block_break" } },
-          { "block": "minecraft:hay_block", "speed": 12, "on_dig": { "event": "origins:damage_select_block_break" } }
+          {
+            "block": "minecraft:web",
+            "speed": 16,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:bamboo",
+            "speed": 16,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:pumpkin",
+            "speed": 6,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:carved_pumpkin",
+            "speed": 6,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:lit_pumpkin",
+            "speed": 6,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:cocoa",
+            "speed": 18,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:leaves",
+            "speed": 16,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:leaves2",
+            "speed": 16,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          },
+          {
+            "block": "minecraft:hay_block",
+            "speed": 12,
+            "on_dig": { "event": "origins:damage_select_block_break" }
+          }
         ],
         "on_dig": {
           "event": "origins:damage_any_block_break"
@@ -85,50 +123,50 @@
         "value": true
       },
 
-      "minecraft:hand_equipped": true 
+      "minecraft:hand_equipped": true
     },
 
     "events": {
       "on_tool_used": {
         "sequence": [
           {
-            "damage": { 
-              "type": "durability", 
+            "damage": {
+              "type": "durability",
               "amount": 1
             }
           },
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "command": ["particle origins:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
         ]
       },
       "origins:damage_any_block_break": {
-        "damage": { 
-          "type": "durability", 
+        "damage": {
+          "type": "durability",
           "amount": 2
         }
       },
       "origins:damage_select_block_break": {
-        "damage": { 
-          "type": "durability", 
-          "amount": 1 
+        "damage": {
+          "type": "durability",
+          "amount": 1
         }
       },
       "origins:smite_entity": {
         "sequence": [
           {
             "run_command": {
-              "command": [ "particle origins:blacksmiths_smite ~~0.1~" ],
+              "command": ["particle origins:blacksmiths_smite ~~0.1~"],
               "target": "other"
             }
           },
           {
             "randomize": [
-              { "weight": 1, "damage": { "type": "durability",  "amount": 1 } },
-              { "weight": 1, "damage": { "type": "durability",  "amount": 2 } }
+              { "weight": 1, "damage": { "type": "durability", "amount": 1 } },
+              { "weight": 1, "damage": { "type": "durability", "amount": 2 } }
             ]
           }
         ]
