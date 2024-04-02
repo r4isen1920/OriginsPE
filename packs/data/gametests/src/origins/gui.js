@@ -3,6 +3,7 @@ import { GameMode, world, system } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
+import { initAbilities } from "./player";
 
 
 /**
@@ -22,11 +23,12 @@ export function runDialogueCommand(player, dialogueId) {
   }
 
   removeTags(player, 'was_')
+  player.removeTag('load_failed');
   player.addTag(`was_${setPlayerGameMode(player)}`)
 
   const _A = system.runInterval(() => {
     player.runCommand(`dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s ${dialogueId}`);
-    if (world.scoreboard.getObjective('guib').getScore(player) === 1) system.clearRun(_A);
+    if (world.scoreboard.getObjective('guib')?.getScore(player) === 1) system.clearRun(_A);
   }, 4)
 }
 
@@ -43,7 +45,7 @@ export function openScreenPickerGUI(player, set='race', viewtype='pick') {
   const playerOrigin = player.getTags().find(tag => tag.startsWith(`${set}_`))?.replace(`${set}_`, '');
   const dialogueId = playerOrigin ? `gui_${set}_${viewtype}_${playerOrigin}` : `gui_${set}_${viewtype}_${set === 'race' ? 'human' : 'nitwit'}`;
 
-  console.warn(`open GUI: ${dialogueId}`)
+  //* console.warn(`open GUI: ${dialogueId}`)
 
   runDialogueCommand(player, dialogueId)
 }
@@ -81,6 +83,8 @@ function setPlayerGameMode(player) {
  * @param { import('@minecraft/server').Player } player 
  */
 function onCloseGUI(player) {
+  initAbilities(player)
+
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))
   if (prevGamemode) {
     player.runCommand(`gamemode ${prevGamemode.replace('was_', '')}`)

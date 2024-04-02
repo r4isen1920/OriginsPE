@@ -67,21 +67,23 @@
       {
         "version@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/paper",
-          "$text_header": "v4.3 changelog",
-          "$text_body": " - Add support for 1.20.31+\n - Elven revamp\n - Bug fixes and tweaks!"
+          "$text_header": "v5.0 changelog",
+          "$text_body": " - \n- \n- "
         }
       },
       {
         "text_padding_2": {
           "type": "panel",
-          "size": [ "100%", 5 ]
+          "size": [ "100%", 5 ],
+          "ignored": true
         }
       },
       {
         "version@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/map_locked",
           "$text_header": "Translators",
-          "$text_body": "- xinyue0226\n- fin9er\n- skybird2333"
+          "$text_body": "- xinyue0226\n- fin9er\n- skybird2333",
+          "ignored": true
         }
       }
     ]

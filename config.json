@@ -26,15 +26,45 @@
 						"settings": {
 							"modules": [
 								"@minecraft/server@1.9.0",
-								"@minecraft/server-ui@1.1.0",
-                "@minecraft/common@1.2.0"
+								"@minecraft/server-ui@1.1.0"
 							],
 							"buildOptions": {
 								"entryPoints": [
-									"data/gametests/src/index.ts"
+									"data/gametests/src/main.ts"
 								],
 								"bundle": true,
 								"minify": true,
+								"format": "esm",
+								"target": "es2020"
+							},
+							"outdir": "BP/scripts/r4isen1920/originspe",
+							"outfile": "BP/scripts/r4isen1920/originspe/main.js"
+						}
+					}
+        ]
+			},
+
+			"debug": {
+				"export": {
+					"readOnly": false,
+					"target": "development"
+				},
+				"filters": [
+          {
+						"filter": "gametests",
+						"settings": {
+							"modules": [
+								"@minecraft/server@1.9.0",
+								"@minecraft/server-ui@1.1.0"
+							],
+							"buildOptions": {
+								"entryPoints": [
+									"data/gametests/src/*.js",
+									"data/gametests/src/**/*.js",
+									"data/gametests/src/main.ts"
+								],
+								"bundle": false,
+								"minify": false,
 								"format": "esm",
 								"target": "es2020"
 							},

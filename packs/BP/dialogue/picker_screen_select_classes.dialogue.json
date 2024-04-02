@@ -36,6 +36,8 @@
           {
             "name": "<",
             "commands": [
+              "/scoreboard players set @initiator guib 1",
+
               "/execute as @initiator if score \"banc\" index matches 11.. if score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_warrior",
               "/execute as @initiator if score \"banc\" index matches 11.. unless score \"ban_warrior\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_warrior",
               "/execute as @initiator unless score \"banc\" index matches 11.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_random"
@@ -43,15 +45,24 @@
           },
           {
             "name": "select",
-            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_nitwit" ]
+            "commands": [
+              "/scoreboard players set @initiator guib 1",
+
+              "/execute as @initiator run scriptevent r4isen1920_originspe:player become_class_nitwit"
+            ]
           },
           {
             "name": ">",
             "commands": [
+              "/scoreboard players set @initiator guib 1",
+
               "/execute as @initiator if score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pickban_archer",
               "/execute as @initiator unless score \"ban_archer\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_class_pick_archer"
             ]
           }
+        ],
+        "on_open_commands": [
+          "/scoreboard players set @initiator guib 1"
         ]
       },
       {

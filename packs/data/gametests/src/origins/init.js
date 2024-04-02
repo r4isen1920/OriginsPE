@@ -4,6 +4,10 @@ import { GameMode, system, world } from "@minecraft/server";
 import { openScreenPickerGUI, runDialogueCommand } from "./gui";
 
 
+/**
+ * 
+ * Begin initialization
+ */
 const _A = system.run(initialize)
 
 /**
@@ -21,6 +25,8 @@ world.afterEvents.playerSpawn.subscribe(
     const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`)) || false;
     const playerClass = player.getTags().find(tag => tag.startsWith(`class_`)) || false;
 
+    player.removeTag('load_failed')
+
     if (!playerOrigin) openScreenPickerGUI(player, 'race');
     else if (!playerClass) openScreenPickerGUI(player, 'class');
     else runDialogueCommand(player, 'gui_welcome_screen')
@@ -29,13 +35,13 @@ world.afterEvents.playerSpawn.subscribe(
 
 /**
  * 
- * Runs the setup functions if not
- * already
+ * Runs the setup functions in
+ * the world if not already
  */
 function initialize() {
 
   const scoreboard = world.scoreboard.getObjective('index') || world.scoreboard.addObjective('index', 'index');
-  if (scoreboard.getParticipants().length > 0) return
+  if (scoreboard) return;
 
   const setupFunctions = [
     'r4isen1920_originspe/init',
