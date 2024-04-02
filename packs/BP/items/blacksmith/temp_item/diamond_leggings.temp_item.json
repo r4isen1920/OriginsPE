@@ -2,7 +2,7 @@
   "format_version": "1.20.30",
   "minecraft:item": {
     "description": {
-      "identifier": "origins:temp_diamond_leggings",
+      "identifier": "r4isen1920_originspe:temp_diamond_leggings",
       "category": "Equipment"
     },
 

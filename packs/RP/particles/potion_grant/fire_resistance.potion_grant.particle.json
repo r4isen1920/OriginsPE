@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "origins:potion_grant_fire_resistance",
+			"identifier": "r4isen1920_originspe:potion_grant_fire_resistance",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
 				"texture": "textures/ui/fire_resistance_effect"

@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "origins:voidwalker_veil_cloud",
+			"identifier": "r4isen1920_originspe:voidwalker_veil_cloud",
 			"basic_render_parameters": {
 				"material": "particles_blend",
 				"texture": "textures/particle/particles"

@@ -2,7 +2,7 @@
   "format_version": "1.20.30",
   "minecraft:item": {
     "description": {
-      "identifier": "origins:blacksmith_golden_helmet",
+      "identifier": "r4isen1920_originspe:blacksmith_golden_helmet",
       "category": "Commands",
       "is_hidden_in_commands": true
     },

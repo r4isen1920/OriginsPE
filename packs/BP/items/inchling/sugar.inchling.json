@@ -2,7 +2,7 @@
 	"format_version": "1.20.30",
 	"minecraft:item": {
 		"description": {
-			"identifier": "origins:inchling_sugar",
+			"identifier": "r4isen1920_originspe:inchling_sugar",
 			"category": "Commands",
       "is_hidden_in_commands": true
 		},

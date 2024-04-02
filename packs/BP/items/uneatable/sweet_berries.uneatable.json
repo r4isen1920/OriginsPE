@@ -2,7 +2,7 @@
 	"format_version": "1.20.30",
 	"minecraft:item": {
 		"description": {
-			"identifier": "origins:uneatable_sweet_berries",
+			"identifier": "r4isen1920_originspe:uneatable_sweet_berries",
 			"category": "Commands",
       "is_hidden_in_commands": true
 		},

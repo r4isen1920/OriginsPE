@@ -2,7 +2,7 @@
 	"format_version": "1.20.30",
 	"minecraft:item": {
 		"description": {
-			"identifier": "origins:uneatable_spider_eye",
+			"identifier": "r4isen1920_originspe:uneatable_spider_eye",
 			"category": "Commands",
       "is_hidden_in_commands": true
 		},

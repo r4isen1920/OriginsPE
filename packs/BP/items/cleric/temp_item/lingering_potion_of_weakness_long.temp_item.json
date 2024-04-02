@@ -2,7 +2,7 @@
 	"format_version": "1.20.30",
 	"minecraft:item": {
 		"description": {
-			"identifier": "origins:temp_lingering_potion_of_weakness_long",
+			"identifier": "r4isen1920_originspe:temp_lingering_potion_of_weakness_long",
 			"category": "Commands",
       "is_hidden_in_commands": true
 		},
