@@ -1,0 +1,49 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:temp_suspicious_stew_wither",
+			"category": "Items"
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "suspicious_stew"
+      },
+      "minecraft:display_name": {
+        "value": "item.suspicious_stew.name"
+      },
+			"minecraft:food": {
+				"nutrition": 6,
+				 
+				"can_always_eat": true,
+				"using_converts_to": "bowl",
+				"on_consume": {
+					"event": "origins:on_consume",
+					"target": "self"
+				}
+			},
+
+      "minecraft:max_stack_size": 1,
+
+      "minecraft:stacked_by_data": false,
+			"minecraft:use_duration": 1.6,
+			"minecraft:use_animation": "eat" 
+		},
+
+		"events": {
+			"origins:on_consume": {
+				"sequence": [
+					{
+						"add_mob_effect": {
+							"effect": "wither",
+							"target": "holder",
+							"duration": 6,
+							"amplifier": 0
+						}
+					}
+				]
+			}
+		}
+	}
+}

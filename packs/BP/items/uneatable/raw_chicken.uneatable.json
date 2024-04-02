@@ -1,0 +1,23 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:uneatable_raw_chicken",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "chicken_raw"
+      },
+      "minecraft:display_name": {
+        "value": "item.raw_chicken.name"
+      },
+
+      "minecraft:max_stack_size": 64,
+
+      "minecraft:stacked_by_data": false
+		}
+	}
+}

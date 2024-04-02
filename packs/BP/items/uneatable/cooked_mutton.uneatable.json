@@ -1,0 +1,23 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:uneatable_cooked_mutton",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "mutton_cooked"
+      },
+      "minecraft:display_name": {
+        "value": "item.cooked_mutton.name"
+      },
+
+      "minecraft:max_stack_size": 64,
+
+      "minecraft:stacked_by_data": false
+		}
+	}
+}

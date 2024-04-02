@@ -1,0 +1,29 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:uneatable_chorus_fruit",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "chorus_fruit"
+      },
+      "minecraft:display_name": {
+        "value": "item.chorus_fruit.name"
+      },
+
+			"minecraft:block_placer": {
+				"block": "minecraft:chorus_plant",
+				"use_block_description": true,
+				"use_on": [ "minecraft:end_stone" ]
+			},
+
+      "minecraft:max_stack_size": 64,
+
+      "minecraft:stacked_by_data": false
+		}
+	}
+}

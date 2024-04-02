@@ -1,0 +1,30 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:temp_cooked_porkchop",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "porkchop_cooked"
+      },
+      "minecraft:display_name": {
+        "value": "item.cooked_porkchop.name"
+      },
+			"minecraft:food": {
+				"nutrition": 8,
+				 
+				"can_always_eat": false
+			},
+
+      "minecraft:max_stack_size": 64,
+
+      "minecraft:stacked_by_data": false,
+			"minecraft:use_duration": 1.6,
+			"minecraft:use_animation": "eat"
+		}
+	}
+}

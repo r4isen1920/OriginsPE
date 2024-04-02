@@ -1,0 +1,25 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:uneatable_enchanted_golden_apple",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "apple_golden"
+      },
+      "minecraft:display_name": {
+        "value": "item.appleenchanted.name"
+      },
+
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:stacked_by_data": false
+		}
+	}
+}

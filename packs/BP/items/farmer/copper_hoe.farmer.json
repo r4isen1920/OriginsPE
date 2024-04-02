@@ -1,0 +1,372 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "origins:farmer_copper_hoe",
+      "category": "Equipment"
+    },
+    
+    "components": {
+      "minecraft:icon": {
+        "texture": "copper_hoe"
+      },
+      "minecraft:display_name": {
+        "value": "origins.item.farmer.copper_hoe.name"
+      },
+      "minecraft:damage": 2,
+      "minecraft:enchantable": {
+        "slot": "hoe",
+        "value": 20
+      },
+      "minecraft:durability": {
+        "max_durability": 781,
+        "damage_chance": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
+            "items": [
+              "origins:farmer_copper_hoe",
+              "origins:farmer_copper_hoe"
+            ]
+          },
+          {
+            "items": [ "minecraft:copper" ],
+            "repair_amount": "q.max_durability * 0.25"
+          },
+          {
+            "items": [ "origins:farmer_copper_hoe" ],
+            "repair_amount": "q.max_durability"
+          }
+        ]
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          { "block": "minecraft:azalea_leaves", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:azalea_leaves_flowered", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:beetroot", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops_beetroot" } },
+          { "block": "minecraft:brown_mushroom", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:carrots", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops_carrots" } },
+          { "block": "minecraft:cave_vines_body_with_berries", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:cave_vines_head_with_berries", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:chorus_flower", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:chorus_plant", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:crimson_fungus", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:hay_block", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:kelp", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:leaves", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:leaves2", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:moss_block", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:nether_wart", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:nether_wart_block", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:potatoes", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops_potatoes" } },
+          { "block": "minecraft:red_mushroom", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:reeds", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:sculk_sensor", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sea_pickle", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:shroomlight", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sponge", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sweet_berry_bush", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:target", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:warped_fungus", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops" } },
+          { "block": "minecraft:warped_wart_block", "speed": 18, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:wheat", "speed": 18, "on_dig": { "event": "origins:on_block_break_crops_wheat" } }
+        ],
+        "on_dig": {
+          "event": "origins:damage_on_block_break_any"
+        }
+      },
+      "minecraft:weapon": {
+        "on_hurt_entity": {
+          "event": "origins:damage_on_attack_entity",
+          "target": "self"
+        }
+      },
+
+      "tag:minecraft:is_hoe": {},
+      "tag:origins:farmer_forged": {},
+
+      "minecraft:max_stack_size": 1,
+
+
+      "minecraft:hand_equipped": true
+    },
+
+    "events": {
+      "on_tool_used": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "randomize": [
+                  {
+                    "weight": 1
+                  },
+                  {
+                    "weight": 1,
+                    "damage": { 
+                      "type": "durability", 
+                      "amount": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "run_command": {
+                  "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+                  "target": "block"
+                }
+              }
+            ]
+          },
+          {
+            "condition": "q.scoreboard('perk') != 8",
+            "sequence": [  
+              {
+                "damage": { 
+                  "type": "durability", 
+                  "amount": 1
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "origins:damage_on_block_break_any": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "damage": { 
+                  "type": "durability", 
+                  "amount": 1
+                }
+              }
+            ]
+          },
+          {
+            "condition": "q.scoreboard('perk') != 8",
+            "sequence": [  
+              {
+                "damage": { 
+                  "type": "durability", 
+                  "amount": 2
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "origins:damage_on_block_break_select": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "damage": { 
+                  "type": "durability", 
+                  "amount": 1
+                }
+              },
+              {
+                "run_command": {
+                  "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+                  "target": "block"
+                }
+              }
+            ]
+          },
+          {
+            "condition": "q.scoreboard('perk') != 8",
+            "sequence": [  
+              {
+                "damage": { 
+                  "type": "durability", 
+                  "amount": 1
+                }
+              }
+            ]
+          }
+        ]
+      },
+
+      "origins:on_block_break_crops_wheat": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "run_command": {
+                  "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+                  "target": "block"
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 2,
+                    "sequence": [
+                      {
+                        "run_command": {
+                          "command": [
+                            "particle origins:farmers_touch ~~0.25~",
+                            "playsound random.orb @a ~~~ 0.5 2.0",
+                            "playsound firework.twinkle @a ~~~ 0.5 1.25", 
+                            "loot spawn ~~~ loot \"gameplay/farming/wheat_twice\"" 
+                          ],
+                          "target": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "origins:on_block_break_crops_beetroot": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "run_command": {
+                  "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+                  "target": "block"
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 2,
+                    "sequence": [
+                      {
+                        "run_command": {
+                          "command": [ 
+                            "particle origins:farmers_touch ~~0.25~",
+                            "playsound random.orb @a ~~~ 0.5 2.0",
+                            "playsound firework.twinkle @a ~~~ 0.5 1.25", 
+                            "loot spawn ~~~ loot \"gameplay/farming/beetroot_twice\"" 
+                          ],
+                          "target": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "origins:on_block_break_crops_potatoes": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "run_command": {
+                  "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+                  "target": "block"
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 2,
+                    "sequence": [
+                      {
+                        "run_command": {
+                          "command": [ 
+                            "particle origins:farmers_touch ~~0.25~",
+                            "playsound random.orb @a ~~~ 0.5 2.0",
+                            "playsound firework.twinkle @a ~~~ 0.5 1.25", 
+                            "loot spawn ~~~ loot \"gameplay/farming/potatoes_twice\"" 
+                          ],
+                          "target": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "origins:on_block_break_crops_carrots": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "sequence": [
+              {
+                "run_command": {
+                  "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+                  "target": "block"
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 2,
+                    "sequence": [
+                      {
+                        "run_command": {
+                          "command": [ 
+                            "particle origins:farmers_touch ~~0.25~",
+                            "playsound random.orb @a ~~~ 0.5 2.0",
+                            "playsound firework.twinkle @a ~~~ 0.5 1.25", 
+                            "loot spawn ~~~ loot \"gameplay/farming/carrots_twice\"" 
+                          ],
+                          "target": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "origins:on_block_break_crops": {
+        "sequence": [
+          {
+            "condition": "q.scoreboard('perk') == 8",
+            "run_command": {
+              "command": [ "particle origins:blacksmiths_harvest ~~~" ],
+              "target": "block"
+            }
+          }
+        ]
+      },
+
+      "origins:damage_on_attack_entity": {
+        "damage": { 
+          "type": "durability", 
+          "amount": 2
+        }
+      }
+    }
+  }
+}

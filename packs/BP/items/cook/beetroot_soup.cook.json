@@ -1,0 +1,99 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:cook_beetroot_soup",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "beetroot_soup"
+      },
+      "minecraft:display_name": {
+        "value": "origins.item.cook.beetroot_soup.name"
+      },
+			"minecraft:food": {
+				"nutrition": 7,
+				 
+				"can_always_eat": false,
+				"using_converts_to": "bowl",
+				"on_consume": {
+					"event": "origins:on_consume",
+					"target": "self"
+				}
+			},
+
+      "minecraft:max_stack_size": 1,
+
+      "minecraft:stacked_by_data": false,
+			"minecraft:use_duration": 1.6,
+			"minecraft:use_animation": "eat"
+		},
+
+		"events": {
+			"origins:on_consume": {
+				"randomize": [
+					{
+						"weight": 1,
+						"sequence": [
+							{
+								"randomize": [
+									{
+										"weight": 4,
+										"add_mob_effect": {
+											"effect": "regeneration",
+											"target": "holder",
+											"duration": 6,
+											"amplifier": 0
+										}
+									},
+									{
+										"weight": 2,
+										"add_mob_effect": {
+											"effect": "absorption",
+											"target": "holder",
+											"duration": 6,
+											"amplifier": 1
+										}
+									},
+									{
+										"weight": 1,
+										"sequence": [
+											{
+												"add_mob_effect": {
+													"effect": "health_boost",
+													"target": "holder",
+													"duration": 15,
+													"amplifier": 0
+												}
+											},
+											{
+												"add_mob_effect": {
+													"effect": "regeneration",
+													"target": "holder",
+													"duration": 6,
+													"amplifier": 1
+												}
+											}
+										]
+									}
+								]
+							},
+							{
+								"run_command": {
+									"command": [ "playsound ui.enchant @s" ],
+									"target": "holder"
+								}
+							}
+						]
+					},
+					{
+						"weight": 4
+					}
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,63 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:kitsune_sweet_berries",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "sweet_berries"
+      },
+      "minecraft:display_name": {
+        "value": "item.sweet_berries.name"
+      },
+			"minecraft:food": {
+				"nutrition": 8,
+				 
+				"can_always_eat": false,
+				"on_consume": {
+					"event": "origins:on_consume",
+					"target": "self"
+				}
+			},
+
+			"minecraft:block_placer": {
+				"block": "minecraft:sweet_berry_bush",
+				"use_block_description": true,
+				"use_on": [
+					"minecraft:grass",
+					"minecraft:dirt"
+				]
+			},
+
+      "minecraft:max_stack_size": 64,
+
+      "minecraft:stacked_by_data": false,
+			"minecraft:use_duration": 1.6,
+			"minecraft:use_animation": "eat"
+		},
+
+		"events": {
+			"origins:on_consume": {
+				"condition": "q.scoreboard('trait') == 11",
+				"randomize": [
+					{
+						"weight": 1,
+						"add_mob_effect": {
+							"effect": "regeneration",
+							"target": "holder",
+							"duration": 3,
+							"amplifier": 0
+						}
+					},
+					{
+						"weight": 1
+					}
+				]
+			}
+		}
+	}
+}

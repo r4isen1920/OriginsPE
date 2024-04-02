@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "origins:temp_netherite_pickaxe",
+      "category": "Equipment"
+    },
+
+    "components": {
+      "minecraft:icon": {
+        "texture": "netherite_pickaxe"
+      },
+      "minecraft:display_name": {
+        "value": "origins.item.temp.blacksmith.netherite_pickaxe.name"
+      },
+      "minecraft:max_stack_size": 1,
+
+
+      "minecraft:hand_equipped": true,
+
+      "minecraft:damage": {
+        "value": 0
+      },
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "pickaxe"
+      } 
+    }
+  }
+}

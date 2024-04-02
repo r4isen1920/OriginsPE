@@ -1,0 +1,36 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:cleric_splash_potion_of_slowness_long",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "potion_splash_slowness"
+      },
+      "minecraft:display_name": {
+        "value": "Splash Potion of Slowness \n§cSlowness (4:00)§r\n\n§5When Applied:§r\n§c-15%% Speed"
+      },
+			
+			"minecraft:projectile": {
+				"projectile_entity": "origins:cleric_splash_potion<origins:cleric_splash_potion_slowness_long>",
+				"minimum_critical_power": 0.0
+			},
+			"minecraft:throwable": {
+				"do_swing_animation": true,
+				"max_draw_duration": 2
+			},
+
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": {
+        "value": true
+      },
+
+			"minecraft:use_duration": 1.0,
+			"minecraft:use_animation": "none"
+		}
+	}
+}

@@ -1,0 +1,157 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "origins:blacksmith_stone_hoe",
+      "category": "Commands",
+      "is_hidden_in_commands": true
+    },
+    
+    "components": {
+      "minecraft:icon": {
+        "texture": "stone_hoe"
+      },
+      "minecraft:display_name": {
+        "value": "origins.item.blacksmith.stone_hoe.name"
+      },
+      "minecraft:damage": 4,
+      "minecraft:enchantable": {
+        "slot": "hoe",
+        "value": 20
+      },
+      "minecraft:durability": {
+        "max_durability": 2031,
+        "damage_chance": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
+            "items": [
+              "origins:blacksmith_stone_hoe",
+              "origins:blacksmith_stone_hoe"
+            ]
+          },
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
+            "items": [
+              "origins:blacksmith_stone_hoe",
+              "minecraft:stone_hoe"
+            ]
+          },
+          {
+            "items": [ "minecraft:cobblestone", "minecraft:blackstone", "minecraft:cobbled_deepslate", "minecraft:stone_hoe" ],
+            "repair_amount": 50
+          },
+          {
+            "items": [ "origins:blacksmith_stone_hoe" ],
+            "repair_amount": 131
+          }
+        ]
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          { "block": "minecraft:azalea_leaves", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:azalea_leaves_flowered", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:beetroot", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:brown_mushroom", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:carrots", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:cave_vines_body_with_berries", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:cave_vines_head_with_berries", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:chorus_flower", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:chorus_plant", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:crimson_fungus", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:hay_block", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:kelp", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:leaves", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:leaves2", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:moss_block", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:nether_wart", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:nether_wart_block", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:potatoes", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:red_mushroom", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:reeds", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sculk_sensor", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sea_pickle", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:shroomlight", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sponge", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:sweet_berry_bush", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:target", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:warped_fungus", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:warped_wart_block", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } },
+          { "block": "minecraft:wheat", "speed": 10, "on_dig": { "event": "origins:damage_on_block_break_select" } }
+        ],
+        "on_dig": {
+          "event": "origins:damage_on_block_break_any"
+        }
+      },
+      "minecraft:weapon": {
+        "on_hurt_entity": {
+          "event": "origins:damage_on_attack_entity",
+          "target": "self"
+        }
+      },
+
+      "tag:minecraft:is_hoe": {},
+      "tag:origins:blacksmith_forged": {},
+
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": {
+        "value": true
+      },
+
+      "minecraft:hand_equipped": true 
+    },
+
+    "events": {
+      "on_tool_used": {
+        "sequence": [
+          {
+            "damage": { 
+              "type": "durability", 
+              "amount": 1
+            }
+          },
+          {
+            "run_command": {
+              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "target": "block"
+            }
+          }
+        ]
+      },
+      "origins:damage_on_block_break_any": {
+        "damage": { 
+          "type": "durability", 
+          "amount": 1
+        }
+      },
+      "origins:damage_on_block_break_select": {
+        "sequence": [
+          {
+            "damage": { 
+              "type": "durability", 
+              "amount": 1
+            }
+          },
+          {
+            "run_command": {
+              "command": [ "particle origins:blacksmiths_dig ~~~" ],
+              "target": "block"
+            }
+          }
+        ]
+      },
+      "origins:damage_on_attack_entity": {
+        "damage": { 
+          "type": "durability", 
+          "amount": 2
+        }
+      }
+    }
+  }
+}

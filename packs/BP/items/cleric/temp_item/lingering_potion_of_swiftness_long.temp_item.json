@@ -1,0 +1,27 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:item": {
+		"description": {
+			"identifier": "origins:temp_lingering_potion_of_swiftness_long",
+			"category": "Commands",
+      "is_hidden_in_commands": true
+		},
+
+		"components": {
+			"minecraft:icon": {
+        "texture": "potion_lingering_swiftness"
+      },
+      "minecraft:display_name": {
+        "value": "Lingering Potion of Swiftness\n§9Speed (2:00)§r\n\n§5When Applied:§r\n§9+20%% Speed"
+      },
+
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": {
+        "value": true
+      },
+
+			"minecraft:use_duration": 1.0,
+			"minecraft:use_animation": "none"
+		}
+	}
+}
