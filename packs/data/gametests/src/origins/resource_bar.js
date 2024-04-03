@@ -58,21 +58,21 @@ export class ResourceBar {
 
     switch (true) {
 
-      case playerScoreboard(1, 'id').getScore(player) !== 0:
+      case playerScoreboard(1, 'id').getScore(player) || 0 === 0:
         playerScoreboard(1, 'id').setScore(player, this.id);
         playerScoreboard(1, 'from').setScore(player, this.from);
         playerScoreboard(1, 'to').setScore(player, this.to);
         playerScoreboard(1, 'duration').setScore(player, this.duration);
         break
 
-      case playerScoreboard(2, 'id').getScore(player) !== 0:
+      case playerScoreboard(2, 'id').getScore(player) || 0 === 0:
         playerScoreboard(2, 'id').setScore(player, this.id);
         playerScoreboard(2, 'from').setScore(player, this.from);
         playerScoreboard(2, 'to').setScore(player, this.to);
         playerScoreboard(2, 'duration').setScore(player, this.duration);
         break
 
-      case playerScoreboard(3, 'id').getScore(player) !== 0:
+      case playerScoreboard(3, 'id').getScore(player) || 0 === 0:
         playerScoreboard(3, 'id').setScore(player, this.id);
         playerScoreboard(3, 'from').setScore(player, this.from);
         playerScoreboard(3, 'to').setScore(player, this.to);
@@ -164,11 +164,16 @@ function renderBars(player) {
  */
 function countDown(player) {
 
-  if (!playerScoreboard(1, 'id').getScore(player) || !playerScoreboard(2, 'id').getScore(player) || !playerScoreboard(3, 'id').getScore(player)) return
-
   switch (true) {
 
-    case playerScoreboard(1, 'duration').getScore(player) === 0:
+    case playerScoreboard(1, 'duration').getScore(player) == undefined:
+      playerScoreboard(1, 'duration').setScore(player, 0); break
+    case playerScoreboard(2, 'duration').getScore(player) == undefined:
+      playerScoreboard(2, 'duration').setScore(player, 0); break
+    case playerScoreboard(3, 'duration').getScore(player) == undefined:
+      playerScoreboard(3, 'duration').setScore(player, 0); break
+
+    case playerScoreboard(1, 'id').getScore(player) !== 0 && playerScoreboard(1, 'duration').getScore(player) === 0:
       playerScoreboard(1, 'id').setScore(player, 0);
       playerScoreboard(1, 'from').setScore(player, 0);
       playerScoreboard(1, 'to').setScore(player, 0);
@@ -176,7 +181,7 @@ function countDown(player) {
       renderBars(player)
       break
 
-    case playerScoreboard(2, 'duration').getScore(player) === 0:
+    case playerScoreboard(2, 'id').getScore(player) !== 0 && playerScoreboard(2, 'duration').getScore(player) === 0:
       playerScoreboard(2, 'id').setScore(player, 0);
       playerScoreboard(2, 'from').setScore(player, 0);
       playerScoreboard(2, 'to').setScore(player, 0);
@@ -184,7 +189,7 @@ function countDown(player) {
       renderBars(player)
       break
 
-    case playerScoreboard(3, 'duration').getScore(player) === 0:
+    case playerScoreboard(3, 'id').getScore(player) !== 0 && playerScoreboard(3, 'duration').getScore(player) === 0:
       playerScoreboard(3, 'id').setScore(player, 0);
       playerScoreboard(3, 'from').setScore(player, 0);
       playerScoreboard(3, 'to').setScore(player, 0);
@@ -192,12 +197,11 @@ function countDown(player) {
       renderBars(player)
       break
 
-    default: return
   }
 
-  playerScoreboard(1, 'duration').setScore(player, Math.max(playerScoreboard(1, 'duration').getScore(player) || 0 - 1, 0));
-  playerScoreboard(2, 'duration').setScore(player, Math.max(playerScoreboard(2, 'duration').getScore(player) || 0 - 1, 0));
-  playerScoreboard(3, 'duration').setScore(player, Math.max(playerScoreboard(3, 'duration').getScore(player) || 0 - 1, 0));
+  playerScoreboard(1, 'duration').setScore(player, Math.max(playerScoreboard(1, 'duration').getScore(player) - 1, 0));
+  playerScoreboard(2, 'duration').setScore(player, Math.max(playerScoreboard(2, 'duration').getScore(player) - 1, 0));
+  playerScoreboard(3, 'duration').setScore(player, Math.max(playerScoreboard(3, 'duration').getScore(player) - 1, 0));
 
 }
 
