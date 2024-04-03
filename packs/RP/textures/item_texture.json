@@ -1,10 +1,38 @@
 {
   "resource_pack_name": "origins",
   "texture_name": "atlas.items",
-  "texture_data": {	
-  	"orb_of_origins": { "textures": [ "textures/origins/items/orb" ] },
-  	"resignation_paper": { "textures": [ "textures/origins/items/resignation_paper" ] },
-		"origins_menu": { "textures": [ "textures/none" ] },
+  "texture_data": {
+
+  	"r4isen1920_originspe:orb_of_origins": { "textures": [ "textures/origins/items/orb" ] },
+  	"r4isen1920_originspe:resignation_paper": { "textures": [ "textures/origins/items/resignation_paper" ] },
+
+
+		"r4isen1920_originspe:origins_menu": { "textures": [ "textures/origins/hud/controls/_menu" ] },
+    "r4isen1920_originspe:origins_submenu": { "textures": [ "textures/origins/hud/controls/_submenu" ] },
+    "r4isen1920_originspe:origins_power.arachnid.1": { "textures": [ "textures/origins/hud/controls/arachnid.1" ] },
+    "r4isen1920_originspe:origins_power.bee.1": { "textures": [ "textures/origins/hud/controls/bee.1" ] },
+    "r4isen1920_originspe:origins_power.bee.2": { "textures": [ "textures/origins/hud/controls/bee.2" ] },
+    "r4isen1920_originspe:origins_power.blazeborn.1": { "textures": [ "textures/origins/hud/controls/blazeborn.1" ] },
+    "r4isen1920_originspe:origins_power.elf.1": { "textures": [ "textures/origins/hud/controls/elf.1" ] },
+    "r4isen1920_originspe:origins_power.elf.2": { "textures": [ "textures/origins/hud/controls/elf.2" ] },
+    "r4isen1920_originspe:origins_power.elytrian.1": { "textures": [ "textures/origins/hud/controls/elytrian.1" ] },
+    "r4isen1920_originspe:origins_power.enderian.1": { "textures": [ "textures/origins/hud/controls/enderian.1" ] },
+    "r4isen1920_originspe:origins_power.inchling.1": { "textures": [ "textures/origins/hud/controls/inchling.1" ] },
+    "r4isen1920_originspe:origins_power.kitsune.1": { "textures": [ "textures/origins/hud/controls/kitsune.1" ] },
+    "r4isen1920_originspe:origins_power.kitsune.2": { "textures": [ "textures/origins/hud/controls/kitsune.2" ] },
+    "r4isen1920_originspe:origins_power.kitsune.3": { "textures": [ "textures/origins/hud/controls/kitsune.3" ] },
+    "r4isen1920_originspe:origins_power.phantom.1": { "textures": [ "textures/origins/hud/controls/phantom.1" ] },
+    "r4isen1920_originspe:origins_power.phantom.2": { "textures": [ "textures/origins/hud/controls/phantom.2" ] },
+    "r4isen1920_originspe:origins_power.piglin.1": { "textures": [ "textures/origins/hud/controls/piglin.1" ] },
+    "r4isen1920_originspe:origins_power.shulk.1": { "textures": [ "textures/origins/hud/controls/shulk.1" ] },
+    "r4isen1920_originspe:origins_power.slimecican.1": { "textures": [ "textures/origins/hud/controls/slimecican.1" ] },
+    "r4isen1920_originspe:origins_power.slimecican.2": { "textures": [ "textures/origins/hud/controls/slimecican.2" ] },
+    "r4isen1920_originspe:origins_power.starborne.1": { "textures": [ "textures/origins/hud/controls/starborne.1" ] },
+    "r4isen1920_originspe:origins_power.starborne.2": { "textures": [ "textures/origins/hud/controls/starborne.2" ] },
+    "r4isen1920_originspe:origins_power.starborne.3": { "textures": [ "textures/origins/hud/controls/starborne.3" ] },
+    "r4isen1920_originspe:origins_power.voidwalker.1": { "textures": [ "textures/origins/hud/controls/voidwalker.1" ] },
+    "r4isen1920_originspe:origins_power.voidwalker.2": { "textures": [ "textures/origins/hud/controls/voidwalker.2" ] },
+
 
 		"wooden_axe": { "textures": [ "textures/items/wood_axe" ] },
 		"stone_axe": { "textures": [ "textures/items/stone_axe" ] },

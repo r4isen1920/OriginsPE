@@ -2,7 +2,7 @@
   "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
-      "identifier": "r4isen1920_originspe:resignation_paper",
+      "identifier": "r4isen1920_originspe:origins_power.elytrian.1",
       "menu_category": {
         "category": "items",
         "is_hidden_in_commands": false
@@ -11,16 +11,16 @@
 
     "components": {
       "minecraft:icon": {
-        "texture": "r4isen1920_originspe:resignation_paper"
+        "texture": "r4isen1920_originspe:origins_power.elytrian.1"
       },
       "minecraft:display_name": {
-        "value": "origins.item.resignation_paper.name"
+        "value": "origins.trait.launch_into_air.name"
       },
       "minecraft:max_stack_size": {
-        "value": 64
+        "value": 1
       },
       "minecraft:glint": {
-        "value": true
+        "value": false
       },
       "minecraft:food": {
         "can_always_eat": true

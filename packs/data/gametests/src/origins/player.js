@@ -1,5 +1,5 @@
 
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, TicksPerSecond, ItemStack, ItemLockMode } from "@minecraft/server";
 
 import { openScreenPickerGUI } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
@@ -44,14 +44,19 @@ export async function initAbilities(player) {
 
   let ORIGIN_POWERS = [];
   let CLASS_TRAITS = [];
+  let CONTROLS = [];
 
   removeTags(player, 'power_');
   removeTags(player, 'trait_');
+  removeTags(player, 'control_');
 
   try {
 
     await import(`../data/origins/${playerOrigin}.js`).then(mod => ORIGIN_POWERS = mod[playerOrigin].powers);
     await import(`../data/classes/${playerClass}.js`).then(mod => CLASS_TRAITS = mod[playerClass].traits);
+
+    await import(`../data/origins/${playerOrigin}.js`).then(mod => CONTROLS.push(...mod[playerOrigin].controls));
+    await import(`../data/classes/${playerClass}.js`).then(mod => CONTROLS.push(...mod[playerClass].controls));
 
   } catch (e) {
 
@@ -70,6 +75,15 @@ export async function initAbilities(player) {
   CLASS_TRAITS.forEach(trait => {
     player.addTag(`trait_${trait}`)
   })
+
+  CONTROLS.forEach(control => {
+    player.addTag(`control_${control}`)
+  })
+
+
+  const originsMenuItem = new ItemStack('r4isen1920_originspe:origins_menu');
+  originsMenuItem.lockMode = ItemLockMode.slot;
+  player.getComponent('inventory').container.setItem(8, originsMenuItem);
 
 }
 

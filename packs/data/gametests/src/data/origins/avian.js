@@ -5,5 +5,6 @@ export const avian = {
     'slow_falling',
     'vegetarian',
     'fresh_air',
-  ]
+  ],
+  'controls': []
 }

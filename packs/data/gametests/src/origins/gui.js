@@ -66,26 +66,18 @@ export function openScreenPickerGUI(player, set='race', viewtype='pick') {
  * 
  * Turns the player into survival mode
  * for on_close and on_open commands processing
- * and returns the gamemode it was on
+ * and returns the gamemode they were on
  * 
  * @param { import('@minecraft/server').Player } player 
  * @returns { import('@minecraft/server').GameMode }
  */
 function setPlayerGameMode(player) {
-
-  const gameModes = [
-    'adventure',
-    'creative',
-    'spectator',
-    'survival'
-  ]
-
+  const gameModes = [ 'adventure', 'creative', 'spectator', 'survival' ]
   const prevGamemode = gameModes.find(gamemode => player.matches({ gameMode: gamemode }))
 
   player.runCommand('gamemode survival')
 
   return prevGamemode
-
 }
 
 /**

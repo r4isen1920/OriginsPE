@@ -1,4 +1,5 @@
 
 export const human = {
-  'powers': []
+  'powers': [],
+  'controls': []
 }

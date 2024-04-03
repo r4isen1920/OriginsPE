@@ -1,7 +1,8 @@
 
-import { GameMode, TicksPerSecond, system, world } from "@minecraft/server";
+import { TicksPerSecond, system, world } from "@minecraft/server";
 
 import { openScreenPickerGUI, runDialogueCommand } from "./gui";
+import { closeAbilityHotbar } from "./controls";
 
 
 /**
@@ -16,23 +17,27 @@ const _A = system.run(initialize)
  * joining the world
  */
 system.runTimeout(() => {
+
   world.afterEvents.playerSpawn.subscribe(
     event => {
       const { initialSpawn, player } = event;
       if (!initialSpawn) return
 
-      world.scoreboard.getObjective('gui')?.setScore(player, 0)
-  
+      world.scoreboard.getObjective('gui')?.setScore(player, 0);
+
       const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`)) || false;
       const playerClass = player.getTags().find(tag => tag.startsWith(`class_`)) || false;
-  
-      player.removeTag('load_failed')
+
+      player.removeTag('load_failed');
+
+      if (player.hasTag('controls_opened')) closeAbilityHotbar(player)
 
       if (!playerOrigin) openScreenPickerGUI(player, 'race');
       else if (!playerClass) openScreenPickerGUI(player, 'class');
-      else runDialogueCommand(player, 'gui_welcome_screen')
+      else runDialogueCommand(player, 'gui_welcome_screen');
     }
   )
+
 }, TicksPerSecond * 1)
 
 /**
@@ -41,6 +46,8 @@ system.runTimeout(() => {
  * the world if not already
  */
 function initialize() {
+
+  world.getAllPlayers().forEach(player => player.removeTag('load_failed'));
 
   const scoreboard = world.scoreboard.getObjective('index');
   if (scoreboard) return;

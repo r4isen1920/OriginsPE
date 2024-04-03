@@ -1,6 +1,8 @@
 
 import { world } from "@minecraft/server";
+
 import { openScreenPickerGUI } from "./gui";
+import { openAbilityHotbar, closeAbilityHotbar } from "./controls";
 
 world.afterEvents.itemStartUse.subscribe(
   event => {
@@ -11,15 +13,18 @@ world.afterEvents.itemStartUse.subscribe(
 
       case 'r4isen1920_originspe:orb_of_origins': 
         openScreenPickerGUI(source, 'race', 'change');
-        source.playSound('ui.wood_click')
-
-        break
-
+        source.playSound('ui.wood_click');
+        break;
       case 'r4isen1920_originspe:resignation_paper': 
         openScreenPickerGUI(source, 'class', 'change');
-        source.playSound('ui.wood_click')
+        source.playSound('ui.wood_click');
+        break;
 
-        break
+      case 'r4isen1920_originspe:origins_menu': 
+        if (source.hasTag('controls_opened')) closeAbilityHotbar(source)
+        else openAbilityHotbar(source);
+        source.playSound('ui.wood_click');
+        break;
 
       default: return
 
