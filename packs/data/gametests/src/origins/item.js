@@ -10,10 +10,16 @@ world.afterEvents.itemStartUse.subscribe(
     switch (itemStack.typeId) {
 
       case 'r4isen1920_originspe:orb_of_origins': 
-        openScreenPickerGUI(source, 'race', 'change'); break
+        openScreenPickerGUI(source, 'race', 'change');
+        source.playSound('ui.wood_click')
+
+        break
 
       case 'r4isen1920_originspe:resignation_paper': 
-        openScreenPickerGUI(source, 'class', 'change'); break
+        openScreenPickerGUI(source, 'class', 'change');
+        source.playSound('ui.wood_click')
+
+        break
 
       default: return
 

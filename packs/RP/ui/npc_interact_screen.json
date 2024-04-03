@@ -41,7 +41,7 @@
 
     "$screen_animations": [],
 
-    "cache_screen": false,
+    "cache_screen": true,
     "close_on_player_hurt": false,
     "low_frequency_rendering": true,
     "is_showing_menu": true,

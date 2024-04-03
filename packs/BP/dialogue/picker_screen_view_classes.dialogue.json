@@ -15,7 +15,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
             ]
           }
         ]
@@ -33,7 +33,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -51,7 +51,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -69,7 +69,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -87,7 +87,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -105,7 +105,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -123,7 +123,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -141,7 +141,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -159,7 +159,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -177,7 +177,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -195,7 +195,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -213,7 +213,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -231,7 +231,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]
@@ -249,7 +249,7 @@
               "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
               "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self" 
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
         ]

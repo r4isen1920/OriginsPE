@@ -16,13 +16,23 @@
       "minecraft:display_name": {
         "value": "origins.item.orb_of_origins.name"
       },
-      "minecraft:max_stack_size": 64,
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
       "minecraft:glint": {
         "value": true
       },
-      "minecraft:use_animation": "bow",
       "minecraft:food": {
         "can_always_eat": true
+      },
+
+      "minecraft:use_modifiers": {
+        "use_duration": 1,
+        "movement_modifier": 0
+      },
+
+      "minecraft:use_animation": {
+        "value": "bow"
       }
     }
   }

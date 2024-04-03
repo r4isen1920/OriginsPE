@@ -1,6 +1,10 @@
 
 export const arachnid = {
   'powers': [
-    'webbing'
+    'webbing',
+    'master_of_webs',
+    'climbing',
+    'carnivore',
+    'fragile'
   ]
 }

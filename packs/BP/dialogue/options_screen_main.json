@@ -11,7 +11,7 @@
             "name": "cancel",
             "commands": [
               "/tag @initiator add remove_npc_on_move",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
             ]
           },
           {
@@ -56,7 +56,7 @@
             "name": "cancel",
             "commands": [
               "/tag @initiator add remove_npc_on_move",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
             ]
           },
           {
@@ -103,7 +103,7 @@
             "name": "cancel",
             "commands": [
               "/tag @initiator add remove_npc_on_move",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
             ]
           },
           {
@@ -173,7 +173,7 @@
             "name": "cancel",
             "commands": [
               "/tag @initiator add remove_npc_on_move",
-              "/event entity @initiator minecraft:disable_npc_dialogue_to_self"
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
             ]
           },
           {

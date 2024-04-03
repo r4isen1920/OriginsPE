@@ -13,10 +13,8 @@ import { removeTags } from "../utils/tags.js";
  * @param { string } param_race 
  */
 function setRace(player, param_race) {
-
   player.addTag(`race_${param_race}`)
   openScreenPickerGUI(player, 'race', 'view');
-
 }
 
 /**
@@ -27,10 +25,8 @@ function setRace(player, param_race) {
  * @param { string } sClass 
  */
 function setClass(player, param_class) {
-
   player.addTag(`class_${param_class}`)
   openScreenPickerGUI(player, 'class', 'view');
-
 }
 
 /**
@@ -77,6 +73,21 @@ export async function initAbilities(player) {
 
 }
 
+
+/**
+ * 
+ * Reset the player's attributes
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ */
+export function resetPlayerAttributes(player) {
+
+  player.triggerEvent('r4isen1920_originspe:movement.0.1');
+  player.triggerEvent('r4isen1920_originspe:health.20');
+
+}
+
+
 /**
  * 
  * Runs a function with an interval
@@ -104,10 +115,16 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
 
   switch (true) {
 
+    case message === 'become_race_unknown':
+      openScreenPickerGUI(sourceEntity, 'race', 'pick');
+      break;
+    case message === 'become_class_unknown':
+      openScreenPickerGUI(sourceEntity, 'class', 'pick');
+      break;
+
     case message.startsWith('become_race_'):
       setRace(sourceEntity, message.replace('become_race_', ''));
       break;
-
     case message.startsWith('become_class_'):
       setClass(sourceEntity, message.replace('become_class_', ''));
       break;

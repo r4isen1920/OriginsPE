@@ -9,7 +9,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -24,7 +24,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -39,7 +39,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -54,7 +54,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -69,7 +69,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -84,7 +84,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -99,7 +99,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -114,7 +114,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -129,7 +129,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -144,7 +144,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -159,7 +159,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -174,7 +174,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -189,7 +189,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -204,7 +204,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -219,7 +219,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -234,7 +234,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -249,7 +249,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",
@@ -264,7 +264,7 @@
         "buttons": [
           {
             "name": "cancel",
-            "commands": [ "/event entity @initiator minecraft:disable_npc_dialogue_to_self" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
           },
           {
             "name": "continue_race",

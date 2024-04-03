@@ -3,7 +3,7 @@ import { GameMode, world, system } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
-import { initAbilities } from "./player";
+import { initAbilities, resetPlayerAttributes } from "./player";
 
 
 /**
@@ -47,9 +47,19 @@ export function openScreenPickerGUI(player, set='race', viewtype='pick') {
 
   //* console.warn(`open GUI: ${dialogueId}`)
 
-  player.playSound('ui.wood_click')
+  runDialogueCommand(player, dialogueId);
 
-  runDialogueCommand(player, dialogueId)
+  switch (viewtype) {
+
+    case 'pick':
+      removeTags(player, `${set}_`)
+      break;
+
+    case 'view':
+      player.playSound('ui.enchant', { volume: 1, pitch: 1.25 })
+      break;
+
+  }
 }
 
 /**
@@ -85,7 +95,8 @@ function setPlayerGameMode(player) {
  * @param { import('@minecraft/server').Player } player 
  */
 function onCloseGUI(player) {
-  initAbilities(player)
+  initAbilities(player);
+  resetPlayerAttributes(player);
 
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))
   if (prevGamemode) {
