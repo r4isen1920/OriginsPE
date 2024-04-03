@@ -28,7 +28,7 @@ export function runDialogueCommand(player, dialogueId) {
 
   const _A = system.runInterval(() => {
     player.runCommand(`dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s ${dialogueId}`);
-    if (world.scoreboard.getObjective('guib')?.getScore(player) === 1) system.clearRun(_A);
+    if (world.scoreboard.getObjective('gui')?.getScore(player) === 1) system.clearRun(_A);
   }, 4)
 }
 
@@ -46,6 +46,8 @@ export function openScreenPickerGUI(player, set='race', viewtype='pick') {
   const dialogueId = playerOrigin ? `gui_${set}_${viewtype}_${playerOrigin}` : `gui_${set}_${viewtype}_${set === 'race' ? 'human' : 'nitwit'}`;
 
   //* console.warn(`open GUI: ${dialogueId}`)
+
+  player.playSound('ui.wood_click')
 
   runDialogueCommand(player, dialogueId)
 }

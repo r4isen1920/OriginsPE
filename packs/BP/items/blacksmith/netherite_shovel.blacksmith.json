@@ -33,15 +33,15 @@
           {
             "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
             "items": [
-              "origins:blacksmith_netherite_shovel",
-              "origins:blacksmith_netherite_shovel"
+              "r4isen1920_originspe:blacksmith_netherite_shovel",
+              "r4isen1920_originspe:blacksmith_netherite_shovel"
             ]
           },
           {
             "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
             "items": [
               "minecraft:netherite_shovel",
-              "origins:blacksmith_netherite_shovel"
+              "r4isen1920_originspe:blacksmith_netherite_shovel"
             ]
           },
           {
@@ -52,7 +52,7 @@
             "repair_amount": 762
           },
           {
-            "items": ["origins:blacksmith_netherite_shovel"],
+            "items": ["r4isen1920_originspe:blacksmith_netherite_shovel"],
             "repair_amount": 2031
           }
         ]
@@ -63,92 +63,92 @@
           {
             "block": "minecraft:concretepowder",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:clay",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:snow",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:podzol",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:mycelium",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:soul_soil",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:soul_sand",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:dirt_with_roots",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:dirt",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:sand",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:grass",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:gravel",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:snow_layer",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:snow",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           },
           {
             "block": "minecraft:powder_snow",
             "speed": 22,
-            "on_dig": { "event": "origins:damage_on_block_break_select" }
+            "on_dig": { "event": "r4isen1920_originspe:damage_on_block_break_select" }
           }
         ],
         "on_dig": {
-          "event": "origins:damage_on_block_break_any"
+          "event": "r4isen1920_originspe:damage_on_block_break_any"
         }
       },
       "minecraft:weapon": {
         "on_hurt_entity": {
-          "event": "origins:damage_on_attack_entity",
+          "event": "r4isen1920_originspe:damage_on_attack_entity",
           "target": "self"
         }
       },
 
       "tag:minecraft:is_shovel": {},
-      "tag:origins:blacksmith_forged": {},
+      "tag:r4isen1920_originspe:blacksmith_forged": {},
 
       "minecraft:max_stack_size": 1,
       "minecraft:glint": {
@@ -168,20 +168,20 @@
             }
           },
           {
-            "run_command": {
-              "command": ["particle origins:blacksmiths_dig ~~~"],
+            "queue_command": {
+              "command": ["particle r4isen1920_originspe:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
         ]
       },
-      "origins:damage_on_block_break_any": {
+      "r4isen1920_originspe:damage_on_block_break_any": {
         "damage": {
           "type": "durability",
           "amount": 1
         }
       },
-      "origins:damage_on_block_break_select": {
+      "r4isen1920_originspe:damage_on_block_break_select": {
         "sequence": [
           {
             "damage": {
@@ -190,14 +190,14 @@
             }
           },
           {
-            "run_command": {
-              "command": ["particle origins:blacksmiths_dig ~~~"],
+            "queue_command": {
+              "command": ["particle r4isen1920_originspe:blacksmiths_dig ~~~"],
               "target": "block"
             }
           }
         ]
       },
-      "origins:damage_on_attack_entity": {
+      "r4isen1920_originspe:damage_on_attack_entity": {
         "damage": {
           "type": "durability",
           "amount": 2

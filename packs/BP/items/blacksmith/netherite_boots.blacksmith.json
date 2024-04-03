@@ -33,15 +33,15 @@
           {
             "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
             "items": [
-              "origins:blacksmith_netherite_boots",
-              "origins:blacksmith_netherite_boots"
+              "r4isen1920_originspe:blacksmith_netherite_boots",
+              "r4isen1920_originspe:blacksmith_netherite_boots"
             ]
           },
           {
             "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
             "items": [
               "minecraft:netherite_boots",
-              "origins:blacksmith_netherite_boots"
+              "r4isen1920_originspe:blacksmith_netherite_boots"
             ]
           },
           {
@@ -49,7 +49,7 @@
             "repair_amount": "q.max_durability * 0.25"
           },
           {
-            "items": ["origins:blacksmith_netherite_boots"],
+            "items": ["r4isen1920_originspe:blacksmith_netherite_boots"],
             "repair_amount": "q.max_durability"
           }
         ]
@@ -60,7 +60,7 @@
       },
 
       "tag:minecraft:is_armor": {},
-      "tag:origins:blacksmith_forged": {},
+      "tag:r4isen1920_originspe:blacksmith_forged": {},
       "tag:minecraft:trimmable_armors": {},
 
       "minecraft:max_stack_size": 1,

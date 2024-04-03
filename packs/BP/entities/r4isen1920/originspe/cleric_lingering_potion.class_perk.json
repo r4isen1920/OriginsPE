@@ -1,0 +1,393 @@
+{
+  "format_version": "1.18.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:cleric_lingering_potion",
+      "runtime_identifier": "minecraft:snowball",
+
+      "is_summonable": false
+    },
+
+    "component_groups": {
+      "r4isen1920_originspe:instant_despawn": {
+        "minecraft:instant_despawn": {
+        }
+      },
+
+      "r4isen1920_originspe:cleric_lingering_potion_0": { "minecraft:variant": { "value": 0 } },
+      "r4isen1920_originspe:cleric_lingering_potion_1": { "minecraft:variant": { "value": 1 } },
+      "r4isen1920_originspe:cleric_lingering_potion_4": { "minecraft:variant": { "value": 4 } },
+      "r4isen1920_originspe:cleric_lingering_potion_7": { "minecraft:variant": { "value": 7 } },
+      "r4isen1920_originspe:cleric_lingering_potion_9": { "minecraft:variant": { "value": 9 } },
+      "r4isen1920_originspe:cleric_lingering_potion_11": { "minecraft:variant": { "value": 11 } },
+      "r4isen1920_originspe:cleric_lingering_potion_12": { "minecraft:variant": { "value": 12 } },
+      "r4isen1920_originspe:cleric_lingering_potion_13": { "minecraft:variant": { "value": 13 } },
+      "r4isen1920_originspe:cleric_lingering_potion_15": { "minecraft:variant": { "value": 15 } },
+      "r4isen1920_originspe:cleric_lingering_potion_17": { "minecraft:variant": { "value": 17 } },
+      "r4isen1920_originspe:cleric_lingering_potion_18": { "minecraft:variant": { "value": 18 } },
+      "r4isen1920_originspe:cleric_lingering_potion_24": { "minecraft:variant": { "value": 24 } },
+      "r4isen1920_originspe:cleric_lingering_potion_25": { "minecraft:variant": { "value": 25 } },
+
+      "r4isen1920_originspe:cleric_lingering_potion_potent": {
+        "minecraft:is_charged": {}
+      }
+
+    },
+
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "cleric_control", "potion", "origins", "inanimate" ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.25,
+        "height": 0.25
+      },
+      "minecraft:projectile": {
+       "on_hit": {
+          "douse_fire": {},
+          "definition_event": {
+            "affect_projectile": false,
+            "event_trigger": {
+              "event": "r4isen1920_originspe:thrown_potion_effect",
+              "target": "self"
+            }
+          }
+        },
+        "power": 0.5,
+        "gravity": 0.05,
+        "angle_offset": -20.0
+      },
+	    "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80.0,
+          "max_dropped_ticks": 5,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+
+    "events": {
+
+      "r4isen1920_originspe:instant_despawn": {
+        "add": { 
+          "component_groups": [ "r4isen1920_originspe:instant_despawn" ]
+        }
+      },
+
+      "r4isen1920_originspe:cleric_lingering_potion_slowness_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_0" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_slowness_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_0", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_swiftness_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_1" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_swiftness_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_1", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_strength_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_4" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_strength_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_4", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_healing_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_5", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_harming_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_6", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_leaping_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_7" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_leaping_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_7", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_regeneration_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_9" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_regeneration_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_9", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_fire_resistance_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_11" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_water_breathing_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_12" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_invisibility_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_13" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_night_vision_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_15" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_weakness_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_17" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_poison_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_18" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_poison_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_18", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_turtle_master_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_24" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_turtle_master_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_24", "r4isen1920_originspe:cleric_lingering_potion_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_lingering_potion_slow_falling_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_lingering_potion_25" ] }
+      },
+
+      "r4isen1920_originspe:thrown_potion_effect": {
+        "sequence": [
+          {
+            "filters": { "test": "is_variant", "value": 0 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_slowness_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_slowness ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_slowness_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_slowness ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 1 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_speed_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_speed ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_speed_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_speed ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 4 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_strength_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_strength ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_strength_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_strength ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 7 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_leaping_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_jump_boost ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_leaping_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_jump_boost ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 9 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_regeneration_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_regeneration ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_regeneration_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_regeneration ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 11 },
+            "queue_command": {
+              "command": [
+                "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_fire_resistance_long",
+                "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_fire_resistance ^^^2.5"
+              ]
+            }
+          },
+          {
+            "filters": { "test": "is_variant", "value": 12 },
+            "queue_command": {
+              "command": [
+                "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_water_breathing_long",
+                "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_water_breathing ^^^2.5"
+              ]
+            }
+          },
+          {
+            "filters": { "test": "is_variant", "value": 13 },
+            "queue_command": {
+              "command": [
+                "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_invisibility_long",
+                "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_invisibility ^^^2.5"
+              ]
+            }
+          },
+          {
+            "filters": { "test": "is_variant", "value": 15 },
+            "queue_command": {
+              "command": [
+                "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_night_vision_long",
+                "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_night_vision ^^^2.5"
+              ]
+            }
+          },
+          {
+            "filters": { "test": "is_variant", "value": 17 },
+            "queue_command": {
+              "command": [
+                "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_weakness_long",
+                "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_weakness ^^^2.5"
+              ]
+            }
+          },
+          {
+            "filters": { "test": "is_variant", "value": 18 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_poison_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_poison ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_poison_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_poison ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 24 },
+            "sequence": [
+              {
+                "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [ 
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_slowness_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_slowness ^^^2.5",
+
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_resistance_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_resistance ^^^2.5"
+                  ]
+                }
+              },
+              {
+                "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                "queue_command": {
+                  "command": [ 
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_slowness_long",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_slowness ^^^2.5",
+
+                    "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_resistance_potent",
+                    "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_resistance ^^^2.5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "is_variant", "value": 25 },
+            "queue_command": {
+              "command": [
+                "execute at @s facing entity @a[c=1] eyes run summon r4isen1920_originspe:cleric_area_effect_cloud ^^^2.5 ~ ~ r4isen1920_originspe:cleric_aoe_slow_falling_long",
+                "execute at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_lingering_potion_slow_falling ^^^2.5"
+              ]
+            }
+          },
+          {
+            "queue_command": {
+              "command": [
+                "execute if entity @s[tag=!fx] at @s facing entity @a[c=1] eyes run playsound random.glass @a ^^^2.5",
+                "execute if entity @s[tag=!fx] at @s facing entity @a[c=1] eyes run particle r4isen1920_originspe:cleric_splash_bottle_break ^^^2.5",
+                "tag @s add fx"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "r4isen1920_originspe:instant_despawn"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

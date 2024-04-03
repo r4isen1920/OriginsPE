@@ -18,7 +18,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           }
@@ -41,7 +41,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           }
@@ -64,7 +64,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -100,7 +100,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -139,7 +139,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -178,7 +178,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -217,7 +217,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -253,7 +253,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -322,7 +322,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -359,7 +359,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -407,7 +407,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },
@@ -459,7 +459,7 @@
           {
             "name": "submenu",
             "commands": [
-              "/event entity @initiator origins:options_open_general_root",
+              "/event entity @initiator r4isen1920_originspe:options_open_general_root",
               "/execute as @initiator at @s run playsound random.orb @s ~~~ 1 0.25"
             ]
           },

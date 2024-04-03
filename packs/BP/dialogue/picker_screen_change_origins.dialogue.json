@@ -28,7 +28,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -43,7 +43,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -58,7 +58,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -73,7 +73,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -88,7 +88,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -103,7 +103,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -118,7 +118,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -133,7 +133,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -148,7 +148,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -163,7 +163,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -178,7 +178,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -193,7 +193,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -208,7 +208,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -223,7 +223,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -238,7 +238,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -253,7 +253,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       },
@@ -268,7 +268,7 @@
           },
           {
             "name": "continue_race",
-            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] origins:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+            "commands": [ "/execute as @initiator run clear @s[tag=!in_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
       }

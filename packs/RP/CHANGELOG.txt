@@ -322,11 +322,11 @@ Changelog (v3.0):
         - [Toggle] Idle Particles: enable or disable particles to emit from your character (default: on)
         - Reset player: re-adds behavior components to hopefully fix any problems with your Origin
       [ Administrative ]
-        - Ban Origins: you can prevent any Origin from ever being chosen (default: none)
+        - Ban r4isen1920_originspe: you can prevent any Origin from ever being chosen (default: none)
         - Ban classes: you can prevent any class from ever being selected (default: none)
         - Evict selections: when enabled, all online players must change their Origin/class if they have already chosen one that has just been banned (default: off)
         - [Toggle] Unique selection: only allow one Origin/class on a world per player (default: off)
-        - [Toggle] Orb of Origins: enable Orb of Origins to be useable or not (default: on)
+        - [Toggle] Orb of r4isen1920_originspe: enable Orb of Origins to be useable or not (default: on)
         - [Toggle] Resignation Paper: enable Resignation Paper to be useable or not (default: on)
         - [Toggle] Broadcast changes: announce in the chat when a player changes their Origin or resign from their class. (default: on)
         - Initialize All: reverts every online player's Origin back to what it was before

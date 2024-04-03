@@ -1,6 +1,6 @@
 {
   "block_sounds": {
-    "origins:temp_oak_log": {
+    "r4isen1920_originspe:temp_oak_log": {
       "events": {
         "break": {
           "pitch": [0.8, 1.0],
@@ -34,7 +34,7 @@
       "pitch": 1.0,
       "volume": 1.0
     },
-    "origins:temp_spruce_log": {
+    "r4isen1920_originspe:temp_spruce_log": {
       "events": {
         "break": {
           "pitch": [0.8, 1.0],
@@ -68,7 +68,7 @@
       "pitch": 1.0,
       "volume": 1.0
     },
-    "origins:temp_birch_log": {
+    "r4isen1920_originspe:temp_birch_log": {
       "events": {
         "break": {
           "pitch": [0.8, 1.0],
@@ -102,7 +102,7 @@
       "pitch": 1.0,
       "volume": 1.0
     },
-    "origins:temp_jungle_log": {
+    "r4isen1920_originspe:temp_jungle_log": {
       "events": {
         "break": {
           "pitch": [0.8, 1.0],
@@ -136,7 +136,7 @@
       "pitch": 1.0,
       "volume": 1.0
     },
-    "origins:temp_acacia_log": {
+    "r4isen1920_originspe:temp_acacia_log": {
       "events": {
         "break": {
           "pitch": [0.8, 1.0],
@@ -170,7 +170,7 @@
       "pitch": 1.0,
       "volume": 1.0
     },
-    "origins:temp_dark_oak_log": {
+    "r4isen1920_originspe:temp_dark_oak_log": {
       "events": {
         "break": {
           "pitch": [0.8, 1.0],
@@ -208,7 +208,7 @@
 
   "entity_sounds": {
     "entities": {
-      "origins:burning_control": {
+      "r4isen1920_originspe:burning_control": {
         "events": {
           "default": "",
           "step": "",
@@ -221,7 +221,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:camera": {
+      "r4isen1920_originspe:camera": {
         "events": {
           "default": "",
           "step": "",
@@ -234,7 +234,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:cleric_area_effect_cloud": {
+      "r4isen1920_originspe:cleric_area_effect_cloud": {
         "events": {
           "default": "",
           "step": "",
@@ -247,7 +247,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:cleric_lingering_potion": {
+      "r4isen1920_originspe:cleric_lingering_potion": {
         "events": {
           "default": "",
           "step": "",
@@ -260,7 +260,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:cleric_splash_potion": {
+      "r4isen1920_originspe:cleric_splash_potion": {
         "events": {
           "default": "",
           "step": "",
@@ -273,7 +273,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:dark_energy": {
+      "r4isen1920_originspe:dark_energy": {
         "events": {
           "default": "",
           "step": "",
@@ -299,7 +299,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:elven_link": {
+      "r4isen1920_originspe:elven_link": {
         "events": {
           "default": "",
           "step": "",
@@ -312,7 +312,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:enderian_pearl": {
+      "r4isen1920_originspe:enderian_pearl": {
         "events": {
           "default": "",
           "step": "",
@@ -325,7 +325,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:hyper_leap": {
+      "r4isen1920_originspe:hyper_leap": {
         "events": {
           "default": "",
           "step": "",
@@ -338,7 +338,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:jump_leap": {
+      "r4isen1920_originspe:jump_leap": {
         "events": {
           "default": "",
           "step": "",
@@ -351,7 +351,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:pounce_leap": {
+      "r4isen1920_originspe:pounce_leap": {
         "events": {
           "default": "",
           "step": "",
@@ -364,7 +364,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:shulk_inventory": {
+      "r4isen1920_originspe:shulk_inventory": {
         "events": {
           "default": "",
           "step": "",
@@ -377,7 +377,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:starborne_projectile": {
+      "r4isen1920_originspe:starborne_projectile": {
         "events": {
           "default": "",
           "step": "",
@@ -390,7 +390,7 @@
         "pitch": 1.0,
         "volume": 1.0
       },
-      "origins:webbing_attack": {
+      "r4isen1920_originspe:webbing_attack": {
         "events": {
           "default": "",
           "step": "",

@@ -1,3 +1,4 @@
+
 tellraw @s {"rawtext":[{"text":""}]}
 tellraw @s {"rawtext":[{"text":""}]}
 tellraw @s {"rawtext":[{"text":""}]}

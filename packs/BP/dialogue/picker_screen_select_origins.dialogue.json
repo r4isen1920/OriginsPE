@@ -38,7 +38,7 @@
           {
             "name": "<",
             "commands": [
-              "/scoreboard players set @initiator guib 1",
+              "/scoreboard players set @initiator gui 1",
 
               "/scoreboard players set \"c_origins\" index 0",
               "/scoreboard players operation \"c_origins\" index += \"banr\" index",
@@ -55,7 +55,7 @@
           {
             "name": "select",
             "commands": [
-              "/scoreboard players set @initiator guib 1",
+              "/scoreboard players set @initiator gui 1",
 
               "/tag @initiator add show_gui",
               "/tag @initiator add welcome_ui",
@@ -65,7 +65,7 @@
           {
             "name": ">",
             "commands": [
-              "/scoreboard players set @initiator guib 1",
+              "/scoreboard players set @initiator gui 1",
 
               "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_avian",
               "/execute as @initiator unless score \"ban_avian\" index matches 1 if score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_avian",
@@ -76,8 +76,8 @@
           }
         ],
         "on_open_commands": [
-          "/scoreboard players set @initiator guib 1",
-          "/replaceitem entity @initiator slot.hotbar 8 origins:origins_menu 1 0 {\"minecraft:item_lock\":{\"mode\":\"lock_in_slot\"},\"minecraft:keep_on_death\":{}}"
+          "/scoreboard players set @initiator gui 1",
+          "/replaceitem entity @initiator slot.hotbar 8 r4isen1920_originspe:origins_menu 1 0 {\"minecraft:item_lock\":{\"mode\":\"lock_in_slot\"},\"minecraft:keep_on_death\":{}}"
         ]
       },
       {
@@ -582,8 +582,8 @@
           }
         ],
         "on_open_commands": [
-          "/scoreboard players set @initiator guib 1",
-          "/replaceitem entity @initiator slot.hotbar 8 origins:origins_menu 1 0 {\"minecraft:item_lock\":{\"mode\":\"lock_in_slot\"},\"minecraft:keep_on_death\":{}}"
+          "/scoreboard players set @initiator gui 1",
+          "/replaceitem entity @initiator slot.hotbar 8 r4isen1920_originspe:origins_menu 1 0 {\"minecraft:item_lock\":{\"mode\":\"lock_in_slot\"},\"minecraft:keep_on_death\":{}}"
         ]
       },
       {
@@ -1088,8 +1088,8 @@
           }
         ],
         "on_open_commands": [
-          "/scoreboard players set @initiator guib 1",
-          "/replaceitem entity @initiator slot.hotbar 8 origins:origins_menu 1 0 {\"minecraft:item_lock\":{\"mode\":\"lock_in_slot\"},\"minecraft:keep_on_death\":{}}"
+          "/scoreboard players set @initiator gui 1",
+          "/replaceitem entity @initiator slot.hotbar 8 r4isen1920_originspe:origins_menu 1 0 {\"minecraft:item_lock\":{\"mode\":\"lock_in_slot\"},\"minecraft:keep_on_death\":{}}"
         ]
       },
       {

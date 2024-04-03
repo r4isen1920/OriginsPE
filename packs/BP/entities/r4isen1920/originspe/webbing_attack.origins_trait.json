@@ -1,0 +1,116 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:webbing_attack",
+
+      "is_summonable": true
+    },
+
+    "component_groups": {
+      "r4isen1920_originspe:instant_despawn": {
+        "minecraft:instant_despawn": {}
+      },
+
+      "r4isen1920_originspe:trap_in_web": {
+        "minecraft:variant": {
+          "value": 1
+        },
+        "minecraft:timer": {
+          "time": [ 6, 6 ],
+          "looping": false,
+          "time_down_event": {
+            "event": "r4isen1920_originspe:end_webbing_control",
+            "target": "self"
+          }
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:health": {
+        "min": 1,
+        "max": 1,
+        "value": 1
+      },
+      "minecraft:type_family": {
+        "family": [ "arachnid_control", "origins", "inanimate" ]
+      },
+      "minecraft:variant": {
+        "value": 0
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:environment_sensor": {
+        "triggers": [
+          {
+            "filters": {
+              "test": "is_variant",
+              "operator": "==",
+              "value": 0
+            },
+            "event": "r4isen1920_originspe:instant_despawn"
+          }
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.01,
+        "height": 0.01
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:nameable": {
+        "always_show": false,
+        "allow_name_tag_renaming": false
+      }
+    },
+
+    "events": {
+      "r4isen1920_originspe:start_webbing_control": {
+        "add": {
+          "component_groups": [ "r4isen1920_originspe:trap_in_web" ]
+        },
+        "queue_command": {
+          "command": [
+            "tag @e[tag=!webbing_inflicted,c=1] add webbing_inflicted",
+            "effect @s invisibility 99 255 true",
+
+            "effect @e[tag=webbing_inflicted,c=1] fatal_poison 1 1 true",
+            "effect @e[tag=webbing_inflicted,c=1] slowness 3 255 true",
+            "effect @e[tag=webbing_inflicted,c=1] weakness 3 255 true",
+            "effect @e[tag=webbing_inflicted,c=1] blindness 2 1 true",
+            
+            "particle r4isen1920_originspe:webbing_trap ~~~",
+            "playsound mob.spider.death @a ~~~"
+          ]
+        }
+      },
+      "r4isen1920_originspe:end_webbing_control": {
+        "queue_command": {
+          "command": [
+            "fill ~~1~~~-1~ air [] replace web",
+            "tag @e[tag=webbing_inflicted,c=1] remove webbing_inflicted",
+
+            "particle r4isen1920_originspe:webbing_poof ~~~",
+            "playsound random.fizz @a ~~~",
+
+            "event entity @s r4isen1920_originspe:instant_despawn"
+          ]
+        }
+      },
+
+      "r4isen1920_originspe:instant_despawn": {
+        "add": {
+          "component_groups": ["r4isen1920_originspe:instant_despawn"]
+        }
+      }
+    }
+  }
+}

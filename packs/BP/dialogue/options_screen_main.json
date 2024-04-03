@@ -16,22 +16,22 @@
           },
           {
             "name": "tab.admin",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
 
           {
             "name": "view_origin",
-            "commands": [ "/event entity @initiator origins:options_view_origin" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_view_origin" ]
           },
           {
             "name": "view_class",
-            "commands": [ "/event entity @initiator origins:options_view_class" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_view_class" ]
           },
           {
             "name": "particle.on",
             "commands": [
               "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_general_root_particleoff",
-              "/event entity @initiator origins:options_particle_off",
+              "/event entity @initiator r4isen1920_originspe:options_particle_off",
               "/tag @initiator add options_particle_off"
             ]
           },
@@ -41,7 +41,7 @@
               "/execute as @initiator[tag=!\"options_reset_player\"] run function reset",
               "/execute as @initiator[tag=!\"options_reset_player\"] at @s run playsound note.pling @s ~~~ 1 3",
               "/execute as @initiator[tag=\"options_reset_player\"] at @s run playsound note.bass @s ~~~ 1 3",
-              "/execute as @initiator[tag=\"options_reset_player\"] at @s run event entity @s origins:options_open_general_root",
+              "/execute as @initiator[tag=\"options_reset_player\"] at @s run event entity @s r4isen1920_originspe:options_open_general_root",
               "/tag @initiator add options_reset_player"
             ]
           }
@@ -61,22 +61,22 @@
           },
           {
             "name": "tab.admin",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
 
           {
             "name": "view_origin",
-            "commands": [ "/event entity @initiator origins:options_view_origin" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_view_origin" ]
           },
           {
             "name": "view_class",
-            "commands": [ "/event entity @initiator origins:options_view_class" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_view_class" ]
           },
           {
             "name": "particle.off",
             "commands": [
               "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_general_root_particleon",
-              "/event entity @initiator origins:options_particle_on",
+              "/event entity @initiator r4isen1920_originspe:options_particle_on",
               "/tag @initiator remove options_particle_off"
             ]
           },
@@ -86,7 +86,7 @@
               "/execute as @initiator[tag=!\"options_reset_player\"] run function reset",
               "/execute as @initiator[tag=!\"options_reset_player\"] at @s run playsound note.pling @s ~~~ 1 3",
               "/execute as @initiator[tag=\"options_reset_player\"] at @s run playsound note.bass @s ~~~ 1 3",
-              "/execute as @initiator[tag=\"options_reset_player\"] at @s run event entity @s origins:options_open_general_root",
+              "/execute as @initiator[tag=\"options_reset_player\"] at @s run event entity @s r4isen1920_originspe:options_open_general_root",
               "/tag @initiator add options_reset_player"
             ]
           }
@@ -108,7 +108,7 @@
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
           {
@@ -117,7 +117,7 @@
           },
           {
             "name": "toggle.root",
-            "commands": [ "/event entity @initiator origins:options_open_admin_toggle_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ]
           },
           {
             "name": "reset_all",
@@ -135,11 +135,11 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
           {
@@ -148,7 +148,7 @@
           },
           {
             "name": "toggle.root",
-            "commands": [ "/event entity @initiator origins:options_open_admin_toggle_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ]
           },
           {
             "name": "reset_all.c",
@@ -159,7 +159,7 @@
               "/function indexc",
 
               "/execute as @initiator at @s run playsound note.pling @s ~~~ 1 3",
-              "/execute as @initiator run event entity @a origins:options_reset_all"
+              "/execute as @initiator run event entity @a r4isen1920_originspe:options_reset_all"
             ]
           }
         ]
@@ -178,7 +178,7 @@
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           }
         ]
       },
@@ -189,11 +189,11 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
           {
@@ -248,7 +248,7 @@
           {
             "name": "ban.evict",
             "commands": [
-              "/event entity @a[tag=!\"origins_admin\"] origins:options_evict_selection",
+              "/event entity @a[tag=!\"origins_admin\"] r4isen1920_originspe:options_evict_selection",
               "/execute as @initiator at @s run playsound note.pling @s ~~~ 1 3",
               "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_admin_ban_root"
             ]
@@ -262,17 +262,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -282,17 +282,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -302,17 +302,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -322,17 +322,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -342,17 +342,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -362,17 +362,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -382,17 +382,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -402,17 +402,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -422,17 +422,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -442,17 +442,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -462,17 +462,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -482,17 +482,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.off", "commands": [ "/scoreboard players set \"toggle_orb\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -502,17 +502,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.off", "commands": [ "/scoreboard players set \"toggle_paper\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -522,17 +522,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.off", "commands": [ "/scoreboard players set \"toggle_unique\" index 1", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -542,17 +542,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.off", "commands": [ "/scoreboard players set \"toggle_announce\" index 1", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       },
       {
@@ -562,17 +562,17 @@
         "buttons": [
           {
             "name": "return",
-            "commands": [ "/event entity @initiator origins:options_open_admin_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_admin_root" ]
           },
           {
             "name": "tab.general",
-            "commands": [ "/event entity @initiator origins:options_open_general_root" ]
+            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
           },
 
-          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator origins:options_open_admin_toggle_root" ] },
-          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator origins:options_open_admin_toggle_root" ] }
+          { "name": "orb.on", "commands": [ "/scoreboard players set \"toggle_orb\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "paper.on", "commands": [ "/scoreboard players set \"toggle_paper\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "unique.on", "commands": [ "/scoreboard players set \"toggle_unique\" index 0", "/scoreboard players set \"ban_human\" index 0", "/execute as @initiator run function indexs", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] },
+          { "name": "announce.on", "commands": [ "/scoreboard players set \"toggle_announce\" index 0", "/event entity @initiator r4isen1920_originspe:options_open_admin_toggle_root" ] }
         ]
       }
 

@@ -1,5 +1,5 @@
 
-import { GameMode, system, world } from "@minecraft/server";
+import { GameMode, TicksPerSecond, system, world } from "@minecraft/server";
 
 import { openScreenPickerGUI, runDialogueCommand } from "./gui";
 
@@ -15,23 +15,25 @@ const _A = system.run(initialize)
  * Initializes the player upon
  * joining the world
  */
-world.afterEvents.playerSpawn.subscribe(
-  event => {
-    const { initialSpawn, player } = event;
-    if (!initialSpawn) return
+system.runTimeout(() => {
+  world.afterEvents.playerSpawn.subscribe(
+    event => {
+      const { initialSpawn, player } = event;
+      if (!initialSpawn) return
 
-    world.scoreboard.getObjective('guib').setScore(player, 0)
+      world.scoreboard.getObjective('gui')?.setScore(player, 0)
+  
+      const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`)) || false;
+      const playerClass = player.getTags().find(tag => tag.startsWith(`class_`)) || false;
+  
+      player.removeTag('load_failed')
 
-    const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`)) || false;
-    const playerClass = player.getTags().find(tag => tag.startsWith(`class_`)) || false;
-
-    player.removeTag('load_failed')
-
-    if (!playerOrigin) openScreenPickerGUI(player, 'race');
-    else if (!playerClass) openScreenPickerGUI(player, 'class');
-    else runDialogueCommand(player, 'gui_welcome_screen')
-  }
-)
+      if (!playerOrigin) openScreenPickerGUI(player, 'race');
+      else if (!playerClass) openScreenPickerGUI(player, 'class');
+      else runDialogueCommand(player, 'gui_welcome_screen')
+    }
+  )
+}, TicksPerSecond * 1)
 
 /**
  * 
@@ -40,7 +42,7 @@ world.afterEvents.playerSpawn.subscribe(
  */
 function initialize() {
 
-  const scoreboard = world.scoreboard.getObjective('index') || world.scoreboard.addObjective('index', 'index');
+  const scoreboard = world.scoreboard.getObjective('index');
   if (scoreboard) return;
 
   const setupFunctions = [

@@ -25,7 +25,7 @@
 
       "minecraft:on_use": {
         "on_use": {
-          "event": "origins:on_consume"
+          "event": "r4isen1920_originspe:on_consume"
         }
       },
 
@@ -39,7 +39,7 @@
     },
 
     "events": {
-      "origins:on_consume": {
+      "r4isen1920_originspe:on_consume": {
         "sequence": [
           {
             "add_mob_effect": {

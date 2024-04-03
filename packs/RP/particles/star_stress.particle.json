@@ -18,8 +18,8 @@
 				"max_particles": 10
 			},
 			"minecraft:emitter_lifetime_expression": {
-				"activation_expression": "q.property('origins:toggle_particles') && q.variant == 13",
-				"expiration_expression": "!q.property('origins:toggle_particles') && q.variant != 13"
+				"activation_expression": "q.property('r4isen1920_originspe:toggle_particles') && q.variant == 13",
+				"expiration_expression": "!q.property('r4isen1920_originspe:toggle_particles') && q.variant != 13"
 			},
 			"minecraft:emitter_shape_box": {
 				"offset": [0, "-(variable.ysize/2)", 0],

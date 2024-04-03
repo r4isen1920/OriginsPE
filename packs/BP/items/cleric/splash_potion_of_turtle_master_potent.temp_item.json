@@ -18,7 +18,7 @@
       },
 
       "minecraft:projectile": {
-        "projectile_entity": "origins:cleric_splash_potion<origins:cleric_splash_potion_turtle_master_potent>",
+        "projectile_entity": "r4isen1920_originspe:cleric_splash_potion<r4isen1920_originspe:cleric_splash_potion_turtle_master_potent>",
         "minimum_critical_power": 0.0
       },
       "minecraft:throwable": {

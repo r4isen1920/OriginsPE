@@ -9,7 +9,8 @@ import { toAllPlayers } from "../../../origins/player";
  */
 function tail_wind(player) {
   if (!player.hasTag('power_tail_wind')) return;
-  player.addEffect('speed', TicksPerSecond * 3, { amplifier: 3, hideParticles: true })
+
+  player.addEffect('speed', TicksPerSecond * 3, { amplifier: 1, showParticles: false })
 }
 
 toAllPlayers(tail_wind, 1)

@@ -73,6 +73,9 @@
     "duration": 0.25
   },
 
+  //* origins.resource_bar A:<id>,<from>,<to>,<duration> ... 2+
+  //* origins.resource_bar A:00,000,000,000 B:00,000,000,000 C:00,000,000,000
+
   "resource_bar": {
     "type": "stack_panel",
     "orientation": "horizontal",

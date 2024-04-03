@@ -18,7 +18,7 @@
       },
 
       "minecraft:projectile": {
-        "projectile_entity": "origins:cleric_lingering_potion<origins:cleric_lingering_potion_regeneration_potent>",
+        "projectile_entity": "r4isen1920_originspe:cleric_lingering_potion<r4isen1920_originspe:cleric_lingering_potion_regeneration_potent>",
         "minimum_critical_power": 0.0
       },
       "minecraft:throwable": {

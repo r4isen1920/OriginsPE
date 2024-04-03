@@ -1,0 +1,879 @@
+{
+  "format_version": "1.18.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:cleric_area_effect_cloud",
+
+      "is_summonable": true
+    },
+
+    "component_groups": {
+      "r4isen1920_originspe:instant_despawn": {
+        "minecraft:instant_despawn": {
+        }
+      },
+
+      "r4isen1920_originspe:cleric_aoe_0": { "minecraft:variant": { "value": 0 } },
+      "r4isen1920_originspe:cleric_aoe_1": { "minecraft:variant": { "value": 1 } },
+      "r4isen1920_originspe:cleric_aoe_4": { "minecraft:variant": { "value": 4 } },
+      "r4isen1920_originspe:cleric_aoe_7": { "minecraft:variant": { "value": 7 } },
+      "r4isen1920_originspe:cleric_aoe_9": { "minecraft:variant": { "value": 9 } },
+      "r4isen1920_originspe:cleric_aoe_11": { "minecraft:variant": { "value": 11 } },
+      "r4isen1920_originspe:cleric_aoe_12": { "minecraft:variant": { "value": 12 } },
+      "r4isen1920_originspe:cleric_aoe_13": { "minecraft:variant": { "value": 13 } },
+      "r4isen1920_originspe:cleric_aoe_15": { "minecraft:variant": { "value": 15 } },
+      "r4isen1920_originspe:cleric_aoe_17": { "minecraft:variant": { "value": 17 } },
+      "r4isen1920_originspe:cleric_aoe_18": { "minecraft:variant": { "value": 18 } },
+      "r4isen1920_originspe:cleric_aoe_24": { "minecraft:variant": { "value": 24 } },
+      "r4isen1920_originspe:cleric_aoe_25": { "minecraft:variant": { "value": 25 } },
+
+      "r4isen1920_originspe:cleric_aoe_potent": {
+        "minecraft:is_charged": {}
+      }
+
+    },
+
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "cleric_control", "potion", "origins", "inanimate" ]
+      },
+      "minecraft:collision_box": {
+        "width": 1.0,
+        "height": 1.0
+      },
+      "minecraft:health": {
+        "min": 1,
+        "max": 1,
+        "value": 1
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+	    "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80.0,
+          "max_dropped_ticks": 5,
+          "use_motion_prediction_hints": true
+        }
+      },
+      "minecraft:timer": {
+        "time": 7.5,
+        "looping": true,
+        "time_down_event": {
+          "event": "r4isen1920_originspe:dissipate_effect",
+          "target": "self"
+        }
+      },
+      "minecraft:environment_sensor": {
+        "triggers": {
+          "filters": {
+            "test": "distance_to_nearest_player",
+            "operator": "<=",
+            "value": 128
+          },
+          "event": "r4isen1920_originspe:thrown_potion_effect"
+        }
+      }
+    },
+
+    "events": {
+      "r4isen1920_originspe:instant_despawn": {
+        "add": { 
+          "component_groups": [ "r4isen1920_originspe:instant_despawn" ]
+        }
+      },
+
+      "r4isen1920_originspe:cleric_aoe_slowness_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_0" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_slowness_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_0", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_swiftness_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_1" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_swiftness_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_1", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_strength_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_4" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_strength_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_4", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_healing_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_5", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_harming_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_6", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_leaping_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_7" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_leaping_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_7", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_regeneration_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_9" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_regeneration_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_9", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_fire_resistance_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_11" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_water_breathing_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_12" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_invisibility_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_13" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_night_vision_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_15" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_weakness_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_17" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_poison_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_18" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_poison_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_18", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_turtle_master_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_24" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_turtle_master_potent": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_24", "r4isen1920_originspe:cleric_aoe_potent" ] }
+      },
+      "r4isen1920_originspe:cleric_aoe_slow_falling_long": {
+        "add": { "component_groups": [ "r4isen1920_originspe:cleric_aoe_25" ] }
+      },
+
+      "r4isen1920_originspe:dissipate_effect": {
+        "sequence": [
+          {
+            "filters": { "test": "has_tag", "value": "aoe_cloud_stage_3" },
+            "add": { 
+              "component_groups": [ "r4isen1920_originspe:instant_despawn" ]
+            },
+            "queue_command": {
+              "command": [ "playsound beacon.deactivate @a ~~~ 1.0 1.2" ]
+            }
+          },
+          {
+            "filters": { "test": "has_tag", "value": "aoe_cloud_stage_2" },
+            "queue_command": {
+              "command": [ "tag @s add aoe_cloud_stage_3" ]
+            }
+          },
+          {
+            "filters": { "test": "has_tag", "value": "aoe_cloud_stage_1" },
+            "queue_command": {
+              "command": [ "tag @s add aoe_cloud_stage_2" ]
+            }
+          },
+          {
+            "filters": { "test": "has_tag", "operator": "!=", "value": "aoe_cloud_stage_1" },
+            "queue_command": {
+              "command": [ "tag @s add aoe_cloud_stage_1" ]
+            }
+          }
+        ]
+      },
+      
+      "r4isen1920_originspe:thrown_potion_effect": {
+        "sequence": [
+          {
+            "queue_command": {
+              "command": [ "tp @s ~~~" ]
+            }
+          },
+          {
+            "filters": { "test": "has_tag", "operator": "!=", "value": "aoe_cloud_stage_1" },
+            "sequence": [
+              {
+                "filters": { "test": "is_variant", "value": 0 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] slowness 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] slowness 5 5" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 1 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] speed 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] speed 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 4 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] strength 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] strength 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 7 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] jump_boost 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] jump_boost 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 9 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] regeneration 60 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] regeneration 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 11 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] fire_resistance 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 12 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] water_breathing 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 13 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] invisibility 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 15 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] night_vision 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 17 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] weakness 120 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 18 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] poison 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] poison 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 24 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=3] slowness 20 3",
+                        "effect @e[family=!inanimate,r=3] resistance 20 2" 
+                      ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=3] slowness 5 5",
+                        "effect @e[family=!inanimate,r=3] resistance 5 5" 
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 25 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] slow_falling 360 0" ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                { "test": "has_tag", "value": "aoe_cloud_stage_1" },
+                { "test": "has_tag",  "operator": "!=", "value": "aoe_cloud_stage_2" }
+              ]
+            },
+            "sequence": [
+              {
+                "filters": { "test": "is_variant", "value": 0 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] slowness 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] slowness 5 5" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 1 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] speed 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] speed 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 4 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] strength 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] strength 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 7 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] jump_boost 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] jump_boost 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 9 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] regeneration 60 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] regeneration 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 11 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] fire_resistance 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 12 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] water_breathing 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 13 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] invisibility 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 15 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] night_vision 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 17 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] weakness 120 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 18 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] poison 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=3] poison 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 24 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=3] slowness 20 3",
+                        "effect @e[family=!inanimate,r=3] resistance 20 2" 
+                      ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=3] slowness 5 5",
+                        "effect @e[family=!inanimate,r=3] resistance 5 5" 
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 25 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=3] slow_falling 360 0" ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                { "test": "has_tag", "value": "aoe_cloud_stage_2" },
+                { "test": "has_tag", "operator": "!=", "value": "aoe_cloud_stage_3" }
+              ]
+            },
+            "sequence": [
+              {
+                "filters": { "test": "is_variant", "value": 0 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] slowness 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] slowness 5 5" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 1 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] speed 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] speed 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 4 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] strength 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] strength 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 7 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] jump_boost 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] jump_boost 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 9 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] regeneration 60 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] regeneration 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 11 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=2] fire_resistance 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 12 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=2] water_breathing 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 13 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=2] invisibility 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 15 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=2] night_vision 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 17 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=2] weakness 120 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 18 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] poison 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=2] poison 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 24 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=2] slowness 20 3",
+                        "effect @e[family=!inanimate,r=2] resistance 20 2" 
+                      ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=2] slowness 5 5",
+                        "effect @e[family=!inanimate,r=2] resistance 5 5" 
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 25 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=2] slow_falling 360 0" ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": { "test": "has_tag", "value": "aoe_cloud_stage_3" },
+            "sequence": [
+              {
+                "filters": { "test": "is_variant", "value": 0 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] slowness 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] slowness 5 5" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 1 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] speed 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] speed 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 4 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] strength 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] strength 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 7 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] jump_boost 240 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] jump_boost 22 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 9 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] regeneration 60 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] regeneration 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 11 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=1] fire_resistance 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 12 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=1] water_breathing 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 13 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=1] invisibility 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 15 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=1] night_vision 240 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 17 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=1] weakness 120 0" ]
+                }
+              },
+              {
+                "filters": { "test": "is_variant", "value": 18 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] poison 120 0" ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ "effect @e[family=!inanimate,r=1] poison 5 2" ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 24 },
+                "sequence": [
+                  {
+                    "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=1] slowness 20 3",
+                        "effect @e[family=!inanimate,r=1] resistance 20 2" 
+                      ]
+                    }
+                  },
+                  {
+                    "filters": { "test": "has_component", "value": "minecraft:is_charged" },
+                    "queue_command": {
+                      "command": [ 
+                        "effect @e[family=!inanimate,r=1] slowness 5 5",
+                        "effect @e[family=!inanimate,r=1] resistance 5 5" 
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "filters": { "test": "is_variant", "value": 25 },
+                "queue_command": {
+                  "command": [ "effect @e[family=!inanimate,r=1] slow_falling 360 0" ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

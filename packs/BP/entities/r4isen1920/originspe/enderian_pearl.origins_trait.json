@@ -1,0 +1,79 @@
+{
+  "format_version": "1.18.30",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:enderian_pearl",
+      "runtime_identifier": "minecraft:snowball",
+
+      "is_summonable": true
+    },
+
+    "component_groups": {
+      "r4isen1920_originspe:instant_despawn": {
+        "minecraft:instant_despawn": {
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "enderian_control", "origins", "inanimate" ]
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "teleport_owner": true,
+          "remove_on_hit": {}
+        },
+        "power": 1.5,
+        "gravity": 0.025,
+        "angle_offset": 0.0,
+        "inertia": 1,
+        "liquid_inertia": 1
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.8
+      },
+      "minecraft:timer": {
+        "time": 2.5,
+        "looping": false,
+        "time_down_event": {
+          "event": "r4isen1920_originspe:instant_despawn",
+          "target": "self"
+        }
+      },
+      "minecraft:environment_sensor": {
+        "triggers": {
+          "filters": {
+            "test": "is_underwater",
+            "value": true
+          },
+          "event": "r4isen1920_originspe:instant_despawn"
+        }
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 200.0,
+          "max_dropped_ticks": 7,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+
+    "events": {
+      "r4isen1920_originspe:instant_despawn": {
+        "add": { 
+          "component_groups": [ 
+            "r4isen1920_originspe:instant_despawn" 
+          ] 
+        }
+      }
+    }
+  }
+}

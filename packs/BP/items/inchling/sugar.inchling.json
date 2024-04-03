@@ -21,7 +21,7 @@
 
         "can_always_eat": true,
         "on_consume": {
-          "event": "origins:on_consume",
+          "event": "r4isen1920_originspe:on_consume",
           "target": "self"
         }
       },
@@ -34,7 +34,7 @@
     },
 
     "events": {
-      "origins:on_consume": {
+      "r4isen1920_originspe:on_consume": {
         "condition": "q.scoreboard('trait') == 14",
         "add_mob_effect": {
           "effect": "speed",
@@ -42,7 +42,7 @@
           "duration": 20,
           "amplifier": 7
         },
-        "run_command": {
+        "queue_command": {
           "command": [
             "scoreboard players set @s inchlingspeed 1",
             "playsound ui.enchant @s ~~~"

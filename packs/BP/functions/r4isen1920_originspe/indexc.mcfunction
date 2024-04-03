@@ -1,3 +1,4 @@
+
 scoreboard players set "banr" index 0
 scoreboard players set "banc" index 0
 

@@ -1,79 +1,77 @@
 {
-	"$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.2.json",
-	"author": "r4isen1920",
-	"name": "OriginsPE",
-	"packs": {
-		"behaviorPack": "./packs/BP",
-		"resourcePack": "./packs/RP"
-	},
-	"regolith": {
-		"dataPath": "./packs/data",
-		"filterDefinitions": {
-			"gametests": {
-				"url": "github.com/Bedrock-OSS/regolith-filters",
-				"version": "1.5.3"
-			}
-		},
-		"profiles": {
-			"default": {
-				"export": {
-					"readOnly": false,
-					"target": "development"
-				},
-				"filters": [
+  "$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.2.json",
+  "author": "r4isen1920",
+  "name": "OriginsPE",
+  "packs": {
+    "behaviorPack": "./packs/BP",
+    "resourcePack": "./packs/RP"
+  },
+  "regolith": {
+    "dataPath": "./packs/data",
+    "filterDefinitions": {
+      "gametests": {
+        "url": "github.com/Bedrock-OSS/regolith-filters",
+        "version": "1.5.3"
+      }
+    },
+    "profiles": {
+      "default": {
+        "export": {
+          "readOnly": false,
+          "target": "development"
+        },
+        "filters": [
           {
-						"filter": "gametests",
-						"settings": {
-							"modules": [
-								"@minecraft/server@1.9.0",
-								"@minecraft/server-ui@1.1.0"
-							],
-							"buildOptions": {
-								"entryPoints": [
-									"data/gametests/src/main.ts"
-								],
-								"bundle": true,
-								"minify": true,
-								"format": "esm",
-								"target": "es2020"
-							},
-							"outdir": "BP/scripts/r4isen1920/originspe",
-							"outfile": "BP/scripts/r4isen1920/originspe/main.js"
-						}
-					}
+            "filter": "gametests",
+            "settings": {
+              "modules": [
+                "@minecraft/server@1.9.0",
+                "@minecraft/server-ui@1.1.0"
+              ],
+              "buildOptions": {
+                "entryPoints": [ "data/gametests/src/main.ts" ],
+                "bundle": true,
+                "minify": false,
+                "format": "esm",
+                "target": "es2020"
+              },
+              "outdir": "BP/scripts/r4isen1920/originspe",
+              "outfile": "BP/scripts/r4isen1920/originspe/main.js"
+            }
+          }
         ]
-			},
+      },
 
-			"debug": {
-				"export": {
-					"readOnly": false,
-					"target": "development"
-				},
-				"filters": [
+      "raw": {
+        "export": {
+          "readOnly": false,
+          "target": "development"
+        },
+        "filters": [
           {
-						"filter": "gametests",
-						"settings": {
-							"modules": [
-								"@minecraft/server@1.9.0",
-								"@minecraft/server-ui@1.1.0"
-							],
-							"buildOptions": {
-								"entryPoints": [
-									"data/gametests/src/*.js",
-									"data/gametests/src/**/*.js",
-									"data/gametests/src/main.ts"
-								],
-								"bundle": false,
-								"minify": false,
-								"format": "esm",
-								"target": "es2020"
-							},
-							"outdir": "BP/scripts/r4isen1920/originspe",
-							"outfile": "BP/scripts/r4isen1920/originspe/main.js"
-						}
-					}
+            "filter": "gametests",
+            "settings": {
+              "modules": [
+                "@minecraft/server@1.9.0",
+                "@minecraft/server-ui@1.1.0"
+              ],
+              "buildOptions": {
+                "entryPoints": [
+                  "data/gametests/src/*.js",
+                  "data/gametests/src/**/*.js",
+                  "data/gametests/src/main.ts"
+                ],
+                "bundle": false,
+                "minify": false,
+                "format": "esm",
+                "target": "es2020"
+              },
+              "outdir": "BP/scripts/r4isen1920/originspe",
+              "outfile": "BP/scripts/r4isen1920/originspe/main.js"
+            }
+          }
         ]
-			}
-		}
-	}
+      }
+    }
+  }
 }

@@ -1,3 +1,4 @@
+
 scoreboard players set @a[tag="race_human"] index 1
 scoreboard players set "c_human" index 0
 execute if score "toggle_unique" index matches 1 run scoreboard players operation "c_human" index += @a[tag="race_human"] index

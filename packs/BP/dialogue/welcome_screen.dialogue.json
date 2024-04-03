@@ -10,7 +10,7 @@
           {
             "name": "start",
             "commands": [
-              "/scoreboard players set @initiator guib 1",
+              "/scoreboard players set @initiator gui 1",
               "/execute as @initiator run function reset",
               "/tag @initiator add welcome_ui"
             ]
@@ -18,7 +18,7 @@
         ],
         "on_open_commands": [
           "/execute as @initiator at @s run playsound random.levelup @s ~~~ 0.5 0.5",
-          "/scoreboard players set @initiator guib 1"
+          "/scoreboard players set @initiator gui 1"
         ],
         "on_close_commands": [
           "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
