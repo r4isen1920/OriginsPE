@@ -7,7 +7,7 @@ world.afterEvents.entityHitEntity.subscribe(
 
     const { damagingEntity, hitEntity } = event;
 
-    if (!damagingEntity.hasTag('power_webbing')) return
+    if (!damagingEntity.hasTag('power_webbing') || damagingEntity.hasTag('cooldown_1')) return
 
     hitEntity.dimension
              .getBlock(hitEntity.location)
