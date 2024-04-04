@@ -1,8 +1,9 @@
 
-import { world } from "@minecraft/server";
+import { LocationOutOfWorldBoundariesError, TicksPerSecond, world } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
+import { Vector3 } from "../../../utils/Vec3";
 
 /**
  * 
@@ -17,8 +18,17 @@ function launch_into_air(player) {
 
   if (!player.hasTag('cooldown_2')) {
 
-    player.applyKnockback(0, 0, 0, 3);
+    if (!player.hasTag('_heavy')) player.applyKnockback(0, 0, 0, 3);
+    else player.applyKnockback(0, 0, 0, 1.5);
+    player.addEffect('slow_falling', TicksPerSecond * 3, { amplifier: 255, showParticles: false })
+
     world.playSound('firework.launch', player.location, { volume: 1, pitch: 1.25 })
+
+    try {
+      player.dimension.spawnParticle('r4isen1920_originspe:air_burst', Vector3.add(player.location, new Vector3(0, 1, 0)))
+    } catch (e) {
+      if (!(e instanceof LocationOutOfWorldBoundariesError)) throw e
+    }
 
     new ResourceBar(2, 0, 100, 30)
         .push(player)

@@ -28,6 +28,10 @@
         "can_be_siphoned_from": false,
         "restrict_to_owner": false
       },
+      "minecraft:rideable": {
+        "family_types": [ "player" ],
+        "seat_count": 1
+      },
 
       "minecraft:persistent": {},
       "minecraft:tick_world": {

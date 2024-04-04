@@ -20,6 +20,9 @@
 
       /* OriginsPE */
 
+      "r4isen1920_originspe:movement.0.05": {
+        "minecraft:movement": { "value": 0.05 }
+      },
       "r4isen1920_originspe:movement.0.1": {
         "minecraft:movement": { "value": 0.1 }
       },
@@ -39,6 +42,26 @@
       },
       "r4isen1920_originspe:health.10": {
         "minecraft:health": { "max": 10 }
+      },
+
+
+      "r4isen1920_originspe:attack.0": {
+        "minecraft:attack": { "damage": 0 }
+      },
+      "r4isen1920_originspe:attack.1": {
+        "minecraft:attack": { "damage": 1 }
+      },
+      "r4isen1920_originspe:attack.2": {
+        "minecraft:attack": { "damage": 2 }
+      },
+      "r4isen1920_originspe:attack.5": {
+        "minecraft:attack": { "damage": 5 }
+      },
+      "r4isen1920_originspe:attack.7": {
+        "minecraft:attack": { "damage": 7 }
+      },
+      "r4isen1920_originspe:attack.10": {
+        "minecraft:attack": { "damage": 10 }
       },
 
 
@@ -93,14 +116,8 @@
             "on_damage": {
               "filters": {
                 "any_of": [
-                  {
-                    "test": "has_tag",
-                    "value": "_master_of_webs_0"
-                  },
-                  {
-                    "test": "has_tag",
-                    "value": "_climbing"
-                  }
+                  { "test": "has_tag", "value": "_master_of_webs_0" },
+                  { "test": "has_tag", "value": "_climbing" }
                 ]
               }
             },
@@ -111,12 +128,32 @@
             "cause": "all",
             "on_damage": {
               "filters": {
-                "test": "has_tag",
-                "value": "_master_of_webs_1"
+                "any_of": [
+                  { "test": "has_tag", "value": "_master_of_webs_1" }
+
+                ]
               }
             },
             "deals_damage": true,
             "damage_multiplier": 0.25
+          },
+          {
+            "cause": "all",
+            "on_damage": {
+              "filters": {
+                "all_of": [
+                  { "test": "has_tag", "value": "power_more_kinetic_damage" },
+                  {
+                    "any_of": [
+                      { "test": "has_damage", "value": "fall" },
+                      { "test": "has_damage", "value": "fly_into_wall" }
+                    ]
+                  }
+                ]
+              }
+            },
+            "deals_damage": true,
+            "damage_multiplier": 2
           }
         ]
       },
@@ -125,6 +162,39 @@
 
           /* OriginsPE */
 
+          {
+            "filters": {
+              "all_of": [
+                { "test": "has_tag", "value": "power_shulk_inventory" },
+                { "test": "has_tag", "value": "_shulk_inventory_open" },
+                { "test": "has_tag", "operator": "!=", "value": "_shulk_inventory_opened" },
+                { "test": "has_container_open", "value": true }
+              ]
+            },
+            "event": "r4isen1920_originspe:power.shulk_inventory.open_test"
+          },
+          {
+            "filters": {
+              "all_of": [
+                { "test": "has_tag", "value": "power_shulk_inventory" },
+                { "test": "has_tag", "value": "_shulk_inventory_open" },
+                {
+                  "any_of": [
+                    {
+                      "all_of": [
+                        { "test": "has_tag", "value": "_shulk_inventory_opened" },
+                        { "test": "has_container_open", "value": false }
+                      ]
+                    },
+                    { "test": "is_riding", "value": false },
+                    { "test": "is_moving", "value": true },
+                    { "test": "is_sneaking", "value": true }
+                  ]
+                }
+              ]
+            },
+            "event": "r4isen1920_originspe:power.shulk_inventory.close"
+          },
 
 
           /* Vanilla */
@@ -260,6 +330,9 @@
 
       /* OriginsPE */
 
+      "r4isen1920_originspe:movement.0.05": {
+        "add": { "component_groups": [ "r4isen1920_originspe:movement.0.05" ] }
+      },
       "r4isen1920_originspe:movement.0.1": {
         "add": { "component_groups": [ "r4isen1920_originspe:movement.0.1" ] }
       },
@@ -280,11 +353,41 @@
         "add": { "component_groups": [ "r4isen1920_originspe:health.10" ] }
       },
 
+      "r4isen1920_originspe:attack.0": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.0" ] }
+      },
+      "r4isen1920_originspe:attack.1": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.1" ] }
+      },
+      "r4isen1920_originspe:attack.2": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.2" ] }
+      },
+      "r4isen1920_originspe:attack.5": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.5" ] }
+      },
+      "r4isen1920_originspe:attack.7": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.7" ] }
+      },
+      "r4isen1920_originspe:attack.10": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.10" ] }
+      },
+
       "r4isen1920_originspe:options.particle_on": {
         "set_property": { "r4isen1920_originspe:toggle_particles": true }
       }, 
       "r4isen1920_originspe:options.particle_off": {
         "set_property": { "r4isen1920_originspe:toggle_particles": false }
+      },
+
+      "r4isen1920_originspe:power.shulk_inventory.open_test": { 
+        "queue_command": {
+          "command": [ "tag @s add _shulk_inventory_opened" ] 
+        }
+      },
+      "r4isen1920_originspe:power.shulk_inventory.close": { 
+        "queue_command": {
+          "command": [ "tag @s add _control_use_shulk_inventory" ] 
+        } 
       },
 
 

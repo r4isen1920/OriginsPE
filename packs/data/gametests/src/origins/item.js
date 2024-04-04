@@ -37,6 +37,7 @@ world.afterEvents.itemStartUse.subscribe(
         closeAbilityHotbar(source);
         openOptionsGUI(source, 'general');
         source.playSound('ui.wood_click');
+        source.playSound('random.orb', { volume: 1, pitch: 0.5 });
         break;
 
       default: break;

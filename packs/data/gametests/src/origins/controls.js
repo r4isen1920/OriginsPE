@@ -38,11 +38,11 @@ export function openAbilityHotbar(player) {
 
   // From: Player hotbar items
 
-  player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}` ] })[0]
+  player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}`, '_inventory_keep_hotbar' ] })[0]
                   ?.teleport(player.location, { dimension: player.dimension })
 
   const dummyEntity = 
-    player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}` ] })[0] ||
+    player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}`, '_inventory_keep_hotbar' ] })[0] ||
     player.dimension.spawnEntity('r4isen1920_originspe:inventory_keep', player.location);
   /**
    * @type { import('@minecraft/server').Container }
@@ -50,8 +50,11 @@ export function openAbilityHotbar(player) {
   const dummyEntityInventory = dummyEntity.getComponent('inventory').container;
 
   for (let i = 0; i < 8; i++) {
-    _HOTBAR.push(playerInventory.getItem(i))
-    playerInventory.setItem(i, undefined)
+    _HOTBAR.push(playerInventory.getItem(i));
+
+    const itemPadding = new ItemStack('r4isen1920_originspe:origins_menu_padding');
+    itemPadding.lockMode = ItemLockMode.slot;
+    playerInventory.setItem(i, itemPadding)
   }
 
   _HOTBAR.forEach((item, index) => {
@@ -59,6 +62,7 @@ export function openAbilityHotbar(player) {
   })
 
   dummyEntity.addTag(`_inventory_keep_${player.id}`)
+  dummyEntity.addTag('_inventory_keep_hotbar')
 
 
   // To: Ability hotbar items
@@ -68,14 +72,14 @@ export function openAbilityHotbar(player) {
 
     playerControlTags.forEach(tag => {
       const itemName = `r4isen1920_originspe:origins_power.${tag.replace('control_', '')}`;
-  
+
       try {
         const item = new ItemStack(itemName);
         item.lockMode = ItemLockMode.slot;
-  
+
         _ABILITY_CONTROLS.push(item) 
       } catch (e) {
-        console.warn(`[r4isen1920][OriginsPE] Failed to load ability control item ${itemName} for ${player.name}`);
+        console.warn(`[r4isen1920][OriginsPE] Failed to load ability control item: '${itemName}' for ${player.name}`);
         console.warn(`[r4isen1920][OriginsPE] ${e}`);
       }
     })
@@ -121,10 +125,10 @@ export function closeAbilityHotbar(player) {
 
   // To: Player hotbar items
 
-  player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}` ] })[0]
+  player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}`, '_inventory_keep_hotbar' ] })[0]
                   ?.teleport(player.location, { dimension: player.dimension })
 
-  const dummyEntity = player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}` ] })[0]
+  const dummyEntity = player.dimension.getEntities({ type: 'r4isen1920_originspe:inventory_keep', tags: [ `_inventory_keep_${player.id}`, '_inventory_keep_hotbar' ] })[0]
   if (!dummyEntity) {
     player.removeTag('controls_opened')
     return

@@ -89,7 +89,7 @@ export async function initAbilities(player) {
   let CONTROLS = [];
 
   removeTags(player, 'power_');
-  removeTags(player, 'trait_');
+  removeTags(player, 'perk_');
   removeTags(player, 'control_');
 
   try {
@@ -120,8 +120,8 @@ export async function initAbilities(player) {
   ORIGIN_POWERS.forEach(power => {
     player.addTag(`power_${power}`)
   })
-  CLASS_PERKS.forEach(trait => {
-    player.addTag(`trait_${trait}`)
+  CLASS_PERKS.forEach(perk => {
+    player.addTag(`perk_${perk}`)
   })
 
   CONTROLS.forEach(control => {
@@ -160,7 +160,7 @@ export function resetPlayerAttributes(player) {
  * @param { function } func 
  * @param { number } interval 
  */
-export function toAllPlayers(func, interval) {
+export function toAllPlayers(func, interval=1) {
   system.runInterval(() => {
     world.getAllPlayers().forEach(player => func(player))
   }, interval)

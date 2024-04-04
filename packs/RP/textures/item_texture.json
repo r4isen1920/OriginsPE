@@ -9,8 +9,10 @@
 
 		"r4isen1920_originspe:origins_menu": { "textures": [ "textures/origins/hud/controls/_menu" ] },
     "r4isen1920_originspe:origins_submenu": { "textures": [ "textures/origins/hud/controls/_submenu" ] },
+    "r4isen1920_originspe:origins_menu_padding": { "textures": [ "textures/none" ] },
 
     "r4isen1920_originspe:origins_power.launch_into_air": { "textures": [ "textures/origins/hud/controls/launch_into_air" ] },
+    "r4isen1920_originspe:origins_power.shulk_inventory": { "textures": [ "textures/origins/hud/controls/shulk_inventory" ] },
 
 
 		"wooden_axe": { "textures": [ "textures/items/wood_axe" ] },

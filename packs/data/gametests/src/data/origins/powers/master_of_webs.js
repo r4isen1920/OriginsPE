@@ -9,6 +9,10 @@ import { removeTags } from "../../../utils/tags";
  */
 function master_of_webs(player) {
 
+  /**
+   * @param { number } yPos 
+   * @returns { import('@minecraft/server').Block }
+   */
   const block = function(yPos) {
     return player.dimension.getBlock(Vector3.add(player.location, new Vector3(0, yPos, 0)))
   }

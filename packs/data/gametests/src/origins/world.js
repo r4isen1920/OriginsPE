@@ -18,7 +18,7 @@ function getAllPlayerTags(player) {
  */
 async function runServerWideAbilities(player) {
   const tags = getAllPlayerTags(player);
-  const relevantTags = tags.filter(tag => tag.startsWith('power_') || tag.startsWith('trait_'));
+  const relevantTags = tags.filter(tag => tag.startsWith('power_') || tag.startsWith('perk_'));
 
   if (
     relevantTags.length === 0 ||
@@ -37,7 +37,7 @@ async function runServerWideAbilities(player) {
       const module = await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
     } catch (e) {
 
-      console.warn(`[r4isen1920][OriginsPE] Failed to load ability ${name}`);
+      console.warn(`[r4isen1920][OriginsPE] Failed to load ${type}: '${name}'`);
       console.warn(`[r4isen1920][OriginsPE] ${e}`);
 
     }
