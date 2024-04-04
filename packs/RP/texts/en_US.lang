@@ -327,8 +327,8 @@ origins.perk.sapling_setblock.description=When you take down multiple logs at on
 
 origins.item.orb_of_origins.name=§eOrb of Origins§r
 origins.item.resignation_paper.name=§eResignation Paper§r
-origins.item.origins_menu.name=[Open Menu]
-origins.item.origins_submenu.name=[More Options]
+origins.item.origins_menu.name=§7[Toggle Menu]§r
+origins.item.origins_submenu.name=§7[More Options]§r
 
 origins.item.blacksmith.wooden_axe.name=§bWooden Axe§r 
 origins.item.blacksmith.stone_axe.name=§bStone Axe§r 

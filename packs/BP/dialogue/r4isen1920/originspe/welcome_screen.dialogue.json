@@ -10,14 +10,14 @@
           {
             "name": "start",
             "commands": [
-              "/scoreboard players set @initiator gui 1",
-              "/execute as @initiator run function reset",
-              "/tag @initiator add welcome_ui"
+              "/scoreboard players set @initiator gui 1"
             ]
           }
         ],
         "on_open_commands": [
           "/execute as @initiator at @s run playsound random.levelup @s ~~~ 0.5 0.5",
+          "/execute as @initiator at @s run playsound random.wood_click @s ~~~ 0.5 1",
+
           "/scoreboard players set @initiator gui 1"
         ],
         "on_close_commands": [

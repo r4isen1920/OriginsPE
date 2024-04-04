@@ -5,7 +5,8 @@
  * r4isen1920
  * 
  * @remarks
- * Removes player tags specified
+ * Removes player tags that starts with
+ * specified prefix
  * 
  * @param { import("@minecraft/server").Entity } entity 
  * @param { string } prefix 

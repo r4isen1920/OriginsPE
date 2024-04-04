@@ -26,6 +26,8 @@ export function runDialogueCommand(player, dialogueId) {
   player.removeTag('load_failed');
   player.addTag(`was_${setPlayerGameMode(player)}`)
 
+  //* console.warn(`open GUI: ${dialogueId}`)
+
   const _A = system.runInterval(() => {
     player.runCommand(`dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s ${dialogueId}`);
     if (world.scoreboard.getObjective('gui')?.getScore(player) === 1) system.clearRun(_A);
@@ -39,17 +41,15 @@ export function runDialogueCommand(player, dialogueId) {
  * 
  * @param { import('@minecraft/server').Player } player 
  * @param { 'race' | 'class' } set 
- * @param { 'pick' | 'change' | 'view' } viewtype 
+ * @param { 'pick' | 'change' | 'view' | 'viewonly' } viewType 
  */
-export function openScreenPickerGUI(player, set='race', viewtype='pick') {
+export function openScreenPickerGUI(player, set='race', viewType='pick') {
   const playerOrigin = player.getTags().find(tag => tag.startsWith(`${set}_`))?.replace(`${set}_`, '');
-  const dialogueId = playerOrigin ? `gui_${set}_${viewtype}_${playerOrigin}` : `gui_${set}_${viewtype}_${set === 'race' ? 'human' : 'nitwit'}`;
-
-  //* console.warn(`open GUI: ${dialogueId}`)
+  const dialogueId = playerOrigin ? `gui_${set}_${viewType}_${playerOrigin}` : `gui_${set}_${viewType}_${set === 'race' ? 'human' : 'nitwit'}`;
 
   runDialogueCommand(player, dialogueId);
 
-  switch (viewtype) {
+  switch (viewType) {
 
     case 'pick':
       removeTags(player, `${set}_`)
@@ -60,6 +60,62 @@ export function openScreenPickerGUI(player, set='race', viewtype='pick') {
       break;
 
   }
+}
+
+/**
+ * 
+ * Opens the options GUI for
+ * the given player
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ * @param { string } optionType 
+ */
+export function openOptionsGUI(player, optionType) {
+
+  let dialogueId = '';
+
+  switch (true) {
+
+    case optionType === 'general':
+      if (player.getProperty('r4isen1920_originspe:toggle_particles')) dialogueId = 'gui_options_general_root_particleon'
+      else dialogueId = 'gui_options_general_root_particleoff'
+      break;
+
+    case optionType === 'view_origin':
+      openScreenPickerGUI(player, 'race', 'viewonly')
+      break;
+    case optionType === 'view_class':
+      openScreenPickerGUI(player, 'class', 'viewonly')
+      break;
+  
+    case optionType === 'admin':
+      if (player.hasTag('origins_admin')) dialogueId = 'gui_options_admin_root'
+      else dialogueId = 'gui_options_admin_denied'
+      break;
+    case optionType === 'admin_toggle':
+      /**
+       * @param { 'orb' | 'paper' | 'unique' | 'announce' } toggleName 
+       * @returns { number }
+       */
+      const toggleValue = function(toggleName) {
+        let score = 0;
+
+        try {
+          score = world.scoreboard.getObjective('index').getScore(`toggle_${toggleName}`)
+        } catch {
+          world.scoreboard.getObjective('index').setScore(`toggle_${toggleName}`, toggleName === 'announce' ? 1 : 0)
+        }
+
+        return world.scoreboard.getObjective('index').getScore(`toggle_${toggleName}`);
+      }
+      dialogueId = `gui_options_admin_toggle_root_${toggleValue('orb')}${toggleValue('paper')}${toggleValue('unique')}${toggleValue('announce')}`;
+      break;
+  }
+
+  if (dialogueId === '') return
+
+  runDialogueCommand(player, dialogueId);
+
 }
 
 /**
@@ -89,6 +145,8 @@ function setPlayerGameMode(player) {
 function onCloseGUI(player) {
   initAbilities(player);
   resetPlayerAttributes(player);
+
+  player.removeTag('change_resign');
 
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))
   if (prevGamemode) {
@@ -121,6 +179,22 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
       break;
     case 'on_close': 
       onCloseGUI(sourceEntity)
+      break;
+
+    case 'open_options_general':
+      openOptionsGUI(sourceEntity, 'general')
+      break;
+    case 'open_options_view_origin':
+      openOptionsGUI(sourceEntity, 'view_origin')
+      break;
+    case 'open_options_view_class':
+      openOptionsGUI(sourceEntity, 'view_class')
+      break;
+    case 'open_options_admin':
+      openOptionsGUI(sourceEntity, 'admin')
+      break;
+    case 'open_options_admin_toggle':
+      openOptionsGUI(sourceEntity, 'admin_toggle')
       break;
 
     default:

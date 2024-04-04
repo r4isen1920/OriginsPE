@@ -5,6 +5,42 @@ import { openScreenPickerGUI } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
 
 
+const ORIGINS = [
+  'avian',
+  'arachnid',
+  'elytrian',
+  'shulk',
+  'feline',
+  'enderian',
+  'merling',
+  'blazeborn',
+  'phantom',
+  'kitsune',
+  'slimecican',
+  'inchling',
+  'bee',
+  'piglin',
+  'starborne',
+  'elf',
+  'voidwalker',
+]
+
+const CLASSES = [
+  'archer',
+  'beastmaster',
+  'blacksmith',
+  'cleric',
+  'cook',
+  'explorer',
+  'farmer',
+  'lumberjack',
+  'merchant',
+  'miner',
+  'rancher',
+  'rogue',
+  'warrior',
+]
+
 /**
  * 
  * Set the Origin (race) of a player
@@ -13,6 +49,9 @@ import { removeTags } from "../utils/tags.js";
  * @param { string } param_race 
  */
 function setRace(player, param_race) {
+  if (param_race === 'random') {
+    param_race = ORIGINS[Math.floor(Math.random() * ORIGINS.length)]
+  }
   player.addTag(`race_${param_race}`)
   openScreenPickerGUI(player, 'race', 'view');
 }
@@ -22,9 +61,12 @@ function setRace(player, param_race) {
  * Set the Class of a player
  * 
  * @param { import('@minecraft/server').Player } player 
- * @param { string } sClass 
+ * @param { string } param_class 
  */
 function setClass(player, param_class) {
+  if (param_class === 'random') {
+    param_class = CLASSES[Math.floor(Math.random() * CLASSES.length)]
+  }
   player.addTag(`class_${param_class}`)
   openScreenPickerGUI(player, 'class', 'view');
 }
@@ -43,7 +85,7 @@ export async function initAbilities(player) {
   const playerClass = player.getTags().find(tag => tag.startsWith('class_'))?.replace('class_', '') || 'nitwit';
 
   let ORIGIN_POWERS = [];
-  let CLASS_TRAITS = [];
+  let CLASS_PERKS = [];
   let CONTROLS = [];
 
   removeTags(player, 'power_');
@@ -53,15 +95,21 @@ export async function initAbilities(player) {
   try {
 
     await import(`../data/origins/${playerOrigin}.js`).then(mod => ORIGIN_POWERS = mod[playerOrigin].powers);
-    await import(`../data/classes/${playerClass}.js`).then(mod => CLASS_TRAITS = mod[playerClass].traits);
+    await import(`../data/classes/${playerClass}.js`).then(mod => CLASS_PERKS = mod[playerClass].perks);
 
-    await import(`../data/origins/${playerOrigin}.js`).then(mod => CONTROLS.push(...mod[playerOrigin].controls));
-    await import(`../data/classes/${playerClass}.js`).then(mod => CONTROLS.push(...mod[playerClass].controls));
+    try {
+
+      await import(`../data/origins/${playerOrigin}.js`).then(mod => CONTROLS.push(...mod[playerOrigin].controls));
+      await import(`../data/classes/${playerClass}.js`).then(mod => CONTROLS.push(...mod[playerClass].controls));
+
+    } catch (e) {
+      if (!(e instanceof TypeError)) throw e;
+    }
 
   } catch (e) {
 
     console.warn(`[r4isen1920][OriginsPE] Failed to load Origins and classes for ${player.name} (${playerOrigin}, ${playerClass})`);
-    console.warn(`[r4isen1920][OriginsPE] ${e}`);
+    console.warn(`[r4isen1920][OriginsPE] ${e instanceof TypeError ? 'Missing property "powers" or "perks"' : e}`);
 
     player.addTag('load_failed');
 
@@ -72,7 +120,7 @@ export async function initAbilities(player) {
   ORIGIN_POWERS.forEach(power => {
     player.addTag(`power_${power}`)
   })
-  CLASS_TRAITS.forEach(trait => {
+  CLASS_PERKS.forEach(trait => {
     player.addTag(`trait_${trait}`)
   })
 
@@ -98,6 +146,8 @@ export function resetPlayerAttributes(player) {
 
   player.triggerEvent('r4isen1920_originspe:movement.0.1');
   player.triggerEvent('r4isen1920_originspe:health.20');
+
+  removeTags(player, '_');
 
 }
 
@@ -134,6 +184,13 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
       break;
     case message === 'become_class_unknown':
       openScreenPickerGUI(sourceEntity, 'class', 'pick');
+      break;
+
+    case message === 'become_race_random':
+      setRace(sourceEntity, 'random');
+      break;
+    case message === 'become_class_random':
+      setClass(sourceEntity, 'random');
       break;
 
     case message.startsWith('become_race_'):

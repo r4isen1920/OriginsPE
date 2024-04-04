@@ -262,7 +262,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -273,7 +273,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -284,7 +284,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -295,7 +295,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -306,7 +306,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -317,7 +317,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -328,7 +328,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -339,7 +339,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -350,7 +350,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -361,7 +361,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -372,7 +372,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -383,7 +383,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -394,7 +394,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       },
@@ -405,7 +405,7 @@
         "buttons": [
           {
             "name": "return_start",
-            "commands": [ "/event entity @initiator r4isen1920_originspe:options_open_general_root" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui open_options_general" ]
           }
         ]
       }

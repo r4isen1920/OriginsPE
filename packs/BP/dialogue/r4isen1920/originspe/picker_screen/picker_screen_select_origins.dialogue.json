@@ -17,7 +17,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_random" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_random" ]
           },
           {
             "name": ">",
@@ -47,9 +47,7 @@
               "/execute as @initiator if score \"c_origins\" index matches 14.. if score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_starborne",
               "/execute as @initiator if score \"c_origins\" index matches 14.. unless score \"ban_starborne\" index matches 1 if score \"c_starborne\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_starborne",
               "/execute as @initiator if score \"c_origins\" index matches 14.. unless score \"ban_starborne\" index matches 1 unless score \"c_starborne\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_starborne",
-              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random",
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui"
+              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random" 
             ]
           },
           {
@@ -57,8 +55,6 @@
             "commands": [
               "/scoreboard players set @initiator gui 1",
 
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui",
               "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_human"
             ]
           },
@@ -69,9 +65,7 @@
 
               "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_avian",
               "/execute as @initiator unless score \"ban_avian\" index matches 1 if score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_avian",
-              "/execute as @initiator unless score \"ban_avian\" index matches 1 unless score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_avian",
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui"
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 unless score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_avian" 
             ]
           }
         ],
@@ -95,7 +89,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_avian" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_avian" ]
           },
           {
             "name": ">",
@@ -122,7 +116,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_arachnid" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_arachnid" ]
           },
           {
             "name": ">",
@@ -149,7 +143,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_elytrian" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_elytrian" ]
           },
           {
             "name": ">",
@@ -176,7 +170,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_shulk" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_shulk" ]
           },
           {
             "name": ">",
@@ -203,7 +197,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_feline" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_feline" ]
           },
           {
             "name": ">",
@@ -230,7 +224,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_enderian" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_enderian" ]
           },
           {
             "name": ">",
@@ -257,7 +251,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_merling" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_merling" ]
           },
           {
             "name": ">",
@@ -284,7 +278,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_blazeborn" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_blazeborn" ]
           },
           {
             "name": ">",
@@ -311,7 +305,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_phantom" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_phantom" ]
           },
           {
             "name": ">",
@@ -338,7 +332,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_kitsune" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_kitsune" ]
           },
           {
             "name": ">",
@@ -365,7 +359,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_slimecican" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_slimecican" ]
           },
           {
             "name": ">",
@@ -392,7 +386,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_inchling" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_inchling" ]
           },
           {
             "name": ">",
@@ -419,7 +413,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_bee" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_bee" ]
           },
           {
             "name": ">",
@@ -446,7 +440,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_piglin" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_piglin" ]
           },
           {
             "name": ">",
@@ -473,7 +467,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_starborne" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_starborne" ]
           },
           {
             "name": ">",
@@ -500,7 +494,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_elf" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_elf" ]
           },
           {
             "name": ">",
@@ -527,7 +521,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_voidwalker" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_voidwalker" ]
           },
           {
             "name": ">",
@@ -561,23 +555,19 @@
               "/execute as @initiator if score \"c_origins\" index matches 14.. if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_voidwalker",
               "/execute as @initiator if score \"c_origins\" index matches 14.. unless score \"ban_voidwalker\" index matches 1 if score \"c_voidwalker\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_voidwalker",
               "/execute as @initiator if score \"c_origins\" index matches 14.. unless score \"ban_voidwalker\" index matches 1 unless score \"c_voidwalker\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_voidwalker",
-              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random",
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui"
+              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random" 
             ]
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_human" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_human" ]
           },
           {
             "name": ">",
             "commands": [
               "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_avian",
               "/execute as @initiator unless score \"ban_avian\" index matches 1 if score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_avian",
-              "/execute as @initiator unless score \"ban_avian\" index matches 1 unless score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_avian",
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui"
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 unless score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_avian" 
             ]
           }
         ],
@@ -601,7 +591,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_avian" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_avian" ]
           },
           {
             "name": ">",
@@ -628,7 +618,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_arachnid" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_arachnid" ]
           },
           {
             "name": ">",
@@ -655,7 +645,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elytrian" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elytrian" ]
           },
           {
             "name": ">",
@@ -682,7 +672,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_shulk" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_shulk" ]
           },
           {
             "name": ">",
@@ -709,7 +699,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_feline" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_feline" ]
           },
           {
             "name": ">",
@@ -736,7 +726,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_enderian" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_enderian" ]
           },
           {
             "name": ">",
@@ -763,7 +753,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_merling" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_merling" ]
           },
           {
             "name": ">",
@@ -790,7 +780,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_blazeborn" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_blazeborn" ]
           },
           {
             "name": ">",
@@ -817,7 +807,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_phantom" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_phantom" ]
           },
           {
             "name": ">",
@@ -844,7 +834,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_kitsune" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_kitsune" ]
           },
           {
             "name": ">",
@@ -871,7 +861,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_slimecican" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_slimecican" ]
           },
           {
             "name": ">",
@@ -898,7 +888,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_inchling" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_inchling" ]
           },
           {
             "name": ">",
@@ -925,7 +915,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_bee" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_bee" ]
           },
           {
             "name": ">",
@@ -952,7 +942,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_piglin" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_piglin" ]
           },
           {
             "name": ">",
@@ -979,7 +969,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_starborne" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_starborne" ]
           },
           {
             "name": ">",
@@ -1006,7 +996,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elf" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elf" ]
           },
           {
             "name": ">",
@@ -1033,7 +1023,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_voidwalker" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_voidwalker" ]
           },
           {
             "name": ">",
@@ -1067,23 +1057,19 @@
               "/execute as @initiator if score \"c_origins\" index matches 14.. if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_voidwalker",
               "/execute as @initiator if score \"c_origins\" index matches 14.. unless score \"ban_voidwalker\" index matches 1 if score \"c_voidwalker\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_voidwalker",
               "/execute as @initiator if score \"c_origins\" index matches 14.. unless score \"ban_voidwalker\" index matches 1 unless score \"c_voidwalker\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_voidwalker",
-              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random",
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui"
+              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random" 
             ]
           },
           {
             "name": "select",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_human" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_human" ]
           },
           {
             "name": ">",
             "commands": [
               "/execute as @initiator if score \"ban_avian\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_avian",
               "/execute as @initiator unless score \"ban_avian\" index matches 1 if score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_avian",
-              "/execute as @initiator unless score \"ban_avian\" index matches 1 unless score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_avian",
-              "/tag @initiator add show_gui",
-              "/tag @initiator add welcome_ui"
+              "/execute as @initiator unless score \"ban_avian\" index matches 1 unless score \"c_avian\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_avian" 
             ]
           }
         ],
@@ -1107,7 +1093,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_avian" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_avian" ]
           },
           {
             "name": ">",
@@ -1134,7 +1120,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_arachnid" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_arachnid" ]
           },
           {
             "name": ">",
@@ -1161,7 +1147,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elytrian" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elytrian" ]
           },
           {
             "name": ">",
@@ -1188,7 +1174,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_shulk" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_shulk" ]
           },
           {
             "name": ">",
@@ -1215,7 +1201,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_feline" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_feline" ]
           },
           {
             "name": ">",
@@ -1242,7 +1228,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_enderian" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_enderian" ]
           },
           {
             "name": ">",
@@ -1269,7 +1255,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_merling" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_merling" ]
           },
           {
             "name": ">",
@@ -1296,7 +1282,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_blazeborn" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_blazeborn" ]
           },
           {
             "name": ">",
@@ -1323,7 +1309,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_phantom" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_phantom" ]
           },
           {
             "name": ">",
@@ -1350,7 +1336,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_kitsune" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_kitsune" ]
           },
           {
             "name": ">",
@@ -1377,7 +1363,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_slimecican" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_slimecican" ]
           },
           {
             "name": ">",
@@ -1404,7 +1390,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_inchling" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_inchling" ]
           },
           {
             "name": ">",
@@ -1431,7 +1417,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_bee" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_bee" ]
           },
           {
             "name": ">",
@@ -1458,7 +1444,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_piglin" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_piglin" ]
           },
           {
             "name": ">",
@@ -1485,7 +1471,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_starborne" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_starborne" ]
           },
           {
             "name": ">",
@@ -1512,7 +1498,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elf" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_elf" ]
           },
           {
             "name": ">",
@@ -1539,7 +1525,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/tag @initiator add show_gui", "/tag @initiator add welcome_ui", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_voidwalker" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_voidwalker" ]
           },
           {
             "name": ">",

@@ -895,7 +895,7 @@
                             "texture": "$set_texture",
                             "layer": 59,
                             "variables": [
-                              { "requires": "($screen_directory = 'root')", "$set_texture": "textures/origins/hud/controls/submenu" },
+                              { "requires": "($screen_directory = 'root')", "$set_texture": "textures/origins/hud/controls/_submenu_opaque" },
                               { "requires": "($screen_directory = 'tab_general')", "$set_texture": "textures/origins/gui/options/tab_general" },
                               { "requires": "($screen_directory = 'tab_admin')", "$set_texture": "textures/origins/gui/options/tab_admin" },
                               { "requires": "($screen_directory = 'tab_admin_denied')", "$set_texture": "textures/origins/gui/options/tab_admin_denied" }

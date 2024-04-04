@@ -4,6 +4,17 @@ import { ItemLockMode, ItemStack } from "@minecraft/server";
 
 /**
  * 
+ * Returns the ability control tags for the player
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ * @returns { string[] }
+ */
+export function getControlTags(player) {
+  return player.getTags()?.filter(tag => tag.startsWith('control_')) || [];
+}
+
+/**
+ * 
  * Opens the ability hotbar for the player
  * 
  * @param { import('@minecraft/server').Player } player
@@ -52,7 +63,7 @@ export function openAbilityHotbar(player) {
 
   // To: Ability hotbar items
 
-  const playerControlTags = player.getTags()?.filter(tag => tag.startsWith('control_'));
+  const playerControlTags = getControlTags(player);
   if (playerControlTags?.length > 0) {
 
     playerControlTags.forEach(tag => {

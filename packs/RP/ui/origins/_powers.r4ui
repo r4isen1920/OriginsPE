@@ -92,7 +92,7 @@
         "webbing@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.webbing.name",
           "$power_description": "origins.trait.webbing.description",
-          "$power_icon_index": "arachnid.1"
+          "$power_icon_index": "webbing"
         }
       },
       {
@@ -130,7 +130,7 @@
         "launch_into_air@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.launch_into_air.name",
           "$power_description": "origins.trait.launch_into_air.description",
-          "$power_icon_index": "elytrian.1"
+          "$power_icon_index": "launch_into_air"
         }
       },
       {
@@ -175,7 +175,7 @@
         "shulk_inventory@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.shulk_inventory.name",
           "$power_description": "origins.trait.shulk_inventory.description",
-          "$power_icon_index": "shulk.1"
+          "$power_icon_index": "shulk_inventory"
         }
       },
       {
@@ -258,7 +258,7 @@
         "throw_ender_pearl@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.throw_ender_pearl.name",
           "$power_description": "origins.trait.throw_ender_pearl.description",
-          "$power_icon_index": "enderian.1"
+          "$power_icon_index": "throw_ender_pearl"
         }
       },
       {
@@ -329,7 +329,7 @@
         "burning_wrath@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.burning_wrath.name",
           "$power_description": "origins.trait.burning_wrath.description",
-          "$power_icon_index": "blazeborn.1"
+          "$power_icon_index": "burning_wrath"
         }
       },
       {
@@ -368,14 +368,14 @@
         "phantomize@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.phantomize.name",
           "$power_description": "origins.trait.phantomize.description",
-          "$power_icon_index": "phantom.1"
+          "$power_icon_index": "phantomize"
         }
       },
       {
         "phantomize_limit@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.phantomize_limit.name",
           "$power_description": "origins.trait.phantomize_limit.description",
-          "$power_icon_index": "phantom.2"
+          "$power_icon_index": "phantomize_limit"
         }
       },
       {
@@ -402,7 +402,7 @@
         "pounce@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.pounce.name",
           "$power_description": "origins.trait.pounce.description",
-          "$power_icon_index": "kitsune.1"
+          "$power_icon_index": "pounce"
         }
       },
       {
@@ -453,21 +453,21 @@
         "high_jump@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.high_jump.name",
           "$power_description": "origins.trait.high_jump.description",
-          "$power_icon_index": "slimecican.1"
+          "$power_icon_index": "high_jump"
         }
       },
       {
         "fragmentation@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.fragmentation.name",
           "$power_description": "origins.trait.fragmentation.description",
-          "$power_icon_index": "slimecican.2"
+          "$power_icon_index": "fragmentation"
         }
       },
       {
         "slime_ball_consume@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.slime_ball_consume.name",
           "$power_description": "origins.trait.slime_ball_consume.description",
-          "$power_icon_index": "slimecican.2"
+          "$power_icon_index": "slime_ball_consume"
         }
       },
       {
@@ -548,7 +548,7 @@
         "hyper_active@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.hyper_active.name",
           "$power_description": "origins.trait.hyper_active.description",
-          "$power_icon_index": "inchling.1"
+          "$power_icon_index": "hyper_active"
         }
       },
       {
@@ -581,21 +581,21 @@
         "poisonous@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.poisonous.name",
           "$power_description": "origins.trait.poisonous.description",
-          "$power_icon_index": "bee.2"
+          "$power_icon_index": "poisonous"
         }
       },
       {
         "poison_bonus_damage@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.poison_bonus_damage.name",
           "$power_description": "origins.trait.poison_bonus_damage.description",
-          "$power_icon_index": "bee.2"
+          "$power_icon_index": "poisonous"
         }
       },
       {
         "sacrifice_stinger@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.sacrifice_stinger.name",
           "$power_description": "origins.trait.sacrifice_stinger.description",
-          "$power_icon_index": "bee.1"
+          "$power_icon_index": "sacrifice_stinger"
         }
       },
       {
@@ -628,7 +628,7 @@
         "gain_defense_per_kill@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.gain_defense_per_kill.name",
           "$power_description": "origins.trait.gain_defense_per_kill.description",
-          "$power_icon_index": "piglin.1"
+          "$power_icon_index": "gain_defense_per_kill"
         }
       },
       {
@@ -679,14 +679,14 @@
         "invocation@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.invocation.name",
           "$power_description": "origins.trait.invocation.description",
-          "$power_icon_index": "elf.2"
+          "$power_icon_index": "invocation"
         }
       },
       {
         "blessing@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.blessing.name",
           "$power_description": "origins.trait.blessing.description",
-          "$power_icon_index": "elf.1"
+          "$power_icon_index": "blessing"
         }
       },
       {
@@ -725,14 +725,14 @@
         "dark_energy@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.dark_energy.name",
           "$power_description": "origins.trait.dark_energy.description",
-          "$power_icon_index": "voidwalker.1"
+          "$power_icon_index": "dark_energy"
         }
       },
       {
         "soul_lock@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.soul_lock.name",
           "$power_description": "origins.trait.soul_lock.description",
-          "$power_icon_index": "voidwalker.2"
+          "$power_icon_index": "soul_lock"
         }
       },
       {

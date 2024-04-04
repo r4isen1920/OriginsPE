@@ -30,6 +30,10 @@
       },
 
       "minecraft:persistent": {},
+      "minecraft:tick_world": {
+        "never_despawn": true,
+        "radius": 2
+      },
 
       "minecraft:health": {
         "min": 1,

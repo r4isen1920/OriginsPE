@@ -5,7 +5,15 @@
       "identifier": "minecraft:player",
       "is_spawnable": false,
       "is_summonable": false,
-      "is_experimental": false
+      "is_experimental": false,
+
+      "properties": {
+        "r4isen1920_originspe:toggle_particles": {
+          "client_sync": true,
+          "type": "bool",
+          "default": true
+        }
+      }
     },
 
     "component_groups": {
@@ -271,6 +279,14 @@
       "r4isen1920_originspe:health.10": {
         "add": { "component_groups": [ "r4isen1920_originspe:health.10" ] }
       },
+
+      "r4isen1920_originspe:options.particle_on": {
+        "set_property": { "r4isen1920_originspe:toggle_particles": true }
+      }, 
+      "r4isen1920_originspe:options.particle_off": {
+        "set_property": { "r4isen1920_originspe:toggle_particles": false }
+      },
+
 
       /* Vanilla */
 

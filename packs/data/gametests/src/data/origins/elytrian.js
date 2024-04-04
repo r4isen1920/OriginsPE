@@ -4,6 +4,6 @@ export const elytrian = {
     'launch_into_air'
   ],
   'controls': [
-    'elytrian.1'
+    'launch_into_air'
   ]
 }

@@ -3,6 +3,7 @@ import { TicksPerSecond, system, world } from "@minecraft/server";
 
 import { openScreenPickerGUI, runDialogueCommand } from "./gui";
 import { closeAbilityHotbar } from "./controls";
+import { removeTags } from "../utils/tags";
 
 
 /**
@@ -29,6 +30,7 @@ system.runTimeout(() => {
       const playerClass = player.getTags().find(tag => tag.startsWith(`class_`)) || false;
 
       player.removeTag('load_failed');
+      removeTags(player, '_');
 
       if (player.hasTag('controls_opened')) closeAbilityHotbar(player)
 
@@ -55,14 +57,16 @@ function initialize() {
   const setupFunctions = [
     'r4isen1920_originspe/init',
 
-    'r4isen1920_originspe/indexc',
     'r4isen1920_originspe/indexr',
-    'r4isen1920_originspe/indexs'
+    'r4isen1920_originspe/indexs',
+    'r4isen1920_originspe/indexc',
   ]
 
   setupFunctions.forEach(functionName => {
     world.getDimension('overworld').runCommand(`function ${functionName}`)
   })
+
+  console.warn('[r4isen1920][OriginsPE] Initialized Add-On for first time use')
 
   system.clearRun(_A)
 

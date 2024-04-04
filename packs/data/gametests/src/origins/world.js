@@ -31,7 +31,7 @@ async function runServerWideAbilities(player) {
     const name = rest.join('_');
 
     const typeToPath = type === 'power' ? 'origins' : 'classes';
-    const typeToFolder = type === 'power' ? 'powers' : 'traits';
+    const typeToFolder = type === 'power' ? 'powers' : 'perks';
 
     try {
       const module = await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
