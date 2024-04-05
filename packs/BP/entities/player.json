@@ -12,6 +12,12 @@
           "client_sync": true,
           "type": "bool",
           "default": true
+        },
+        "r4isen1920_originspe:light_level": {
+          "client_sync": true,
+          "type": "int",
+          "default": 15,
+          "range": [ 0, 15 ]
         }
       }
     },
@@ -36,6 +42,9 @@
       },
       "r4isen1920_originspe:health.20": {
         "minecraft:health": { "max": 20 }
+      },
+      "r4isen1920_originspe:health.18": {
+        "minecraft:health": { "max": 18 }
       },
       "r4isen1920_originspe:health.14": {
         "minecraft:health": { "max": 14 }
@@ -102,6 +111,23 @@
           "walk": 0.0,
           "sprint": 0.1,
           "swim": 0.01
+        }
+      },
+
+
+      "r4isen1920_originspe:family_type.player": {
+        "minecraft:type_family": {
+          "family": [ "player" ]
+        }
+      },
+      "r4isen1920_originspe:family_type.cat": {
+        "minecraft:type_family": {
+          "family": [ "player", "cat", "ocelot" ]
+        }
+      },
+      "r4isen1920_originspe:family_type.enderman": {
+        "minecraft:type_family": {
+          "family": [ "enderman" ]
         }
       },
 
@@ -209,11 +235,43 @@
             },
             "deals_damage": true,
             "damage_multiplier": 2
+          },
+          {
+            "cause": "fall",
+            "on_damage": {
+              "filters": {
+                "all_of": [
+                  { "test": "has_tag", "value": "power_strong_ankles" },
+                  { "test": "has_damage", "value": "fall" }
+                ]
+              }
+            },
+            "deals_damage": false
           }
         ]
       },
       "minecraft:environment_sensor": {
         "triggers": [
+
+          /* Vanilla */
+
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_mob_effect",
+                  "subject": "self",
+                  "value": "bad_omen"
+                },
+                {
+                  "test": "is_in_village",
+                  "subject": "self",
+                  "value": true
+                }
+              ]
+            },
+            "event": "minecraft:trigger_raid"
+          },
 
           /* OriginsPE */
 
@@ -249,28 +307,8 @@
               ]
             },
             "event": "r4isen1920_originspe:power.shulk_inventory.close"
-          },
-
-
-          /* Vanilla */
-
-          {
-            "filters": {
-              "all_of": [
-                {
-                  "test": "has_mob_effect",
-                  "subject": "self",
-                  "value": "bad_omen"
-                },
-                {
-                  "test": "is_in_village",
-                  "subject": "self",
-                  "value": true
-                }
-              ]
-            },
-            "event": "minecraft:trigger_raid"
           }
+
         ]
       },
 
@@ -401,6 +439,9 @@
       "r4isen1920_originspe:health.20": {
         "add": { "component_groups": [ "r4isen1920_originspe:health.20" ] }
       },
+      "r4isen1920_originspe:health.18": {
+        "add": { "component_groups": [ "r4isen1920_originspe:health.18" ] }
+      },
       "r4isen1920_originspe:health.14": {
         "add": { "component_groups": [ "r4isen1920_originspe:health.14" ] }
       },
@@ -437,12 +478,94 @@
         "add": { "component_groups": [ "r4isen1920_originspe:exhaustion.miner" ] }
       },
 
+      "r4isen1920_originspe:family_type.player": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.player" ] }
+      },
+      "r4isen1920_originspe:family_type.cat": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.cat" ] }
+      },
+      "r4isen1920_originspe:family_type.enderman": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.enderman" ] }
+      },
+
+
+      "r4isen1920_originspe:light_level": {
+        "sequence": [
+          {
+            "filters": { "test": "light_level", "value": 15 },
+            "set_property": { "r4isen1920_originspe:light_level": 15 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 14 },
+            "set_property": { "r4isen1920_originspe:light_level": 14 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 13 },
+            "set_property": { "r4isen1920_originspe:light_level": 13 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 12 },
+            "set_property": { "r4isen1920_originspe:light_level": 12 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 11 },
+            "set_property": { "r4isen1920_originspe:light_level": 11 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 10 },
+            "set_property": { "r4isen1920_originspe:light_level": 10 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 9 },
+            "set_property": { "r4isen1920_originspe:light_level": 9 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 8 },
+            "set_property": { "r4isen1920_originspe:light_level": 8 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 7 },
+            "set_property": { "r4isen1920_originspe:light_level": 7 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 6 },
+            "set_property": { "r4isen1920_originspe:light_level": 6 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 5 },
+            "set_property": { "r4isen1920_originspe:light_level": 5 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 4 },
+            "set_property": { "r4isen1920_originspe:light_level": 4 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 3 },
+            "set_property": { "r4isen1920_originspe:light_level": 3 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 2 },
+            "set_property": { "r4isen1920_originspe:light_level": 2 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 1 },
+            "set_property": { "r4isen1920_originspe:light_level": 1 }
+          },
+          {
+            "filters": { "test": "light_level", "value": 0 },
+            "set_property": { "r4isen1920_originspe:light_level": 0 }
+          }
+        ]
+      },
+
+
       "r4isen1920_originspe:options.particle_on": {
         "set_property": { "r4isen1920_originspe:toggle_particles": true }
       }, 
       "r4isen1920_originspe:options.particle_off": {
         "set_property": { "r4isen1920_originspe:toggle_particles": false }
       },
+
 
       "r4isen1920_originspe:power.shulk_inventory.open_test": { 
         "queue_command": {

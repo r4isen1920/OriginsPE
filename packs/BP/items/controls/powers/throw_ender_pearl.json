@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:origins_power.throw_ender_pearl",
+      "menu_category": {
+        "category": "items",
+        "is_hidden_in_commands": false
+      }
+    },
+
+    "components": {
+      "minecraft:icon": {
+        "texture": "r4isen1920_originspe:origins_power.throw_ender_pearl"
+      },
+      "minecraft:display_name": {
+        "value": "origins.trait.throw_ender_pearl.name"
+      },
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+
+      "minecraft:use_modifiers": {
+        "use_duration": 1,
+        "movement_modifier": 0
+      },
+
+      "minecraft:use_animation": {
+        "value": "bow"
+      }
+    }
+  }
+}

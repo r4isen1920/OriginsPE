@@ -45,6 +45,8 @@ world.afterEvents.itemStartUse.subscribe(
     }
 
 
+    if (!source.hasTag('controls_opened')) return;
+
     const playerControlTags = getControlTags(source);
     if (playerControlTags.length === 0) return;
 
