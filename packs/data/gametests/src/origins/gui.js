@@ -103,7 +103,7 @@ export function openOptionsGUI(player, optionType) {
         try {
           score = world.scoreboard.getObjective('index').getScore(`toggle_${toggleName}`)
         } catch {
-          world.scoreboard.getObjective('index').setScore(`toggle_${toggleName}`, toggleName === 'announce' ? 1 : 0)
+          world.scoreboard.getObjective('index').setScore(`toggle_${toggleName}`, toggleName === 'unique' ? 0 : 1)
         }
 
         return world.scoreboard.getObjective('index').getScore(`toggle_${toggleName}`);

@@ -1,27 +1,56 @@
 {
 
-  /* UI developed by r4isen1920 | Under MIT LICENSE */
+  /* created by r4isen1920 | MIT License */
 
-  "small_chest_screen@common.inventory_screen_common": {
-    "$close_on_player_hurt|default": true,
-    "cache_screen": "(not ($container_title = 'origins.shulk_inventory'))",
-    "close_on_player_hurt": "$close_on_player_hurt",
-    "variables": [
+  "chest_label": {
+    "$new_custom_name|default": "$container_title",
+    "text": "$new_custom_name"
+  },
+
+  /* Parse required variables to all screen */
+  "small_chest_screen": {
+    "$container_name": "$container_title",
+    "$use_custom_screen|default": false,
+
+    "modifications": [
       {
-        "requires": "($desktop_screen and not ($container_title = 'origins.shulk_inventory'))",
-        "$screen_content": "chest.small_chest_panel",
-        "$screen_bg_content": "common.screen_background"
-      },
-      {
-        "requires": "($pocket_screen and not ($container_title = 'origins.shulk_inventory'))",
-        "$screen_content": "pocket_containers.small_chest_panel"
-      },
-      {
-        "requires": "($container_title = 'origins.shulk_inventory')",
-        "$screen_content": "origin_shulk_inventory.shulk_inventory_screen",
-        "$screen_bg_content": "common.screen_background"
+        "array_name": "variables",
+        "operation": "insert_back",
+        "value": [
+          {
+            /* Both pocket and desktop will use this */
+
+            "requires": "(not ($container_name - 'origins.shulk_inventory' = $container_name))",
+
+            "$screen_content": "origin_shulk_inventory.shulk_inventory_screen",
+            "$screen_bg_content": "common.screen_background",
+
+            "$new_custom_name": "origins.trait.shulk_inventory.label",
+            "$use_custom_screen": true
+          }
+        ]
       }
     ]
+  },
+
+  "large_chest_screen": {
+    "$container_name": "$container_title",
+    "$use_custom_screen": false
+  },
+
+  "ender_chest_screen": {
+    "$container_name": "$container_title",
+    "$use_custom_screen": false
+  },
+
+  "shulker_box_screen": {
+    "$container_name": "$container_title",
+    "$use_custom_screen": false
+  },
+
+  "barrel_screen": {
+    "$container_name": "$container_title",
+    "$use_custom_screen": false
   }
 
 }

@@ -146,6 +146,8 @@ export function resetPlayerAttributes(player) {
 
   player.triggerEvent('r4isen1920_originspe:movement.0.1');
   player.triggerEvent('r4isen1920_originspe:health.20');
+  player.triggerEvent('r4isen1920_originspe:attack.1');
+  player.triggerEvent('r4isen1920_originspe:exhaustion.normal');
 
   removeTags(player, '_');
 
