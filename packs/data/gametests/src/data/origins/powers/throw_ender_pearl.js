@@ -36,10 +36,10 @@ function throw_ender_pearl(player) {
 
     targetLocation = locationMap[targetBlock.face] || targetBlock.block.location;
 
-    player.teleport(targetLocation, { dimension: targetBlock.block.dimension })
-
     world.playSound('mob.endermen.portal', player.location);
     world.playSound('mob.endermen.portal', targetLocation);
+
+    player.teleport(targetLocation, { dimension: targetBlock.block.dimension })
 
     player.onScreenDisplay.setActionBar('origins.purple_blink');
 

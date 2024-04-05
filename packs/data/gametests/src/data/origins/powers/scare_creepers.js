@@ -13,4 +13,4 @@ function scare_creepers(player) {
 
 }
 
-toAllPlayers(scare_creepers, 2)
+toAllPlayers(scare_creepers, 3)

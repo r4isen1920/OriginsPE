@@ -130,6 +130,58 @@
           "family": [ "enderman" ]
         }
       },
+      "r4isen1920_originspe:family_type.fish": {
+        "minecraft:type_family": {
+          "family": [ "fish" ]
+        }
+      },
+
+
+      "r4isen1920_originspe:breathable.land": {
+        "minecraft:breathable": {
+          "total_supply": 15,
+          "suffocate_time": -1,
+          "inhale_time": 3.75,
+          "generates_bubbles": false
+        }
+      },
+      "r4isen1920_originspe:breathable.underwater": {
+        "minecraft:breathable": {
+          "total_supply": 15,
+          "suffocate_time": -1,
+          "inhale_time": 3.75,
+          "generates_bubbles": false,
+          "breathes_air": false,
+          "breathes_water": true
+        }
+      },
+
+
+      "r4isen1920_originspe:buoyant.normal": {
+        "minecraft:buoyant": {
+          "base_buoyancy": 0,
+          "liquid_blocks": [
+            "minecraft:water",
+            "minecraft:flowing_water"
+          ]
+        }
+      },
+      "r4isen1920_originspe:buoyant.float_on_water": {
+        "minecraft:buoyant": {
+          "base_buoyancy": 1.0,
+          "apply_gravity": false,
+          "simulate_waves": true,
+          "liquid_blocks": [
+            "minecraft:water",
+            "minecraft:flowing_water"
+          ]
+        }
+      },
+
+
+      "r4isen1920_originspe:is_shaking": {
+        "minecraft:is_shaking": {}
+      },
 
 
       /* Vanilla */
@@ -311,6 +363,32 @@
 
         ]
       },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+
+          /* Vanilla */
+
+          {
+            "filters": { "test": "in_lava", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          },
+
+          /* OriginsPE */
+
+          {
+            "filters": {
+              "all_of": [
+                { "test": "in_contact_with_water", "value": true },
+                { "test": "has_tag", "value": "power_water_vulnerability" }
+              ]
+            },
+            "cause": "drowning",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+
 
       /* Vanilla */
 
@@ -333,15 +411,6 @@
       },
       "minecraft:movement": {
         "value": 0.1
-      },
-      "minecraft:hurt_on_condition": {
-        "damage_conditions": [
-          {
-            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
-            "cause": "lava",
-            "damage_per_tick": 4
-          }
-        ]
       },
       "minecraft:attack": {
         "damage": 1
@@ -486,6 +555,33 @@
       },
       "r4isen1920_originspe:family_type.enderman": {
         "add": { "component_groups": [ "r4isen1920_originspe:family_type.enderman" ] }
+      },
+      "r4isen1920_originspe:family_type.fish": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.fish" ] }
+      },
+
+      "r4isen1920_originspe:breathable.land": {
+        "add": { "component_groups": [ "r4isen1920_originspe:breathable.land" ] },
+        "queue_command": { "command": [ "tag @s add _breathable_land" ] }
+      },
+      "r4isen1920_originspe:breathable.underwater": {
+        "add": { "component_groups": [ "r4isen1920_originspe:breathable.underwater" ] },
+        "queue_command": { "command": [ "tag @s add _breathable_underwater" ] }
+      },
+
+      "r4isen1920_originspe:buoyant.normal": { 
+        "add": { "component_groups": [ "r4isen1920_originspe:buoyant.normal" ] }
+      },
+      "r4isen1920_originspe:buoyant.float_on_water": { 
+        "add": { "component_groups": [ "r4isen1920_originspe:buoyant.float_on_water" ] }
+      },
+
+
+      "r4isen1920_originspe:is_shaking.true": {
+        "add": { "component_groups": [ "r4isen1920_originspe:is_shaking" ] }
+      },
+      "r4isen1920_originspe:is_shaking.false": {
+        "remove": { "component_groups": [ "r4isen1920_originspe:is_shaking" ] }
       },
 
 

@@ -45,16 +45,16 @@ export function findItem(entity, item) {
  */
 export function searchItemId(entity, itemKey) {
   const inventory = entity.getComponent('inventory');
-  if (inventory == undefined) return false;
+  if (!inventory) return false;
 
-  const inventorySize = inventory.inventorySize;
   const inventoryContainer = inventory.container;
 
-  for (let i = 0; i < inventorySize; i++) {
+  for (let i = 0; i < inventoryContainer.size; i++) {
     const itemStack = inventoryContainer.getItem(i);
-    if (!itemStack?.typeId.includes(itemKey)) continue;
-    if (itemStack.typeId.includes(itemKey)) {
+    if (itemStack?.typeId.includes(itemKey)) {
       return true;
     }
   }
+
+  return false;
 }

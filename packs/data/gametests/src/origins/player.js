@@ -149,6 +149,8 @@ export function resetPlayerAttributes(player) {
   player.triggerEvent('r4isen1920_originspe:attack.1');
   player.triggerEvent('r4isen1920_originspe:exhaustion.normal');
   player.triggerEvent('r4isen1920_originspe:family_type.player');
+  player.triggerEvent('r4isen1920_originspe:breathable.land');
+  player.triggerEvent('r4isen1920_originspe:buoyant.normal');
 
   removeTags(player, '_');
 

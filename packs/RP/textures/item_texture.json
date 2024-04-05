@@ -14,6 +14,7 @@
     "r4isen1920_originspe:origins_power.launch_into_air": { "textures": [ "textures/origins/hud/controls/launch_into_air" ] },
     "r4isen1920_originspe:origins_power.shulk_inventory": { "textures": [ "textures/origins/hud/controls/shulk_inventory" ] },
     "r4isen1920_originspe:origins_power.throw_ender_pearl": { "textures": [ "textures/origins/hud/controls/throw_ender_pearl" ] },
+    "r4isen1920_originspe:origins_power.burning_wrath": { "textures": [ "textures/origins/hud/controls/burning_wrath" ] },
 
 
 		"wooden_axe": { "textures": [ "textures/items/wood_axe" ] },
