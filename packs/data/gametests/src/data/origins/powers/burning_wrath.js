@@ -1,36 +1,38 @@
 
-import { LocationOutOfWorldBoundariesError, TicksPerSecond, world } from "@minecraft/server";
-
-import { toAllPlayers } from "../../../origins/player";
+import { TicksPerSecond, system, world } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-function burning_wrath(player) {
-  if (
-    !player.hasTag('power_burning_wrath') ||
-    !player.hasTag('_control_use_burning_wrath')
-  ) return
+system.runTimeout(() => {
 
+  world.afterEvents.entityHitEntity.subscribe(
+    event => {
 
-  if (!player.hasTag('cooldown_4')) {
+      const { damagingEntity, hitEntity } = event;
 
+      if (
+        !damagingEntity.hasTag('power_burning_wrath') ||
+        !damagingEntity.getComponent('onfire') ||
+        damagingEntity.hasTag('cooldown_4')
+      ) return
 
+      const fireDuration = (hitEntity.getComponent('health').currentValue / 2) + (((damagingEntity.getEffect('strength')?.amplifier + 1) || 1) * 2);
+      const targets = damagingEntity.dimension.getEntities({
+        location: hitEntity.location,
+        maxDistance: 4,
+        excludeFamilies: [ 'inanimate' ],
+        excludeTags: [ 'power_burning_wrath' ]
+      })
 
-    new ResourceBar(4, 0, 100, 30)
-        .push(player)
+      targets.forEach(entity => {
+        entity.setOnFire(fireDuration, false)
+      })
+      hitEntity.dimension.spawnParticle('r4isen1920_originspe:blaze_impact', hitEntity.location)
+      world.playSound('mob.ghast.fireball', hitEntity.location, { pitch: 1.25 })
 
-  } else {
+      new ResourceBar(4, 0, 100, 3)
+          .push(damagingEntity)
 
-    player.playSound('note.bass', { volume: 1, pitch: 1.5 })
+    }
+  )
 
-  }
-
-  player.removeTag('_control_use_burning_wrath');
-
-}
-
-toAllPlayers(burning_wrath, 2)
+}, TicksPerSecond * 2)

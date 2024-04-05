@@ -2,7 +2,7 @@
   "format_version": "1.18.30",
   "minecraft:entity": {
     "description": {
-      "identifier": "r4isen1920_originspe:inventory_keep",
+      "identifier": "r4isen1920_originspe:safe_teleporter",
 
       "is_summonable": true
     },
@@ -18,19 +18,26 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "inventory_keep", "originspe", "inanimate" ]
+        "family": [ "safe_teleporter", "originspe", "inanimate" ]
       },
 
-      "minecraft:inventory": {
-        "container_type": "container",
-        "inventory_size": 9,
-        "private": true,
-        "can_be_siphoned_from": false,
-        "restrict_to_owner": false
+      "minecraft:teleport": {
+        "dark_teleport_chance": 1.0,
+        "light_teleport_chance": 1.0,
+        "max_random_teleport_time": 1,
+        "min_random_teleport_time": 0,
+        "random_teleport_cube": [ 10, 10, 10 ],
+        "random_teleports": true,
+        "target_distance": 16,
+        "target_teleport_chance": 1
       },
-      "minecraft:rideable": {
-        "family_types": [ "player" ],
-        "seat_count": 1
+      "minecraft:timer": {
+        "time": 5,
+        "looping": false,
+        "time_down_event": {
+          "event": "r4isen1920_originspe:instant_despawn",
+          "target": "self"
+        }
       },
 
       "minecraft:persistent": {},

@@ -1,9 +1,10 @@
 
 export const blazeborn = {
   'powers': [
-    'burning_wrath'
-  ],
-  'controls': [
-    'burning_wrath'
+    'burning_wrath',
+    'fire_immunity',
+    'hotblooded',
+    'nether_spawn',
+    'water_vulnerability'
   ]
 }
