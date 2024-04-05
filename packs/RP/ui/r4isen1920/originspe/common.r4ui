@@ -246,6 +246,8 @@
                 "controls": [
                   {
                     "hover_text_image": {
+                      //* "ignored": true,
+
                       "type": "image",
                       "allow_clipping": false,
                       "texture": "textures/ui/purpleBorder",
@@ -272,6 +274,23 @@
                       ]
                     }
                   },
+
+                  {
+                    "hover_text_renderer": {
+                      "ignored": true, //* for now */
+
+                      "type": "custom",
+                      "renderer": "hover_text_renderer",
+
+                      "allow_clipping": false,
+                      "layer": "($panel_base_layer + 2)",
+
+                      "property_bag": {
+                        "#hover_text": "$hover_text"
+                      }
+                    }
+                  },
+
                   {
                     "hover_image_border": {
                       "type": "image",
