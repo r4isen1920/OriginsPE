@@ -185,9 +185,11 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
   switch (true) {
 
     case message === 'become_race_unknown':
+      removeTags(sourceEntity, '_');
       openScreenPickerGUI(sourceEntity, 'race', 'pick');
       break;
     case message === 'become_class_unknown':
+      removeTags(sourceEntity, '_');
       openScreenPickerGUI(sourceEntity, 'class', 'pick');
       break;
 

@@ -157,15 +157,6 @@
       },
 
 
-      "r4isen1920_originspe:buoyant.normal": {
-        "minecraft:buoyant": {
-          "base_buoyancy": 0,
-          "liquid_blocks": [
-            "minecraft:water",
-            "minecraft:flowing_water"
-          ]
-        }
-      },
       "r4isen1920_originspe:buoyant.float_on_water": {
         "minecraft:buoyant": {
           "base_buoyancy": 1.0,
@@ -569,8 +560,8 @@
         "queue_command": { "command": [ "tag @s add _breathable_underwater" ] }
       },
 
-      "r4isen1920_originspe:buoyant.normal": { 
-        "add": { "component_groups": [ "r4isen1920_originspe:buoyant.normal" ] }
+      "r4isen1920_originspe:buoyant.normal": {
+        "remove": { "component_groups": [ "r4isen1920_originspe:buoyant.float_on_water" ] }
       },
       "r4isen1920_originspe:buoyant.float_on_water": { 
         "add": { "component_groups": [ "r4isen1920_originspe:buoyant.float_on_water" ] }
