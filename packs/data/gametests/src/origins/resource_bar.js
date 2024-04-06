@@ -57,10 +57,12 @@ export class ResourceBar {
    * 
    * @param { import('@minecraft/server').Player } player 
    * The player to send the cooldown to
+   * @param { boolean } flush 
+   * Whether to flush the cooldown bar or not
    * 
    * @returns { ResourceBar }
    */
-  push(player) {
+  push(player, flush=true) {
 
     switch (true) {
 
@@ -89,7 +91,7 @@ export class ResourceBar {
     }
 
     if (!this.persist) player.addTag(`cooldown_${this.id}`)
-    renderBars(player)
+    if (flush) renderBars(player)
 
     return this
   }
@@ -152,15 +154,29 @@ export class ResourceBar {
    * 
    * @param { import('@minecraft/server').Player } player 
    * The player to send the cooldown to
-   * @param { '1' | '2' | '3' } id 
+   * @param { number } id 
    * The ID of the cooldown bar to remove
    * 
    * @returns { ResourceBar }
    */
   pop(player, id=this.id) {
 
-    _SCOREBOARD(id, 'duration').setScore(player, 0);
-    renderBars(player);
+    switch (true) {
+
+      case _SCOREBOARD(1, 'id').getScore(player) === id:
+        _SCOREBOARD(1, 'duration').setScore(player, 0);
+        break
+
+      case _SCOREBOARD(2, 'id').getScore(player) === id:
+        _SCOREBOARD(2, 'duration').setScore(player, 0);
+        break
+
+      case _SCOREBOARD(3, 'id').getScore(player) === id:
+        _SCOREBOARD(3, 'duration').setScore(player, 0);
+        break
+
+      default: return this
+    }
 
     return this
   }
@@ -177,7 +193,22 @@ export class ResourceBar {
    * @returns { ResourceBar }
    */
   clear(player) {
-    player.onScreenDisplay.setTitle('origins.resource_bar A:00,000,000,000 B:00,000,000,000 C:00,000,000,000');
+    
+    _SCOREBOARD(1, 'id').setScore(player, 0);
+    _SCOREBOARD(1, 'from').setScore(player, 0);
+    _SCOREBOARD(1, 'to').setScore(player, 0);
+    _SCOREBOARD(1, 'duration').setScore(player, 0);
+
+    _SCOREBOARD(2, 'id').setScore(player, 0);
+    _SCOREBOARD(2, 'from').setScore(player, 0);
+    _SCOREBOARD(2, 'to').setScore(player, 0);
+    _SCOREBOARD(2, 'duration').setScore(player, 0);
+
+    _SCOREBOARD(3, 'id').setScore(player, 0);
+    _SCOREBOARD(3, 'from').setScore(player, 0);
+    _SCOREBOARD(3, 'to').setScore(player, 0);
+    _SCOREBOARD(3, 'duration').setScore(player, 0);
+
     removeTags(player, 'cooldown_');
 
     renderBars(player);
@@ -232,80 +263,37 @@ function renderBars(player) {
  */
 function countDown(player) {
 
-  switch (true) {
+  const scoreboards = [1, 2, 3];
+  scoreboards.forEach(board => {
 
-    case _SCOREBOARD(1, 'duration').getScore(player) == undefined:
-      _SCOREBOARD(1, 'duration').setScore(player, 0); break
-    case _SCOREBOARD(2, 'duration').getScore(player) == undefined:
-      _SCOREBOARD(2, 'duration').setScore(player, 0); break
-    case _SCOREBOARD(3, 'duration').getScore(player) == undefined:
-      _SCOREBOARD(3, 'duration').setScore(player, 0); break
+    if (_SCOREBOARD(board, 'duration').getScore(player) == undefined) {
+      _SCOREBOARD(board, 'duration').setScore(player, 0);
+    }
 
-
-    case _SCOREBOARD(1, 'id').getScore(player) == 99:
-      _SCOREBOARD(1, 'id').setScore(player, 0);
+    if (_SCOREBOARD(board, 'id').getScore(player) == 99) {
+      _SCOREBOARD(board, 'id').setScore(player, 0);
       renderBars(player);
-      break
-    case _SCOREBOARD(2, 'id').getScore(player) == 99:
-      _SCOREBOARD(2, 'id').setScore(player, 0);
-      renderBars(player);
-      break
-    case _SCOREBOARD(3, 'id').getScore(player) == 99:
-      _SCOREBOARD(3, 'id').setScore(player, 0);
-      renderBars(player);
-      break
-  
+    }
 
-    case _SCOREBOARD(1, 'id').getScore(player) !== 0 && _SCOREBOARD(1, 'duration').getScore(player) === 0:
+    if (_SCOREBOARD(board, 'id').getScore(player) !== 0 && _SCOREBOARD(board, 'duration').getScore(player) === 0) {
+      if (player.hasTag(`cooldown_${_SCOREBOARD(board, 'id').getScore(player)}`)) {
 
-      if (player.hasTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`)) {
-        _SCOREBOARD(1, 'id').setScore(player, 99);
-        _SCOREBOARD(1, 'from').setScore(player, 0);
-        _SCOREBOARD(1, 'to').setScore(player, 0);
+        player.removeTag(`cooldown_${_SCOREBOARD(board, 'id').getScore(player)}`);
+
+        _SCOREBOARD(board, 'id').setScore(player, 99);
+        _SCOREBOARD(board, 'from').setScore(player, 0);
+        _SCOREBOARD(board, 'to').setScore(player, 0);
+
       } else {
-        _SCOREBOARD(1, 'from').setScore(player, _SCOREBOARD(1, 'to').getScore(player));
+
+        _SCOREBOARD(board, 'from').setScore(player, _SCOREBOARD(board, 'to').getScore(player) || 0);
+
       }
-
-      player.removeTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`)
-
       renderBars(player)
-      break
+    }
 
-    case _SCOREBOARD(2, 'id').getScore(player) !== 0 && _SCOREBOARD(2, 'duration').getScore(player) === 0:
-
-      if (player.hasTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`)) {
-        _SCOREBOARD(2, 'id').setScore(player, 99);
-        _SCOREBOARD(2, 'from').setScore(player, 0);
-        _SCOREBOARD(2, 'to').setScore(player, 0);
-      } else {
-        _SCOREBOARD(2, 'from').setScore(player, _SCOREBOARD(2, 'to').getScore(player));
-      }
-
-      player.removeTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`)
-
-      renderBars(player)
-      break
-
-    case _SCOREBOARD(3, 'id').getScore(player) !== 0 && _SCOREBOARD(3, 'duration').getScore(player) === 0:
-
-      if (player.hasTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`)) {
-        _SCOREBOARD(3, 'id').setScore(player, 99);
-        _SCOREBOARD(3, 'from').setScore(player, 0);
-        _SCOREBOARD(3, 'to').setScore(player, 0);
-      } else {
-        _SCOREBOARD(3, 'from').setScore(player, _SCOREBOARD(3, 'to').getScore(player));
-      }
-
-      player.removeTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`)
-
-      renderBars(player)
-      break
-
-  }
-
-  _SCOREBOARD(1, 'duration').setScore(player, Math.max(_SCOREBOARD(1, 'duration').getScore(player) - 1, 0));
-  _SCOREBOARD(2, 'duration').setScore(player, Math.max(_SCOREBOARD(2, 'duration').getScore(player) - 1, 0));
-  _SCOREBOARD(3, 'duration').setScore(player, Math.max(_SCOREBOARD(3, 'duration').getScore(player) - 1, 0));
+    _SCOREBOARD(board, 'duration').setScore(player, Math.max((_SCOREBOARD(board, 'duration').getScore(player) || 0) - 1, 0));
+  });
 
 }
 

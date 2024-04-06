@@ -5,6 +5,7 @@ import { openScreenPickerGUI, runDialogueCommand } from "./gui";
 import { closeAbilityHotbar } from "./controls";
 import { removeTags } from "../utils/tags";
 import { initModules, resetPlayerAttributes } from "./player";
+import { ResourceBar } from "./resource_bar";
 
 
 /**
@@ -36,6 +37,8 @@ system.runTimeout(() => {
       removeTags(player, 'has_any_');
       removeTags(player, 'cooldown_');
       removeTags(player, '_');
+
+      new ResourceBar().clear(player)
 
       if (player.hasTag('controls_opened')) closeAbilityHotbar(player)
 

@@ -129,7 +129,7 @@ export function openOptionsGUI(player, optionType) {
  * @param { import('@minecraft/server').Player } player 
  * @returns { import('@minecraft/server').GameMode }
  */
-function setPlayerGameMode(player) {
+export function setPlayerGameMode(player) {
   const gameModes = [ 'adventure', 'creative', 'spectator', 'survival' ]
   const prevGamemode = gameModes.find(gamemode => player.matches({ gameMode: gamemode }))
 

@@ -213,14 +213,19 @@ export async function importOriginsModule(path, errMsg) {
  */
 export function resetPlayerAttributes(player) {
 
-  player.triggerEvent('r4isen1920_originspe:movement.0.1');
-  player.triggerEvent('r4isen1920_originspe:health.20');
-  player.triggerEvent('r4isen1920_originspe:attack.1');
-  player.triggerEvent('r4isen1920_originspe:exhaustion.normal');
-  player.triggerEvent('r4isen1920_originspe:family_type.player');
-  player.triggerEvent('r4isen1920_originspe:breathable.land');
-  player.triggerEvent('r4isen1920_originspe:buoyant.normal');
+  const events = [
+    'r4isen1920_originspe:movement.0.1',
+    'r4isen1920_originspe:health.20',
+    'r4isen1920_originspe:attack.1',
+    'r4isen1920_originspe:exhaustion.normal',
+    'r4isen1920_originspe:family_type.player',
+    'r4isen1920_originspe:breathable.land',
+    'r4isen1920_originspe:buoyant.normal',
+    'r4isen1920_originspe:is_shaking.false',
+    'r4isen1920_originspe:burns_in_daylight.false'
+  ];
 
+  events.forEach(event => player.triggerEvent(event));
   removeTags(player, '_');
 
 }
