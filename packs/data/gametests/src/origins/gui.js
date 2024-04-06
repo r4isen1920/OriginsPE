@@ -52,7 +52,8 @@ export function openScreenPickerGUI(player, set='race', viewType='pick') {
   switch (viewType) {
 
     case 'pick':
-      removeTags(player, `${set}_`)
+      player.removeTag(`has_any_${set}`);
+      removeTags(player, `${set}_`);
       break;
 
     case 'view':
@@ -114,6 +115,7 @@ export function openOptionsGUI(player, optionType) {
 
   if (dialogueId === '') return
 
+  player.removeTag('_out_of_ui');
   runDialogueCommand(player, dialogueId);
 
 }
@@ -143,6 +145,7 @@ function setPlayerGameMode(player) {
  * @param { import('@minecraft/server').Player } player 
  */
 function onCloseGUI(player) {
+  player.addTag('_out_of_ui');
   player.removeTag('change_resign');
 
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))

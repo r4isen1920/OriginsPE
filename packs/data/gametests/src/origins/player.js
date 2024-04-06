@@ -63,6 +63,7 @@ function setRace(player, param_race) {
 
   removeTags(player, '_');
   player.addTag(`race_${param_race}`);
+  player.addTag('has_any_race');
 
   resetPlayerAttributes(player);
   initModules(player);
@@ -84,6 +85,7 @@ function setClass(player, param_class) {
 
   removeTags(player, '_');
   player.addTag(`class_${param_class}`);
+  player.addTag('has_any_class');
 
   resetPlayerAttributes(player);
   initModules(player);

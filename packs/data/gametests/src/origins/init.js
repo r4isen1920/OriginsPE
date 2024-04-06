@@ -32,6 +32,9 @@ system.runTimeout(() => {
 
       player.removeTag('options_reset_player');
       player.removeTag('load_failed');
+
+      removeTags(player, 'has_any_');
+      removeTags(player, 'cooldown_');
       removeTags(player, '_');
 
       if (player.hasTag('controls_opened')) closeAbilityHotbar(player)
@@ -43,6 +46,9 @@ system.runTimeout(() => {
 
         resetPlayerAttributes(player);
         initModules(player);
+
+        player.addTag('has_any_race');
+        player.addTag('has_any_class');
       }
     }
   )

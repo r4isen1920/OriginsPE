@@ -11,10 +11,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.nitwit.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
             ]
           }
@@ -29,10 +25,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.archer.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true",
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -47,10 +39,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.beastmaster.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -65,10 +53,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.blacksmith.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -83,10 +67,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.cleric.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -101,10 +81,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.cook.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -119,10 +95,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.explorer.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -137,10 +109,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.farmer.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -155,10 +123,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.lumberjack.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -173,10 +137,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.merchant.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -191,10 +151,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.miner.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -209,10 +165,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.rancher.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -227,10 +179,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.rogue.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
@@ -245,10 +193,6 @@
             "name": "start",
             "commands": [ 
               "/execute as @initiator[tag=\"change_resign\"] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.class\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.class.warrior.name\"}]}}]}", 
-              "/execute as @initiator run effect @s[tag=\"race_merling\"] water_breathing 60 0 true", 
-              "/execute as @initiator run event entity @s[tag=\"race_blazeborn\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run event entity @s[tag=\"race_piglin\",tag=!\"nether_tp\",tag=!\"change_class\"] r4isen1920_originspe:nether_spawn_trait_teleport",
-              "/execute as @initiator run effect @s[tag=\"race_phantom\"] fire_resistance 30 0 true",
               "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" 
             ]
           }
