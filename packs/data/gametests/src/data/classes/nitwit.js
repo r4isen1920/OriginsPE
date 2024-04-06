@@ -1,4 +1,5 @@
 
 export const nitwit = {
-  'perks': []
+  'perks': [],
+  'controls': []
 }
