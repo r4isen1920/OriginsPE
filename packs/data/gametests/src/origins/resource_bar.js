@@ -257,43 +257,55 @@ function countDown(player) {
   
 
     case _SCOREBOARD(1, 'id').getScore(player) !== 0 && _SCOREBOARD(1, 'duration').getScore(player) === 0:
-      player.removeTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`)
 
-      _SCOREBOARD(1, 'id').setScore(player, 99);
-      _SCOREBOARD(1, 'from').setScore(player, 0);
-      _SCOREBOARD(1, 'to').setScore(player, 0);
+      if (player.hasTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`)) {
+        _SCOREBOARD(1, 'id').setScore(player, 99);
+        _SCOREBOARD(1, 'from').setScore(player, 0);
+        _SCOREBOARD(1, 'to').setScore(player, 0);
+      } else {
+        _SCOREBOARD(1, 'from').setScore(player, _SCOREBOARD(1, 'to').getScore(player));
+      }
+
+      player.removeTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`)
 
       renderBars(player)
       break
 
     case _SCOREBOARD(2, 'id').getScore(player) !== 0 && _SCOREBOARD(2, 'duration').getScore(player) === 0:
-      player.removeTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`)
 
-      _SCOREBOARD(2, 'id').setScore(player, 99);
-      _SCOREBOARD(2, 'from').setScore(player, 0);
-      _SCOREBOARD(2, 'to').setScore(player, 0);
+      if (player.hasTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`)) {
+        _SCOREBOARD(2, 'id').setScore(player, 99);
+        _SCOREBOARD(2, 'from').setScore(player, 0);
+        _SCOREBOARD(2, 'to').setScore(player, 0);
+      } else {
+        _SCOREBOARD(2, 'from').setScore(player, _SCOREBOARD(2, 'to').getScore(player));
+      }
+
+      player.removeTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`)
 
       renderBars(player)
       break
 
     case _SCOREBOARD(3, 'id').getScore(player) !== 0 && _SCOREBOARD(3, 'duration').getScore(player) === 0:
-      player.removeTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`)
 
-      _SCOREBOARD(3, 'id').setScore(player, 99);
-      _SCOREBOARD(3, 'from').setScore(player, 0);
-      _SCOREBOARD(3, 'to').setScore(player, 0);
+      if (player.hasTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`)) {
+        _SCOREBOARD(3, 'id').setScore(player, 99);
+        _SCOREBOARD(3, 'from').setScore(player, 0);
+        _SCOREBOARD(3, 'to').setScore(player, 0);
+      } else {
+        _SCOREBOARD(3, 'from').setScore(player, _SCOREBOARD(3, 'to').getScore(player));
+      }
+
+      player.removeTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`)
 
       renderBars(player)
       break
 
   }
 
-  if (!player.hasTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`))
-    _SCOREBOARD(1, 'duration').setScore(player, Math.max(_SCOREBOARD(1, 'duration').getScore(player) - 1, 0));
-  if (!player.hasTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`))
-    _SCOREBOARD(2, 'duration').setScore(player, Math.max(_SCOREBOARD(2, 'duration').getScore(player) - 1, 0));
-  if (!player.hasTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`))
-    _SCOREBOARD(3, 'duration').setScore(player, Math.max(_SCOREBOARD(3, 'duration').getScore(player) - 1, 0));
+  _SCOREBOARD(1, 'duration').setScore(player, Math.max(_SCOREBOARD(1, 'duration').getScore(player) - 1, 0));
+  _SCOREBOARD(2, 'duration').setScore(player, Math.max(_SCOREBOARD(2, 'duration').getScore(player) - 1, 0));
+  _SCOREBOARD(3, 'duration').setScore(player, Math.max(_SCOREBOARD(3, 'duration').getScore(player) - 1, 0));
 
 }
 
