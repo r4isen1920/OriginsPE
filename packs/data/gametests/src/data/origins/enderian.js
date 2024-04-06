@@ -8,5 +8,8 @@ export const enderian = {
   ],
   'controls': [
     'throw_ender_pearl'
-  ]
+  ],
+  'effects': {
+    'emitter': 'enderian'
+  }
 }

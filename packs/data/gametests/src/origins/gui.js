@@ -3,7 +3,7 @@ import { GameMode, world, system } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
-import { initAbilities, resetPlayerAttributes } from "./player";
+import { initModules, resetPlayerAttributes } from "./player";
 
 
 /**
@@ -143,9 +143,6 @@ function setPlayerGameMode(player) {
  * @param { import('@minecraft/server').Player } player 
  */
 function onCloseGUI(player) {
-  initAbilities(player);
-  resetPlayerAttributes(player);
-
   player.removeTag('change_resign');
 
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))

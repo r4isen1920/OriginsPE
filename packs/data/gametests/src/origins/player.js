@@ -4,7 +4,6 @@ import { world, system, TicksPerSecond, ItemStack, ItemLockMode } from "@minecra
 import { openScreenPickerGUI } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
 
-
 const ORIGINS = [
   'avian',
   'arachnid',
@@ -24,7 +23,6 @@ const ORIGINS = [
   'elf',
   'voidwalker',
 ]
-
 const CLASSES = [
   'archer',
   'beastmaster',
@@ -40,6 +38,16 @@ const CLASSES = [
   'rogue',
   'warrior',
 ]
+const DEFAULT_IMPORT = {
+  'powers': [],
+  'perks': [],
+  'controls': [],
+  'effects': {
+    'model': 'normal',
+    'skin': 'normal',
+    'emitter': 'none'
+  }
+}
 
 /**
  * 
@@ -52,7 +60,13 @@ function setRace(player, param_race) {
   if (param_race === 'random') {
     param_race = ORIGINS[Math.floor(Math.random() * ORIGINS.length)]
   }
-  player.addTag(`race_${param_race}`)
+
+  removeTags(player, '_');
+  player.addTag(`race_${param_race}`);
+
+  resetPlayerAttributes(player);
+  initModules(player);
+
   openScreenPickerGUI(player, 'race', 'view');
 }
 
@@ -67,55 +81,73 @@ function setClass(player, param_class) {
   if (param_class === 'random') {
     param_class = CLASSES[Math.floor(Math.random() * CLASSES.length)]
   }
-  player.addTag(`class_${param_class}`)
+
+  removeTags(player, '_');
+  player.addTag(`class_${param_class}`);
+
+  resetPlayerAttributes(player);
+  initModules(player);
+
   openScreenPickerGUI(player, 'class', 'view');
 }
 
 /**
  * 
- * Initializes the player's abilities
+ * Initializes the required modules for
+ * the player's selected Origin and Class
  * 
  * @param { import('@minecraft/server').Player } player 
  */
-export async function initAbilities(player) {
+export async function initModules(player) {
+
+  console.warn('init request')
 
   if (player.hasTag('load_failed')) return;
 
-  const playerOrigin = player.getTags().find(tag => tag.startsWith('race_'))?.replace('race_', '') || 'human';
-  const playerClass = player.getTags().find(tag => tag.startsWith('class_'))?.replace('class_', '') || 'nitwit';
+  const _IMPORT_ORIGIN = DEFAULT_IMPORT;
+  const _IMPORT_CLASS = DEFAULT_IMPORT;
 
   let ORIGIN_POWERS = [];
   let CLASS_PERKS = [];
   let CONTROLS = [];
+  let EFFECTS = {};
+
+
+  const playerOrigin = player.getTags().find(tag => tag.startsWith('race_'))?.replace('race_', '') || 'human';
+  const playerClass = player.getTags().find(tag => tag.startsWith('class_'))?.replace('class_', '') || 'nitwit';
 
   removeTags(player, 'power_');
   removeTags(player, 'perk_');
   removeTags(player, 'control_');
 
+
   try {
-
-    await import(`../data/origins/${playerOrigin}.js`).then(mod => ORIGIN_POWERS = mod[playerOrigin].powers);
-    await import(`../data/classes/${playerClass}.js`).then(mod => CLASS_PERKS = mod[playerClass].perks);
-
-    try {
-
-      await import(`../data/origins/${playerOrigin}.js`).then(mod => CONTROLS.push(...mod[playerOrigin].controls));
-      await import(`../data/classes/${playerClass}.js`).then(mod => CONTROLS.push(...mod[playerClass].controls));
-
-    } catch (e) {
-      if (!(e instanceof TypeError)) throw e;
-    }
-
+    await import(`../data/origins/${playerOrigin}.js`).then(mod => {
+      if (mod) {
+        ORIGIN_POWERS = mod[playerOrigin].powers || _IMPORT_ORIGIN.powers;
+        CONTROLS = mod[playerOrigin].controls || _IMPORT_ORIGIN.controls;
+        EFFECTS = { ..._IMPORT_ORIGIN.effects, ...mod[playerOrigin].effects };
+      } else player.addTag('load_failed');
+    })
   } catch (e) {
-
-    console.warn(`[r4isen1920][OriginsPE] Failed to load Origins and classes for ${player.name} (${playerOrigin}, ${playerClass})`);
-    console.warn(`[r4isen1920][OriginsPE] ${e instanceof TypeError ? 'Missing property "powers" or "perks"' : e}`);
-
+    console.warn(`[r4isen1920][OriginsPE] Failed to load Origin: '${playerOrigin}' for ${player.name}`);
+    console.warn(`[r4isen1920][OriginsPE] ${e}`);
     player.addTag('load_failed');
-
-    return
-
   }
+
+  try {
+    await import(`../data/classes/${playerClass}.js`).then(mod => {
+      if (mod) {
+        CLASS_PERKS = mod[playerClass].perks || _IMPORT_CLASS.perks;
+        CONTROLS.push(...mod[playerClass].controls || _IMPORT_CLASS.controls);
+      } else player.addTag('load_failed');
+    })
+  } catch (e) {
+    console.warn(`[r4isen1920][OriginsPE] Failed to load Class: '${playerClass}' for ${player.name}`);
+    console.warn(`[r4isen1920][OriginsPE] ${e}`);
+    player.addTag('load_failed');
+  }
+
 
   ORIGIN_POWERS.forEach(power => {
     player.addTag(`power_${power}`)
@@ -123,16 +155,56 @@ export async function initAbilities(player) {
   CLASS_PERKS.forEach(perk => {
     player.addTag(`perk_${perk}`)
   })
-
   CONTROLS.forEach(control => {
     player.addTag(`control_${control}`)
   })
 
+  console.warn(JSON.stringify(EFFECTS))
+
+  loadPlayerEffects(player, 'model', EFFECTS.model);
+  loadPlayerEffects(player, 'skin', EFFECTS.skin);
+  loadPlayerEffects(player, 'emitter', EFFECTS.emitter);
 
   const originsMenuItem = new ItemStack('r4isen1920_originspe:origins_menu');
   originsMenuItem.lockMode = ItemLockMode.slot;
   player.getComponent('inventory').container.setItem(8, originsMenuItem);
 
+}
+
+
+/**
+ * 
+ * Loads a player effect
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ * @param { string } type
+ * @param { string } value
+ */
+function loadPlayerEffects(player, type, value) {
+  try {
+    player.triggerEvent(`r4isen1920_originspe:${type}_type.${value}`);
+    console.warn(`load cosmetics ${type} ${value}`)
+  } catch (e) {
+    console.warn(`[r4isen1920][OriginsPE] Failed to load ${type} effect: '${value}' for ${player.name}`);
+    console.warn(`[r4isen1920][OriginsPE] ${e}`);
+  }
+}
+
+
+/**
+ * 
+ * @param { string } path 
+ * @param { string } errMsg 
+ * @returns { Promise<object> }
+ */
+export async function importOriginsModule(path, errMsg) {
+  try {
+    return await import(path);
+  } catch (e) {
+    console.warn(`[r4isen1920][OriginsPE] ${errMsg}`);
+    console.warn(`[r4isen1920][OriginsPE] ${e}`);
+    return null;
+  }
 }
 
 
@@ -155,7 +227,6 @@ export function resetPlayerAttributes(player) {
   removeTags(player, '_');
 
 }
-
 
 /**
  * 
@@ -183,6 +254,11 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
   if (id !== 'r4isen1920_originspe:player' || !sourceEntity || message.length === 0) return
 
   switch (true) {
+
+    case message === 'reset':
+      resetPlayerAttributes(sourceEntity);
+      initModules(sourceEntity);
+      break;
 
     case message === 'become_race_unknown':
       removeTags(sourceEntity, '_');
@@ -212,10 +288,3 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
   }
 
 })
-
-/**
- * 
- * Subscribe to event after 5 seconds
- * the server has started
- */
-system.runTimeout(() => {toAllPlayers(initAbilities, TicksPerSecond * 1)}, TicksPerSecond * 5)

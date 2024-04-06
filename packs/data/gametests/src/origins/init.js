@@ -4,6 +4,7 @@ import { TicksPerSecond, system, world } from "@minecraft/server";
 import { openScreenPickerGUI, runDialogueCommand } from "./gui";
 import { closeAbilityHotbar } from "./controls";
 import { removeTags } from "../utils/tags";
+import { initModules, resetPlayerAttributes } from "./player";
 
 
 /**
@@ -29,6 +30,7 @@ system.runTimeout(() => {
       const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`)) || false;
       const playerClass = player.getTags().find(tag => tag.startsWith(`class_`)) || false;
 
+      player.removeTag('options_reset_player');
       player.removeTag('load_failed');
       removeTags(player, '_');
 
@@ -36,7 +38,12 @@ system.runTimeout(() => {
 
       if (!playerOrigin) openScreenPickerGUI(player, 'race');
       else if (!playerClass) openScreenPickerGUI(player, 'class');
-      else runDialogueCommand(player, 'gui_welcome_screen');
+      else {
+        runDialogueCommand(player, 'gui_welcome_screen');
+
+        resetPlayerAttributes(player);
+        initModules(player);
+      }
     }
   )
 

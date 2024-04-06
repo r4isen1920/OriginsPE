@@ -1,4 +1,10 @@
 
 export const human = {
-  'powers': []
+  'powers': [],
+  'controls': [],
+  'effects': {
+    'model': 'normal',
+    'skin': 'normal',
+    'emitter': 'none'
+  }
 }

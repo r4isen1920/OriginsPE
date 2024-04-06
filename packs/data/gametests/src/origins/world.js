@@ -1,7 +1,7 @@
 
 import { TicksPerSecond, world } from "@minecraft/server";
 
-import { toAllPlayers } from "./player";
+import { importOriginsModule, toAllPlayers } from "./player";
 
 
 /**
@@ -34,10 +34,10 @@ async function runServerWideAbilities(player) {
     const typeToFolder = type === 'power' ? 'powers' : 'perks';
 
     try {
-      const module = await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
+      await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
     } catch (e) {
 
-      console.warn(`[r4isen1920][OriginsPE] Failed to load ${type}: '${name}'`);
+      console.warn(`[r4isen1920][OriginsPE] Failed to load ${type}: '${name}' for ${player.name}`);
       console.warn(`[r4isen1920][OriginsPE] ${e}`);
 
     }
