@@ -10,6 +10,8 @@ import { toAllPlayers } from "../../../origins/player";
 function nether_spawn(player) {
   if (
     !player.hasTag('power_nether_spawn') ||
+    !player.hasTag('_out_of_ui') ||
+    player.hasTag('_nether_spawn_check') ||
     player.hasTag('nether_spawned')
   ) return
 
@@ -22,7 +24,7 @@ function nether_spawn(player) {
 
 }
 
-toAllPlayers(nether_spawn, TicksPerSecond * 4)
+toAllPlayers(nether_spawn, 3)
 
 /**
  * 
@@ -41,17 +43,22 @@ system.runTimeout(() => {
         toDimension.id !== 'minecraft:nether'
       ) return
 
-      const dummyEntity = player.dimension.spawnEntity('r4isen1920_originspe:safe_teleporter', player.location);
-      console.warn(JSON.stringify(dummyEntity?.location))
+      system.run(() => {
 
-      player.teleport(dummyEntity.location);
+        let dummyEntity = player.dimension.getEntities({ location: player.location, minDistance: 3, maxDistance: 64, closest: 1, excludeFamilies: [ 'player', 'inanimate' ] })[0];
+        if (!dummyEntity) dummyEntity = player.dimension.spawnEntity('r4isen1920_originspe:safe_teleporter', player.location);
 
-      player.removeEffect('resistance');
+        player.teleport(dummyEntity.location);
+        player.setSpawnPoint({ dimension: player.dimension, x: dummyEntity.location.x, y: dummyEntity.location.y, z: dummyEntity.location.z });
+  
+        player.removeEffect('resistance');
+  
+        player.removeTag('_nether_spawn_check');
+        player.addTag('nether_spawned');
 
-      player.removeTag('_nether_spawn_check');
-      player.addTag('nether_spawned');
+      })
 
     }
   )
 
-}, TicksPerSecond * 4)
+}, TicksPerSecond * 1)

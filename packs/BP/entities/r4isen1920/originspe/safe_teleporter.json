@@ -26,7 +26,7 @@
         "light_teleport_chance": 1.0,
         "max_random_teleport_time": 1,
         "min_random_teleport_time": 0,
-        "random_teleport_cube": [ 10, 10, 10 ],
+        "random_teleport_cube": [ 16, 16, 16 ],
         "random_teleports": true,
         "target_distance": 16,
         "target_teleport_chance": 1
@@ -47,18 +47,19 @@
       },
 
       "minecraft:health": {
-        "min": 1,
-        "max": 1,
-        "value": 1
+        "min": 100,
+        "max": 100,
+        "value": 100
       },
       "minecraft:collision_box": {
-        "width": 0.0,
-        "height": 0.0
+        "width": 1,
+        "height": 1
       },
       "minecraft:damage_sensor": {
         "triggers": {
           "cause": "all",
-          "deals_damage": false
+          "deals_damage": true,
+          "damage_modifier": 1
         }
       },
       "minecraft:movement": {
