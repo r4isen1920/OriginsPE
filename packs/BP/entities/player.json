@@ -188,6 +188,11 @@
           "family": [ "fish" ]
         }
       },
+      "r4isen1920_originspe:family_type.undead": {
+        "minecraft:type_family": {
+          "family": [ "undead" ]
+        }
+      },
 
 
       "r4isen1920_originspe:breathable.land": {
@@ -225,6 +230,10 @@
 
       "r4isen1920_originspe:is_shaking": {
         "minecraft:is_shaking": {}
+      },
+
+      "r4isen1920_originspe:burns_in_daylight": {
+        "minecraft:burns_in_daylight": {}
       },
 
 
@@ -336,9 +345,33 @@
             "cause": "all",
             "on_damage": {
               "filters": {
-                "all_of": [
-                  { "test": "has_tag", "value": "power_strong_ankles" },
-                  { "test": "has_damage", "value": "fall" }
+                "any_of": [
+
+                  {
+                    "all_of": [
+                      { "test": "has_tag", "value": "power_strong_ankles" },
+                      { "test": "has_damage", "value": "fall" }
+                    ]
+                  },
+
+                  {
+                    "all_of": [
+                      { "test": "has_tag", "value": "power_spiritual_body" },
+                      {
+                        "any_of": [
+                          { "test": "has_damage", "value": "attack" },
+                          { "test": "has_damage", "value": "contact" },
+                          { "test": "has_damage", "value": "falling_block" },
+                          { "test": "has_damage", "value": "projectile" },
+                          { "test": "has_damage", "value": "suffocation" },
+                          { "test": "has_damage", "value": "stalactite" },
+                          { "test": "has_damage", "value": "stalagmite" }
+                        ]
+                      }
+                    ]
+                  }
+
+
                 ]
               }
             },
@@ -603,6 +636,9 @@
       "r4isen1920_originspe:family_type.fish": {
         "add": { "component_groups": [ "r4isen1920_originspe:family_type.fish" ] }
       },
+      "r4isen1920_originspe:family_type.undead": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.undead" ] }
+      },
 
       "r4isen1920_originspe:breathable.land": {
         "add": { "component_groups": [ "r4isen1920_originspe:breathable.land" ] },
@@ -626,6 +662,13 @@
       },
       "r4isen1920_originspe:is_shaking.false": {
         "remove": { "component_groups": [ "r4isen1920_originspe:is_shaking" ] }
+      },
+
+      "r4isen1920_originspe:burns_in_daylight.true": {
+        "add": { "component_groups": [ "r4isen1920_originspe:burns_in_daylight" ] }
+      },
+      "r4isen1920_originspe:burns_in_daylight.false": {
+        "remove": { "component_groups": [ "r4isen1920_originspe:burns_in_daylight" ] }
       },
 
 
