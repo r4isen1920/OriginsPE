@@ -100,8 +100,6 @@ function setClass(player, param_class) {
  */
 export async function initModules(player) {
 
-  console.warn('init request')
-
   if (player.hasTag('load_failed')) return;
 
   const _IMPORT_ORIGIN = DEFAULT_IMPORT;
@@ -159,8 +157,6 @@ export async function initModules(player) {
     player.addTag(`control_${control}`)
   })
 
-  console.warn(JSON.stringify(EFFECTS))
-
   loadPlayerEffects(player, 'model', EFFECTS.model);
   loadPlayerEffects(player, 'skin', EFFECTS.skin);
   loadPlayerEffects(player, 'emitter', EFFECTS.emitter);
@@ -183,7 +179,6 @@ export async function initModules(player) {
 function loadPlayerEffects(player, type, value) {
   try {
     player.triggerEvent(`r4isen1920_originspe:${type}_type.${value}`);
-    console.warn(`load cosmetics ${type} ${value}`)
   } catch (e) {
     console.warn(`[r4isen1920][OriginsPE] Failed to load ${type} effect: '${value}' for ${player.name}`);
     console.warn(`[r4isen1920][OriginsPE] ${e}`);
