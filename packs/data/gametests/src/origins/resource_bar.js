@@ -39,12 +39,15 @@ export class ResourceBar {
    * The end value of the cooldown from 1 to 100 percent
    * @param { number } duration 
    * The duration of the cooldown in seconds
+   * @param { boolean } persist 
+   * Whether to remove the cooldown bar or not when the duration ends
    */
-  constructor(id=1, from=0, to=100, duration=1) {
+  constructor(id=1, from=0, to=100, duration=1, persist=false) {
     this.id = id;
     this.from = from;
     this.to = to;
     this.duration = duration;
+    this.persist = persist;
   }
 
   /**
@@ -85,7 +88,7 @@ export class ResourceBar {
       default: return this
     }
 
-    player.addTag(`cooldown_${this.id}`)
+    if (!this.persist) player.addTag(`cooldown_${this.id}`)
     renderBars(player)
 
     return this
@@ -285,9 +288,12 @@ function countDown(player) {
 
   }
 
-  _SCOREBOARD(1, 'duration').setScore(player, Math.max(_SCOREBOARD(1, 'duration').getScore(player) - 1, 0));
-  _SCOREBOARD(2, 'duration').setScore(player, Math.max(_SCOREBOARD(2, 'duration').getScore(player) - 1, 0));
-  _SCOREBOARD(3, 'duration').setScore(player, Math.max(_SCOREBOARD(3, 'duration').getScore(player) - 1, 0));
+  if (!player.hasTag(`cooldown_${_SCOREBOARD(1, 'id').getScore(player)}`))
+    _SCOREBOARD(1, 'duration').setScore(player, Math.max(_SCOREBOARD(1, 'duration').getScore(player) - 1, 0));
+  if (!player.hasTag(`cooldown_${_SCOREBOARD(2, 'id').getScore(player)}`))
+    _SCOREBOARD(2, 'duration').setScore(player, Math.max(_SCOREBOARD(2, 'duration').getScore(player) - 1, 0));
+  if (!player.hasTag(`cooldown_${_SCOREBOARD(3, 'id').getScore(player)}`))
+    _SCOREBOARD(3, 'duration').setScore(player, Math.max(_SCOREBOARD(3, 'duration').getScore(player) - 1, 0));
 
 }
 
