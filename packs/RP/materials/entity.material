@@ -1,0 +1,11 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "ghostly:entity_custom": {
+      "-states": [ "DisableCulling" ],
+      "+defines": [ "USE_COLOR_MASK", "USE_UV_ANIM" ]
+    }
+
+  }
+}

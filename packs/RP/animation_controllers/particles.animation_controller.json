@@ -1,0 +1,143 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+
+    "controller.animation.r4isen1920_originspe.particles.enderian": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "emit": "v.p_emitter_type == 'enderian'" }
+          ]
+        },
+        "emit": {
+          "transitions": [ { "on_detect": "v.p_emitter_type != 'enderian'" } ],
+          "particle_effects": [ { "effect": "enderian_aura" } ]
+        }
+      }
+    },
+
+    "controller.animation.r4isen1920_originspe.particles.starborne": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "meditate_down": "v.p_emitter_type == 'starborne' && q.is_alive && q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99)" },
+            { "stress_up": "v.p_emitter_type == 'starborne' && q.is_alive" }
+          ]
+        },
+
+        "meditate_down": {
+          "transitions": [ { "stress_up": "v.p_emitter_type != 'starborne' || !q.is_alive || !q.is_sneaking || (math.floor((q.health / q.max_health) * 100) < 100)" } ],
+          "particle_effects": [
+            { "effect": "starborne_meditate" },
+            { "effect": "starborne_star" }
+          ]
+        },
+
+        "stress_up": {
+          "transitions": [ { "meditate_down": "v.p_emitter_type != 'starborne' || !q.is_alive || q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99)" } ],
+          "particle_effects": [
+            { "effect": "starborne_stress" },
+            { "effect": "starborne_star" }
+          ]
+        }
+      }
+    },
+    "controller.animation.r4isen1920_originspe.particles.starborne.shooting_star": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [ { "emit": "q.is_alive" } ]
+        },
+
+        "emit": {
+          "transitions": [ { "on_detect": "!q.is_alive" } ],
+          "particle_effects": [
+            { "effect": "stars" },
+            { "effect": "trail" }
+          ]
+        }
+      }
+    },
+
+    "controller.animation.r4isen1920_originspe.particles.elf": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "emit": "v.p_emitter_type == 'elven'" }
+          ]
+        },
+
+        "emit": {
+          "transitions": [ { "on_detect": "v.p_emitter_type != 'elven'" } ],
+          "particle_effects": [ { "effect": "elven_aura" } ]
+        }
+      }
+    },
+    "controller.animation.r4isen1920_originspe.particles.elf.root_connection": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "emit": "q.is_alive && !q.is_chested" },
+            { "emit_gold": "q.is_alive && q.is_chested" }
+          ]
+        },
+
+        "emit": {
+          "particle_effects": [ { "effect": "trail" } ]
+        },
+        "emit_gold": {
+          "particle_effects": [ { "effect": "trail_gold" } ]
+        }
+      }
+    },
+
+    "controller.animation.r4isen1920_originspe.particles.voidwalker": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "emit": "v.p_emitter_type == 'voidwalker'" }
+          ]
+        },
+
+        "emit": {
+          "transitions": [ { "on_detect": "v.p_emitter_type != 'voidwalker'" } ],
+          "particle_effects": [ { "effect": "voidwalker_aura" } ]
+        }
+      }
+    },
+    "controller.animation.r4isen1920_originspe.particles.voidwalker.dark_energy": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "emit_soul_reap": "q.is_saddled" },
+            { "emit": "!q.is_chested" },
+            { "emit_cloud": "q.is_chested" }
+          ]
+        },
+
+        "emit": {
+          "particle_effects": [
+            { "effect": "soul" },
+            { "effect": "soul_trail" }
+          ]
+        },
+
+        "emit_soul_reap": {
+          "particle_effects": [ { "effect": "soul_reap" } ]
+        },
+
+        "emit_cloud": {
+          "particle_effects": [ { "effect": "cloud_trail" } ]
+        }
+
+      }
+    }
+
+  }
+}

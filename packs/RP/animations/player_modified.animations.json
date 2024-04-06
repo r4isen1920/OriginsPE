@@ -1,0 +1,21 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+
+		"animation.player.first_person.base_pose": {
+			"loop": true,
+			"bones": {
+				"rightarm": {
+					"position": [ "q.variant == 14 ? 50.0 : 0.0", 0, "(q.variant == 11 ? 4.0 : (q.variant == 14 ? 90.0 : 0.0))" ]
+				},
+				"body": {
+					"rotation": [ "query.target_x_rotation", "query.target_y_rotation", 0.0 ]
+				},
+				"head": {
+					"rotation": [ "query.target_x_rotation", "query.target_y_rotation + 180", 0.0 ]
+				}
+			}
+		}
+
+	}
+}

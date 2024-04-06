@@ -1,0 +1,184 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "materials": {
+        "default": "entity_alphatest",
+        "cape": "entity_alphatest",
+        "animated": "player_animated",
+        "spectator": "player_spectator",
+
+        "custom": "entity_custom"
+      },
+      "textures": {
+        "default": "textures/entity/steve",
+        "cape": "textures/entity/cape_invisible",
+
+        "slimy": "textures/entity/slime_overlay"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.custom",
+        "cape": "geometry.cape"
+      },
+      "scripts": {
+        "scale": "0.9375",
+        "initialize": [
+
+          /* Vanilla */
+
+          "v.is_holding_right = 0.0;",
+          "v.is_blinking = 0.0;",
+          "v.last_blink_time = 0.0;",
+          "v.hand_bob = 0.0;",
+
+
+          /* OriginsPE */
+
+          // TODO: deprecate this
+          "v.p_race = 1;",
+          "v.p_class = 1;",
+          "v.p_is_in_veil = false;",
+
+          "v.p_toggle_particles = true;",
+          "v.p_model_type = 'normal';",
+          "v.p_skin_type = 'normal';",
+          "v.p_emitter_type = 'none';"
+        ],
+        "pre_animation": [
+
+          /* Vanilla */
+
+          "v.helmet_layer_visible = 1.0;",
+          "v.leg_layer_visible = 1.0;",
+          "v.boot_layer_visible = 1.0;",
+          "v.chest_layer_visible = 1.0;",
+          "v.attack_body_rot_y = Math.sin(360*Math.sqrt(v.attack_time)) * 5.0;",
+          "v.tcos0 = (math.cos(q.modified_distance_moved * 38.17) * q.modified_move_speed / v.gliding_speed_value) * 57.3;",
+          "v.first_person_rotation_factor = math.sin((1 - v.attack_time) * 180.0);",
+          "v.hand_bob = q.life_time < 0.01 ? 0.0 : v.hand_bob + ((q.is_on_ground && q.is_alive ? math.clamp(math.sqrt(math.pow(q.position_delta(0), 2.0) + math.pow(q.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - v.hand_bob) * 0.02;",
+
+
+          /* OriginsPE */
+
+          "!q.is_in_ui && !v.is_paperdoll ? { v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles'); v.p_model_type = q.property('r4isen1920_originspe:model_type'); v.p_skin_type = q.property('r4isen1920_originspe:skin_type'); v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type'); };",
+
+          "v.map_angle = math.clamp(1 - v.player_x_rotation / 45.1, 0.0, 1.0);",
+          "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;",
+
+          "v.shulk_inventory_open = 0.0;"
+        ],
+        "animate": [
+          "root",
+
+          /* OriginsPE */
+
+          { "enderian_particles": "!v.is_paperdoll" },
+          { "starborne_particles": "!v.is_paperdoll" },
+          { "elven_particles": "!v.is_paperdoll" },
+          { "voidwalker_particles": "!v.is_paperdoll" }
+        ]
+      },
+      "animations": {
+
+        /* Vanilla */
+
+        "root": "controller.animation.player.root",
+        "base_controller": "controller.animation.player.base",
+        "hudplayer": "controller.animation.player.hudplayer",
+        "humanoid_base_pose": "animation.humanoid.base_pose",
+        "look_at_target": "controller.animation.humanoid.look_at_target",
+        "look_at_target_ui": "animation.player.look_at_target.ui",
+        "look_at_target_default": "animation.humanoid.look_at_target.default",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "look_at_target_inverted": "animation.player.look_at_target.inverted",
+        "cape": "animation.player.cape",
+        "move.arms": "animation.player.move.arms",
+        "move.legs": "animation.player.move.legs",
+        "swimming": "animation.player.swim",
+        "swimming.legs": "animation.player.swim.legs",
+        "crawling": "animation.player.crawl",
+        "crawling.legs": "animation.player.crawl.legs",
+        "riding.arms": "animation.player.riding.arms",
+        "riding.legs": "animation.player.riding.legs",
+        "holding": "animation.player.holding",
+        "brandish_spear": "animation.humanoid.brandish_spear",
+        "holding_spyglass": "animation.humanoid.holding_spyglass",
+        "charging": "animation.humanoid.charging",
+        "attack.positions": "animation.player.attack.positions",
+        "attack.rotations": "animation.player.attack.rotations",
+        "sneaking": "animation.player.sneaking",
+        "bob": "animation.player.bob",
+        "damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
+        "bow_and_arrow": "animation.humanoid.bow_and_arrow",
+        "use_item_progress": "animation.humanoid.use_item_progress",
+        "skeleton_attack": "animation.skeleton.attack",
+        "sleeping": "animation.player.sleeping",
+        "first_person_base_pose": "animation.player.first_person.base_pose",
+        "first_person_empty_hand": "animation.player.first_person.empty_hand",
+        "first_person_swap_item": "animation.player.first_person.swap_item",
+        "first_person_shield_block": "animation.player.first_person.shield_block",
+        "first_person_attack_controller": "controller.animation.player.first_person_attack",
+        "first_person_attack_rotation": "animation.player.first_person.attack_rotation",
+        "first_person_vr_attack_rotation": "animation.player.first_person.vr_attack_rotation",
+        "first_person_walk": "animation.player.first_person.walk",
+        "first_person_map_controller": "controller.animation.player.first_person_map",
+        "first_person_map_hold": "animation.player.first_person.map_hold",
+        "first_person_map_hold_attack": "animation.player.first_person.map_hold_attack",
+        "first_person_map_hold_off_hand": "animation.player.first_person.map_hold_off_hand",
+        "first_person_map_hold_main_hand": "animation.player.first_person.map_hold_main_hand",
+        "first_person_crossbow_equipped": "animation.player.first_person.crossbow_equipped",
+        "third_person_crossbow_equipped": "animation.player.crossbow_equipped",
+        "third_person_bow_equipped": "animation.player.bow_equipped",
+        "crossbow_hold": "animation.player.crossbow_hold",
+        "crossbow_controller": "controller.animation.player.crossbow",
+        "shield_block_main_hand": "animation.player.shield_block_main_hand",
+        "shield_block_off_hand": "animation.player.shield_block_off_hand",
+        "blink": "controller.animation.persona.blink",
+		    "tooting_goat_horn": "animation.humanoid.tooting_goat_horn",
+		    "holding_brush": "animation.humanoid.holding_brush",
+		    "brushing": "animation.humanoid.brushing",
+
+
+        /* OriginsPE */
+
+        "enderian_particles": "controller.animation.r4isen1920_originspe.particles.enderian",
+        "starborne_particles": "controller.animation.r4isen1920_originspe.particles.starborne",
+        "elven_particles": "controller.animation.r4isen1920_originspe.particles.elf",
+        "voidwalker_particles": "controller.animation.r4isen1920_originspe.particles.voidwalker"
+      },
+      "particle_effects": {
+        "enderian_aura": "r4isen1920_originspe:space_aura",
+
+        "starborne_star": "r4isen1920_originspe:star",
+        "starborne_meditate": "r4isen1920_originspe:star_meditate",
+        "starborne_stress": "r4isen1920_originspe:star_stress",
+
+        "elven_aura": "r4isen1920_originspe:elven_aura",
+
+        "voidwalker_aura": "r4isen1920_originspe:voidwalker_aura"
+      },
+      "render_controllers": [
+
+        /* Vanilla */
+
+        { "controller.render.player.first_person_spectator": "variable.is_first_person && query.is_spectator && !q.any(v.p_skin_type, 'ghostly', 'shadow')" },
+        { "controller.render.player.third_person_spectator": "!variable.is_first_person && !variable.map_face_icon && query.is_spectator && !q.any(v.p_skin_type, 'ghostly', 'shadow')" },
+        { "controller.render.player.first_person": "v.is_first_person" },
+        { "controller.render.player.third_person": "!v.is_first_person && !v.map_face_icon" },
+        { "controller.render.player.map": "v.map_face_icon" },
+
+
+        /* OriginsPE */
+
+        { "controller.render.player.ghostly": "q.any(v.p_skin_type, 'ghostly', 'shadow') && v.is_first_person" },
+        { "controller.render.player.ghostly.third_person": "q.any(v.p_skin_type, 'ghostly', 'shadow') && !v.is_first_person && !v.map_face_icon" },
+        { "controller.render.player.ghostly.third_person_overlay": "q.any(v.p_skin_type, 'ghostly', 'shadow') && !v.is_first_person && !v.map_face_icon" },
+        { "controller.render.player.slimy": "v.p_skin_type == 'slimy' && v.is_first_person" },
+        { "controller.render.player.slimy.third_person": "v.p_skin_type == 'slimy' && !v.is_first_person && !v.map_face_icon" }
+      ],
+      "enable_attachables": true
+    }
+  }
+}
