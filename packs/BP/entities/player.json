@@ -333,7 +333,7 @@
             "damage_multiplier": 2
           },
           {
-            "cause": "fall",
+            "cause": "all",
             "on_damage": {
               "filters": {
                 "all_of": [
@@ -716,47 +716,112 @@
 
 
       "r4isen1920_originspe:model_type.normal": {
-        "set_property": { "r4isen1920_originspe:model_type": "normal" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "normal" },
+            "set_property": { "r4isen1920_originspe:model_type": "normal" }
+          }
+        ]
       },
       "r4isen1920_originspe:model_type.tiny": {
-        "set_property": { "r4isen1920_originspe:model_type": "tiny" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "tiny" },
+            "set_property": { "r4isen1920_originspe:model_type": "tiny" }
+          }
+        ]
       },
       "r4isen1920_originspe:model_type.small": {
-        "set_property": { "r4isen1920_originspe:model_type": "small" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "small" },
+            "set_property": { "r4isen1920_originspe:model_type": "small" }
+          }
+        ]
       },
       "r4isen1920_originspe:model_type.medium": {
-        "set_property": { "r4isen1920_originspe:model_type": "tiny" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "tiny" },
+            "set_property": { "r4isen1920_originspe:model_type": "tiny" }
+          }
+        ]
       },
       "r4isen1920_originspe:model_type.large": {
-        "set_property": { "r4isen1920_originspe:model_type": "large" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "large" },
+            "set_property": { "r4isen1920_originspe:model_type": "large" }
+          }
+        ]
       },
 
 
       "r4isen1920_originspe:skin_type.normal": {
-        "set_property": { "r4isen1920_originspe:skin_type": "normal" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:skin_type", "operator": "!=", "value": "normal" },
+            "set_property": { "r4isen1920_originspe:skin_type": "normal" }
+          }
+        ]
       },
       "r4isen1920_originspe:skin_type.ghostly": {
-        "set_property": { "r4isen1920_originspe:skin_type": "ghostly" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:skin_type", "operator": "!=", "value": "ghostly" },
+            "set_property": { "r4isen1920_originspe:skin_type": "ghostly" }
+          }
+        ]
       },
       "r4isen1920_originspe:skin_type.slimy": {
-        "set_property": { "r4isen1920_originspe:skin_type": "slimy" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:skin_type", "operator": "!=", "value": "slimy" },
+            "set_property": { "r4isen1920_originspe:skin_type": "slimy" }
+          }
+        ]
       },
 
 
       "r4isen1920_originspe:emitter_type.none": {
-        "set_property": { "r4isen1920_originspe:emitter_type": "none" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "none" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "none" }
+          }
+        ]
       },
       "r4isen1920_originspe:emitter_type.enderian": {
-        "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "enderian" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+          }
+        ]
       },
       "r4isen1920_originspe:emitter_type.starborne": {
-        "set_property": { "r4isen1920_originspe:emitter_type": "starborne" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "starborne" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "starborne" }
+          }
+        ]
       },
       "r4isen1920_originspe:emitter_type.elven": {
-        "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "enderian" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+          }
+        ]
       },
       "r4isen1920_originspe:emitter_type.voidwalker": {
-        "set_property": { "r4isen1920_originspe:emitter_type": "voidwalker" }
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "voidwalker" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "voidwalker" }
+          }
+        ]
       },
 
 
