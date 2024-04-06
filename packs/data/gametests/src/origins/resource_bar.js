@@ -1,7 +1,9 @@
 
 import { TicksPerSecond, world } from '@minecraft/server';
+
 import { toAllPlayers } from './player';
 import { zFill } from '../utils/string';
+import { removeTags } from '../utils/tags';
 
 
 /**
@@ -51,6 +53,7 @@ export class ResourceBar {
    * cooldown list
    * 
    * @param { import('@minecraft/server').Player } player 
+   * The player to send the cooldown to
    * 
    * @returns { ResourceBar }
    */
@@ -90,17 +93,50 @@ export class ResourceBar {
 
   /**
    * 
-   * Immediately ends the existing 
-   * resource bar from the player
+   * Updates existing resource bar
+   * matching the provided id from
+   * the cooldown list
    * 
    * @param { import('@minecraft/server').Player } player 
-   * @param { '1' | '2' | '3' } id 
+   * The player to send the cooldown to
+   * @param { number } from 
+   * The start value of the cooldown from 1 to 100 percent
+   * @param { number } to 
+   * The end value of the cooldown from 1 to 100 percent
+   * @param { number } duration 
+   * The duration of the cooldown in seconds
    * 
    * @returns { ResourceBar }
    */
-  pop(player, id) {
+  update(player, from=this.from, to=this.to, duration=this.duration) {
 
-    _SCOREBOARD(id, 'duration').setScore(player, 0)
+    switch (true) {
+
+      case _SCOREBOARD(1, 'id').getScore(player) === this.id:
+        _SCOREBOARD(1, 'id').setScore(player, this.id);
+        _SCOREBOARD(1, 'from').setScore(player, from);
+        _SCOREBOARD(1, 'to').setScore(player, to);
+        _SCOREBOARD(1, 'duration').setScore(player, duration);
+        break
+
+      case _SCOREBOARD(2, 'id').getScore(player) === this.id:
+        _SCOREBOARD(2, 'id').setScore(player, this.id);
+        _SCOREBOARD(2, 'from').setScore(player, from);
+        _SCOREBOARD(2, 'to').setScore(player, to);
+        _SCOREBOARD(2, 'duration').setScore(player, duration);
+        break
+
+      case _SCOREBOARD(3, 'id').getScore(player) === this.id:
+        _SCOREBOARD(3, 'id').setScore(player, this.id);
+        _SCOREBOARD(3, 'from').setScore(player, from);
+        _SCOREBOARD(3, 'to').setScore(player, to);
+        _SCOREBOARD(3, 'duration').setScore(player, duration);
+        break
+
+      default: return this
+    }
+
+    player.addTag(`cooldown_${this.id}`)
     renderBars(player)
 
     return this
@@ -108,15 +144,41 @@ export class ResourceBar {
 
   /**
    * 
+   * Immediately ends the existing 
+   * resource bar from the player
+   * 
+   * @param { import('@minecraft/server').Player } player 
+   * The player to send the cooldown to
+   * @param { '1' | '2' | '3' } id 
+   * The ID of the cooldown bar to remove
+   * 
+   * @returns { ResourceBar }
+   */
+  pop(player, id=this.id) {
+
+    _SCOREBOARD(id, 'duration').setScore(player, 0);
+    renderBars(player);
+
+    return this
+  }
+
+  /**
+   * 
    * Clears the resource bar
+   * and any concurrent cooldown
    * from the player
    * 
-   * @param { import('@minecraft/server').Player } player
+   * @param { import('@minecraft/server').Player } player 
+   * The player to send the cooldown to
    * 
    * @returns { ResourceBar }
    */
   clear(player) {
-    player.onScreenDisplay.setTitle('origins.resource_bar A:00,000,000,000 B:00,000,000,000 C:00,000,000,000')
+    player.onScreenDisplay.setTitle('origins.resource_bar A:00,000,000,000 B:00,000,000,000 C:00,000,000,000');
+    removeTags(player, 'cooldown_');
+
+    renderBars(player);
+
     return this
   }
 }
