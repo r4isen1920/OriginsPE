@@ -8,17 +8,70 @@
       "is_experimental": false,
 
       "properties": {
+
+        "r4isen1920_originspe:light_level": {
+          //* Returns the current light level where the player is at
+          "client_sync": false,
+          "type": "int",
+          "default": 15,
+          "range": [ 0, 15 ]
+        },
+
+        "r4isen1920_originspe:is_riding_dummy": {
+          //* Returns 1.0 if the player is riding a dummy entity, otherwise 0.0
+          "client_sync": true,
+          "type": "bool",
+          "default": false
+        },
+
         "r4isen1920_originspe:toggle_particles": {
+          //* Returns 1.0 if the player's idle particles are enabled, otherwise 0.0
           "client_sync": true,
           "type": "bool",
           "default": true
         },
-        "r4isen1920_originspe:light_level": {
+
+        "r4isen1920_originspe:model_type": {
+          //* Returns the current model type of the player
           "client_sync": true,
-          "type": "int",
-          "default": 15,
-          "range": [ 0, 15 ]
+          "type": "enum",
+          "default": "normal",
+          "values": [
+            "normal",
+            "tiny",
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+
+        "r4isen1920_originspe:skin_type": {
+          //* Returns the current skin type of the player
+          "client_sync": true,
+          "type": "enum",
+          "default": "normal",
+          "values": [
+            "normal",
+            "ghostly",
+            "slimy",
+            "shadow"
+          ]
+        },
+
+        "r4isen1920_originspe:emitter_type": {
+          //* Returns the current particle emitter type of the player
+          "client_sync": true,
+          "type": "enum",
+          "default": "none",
+          "values": [
+            "none",
+            "enderian",
+            "starborne",
+            "elven",
+            "voidwalker"
+          ]
         }
+
       }
     },
 
@@ -646,11 +699,64 @@
       },
 
 
-      "r4isen1920_originspe:options.particle_on": {
+      "r4isen1920_originspe:toggle_particles.on": {
         "set_property": { "r4isen1920_originspe:toggle_particles": true }
       }, 
-      "r4isen1920_originspe:options.particle_off": {
+      "r4isen1920_originspe:toggle_particles.off": {
         "set_property": { "r4isen1920_originspe:toggle_particles": false }
+      },
+
+
+      "r4isen1920_originspe:is_riding_dummy.true": {
+        "set_property": { "r4isen1920_originspe:is_riding_dummy": true }
+      }, 
+      "r4isen1920_originspe:is_riding_dummy.false": {
+        "set_property": { "r4isen1920_originspe:is_riding_dummy": false }
+      },
+
+
+      "r4isen1920_originspe:model_type.normal": {
+        "set_property": { "r4isen1920_originspe:model_type": "normal" }
+      },
+      "r4isen1920_originspe:model_type.tiny": {
+        "set_property": { "r4isen1920_originspe:model_type": "tiny" }
+      },
+      "r4isen1920_originspe:model_type.small": {
+        "set_property": { "r4isen1920_originspe:model_type": "small" }
+      },
+      "r4isen1920_originspe:model_type.medium": {
+        "set_property": { "r4isen1920_originspe:model_type": "tiny" }
+      },
+      "r4isen1920_originspe:model_type.large": {
+        "set_property": { "r4isen1920_originspe:model_type": "large" }
+      },
+
+
+      "r4isen1920_originspe:skin_type.normal": {
+        "set_property": { "r4isen1920_originspe:skin_type": "normal" }
+      },
+      "r4isen1920_originspe:skin_type.ghostly": {
+        "set_property": { "r4isen1920_originspe:skin_type": "ghostly" }
+      },
+      "r4isen1920_originspe:skin_type.slimy": {
+        "set_property": { "r4isen1920_originspe:skin_type": "slimy" }
+      },
+
+
+      "r4isen1920_originspe:emitter_type.none": {
+        "set_property": { "r4isen1920_originspe:emitter_type": "none" }
+      },
+      "r4isen1920_originspe:emitter_type.enderian": {
+        "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+      },
+      "r4isen1920_originspe:emitter_type.starborne": {
+        "set_property": { "r4isen1920_originspe:emitter_type": "starborne" }
+      },
+      "r4isen1920_originspe:emitter_type.elven": {
+        "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+      },
+      "r4isen1920_originspe:emitter_type.voidwalker": {
+        "set_property": { "r4isen1920_originspe:emitter_type": "voidwalker" }
       },
 
 

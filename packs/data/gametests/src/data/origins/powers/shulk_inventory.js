@@ -58,6 +58,7 @@ function openShulkInv(player) {
   player.dimension.spawnParticle('r4isen1920_originspe:shulk_inventory', Vector3.add(player.location, new Vector3(0, 1.5, 0)));
 
   player.addTag('_shulk_inventory_open');
+  player.triggerEvent('r4isen1920_originspe:is_riding_dummy.true');
 
 }
 
@@ -74,5 +75,6 @@ function closeShulkInv(player) {
   player.dimension.spawnParticle('r4isen1920_originspe:player_inventory', Vector3.add(player.location, new Vector3(0, 1.5, 0)));
 
   removeTags(player, '_shulk_inventory')
+  player.triggerEvent('r4isen1920_originspe:is_riding_dummy.false');
 
 }

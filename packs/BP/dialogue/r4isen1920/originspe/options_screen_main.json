@@ -31,7 +31,7 @@
             "name": "particle.on",
             "commands": [
               "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_general_root_particleoff",
-              "/event entity @initiator r4isen1920_originspe:options.particle_off",
+              "/event entity @initiator r4isen1920_originspe:toggle_particles.off",
 
               "/tag @initiator add options_particle_off"
             ]
@@ -39,7 +39,7 @@
           {
             "name": "reset_player",
             "commands": [
-              "/execute as @initiator[tag=!options_reset_player] run function reset",
+              "/execute as @initiator[tag=!options_reset_player] run scriptevent r4isen1920_originspe:player reset",
 
               "/execute as @initiator[tag=!options_reset_player] at @s run playsound note.pling @s ~~~ 1 3",
               "/execute as @initiator[tag=options_reset_player] at @s run playsound note.bass @s ~~~ 1 3",
@@ -80,7 +80,7 @@
             "name": "particle.off",
             "commands": [
               "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_general_root_particleon",
-              "/event entity @initiator r4isen1920_originspe:options.particle_on",
+              "/event entity @initiator r4isen1920_originspe:toggle_particles.on",
 
               "/tag @initiator remove options_particle_off"
             ]
@@ -88,7 +88,7 @@
           {
             "name": "reset_player",
             "commands": [
-              "/execute as @initiator[tag=!options_reset_player] run function reset",
+              "/execute as @initiator[tag=!options_reset_player] run scriptevent r4isen1920_originspe:player reset",
 
               "/execute as @initiator[tag=!options_reset_player] at @s run playsound note.pling @s ~~~ 1 3",
               "/execute as @initiator[tag=options_reset_player] at @s run playsound note.bass @s ~~~ 1 3",
