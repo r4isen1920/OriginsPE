@@ -1,0 +1,30 @@
+{
+  "$scope": {
+    "inanimate_entities": [
+
+      "agent",
+      "area_effect_cloud",
+      "armor_stand",
+      "arrow",
+      "boat",
+      "chest",
+      "minecart",
+      "fireball",
+      "egg",
+      "ender_crystal",
+      "ender_pearl",
+      "eye_of_ender_signal",
+      "firework",
+      "fishing_hook",
+      "lightning_bolt",
+      "potion",
+      "llama_spit",
+      "npc",
+      "snowball",
+      "thrown_trident",
+      "wither_skull",
+      "xp"
+
+    ]
+  }
+}

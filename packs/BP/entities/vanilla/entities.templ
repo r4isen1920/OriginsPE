@@ -1,0 +1,31 @@
+{
+  "$files": {
+    "array": "listBPFiles('entities', semver('1.19.70'))", //* add filter
+    "filename": "{{fileBaseName(value)}}"
+  },
+  "$copy": "{{value}}",
+
+  "$template": {
+
+    "minecraft:entity": {
+      "components": {
+        "minecraft:behavior.avoid_mob_type": {
+          "priority": 4,
+          "entity_types": [
+            {
+              "filters": {
+                "test": "has_tag",
+                "subject": "other",
+                "value": "power_sinister_aura"
+              },
+              "max_dist": 6,
+              "walk_speed_multiplier": 1.5,
+              "sprint_speed_multiplier": 1.25
+            }
+          ]
+        }
+      }
+    }
+
+  }
+}

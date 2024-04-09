@@ -12,6 +12,10 @@
       "gametests": {
         "url": "github.com/Bedrock-OSS/regolith-filters",
         "version": "1.5.3"
+      },
+      "jsonte": {
+        "url": "github.com/MCDevKit/regolith-library",
+        "version": "2.13.1"
       }
     },
     "profiles": {
@@ -24,24 +28,26 @@
           {
             "filter": "gametests",
             "settings": {
+              "buildOptions": {
+                "bundle": true,
+                "entryPoints": [ "data/gametests/src/main.ts" ],
+                "format": "esm",
+                "minify": false,
+                "target": "es2020"
+              },
               "modules": [
                 "@minecraft/server@1.9.0",
                 "@minecraft/server-ui@1.1.0"
               ],
-              "buildOptions": {
-                "entryPoints": [ "data/gametests/src/main.ts" ],
-                "bundle": true,
-                "minify": false,
-                "format": "esm",
-                "target": "es2020"
-              },
               "outdir": "BP/scripts/r4isen1920/originspe",
               "outfile": "BP/scripts/r4isen1920/originspe/main.js"
             }
+          },
+          {
+            "filter": "jsonte"
           }
         ]
       },
-
       "raw": {
         "export": {
           "readOnly": false,
@@ -51,24 +57,27 @@
           {
             "filter": "gametests",
             "settings": {
-              "modules": [
-                "@minecraft/server@1.9.0",
-                "@minecraft/server-ui@1.1.0"
-              ],
               "buildOptions": {
+                "bundle": false,
                 "entryPoints": [
                   "data/gametests/src/*.js",
                   "data/gametests/src/**/*.js",
                   "data/gametests/src/main.ts"
                 ],
-                "bundle": false,
-                "minify": false,
                 "format": "esm",
+                "minify": false,
                 "target": "es2020"
               },
+              "modules": [
+                "@minecraft/server@1.9.0",
+                "@minecraft/server-ui@1.1.0"
+              ],
               "outdir": "BP/scripts/r4isen1920/originspe",
               "outfile": "BP/scripts/r4isen1920/originspe/main.js"
             }
+          },
+          {
+            "filter": "jsonte"
           }
         ]
       }
