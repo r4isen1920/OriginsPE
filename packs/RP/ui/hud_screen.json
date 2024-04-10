@@ -362,7 +362,8 @@
     "$var_actionbar_text": "$actionbar_text",
 
     "controls": [
-      { "overhead_texts@origin_hud_effects.overhead_texts": {} }
+      // TODO: improve this
+      //{ "overhead_texts@origin_hud_effects.overhead_texts": {} }
     ]
   },
 
@@ -373,7 +374,8 @@
     "$var_actionbar_text": "$actionbar_text",
 
     "controls": [
-      { "hud_effects@origin_hud_effects.hud_effects_list": {} }
+      // TODO: improve this
+      //{ "hud_effects@origin_hud_effects.hud_effects_list": {} }
     ]
   },
 

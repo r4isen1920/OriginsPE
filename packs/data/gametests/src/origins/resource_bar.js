@@ -63,37 +63,21 @@ export class ResourceBar {
    * @returns { ResourceBar }
    */
   push(player, flush=true) {
-
-    switch (true) {
-
-      case _SCOREBOARD(1, 'id').getScore(player) || 0 === 0:
-        _SCOREBOARD(1, 'id').setScore(player, this.id);
-        _SCOREBOARD(1, 'from').setScore(player, this.from);
-        _SCOREBOARD(1, 'to').setScore(player, this.to);
-        _SCOREBOARD(1, 'duration').setScore(player, this.duration);
-        break
-
-      case _SCOREBOARD(2, 'id').getScore(player) || 0 === 0:
-        _SCOREBOARD(2, 'id').setScore(player, this.id);
-        _SCOREBOARD(2, 'from').setScore(player, this.from);
-        _SCOREBOARD(2, 'to').setScore(player, this.to);
-        _SCOREBOARD(2, 'duration').setScore(player, this.duration);
-        break
-
-      case _SCOREBOARD(3, 'id').getScore(player) || 0 === 0:
-        _SCOREBOARD(3, 'id').setScore(player, this.id);
-        _SCOREBOARD(3, 'from').setScore(player, this.from);
-        _SCOREBOARD(3, 'to').setScore(player, this.to);
-        _SCOREBOARD(3, 'duration').setScore(player, this.duration);
-        break
-
-      default: return this
+    let scoreboardUpdated = false;
+    for (let i = 1; i <= 3 && !scoreboardUpdated; i++) {
+      if (_SCOREBOARD(i, 'id').getScore(player) === 0) {
+        _SCOREBOARD(i, 'id').setScore(player, this.id);
+        _SCOREBOARD(i, 'from').setScore(player, this.from);
+        _SCOREBOARD(i, 'to').setScore(player, this.to);
+        _SCOREBOARD(i, 'duration').setScore(player, this.duration);
+        scoreboardUpdated = true;
+      }
     }
 
-    if (!this.persist) player.addTag(`cooldown_${this.id}`)
-    if (flush) renderBars(player)
+    if (!this.persist) player.addTag(`cooldown_${this.id}`);
+    if (flush) renderBars(player);
 
-    return this
+    return this;
   }
 
   /**
@@ -104,6 +88,8 @@ export class ResourceBar {
    * 
    * @param { import('@minecraft/server').Player } player 
    * The player to send the cooldown to
+   * @param { boolean } persist 
+   * Whether to remove the cooldown bar or not
    * @param { number } from 
    * The start value of the cooldown from 1 to 100 percent
    * @param { number } to 
@@ -113,36 +99,34 @@ export class ResourceBar {
    * 
    * @returns { ResourceBar }
    */
-  update(player, from=this.from, to=this.to, duration=this.duration) {
+  update(player, persist=this.persist, from=this.from, to=this.to, duration=this.duration) {
+    let isSameValue = false;
+    let scoreboardId;
 
-    switch (true) {
-
-      case _SCOREBOARD(1, 'id').getScore(player) === this.id:
-        _SCOREBOARD(1, 'id').setScore(player, this.id);
-        _SCOREBOARD(1, 'from').setScore(player, from);
-        _SCOREBOARD(1, 'to').setScore(player, to);
-        _SCOREBOARD(1, 'duration').setScore(player, duration);
-        break
-
-      case _SCOREBOARD(2, 'id').getScore(player) === this.id:
-        _SCOREBOARD(2, 'id').setScore(player, this.id);
-        _SCOREBOARD(2, 'from').setScore(player, from);
-        _SCOREBOARD(2, 'to').setScore(player, to);
-        _SCOREBOARD(2, 'duration').setScore(player, duration);
-        break
-
-      case _SCOREBOARD(3, 'id').getScore(player) === this.id:
-        _SCOREBOARD(3, 'id').setScore(player, this.id);
-        _SCOREBOARD(3, 'from').setScore(player, from);
-        _SCOREBOARD(3, 'to').setScore(player, to);
-        _SCOREBOARD(3, 'duration').setScore(player, duration);
-        break
-
-      default: return this
+    for (let i = 1; i <= 3; i++) {
+      if (_SCOREBOARD(i, 'id').getScore(player) === this.id) {
+        scoreboardId = i;
+        break;
+      }
     }
 
-    player.addTag(`cooldown_${this.id}`)
-    renderBars(player)
+    if (!scoreboardId) return this.push(player, persist);
+
+    if (
+      _SCOREBOARD(scoreboardId, 'id').getScore(player) === this.id &&
+      _SCOREBOARD(scoreboardId, 'from').getScore(player) === from &&
+      _SCOREBOARD(scoreboardId, 'to').getScore(player) === to
+    ) isSameValue = true;
+
+    _SCOREBOARD(scoreboardId, 'id').setScore(player, this.id);
+    _SCOREBOARD(scoreboardId, 'from').setScore(player, from);
+    _SCOREBOARD(scoreboardId, 'to').setScore(player, to);
+    _SCOREBOARD(scoreboardId, 'duration').setScore(player, duration);
+
+    if (!persist) player.addTag(`cooldown_${this.id}`);
+    else player.removeTag(`cooldown_${this.id}`);
+
+    if (!isSameValue) renderBars(player);
 
     return this
   }
@@ -160,22 +144,11 @@ export class ResourceBar {
    * @returns { ResourceBar }
    */
   pop(player, id=this.id) {
-
-    switch (true) {
-
-      case _SCOREBOARD(1, 'id').getScore(player) === id:
-        _SCOREBOARD(1, 'duration').setScore(player, 0);
-        break
-
-      case _SCOREBOARD(2, 'id').getScore(player) === id:
-        _SCOREBOARD(2, 'duration').setScore(player, 0);
-        break
-
-      case _SCOREBOARD(3, 'id').getScore(player) === id:
-        _SCOREBOARD(3, 'duration').setScore(player, 0);
-        break
-
-      default: return this
+    for (let i = 1; i <= 3; i++) {
+      if (_SCOREBOARD(i, 'id').getScore(player) === id) {
+        _SCOREBOARD(i, 'duration').setScore(player, 0);
+        break;
+      }
     }
 
     return this
@@ -193,24 +166,14 @@ export class ResourceBar {
    * @returns { ResourceBar }
    */
   clear(player) {
-    
-    _SCOREBOARD(1, 'id').setScore(player, 0);
-    _SCOREBOARD(1, 'from').setScore(player, 0);
-    _SCOREBOARD(1, 'to').setScore(player, 0);
-    _SCOREBOARD(1, 'duration').setScore(player, 0);
-
-    _SCOREBOARD(2, 'id').setScore(player, 0);
-    _SCOREBOARD(2, 'from').setScore(player, 0);
-    _SCOREBOARD(2, 'to').setScore(player, 0);
-    _SCOREBOARD(2, 'duration').setScore(player, 0);
-
-    _SCOREBOARD(3, 'id').setScore(player, 0);
-    _SCOREBOARD(3, 'from').setScore(player, 0);
-    _SCOREBOARD(3, 'to').setScore(player, 0);
-    _SCOREBOARD(3, 'duration').setScore(player, 0);
+    for (let i = 1; i <= 3; i++) {
+      _SCOREBOARD(i, 'id').setScore(player, 0);
+      _SCOREBOARD(i, 'from').setScore(player, 0);
+      _SCOREBOARD(i, 'to').setScore(player, 0);
+      _SCOREBOARD(i, 'duration').setScore(player, 0);
+    }
 
     removeTags(player, 'cooldown_');
-
     renderBars(player);
 
     return this
@@ -226,31 +189,24 @@ export class ResourceBar {
  * @param { import('@minecraft/server').Player } player 
  */
 function renderBars(player) {
-
-  let COOLDOWN_BAR_A = {
-    'id': zFill(_SCOREBOARD(1, 'id').getScore(player), 2) || '00',
-    'from': zFill(_SCOREBOARD(1, 'from').getScore(player), 3) || '000',
-    'to': zFill(_SCOREBOARD(1, 'to').getScore(player), 3) || '000',
-    'duration': zFill(_SCOREBOARD(1, 'duration').getScore(player), 3) || '000'
+  const typeToID = {
+    'A': 1,
+    'B': 2,
+    'C': 3
   }
-  let COOLDOWN_BAR_B = {
-    'id': zFill(_SCOREBOARD(2, 'id').getScore(player), 2) || '00',
-    'from': zFill(_SCOREBOARD(2, 'from').getScore(player), 3) || '000',
-    'to': zFill(_SCOREBOARD(2, 'to').getScore(player), 3) || '000',
-    'duration': zFill(_SCOREBOARD(2, 'duration').getScore(player), 3) || '000'
-  }
-  let COOLDOWN_BAR_C = {
-    'id': zFill(_SCOREBOARD(3, 'id').getScore(player), 2) || '00',
-    'from': zFill(_SCOREBOARD(3, 'from').getScore(player), 3) || '000',
-    'to': zFill(_SCOREBOARD(3, 'to').getScore(player), 3) || '000',
-    'duration': zFill(_SCOREBOARD(3, 'duration').getScore(player), 3) || '000'
-  }
+  const COOLDOWN_BARS = ['A', 'B', 'C'].map(bar => ({
+    'type': bar,
+    'id': zFill(_SCOREBOARD(typeToID[bar], 'id').getScore(player), 2) || '00',
+    'from': zFill(_SCOREBOARD(typeToID[bar], 'from').getScore(player), 3) || '000',
+    'to': zFill(_SCOREBOARD(typeToID[bar], 'to').getScore(player), 3) || '000',
+    'duration': zFill(_SCOREBOARD(typeToID[bar], 'duration').getScore(player), 3) || '000'
+  }));
 
-  //* console.warn(`${JSON.stringify(COOLDOWN_BAR_A)} || ${JSON.stringify(COOLDOWN_BAR_B)} || ${JSON.stringify(COOLDOWN_BAR_C)}`)
 
-  if (!COOLDOWN_BAR_A.id || !COOLDOWN_BAR_B.id || !COOLDOWN_BAR_C.id) return
+  if (COOLDOWN_BARS.some(bar => !bar.id)) return;
 
-  player.onScreenDisplay.setTitle(`origins.resource_bar A:${COOLDOWN_BAR_A.id},${COOLDOWN_BAR_A.from},${COOLDOWN_BAR_A.to},${COOLDOWN_BAR_A.duration} B:${COOLDOWN_BAR_B.id},${COOLDOWN_BAR_B.from},${COOLDOWN_BAR_B.to},${COOLDOWN_BAR_B.duration} C:${COOLDOWN_BAR_C.id},${COOLDOWN_BAR_C.from},${COOLDOWN_BAR_C.to},${COOLDOWN_BAR_C.duration}`)
+  player.onScreenDisplay.setTitle(`origins.resource_bar ${COOLDOWN_BARS.map(bar => `${bar.type}:${bar.id},${bar.from},${bar.to},${bar.duration}`).join(' ')}`);
+  console.warn(COOLDOWN_BARS.map(bar => `${bar.type}:${bar.id},${bar.from},${bar.to},${bar.duration}`).join(' '))
 }
 
 
@@ -297,4 +253,4 @@ function countDown(player) {
 
 }
 
-toAllPlayers(countDown, TicksPerSecond * 1) /* Run every 1 second */
+toAllPlayers(countDown, TicksPerSecond * 0.9) /* Run every 1 second -- 0.1 second margin of error */

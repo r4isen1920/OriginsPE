@@ -1,7 +1,7 @@
 
-import { TicksPerSecond, world } from "@minecraft/server";
+import { TicksPerSecond } from "@minecraft/server";
 
-import { importOriginsModule, toAllPlayers } from "./player";
+import { toAllPlayers } from "./player";
 
 
 /**

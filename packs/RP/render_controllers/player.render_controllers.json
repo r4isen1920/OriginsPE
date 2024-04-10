@@ -8,6 +8,7 @@
       "textures": [ "Texture.default" ],
       "part_visibility": [
         { "*": "!q.any(v.p_skin_type, 'ghostly', 'shadow')" },
+
         { "helmet": "variable.helmet_layer_visible" },
         { "leftLegging": "variable.leg_layer_visible" },
         { "rightLegging": "variable.leg_layer_visible" },
@@ -18,7 +19,15 @@
         { "bodyArmor": "variable.chest_layer_visible && !query.has_cape" },
         { "leftArmArmor": "variable.chest_layer_visible && !query.has_cape" },
         { "rightArmArmor": "variable.chest_layer_visible && !query.has_cape" },
-        { "belt": "variable.chest_layer_visible && variable.leg_layer_visible" }
+        { "belt": "variable.chest_layer_visible && variable.leg_layer_visible" },
+
+        { "rightSleeve": "v.p_skin_type != 'slimy' " },
+        { "leftSleeve": "v.p_skin_type != 'slimy' " },
+        { "rightPants": "v.p_skin_type != 'slimy' " },
+        { "leftPants": "v.p_skin_type != 'slimy' " },
+        { "jacket": "v.p_skin_type != 'slimy' " },
+        { "hat": "v.p_skin_type != 'slimy' " },
+        { "belt": "v.p_skin_type != 'slimy' " }
       ]
     },
 

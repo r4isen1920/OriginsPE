@@ -1,6 +1,6 @@
 {
   "$files": {
-    "array": "listBPFiles('entities', semver('1.19.70'))", //* add filter
+    "array": "listBPFiles('entities', semver('1.19.70')).filter(x => !inanimate_entities.contains(fileBaseName(x)))",
     "filename": "{{fileBaseName(value)}}"
   },
   "$copy": "{{value}}",

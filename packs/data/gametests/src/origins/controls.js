@@ -71,7 +71,7 @@ export function openAbilityHotbar(player) {
   if (playerControlTags?.length > 0) {
 
     playerControlTags.forEach(tag => {
-      const itemName = `r4isen1920_originspe:origins_power.${tag.replace('control_', '')}`;
+      const itemName = `r4isen1920_originspe:origins_power.${tag.replace('control_', '').replace('-hold', '')}`;
 
       try {
         const item = new ItemStack(itemName);

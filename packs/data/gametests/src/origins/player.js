@@ -217,6 +217,7 @@ export function resetPlayerAttributes(player) {
     'r4isen1920_originspe:movement.0.1',
     'r4isen1920_originspe:health.20',
     'r4isen1920_originspe:attack.1',
+    'r4isen1920_originspe:scale.1',
     'r4isen1920_originspe:exhaustion.normal',
     'r4isen1920_originspe:family_type.player',
     'r4isen1920_originspe:breathable.land',
@@ -224,8 +225,9 @@ export function resetPlayerAttributes(player) {
     'r4isen1920_originspe:is_shaking.false',
     'r4isen1920_originspe:burns_in_daylight.false'
   ];
-
   events.forEach(event => player.triggerEvent(event));
+
+  player.getComponent('scale').value = 1.0;
   removeTags(player, '_');
 
 }

@@ -102,6 +102,9 @@
       "r4isen1920_originspe:health.14": {
         "minecraft:health": { "max": 14 }
       },
+      "r4isen1920_originspe:health.12": {
+        "minecraft:health": { "max": 12 }
+      },
       "r4isen1920_originspe:health.10": {
         "minecraft:health": { "max": 10 }
       },
@@ -124,6 +127,29 @@
       },
       "r4isen1920_originspe:attack.10": {
         "minecraft:attack": { "damage": 10 }
+      },
+
+
+      "r4isen1920_originspe:scale.0.25": {
+        "minecraft:scale": { "value": 0.25 }
+      },
+      "r4isen1920_originspe:scale.0.5": {
+        "minecraft:scale": { "value": 0.5 }
+      },
+      "r4isen1920_originspe:scale.0.75": {
+        "minecraft:scale": { "value": 0.75 }
+      },
+      "r4isen1920_originspe:scale.1": {
+        "minecraft:scale": { "value": 1 }
+      },
+      "r4isen1920_originspe:scale.1.25": {
+        "minecraft:scale": { "value": 1.25 }
+      },
+      "r4isen1920_originspe:scale.1.5": {
+        "minecraft:scale": { "value": 1.5 }
+      },
+      "r4isen1920_originspe:scale.3": {
+        "minecraft:scale": { "value": 3 }
       },
 
 
@@ -185,12 +211,17 @@
       },
       "r4isen1920_originspe:family_type.fish": {
         "minecraft:type_family": {
-          "family": [ "fish" ]
+          "family": [ "player", "fish" ]
         }
       },
       "r4isen1920_originspe:family_type.undead": {
         "minecraft:type_family": {
           "family": [ "undead" ]
+        }
+      },
+      "r4isen1920_originspe:family_type.camouflage": {
+        "minecraft:type_family": {
+          "family": [ "camouflage" ]
         }
       },
 
@@ -288,6 +319,19 @@
             "on_damage": {
               "filters": {
                 "any_of": [
+                  { "test": "has_tag", "value": "power_sticky" }
+
+                ]
+              }
+            },
+            "deals_damage": true,
+            "damage_multiplier": 0.90
+          },
+          {
+            "cause": "all",
+            "on_damage": {
+              "filters": {
+                "any_of": [
                   { "test": "has_tag", "value": "power_natural_armor" }
 
                 ]
@@ -315,7 +359,18 @@
             "on_damage": {
               "filters": {
                 "any_of": [
-                  { "test": "has_tag", "value": "_master_of_webs_1" }
+                  { "test": "has_tag", "value": "_master_of_webs_1" },
+                  {
+                    "all_of": [
+                      { "test": "has_tag", "value": "power_bouncy_body" },
+                      {
+                        "any_of": [
+                          { "test": "has_damage", "value": "fall" },
+                          { "test": "has_damage", "value": "fly_into_wall" }
+                        ]
+                      }
+                    ]
+                  }
 
                 ]
               }
@@ -349,7 +404,12 @@
 
                   {
                     "all_of": [
-                      { "test": "has_tag", "value": "power_strong_ankles" },
+                      {
+                        "any_of": [
+                          { "test": "has_tag", "value": "power_strong_ankles" },
+                          { "test": "has_tag", "value": "power_fall_immunity" }
+                        ]
+                      },
                       { "test": "has_damage", "value": "fall" }
                     ]
                   },
@@ -372,6 +432,22 @@
                   }
 
 
+                ]
+              }
+            },
+            "deals_damage": false
+          },
+          {
+            "cause": "all",
+            "on_damage": {
+              "filters": {
+                "all_of": [
+                  { "test": "has_tag", "value": "power_berry_craver" },
+                  {
+                    "test": "is_block",
+                    "subject": "block",
+                    "value": "minecraft:sweet_berry_bush"
+                  }
                 ]
               }
             },
@@ -464,6 +540,9 @@
             "damage_per_tick": 4
           }
         ]
+      },
+      "minecraft:scale": {
+        "value": 1.0
       },
 
 
@@ -591,6 +670,9 @@
       "r4isen1920_originspe:health.14": {
         "add": { "component_groups": [ "r4isen1920_originspe:health.14" ] }
       },
+      "r4isen1920_originspe:health.12": {
+        "add": { "component_groups": [ "r4isen1920_originspe:health.12" ] }
+      },
       "r4isen1920_originspe:health.10": {
         "add": { "component_groups": [ "r4isen1920_originspe:health.10" ] }
       },
@@ -612,6 +694,28 @@
       },
       "r4isen1920_originspe:attack.10": {
         "add": { "component_groups": [ "r4isen1920_originspe:attack.10" ] }
+      },
+
+      "r4isen1920_originspe:scale.0.25": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.0.25" ] }
+      },
+      "r4isen1920_originspe:scale.0.5": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.0.5" ] }
+      },
+      "r4isen1920_originspe:scale.0.75": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.0.75" ] }
+      },
+      "r4isen1920_originspe:scale.1": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.1" ] }
+      },
+      "r4isen1920_originspe:scale.1.25": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.1.25" ] }
+      },
+      "r4isen1920_originspe:scale.1.5": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.1.5" ] }
+      },
+      "r4isen1920_originspe:scale.3": {
+        "add": { "component_groups": [ "r4isen1920_originspe:scale.3" ] }
       },
 
       "r4isen1920_originspe:exhaustion.normal": {
@@ -638,6 +742,9 @@
       },
       "r4isen1920_originspe:family_type.undead": {
         "add": { "component_groups": [ "r4isen1920_originspe:family_type.undead" ] }
+      },
+      "r4isen1920_originspe:family_type.camouflage": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.camouflage" ] }
       },
 
       "r4isen1920_originspe:breathable.land": {
