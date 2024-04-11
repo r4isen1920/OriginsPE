@@ -1,0 +1,331 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+
+    //* Renders all calculations made into the UI
+    "controller.animation.r4isen1920_originspe.resource_bar.flush": {
+      "initial_state": "init",
+      "states": {
+
+        "init": {
+          "transitions": [ { "start": "v.cooldown_render_time = q.life_time; return q.scoreboard('gui') == 1;" } ]
+        },
+        "start": {
+          "transitions": [ { "render": "q.life_time - v.cooldown_render_time > 1" } ]
+        },
+
+        "render": {
+          "transitions": [ { "reload": "v.cooldown_render_time = q.life_time; return (q.scoreboard('cd') > 0 || q.scoreboard('cdhide') > 0);" } ],
+          "on_entry": [
+            /* Exception handler -- do not render if there is no value */
+            "/tag @s remove cd_render",
+            "/execute if score @s cd1y matches 0.. if score @s cd2y matches 0.. if score @s cd3y matches 0.. run tag @s add cd_render",
+
+            /* Render calculations on the screen */
+            "/execute if entity @s[tag=\"cd_render\"] run titleraw @s title {\"rawtext\":[{\"text\":\"origins.resource_bar \"},{\"text\":\"A:\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1x\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1y\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1fromx\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1fromy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1fromz\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1tox\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1toy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1toz\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1durationx\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1durationy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd1durationz\"}},{\"text\":\" \"},{\"text\":\"B:\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2x\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2y\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2fromx\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2fromy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2fromz\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2tox\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2toy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2toz\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2durationx\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2durationy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd2durationz\"}},{\"text\":\" \"},{\"text\":\"C:\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3x\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3y\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3fromx\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3fromy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3fromz\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3tox\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3toy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3toz\"}},{\"text\":\",\"},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3durationx\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3durationy\"}},{\"score\":{\"name\":\"@s\",\"objective\":\"cd3durationz\"}},{\"text\":\" \"}]}"
+          ]
+        },
+        "reload": {
+          "transitions": [ { "render": "((q.life_time - v.cooldown_render_time) > 0.125 && !q.scoreboard('cd')) || ((q.life_time - v.cooldown_render_time) > 0.25 && !q.scoreboard('cdhide'))" } ]
+        }
+      }
+    },
+
+
+    //* Handles the inputs
+    "controller.animation.r4isen1920_originspe.resource_bar.aggregator": {
+      "initial_state": "init",
+      "states": {
+
+        "init": {
+          "transitions": [ { "prep_obj": "q.scoreboard('gui') == 1" } ]
+        },
+        "prep_obj": {
+          "transitions": [ { "reset": "1" } ],
+          "on_entry": [
+            "/function r4isen1920_originspe/resource_bar/obj/bar_1",
+            "/function r4isen1920_originspe/resource_bar/obj/bar_2",
+            "/function r4isen1920_originspe/resource_bar/obj/bar_3"
+          ]
+        },
+
+        "default": {
+          "transitions": [
+            { "remove_cooldown": "q.scoreboard('cdhide') > 0" },
+            { "add_cooldown": "(q.scoreboard('cd') > 0 && q.scoreboard('cdduration') > 0)" }
+          ]
+        },
+        "reset": {
+          "transitions": [ { "default": "1" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd 0",
+            "/scoreboard players set @s cdfrom 0",
+            "/scoreboard players set @s cdto 0",
+            "/scoreboard players set @s cdduration 0"
+          ]
+        },
+        "update": {
+          "transitions": [
+            { "add_cooldown": "(q.scoreboard('cd') > 0 && q.scoreboard('cdduration') > 0)" },
+            { "reset": "1" }
+          ],
+          "on_entry": [
+            "/scoreboard players reset @s cdhide",
+
+            "/scoreboard players operation @s cd1from = @s cd1to",
+            "/scoreboard players operation @s cd2from = @s cd2to",
+            "/scoreboard players operation @s cd3from = @s cd3to",
+
+            "/function r4isen1920_originspe/resource_bar/calc/bar_1",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_2",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_3"
+          ]
+        },
+
+        "add_cooldown": {
+          "transitions": [
+            { "add_cooldown.1": "!q.scoreboard('cd1') || (q.scoreboard('cd1') == q.scoreboard('cd'))" },
+            { "add_cooldown.2": "!q.scoreboard('cd2') || (q.scoreboard('cd2') == q.scoreboard('cd'))" },
+            { "add_cooldown.3": "!q.scoreboard('cd3') || (q.scoreboard('cd3') == q.scoreboard('cd'))" },
+            { "reset": "1" }
+          ]
+        },
+
+        "add_cooldown.1": {
+          "transitions": [ { "reset": "q.scoreboard('cd1duration') > 0" } ],
+          "on_entry": [
+            "/scoreboard players operation @s cd1 = @s cd",
+            "/scoreboard players operation @s cd1from = @s cdfrom",
+            "/scoreboard players operation @s cd1to = @s cdto",
+            "/scoreboard players operation @s cd1duration = @s cdduration",
+            "/scoreboard players operation @s cd1persist = @s cdpersist",
+
+            "/scoreboard players operation @s cd2from = @s cd2to",
+            "/scoreboard players operation @s cd3from = @s cd3to",
+
+            "/function r4isen1920_originspe/resource_bar/calc/bar_2",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_3"
+          ]
+        },
+        "add_cooldown.2": {
+          "transitions": [ { "reset": "q.scoreboard('cd2duration') > 0" } ],
+          "on_entry": [
+            "/scoreboard players operation @s cd2 = @s cd",
+            "/scoreboard players operation @s cd2from = @s cdfrom",
+            "/scoreboard players operation @s cd2to = @s cdto",
+            "/scoreboard players operation @s cd2duration = @s cdduration",
+            "/scoreboard players operation @s cd2persist = @s cdpersist",
+
+            "/scoreboard players operation @s cd1from = @s cd1to",
+            "/scoreboard players operation @s cd3from = @s cd3to",
+
+            "/function r4isen1920_originspe/resource_bar/calc/bar_1",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_3"
+          ]
+        },
+        "add_cooldown.3": {
+          "transitions": [ { "reset": "q.scoreboard('cd3duration') > 0" } ],
+          "on_entry": [
+            "/scoreboard players operation @s cd3 = @s cd",
+            "/scoreboard players operation @s cd3from = @s cdfrom",
+            "/scoreboard players operation @s cd3to = @s cdto",
+            "/scoreboard players operation @s cd3duration = @s cdduration",
+            "/scoreboard players operation @s cd3persist = @s cdpersist",
+
+            "/scoreboard players operation @s cd1from = @s cd1to",
+            "/scoreboard players operation @s cd2from = @s cd2to",
+
+            "/function r4isen1920_originspe/resource_bar/calc/bar_1",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_2"
+          ]
+        },
+
+        "remove_cooldown": {
+          "transitions": [
+            { "remove_cooldown.1": "q.scoreboard('cd1') == q.scoreboard('cdhide')" },
+            { "remove_cooldown.2": "q.scoreboard('cd2') == q.scoreboard('cdhide')" },
+            { "remove_cooldown.3": "q.scoreboard('cd3') == q.scoreboard('cdhide')" },
+            { "update": "1" }
+          ]
+        },
+
+        "remove_cooldown.1": {
+          "transitions": [ { "update": "!q.scoreboard('cd1duration')" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd1duration 0"
+          ]
+        },
+        "remove_cooldown.2": {
+          "transitions": [ { "update": "!q.scoreboard('cd2duration')" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd2duration 0"
+          ]
+        },
+        "remove_cooldown.3": {
+          "transitions": [ { "update": "!q.scoreboard('cd3duration')" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd3duration 0"
+          ]
+        }
+      }
+    },
+
+
+    //* Resource bar 1
+    "controller.animation.r4isen1920_originspe.resource_bar.bar_1": {
+      "initial_state": "init",
+      "states": {
+
+        "init": {
+          "transitions": [ { "reset_bar": "q.scoreboard('gui') == 1" } ]
+        },
+        "default": {
+          "transitions": [
+            { "on_cooldown": "(q.scoreboard('cd1') > 0 && q.scoreboard('cd1duration') > 0)" }
+          ],
+          "on_exit": [ "v.bar_1_cd_time = q.life_time;" ]
+        },
+
+        "on_cooldown": {
+          "transitions": [ { "on_cooldown_tick": "1" } ],
+          "on_entry": [ "/function r4isen1920_originspe/resource_bar/calc/bar_1" ]
+        },
+        "on_cooldown_tick": {
+          "transitions": [
+            { "on_cooldown_end": "v.bar_1_reset_time = q.life_time; return !q.scoreboard('cd1duration') || ((q.life_time - v.bar_1_cd_time) > q.scoreboard('cd1duration') && !q.scoreboard('cd1persist'));" },
+            { "on_cooldown": "1" }
+          ]
+        },
+
+        "on_cooldown_end": {
+          "transitions": [ { "reset_bar": "q.life_time - v.bar_1_reset_time > 0.5" } ],
+          "on_entry": [
+            "/scriptevent r4isen1920_originspe:resource_bar cd_end.1",
+
+            "/scoreboard players set @s cd1duration 0",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_1"
+          ],
+          "on_exit": [
+            "/scoreboard players set @s cdhide 999"
+          ]
+        },
+
+        "reset_bar": {
+          "transitions": [ { "default": "1" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd1 0",
+            "/scoreboard players set @s cd1from 0",
+            "/scoreboard players set @s cd1to 0",
+            "/scoreboard players set @s cd1duration 0"
+          ],
+          "on_exit": [ "/function r4isen1920_originspe/resource_bar/calc/bar_1" ]
+        }
+      }
+    },
+
+    //* Resource bar 2
+    "controller.animation.r4isen1920_originspe.resource_bar.bar_2": {
+      "initial_state": "init",
+      "states": {
+
+        "init": {
+          "transitions": [ { "reset_bar": "q.scoreboard('gui') == 1" } ]
+        },
+        "default": {
+          "transitions": [
+            { "on_cooldown": "(q.scoreboard('cd2') > 0 && q.scoreboard('cd2duration') > 0)" }
+          ],
+          "on_exit": [ "v.bar_2_cd_time = q.life_time;" ]
+        },
+
+        "on_cooldown": {
+          "transitions": [ { "on_cooldown_tick": "1" } ],
+          "on_entry": [ "/function r4isen1920_originspe/resource_bar/calc/bar_2" ]
+        },
+        "on_cooldown_tick": {
+          "transitions": [
+            { "on_cooldown_end": "v.bar_2_reset_time = q.life_time; return !q.scoreboard('cd2duration') || ((q.life_time - v.bar_2_cd_time) > q.scoreboard('cd2duration') && !q.scoreboard('cd2persist'));" },
+            { "on_cooldown": "1" }
+          ]
+        },
+
+        "on_cooldown_end": {
+          "transitions": [ { "reset_bar": "q.life_time - v.bar_2_reset_time > 0.5" } ],
+          "on_entry": [
+            "/scriptevent r4isen1920_originspe:resource_bar cd_end.2",
+
+            "/scoreboard players set @s cd2duration 0",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_2"
+          ],
+          "on_exit": [
+            "/scoreboard players set @s cdhide 999"
+          ]
+        },
+
+        "reset_bar": {
+          "transitions": [ { "default": "1" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd2 0",
+            "/scoreboard players set @s cd2from 0",
+            "/scoreboard players set @s cd2to 0",
+            "/scoreboard players set @s cd2duration 0"
+          ],
+          "on_exit": [ "/function r4isen1920_originspe/resource_bar/calc/bar_2" ]
+        }
+      }
+    },
+
+    //* Resource bar 3
+    "controller.animation.r4isen1920_originspe.resource_bar.bar_3": {
+      "initial_state": "init",
+      "states": {
+
+        "init": {
+          "transitions": [ { "reset_bar": "q.scoreboard('gui') == 1" } ]
+        },
+        "default": {
+          "transitions": [
+            { "on_cooldown": "(q.scoreboard('cd3') > 0 && q.scoreboard('cd3duration') > 0)" }
+          ],
+          "on_exit": [ "v.bar_3_cd_time = q.life_time;" ]
+        },
+
+        "on_cooldown": {
+          "transitions": [ { "on_cooldown_tick": "1" } ],
+          "on_entry": [ "/function r4isen1920_originspe/resource_bar/calc/bar_3" ]
+        },
+        "on_cooldown_tick": {
+          "transitions": [
+            { "on_cooldown_end": "v.bar_3_reset_time = q.life_time; return !q.scoreboard('cd3duration') || ((q.life_time - v.bar_3_cd_time) > q.scoreboard('cd3duration') && !q.scoreboard('cd3persist'));" },
+            { "on_cooldown": "1" }
+          ]
+        },
+
+        "on_cooldown_end": {
+          "transitions": [ { "reset_bar": "q.life_time - v.bar_3_reset_time > 0.5" } ],
+          "on_entry": [
+            "/scriptevent r4isen1920_originspe:resource_bar cd_end.3",
+
+            "/scoreboard players set @s cd3duration 0",
+            "/function r4isen1920_originspe/resource_bar/calc/bar_3"
+          ],
+          "on_exit": [
+            "/scoreboard players set @s cdhide 999"
+          ]
+        },
+
+        "reset_bar": {
+          "transitions": [ { "default": "1" } ],
+          "on_entry": [
+            "/scoreboard players set @s cd3 0",
+            "/scoreboard players set @s cd3from 0",
+            "/scoreboard players set @s cd3to 0",
+            "/scoreboard players set @s cd3duration 0"
+          ],
+          "on_exit": [ "/function r4isen1920_originspe/resource_bar/calc/bar_3" ]
+        }
+      }
+    }
+
+  }
+}

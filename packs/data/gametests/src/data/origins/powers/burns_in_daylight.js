@@ -10,7 +10,10 @@ import { toAllPlayers } from "../../../origins/player"
 function burns_in_daylight(player) {
   if (!player.hasTag('power_burns_in_daylight')) return;
 
-  player.triggerEvent('r4isen1920_originspe:burns_in_daylight.true')
+  const inSpectatorMode = player.matches({ gameMode: 'spectator' })
+
+  if (!inSpectatorMode) player.triggerEvent('r4isen1920_originspe:burns_in_daylight.true')
+  else player.triggerEvent('r4isen1920_originspe:burns_in_daylight.false') 
 
 }
 

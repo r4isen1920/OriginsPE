@@ -372,16 +372,15 @@
         }
       },
       {
-        "phantomize_limit@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.phantomize_limit.name",
-          "$power_description": "origins.trait.phantomize_limit.description",
-          "$power_icon_index": "phantomize_limit"
-        }
-      },
-      {
         "invisibility@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.invisibility.name",
           "$power_description": "origins.trait.invisibility.description"
+        }
+      },
+      {
+        "more_exhaustion@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.more_exhaustion.name",
+          "$power_description": "origins.trait.more_exhaustion.description"
         }
       },
       {
@@ -467,7 +466,7 @@
         "slime_ball_consume@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.slime_ball_consume.name",
           "$power_description": "origins.trait.slime_ball_consume.description",
-          "$power_icon_index": "slime_ball_consume"
+          "$power_icon_index": "fragmentation"
         }
       },
       {

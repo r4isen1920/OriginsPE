@@ -8,7 +8,7 @@ import { toAllPlayers } from "../../../origins/player";
 function camouflage(player) {
   if (player.hasTag('power_camouflage') && player.isSneaking) {
 
-    player.triggerEvent('r4isen1920_originspe:family_type.camouflaged')
+    player.triggerEvent('r4isen1920_originspe:family_type.camouflage')
 
   } else {
 

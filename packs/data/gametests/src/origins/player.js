@@ -1,8 +1,9 @@
 
-import { world, system, TicksPerSecond, ItemStack, ItemLockMode } from "@minecraft/server";
+import { world, system, ItemStack, ItemLockMode } from "@minecraft/server";
 
 import { openScreenPickerGUI } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
+import { ResourceBar } from "./resource_bar.js";
 
 const ORIGINS = [
   'avian',
@@ -60,6 +61,8 @@ function setRace(player, param_race) {
   if (param_race === 'random') {
     param_race = ORIGINS[Math.floor(Math.random() * ORIGINS.length)]
   }
+
+  new ResourceBar().clear(player);
 
   removeTags(player, '_');
   player.addTag(`race_${param_race}`);
@@ -239,11 +242,14 @@ export function resetPlayerAttributes(player) {
  * 
  * @param { function } func 
  * @param { number } interval 
+ * @param { number } timeout 
  */
-export function toAllPlayers(func, interval=1) {
-  system.runInterval(() => {
-    world.getAllPlayers().forEach(player => func(player))
-  }, interval)
+export function toAllPlayers(func, interval=1, timeout=interval) {
+  system.runTimeout(() => {
+    system.runInterval(() => {
+      world.getAllPlayers().forEach(player => func(player))
+    }, interval)
+  }, timeout)
 }
 
 /**

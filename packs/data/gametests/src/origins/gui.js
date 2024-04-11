@@ -1,9 +1,8 @@
 
-import { GameMode, world, system } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
-import { initModules, resetPlayerAttributes } from "./player";
 
 
 /**
@@ -130,10 +129,16 @@ export function openOptionsGUI(player, optionType) {
  * @returns { import('@minecraft/server').GameMode }
  */
 export function setPlayerGameMode(player) {
+
   const gameModes = [ 'adventure', 'creative', 'spectator', 'survival' ]
   const prevGamemode = gameModes.find(gamemode => player.matches({ gameMode: gamemode }))
 
-  player.runCommand('gamemode survival')
+  const commands = [
+    'gamerule sendcommandfeedback false',
+    'gamemode survival',
+    'gamerule sendcommandfeedback true'
+  ];
+  commands.forEach(command => player.runCommand(command));
 
   return prevGamemode
 }

@@ -190,8 +190,8 @@
 
     "controls": [
       {
-        "bar_1@resource_bar_holder": {
-          "$bar_data": "('%.17s' * ($var_title_text - ('%.21s' * $var_title_text)))"
+        "bar_3@resource_bar_holder": {
+          "$bar_data": "('%.16s' * ($var_title_text - ('%.55s' * $var_title_text)))"
         }
       },
       {
@@ -200,8 +200,8 @@
         }
       },
       {
-        "bar_3@resource_bar_holder": {
-          "$bar_data": "('%.16s' * ($var_title_text - ('%.55s' * $var_title_text)))"
+        "bar_1@resource_bar_holder": {
+          "$bar_data": "('%.17s' * ($var_title_text - ('%.21s' * $var_title_text)))"
         }
       }
     ],

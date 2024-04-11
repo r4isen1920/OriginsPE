@@ -19,9 +19,9 @@
           "duration": 1.0,
           "attack_time": 0.1,
           "knockback_damage": 1,
-          "knockback_horizontal_strength": 3,
-          "knockback_vertical_strength": 5,
-          "knockback_range": 6,
+          "knockback_horizontal_strength": 2,
+          "knockback_vertical_strength": 1,
+          "knockback_range": 2,
           "knockback_filters": {
             "test": "has_tag",
             "subject": "other",
@@ -29,9 +29,10 @@
             "value": "power_high_jump"
           },
           "damage_filters": {
-            "test": "is_family",
+            "test": "has_tag",
             "subject": "other",
-            "value": "none"
+            "operator": "!=",
+            "value": "power_high_jump"
           },
           "cooldown_time": 1.0
         },
@@ -54,10 +55,10 @@
           "priority": 1,
           "duration": 1.0,
           "attack_time": 0.1,
-          "knockback_damage": 1,
-          "knockback_horizontal_strength": 4,
-          "knockback_vertical_strength": 6,
-          "knockback_range": 6,
+          "knockback_damage": 2,
+          "knockback_horizontal_strength": 3,
+          "knockback_vertical_strength": 2,
+          "knockback_range": 4,
           "knockback_filters": {
             "test": "has_tag",
             "subject": "other",
@@ -65,9 +66,10 @@
             "value": "power_high_jump"
           },
           "damage_filters": {
-            "test": "is_family",
+            "test": "has_tag",
             "subject": "other",
-            "value": "none"
+            "operator": "!=",
+            "value": "power_high_jump"
           },
           "cooldown_time": 1.0
         },
@@ -90,9 +92,9 @@
           "priority": 1,
           "duration": 1.0,
           "attack_time": 0.1,
-          "knockback_damage": 1,
-          "knockback_horizontal_strength": 5,
-          "knockback_vertical_strength": 7,
+          "knockback_damage": 3,
+          "knockback_horizontal_strength": 4,
+          "knockback_vertical_strength": 3,
           "knockback_range": 6,
           "knockback_filters": {
             "test": "has_tag",
@@ -101,9 +103,10 @@
             "value": "power_high_jump"
           },
           "damage_filters": {
-            "test": "is_family",
+            "test": "has_tag",
             "subject": "other",
-            "value": "none"
+            "operator": "!=",
+            "value": "power_high_jump"
           },
           "cooldown_time": 1.0
         },

@@ -2,8 +2,9 @@
 export const phantom = {
   'powers': [
     'phantomize',
-    'burns_in_daylight',
     'spiritual_body',
+    'more_exhaustion',
+    'burns_in_daylight',
     'undead',
   ],
   'controls': [

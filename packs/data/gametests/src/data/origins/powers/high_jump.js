@@ -11,7 +11,7 @@ import { ResourceBar } from "../../../origins/resource_bar";
 function high_jump(player) {
   if (!player.hasTag('power_high_jump') || player.hasTag('cooldown_8')) return;
 
-  const currentFragmentationLevel = parseInt(player.getTags().find(tag => tag.startsWith('fragmentation_level_')).replace('fragmentation_level_', ''), 10);
+  const currentFragmentationLevel = parseInt(player.getTags().find(tag => tag.startsWith('fragmentation_level_'))?.replace('fragmentation_level_', '') ?? '0', 10);
 
   if (!player.hasTag('cooldown_7')) {
     if (!player.isSneaking) {
@@ -27,7 +27,7 @@ function high_jump(player) {
     player.removeTag('_high_jump_launched')
 
     new ResourceBar(7, 0, 100, 5)
-        .update(player)
+        .push(player)
 
     world.playSound('mob.slime.big', player.location);
     player.dimension.spawnEntity(`r4isen1920_originspe:knockback_roar<r4isen1920_originspe:knockback_targets.${currentFragmentationLevel}>`, player.location);

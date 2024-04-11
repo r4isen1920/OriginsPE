@@ -3,9 +3,6 @@
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:player",
-      "is_spawnable": false,
-      "is_summonable": false,
-      "is_experimental": false,
 
       "properties": {
 
@@ -72,7 +69,30 @@
           ]
         }
 
+      },
+
+      "scripts": {
+        "animate": [
+
+          "resource_bar.flush",
+          "resource_bar.aggregator",
+          "resource_bar.bar_1",
+          "resource_bar.bar_2",
+          "resource_bar.bar_3"
+
+        ]
+      },
+      
+      "animations": {
+
+        "resource_bar.flush": "controller.animation.r4isen1920_originspe.resource_bar.flush",
+        "resource_bar.aggregator": "controller.animation.r4isen1920_originspe.resource_bar.aggregator",
+        "resource_bar.bar_1": "controller.animation.r4isen1920_originspe.resource_bar.bar_1",
+        "resource_bar.bar_2": "controller.animation.r4isen1920_originspe.resource_bar.bar_2",
+        "resource_bar.bar_3": "controller.animation.r4isen1920_originspe.resource_bar.bar_3"
+
       }
+
     },
 
     "component_groups": {

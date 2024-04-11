@@ -1,6 +1,6 @@
 
 import { toAllPlayers } from "../../../origins/player";
-import { ResourceBar } from "../../../origins/resource_bar";
+import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
 import { removeTags } from "../../../utils/tags";
 
 const BAR_FULL = 100;
@@ -17,7 +17,6 @@ function fragmentation(player) {
 
   const playerHealth = player.getComponent('health').currentValue
 
-
   switch (true) {
 
     // If player has no fragementation level tag, add the highest level by default
@@ -25,7 +24,7 @@ function fragmentation(player) {
       changeFragementationLevel(player, 3)
       break
 
-
+    // TODO: when regenerating HP, do not trigger this
     case (player.hasTag('fragmentation_level_3') && playerHealth < 20):
       changeFragementationLevel(player, 2);
       break
@@ -42,7 +41,10 @@ function fragmentation(player) {
         onIncrementFragmentationLevel(player, 3); break
       }
 
-      if (!player.hasTag('cooldown_8') && !player.hasTag('cooldown_7')) new ResourceBar(8, BAR_FULL, BAR_FULL, 1, true).update(player)
+      if (!player.hasTag('_init_fragmentation') && _SCOREBOARD('gui').getScore(player) === 1) {
+        new ResourceBar(8, BAR_FULL, BAR_FULL, 1, true).push(player);
+        player.addTag('_init_fragmentation')
+      }
 
       break
 
@@ -56,7 +58,10 @@ function fragmentation(player) {
         onIncrementFragmentationLevel(player, 2); break
       }
 
-      if (!player.hasTag('cooldown_8') && !player.hasTag('cooldown_7')) new ResourceBar(8, BAR_TWO_THIRDS, BAR_TWO_THIRDS, 1, true).update(player)
+      if (!player.hasTag('_init_fragmentation') && _SCOREBOARD('gui').getScore(player) === 1) {
+        new ResourceBar(8, BAR_TWO_THIRDS, BAR_TWO_THIRDS, 1, true).push(player);
+        player.addTag('_init_fragmentation')
+      }
 
       break
 
@@ -68,7 +73,10 @@ function fragmentation(player) {
         onDecrementFragmentationLevel(player, 1); break
       }
 
-      if (!player.hasTag('cooldown_8') && !player.hasTag('cooldown_7')) new ResourceBar(8, BAR_ONE_THIRD, BAR_ONE_THIRD, 1, true).update(player)
+      if (!player.hasTag('_init_fragmentation') && _SCOREBOARD('gui').getScore(player) === 1) {
+        new ResourceBar(8, BAR_ONE_THIRD, BAR_ONE_THIRD, 1, true).push(player);
+        player.addTag('_init_fragmentation')
+      }
 
       break
 
@@ -98,17 +106,17 @@ function onIncrementFragmentationLevel(player, level) {
 
   removeTags(player, '_was_fragmentation_level');
 
+  player.getComponent('health').resetToMaxValue();
+
   switch (level) {
     case 2:
-      new ResourceBar(8, BAR_ONE_THIRD, BAR_TWO_THIRDS, 1, false)
-          .pop(player, 7)
-          .update(player)
+      new ResourceBar(8, BAR_ONE_THIRD, BAR_TWO_THIRDS, 1, true)
+          .push(player)
       break;
 
     case 3:
-      new ResourceBar(8, BAR_TWO_THIRDS, BAR_FULL, 1, false)
-          .pop(player, 7)
-          .update(player)
+      new ResourceBar(8, BAR_TWO_THIRDS, BAR_FULL, 1, true)
+          .push(player)
       break
   }
 
@@ -123,17 +131,17 @@ function onDecrementFragmentationLevel(player, level) {
 
   removeTags(player, '_was_fragmentation_level');
 
+  player.getComponent('health').resetToMaxValue();
+
   switch (level) {
     case 1:
-      new ResourceBar(8, BAR_TWO_THIRDS, BAR_ONE_THIRD, 1, false)
-          .pop(player, 7)
-          .update(player)
+      new ResourceBar(8, BAR_TWO_THIRDS, BAR_ONE_THIRD, 1, true)
+          .push(player)
       break;
 
     case 2:
-      new ResourceBar(8, BAR_FULL, BAR_TWO_THIRDS, 1, false)
-          .pop(player, 7)
-          .update(player)
+      new ResourceBar(8, BAR_FULL, BAR_TWO_THIRDS, 1, true)
+          .push(player)
       break
   }
 

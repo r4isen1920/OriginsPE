@@ -25,7 +25,7 @@ function pounce(player) {
 
     if (!player.hasTag('_pounce_charge')) {
       new ResourceBar(6, 0, 100, 4, true)
-        .update(player)
+        .push(player)
     }
 
     player.addTag('_pounce_charge');
@@ -36,7 +36,7 @@ function pounce(player) {
 
       const currentPouncePercent = Math.floor((player.getDynamicProperty('r4isen1920_originspe:pounce_hold_tick') / MAX_DISTANCE) * 100);
       new ResourceBar(6, currentPouncePercent, 0, 1)
-          .update(player)
+          .pop(player)
       
       player.applyKnockback(
         player.getViewDirection().x,
