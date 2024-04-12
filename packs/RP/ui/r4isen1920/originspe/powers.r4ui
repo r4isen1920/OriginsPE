@@ -765,6 +765,18 @@
           "$power_name": "origins.trait.divine_aura.name",
           "$power_description": "origins.trait.divine_aura.description"
         }
+      },
+      {
+        "fragility@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.fragility.name",
+          "$power_description": "origins.trait.fragility.description"
+        }
+      },
+      {
+        "instability@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.instability.name",
+          "$power_description": "origins.trait.instability.description"
+        }
       }
     ]
   },

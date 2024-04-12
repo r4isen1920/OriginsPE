@@ -205,7 +205,17 @@
                             "localize": true,
                             "$text_color": "$f_color_format",
 
-                            "$visible_binding": "#visible"
+                            "bindings": [
+                              {
+                                "binding_name": "#dialogtext",
+                                "binding_type": "global"
+                              },
+                              {
+                                "binding_type": "view",
+                                "source_property_name": "(not ((#dialogtext - 'origin.welcome_screen') = #dialogtext))",
+                                "target_property_name": "#visible"
+                              }
+                            ]
                           }
                         }
                       ]
