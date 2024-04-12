@@ -81,10 +81,10 @@
 						"move.legs",
 						"cape",
 						{
-							"riding.arms" : "q.is_riding && !(v.shulk_inventory_open || v.camera_adjusted)"
+							"riding.arms" : "q.is_riding && !(v.p_is_riding_dummy || v.camera_adjusted)"
 						},
 						{
-							"riding.legs" : "q.is_riding && !(v.shulk_inventory_open || v.camera_adjusted)"
+							"riding.legs" : "q.is_riding && !(v.p_is_riding_dummy || v.camera_adjusted)"
 						},
 						"holding",
 						{

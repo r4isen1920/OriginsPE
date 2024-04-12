@@ -35,11 +35,7 @@
 
           /* OriginsPE */
 
-          // TODO: deprecate this
-          "v.p_race = 1;",
-          "v.p_class = 1;",
-          "v.p_is_in_veil = false;",
-
+          "v.p_is_riding_dummy = false;",
           "v.p_toggle_particles = true;",
           "v.p_model_type = 'normal';",
           "v.p_skin_type = 'normal';",
@@ -61,12 +57,10 @@
 
           /* OriginsPE */
 
-          "!q.is_in_ui && !v.is_paperdoll ? { v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles'); v.p_model_type = q.property('r4isen1920_originspe:model_type'); v.p_skin_type = q.property('r4isen1920_originspe:skin_type'); v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type'); };",
+          "!q.is_in_ui && !v.is_paperdoll ? { v.p_is_riding_dummy = q.property('r4isen1920_originspe:is_riding_dummy'); v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles'); v.p_model_type = q.property('r4isen1920_originspe:model_type'); v.p_skin_type = q.property('r4isen1920_originspe:skin_type'); v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type'); };",
 
           "v.map_angle = math.clamp(1 - v.player_x_rotation / 45.1, 0.0, 1.0);",
-          "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;",
-
-          "v.shulk_inventory_open = 0.0;"
+          "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;"
         ],
         "animate": [
           "root",
