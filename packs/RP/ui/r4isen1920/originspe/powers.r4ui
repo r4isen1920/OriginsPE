@@ -35,11 +35,12 @@
             { "piglin@origin_common.text_label": { "text": "origins.race.piglin.name", "color": "$7_color_format" } },
             { "starborne@origin_common.text_label": { "text": "origins.race.starborne.name", "color": "$7_color_format" } },
             { "elf@origin_common.text_label": { "text": "origins.race.elf.name", "color": "$7_color_format" } },
-            { "voidwalker@origin_common.text_label": { "text": "origins.race.voidwalker.name", "color": "$7_color_format" } }
+            { "voidwalker@origin_common.text_label": { "text": "origins.race.voidwalker.name", "color": "$7_color_format" } },
+            { "diviner@origin_common.text_label": { "text": "origins.race.diviner.name", "color": "$7_color_format" } }
           ]
         }
       },
-      { 
+      {
         "scroller_control@common.button": {
           "layer": 4,
           "size": [ "100%sm", 1 ],
@@ -493,28 +494,28 @@
         "stress@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.stress.name",
           "$power_description": "origins.trait.stress.description",
-          "$power_icon_index": "starborne.3"
+          "$power_icon_index": "stress"
         }
       },
       {
         "meditate@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.meditate.name",
           "$power_description": "origins.trait.meditate.description",
-          "$power_icon_index": "starborne.3"
+          "$power_icon_index": "stress"
         }
       },
       {
         "hyper_leap@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.hyper_leap.name",
           "$power_description": "origins.trait.hyper_leap.description",
-          "$power_icon_index": "starborne.1"
+          "$power_icon_index": "hyper_leap"
         }
       },
       {
         "shooting_star@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.shooting_star.name",
           "$power_description": "origins.trait.shooting_star.description",
-          "$power_icon_index": "starborne.2"
+          "$power_icon_index": "shooting_star"
         }
       },
       {
@@ -675,35 +676,22 @@
     
     "controls": [
       {
-        "invocation@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.invocation.name",
-          "$power_description": "origins.trait.invocation.description",
-          "$power_icon_index": "invocation"
+        "lifeweaver@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.lifeweaver.name",
+          "$power_description": "origins.trait.lifeweaver.description",
+          "$power_icon_index": "lifeweaver"
         }
       },
-      {
-        "blessing@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.blessing.name",
-          "$power_description": "origins.trait.blessing.description",
-          "$power_icon_index": "blessing"
-        }
-      },
-      {
-        "pinpoint_accuracy@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.pinpoint_accuracy.name",
-          "$power_description": "origins.trait.pinpoint_accuracy.description"
+      { 
+        "conjure@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.conjure.name",
+          "$power_description": "origins.trait.conjure.description"
         }
       },
       {
         "agility@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.agility.name",
           "$power_description": "origins.trait.agility.description"
-        }
-      },
-      {
-        "auto_heal_forest@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.auto_heal_forest.name",
-          "$power_description": "origins.trait.auto_heal_forest.description"
         }
       },
       {
@@ -721,17 +709,10 @@
     
     "controls": [
       {
-        "dark_energy@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.dark_energy.name",
-          "$power_description": "origins.trait.dark_energy.description",
-          "$power_icon_index": "dark_energy"
-        }
-      },
-      {
-        "soul_lock@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.soul_lock.name",
-          "$power_description": "origins.trait.soul_lock.description",
-          "$power_icon_index": "soul_lock"
+        "soulreap@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.soulreap.name",
+          "$power_description": "origins.trait.soulreap.description",
+          "$power_icon_index": "soulreap"
         }
       },
       {
@@ -741,21 +722,48 @@
         }
       },
       {
-        "dark_more_damage@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.dark_more_damage.name",
-          "$power_description": "origins.trait.dark_more_damage.description"
-        }
-      },
-      {
-        "dark_vision@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.dark_vision.name",
-          "$power_description": "origins.trait.dark_vision.description"
-        }
-      },
-      {
         "sinister_aura@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.sinister_aura.name",
           "$power_description": "origins.trait.sinister_aura.description"
+        }
+      },
+      {
+        "life_drain@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.life_drain.name",
+          "$power_description": "origins.trait.life_drain.description"
+        }
+      }
+    ]
+  },
+
+  "diviner": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    
+    "controls": [
+      {
+        "prescience@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.prescience.name",
+          "$power_description": "origins.trait.prescience.description",
+          "$power_icon_index": "prescience"
+        }
+      },
+      {
+        "oracle@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.oracle.name",
+          "$power_description": "origins.trait.oracle.description"
+        }
+      },
+      {
+        "aegis@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.aegis.name",
+          "$power_description": "origins.trait.aegis.description"
+        }
+      },
+      {
+        "divine_aura@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.divine_aura.name",
+          "$power_description": "origins.trait.divine_aura.description"
         }
       }
     ]

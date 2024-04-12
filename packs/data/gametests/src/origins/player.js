@@ -23,6 +23,7 @@ const ORIGINS = [
   'starborne',
   'elf',
   'voidwalker',
+  'diviner',
 ]
 const CLASSES = [
   'archer',

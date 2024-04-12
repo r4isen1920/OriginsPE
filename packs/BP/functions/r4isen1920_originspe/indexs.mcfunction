@@ -69,6 +69,9 @@ scoreboard players reset @a[tag="race_elf"] index
 scoreboard players set "c_voidwalker" index 0
 execute if score "toggle_unique" index matches 1 run scoreboard players operation "c_voidwalker" index += @a[tag="race_voidwalker"] index
 scoreboard players reset @a[tag="race_voidwalker"] index
+scoreboard players set "c_diviner" index 0
+execute if score "toggle_unique" index matches 1 run scoreboard players operation "c_diviner" index += @a[tag="race_diviner"] index
+scoreboard players reset @a[tag="race_diviner"] index
 
 
 scoreboard players set "c_all" index 0
@@ -92,5 +95,6 @@ execute if score "c_piglin" index matches 1.. run scoreboard players operation "
 execute if score "c_starborne" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
 execute if score "c_elf" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
 execute if score "c_voidwalker" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
+execute if score "c_diviner" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
 
 scoreboard players reset "c_temp"

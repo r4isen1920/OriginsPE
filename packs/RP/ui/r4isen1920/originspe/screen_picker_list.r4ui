@@ -237,6 +237,19 @@
         }
       },
       {
+        "race_diviner@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/ender_eye",
+          "$being_name_text": "origins.race.diviner.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.diviner.description",
+          "$being_traits": "origin_powers.diviner",
+
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.diviner') or (#dialogtext = 'vieworigin.diviner') or (#dialogtext = 'changeorigin.diviner') or (#dialogtext = 'banorigin.diviner'))"
+        }
+      },
+      {
         "race_random@origin_common.origin_picker_window_template": {
           "$being_icon_texture": "random",
           "$being_name_text": "origins.race.random.name",

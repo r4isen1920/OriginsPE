@@ -5,6 +5,6 @@ export const arachnid = {
     'master_of_webs',
     'climbing',
     'carnivore',
-    'fragile'
+    'fragile',
   ]
 }

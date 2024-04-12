@@ -53,6 +53,9 @@ tag @s remove indexed
 execute if score "ban_voidwalker" index matches 0..1 run tag @s add indexed
 execute as @s[tag=!"indexed"] run scoreboard players set "ban_voidwalker" index 0
 tag @s remove indexed
+execute if score "ban_diviner" index matches 0..1 run tag @s add indexed
+execute as @s[tag=!"indexed"] run scoreboard players set "ban_diviner" index 0
+tag @s remove indexed
 
 execute if score "ban_nitwit" index matches 0..1 run tag @s add indexed
 execute as @s[tag=!"indexed"] run scoreboard players set "ban_nitwit" index 0

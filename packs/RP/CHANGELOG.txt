@@ -3,6 +3,24 @@
 
 current TODO
 
+# Revamped Elven Idea
+  - [Lifeweaver]: Immediately regenerates health based on the total damage taken within 3 seconds upon receiving it.
+  - [Conjure]: Shooting with bow or crossbows will not consume normal arrows, instead, will conjure a special arrow that deals additional damage equivalent to your current health.
+  - [Agility]: Become nimble and swift, granting you increased movement speed and jump height, enabling you to traverse the terrain effortlessly.
+  - [Pearmeable]: You take twice the damage when harmed by melee attacks or explosions.
+
+# Revamped Voidwalker Idea
+  - [Soulreap]: Melee attacks will deal additional damage based on your missing health. Every fourth attack further deals additional damage based on the damage accumulated in the first three attacks.
+  - [Umbral Veil]: Shrouds yourself in a dark energy when sprinting, granting additional speed and avoiding any projectile damage.
+  - [Sinister Aura]: Nearby mobs are frightened with your presence, and will run away from you. Even hostile mobs, except bosses, will not try and naturally harm you.
+  - [Life Drain]: Whenever you deal damage, your health is reduced by 5% of the target's current health. When your health is equal to 1, this will not reduce any further.
+
+# Diviner Origin Idea
+  - [Prescience]: Can be cast on up to two target mobs or players. Upon cast, increases both the caster and target's max health by 50% of their max health combined. When casted, use the ability item again to dispell the effect or leave the world.
+  - [Oracle]: When Prescience is on effect, any damage taken or health healed will be distributed among the caster and the targets.
+  - [Aegis]: Any external damage taken directly will deflect 50% of the damage back to the attacker. This ability will not trigger on attackers wherein you have casted Prescience on.
+  - [Divine Aura]: You always glow, attracting more hostile mobs around you.
+
 # re-write everything to scripts
 # do not use experimental features
 # avoid overwriting vanilla entries whenever possible
@@ -99,23 +117,9 @@ current TODO
   - WARP STAR: once triggered, enters the form of light, allowing you to travel in a straight direction you are looking at. cooldown is started once your reach the ground 
 
 
-Changelog (v4.3):
+Changelog (v5.0):
 
-  This update enhances newly introduced Origin: the Elven, and resolve more reported bugs.
-
-    [ Revamped Origin: Elven ]
-      The Elven's unique traits, while beneficial in some cases, but for the most part was hard to control. Moroever, the Elven will now primarily focus on being a ranged combatant instead of support. This update hopefully resolves this issue:
-
-        - [Invocation]: Creates a spectral bow that does not utilize normal arrows, nor it consumes durability. The spectral bow can only be used by the Elven.
-        - [Blessing]: When inflicted with any fatal damage, you regenerate 50% of the damaged received. This effect can be triggered once every 60 seconds.
-        - [Focused Aim]: You inflict increased projectile damage from ranged weapons when they are fully drawn.
-        - [Agility]: Become nimble and swift, granting you increased movement speed and jump height, enabling you to traverse the terrain effortlessly.
-        - [Nature's Grace]: You will continuously replenish health and hunger whenever you are in forest biomes.
-        - [Permeable]: You take twice the damage when harmed by melee attacks or explosions.
-
-    - Fixed cleric potions not working properly when thrown
-    - Fixed content log errors regarding damage sensor components
-    - Updated Chinese translation (special thanks: skybird2333)
+ TBD
 
 
 Changelog (v4.2):

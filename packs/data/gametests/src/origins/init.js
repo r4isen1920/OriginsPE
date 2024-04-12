@@ -91,12 +91,12 @@ function initialize() {
   } else if (initType === 'register_new_world') {
 
     try { world.scoreboard.addObjective(`originspe${NEW_BUILDID}`) } catch {}
-    console.warn(`[r4isen1920][OriginsPE] Initializing Add-On on build ${NEW_BUILDID} for first time use`);
+    console.warn(`[r4isen1920][OriginsPE] Initializing Add-On on server running on build ${NEW_BUILDID}`);
 
   }
 
   if (initType === 'up_to_date') {
-    console.warn(`[r4isen1920][OriginsPE] Initializing Add-On on server running on build ${NEW_BUILDID}`);
+    console.warn(`[r4isen1920][OriginsPE] Loading Add-On running on build ${NEW_BUILDID}`);
     system.clearRun(_A);
 
     return

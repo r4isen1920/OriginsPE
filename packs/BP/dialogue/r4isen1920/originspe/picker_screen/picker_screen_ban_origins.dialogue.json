@@ -1,5 +1,5 @@
 {
-  "format_version": "1.17",
+  "format_version": "1.17.0",
   "minecraft:npc_dialogue": {
     "scenes": [
       {
@@ -10,8 +10,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
-              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
             ]
           },
           {
@@ -520,6 +520,35 @@
           {
             "name": ">",
             "commands": [
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_diviner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.diviner",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
+              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_diviner\" index 0", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_unbanned_diviner", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
               "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_human",
               "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 15.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
               "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
@@ -538,8 +567,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_starborne",
-              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
             ]
           },
           {
@@ -567,8 +596,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_starborne",
-              "/execute as @initiator unless score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_starborne"
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
             ]
           },
           {
@@ -598,8 +627,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
-              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
             ]
           },
           {
@@ -1100,6 +1129,35 @@
           {
             "name": "ban_race",
             "commands": [ "/scoreboard players set \"ban_voidwalker\" index 1", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_banned_voidwalker", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_diviner",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.diviner",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_voidwalker",
+              "/execute as @initiator unless score \"ban_voidwalker\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_voidwalker"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_diviner\" index 1", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_banned_diviner", "/execute as @initiator at @s run function indexc" ]
           },
           {
             "name": "return",
