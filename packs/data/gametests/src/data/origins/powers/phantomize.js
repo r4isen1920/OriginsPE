@@ -89,7 +89,6 @@ function enterPhantomizedForm(player) {
  */
 function exitPhantomizedForm(player) {
 
-  player.onScreenDisplay.setActionBar('origins.clear');
   player.runCommand('gamemode survival');
 
   world.playSound('mob.endermen.portal', player.location, { pitch: 0.75 });

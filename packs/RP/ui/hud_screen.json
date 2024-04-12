@@ -7,28 +7,33 @@
       {
         "array_name": "bindings",
         "operation": "insert_front",
-        "value": {
-          "binding_type": "global",
-          "binding_name": "#hud_title_text_string",
-          "binding_name_override": "#text"
-        }
+        "value": [
+          {
+            "binding_type": "global",
+            "binding_name": "#hud_title_text_string",
+            "binding_name_override": "#text"
+          }
+        ]
       },
       {
         "array_name": "bindings",
         "operation": "insert_back",
-        "value": {
-          "binding_type": "view",
-          "source_property_name": "((#text - 'origins.') = #text)",
-          "target_property_name": "#visible"
-        }
+        "value": [
+          {
+            "binding_type": "view",
+            "source_property_name": "((#text - 'origins.') = #text)",
+            "target_property_name": "#visible"
+          }
+        ]
       }
     ]
   },
 
   "hud_actionbar_text": {
-    "type": "image",
     "$actionbar_text|default": " ",
-    "$var_actionbar_text": "$actionbar_text"
+    "$var_actionbar_text": "$actionbar_text",
+
+    "visible": "(($var_actionbar_text - 'origins.') = $var_actionbar_text)"
   },
   "hud_actionbar_text/actionbar_message": {
     "ignored": "(not (($var_actionbar_text - 'origins.') = $var_actionbar_text))"
@@ -362,20 +367,7 @@
     "$var_actionbar_text": "$actionbar_text",
 
     "controls": [
-      // TODO: improve this
-      //{ "overhead_texts@origin_hud_effects.overhead_texts": {} }
-    ]
-  },
-
-  "custom_hud_actionbar_bg_factory@common.empty_panel": {
-    "size": [ "100%", "100%" ],
-
-    "$actionbar_text|default": " ",
-    "$var_actionbar_text": "$actionbar_text",
-
-    "controls": [
-      // TODO: improve this
-      //{ "hud_effects@origin_hud_effects.hud_effects_list": {} }
+      { "hud_stuff@origin_hud_stuff.hud_stuff_list": {} }
     ]
   },
 
@@ -412,25 +404,7 @@
     ]
   },
 
-  "root_panel_bg@common.empty_panel": {
-    "size": [ "100%", "100%" ],
-    "controls": [
-      {
-        "custom_hud_actionbar_bg_factory": {
-          "type": "panel",
-          "factory": {
-            "name": "hud_actionbar_text_factory",
-            "control_ids": {
-              "hud_actionbar_text": "controlled_element@hud.custom_hud_actionbar_bg_factory"
-            }
-          }
-        }
-      }
-    ]
-  },
-
   "hud_screen@common.base_screen": {
-    "$screen_bg_content": "hud.root_panel_bg",
     "cache_screen": true,
     "low_frequency_rendering": true
   }

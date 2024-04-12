@@ -136,7 +136,8 @@ export function setPlayerGameMode(player) {
   const commands = [
     'gamerule sendcommandfeedback false',
     'gamemode survival',
-    'gamerule sendcommandfeedback true'
+    'gamerule sendcommandfeedback true',
+    'function r4isen1920_originspe/clearchat'
   ];
   commands.forEach(command => player.runCommand(command));
 

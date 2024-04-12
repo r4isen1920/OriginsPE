@@ -3,6 +3,7 @@ import { TicksPerSecond, system, world } from "@minecraft/server";
 
 import { openOptionsGUI, openScreenPickerGUI } from "./gui";
 import { openAbilityHotbar, closeAbilityHotbar, getControlTags } from "./controls";
+import { _SCOREBOARD } from "./resource_bar";
 
 
 /**
@@ -27,14 +28,22 @@ system.runTimeout(() => {
       switch (itemStack.typeId) {
 
         case 'r4isen1920_originspe:orb_of_origins':
-          source.addTag('change_resign');
-          openScreenPickerGUI(source, 'race', 'change');
-          source.playSound('ui.wood_click');
+          if (_SCOREBOARD('index').getScore('toggle_orb') === 1) {
+
+            source.addTag('change_resign');
+            openScreenPickerGUI(source, 'race', 'change');
+            source.playSound('ui.wood_click');
+
+          } else source.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.race');
           break;
         case 'r4isen1920_originspe:resignation_paper': 
-          source.addTag('change_resign');
-          openScreenPickerGUI(source, 'class', 'change');
-          source.playSound('ui.wood_click');
+          if (_SCOREBOARD('index').getScore('toggle_paper') === 1) {
+
+            source.addTag('change_resign');
+            openScreenPickerGUI(source, 'class', 'change');
+            source.playSound('ui.wood_click');
+
+          } else source.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.class');
           break;
 
         case 'r4isen1920_originspe:origins_menu':

@@ -14,7 +14,7 @@ function fresh_air(player) {
   player.applyDamage(2, { cause: EntityDamageCause.entityAttack });
   player.getComponent('health').setCurrentValue(player.getComponent('health').currentValue + 2)
 
-  player.onScreenDisplay.setActionBar('origins.dialogue.avian_cant_sleep')
+  player.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.trait.fresh_air.sleep_fail')
 }
 
 toAllPlayers(fresh_air, 1)

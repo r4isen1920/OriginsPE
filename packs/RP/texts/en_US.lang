@@ -521,11 +521,8 @@ origins.gui.options.reset_all.description_confirm=Click the button again to cont
 
 origins.change.announce.race=%1 has changed their Origin to [%2]
 origins.change.announce.class=%1 has changed their class to [%2]
-origins.change.fail.moving.race=Stand still before changing your Origin
-origins.change.fail.moving.class=Stand still before resigning from your class
-origins.change.fail.locked.race=The Orb of Origins has been disabled
-origins.change.fail.locked.class=The Resignation Paper has been disabled
-origins.change.fail.skill_cooldown=Unable to change while a cooldown is active
+origins.change.fail.race=The Orb of Origins has been disabled
+origins.change.fail.class=The Resignation Paper has been disabled
 
 origins.ability_controls.info.usage=(Click an ability icon to use it)
 origins.ability_controls.info.none=(No active abilities)

@@ -41,8 +41,6 @@ function throw_ender_pearl(player) {
 
     player.teleport(targetLocation, { dimension: targetBlock.block.dimension })
 
-    player.onScreenDisplay.setActionBar('origins.purple_blink');
-
     new ResourceBar(3, 0, 100, 15)
         .push(player)
 

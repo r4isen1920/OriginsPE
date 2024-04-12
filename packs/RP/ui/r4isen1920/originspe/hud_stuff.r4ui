@@ -1,0 +1,104 @@
+{
+
+  /* UI developed by r4isen1920 | Under MIT LICENSE */
+
+  "namespace": "origin_hud_stuff",
+
+  "hud_stuff_list@common.empty_panel": {
+    "controls": [
+      {
+        "overhead_text@origin_hud_stuff.overhead_text": {
+          "$overhead_text": "($var_actionbar_text - 'origins.hud.overhead_text:')",
+          "$overhead_text_accent": "$d_color_format",
+          "ignored": "($var_actionbar_text = ($var_actionbar_text - 'overhead_text:'))"
+        }
+      }
+
+    ]
+  },
+
+  "overhead_text_accent_in": {
+    "anim_type": "alpha",
+    "easing": "in_quad",
+    "duration": 0.5,
+    "from": 0.0,
+    "to": 1.0,
+    "next": "@origin_hud_stuff.overhead_text_accent_out"
+  },
+  "overhead_text_accent_out": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 1.0,
+    "from": 1.0,
+    "to": 0.0
+  },
+
+  "overhead_texts_destroy_1": {
+    "anim_type": "wait",
+    "duration": 5.9,
+    "next": "@origin_hud_stuff.overhead_texts_destroy_2"
+  },
+  "overhead_texts_destroy_2": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.25,
+    "from": 1.0,
+    "to": 0.0,
+    "destroy_at_end": "overhead_text"
+  },
+
+  "label_element": {
+    "type": "label",
+    "localize": true,
+    "shadow": true,
+    "layer": 1
+  },
+
+  "overhead_text": {
+    "type": "label",
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "offset": [ 0, "-20%" ],
+
+    "$overhead_text|default": "text",
+    "$overhead_text_accent|default": "$f_color_format",
+    "$overhead_text_font|default": "default",
+    "$overhead_text_scale|default": 1.5,
+    "$overhead_text_destroy|default": true,
+
+    "$hud_effect_layer": 30,
+    "layer": "$hud_effect_layer",
+
+    "controls": [
+      {
+        "dialogue_texts": {
+          "type": "panel",
+          "alpha": "@origin_hud_stuff.overhead_texts_destroy_1",
+          "propagate_alpha": "$overhead_text_destroy",
+          "layer": "$hud_effect_layer",
+          "controls": [
+            {
+              "dialogue_text_main@origin_hud_stuff.label_element": {
+                "text": "$overhead_text",
+                "font_type": "$overhead_text_font",
+                "font_scale_factor": "$overhead_text_scale",
+                "layer": "$hud_effect_layer"
+              }
+            },
+            {
+              "dialogue_text_accent@origin_hud_stuff.label_element": {
+                "text": "$overhead_text",
+                "font_type": "$overhead_text_font",
+                "font_scale_factor": "$overhead_text_scale",
+                "color": "$overhead_text_accent",
+                "alpha": "@origin_hud_stuff.overhead_text_accent_in",
+                "layer": "($hud_effect_layer + 1)"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+
+}
