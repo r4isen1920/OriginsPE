@@ -20,15 +20,28 @@
     "controller.animation.r4isen1920_originspe.particles.starborne": {
       "initial_state": "on_detect",
       "states": {
+
+        "disabled": {
+          "transitions": [
+            { "on_detect": "v.p_toggle_particles" }
+          ]
+        },
+
         "on_detect": {
           "transitions": [
-            { "meditate_down": "(v.p_emitter_type == 'starborne' && q.is_alive && q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99)) && v.p_toggle_particles" },
-            { "stress_up": "(v.p_emitter_type == 'starborne' && q.is_alive) && v.p_toggle_particles" }
+            { "disabled": "!v.p_toggle_particles" },
+
+            { "meditate_down": "(v.p_emitter_type == 'starborne' && q.is_alive && q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" },
+            { "stress_up": "(v.p_emitter_type == 'starborne' && q.is_alive)" }
           ]
         },
 
         "meditate_down": {
-          "transitions": [ { "stress_up": "v.p_emitter_type != 'starborne' || !q.is_alive || !q.is_sneaking || (math.floor((q.health / q.max_health) * 100) < 100) || !v.p_toggle_particles" } ],
+          "transitions": [
+            { "disabled": "!v.p_toggle_particles" },
+
+            { "stress_up": "v.p_emitter_type != 'starborne' || !q.is_alive || !q.is_sneaking || (math.floor((q.health / q.max_health) * 100) < 100)" }
+          ],
           "particle_effects": [
             { "effect": "starborne_meditate" },
             { "effect": "starborne_star" }
@@ -36,7 +49,11 @@
         },
 
         "stress_up": {
-          "transitions": [ { "meditate_down": "v.p_emitter_type != 'starborne' || !q.is_alive || q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99) || !v.p_toggle_particles" } ],
+          "transitions": [
+            { "disabled": "!v.p_toggle_particles" },
+
+            { "meditate_down": "v.p_emitter_type != 'starborne' || !q.is_alive || (q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" }
+          ],
           "particle_effects": [
             { "effect": "starborne_stress" },
             { "effect": "starborne_star" }
@@ -48,11 +65,11 @@
       "initial_state": "on_detect",
       "states": {
         "on_detect": {
-          "transitions": [ { "emit": "q.is_alive && v.p_toggle_particles" } ]
+          "transitions": [ { "emit": "q.is_alive" } ]
         },
 
         "emit": {
-          "transitions": [ { "on_detect": "!q.is_alive || !v.p_toggle_particles" } ],
+          "transitions": [ { "on_detect": "!q.is_alive" } ],
           "particle_effects": [
             { "effect": "stars" },
             { "effect": "trail" }

@@ -3,6 +3,12 @@
 
 current TODO
 
+# Revamped Piglin Idea
+  - [Pride]: The more gold items you have in your inventory, the less damage you receive from any source. You can mitigate up to 90% of any damaged received this way.
+  - [Boasting Firepower]: Your attack increases depending on the number of entities around you. Damage increased by this ability is capped at 10 entities at most.
+  - [Courage]: You are immune from weakness and wither status effects.
+  - [Gluttony]: You get extremely more hungry than usual.
+
 # Revamped Elven Idea
   - [Lifeweaver]: Immediately regenerates health based on the accumulated damage taken within 3 seconds upon receiving it.
   - [Conjure]: Shooting with bow or crossbows will not consume normal arrows, instead, will conjure a special arrow that deals additional damage equivalent to your current health.

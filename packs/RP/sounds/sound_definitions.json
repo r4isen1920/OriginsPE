@@ -33,6 +33,18 @@
       }
     ]
   },
+  "origins.starborne.leap_direct": {
+    "category": "player",
+    "sounds": [
+      {
+        "is3D": false,
+        "name": "sounds/mob/illusioner/prepare_blindness",
+        "volume": 1.0,
+        "pitch": 1.5
+      }
+    ]
+  },
+
   "origins.starborne.cast": {
     "category": "player",
     "sounds": [
@@ -41,16 +53,6 @@
         "load_on_low_memory": true
       },
       "sounds/mob/illusioner/mirror_move2"
-    ]
-  },
-  "origins.starborne.prepare_cast": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/mob/illusioner/prepare_mirror",
-        "volume": 1.0,
-        "pitch": 1.0
-      }
     ]
   },
 

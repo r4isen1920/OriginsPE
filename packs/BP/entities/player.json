@@ -279,6 +279,40 @@
       },
 
 
+      "r4isen1920_originspe:projectile_spawner.reset": {
+        "minecraft:timer": {
+          "time": 1,
+          "looping": false,
+          "time_down_event": {
+            "event": "r4isen1920_originspe:projectile_spawner.reset",
+            "target": "self"
+          }
+        }
+      },
+      "r4isen1920_originspe:projectile_spawner.shooting_star": {
+        "minecraft:spawn_entity": {
+          "entities": {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "spawn_entity": "r4isen1920_originspe:shooting_star",
+            "num_to_spawn": 1,
+            "single_use": true
+          }
+        }
+      },
+      "r4isen1920_originspe:projectile_spawner.elven_arrow": {
+        "minecraft:spawn_entity": {
+          "entities": {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "spawn_entity": "r4isen1920_originspe:elven_arrow",
+            "num_to_spawn": 1,
+            "single_use": true
+          }
+        }
+      },
+
+
       "r4isen1920_originspe:is_shaking": {
         "minecraft:is_shaking": {}
       },
@@ -402,14 +436,33 @@
             "cause": "all",
             "on_damage": {
               "filters": {
-                "all_of": [
-                  { "test": "has_tag", "value": "power_more_kinetic_damage" },
+                "any_of": [
+
                   {
-                    "any_of": [
-                      { "test": "has_damage", "value": "fall" },
-                      { "test": "has_damage", "value": "fly_into_wall" }
+                    "all_of": [
+                      { "test": "has_tag", "value": "power_more_kinetic_damage" },
+                      {
+                        "any_of": [
+                          { "test": "has_damage", "value": "fall" },
+                          { "test": "has_damage", "value": "fly_into_wall" }
+                        ]
+                      }
+                    ]
+                  },
+
+                  {
+                    "all_of": [
+                      { "test": "has_tag", "value": "power_cold_vacuum" },
+                      {
+                        "any_of": [
+                          { "test": "has_damage", "value": "fire" },
+                          { "test": "has_damage", "value": "fire_tick" },
+                          { "test": "has_damage", "value": "lava" }
+                        ]
+                      }
                     ]
                   }
+
                 ]
               }
             },
@@ -427,7 +480,9 @@
                       {
                         "any_of": [
                           { "test": "has_tag", "value": "power_strong_ankles" },
-                          { "test": "has_tag", "value": "power_fall_immunity" }
+                          { "test": "has_tag", "value": "power_fall_immunity" },
+                          { "test": "has_tag", "value": "power_cosmic_gift" }
+
                         ]
                       },
                       { "test": "has_damage", "value": "fall" }
@@ -781,6 +836,23 @@
       },
       "r4isen1920_originspe:buoyant.float_on_water": { 
         "add": { "component_groups": [ "r4isen1920_originspe:buoyant.float_on_water" ] }
+      },
+
+      "r4isen1920_originspe:projectile_spawner.reset": { 
+        "remove": {
+          "component_groups": [
+            "r4isen1920_originspe:projectile_spawner.reset",
+
+            "r4isen1920_originspe:projectile_spawner.shooting_star",
+            "r4isen1920_originspe:projectile_spawner.elven_arrow"
+          ]
+        }
+      },
+      "r4isen1920_originspe:projectile_spawner.shooting_star": { 
+        "add": { "component_groups": [ "r4isen1920_originspe:projectile_spawner.shooting_star", "r4isen1920_originspe:projectile_spawner.reset" ] }
+      },
+      "r4isen1920_originspe:projectile_spawner.elven_arrow": { 
+        "add": { "component_groups": [ "r4isen1920_originspe:projectile_spawner.elven_arrow", "r4isen1920_originspe:projectile_spawner.reset" ] }
       },
 
 

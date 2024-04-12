@@ -226,6 +226,7 @@ export function resetPlayerAttributes(player) {
     'r4isen1920_originspe:family_type.player',
     'r4isen1920_originspe:breathable.land',
     'r4isen1920_originspe:buoyant.normal',
+    'r4isen1920_originspe:projectile_spawner.reset',
     'r4isen1920_originspe:is_shaking.false',
     'r4isen1920_originspe:burns_in_daylight.false'
   ];

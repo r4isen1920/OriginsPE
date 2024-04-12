@@ -13,14 +13,13 @@
 				"creation_expression": "variable.size = 0.07;variable.lifetime = 4;"
 			},
 			"minecraft:emitter_rate_instant": {
-				"num_particles": 1000
+				"num_particles": 250
 			},
 			"minecraft:emitter_lifetime_once": {
 				"active_time": 1
 			},
 			"minecraft:emitter_shape_sphere": {
 				"radius": 1,
-				"surface_only": true,
 				"direction": "outwards"
 			},
 			"minecraft:particle_lifetime_expression": {
@@ -29,10 +28,9 @@
 			"minecraft:particle_initial_spin": {
 				"rotation_rate": -90
 			},
-			"minecraft:particle_initial_speed": "math.random(15, 60)",
+			"minecraft:particle_initial_speed": "math.random(15, 30)",
 			"minecraft:particle_motion_dynamic": {
-				"linear_acceleration": [0, "math.random(0.1,1.0)", 0],
-				"linear_drag_coefficient": 10
+				"linear_drag_coefficient": 5
 			},
 			"minecraft:particle_appearance_billboard": {
 				"size": ["variable.size*(variable.particle_random_1*variable.lifetime-variable.particle_age)", "variable.size*(variable.particle_random_1*variable.lifetime-variable.particle_age)"],

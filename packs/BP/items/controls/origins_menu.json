@@ -24,7 +24,7 @@
       },
 
       "minecraft:use_modifiers": {
-        "use_duration": 1,
+        "use_duration": 99999,
         "movement_modifier": 0
       },
 

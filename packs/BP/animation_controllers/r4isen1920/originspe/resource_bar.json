@@ -45,7 +45,11 @@
           "on_entry": [
             "/function r4isen1920_originspe/resource_bar/obj/bar_1",
             "/function r4isen1920_originspe/resource_bar/obj/bar_2",
-            "/function r4isen1920_originspe/resource_bar/obj/bar_3"
+            "/function r4isen1920_originspe/resource_bar/obj/bar_3",
+
+            "/function r4isen1920_originspe/resource_bar/init/bar_1",
+            "/function r4isen1920_originspe/resource_bar/init/bar_2",
+            "/function r4isen1920_originspe/resource_bar/init/bar_3"
           ]
         },
 

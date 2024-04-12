@@ -17,9 +17,8 @@
 				"spawn_rate": 10,
 				"max_particles": 10
 			},
-			"minecraft:emitter_lifetime_expression": {
-				"activation_expression": "q.property('r4isen1920_originspe:toggle_particles') && q.variant == 13",
-				"expiration_expression": "!q.property('r4isen1920_originspe:toggle_particles') && q.variant != 13"
+			"minecraft:emitter_lifetime_looping": {
+				"active_time": 1
 			},
 			"minecraft:emitter_shape_box": {
 				"offset": [0, "-(variable.ysize/2)", 0],
