@@ -366,11 +366,13 @@
         "welcome_sceen@origin_common.origin_picker_window_template": {
           "$child_control": "origin_welcome_screen.welcome_screen",
 
-          "offset": "@origin_welcome_screen.welcome_screen_entry_offset",
-          "alpha": "@origin_welcome_screen.welcome_screen_entry_alpha",
+          "anims": [
+            "@origin_welcome_screen.welcome_screen_entry_offset",
+            "@origin_welcome_screen.welcome_screen_entry_alpha"
+          ],
           "propagate_alpha": true,
           "layer": 3,
-          
+
           "bindings": [
             {
               "binding_name": "#dialogtext",

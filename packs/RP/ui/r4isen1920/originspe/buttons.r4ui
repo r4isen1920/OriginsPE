@@ -168,6 +168,59 @@
                   }
                 ]
               }
+            },
+            {
+              "welcome_screen_buttons": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "use_child_anchors": true,
+
+                "size": [ "100%cm", "100%c" ],
+
+                "controls":[
+                  {
+                    "ignore_welcome_screen_checkbox": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "use_child_anchors": true,
+
+                      "size": [ "100%c", "100%cm" ],
+
+                      "controls": [
+                        {
+                          "button@origin_buttons.dialog_button": {
+                            "size": [ 12, 12 ],
+                            "$collection_index": 1,
+                            "$button_type": "ignore_welcome_screen"
+                          }
+                        },
+                        { "padding@common.empty_panel": { "size": [ 2.5, 1 ] } },
+                        {
+                          "label@npc_interact.student_button_label": {
+                            "size": [ "default", "default" ],
+                            "max_size": [ "default", "default" ],
+
+                            "text": "origins.gui.button.ignore_welcome_screen",
+                            "font_scale_factor": 0.8,
+                            "localize": true,
+                            "$text_color": "$f_color_format",
+
+                            "$visible_binding": "#visible"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "padding@common.empty_panel": { "size": [ 1, 5 ] } },
+                  {
+                    "close_welcome_screen_button@origin_buttons.dialog_button": {
+                      "size": [ 75, 21 ],
+                      "$collection_index": 0,
+                      "$button_type": "close_welcome_screen"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -281,26 +334,54 @@
           "localize": true,
           "$visible_binding": "((#student_button_text = 'return') or (#student_button_text = 'return_start'))"
         }
+      },
+
+      {
+        "close_welcome_screen_button@npc_interact.student_button_label": {
+          "text": "origins.gui.button.close_welcome_screen",
+          "localize": true,
+          "$visible_binding": "(#student_button_text = 'close_wc')"
+        }
+      },
+      {
+        "ignore_welcome_screen_button@npc_interact.student_button_label": {
+          "text": " ",
+          "localize": false,
+          "$visible_binding": "((#student_button_text = 'ignore_wc') or (#student_button_text = 'ignored_wc'))"
+        }
       }
     ]
   },
 
   "origin_selector_button@common.empty_panel": {
     "$custom_locked_button|default": false,
-    "variables": {
-      "requires": "$custom_locked_button",
+    "$custom_hidden_button|default": false,
+    
+    "variables": [
+      {
+        "requires": "$custom_locked_button",
+  
+        "$border_alpha": 0,
+        "$default_button_texture": "textures/ui/disabledButton",
+        "$hover_button_texture": "textures/ui/disabledButton",
+        "$pressed_button_texture": "textures/ui/disabledButton",
+  
+        "$default_text_color": "$light_button_locked_text_color",
+        "$hover_text_color": "$light_button_locked_text_color",
+        "$pressed_text_color": "$light_button_locked_text_color",
+  
+        "$button_sound_effect_volume": 0.0
+      },
+      {
+        "requires": "$custom_hidden_button",
 
-      "$border_alpha": 0,
-      "$default_button_texture": "textures/ui/disabledButton",
-      "$hover_button_texture": "textures/ui/disabledButton",
-      "$pressed_button_texture": "textures/ui/disabledButton",
+        "$border_alpha": 0,
+        "$default_button_texture": "textures/none",
+        "$hover_button_texture": "textures/none",
+        "$pressed_button_texture": "textures/none"
+      }
+    ],
 
-      "$default_text_color": "$light_button_locked_text_color",
-      "$hover_text_color": "$light_button_locked_text_color",
-      "$pressed_text_color": "$light_button_locked_text_color",
-
-      "$button_sound_effect_volume": 0.0
-    },
     "controls": [
       {
         "button@common_buttons.light_text_button": {
@@ -356,7 +437,7 @@
             },
 
             {
-              "ignored": "(not (($button_type = 'start') or ($button_type = 'cancel')))",
+              "ignored": "(not (($button_type = 'start') or ($button_type = 'cancel') or ($button_type = 'close_welcome_screen')))",
               "from_button_id": "button.menu_cancel",
               "to_button_id": "$pressed_button_name",
               "mapping_type": "global"
@@ -537,6 +618,48 @@
       }
     ]
   }, 
+
+  "close_welcome_screen_dialog_button@origin_buttons.origin_selector_button_panel": {
+    "$button_type": "close_welcome_screen",
+    "$button_control": [
+      {
+        "close_wc_button@origin_buttons.origin_selector_button": {
+          "size": [ 75, 21 ],
+          "$visible_binding": "(#student_button_text = 'close_wc')"
+        }
+      }
+    ]
+  },
+
+  "ignore_welcome_screen_dialog_button@origin_buttons.origin_selector_button_panel": {
+    "$button_type": "ignore_welcome_screen",
+    "$button_control": [
+      {
+        "ignore_wc_button@origin_buttons.origin_selector_button": {
+          "size": [ 12, 12 ],
+
+          "$border_alpha": 0,
+          "$default_button_texture": "textures/ui/checkbox_space",
+          "$hover_button_texture": "textures/ui/checkbox_spaceHover",
+          "$pressed_button_texture": "textures/ui/checkbox_check",
+
+          "$visible_binding": "(#student_button_text = 'ignore_wc')"
+        }
+      },
+      {
+        "ignored_wc_button@origin_buttons.origin_selector_button": {
+          "size": [ 12, 12 ],
+
+          "$border_alpha": 0,
+          "$default_button_texture": "textures/ui/checkbox_check",
+          "$hover_button_texture": "textures/ui/checkbox_checkHover",
+          "$pressed_button_texture": "textures/ui/checkbox_space",
+
+          "$visible_binding": "(#student_button_text = 'ignored_wc')"
+        }
+      }
+    ]
+  },
 
   "dialog_button": {
     "type": "stack_panel",

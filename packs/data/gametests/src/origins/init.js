@@ -10,13 +10,13 @@ import { _SCOREBOARD } from "./resource_bar";
 
 /**
  * 
- * Old build number
+ * Old build id
  */
 const OLD_BUILDID = '000000';
 
 /**
  * 
- * New build number
+ * New build id
  */
 const NEW_BUILDID = '12rqlf';
 
@@ -52,7 +52,8 @@ world.afterEvents.playerSpawn.subscribe(
     if (!playerOrigin) openScreenPickerGUI(player, 'race');
     else if (!playerClass) openScreenPickerGUI(player, 'class');
     else {
-      runDialogueCommand(player, 'gui_welcome_screen');
+      if (!player.hasTag('ignore_welcome_screen')) runDialogueCommand(player, 'gui_welcome_screen');
+      else _SCOREBOARD('gui').setScore(player, 1);
 
       resetPlayerAttributes(player);
       initModules(player);

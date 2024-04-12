@@ -4,20 +4,37 @@
 
   "namespace": "origin_welcome_screen",
 
+
   "welcome_screen_entry_offset": {
     "anim_type": "offset",
     "easing": "spring",
-    "duration": 0.8,
-    "from": [ 0, 40 ],
-    "to": [ 0, 0 ]
+    "duration": 1.2,
+    "from": [ 0, 20 ],
+    "to": [ 0, 20 ],
+    "next": "@origin_welcome_screen.welcome_screen_entry_offset_out"
   },
+  "welcome_screen_entry_offset_out@welcome_screen_entry_offset": {
+    "duration": 0.8,
+    "from": [ 0, 20 ],
+    "to": [ 0, 0 ],
+    "next": ""
+  },
+
   "welcome_screen_entry_alpha": {
     "anim_type": "alpha",
     "easing": "linear",
-    "duration": 0.8,
+    "duration": 1.2,
     "from": 0.0,
-    "to": 1.0
+    "to": 0.0,
+    "next": "@origin_welcome_screen.welcome_screen_entry_alpha_out"
   },
+  "welcome_screen_entry_alpha_out@welcome_screen_entry_alpha": {
+    "duration": 0.4,
+    "from": 0.0,
+    "to": 1.0,
+    "next": ""
+  },
+
 
   "welcome_screen_description_panel": {
     "type": "stack_panel",
@@ -38,8 +55,8 @@
       },
       {
         "created_by@origin_common.image_with_text_description": {
-          "$image_icon": "textures/items/apple_golden",
-          "$text_header": "© r4isen1920", /* proudly and originally created by yours truly - if you take the UI and change this i will be sad.. very sad */
+          "$image_icon": "textures/origins/r4isen1920",
+          "$text_header": "© r4isen1920",
           "$text_body": "Original work by APACE100",
           "$show_header_underline": false
         }
@@ -47,11 +64,19 @@
       {
         "text_padding_1": {
           "type": "panel",
-          "size": [ "100%", 7.5 ]
+          "size": [ "100%", 6.5 ]
         }
       },
       {
-        "text_description@origin_common.text_label": {
+        "changelog_text@origin_common.text_label": {
+          "text": "('v5.0.0 (build ' + $build_id + ')')",
+          "size": [ "98%", "default" ],
+          "font_scale_factor": 0.8,
+          "color": "$7_color_format"
+        }
+      },
+      {
+        "version_text@origin_common.text_label": {
           "text": "origins.changelog_message",
           "size": [ "98%", "default" ],
           "font_scale_factor": 0.8,
@@ -61,29 +86,27 @@
       {
         "text_padding_2": {
           "type": "panel",
-          "size": [ "100%", 10 ]
+          "size": [ "100%", 9.5 ]
         }
       },
       {
         "version@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/paper",
           "$text_header": "v5.0 changelog",
-          "$text_body": " - \n- \n- "
+          "$text_body": " - Added support for 1.20.60+\n - New Origin: Diviner\n - Revamped Origins\n - Many bug fixes, optimizations, and tweaks\n\nPlease refer to the MCPEDL and CurseForge page for more information."
         }
       },
       {
-        "text_padding_2": {
+        "text_padding_3": {
           "type": "panel",
-          "size": [ "100%", 5 ],
-          "ignored": true
+          "size": [ "100%", 10 ]
         }
       },
       {
         "version@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/map_locked",
           "$text_header": "Translators",
-          "$text_body": "- xinyue0226\n- fin9er\n- skybird2333",
-          "ignored": true
+          "$text_body": " - xinyue0226\n - fin9er\n - skybird2333"
         }
       }
     ]
@@ -136,7 +159,7 @@
                 "offset": [ 6, 0 ],
                 "layer": 1,
                 "$scroll_size": [ 10, 109 ],
-                "$scroll_view_port_size": [ 142, 121 ],
+                "$scroll_view_port_size": [ 142, 109 ],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "$scrolling_pane_size": [ "100%", "100%" ],

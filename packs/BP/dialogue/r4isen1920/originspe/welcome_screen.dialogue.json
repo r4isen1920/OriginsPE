@@ -2,28 +2,62 @@
   "format_version": "1.17.0",
   "minecraft:npc_dialogue": {
     "scenes": [
+
       {
         "scene_tag": "gui_welcome_screen",
         "npc_name": "origins.custom_dialogue",
         "text": "origin.welcome_screen",
         "buttons": [
           {
-            "name": "start",
+            "name": "close_wc",
             "commands": [
-              "/scoreboard players set @initiator gui 1"
+              "/scoreboard players set @initiator gui 1",
+
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
+            ]
+          },
+          {
+            "name": "ignore_wc",
+            "commands": [
+              "/scoreboard players set @initiator gui 1",
+
+              "/tag @initiator add ignore_welcome_screen",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_welcome_screen_ignore"
             ]
           }
         ],
         "on_open_commands": [
-          "/execute as @initiator at @s run playsound random.levelup @s ~~~ 0.5 0.5",
-          "/execute as @initiator at @s run playsound random.wood_click @s ~~~ 0.5 1",
+          "/execute as @initiator at @s[scores={gui=0}] run playsound random.levelup @s ~~~ 0.5 0.5",
+          "/execute as @initiator at @s[scores={gui=0}] run playsound random.wood_click @s ~~~ 0.5 1",
 
           "/scoreboard players set @initiator gui 1"
-        ],
-        "on_close_commands": [
-          "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
+        ]
+      },
+
+      {
+        "scene_tag": "gui_welcome_screen_ignore",
+        "npc_name": "origins.custom_dialogue",
+        "text": "origin.welcome_screen",
+        "buttons": [
+          {
+            "name": "close_wc",
+            "commands": [
+              "/scoreboard players set @initiator gui 1",
+              "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close"
+            ]
+          },
+          {
+            "name": "ignored_wc",
+            "commands": [
+              "/scoreboard players set @initiator gui 1",
+
+              "/tag @initiator remove ignore_welcome_screen",
+              "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_welcome_screen"
+            ]
+          }
         ]
       }
+
     ]
   }
 }

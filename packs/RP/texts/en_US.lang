@@ -1,8 +1,8 @@
 
 pack.name=§7[v5.0]§r OriginsPE [RP]
-pack.description=(Note: do not set this as your Global Resource pack!) This add-on adds several Origins and Classes with passive abilities to the game, in which you choose upon the start of your adventure. Created by r4isen1920.
+pack.description=(Note: do not set this as your Global Resource pack!) This Sdd-On adds several Origins and Classes with passive abilities to the game, in which you choose upon the start of your adventure. Created by r4isen1920.
 
-origins.welcome_message=§eWelcome back!§r The [OriginsPE] add-on is installed and is working correctly in this world!
+origins.welcome_message=§eWelcome back!§r The [OriginsPE] Add-On is installed and is working correctly in this world!
 origins.changelog_message=(Scroll down to see changelog)
 
 origins.race.random.name=Random Origin
@@ -477,6 +477,8 @@ origins.gui.button.select=Select
 origins.gui.button.cancel=Close
 origins.gui.button.start=Continue
 origins.gui.button.return=Back
+origins.gui.button.close_welcome_screen=Let's Go
+origins.gui.button.ignore_welcome_screen=Do not show again
 
 origins.gui.options.general_root=General Options
 origins.gui.options.admin_root=Administrative Options
