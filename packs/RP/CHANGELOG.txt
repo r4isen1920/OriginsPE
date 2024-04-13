@@ -4,10 +4,11 @@
 current TODO
 
 # Revamped Piglin Idea
-  - [Pride]: The more gold items you have in your inventory, the less damage you receive from any source. You can mitigate up to 90% of any damaged received this way.
+  - [Pride]: The more gold items you carry in your inventory, the less damage you receive from any source. You can mitigate up to 90% of damage received this way.
   - [Boasting Firepower]: Your attack increases depending on the number of entities around you. Damage increased by this ability is capped at 10 entities at most.
   - [Courage]: You are immune from weakness and wither status effects.
   - [Gluttony]: You get extremely more hungry than usual.
+  - [Nether Inhabitant]: Your natural spawn will be in the Nether.
 
 # Revamped Elven Idea
   - [Lifeweaver]: Immediately regenerates health based on the accumulated damage taken within 3 seconds upon receiving it.
@@ -22,7 +23,7 @@ current TODO
   - [Life Drain]: Whenever you deal damage, your health is reduced by 5% of the target's current health. When your health is equal to 1, this will not reduce any further.
 
 # Diviner Origin Idea
-  - [Prescience]: Punch with the ability item in hand to cast on up to two other players. Upon cast, increases both you and the other player's max health by 50% of all of your health combined.
+  - [Prescience]: Punch with the ability selected to cast on up to two other players. Upon cast, increases both you and the other player's max health by 50% of all of your health combined.
   - [Oracle]: When players under the effect of [Prescience] you've casted, took any damage or received healing, it will be distributed among you and the other players.
   - [Aegis]: Any external damage taken directly will deflect 50% of the damage back to the attacker. This ability will not trigger on attackers wherein you have casted [Prescience] on.
   - [Divine Aura]: Players under the effect of [Prescience] will glow, and can be seen through walls.

@@ -624,28 +624,22 @@
     
     "controls": [
       {
-        "gain_defense_per_kill@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.gain_defense_per_kill.name",
-          "$power_description": "origins.trait.gain_defense_per_kill.description",
-          "$power_icon_index": "gain_defense_per_kill"
+        "pride@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.pride.name",
+          "$power_description": "origins.trait.pride.description",
+          "$power_icon_index": "pride"
         }
       },
       {
-        "increased_attack@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.increased_attack.name",
-          "$power_description": "origins.trait.increased_attack.description"
+        "increased_attack_per_entity@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.increased_attack_per_entity.name",
+          "$power_description": "origins.trait.increased_attack_per_entity.description"
         }
       },
       {
-        "gold_armor_only@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.gold_armor_only.name",
-          "$power_description": "origins.trait.gold_armor_only.description"
-        }
-      },
-      {
-        "piglin_no_aggro@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.piglin_no_aggro.name",
-          "$power_description": "origins.trait.piglin_no_aggro.description"
+        "courage@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.courage.name",
+          "$power_description": "origins.trait.courage.description"
         }
       },
       {
@@ -658,12 +652,6 @@
         "nether_spawn@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.nether_spawn.name",
           "$power_description": "origins.trait.nether_spawn.description"
-        }
-      },
-      {
-        "fire_immunity@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.fire_immunity.name",
-          "$power_description": "origins.trait.fire_immunity.description"
         }
       }
     ]

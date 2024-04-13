@@ -5,5 +5,8 @@ export const inchling = {
     'nimble',
     'bite_sized',
     'small_apetite',
-  ]
+  ],
+  'effects': {
+    'model': 'tiny'
+  }
 }
