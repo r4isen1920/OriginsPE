@@ -85,8 +85,8 @@
           {
             "queue_command": {
               "command": [
-                "damage @e[r=4,tag=!\"race_starborne\",family=!inanimate] 10 magic entity @a[tag=\"race_starborne\",c=1]",
-                "damage @e[rm=4,r=6,tag=!\"race_starborne\",family=!inanimate] 5 magic entity @a[tag=\"race_starborne\",c=1]",
+                "damage @e[r=4,tag=!\"race_starborne\",family=!inanimate] 5 magic entity @a[tag=\"race_starborne\",c=1]",
+                "damage @e[rm=4,r=6,tag=!\"race_starborne\",family=!inanimate] 3 magic entity @a[tag=\"race_starborne\",c=1]",
 
                 "particle r4isen1920_originspe:star_projectile_impact ~~~",
                 "particle r4isen1920_originspe:star_projectile_accent ~~~",

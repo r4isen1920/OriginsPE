@@ -18,11 +18,6 @@ function shooting_star(player) {
   const currentStressValue = player.getDynamicProperty(stressProperty) || 0;
   if (!currentStressValue) player.setDynamicProperty(stressProperty, 0);
 
-  if (player.hasTag('cooldown_21')) {
-    player.removeTag('_control_use_shooting_star');
-    return
-  }
-
   if (
     player.hasTag('cooldown_11') &&
     (_SCOREBOARD('cd2').getScore(player) === 0 || _SCOREBOARD('cd2').getScore(player) !== 11) &&

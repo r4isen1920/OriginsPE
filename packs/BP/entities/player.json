@@ -244,6 +244,11 @@
           "family": [ "camouflage" ]
         }
       },
+      "r4isen1920_originspe:family_type.bite_sized": {
+        "minecraft:type_family": {
+          "family": [ "player", "bite_sized" ]
+        }
+      },
 
 
       "r4isen1920_originspe:breathable.land": {
@@ -481,7 +486,8 @@
                         "any_of": [
                           { "test": "has_tag", "value": "power_strong_ankles" },
                           { "test": "has_tag", "value": "power_fall_immunity" },
-                          { "test": "has_tag", "value": "power_cosmic_gift" }
+                          { "test": "has_tag", "value": "power_cosmic_gift" },
+                          { "test": "has_tag", "value": "power_nimble" }
 
                         ]
                       },
@@ -696,7 +702,8 @@
       "minecraft:rideable": {
         "seat_count": 2,
         "family_types": [
-          "parrot_tame"
+          "parrot_tame",
+          "bite_sized"
         ],
         "pull_in_entities": true,
         "seats": [
@@ -820,6 +827,9 @@
       },
       "r4isen1920_originspe:family_type.camouflage": {
         "add": { "component_groups": [ "r4isen1920_originspe:family_type.camouflage" ] }
+      },
+      "r4isen1920_originspe:family_type.bite_sized": {
+        "add": { "component_groups": [ "r4isen1920_originspe:family_type.bite_sized" ] }
       },
 
       "r4isen1920_originspe:breathable.land": {

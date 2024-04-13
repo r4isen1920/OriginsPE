@@ -1,9 +1,10 @@
 
-import { TicksPerSecond, system, world } from "@minecraft/server";
+import { EquipmentSlot, ItemStack, TicksPerSecond, system, world } from "@minecraft/server";
 
 import { openOptionsGUI, openScreenPickerGUI } from "./gui";
 import { openAbilityHotbar, closeAbilityHotbar, getControlTags } from "./controls";
 import { _SCOREBOARD } from "./resource_bar";
+import { toAllPlayers } from "./player";
 
 
 /**
@@ -115,3 +116,34 @@ system.runTimeout(() => {
   )
 
 }, TicksPerSecond * 6)
+
+
+/**
+ * 
+ * @param { import('@minecraft/server').Entity } player 
+ */
+function checkForItemsInHand(player) {
+
+  const item = player.getComponent('equippable').getEquipment(EquipmentSlot.Mainhand) || new ItemStack('minecraft:air');
+
+  switch (item.typeId) {
+
+    case 'r4isen1920_originspe:origins_menu':
+      if (player.hasTag('_on_item_hold')) return;
+
+      if (player.hasTag('controls_opened')) closeAbilityHotbar(player)
+      else openAbilityHotbar(player);
+      player.playSound('ui.wood_click');
+
+      player.addTag('_on_item_hold');
+      break;
+
+    default:
+      player.removeTag('_on_item_hold');  
+      break;
+
+  }
+
+}
+
+toAllPlayers(checkForItemsInHand, 4);

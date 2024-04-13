@@ -3,6 +3,7 @@ import { TicksPerSecond, world } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
+import { Vector3 } from "../../../utils/Vec3";
 
 /**
  * 
@@ -18,11 +19,6 @@ function hyper_leap(player) {
   const currentStressValue = player.getDynamicProperty(stressProperty) || 0;
   if (!currentStressValue) player.setDynamicProperty(stressProperty, 0);
 
-  if (player.hasTag('cooldown_11')) {
-    player.removeTag('_control_use_hyper_leap');
-    return
-  }
-
   if (
     player.hasTag('cooldown_21') &&
     (_SCOREBOARD('cd2').getScore(player) === 0 || _SCOREBOARD('cd2').getScore(player) !== 21) &&
@@ -33,15 +29,26 @@ function hyper_leap(player) {
 
     player.addTag('cooldown_21');
 
-    player.addEffect('levitation', TicksPerSecond * 1, { amplifier: 5, showParticles: false })
+    player.dimension.getEntities({
+      location: player.location,
+      maxDistance: 6,
+      excludeFamilies: [ 'inanimate' ],
+      excludeTags: [ 'power_hyper_leap' ]
+    }).forEach(entity => {
+
+      entity.addEffect('levitation', TicksPerSecond * 1, { amplifier: 10, showParticles: false })
+
+    })
 
     player.applyKnockback(
       player.getViewDirection().x,
       player.getViewDirection().z,
-      10,
+      7,
       Math.min(Math.max(player.getViewDirection().y + 0.20, 0), 1.0) * 1.75
     )
 
+    player.dimension.spawnParticle('r4isen1920_originspe:star_leap_base', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
+    player.dimension.spawnParticle('r4isen1920_originspe:star_leap_stars', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
     world.playSound('origins.starborne.leap', player.location);
     player.playSound('origins.starborne.leap_direct')
 
