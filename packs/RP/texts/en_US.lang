@@ -518,15 +518,9 @@ origins.change.announce.class=%1 has changed their class to [%2]
 origins.change.fail.race=The Orb of Origins has been disabled
 origins.change.fail.class=The Resignation Paper has been disabled
 
-origins.ability_controls.info.usage=(Click an ability icon to use it)
-origins.ability_controls.info.none=(No active abilities)
-origins.ability_controls.info.blocked=(Active abilities are blocked)
-origins.ability_controls.crosshair=Punch to use ability
-origins.ability_controls.attack_player=Punch target player
-origins.ability_controls.attack_mob=Punch target mob
-origins.ability_controls.attack_all=Punch target player or mob
-origins.ability_controls.approach=Go near target player
-origins.ability_controls.cancel=Ability cast cancelled
+origins.ability_controls.info.usage=You have active abilities
+origins.ability_controls.info.usage_tip=(Use them like an item)
+origins.ability_controls.info.none=No active abilities
 
 entity.r4isen1920_originspe:burning_control.name=§7[Blazeborn's Wrath]§r
 entity.r4isen1920_originspe:cleric_area_effect_cloud.name=§7[Cleric's Potion]§r

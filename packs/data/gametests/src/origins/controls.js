@@ -93,6 +93,9 @@ export function openAbilityHotbar(player) {
     playerInventory.setItem(index, item)
   })
 
+  if (playerControlTags?.length > 0) player.onScreenDisplay.setActionBar('origins.hud.ability_hotbar_label:origins.ability_controls.info.usage');
+  else player.onScreenDisplay.setActionBar('origins.hud.ability_hotbar_label:origins.ability_controls.info.none');
+
   player.addTag('controls_opened')
 
 
@@ -149,6 +152,7 @@ export function closeAbilityHotbar(player) {
 
   dummyEntity.triggerEvent('r4isen1920_originspe:instant_despawn')
 
+  player.onScreenDisplay.setActionBar('origins.clear');
 
   player.removeTag('controls_opened')
 

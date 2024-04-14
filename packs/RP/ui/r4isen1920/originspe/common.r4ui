@@ -4,6 +4,75 @@
 
   "namespace": "origin_common",
 
+  "anim_uv_asesprite": {
+    "anim_type": "aseprite_flip_book",
+    "initial_uv": [ 0, 0 ]
+  },
+
+  "anim_uv_flipbook": {
+    "anim_type": "flip_book",
+    "easing": "linear",
+    "frame_count": "$max_frame",
+    "frame_step": "$frame_step",
+    "fps": "$fps",
+    "reversible": "$reversible"
+  },
+
+  "anim_alpha": {
+    "$easing_alpha|default": "linear",
+    "$from_alpha|default": 1.0,
+    "$to_alpha|default": 1.0,
+    "$duration_alpha|default": 1.0,
+
+    "anim_type": "alpha",
+    "easing": "$easing_alpha",
+    "from": "$from_alpha",
+    "to": "$to_alpha",
+    "duration": "($duration_alpha * $r4ui_animation_scale)"
+  },
+  "anim_alpha_delay@anim_alpha": {
+    "$duration_delay_alpha|default": 0.0,
+
+    "to": "$from_alpha",
+    "duration": "($duration_delay_alpha * $r4ui_animation_scale)",
+    "next": "@origin_common.anim_alpha"
+  },
+
+  "anim_size": {
+    "anim_type": "size",
+    "easing": "$easing_size",
+    "from": "$from_size",
+    "to": "$to_size",
+    "duration": "($duration_size * $r4ui_animation_scale)"
+  },
+  "anim_size_delay@anim_size": {
+    "$duration_delay_size|default": 0.0,
+
+    "to": "$from_size",
+    "duration": "($duration_delay_size * $r4ui_animation_scale)",
+    "next": "@origin_common.anim_size"
+  },
+
+  "anim_offset": {
+    "$easing_offset|default": "linear",
+    "$from_offset|default": [ 0, 0 ],
+    "$to_offset|default": [ 0, 0 ],
+    "$duration_offset|default": 1.0,
+
+    "anim_type": "offset",
+    "easing": "$easing_offset",
+    "from": "$from_offset",
+    "to": "$to_offset",
+    "duration": "($duration_offset * $r4ui_animation_scale)"
+  },
+  "anim_offset_delay@anim_offset": {
+    "$duration_delay_offset|default": 0.0,
+
+    "to": "$from_offset",
+    "duration": "($duration_delay_offset * $r4ui_animation_scale)",
+    "next": "@origin_common.anim_offset"
+  },
+
   "anim_beat_alpha_01": {
     "anim_type": "alpha",
     "easing": "linear",

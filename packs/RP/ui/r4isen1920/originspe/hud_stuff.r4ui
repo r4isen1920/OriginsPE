@@ -12,6 +12,12 @@
           "$overhead_text_accent": "$d_color_format",
           "ignored": "($var_actionbar_text = ($var_actionbar_text - 'overhead_text:'))"
         }
+      },
+
+      {
+        "ability_hotbar_label@origin_hud_stuff.ability_hotbar_label": {
+          "ignored": "($var_actionbar_text = ($var_actionbar_text - 'ability_hotbar_label:'))"
+        }
       }
 
     ]
@@ -99,6 +105,100 @@
         }
       }
     ]
+  },
+
+
+  "ability_hotbar_label@common.empty_panel": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "size": "$size",
+    "offset": [ 0, -25.5 ],
+    "alpha": 0.8,
+    "propagate_alpha": false,
+
+    "$size|default": [ 182, 16 ],
+    "variables": {
+      "requires": "$touch",
+      "$size": [ 200, 16 ]
+    },
+
+    "controls": [
+      {
+        "label_bg": {
+          "type": "image",
+          "texture": "textures/ui/BannersLight",
+
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [ "100%", "100%" ],
+          "clips_children": true,
+
+          "$hud_effect_layer": 30,
+          "layer": "$hud_effect_layer",
+
+          "controls": [
+            {
+              "label@origin_hud_stuff.label_element": {
+                "text": "($var_actionbar_text - 'origins.hud.ability_hotbar_label:')",
+
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "max_size": [ "default", 16 ],
+
+                "anims": [
+                  "@origin_common.anim_offset_delay"
+                ],
+
+                "layer": "$hud_effect_layer",
+
+                "variables": [
+                  {
+                    "requires": "(not ($var_actionbar_text = ($var_actionbar_text - 'info.usage')))",
+
+                    "$easing_offset": "linear",
+                    "$from_offset": [ 4, 0 ],
+                    "$to_offset": [ 4, "150%y" ],
+                    "$duration_offset": 0.5,
+                    "$duration_delay_offset": 2.0
+                  },
+                  {
+                    "requires": "($var_actionbar_text = ($var_actionbar_text - 'info.usage'))",
+
+                    "$easing_offset": "linear",
+                    "$from_offset": [ 4, 0 ],
+                    "$to_offset": [ 4, 0 ],
+                    "$duration_offset": 0.1,
+                    "$duration_delay_offset": 0.1
+                  }
+                ]
+              }
+            },
+            {
+              "label_usage_tip@origin_hud_stuff.label_element": {
+                "text": "origins.ability_controls.info.usage_tip",
+
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "max_size": [ "default", 16 ],
+                "ignored": "($var_actionbar_text = ($var_actionbar_text - 'info.usage'))",
+
+                "anims": [
+                  "@origin_common.anim_offset_delay"
+                ],
+                "$easing_offset": "linear",
+                "$from_offset": [ 4, "-150%y" ],
+                "$to_offset": [ 4, 0 ],
+                "$duration_offset": 0.5,
+                "$duration_delay_offset": 2.2,
+
+                "layer": "$hud_effect_layer"
+              }
+            }
+          ]
+        }
+      }
+    ]
+
   }
 
 }

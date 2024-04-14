@@ -126,6 +126,8 @@ function checkForItemsInHand(player) {
 
   const item = player.getComponent('equippable').getEquipment(EquipmentSlot.Mainhand) || new ItemStack('minecraft:air');
 
+  if (_SCOREBOARD('gui').getScore(player) !== 1) return;
+
   switch (item.typeId) {
 
     case 'r4isen1920_originspe:origins_menu':

@@ -45,6 +45,8 @@ world.afterEvents.playerSpawn.subscribe(
     removeTags(player, 'cooldown_');
     removeTags(player, '_');
 
+    player.addTag('_on_item_hold');
+
     if (player.hasTag('controls_opened')) closeAbilityHotbar(player)
 
     const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`)) || false;
