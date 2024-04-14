@@ -23,13 +23,13 @@
 
         "disabled": {
           "transitions": [
-            { "on_detect": "v.p_toggle_particles" }
+            { "on_detect": "v.p_toggle_particles && v.p_emitter_type == 'starborne'" }
           ]
         },
 
         "on_detect": {
           "transitions": [
-            { "disabled": "!v.p_toggle_particles" },
+            { "disabled": "!v.p_toggle_particles || v.p_emitter_type != 'starborne'" },
 
             { "meditate_down": "(v.p_emitter_type == 'starborne' && q.is_alive && q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" },
             { "stress_up": "(v.p_emitter_type == 'starborne' && q.is_alive)" }
@@ -38,9 +38,9 @@
 
         "meditate_down": {
           "transitions": [
-            { "disabled": "!v.p_toggle_particles" },
+            { "disabled": "!v.p_toggle_particles || v.p_emitter_type != 'starborne'" },
 
-            { "stress_up": "v.p_emitter_type != 'starborne' || !q.is_alive || !q.is_sneaking || (math.floor((q.health / q.max_health) * 100) < 100)" }
+            { "stress_up": "!q.is_alive || !q.is_sneaking || (math.floor((q.health / q.max_health) * 100) < 100)" }
           ],
           "particle_effects": [
             { "effect": "starborne_meditate" },
@@ -50,9 +50,9 @@
 
         "stress_up": {
           "transitions": [
-            { "disabled": "!v.p_toggle_particles" },
+            { "disabled": "!v.p_toggle_particles || v.p_emitter_type != 'starborne'" },
 
-            { "meditate_down": "v.p_emitter_type != 'starborne' || !q.is_alive || (q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" }
+            { "meditate_down": "!q.is_alive || (q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" }
           ],
           "particle_effects": [
             { "effect": "starborne_stress" },
