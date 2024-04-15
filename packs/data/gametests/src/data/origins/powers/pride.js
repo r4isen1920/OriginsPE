@@ -132,15 +132,6 @@ function pride(player) {
     removeTags(player, '_pride_value_')
     player.addTag('_pride_value_' + currentValue)
 
-    /**
-     * @param {number} value 
-     * @param {number} max 
-     * @returns {number}
-     */
-    const normalize = function(value=0, max=90) {
-      return (value / max) * 100
-    }
-
     if (currentValue > 0) {
       new ResourceBar(15, normalize(prevValue, 90) || 0, normalize(currentValue, 90), 1, true)
           .push(player)
