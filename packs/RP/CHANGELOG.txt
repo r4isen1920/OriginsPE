@@ -4,10 +4,10 @@
 current TODO
 
 # Revamped Piglin Idea
-  - [Pride]: The more gold items you carry in your inventory, the less damage you receive from any source. You can mitigate up to 90% of damage received this way.
-  - [Boasting Firepower]: Your attack increases depending on the number of entities around you. Damage increased by this ability is capped at 10 entities at most.
+  - [Pride]: The more gold items you carry in your inventory, worn, or held, the less damage you'll receive from any source. You can mitigate up to 90% of damage received this way.
+  - [Boasting Firepower]: Your melee attack inflicts additional damage equivalent to 10% of the damage you've dealt. Further increases the additional damage dealt by 10% per nearby entities present within 6 blocks.
   - [Courage]: You are immune from weakness and wither status effects.
-  - [Gluttony]: You get extremely more hungry than usual.
+  - [Gluttony]: You get even more hungry than usual when replenishing health.
   - [Nether Inhabitant]: Your natural spawn will be in the Nether.
 
 # Revamped Elven Idea
