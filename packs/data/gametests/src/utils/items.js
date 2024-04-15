@@ -1,4 +1,6 @@
 
+import { EquipmentSlot, ItemStack } from "@minecraft/server";
+
 /**
  * 
  * @author
@@ -57,4 +59,63 @@ export function searchItemId(entity, itemKey) {
   }
 
   return false;
+}
+
+/**
+ * 
+ * @author
+ * r4isen1920
+ * 
+ * @remarks
+ * Returns an array of all items
+ * in the player's inventory that
+ * is enumerable in nature with 
+ * their typeId and amount
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ * 
+ * @returns { Array<{ typeId: string, amount: number }> }
+ */
+export function getItemsCountInInventory(player) {
+
+  /**
+   * @type { import('@minecraft/server').Container }
+   */
+  const container = player.getComponent('inventory').container
+
+  return Array.from({ length: container.size }, (_, i) => {
+    const item = container.getItem(i);
+    return item ? { typeId: item.typeId, amount: item.amount } : null;
+  }).filter(item => item !== null);
+}
+
+/**
+ * 
+ * @author
+ * r4isen1920
+ * 
+ * @remarks
+ * Returns an array of all items
+ * in the player's equipment
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ * 
+ * @returns { import('@minecraft/server').ItemStack[] }
+ */
+export function getEquipment(player) {
+
+  /**
+   * @type { import('@minecraft/server').EntityEquippableComponent }
+   */
+  const equipment = player.getComponent('equippable');
+
+  return [
+    equipment.getEquipment(EquipmentSlot.Head) || new ItemStack('minecraft:air'),
+    equipment.getEquipment(EquipmentSlot.Chest) || new ItemStack('minecraft:air'),
+    equipment.getEquipment(EquipmentSlot.Legs) || new ItemStack('minecraft:air'),
+    equipment.getEquipment(EquipmentSlot.Feet) || new ItemStack('minecraft:air'),
+    equipment.getEquipment(EquipmentSlot.Mainhand) || new ItemStack('minecraft:air'),
+    equipment.getEquipment(EquipmentSlot.Offhand) || new ItemStack('minecraft:air'),
+  ]
+
 }
