@@ -153,6 +153,7 @@ export function setPlayerGameMode(player) {
 function onCloseGUI(player) {
   player.addTag('_out_of_ui');
   player.removeTag('change_resign');
+  player.removeTag('_init_bar');
 
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))
   if (prevGamemode) {

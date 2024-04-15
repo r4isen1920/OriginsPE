@@ -1,9 +1,11 @@
 
 export const bee = {
   'powers': [
-
-  ],
-  'controls': [
-    
+    'sacrifice_stinger',
+    'poisonous',
+    'poison_bonus_damage',
+    'bloom',
+    'nighttime',
+    'lifespan',
   ]
 }

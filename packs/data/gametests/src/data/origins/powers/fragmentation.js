@@ -41,9 +41,9 @@ function fragmentation(player) {
         onIncrementFragmentationLevel(player, 3); break
       }
 
-      if (!player.hasTag('_init_fragmentation') && _SCOREBOARD('gui').getScore(player) === 1) {
+      if (!player.hasTag('_init_bar') && _SCOREBOARD('gui').getScore(player) === 1) {
         new ResourceBar(8, BAR_FULL, BAR_FULL, 1, true).push(player);
-        player.addTag('_init_fragmentation')
+        player.addTag('_init_bar')
       }
 
       break
@@ -58,9 +58,9 @@ function fragmentation(player) {
         onIncrementFragmentationLevel(player, 2); break
       }
 
-      if (!player.hasTag('_init_fragmentation') && _SCOREBOARD('gui').getScore(player) === 1) {
+      if (!player.hasTag('_init_bar') && _SCOREBOARD('gui').getScore(player) === 1) {
         new ResourceBar(8, BAR_TWO_THIRDS, BAR_TWO_THIRDS, 1, true).push(player);
-        player.addTag('_init_fragmentation')
+        player.addTag('_init_bar')
       }
 
       break
@@ -73,9 +73,9 @@ function fragmentation(player) {
         onDecrementFragmentationLevel(player, 1); break
       }
 
-      if (!player.hasTag('_init_fragmentation') && _SCOREBOARD('gui').getScore(player) === 1) {
+      if (!player.hasTag('_init_bar') && _SCOREBOARD('gui').getScore(player) === 1) {
         new ResourceBar(8, BAR_ONE_THIRD, BAR_ONE_THIRD, 1, true).push(player);
-        player.addTag('_init_fragmentation')
+        player.addTag('_init_bar')
       }
 
       break

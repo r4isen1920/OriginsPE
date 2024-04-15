@@ -585,6 +585,13 @@
         }
       },
       {
+        "bloom@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.bloom.name",
+          "$power_description": "origins.trait.bloom.description",
+          "$power_icon_index": "bloom"
+        }
+      },
+      {
         "poisonous@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.poisonous.name",
           "$power_description": "origins.trait.poisonous.description"
@@ -594,13 +601,6 @@
         "poison_bonus_damage@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.poison_bonus_damage.name",
           "$power_description": "origins.trait.poison_bonus_damage.description"
-        }
-      },
-      {
-        "bloom@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.bloom.name",
-          "$power_description": "origins.trait.bloom.description",
-          "$power_icon_index": "bloom"
         }
       },
       {

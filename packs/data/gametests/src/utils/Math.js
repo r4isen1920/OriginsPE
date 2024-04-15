@@ -1,4 +1,8 @@
 
+/**
+ * 
+ * Additional Math stuff
+ */
 export class MathR4 {
   /**
    * 
