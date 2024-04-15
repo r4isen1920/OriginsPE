@@ -24,11 +24,11 @@ function fragmentation(player) {
       changeFragementationLevel(player, 3)
       break
 
-    // TODO: when regenerating HP, do not trigger this
-    case (player.hasTag('fragmentation_level_3') && playerHealth < 20):
+
+    case (player.hasTag('fragmentation_level_3') && playerHealth < 20 && !player.hasTag('_slime_ball_consume')):
       changeFragementationLevel(player, 2);
       break
-    case (player.hasTag('fragmentation_level_2') && playerHealth < 10):
+    case (player.hasTag('fragmentation_level_2') && playerHealth < 10 && !player.hasTag('_slime_ball_consume')):
       changeFragementationLevel(player, 1);
       break
 
@@ -78,6 +78,10 @@ function fragmentation(player) {
         player.addTag('_init_fragmentation')
       }
 
+      break
+
+    default:
+      player.removeTag('_slime_ball_consume');
       break
 
   }

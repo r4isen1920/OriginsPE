@@ -41,6 +41,8 @@ system.runTimeout(() => {
       const { itemStack, source } = event;
       if (itemStack.typeId !== 'r4isen1920_originspe:slimecican_slime_ball') return;
 
+      source.addTag('_slime_ball_consume');
+
       switch (true) {
 
         default: return
@@ -51,10 +53,12 @@ system.runTimeout(() => {
           break
 
         case source.hasTag('fragmentation_level_2'):
+          source.addEffect('regeneration', TicksPerSecond * 3, { amplifier: 255 })
           changeFragementationLevel(source, 3)
           break
 
         case source.hasTag('fragmentation_level_1'):
+          source.addEffect('regeneration', TicksPerSecond * 3, { amplifier: 255 })
           changeFragementationLevel(source, 2)
           break
 
