@@ -1,102 +1,123 @@
 {
-  "enchant.thorns.hit": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/enchant/thorns/hit1",
-        "load_on_low_memory": true
-      },
-      "sounds/enchant/thorns/hit2",
-      "sounds/enchant/thorns/hit3",
-      "sounds/enchant/thorns/hit4"
-    ]
-  },
+  "format_version": "1.20.20",
+  "sound_definitions": {
 
-  "ender_eye.dead": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/random/ender_eye_destroy_1",
-        "load_on_low_memory": true,
-        "volume": 1.5
-      },
-      {
-        "name": "sounds/random/ender_eye_destroy_2",
-        "volume": 1.5
-      }
-    ]
-  },
+    "enchant.thorns.hit": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/enchant/thorns/hit1",
+          "load_on_low_memory": true
+        },
+        "sounds/enchant/thorns/hit2",
+        "sounds/enchant/thorns/hit3",
+        "sounds/enchant/thorns/hit4"
+      ]
+    },
+  
+    "enchant.sweeping_edge.hit": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/enchant/sweeping_edge/sweep1",
+          "load_on_low_memory": true
+        },
+        "sounds/enchant/sweeping_edge/sweep2",
+        "sounds/enchant/sweeping_edge/sweep3",
+        "sounds/enchant/sweeping_edge/sweep4",
+        "sounds/enchant/sweeping_edge/sweep5",
+        "sounds/enchant/sweeping_edge/sweep6",
+        "sounds/enchant/sweeping_edge/sweep7"
+      ]
+    },
+  
+    "ender_eye.dead": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/random/ender_eye_destroy_1",
+          "load_on_low_memory": true,
+          "volume": 1.25
+        },
+        {
+          "name": "sounds/random/ender_eye_destroy_2",
+          "volume": 1.25
+        }
+      ]
+    },
+  
+    "origins.starborne.leap": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/mob/illusioner/prepare_blindness",
+          "volume": 1.0,
+          "pitch": 1.5
+        }
+      ]
+    },
+    "origins.starborne.leap_direct": {
+      "category": "player",
+      "sounds": [
+        {
+          "is3D": false,
+          "name": "sounds/mob/illusioner/prepare_blindness",
+          "volume": 1.0,
+          "pitch": 1.5
+        }
+      ]
+    },
+  
+    "origins.starborne.cast": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/mob/illusioner/mirror_move1",
+          "load_on_low_memory": true
+        },
+        "sounds/mob/illusioner/mirror_move2"
+      ]
+    },
+  
+    "origins.elven.unlink": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/mob/illusioner/unlink",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+  
+    "random.cook": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/random/cook",
+          "load_on_low_memory": true
+        }
+      ]
+    },
+  
+    "ui.wood_click": {
+      "category": "ui",
+      "sounds": [
+        {
+          "name": "sounds/ui/wood_click",
+          "load_on_low_memory": true
+        }
+      ]
+    },
+  
+    "ui.enchant": {
+      "category": "ui",
+      "sounds": [
+         "sounds/block/enchantment_table/enchant1",
+         "sounds/block/enchantment_table/enchant2",
+         "sounds/block/enchantment_table/enchant3"
+      ]
+    }
 
-  "origins.starborne.leap": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/mob/illusioner/prepare_blindness",
-        "volume": 1.0,
-        "pitch": 1.5
-      }
-    ]
-  },
-  "origins.starborne.leap_direct": {
-    "category": "player",
-    "sounds": [
-      {
-        "is3D": false,
-        "name": "sounds/mob/illusioner/prepare_blindness",
-        "volume": 1.0,
-        "pitch": 1.5
-      }
-    ]
-  },
-
-  "origins.starborne.cast": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/mob/illusioner/mirror_move1",
-        "load_on_low_memory": true
-      },
-      "sounds/mob/illusioner/mirror_move2"
-    ]
-  },
-
-  "origins.elven.unlink": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/mob/illusioner/unlink",
-        "volume": 1.0,
-        "pitch": 1.0
-      }
-    ]
-  },
-
-  "random.cook": {
-    "category": "player",
-    "sounds": [
-      {
-        "name": "sounds/random/cook",
-        "load_on_low_memory": true
-      }
-    ]
-  },
-
-  "ui.wood_click": {
-    "category": "ui",
-    "sounds": [
-      {
-        "name": "sounds/ui/wood_click",
-        "load_on_low_memory": true
-      }
-    ]
-  },
-
-  "ui.enchant": {
-    "category": "ui",
-    "sounds": [
-       "sounds/block/enchantment_table/enchant1",
-       "sounds/block/enchantment_table/enchant2",
-       "sounds/block/enchantment_table/enchant3"
-    ]
   }
 }

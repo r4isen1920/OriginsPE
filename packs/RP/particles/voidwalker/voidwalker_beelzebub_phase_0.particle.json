@@ -1,0 +1,59 @@
+{
+	"format_version": "1.10.0",
+	"particle_effect": {
+		"description": {
+			"identifier": "r4isen1920_originspe:voidwalker_beelzebub_phase_0",
+			"basic_render_parameters": {
+				"material": "particles_add",
+				"texture": "textures/none"
+			}
+		},
+		"events": {
+			"beelzebub_slash_left": {
+				"particle_effect": {
+					"effect": "r4isen1920_originspe:voidwalker_beelzebub_0",
+					"type": "emitter"
+				}
+			},
+			"beelzebub_slash_right": {
+				"particle_effect": {
+					"effect": "r4isen1920_originspe:voidwalker_beelzebub_1",
+					"type": "emitter"
+				}
+			},
+			"beelzebub_slash_left_upper": {
+				"particle_effect": {
+					"effect": "r4isen1920_originspe:voidwalker_beelzebub_2",
+					"type": "emitter"
+				}
+			},
+			"beelzebub_slash_right_upper": {
+				"particle_effect": {
+					"effect": "r4isen1920_originspe:voidwalker_beelzebub_3",
+					"type": "emitter"
+				}
+			}
+		},
+		"components": {
+			"minecraft:emitter_rate_instant": {
+				"num_particles": 1
+			},
+			"minecraft:emitter_lifetime_once": {
+				"active_time": 0.9
+			},
+			"minecraft:emitter_lifetime_events": {
+				"timeline": {
+					"0.10": "beelzebub_slash_left"
+				}
+			},
+			"minecraft:emitter_shape_point": {},
+			"minecraft:particle_lifetime_expression": {
+				"max_lifetime": 0.9
+			},
+			"minecraft:particle_appearance_billboard": {
+				"size": [1, 1],
+				"facing_camera_mode": "lookat_xyz"
+			}
+		}
+	}
+}

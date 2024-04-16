@@ -9,8 +9,8 @@ import { ResourceBar } from "../../../origins/resource_bar";
  * 
  * @param { import('@minecraft/server').Player } player 
  */
-function spacious_quiver(player) {
-  if (!player.hasTag('power_spacious_quiver')) return;
+function endless_quiver(player) {
+  if (!player.hasTag('power_endless_quiver')) return;
 
   const hasBowInHand = getEquipment(player, EquipmentSlot.Mainhand).typeId.includes('bow');
   if (hasBowInHand) giveArrow(player);
@@ -18,7 +18,7 @@ function spacious_quiver(player) {
 
 }
 
-toAllPlayers(spacious_quiver, 3)
+toAllPlayers(endless_quiver, 3)
 
 /**
  * 

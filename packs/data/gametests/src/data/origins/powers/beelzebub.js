@@ -4,8 +4,9 @@ import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/ser
 import { ResourceBar } from "../../../origins/resource_bar";
 import { toAllPlayers } from "../../../origins/player";
 import { MathR4 } from "../../../utils/Math";
+import { Vector3 } from "../../../utils/Vec3";
 
-const BAR_VALUES = [0, 29, 71, 100];
+const BAR_VALUES = [0, 29, 71, 100, 100];
 
 /**
  * 
@@ -20,8 +21,6 @@ function beelzebub(player) {
 
     player.addTag('_init_bar');
   }
-
-  player.onScreenDisplay.setActionBar(`phase: ${getBeelzebubProperty(player)} | dmg: ${getBeelzebubProperty(player, 'dmg')}`)
 
 }
 
@@ -44,13 +43,21 @@ system.runTimeout(() => {
       const attacker = damageSource.damagingEntity;
       if (attacker.hasTag('cooldown_20')) return;
 
-      const PITCH_VALUES = [1.25, 1.5, 1.75];
+      const PITCH_VALUES = [ 1.25, 1.5, 1.75, 1.75 ];
       const phase = getBeelzebubProperty(attacker);
 
       new ResourceBar(19, BAR_VALUES[phase], BAR_VALUES[phase + 1], 1, true).push(attacker);
       incrementBeelzebubProperty(attacker);
       incrementBeelzebubProperty(attacker, 'dmg', damage);
-      attacker.playSound('ui.enchant', { pitch: PITCH_VALUES[phase] });
+
+      attacker.dimension.spawnParticle(
+        `r4isen1920_originspe:voidwalker_beelzebub_phase_${phase}`,
+        Vector3.add(
+          attacker.getHeadLocation(),
+          Vector3.multiply(attacker.getViewDirection(), 1.25)
+        )
+      )
+      attacker.playSound('ui.enchant', { volume: 2.0, pitch: PITCH_VALUES[phase] });
 
       const attackerHealth = attacker.getComponent('health')
       hurtEntity.applyDamage(attackerHealth.effectiveMax - attackerHealth.currentValue, { cause: EntityDamageCause.entityAttack, damagingEntity: attacker })
@@ -77,5 +84,5 @@ export function getBeelzebubProperty(attacker, type='phase') {
  * @param { number } incrementValue 
  */
 export function incrementBeelzebubProperty(attacker, type='phase', incrementValue=1) {
-  return attacker.setDynamicProperty(`r4isen1920_originspe:beelzebub_${type}`, type === 'phase' ? MathR4.clamp(getBeelzebubProperty(attacker, type) + incrementValue, 0, 3) : getBeelzebubProperty(attacker, type) + incrementValue)
+  return attacker.setDynamicProperty(`r4isen1920_originspe:beelzebub_${type}`, type === 'phase' ? MathR4.clamp(getBeelzebubProperty(attacker, type) + incrementValue, 0, 4) : getBeelzebubProperty(attacker, type) + incrementValue)
 }

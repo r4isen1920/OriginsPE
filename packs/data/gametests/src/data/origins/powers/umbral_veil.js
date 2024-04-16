@@ -30,7 +30,7 @@ function umbral_veil(player) {
     player.triggerEvent('r4isen1920_originspe:skin_type.shadow');
     player.addEffect('speed', TicksPerSecond * 12, { amplifier: 0, showParticles: false });
 
-    world.playSound('respawn_anchor.charge', player.location);
+    world.playSound('respawn_anchor.charge', player.location, { volume: 0.5, pitch: 1.25 });
     player.dimension.spawnParticle('r4isen1920_originspe:voidwalker_veil', Vector3.add(player.location, new Vector3(0, 1, 0)));
     
     player.addTag('_umbrail_veil_in');
