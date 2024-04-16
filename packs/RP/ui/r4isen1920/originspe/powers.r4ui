@@ -670,9 +670,9 @@
         }
       },
       {
-        "spacious_quiver@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.spacious_quiver.name",
-          "$power_description": "origins.trait.spacious_quiver.description",
+        "endless_quiver@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.endless_quiver.name",
+          "$power_description": "origins.trait.endless_quiver.description",
           "$power_icon_index": "spacious_quiver"
         }
       },
@@ -703,10 +703,17 @@
     
     "controls": [
       {
-        "soulreap@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.soulreap.name",
-          "$power_description": "origins.trait.soulreap.description",
-          "$power_icon_index": "soulreap"
+        "beelzebub@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.beelzebub.name",
+          "$power_description": "origins.trait.beelzebub.description",
+          "$power_icon_index": "beelzebub"
+        }
+      },
+      {
+        "soulburst@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.soulburst.name",
+          "$power_description": "origins.trait.soulburst.description",
+          "$power_icon_index": "soulburst"
         }
       },
       {

@@ -21,22 +21,23 @@
         { "rightArmArmor": "variable.chest_layer_visible && !query.has_cape" },
         { "belt": "variable.chest_layer_visible && variable.leg_layer_visible" },
 
-        { "rightSleeve": "v.p_skin_type != 'slimy' " },
-        { "leftSleeve": "v.p_skin_type != 'slimy' " },
-        { "rightPants": "v.p_skin_type != 'slimy' " },
-        { "leftPants": "v.p_skin_type != 'slimy' " },
-        { "jacket": "v.p_skin_type != 'slimy' " },
-        { "hat": "v.p_skin_type != 'slimy' " },
-        { "belt": "v.p_skin_type != 'slimy' " }
+        { "hat": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" },
+        { "belt": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" },
+        { "rightPants": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" },
+        { "leftPants": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" },
+        { "rightSleeve": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" },
+        { "leftSleeve": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" },
+        { "jacket": "!q.any(v.p_skin_type, 'slimy', 'ghostly', 'shadow')" }
       ]
     },
 
     "controller.render.player.ghostly": {
       "geometry": "Geometry.default",
-      "materials": [ { "*": "Material.spectator" } ],
+      "materials": [ { "*": "Material.ghostly" } ],
       "textures": [ "Texture.default" ],
       "part_visibility": [
         { "*": false },
+
         { "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'" },
         { "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'" },
         { "leftArm": "(query.get_equipped_item_name(0, 1) == 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'filled_map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
@@ -51,10 +52,24 @@
     },
     "controller.render.player.ghostly.third_person": {
       "geometry": "Geometry.default",
-      "materials": [ { "*": "Material.spectator" } ],
+      "materials": [ { "*": "Material.ghostly" } ],
       "textures": [ "Texture.default" ],
       "part_visibility": [
-        { "*": true },
+        { "*": false },
+
+        { "head": true },
+        { "hat": false },
+        { "body": true },
+        { "leftArm": true },
+        { "rightArm": true },
+        { "leftLeg": true },
+        { "rightLeg": true },
+        { "leftPants": false },
+        { "rightPants": false },
+        { "leftSleeve": false },
+        { "rightSleeve": false },
+        { "jacket": false },
+
         { "helmet": false },
         { "leftLegging": false },
         { "rightLegging": false },
@@ -65,40 +80,52 @@
         { "bodyArmor": false },
         { "leftArmArmor": false },
         { "rightArmArmor": false },
-        { "belt": false },
-
-        { "hat": false },
-        { "leftSleeve": false },
-        { "rightSleeve": false },
-        { "jacket": false },
-        { "leftPants": false },
-        { "rightPants": false }
+        { "belt": false }
       ],
       "color": {
         "r": "v.p_skin_type == 'shadow' ? 0.1843137254901961f : 1.0f",
         "g": "v.p_skin_type == 'shadow' ? 0.0f : 1.0f",
         "b": "v.p_skin_type == 'shadow' ? 0.45098039215686275f : 1.0f",
-        "a": "0.4f"
+        "a": "0.5f"
       }
     },
     "controller.render.player.ghostly.third_person_overlay": {
       "geometry": "Geometry.default",
-      "materials": [ { "*": "Material.spectator" } ],
+      "materials": [ { "*": "Material.ghostly" } ],
       "textures": [ "Texture.default" ],
       "part_visibility": [
         { "*": false },
+
+        { "head": false },
         { "hat": true },
+        { "body": false },
+        { "leftArm": false },
+        { "rightArm": false },
+        { "leftLeg": false },
+        { "rightLeg": false },
+        { "leftPants": true },
+        { "rightPants": true },
         { "leftSleeve": true },
         { "rightSleeve": true },
         { "jacket": true },
-        { "leftPants": true },
-        { "rightPants": true }
+
+        { "helmet": false },
+        { "leftLegging": false },
+        { "rightLegging": false },
+        { "leftBoot": false },
+        { "rightBoot": false },
+        { "leftSock": false },
+        { "rightSock": false },
+        { "bodyArmor": false },
+        { "leftArmArmor": false },
+        { "rightArmArmor": false },
+        { "belt": false }
       ],
       "color": {
         "r": "v.p_skin_type == 'shadow' ? 0.1843137254901961f : 1.0f",
         "g": "v.p_skin_type == 'shadow' ? 0.0f : 1.0f",
         "b": "v.p_skin_type == 'shadow' ? 0.45098039215686275f : 1.0f",
-        "a": "0.4f"
+        "a": "0.25f"
       }
     },
 
@@ -108,6 +135,7 @@
       "textures": [ "Texture.slimy" ],
       "part_visibility": [
         { "*": false },
+
         { "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'" },
         { "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'" },
         { "leftArm": "(query.get_equipped_item_name(0, 1) == 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'filled_map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
@@ -120,6 +148,7 @@
       "textures": [ "Texture.slimy" ],
       "part_visibility": [
         { "*": true },
+
         { "helmet": false },
         { "leftLegging": false },
         { "rightLegging": false },

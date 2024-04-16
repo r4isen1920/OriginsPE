@@ -17,9 +17,13 @@
     "sounds": [
       {
         "name": "sounds/random/ender_eye_destroy_1",
-        "load_on_low_memory": true
+        "load_on_low_memory": true,
+        "volume": 1.5
       },
-      "sounds/random/ender_eye_destroy_2"
+      {
+        "name": "sounds/random/ender_eye_destroy_2",
+        "volume": 1.5
+      }
     ]
   },
 

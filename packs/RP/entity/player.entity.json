@@ -9,6 +9,7 @@
         "animated": "player_animated",
         "spectator": "player_spectator",
 
+        "ghostly": "ghostly",
         "custom": "entity_custom"
       },
       "textures": {

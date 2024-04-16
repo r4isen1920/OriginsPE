@@ -12,16 +12,17 @@ current TODO
 
 # Revamped Elven Idea
   - [Lifeweaver]: Immediately regenerates health based on the accumulated damage taken within 3 seconds upon receiving it. Then, grants absorption for 12 seconds that scales depending on the amount of damage received.
-  - [Spacious Quiver]: When wielding a bow in hand and you don't have any arrows in your inventory, automatically grants one for yourself.
+  - [Endless Quiver]: When wielding a bow in hand and you don't have any arrows in your inventory, automatically grants one for yourself.
   - [Imbue]: Enhances your projectiles to deal additional damage equivalent to 50% of your current health, plus 25% of their max health if the target is undead. This additional damage is treated as magic and will bypass armor.
   - [Agility]: Become nimble and swift, granting you increased movement speed and jump height, enabling you to traverse the terrain effortlessly.
   - [Pearmeable]: You take 10% more damage from any source.
 
 # Revamped Voidwalker Idea
-  - [Soulreap]: Melee attacks will deal additional damage based on your missing health. Every fourth attack further deals additional damage based on the damage accumulated in the first three attacks.
+  - [Beelzebub]: Melee attacks will deal additional damage based on your missing health. Charges one stack of [Beelzebub] on attack, up to three.
+  - [Soulburst]: When [Beelzebub] reaches three stacks, consumes all of it, and deals additional damage based on the total damage dealt when acquiring the stacks. 
   - [Umbral Veil]: Shrouds yourself in a dark energy when sprinting, granting additional speed and avoiding any projectile damage.
   - [Sinister Aura]: Nearby mobs are frightened with your presence, and will run away from you. Even hostile mobs, except bosses, will not try and naturally harm you.
-  - [Life Drain]: Whenever you deal damage, your health is reduced by 5% of the target's current health. When your health is equal to 1, this will not reduce any further.
+  - [Life Drain]: Whenever you deal damage, your health is reduced by 5% of the target's current health, up to 50% of your max health. When your health is equal to 1, this will not reduce any further.
 
 # Diviner Origin Idea
   - [Prescience]: Punch with the ability selected to cast on up to two other players. Upon cast, increases both you and the other player's max health by 50% of all of your health combined.

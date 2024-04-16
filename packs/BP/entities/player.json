@@ -538,25 +538,26 @@
                         ]
                       }
                     ]
-                  }
+                  },
 
-
-                ]
-              }
-            },
-            "deals_damage": false
-          },
-          {
-            "cause": "all",
-            "on_damage": {
-              "filters": {
-                "all_of": [
-                  { "test": "has_tag", "value": "power_berry_craver" },
                   {
-                    "test": "is_block",
-                    "subject": "block",
-                    "value": "minecraft:sweet_berry_bush"
+                    "all_of": [
+                      { "test": "has_tag", "value": "power_berry_craver" },
+                      {
+                        "test": "is_block",
+                        "subject": "block",
+                        "value": "minecraft:sweet_berry_bush"
+                      }
+                    ]
+                  },
+
+                  {
+                    "all_of": [
+                      { "test": "has_tag", "value": "_umbrail_veil_in" },
+                      { "test": "has_damage", "value": "projectile" }
+                    ]
                   }
+
                 ]
               }
             },
@@ -1153,6 +1154,14 @@
           {
             "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:skin_type", "operator": "!=", "value": "slimy" },
             "set_property": { "r4isen1920_originspe:skin_type": "slimy" }
+          }
+        ]
+      },
+      "r4isen1920_originspe:skin_type.shadow": {
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:skin_type", "operator": "!=", "value": "shadow" },
+            "set_property": { "r4isen1920_originspe:skin_type": "shadow" }
           }
         ]
       },

@@ -2,8 +2,8 @@
   "materials": {
     "version": "1.0.0",
 
-    "ghostly:entity_custom": {
-      "-states": [ "DisableCulling" ],
+    "ghostly:entity_alphablend_nocolor": {
+      "+states": [ "DisableDepthWrite" ],
       "+defines": [ "USE_COLOR_MASK", "USE_UV_ANIM" ]
     }
 

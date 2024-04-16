@@ -4,6 +4,8 @@ import { ResourceBar } from "../../../origins/resource_bar";
 import { getEquipment, getItemsCountInInventory } from "../../../utils/items";
 import { removeTags } from "../../../utils/tags";
 
+// TODO: fix init when changing Origins
+
 /**
  * 
  * Returns a list of valid
