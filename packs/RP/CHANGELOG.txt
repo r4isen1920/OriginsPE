@@ -12,7 +12,8 @@ current TODO
 
 # Revamped Elven Idea
   - [Lifeweaver]: Immediately regenerates health based on the accumulated damage taken within 3 seconds upon receiving it. Then, grants absorption for 12 seconds that scales depending on the amount of damage received.
-  - [Conjure]: Shooting with bow or crossbows will not consume normal arrows, instead, will conjure a special arrow that deals additional damage equivalent to your current health.
+  - [Spacious Quiver]: When wielding a bow in hand and you don't have any arrows in your inventory, automatically grants one for yourself.
+  - [Imbue]: Enhances your projectiles to deal additional damage equivalent to 50% of your current health, plus 25% of their max health if the target is undead.
   - [Agility]: Become nimble and swift, granting you increased movement speed and jump height, enabling you to traverse the terrain effortlessly.
   - [Pearmeable]: You take 10% more damage from any source.
 

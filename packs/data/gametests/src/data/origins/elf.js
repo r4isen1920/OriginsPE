@@ -2,7 +2,8 @@
 export const elf = {
   'powers': [
     'lifeweaver',
-    'conjure',
+    'spacious_quiver',
+    'imbue',
     'swift',
     'permeable',
   ],

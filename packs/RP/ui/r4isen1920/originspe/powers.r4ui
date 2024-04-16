@@ -669,10 +669,17 @@
           "$power_icon_index": "lifeweaver"
         }
       },
-      { 
-        "conjure@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.conjure.name",
-          "$power_description": "origins.trait.conjure.description"
+      {
+        "spacious_quiver@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.spacious_quiver.name",
+          "$power_description": "origins.trait.spacious_quiver.description",
+          "$power_icon_index": "spacious_quiver"
+        }
+      },
+      {
+        "imbue@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.imbue.name",
+          "$power_description": "origins.trait.imbue.description"
         }
       },
       {

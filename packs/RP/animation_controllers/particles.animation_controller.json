@@ -93,21 +93,17 @@
         }
       }
     },
-    "controller.animation.r4isen1920_originspe.particles.elf.root_connection": {
+    "controller.animation.r4isen1920_originspe.particles.elf.arrow_trail": {
       "initial_state": "on_detect",
       "states": {
         "on_detect": {
           "transitions": [
-            { "emit": "q.is_alive && !q.is_chested" },
-            { "emit_gold": "q.is_alive && q.is_chested" }
+            { "emit": "q.is_alive && q.property('r4isen1920_originspe:is_imbued')" }
           ]
         },
 
         "emit": {
           "particle_effects": [ { "effect": "trail" } ]
-        },
-        "emit_gold": {
-          "particle_effects": [ { "effect": "trail_gold" } ]
         }
       }
     },
