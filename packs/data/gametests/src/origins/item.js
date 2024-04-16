@@ -148,4 +148,4 @@ function checkForItemsInHand(player) {
 
 }
 
-toAllPlayers(checkForItemsInHand, 4);
+toAllPlayers(checkForItemsInHand, 4, TicksPerSecond * 6);

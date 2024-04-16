@@ -450,6 +450,7 @@
             "deals_damage": true,
             "damage_multiplier": 0.25
           },
+
           {
             "cause": "all",
             "on_damage": {
@@ -487,6 +488,20 @@
             "deals_damage": true,
             "damage_multiplier": 2
           },
+          {
+            "cause": "all",
+            "on_damage": {
+              "filters": {
+                "any_of": [
+                  { "test": "has_tag", "value": "power_permeable" }
+
+                ]
+              }
+            },
+            "deals_damage": true,
+            "damage_multiplier": 1.1
+          },
+
           {
             "cause": "all",
             "on_damage": {
@@ -1170,8 +1185,8 @@
       "r4isen1920_originspe:emitter_type.elven": {
         "sequence": [
           {
-            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "enderian" },
-            "set_property": { "r4isen1920_originspe:emitter_type": "enderian" }
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "elven" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "elven" }
           }
         ]
       },

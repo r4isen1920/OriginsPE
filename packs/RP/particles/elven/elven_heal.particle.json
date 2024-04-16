@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "r4isen1920_originspe:elven_link_severed",
+			"identifier": "r4isen1920_originspe:elven_heal",
 			"basic_render_parameters": {
 				"material": "particles_blend",
 				"texture": "textures/origins/particles/glow_pixel"
@@ -18,12 +18,13 @@
 		},
 		"components": {
 			"minecraft:emitter_rate_instant": {
-				"num_particles": 50
+				"num_particles": 25
 			},
 			"minecraft:emitter_lifetime_once": {
 				"active_time": 1
 			},
 			"minecraft:emitter_shape_sphere": {
+				"offset": [0, 0.5, 0],
 				"radius": 0.1,
 				"direction": "outwards"
 			},
@@ -35,7 +36,7 @@
 			},
 			"minecraft:particle_initial_speed": 10,
 			"minecraft:particle_motion_dynamic": {
-				"linear_acceleration": ["math.random(1,-1)", "math.random(1.5,-1)", "math.random(1,-1)"],
+				"linear_acceleration": ["math.random(1,-1)", -2, "math.random(1,-1)"],
 				"linear_drag_coefficient": 5,
 				"rotation_acceleration": 10
 			},
@@ -55,7 +56,7 @@
 				"collision_radius": 0.1
 			},
 			"minecraft:particle_appearance_tinting": {
-				"color": [0, 1, 0.38039, 0.56078]
+				"color": [1, 0.95686, 0, 0.56078]
 			}
 		}
 	}

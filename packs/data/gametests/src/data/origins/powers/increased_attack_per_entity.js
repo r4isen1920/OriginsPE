@@ -25,4 +25,4 @@ system.runTimeout(() => {
     }
   )
 
-}, TicksPerSecond * 4)
+}, TicksPerSecond * 6)

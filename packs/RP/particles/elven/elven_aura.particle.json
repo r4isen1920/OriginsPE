@@ -22,12 +22,11 @@
 				"per_update_expression": "variable.ysize = !q.is_sneaking ? 1 : 0.8;"
 			},
 			"minecraft:emitter_rate_steady": {
-				"spawn_rate": 10,
-				"max_particles": 20
+				"spawn_rate": 5,
+				"max_particles": 10
 			},
-			"minecraft:emitter_lifetime_expression": {
-				"activation_expression": "q.property('r4isen1920_originspe:toggle_particles') && q.variant == 17 && q.scoreboard('ctrl') != 3",
-				"expiration_expression": "!q.property('r4isen1920_originspe:toggle_particles') && q.variant != 17 && q.scoreboard('ctrl') == 3"
+			"minecraft:emitter_lifetime_looping": {
+				"active_time": 1
 			},
 			"minecraft:emitter_shape_box": {
 				"offset": [0, "-(variable.ysize/2)", 0],
