@@ -2,10 +2,11 @@
   "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
-      "identifier": "r4isen1920_originspe:cook_dried_kelp",
+      "identifier": "r4isen1920_originspe:temp_dried_kelp",
       "menu_category": {
         "category": "items",
-        "is_hidden_in_commands": false
+        "group": "itemGroup.name.miscFood",
+        "is_hidden_in_commands": true
       }
     },
 
@@ -14,19 +15,15 @@
         "texture": "dried_kelp"
       },
       "minecraft:display_name": {
-        "value": "origins.item.cook.dried_kelp.name"
-      },
-      "minecraft:food": {
-        "nutrition": 2,
-
-        "can_always_eat": false
+        "value": "item.dried_kelp.name"
       },
 
-      "minecraft:max_stack_size": 64,
-
-      "minecraft:stacked_by_data": false,
-      "minecraft:use_duration": 1.6,
-      "minecraft:use_animation": "eat"
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:stacked_by_data": {
+        "value": true
+      }
     }
   }
 }

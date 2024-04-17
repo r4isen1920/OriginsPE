@@ -5,7 +5,7 @@
       "identifier": "r4isen1920_originspe:origins_power.phantomize",
       "menu_category": {
         "category": "items",
-        "is_hidden_in_commands": false
+        "is_hidden_in_commands": true
       }
     },
 
@@ -27,7 +27,6 @@
         "use_duration": 99999,
         "movement_modifier": 0
       },
-
       "minecraft:use_animation": {
         "value": "bow"
       }

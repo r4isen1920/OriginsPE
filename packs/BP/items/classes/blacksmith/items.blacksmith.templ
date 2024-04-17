@@ -1,0 +1,34 @@
+{
+  "$files": {
+    "array": "blacksmith_tools",
+    "filename": "{{value}}.blacksmith"
+  },
+
+  "$template": {
+
+    "format_version": "1.20.50",
+    "minecraft:item": {
+      "description": {
+        "identifier": "r4isen1920_originspe:temp_{{value}}",
+        "menu_category": {
+          "category": "equipment",
+          "group": "itemGroup.name.{{regexReplace(value, '.+_', '')}}",
+          "is_hidden_in_commands": true
+        }
+      },
+  
+      "components": {
+        "minecraft:icon": {
+          "texture": "{{value}}"
+        },
+        "minecraft:display_name": {
+          "value": "item.{{value}}.name"
+        },
+        "minecraft:max_stack_size": {
+          "value": 1
+        }
+      }
+    }
+
+  }
+}

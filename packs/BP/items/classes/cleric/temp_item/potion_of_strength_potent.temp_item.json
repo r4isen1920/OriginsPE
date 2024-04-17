@@ -5,7 +5,8 @@
       "identifier": "r4isen1920_originspe:temp_potion_of_strength_potent",
       "menu_category": {
         "category": "items",
-        "is_hidden_in_commands": false
+        "group": "itemGroup.name.potion",
+        "is_hidden_in_commands": true
       }
     },
 
@@ -14,16 +15,15 @@
         "texture": "potion_bottle_strength"
       },
       "minecraft:display_name": {
-        "value": "Potion of Strength\n§9Strength II (1:30)§r\n\n§5When Applied:§r\n§9+2 Attack Damage"
+        "value": "potion.damageBoost.name"
       },
 
-      "minecraft:max_stack_size": 1,
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
       "minecraft:glint": {
         "value": true
-      },
-
-      "minecraft:use_duration": 1.6,
-      "minecraft:use_animation": "drink"
+      }
     }
   }
 }

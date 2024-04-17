@@ -2,10 +2,11 @@
   "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
-      "identifier": "r4isen1920_originspe:cook_suspicious_stew_fire_resistance",
+      "identifier": "r4isen1920_originspe:temp_suspicious_stew_fire_resistance",
       "menu_category": {
         "category": "items",
-        "is_hidden_in_commands": false
+        "group": "itemGroup.name.miscFood",
+        "is_hidden_in_commands": true
       }
     },
 
@@ -14,38 +15,14 @@
         "texture": "suspicious_stew"
       },
       "minecraft:display_name": {
-        "value": "origins.item.cook.suspicious_stew.name"
-      },
-      "minecraft:food": {
-        "nutrition": 6,
-
-        "can_always_eat": true,
-        "using_converts_to": "bowl",
-        "on_consume": {
-          "event": "r4isen1920_originspe:on_consume",
-          "target": "self"
-        }
+        "value": "item.suspicious_stew.name"
       },
 
-      "minecraft:max_stack_size": 1,
-
-      "minecraft:stacked_by_data": false,
-      "minecraft:use_duration": 1.6,
-      "minecraft:use_animation": "eat"
-    },
-
-    "events": {
-      "r4isen1920_originspe:on_consume": {
-        "sequence": [
-          {
-            "add_mob_effect": {
-              "effect": "fire_resistance",
-              "target": "holder",
-              "duration": 4,
-              "amplifier": 0
-            }
-          }
-        ]
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:stacked_by_data": {
+        "value": true
       }
     }
   }

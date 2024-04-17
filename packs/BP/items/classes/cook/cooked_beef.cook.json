@@ -2,10 +2,11 @@
   "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
-      "identifier": "r4isen1920_originspe:cook_cooked_beef",
+      "identifier": "r4isen1920_originspe:temp_cooked_beef",
       "menu_category": {
         "category": "items",
-        "is_hidden_in_commands": false
+        "group": "itemGroup.name.cookedFood",
+        "is_hidden_in_commands": true
       }
     },
 
@@ -14,19 +15,15 @@
         "texture": "beef_cooked"
       },
       "minecraft:display_name": {
-        "value": "origins.item.cook.cooked_beef.name"
-      },
-      "minecraft:food": {
-        "nutrition": 9,
-
-        "can_always_eat": false
+        "value": "item.cooked_beef.name"
       },
 
-      "minecraft:max_stack_size": 64,
-
-      "minecraft:stacked_by_data": false,
-      "minecraft:use_duration": 1.6,
-      "minecraft:use_animation": "eat"
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:stacked_by_data": {
+        "value": true
+      }
     }
   }
 }
