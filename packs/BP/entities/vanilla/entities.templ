@@ -1,6 +1,6 @@
 {
   "$files": {
-    "array": "listBPFiles('entities', semver('1.19.70')).filter(x => !inanimate_entities.contains(fileBaseName(x)))",
+    "array": "listBPFiles('entities', semver('1.19.70')).filter(x => !exclude_entities.contains(fileBaseName(x)))",
     "filename": "{{fileBaseName(value)}}"
   },
   "$copy": "{{value}}",
@@ -8,7 +8,10 @@
   "$template": {
 
     "minecraft:entity": {
+
       "components": {
+
+        //* power_sinister_aura
         "minecraft:behavior.avoid_mob_type": {
           "priority": 4,
           "entity_types": [
@@ -23,8 +26,55 @@
               "sprint_speed_multiplier": 1.25
             }
           ]
+        },
+
+        //* perk_tamed_animal_boost
+        "minecraft:entity_sensor": {
+          "sensor_range": 21.0,
+          "relative_range": false,
+          "require_all": false,
+          "minimum_count": 1,
+          "maximum_count": -1,
+          "event_filters": {
+            "all_of": [
+              {
+                "test": "is_owner",
+                "subject": "other",
+                "value": true
+              },
+              {
+                "test": "has_tag",
+                "subject": "other",
+                "value": "perk_tamed_animal_boost"
+              },
+              {
+                "test": "has_tag",
+                "operator": "!=",
+                "value": "_already_tamed"
+              }
+            ]
+          },
+          "event": "r4isen1920_originspe:perk_tamed_animal_boost"
         }
+
+      },
+
+      "events": {
+
+        //* perk_tamed_animal_boost
+        "r4isen1920_originspe:perk_tamed_animal_boost": {
+          "queue_command": {
+            "command": [
+              "execute at @s[tag=!perk_tamed_animal_boost] run playsound random.levelup @a ~~~ 1.0 1.5",
+              "execute at @s[tag=!perk_tamed_animal_boost] run particle r4isen1920_originspe:beastmaster_on_tame ~~0.8~",
+
+              "tag @s add perk_tamed_animal_boost"
+            ]
+          }
+        }
+
       }
+
     }
 
   }

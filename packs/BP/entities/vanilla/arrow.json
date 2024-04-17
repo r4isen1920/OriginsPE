@@ -18,6 +18,41 @@
 
     "component_groups": {
 
+      /* OriginsPE */
+
+      "r4isen1920_originspe:perk_no_projectile_divergence": {
+        "minecraft:projectile": {
+          "on_hit": {
+            "impact_damage": {
+              "damage": 1,
+              "knockback": true,
+              "semi_random_diff_damage": true,
+              "destroy_on_hit": true,
+              "max_critical_damage": 10,
+              "min_critical_damage": 9,
+              "power_multiplier": 0.97
+            },
+            "stick_in_ground": {
+              "shake_time" : 0.35
+            },
+            "arrow_effect": {
+              "apply_effect_to_blocking_targets":  false
+            }
+          },
+          "hit_sound": "bow.hit",
+          "power": 5.0,
+          "gravity": 0.0,
+          "uncertainty_base": 0,
+          "uncertainty_multiplier": 0,
+          "anchor": 1,
+          "should_bounce": true,
+          "offset": [ 0, -0.1, 0 ]
+        }
+      },
+
+
+      /* Vanilla */
+
       "minecraft:hard_arrow": {
         "minecraft:projectile": {
           "on_hit": {
@@ -163,24 +198,8 @@
 
       "minecraft:entity_spawned": {
         "sequence": [
-          {
-            "filters": { "test": "is_difficulty", "value": "hard" },
-            "add": {
-              "component_groups": [ "minecraft:hard_arrow" ]
-            }
-          },
-          {
-            "filters": { "test": "is_family", "subject": "other", "value": "player" },
-            "add": {
-              "component_groups" : [ "minecraft:player_arrow" ]
-            }
-          },
-          {
-            "filters": { "test": "is_family", "subject": "other", "value": "pillager" },
-            "add": {
-              "component_groups": [ "minecraft:pillager_arrow" ]
-            }
-          },
+
+          /* OriginsPE */
 
           {
             "filters": { "test": "has_tag", "subject": "other", "value": "power_imbue" },
@@ -190,7 +209,46 @@
             "set_property": {
               "r4isen1920_originspe:is_imbued": true
             }
+          },
+          {
+            "filters": {
+              "all_of": [
+                { "test": "is_family", "subject": "other", "value": "player" },
+                { "test": "has_tag", "subject": "other", "value": "perk_no_projectile_divergence" }
+              ]
+            },
+            "add": {
+              "component_groups" : [ "r4isen1920_originspe:perk_no_projectile_divergence" ]
+            }
+          },
+
+
+          /* Vanilla */
+
+          {
+            "filters": { "test": "is_difficulty", "value": "hard" },
+            "add": {
+              "component_groups": [ "minecraft:hard_arrow" ]
+            }
+          },
+          {
+            "filters": {
+              "all_of": [
+                { "test": "is_family", "subject": "other", "value": "player" },
+                { "test": "has_tag", "subject": "other", "operator": "!=", "value": "perk_no_projectile_divergence" }
+              ]
+            },
+            "add": {
+              "component_groups" : [ "minecraft:player_arrow" ]
+            }
+          },
+          {
+            "filters": { "test": "is_family", "subject": "other", "value": "pillager" },
+            "add": {
+              "component_groups": [ "minecraft:pillager_arrow" ]
+            }
           }
+
         ]
       }
 

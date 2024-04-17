@@ -948,9 +948,9 @@
     
     "controls": [
       {
-        "copper_hoe_tool@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.perk.copper_hoe_tool.name",
-          "$power_description": "origins.perk.copper_hoe_tool.description"
+        "fast_crop_growth@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.perk.fast_crop_growth.name",
+          "$power_description": "origins.perk.fast_crop_growth.description"
         }
       },
       {
@@ -991,6 +991,12 @@
         "cheaper_trades@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.perk.cheaper_trades.name",
           "$power_description": "origins.perk.cheaper_trades.description"
+        }
+      },
+      {
+        "wandering_trader_spawn@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.perk.wandering_trader_spawn.name",
+          "$power_description": "origins.perk.wandering_trader_spawn.description"
         }
       }
     ]

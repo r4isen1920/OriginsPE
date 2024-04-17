@@ -339,6 +339,19 @@
         "minecraft:burns_in_daylight": {}
       },
 
+      "r4isen1920_originspe:display_name": {
+        "minecraft:nameable": {
+          "always_show": true,
+          "allow_name_tag_renaming": false
+        }
+      },
+      "r4isen1920_originspe:hide_name": {
+        "minecraft:nameable": {
+          "always_show": false,
+          "allow_name_tag_renaming": false
+        }
+      },
+
 
       /* Vanilla */
 
@@ -1002,6 +1015,13 @@
       },
       "r4isen1920_originspe:burns_in_daylight.false": {
         "remove": { "component_groups": [ "r4isen1920_originspe:burns_in_daylight" ] }
+      },
+
+      "r4isen1920_originspe:display_name.true": {
+        "add": { "component_groups": [ "r4isen1920_originspe:display_name" ] }
+      },
+      "r4isen1920_originspe:display_name.false": {
+        "add": { "component_groups": [ "r4isen1920_originspe:hide_name" ] }
       },
 
 

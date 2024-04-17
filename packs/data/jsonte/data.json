@@ -1,5 +1,6 @@
 {
-  "inanimate_entities": [
+  
+  "exclude_entities": [
     "agent",
     "area_effect_cloud",
     "armor_stand",
