@@ -22,7 +22,6 @@ export function soulburst(attacker, hurtEntity) {
   incrementBeelzebubProperty(attacker, 'dmg', -1 * getBeelzebubProperty(attacker, 'dmg'));
 
   world.playSound('ender_eye.dead', hurtEntity.location, { volume: 2.0 });
-  world.playSound('firework.twinkle', hurtEntity.location, { volume: 0.5, pitch: 1.25 });
 
   hurtEntity.dimension.spawnParticle('r4isen1920_originspe:voidwalker_soulburst', Vector3.add(hurtEntity.location, new Vector3(0, 1, 0)))
   attacker.dimension.spawnParticle(
