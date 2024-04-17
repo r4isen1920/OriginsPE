@@ -2,7 +2,7 @@
 export const voidwalker = {
   'powers': [
     'beelzebub',
-    'soulreap',
+    'soulburst',
     'umbral_veil',
     'life_drain',
     'sinister_aura',

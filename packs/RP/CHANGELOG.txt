@@ -21,8 +21,8 @@ current TODO
   - [Beelzebub]: Melee attacks will deal additional damage based on your missing health. Charges one stack of [Beelzebub] on attack, up to three.
   - [Soulburst]: When [Beelzebub] reaches three stacks, consumes all of it, and deals additional damage based on the total damage dealt when acquiring the stacks. 
   - [Umbral Veil]: Shrouds yourself in a dark energy when sprinting, granting additional speed and avoiding any projectile damage.
-  - [Sinister Aura]: Nearby mobs are frightened with your presence, and will run away from you. Even hostile mobs, except bosses, will not try and naturally harm you.
-  - [Life Drain]: Whenever you deal damage, your health is reduced by 5% of the target's current health, up to 50% of your max health. When your health is equal to 1, this will not reduce any further.
+  - [Sinister Aura]: Nearby passive mobs are frightened with your presence, and will run away from you.
+  - [Life Drain]: Whenever you deal damage, your health is reduced by the target's missing health, up to 50% of your max health. When your health is equal to 1, this will not reduce any further.
 
 # Diviner Origin Idea
   - [Prescience]: Punch with the ability selected to cast on up to two other players. Upon cast, increases both you and the other player's max health by 50% of all of your health combined.

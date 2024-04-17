@@ -6,6 +6,9 @@ import { toAllPlayers } from "../../../origins/player";
 import { MathR4 } from "../../../utils/Math";
 import { Vector3 } from "../../../utils/Vec3";
 
+import { life_drain } from "./life_drain";
+import { soulburst } from "./soulburst";
+
 const BAR_VALUES = [0, 29, 71, 100, 100];
 
 /**
@@ -24,7 +27,7 @@ function beelzebub(player) {
 
 }
 
-toAllPlayers(beelzebub, 5)
+toAllPlayers(beelzebub, 3)
 
 system.runTimeout(() => {
 
@@ -41,9 +44,19 @@ system.runTimeout(() => {
        * @type { import('@minecraft/server').Player }
        */
       const attacker = damageSource.damagingEntity;
-      if (attacker.hasTag('cooldown_20')) return;
 
-      const PITCH_VALUES = [ 1.25, 1.5, 1.75, 1.75 ];
+      //* Event debounce
+      const oldLog = console.log[JSON.stringify(attacker.id)]
+      console.log[JSON.stringify(attacker.id)] = Date.now()
+      if ((oldLog + 150) >= Date.now()) return;
+
+      //* Target filter
+      hurtEntity.addTag(`_beelzebub_target_${attacker.id}`);
+
+      //* Events trigger
+      soulburst(attacker, hurtEntity);
+      life_drain(attacker, hurtEntity);
+
       const phase = getBeelzebubProperty(attacker);
 
       new ResourceBar(19, BAR_VALUES[phase], BAR_VALUES[phase + 1], 1, true).push(attacker);
@@ -54,13 +67,15 @@ system.runTimeout(() => {
         `r4isen1920_originspe:voidwalker_beelzebub_phase_${phase}`,
         Vector3.add(
           attacker.getHeadLocation(),
-          Vector3.multiply(attacker.getViewDirection(), 1.25)
+          Vector3.multiply(attacker.getViewDirection(), 1.75)
         )
       )
-      attacker.playSound('ui.enchant', { volume: 2.0, pitch: PITCH_VALUES[phase] });
 
-      const attackerHealth = attacker.getComponent('health')
-      hurtEntity.applyDamage(attackerHealth.effectiveMax - attackerHealth.currentValue, { cause: EntityDamageCause.entityAttack, damagingEntity: attacker })
+      const PITCH_VALUES = [ 1.0, 1.25, 1.5, 1.75, 2.0 ];
+      world.playSound('enchant.sweeping_edge.hit', hurtEntity.location, { volume: 0.75, pitch: PITCH_VALUES[phase] });
+
+      const attackerHealth = attacker.getComponent('health');
+      attacker.runCommand(`damage @e[tag="_beelzebub_target_${attacker.id}",c=1] ${Math.ceil(attackerHealth.effectiveMax - attackerHealth.currentValue)}`);
 
     }
   )

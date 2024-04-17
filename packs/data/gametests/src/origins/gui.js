@@ -1,5 +1,5 @@
 
-import { world, system } from "@minecraft/server";
+import { world, system, TicksPerSecond } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
@@ -133,6 +133,9 @@ export function setPlayerGameMode(player) {
   const gameModes = [ 'adventure', 'creative', 'spectator', 'survival' ]
   const prevGamemode = gameModes.find(gamemode => player.matches({ gameMode: gamemode }))
 
+  player.addEffect('invisibility', TicksPerSecond * 255, { amplifier: 255, showParticles: false });
+  player.addEffect('resistance', TicksPerSecond * 255, { amplifier: 255, showParticles: false });
+
   const commands = [
     'gamerule sendcommandfeedback false',
     'gamemode survival',
@@ -154,6 +157,9 @@ function onCloseGUI(player) {
   player.addTag('_out_of_ui');
   player.removeTag('change_resign');
   player.removeTag('_init_bar');
+
+  player.removeEffect('invisibility');
+  player.removeEffect('resistance');
 
   const prevGamemode = player.getTags().find(tag => tag.startsWith('was_'))
   if (prevGamemode) {

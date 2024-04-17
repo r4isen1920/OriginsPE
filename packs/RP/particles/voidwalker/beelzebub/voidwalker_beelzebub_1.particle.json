@@ -5,7 +5,7 @@
 			"identifier": "r4isen1920_originspe:voidwalker_beelzebub_1",
 			"basic_render_parameters": {
 				"material": "particles_add",
-				"texture": "textures/origins/particles/sweep"
+				"texture": "textures/origins/particles/sweep1"
 			}
 		},
 		"components": {
@@ -23,7 +23,7 @@
 				"max_lifetime": 0.2
 			},
 			"minecraft:particle_appearance_billboard": {
-				"size": [-2, 1],
+				"size": [2, 1],
 				"facing_camera_mode": "lookat_xyz",
 				"uv": {
 					"texture_width": 30,

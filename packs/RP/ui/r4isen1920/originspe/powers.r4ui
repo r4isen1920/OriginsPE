@@ -712,8 +712,7 @@
       {
         "soulburst@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.soulburst.name",
-          "$power_description": "origins.trait.soulburst.description",
-          "$power_icon_index": "soulburst"
+          "$power_description": "origins.trait.soulburst.description"
         }
       },
       {
