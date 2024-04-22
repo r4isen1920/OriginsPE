@@ -1,0 +1,32 @@
+{
+  "$scope": {
+
+    "items": [
+      "smithing_netherite_axe",
+      "smithing_netherite_boots",
+      "smithing_netherite_chestplate",
+      "smithing_netherite_helmet",
+      "smithing_netherite_hoe",
+      "smithing_netherite_leggings",
+      "smithing_netherite_pickaxe",
+      "smithing_netherite_shovel",
+      "smithing_netherite_sword"
+    ]
+
+  },
+
+  "$files": {
+    "array": "listBPFiles('recipes', semver('1.20.70')).filter(x => items.contains(fileBaseName(x)))",
+    "filename": "{{fileBaseName(value)}}"
+  },
+  "$copy": "{{value}}",
+
+  "$template": {
+
+    "minecraft:recipe_smithing_transform": {
+      "result": "r4isen1920_originspe:temp_{{replace(fileBaseName(value), 'smithing_', '')}}"
+    }
+
+  }
+
+}

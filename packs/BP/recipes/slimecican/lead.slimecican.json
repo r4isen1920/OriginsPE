@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "r4isen1920_originspe:slimecican_slime_lead"
+    },
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      "~~ ",
+      "~O ",
+      "  ~"
+    ],
+    "key": {
+      "~": {
+        "item": "minecraft:string"
+      },
+      "O": {
+        "item": "r4isen1920_originspe:slimecican_slime_ball"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:slime_ball"
+      }
+    ],
+    "result": {
+      "item": "minecraft:lead",
+      "count": 2
+    }
+  }
+}

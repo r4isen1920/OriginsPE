@@ -1,0 +1,26 @@
+{
+  "$scope": {
+
+    "items": [
+      "bread"
+    ]
+
+  },
+
+  "$files": {
+    "array": "listBPFiles('recipes', semver('1.20.70')).filter(x => items.contains(fileBaseName(x)))",
+    "filename": "{{fileBaseName(value)}}"
+  },
+  "$copy": "{{value}}",
+
+  "$template": {
+
+    "minecraft:recipe_shaped": {
+      "result": {
+        "item": "r4isen1920_originspe:temp_{{fileBaseName(value)}}"
+      }
+    }
+
+  }
+
+}

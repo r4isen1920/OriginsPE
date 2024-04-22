@@ -1,0 +1,15 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_brewing_mix": {
+    "description": {
+      "identifier": "minecraft:brew_healing_glowstone_dust"
+    },
+
+    "tags": [ "brewing_stand" ],
+
+    "input": "minecraft:potion_type:healing",
+    "reagent": "minecraft:glowstone_dust",
+    "output": "r4isen1920_originspe:temp_potion_of_healing_potent"
+  }
+
+}

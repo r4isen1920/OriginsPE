@@ -1,0 +1,29 @@
+{
+  "$scope": {
+
+    "items": [
+      "furnace_beef",
+      "furnace_chicken",
+      "furnace_kelp",
+      "furnace_porkchop",
+      "furnace_potato",
+      "furnace_rabbit"
+    ]
+
+  },
+
+  "$files": {
+    "array": "listBPFiles('recipes', semver('1.20.70')).filter(x => items.contains(fileBaseName(x)))",
+    "filename": "{{fileBaseName(value)}}"
+  },
+  "$copy": "{{value}}",
+
+  "$template": {
+
+    "minecraft:recipe_furnace": {
+      "output": "r4isen1920_originspe:temp_{{replace(fileBaseName(value), 'furnace_', fileBaseName(value) == 'potato' ? 'baked_' : (fileBaseName(value) == 'kelp' ? 'dried_' : 'cooked_'))}}"
+    }
+
+  }
+
+}

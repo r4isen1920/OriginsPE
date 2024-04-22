@@ -1,0 +1,29 @@
+{
+  "$scope": {
+
+    "items": [
+      "beetroot_soup",
+      "mushroom_stew",
+      "rabbit_stew_from_brown_mushroom",
+      "rabbit_stew_from_red_mushroom"
+    ]
+
+  },
+
+  "$files": {
+    "array": "listBPFiles('recipes', semver('1.20.70')).filter(x => items.contains(fileBaseName(x)))",
+    "filename": "{{fileBaseName(value)}}"
+  },
+  "$copy": "{{value}}",
+
+  "$template": {
+
+    "minecraft:recipe_shapeless": {
+      "result": {
+        "item": "r4isen1920_originspe:temp_{{regexReplace(fileBaseName(value), '_from.+', '')}}"
+      }
+    }
+
+  }
+
+}

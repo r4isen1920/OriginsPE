@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "r4isen1920_originspe:slimecican_slime_magma_cream"
+    },
+    "tags": [ "crafting_table" ],
+    "ingredients": [
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "r4isen1920_originspe:slimecican_slime_ball"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "minecraft:blaze_powder"
+      }
+    ],
+    "result": {
+      "item": "minecraft:magma_cream"
+    }
+  }
+}
