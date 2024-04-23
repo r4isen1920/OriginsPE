@@ -8,15 +8,16 @@ import { EquipmentSlot, ItemStack } from "@minecraft/server";
  * r4isen1920
  * 
  * @remarks
- * Returns all items of the specified type
- * found within the entity's inventory in
- * an array
+ * Returns all items found within
+ * the entity's inventory in an
+ * array, optionally filtered by item type
+ * otherwise returns all items
  * 
  * @param { import("@minecraft/server").Entity } entity 
- * @param { import("@minecraft/server").ItemStack } item 
+ * @param { import("@minecraft/server").ItemStack | 'all' } item 
  * @returns { Array<{ item: import("@minecraft/server").ItemStack, slot: number }> }
  */
-export function findItems(entity, item) {
+export function findItems(entity, item='all') {
   let _A = [];
 
   const inventory = entity.getComponent('inventory');
@@ -26,7 +27,8 @@ export function findItems(entity, item) {
 
   for (let i = 0; i < inventoryContainer.size; i++) {
     const itemStack = inventoryContainer.getItem(i);
-    if (itemStack?.typeId.includes(item)) {
+    if (item === 'all') _A.push({ item: itemStack, slot: i });
+    else if (itemStack?.typeId.includes(item)) {
       _A.push({ item: itemStack, slot: i });
     }
   }

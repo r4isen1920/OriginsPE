@@ -246,8 +246,11 @@ export function resetPlayerAttributes(player) {
  * for all players in the world
  * 
  * @param { function } func 
+ * The function to run
  * @param { number } interval 
+ * The interval to run the function at
  * @param { number } timeout 
+ * The timeout before the function runs
  */
 export function toAllPlayers(func, interval=1, timeout=interval) {
   system.runTimeout(() => {
