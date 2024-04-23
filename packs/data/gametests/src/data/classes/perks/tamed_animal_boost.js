@@ -2,6 +2,7 @@
 import { TicksPerSecond } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
+import { MathR4 } from "../../../utils/Math";
 
 /**
  * 
@@ -16,13 +17,22 @@ function tamed_animal_boost(player) {
     excludeFamilies: [ 'player', 'inanimate' ]
   })
 
-  nearbyEntities.forEach(entity => {
-    if (entity.getComponent('is_tamed')) entity.addTag('_already_tamed');
-    else if (player.hasTag('perk_tamed_animal_boost')) {
-      const entityMaxHealth = entity.getComponent('health').effectiveMax;
-      entity.addEffect('health_boost', TicksPerSecond * 9999, { amplifier: 1 + Math.floor(entityMaxHealth / 4), showParticles: false });
+  for (let i = 0; i < nearbyEntities.length; i++) {
+    const entity = nearbyEntities[i];
+
+    if (
+      entity.hasTag('perk_tamed_animal_boost') &&
+      !entity.hasTag('_already_tamed')
+    ) {
+      const healthBoostAmplifier = Math.floor(entity.getComponent('health').defaultValue / 4)
+      entity.addEffect('health_boost', TicksPerSecond * 9999, { amplifier: MathR4.clamp(healthBoostAmplifier, 0, 255), showParticles: false });
+
+      if (!entity.hasTag('_on_tamed')) {
+        entity.addEffect('regeneration', TicksPerSecond * 10, { amplifier: 255, showParticles: false });
+        entity.addTag('_on_tamed');
+      }
     }
-  })
+  }
 
 }
 

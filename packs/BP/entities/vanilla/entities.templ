@@ -46,6 +46,32 @@
                   {
                     "test": "has_tag",
                     "subject": "other",
+                    "operator": "!=",
+                    "value": "perk_tamed_animal_boost"
+                  },
+                  {
+                    "test": "has_tag",
+                    "operator": "!=",
+                    "value": "_already_tamed"
+                  }
+                ]
+              },
+              "event": "r4isen1920_originspe:perk_tamed_animal_boost_not"
+            },
+            {
+              "require_all": false,
+              "minimum_count": 1,
+              "maximum_count": -1,
+              "event_filters": {
+                "all_of": [
+                  {
+                    "test": "is_owner",
+                    "subject": "other",
+                    "value": true
+                  },
+                  {
+                    "test": "has_tag",
+                    "subject": "other",
                     "value": "perk_tamed_animal_boost"
                   },
                   {
@@ -65,6 +91,13 @@
       "events": {
 
         //* perk_tamed_animal_boost
+        "r4isen1920_originspe:perk_tamed_animal_boost_not": {
+          "queue_command": {
+            "command": [
+              "tag @s add _already_tamed"
+            ]
+          }
+        },
         "r4isen1920_originspe:perk_tamed_animal_boost": {
           "queue_command": {
             "command": [

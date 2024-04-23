@@ -2,19 +2,19 @@
 import { world, system, TicksPerSecond } from "@minecraft/server";
 
 const potionEffects = [
-  'minecraft:fire_resistance',
-  'minecraft:invisibility',
-  'minecraft:jump_boost',
-  'minecraft:night_vision',
-  'minecraft:poison',
-  'minecraft:regeneration',
-  'minecraft:resistance',
-  'minecraft:slow_falling',
-  'minecraft:slowness',
-  'minecraft:speed',
-  'minecraft:strength',
-  'minecraft:water_breathing',
-  'minecraft:weakness'
+  'fire_resistance',
+  'invisibility',
+  'jump_boost',
+  'night_vision',
+  'poison',
+  'regeneration',
+  'resistance',
+  'slow_falling',
+  'slowness',
+  'speed',
+  'strength',
+  'water_breathing',
+  'weakness'
 ]
 
 system.runTimeout(() => {
@@ -25,12 +25,11 @@ system.runTimeout(() => {
       const { entity } = event;
       if (
         entity.typeId !== 'minecraft:player' ||
-        !entity.hasTag('perk_effective_empathy') ||
-        !entity.hasTag('_out_of_ui')
+        !entity.hasTag('perk_effective_empathy')
       ) return;
 
-      const validEffects = entity.getEffects().map(e => ({ typeId: e.typeId, duration: e.duration, amplifier: e.amplifier })).filter(e => potionEffects.includes(e.typeId));
-      console.warn(`${entity.name}: ${JSON.stringify(validEffects)}`)
+      const validEffects = entity.getEffects().map(e => ({ typeId: e.typeId, duration: e.duration, amplifier: e.amplifier })).filter(e => (potionEffects.includes(e.typeId) && e.amplifier < 10));
+      if (validEffects.length === 0) return;
 
       entity.dimension.getEntities({
         location: entity.location,
@@ -39,7 +38,7 @@ system.runTimeout(() => {
         excludeFamilies: [ 'player', 'inanimate' ]
       }).forEach(nearbyEntity => {
         validEffects.forEach(effect => {
-          nearbyEntity.addEffect(effect.typeId, effect.duration, { amplifier: effect.amplifier });
+          nearbyEntity.addEffect(effect.typeId, effect.duration, { amplifier: effect.amplifier || 0 });
         })
       })
 
