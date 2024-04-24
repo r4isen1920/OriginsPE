@@ -5,7 +5,7 @@
       "identifier": "r4isen1920_originspe:orb_of_origins",
       "menu_category": {
         "category": "items",
-        "is_hidden_in_commands": true
+        "is_hidden_in_commands": false
       }
     },
 
@@ -24,6 +24,9 @@
       },
       "minecraft:food": {
         "can_always_eat": true
+      },
+      "minecraft:hover_text_color": {
+        "value": "gold"
       },
 
       "minecraft:use_modifiers": {

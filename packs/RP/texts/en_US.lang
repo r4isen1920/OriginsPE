@@ -321,8 +321,8 @@ origins.perk.tree_felling.description=You can cut down an entire tree when using
 origins.perk.sapling_setblock.name=Replanting
 origins.perk.sapling_setblock.description=When you take down a try using an axe, there's a chance that type of tree may be replanted with the same type of sapling.
 
-origins.item.orb_of_origins.name=§eOrb of Origins§r
-origins.item.resignation_paper.name=§eResignation Paper§r
+origins.item.orb_of_origins.name=Orb of Origins
+origins.item.resignation_paper.name=Resignation Paper
 origins.item.origins_menu.name=§7[Toggle Menu]§r
 origins.item.origins_submenu.name=§7[More Options]§r
 origins.item.origins_menu_padding.name=§7§r
