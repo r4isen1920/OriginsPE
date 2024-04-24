@@ -32,7 +32,7 @@ function giveArrow(player) {
 
     const newArrow = new ItemStack('minecraft:arrow', 1)
     newArrow.lockMode = ItemLockMode.inventory
-    newArrow.setLore(['OriginsPE'])
+    newArrow.setLore(['§r§6Endless Quiver§r'])
     player.getComponent('inventory').container.addItem(newArrow);
 
     player.playSound('note.pling', { volume: 0.1, pitch: 1.75 });
@@ -54,7 +54,7 @@ function takeArrow(player) {
 
   player.removeTag('cooldown_17');
 
-  const newArrow = findItemsWithLore(player, 'minecraft:arrow', ['OriginsPE']);
+  const newArrow = findItemsWithLore(player, 'minecraft:arrow', ['§r§6Endless Quiver§r']);
   if (!newArrow) return;
 
   player.getComponent('inventory').container.setItem(newArrow[0].slot, undefined);

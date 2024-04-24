@@ -17,7 +17,7 @@ function elytra(player) {
        * @type { string[] }
        */
       const lore = playerEquipment.getEquipment(EquipmentSlot.Chest)?.getLore()
-      if (!lore.includes('OriginsPE')) return
+      if (!lore.includes('§r§6Elytrian§r')) return
       playerEquipment.setEquipment(EquipmentSlot.Chest, undefined)
     }
 
@@ -28,7 +28,7 @@ function elytra(player) {
 
   const newElytra = new ItemStack('minecraft:elytra')
   newElytra.lockMode = ItemLockMode.slot
-  newElytra.setLore(['OriginsPE'])
+  newElytra.setLore(['§r§6Elytrian§r'])
 
   player.getComponent('equippable').setEquipment(EquipmentSlot.Chest, newElytra)
 }
