@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "log:1",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
