@@ -431,4 +431,5 @@ action.hint.exit.console.r4isen1920_originspe:inventory_keep=Press :_input_key.i
 action.hint.exit.r4isen1920_originspe:dark_energy=Tap the jump button to stop flying
 action.hint.exit.console.r4isen1920_originspe:dark_energy=Press :_input_key.sneak: to stop flying
 
-progressScreen.message.appearanceLoadWaitTimeMet=Loading Origins and classes
+progressScreen.title.modifiedWorldWarning=Loading Origins and classes
+progressScreen.message.modifiedWorldWarning=Please wait while the game loads your Origin and class
