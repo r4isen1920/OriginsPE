@@ -199,30 +199,20 @@
           "swim": 0.02
         }
       },
-      "r4isen1920_originspe:exhaustion.miner": {
-        "minecraft:exhaustion_values": {
-          "heal": 6,
-          "jump": 0.05,
-          "sprint_jump": 0.2,
-          "mine": 0.0,
-          "attack": 0.1,
-          "damage": 0.1,
-          "walk": 0.0,
-          "sprint": 0.1,
-          "swim": 0.01
-        }
-      },
       "r4isen1920_originspe:exhaustion.piglin": {
         "minecraft:exhaustion_values": {
-          "heal": 15,
-          "jump": 0.05,
-          "sprint_jump": 0.2,
-          "mine": 0.005,
-          "attack": 0.1,
-          "damage": 0.1,
-          "walk": 0.0,
-          "sprint": 0.1,
-          "swim": 0.01
+          "heal": 15
+        }
+      },
+      "r4isen1920_originspe:exhaustion.explorer": {
+        "minecraft:exhaustion_values": {
+          "sprint_jump": 0.0,
+          "sprint": 0.0
+        }
+      },
+      "r4isen1920_originspe:exhaustion.miner": {
+        "minecraft:exhaustion_values": {
+          "mine": 0.0
         }
       },
 
@@ -940,11 +930,14 @@
       "r4isen1920_originspe:exhaustion.shulk": {
         "add": { "component_groups": [ "r4isen1920_originspe:exhaustion.shulk" ] }
       },
-      "r4isen1920_originspe:exhaustion.miner": {
-        "add": { "component_groups": [ "r4isen1920_originspe:exhaustion.miner" ] }
-      },
       "r4isen1920_originspe:exhaustion.piglin": {
         "add": { "component_groups": [ "r4isen1920_originspe:exhaustion.piglin" ] }
+      },
+      "r4isen1920_originspe:exhaustion.explorer": {
+        "add": { "component_groups": [ "r4isen1920_originspe:exhaustion.explorer" ] }
+      },
+      "r4isen1920_originspe:exhaustion.miner": {
+        "add": { "component_groups": [ "r4isen1920_originspe:exhaustion.miner" ] }
       },
 
       "r4isen1920_originspe:family_type.player": {
