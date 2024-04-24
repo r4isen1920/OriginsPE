@@ -241,4 +241,4 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
       break;
   }
 
-})
+}, { namespaces: [ 'r4isen1920_originspe' ] })

@@ -133,5 +133,5 @@ system.afterEvents.scriptEventReceive.subscribe(
         break;
 
     }
-  }
+  }, { namespaces: [ 'r4isen1920_originspe' ] }
 )
