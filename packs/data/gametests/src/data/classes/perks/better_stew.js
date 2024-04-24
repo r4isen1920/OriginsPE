@@ -21,7 +21,7 @@ function better_stew(player) {
 
   for (const item of foodItemsInInventory) {
     const convertItem = new ItemStack(item.item.typeId.replace('r4isen1920_originspe:temp_', 'minecraft:'), item.item.amount)
-    if (player.hasTag('perk_better_stew')) convertItem.setLore(['§r§6Enhanced by a Cook§r'])
+    if (player.hasTag('perk_better_stew')) convertItem.setLore(['§r§6Rejuvenating Soup§r'])
     player.getComponent('inventory').container.setItem(item.slot, convertItem)
   }
   if (player.hasTag('perk_better_stew')) player.playSound('random.cook')
@@ -43,7 +43,7 @@ system.runTimeout(() => {
       const { itemStack, source } = event;
       if (
         !items.some(i => itemStack.typeId.includes(i.replace('r4isen1920_originspe:temp_', ''))) ||
-        !itemStack.getLore().includes('§r§6Enhanced by a Cook§r')
+        !itemStack.getLore().includes('§r§6Rejuvenating Soup§r')
       ) return
 
       source.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 1 });
