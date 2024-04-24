@@ -6,8 +6,8 @@ import { removeTags } from '../utils/tags';
 
 /**
  * 
- * Returns the scoreboard
- * for the specified resource bar
+ * Returns the specified scoreboard
+ * objective
  * 
  * @param { string } id 
  */

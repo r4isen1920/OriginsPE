@@ -1,7 +1,7 @@
 
 import { EquipmentSlot, ItemStack, TicksPerSecond, system, world } from "@minecraft/server";
 
-import { openOptionsGUI, openScreenPickerGUI } from "./gui";
+import { openOptionsGUI, openScreenPickerGUI, getToggleValue } from "./gui";
 import { openAbilityHotbar, closeAbilityHotbar, getControlTags } from "./controls";
 import { _SCOREBOARD } from "./resource_bar";
 import { toAllPlayers } from "./player";
@@ -29,7 +29,7 @@ system.runTimeout(() => {
       switch (itemStack.typeId) {
 
         case 'r4isen1920_originspe:orb_of_origins':
-          if (_SCOREBOARD('index').getScore('toggle_orb') === 1) {
+          if (getToggleValue('orb') === 1) {
 
             source.addTag('change_resign');
             openScreenPickerGUI(source, 'race', 'change');
@@ -38,7 +38,7 @@ system.runTimeout(() => {
           } else source.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.race');
           break;
         case 'r4isen1920_originspe:resignation_paper': 
-          if (_SCOREBOARD('index').getScore('toggle_paper') === 1) {
+          if (getToggleValue('paper') === 1) {
 
             source.addTag('change_resign');
             openScreenPickerGUI(source, 'class', 'change');

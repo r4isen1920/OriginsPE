@@ -4,6 +4,7 @@ import { world, system, ItemStack, TicksPerSecond, ItemLockMode } from "@minecra
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
 import { toAllPlayers } from "./player";
+import { _SCOREBOARD } from "./resource_bar";
 
 
 /**
@@ -65,6 +66,24 @@ export function openScreenPickerGUI(player, set='race', viewType='pick') {
 
 /**
  * 
+ * Retrieves or initializes the scoreboard
+ * value for a given options toggle.
+ * 
+ * @param { 'orb' | 'paper' | 'unique' | 'announce' } toggleName 
+ * @returns { number }
+ */
+export function getToggleValue(toggleName) {
+  let score = 0;
+  try {
+    score = _SCOREBOARD('index').getScore(`toggle_${toggleName}`);
+  } catch {
+    _SCOREBOARD('index').setScore(`toggle_${toggleName}`, toggleName === 'unique' ? 0 : 1);
+  }
+  return _SCOREBOARD('index').getScore(`toggle_${toggleName}`);
+}
+
+/**
+ * 
  * Opens the options GUI for
  * the given player
  * 
@@ -94,22 +113,7 @@ export function openOptionsGUI(player, optionType) {
       else dialogueId = 'gui_options_admin_denied'
       break;
     case optionType === 'admin_toggle':
-      /**
-       * @param { 'orb' | 'paper' | 'unique' | 'announce' } toggleName 
-       * @returns { number }
-       */
-      const toggleValue = function(toggleName) {
-        let score = 0;
-
-        try {
-          score = world.scoreboard.getObjective('index').getScore(`toggle_${toggleName}`)
-        } catch {
-          world.scoreboard.getObjective('index').setScore(`toggle_${toggleName}`, toggleName === 'unique' ? 0 : 1)
-        }
-
-        return world.scoreboard.getObjective('index').getScore(`toggle_${toggleName}`);
-      }
-      dialogueId = `gui_options_admin_toggle_root_${toggleValue('orb')}${toggleValue('paper')}${toggleValue('unique')}${toggleValue('announce')}`;
+      dialogueId = `gui_options_admin_toggle_root_${getToggleValue('orb')}${getToggleValue('paper')}${getToggleValue('unique')}${getToggleValue('announce')}`;
       break;
   }
 
