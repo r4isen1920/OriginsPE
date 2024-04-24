@@ -1,7 +1,7 @@
 
-import { world, system, ItemStack, ItemLockMode } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 
-import { openScreenPickerGUI } from "./gui.js";
+import { openScreenPickerGUI, setupMenuItem } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
 import { ResourceBar } from "./resource_bar.js";
 
@@ -167,9 +167,7 @@ export async function initModules(player) {
   loadPlayerEffects(player, 'skin', EFFECTS.skin);
   loadPlayerEffects(player, 'emitter', EFFECTS.emitter);
 
-  const originsMenuItem = new ItemStack('r4isen1920_originspe:origins_menu');
-  originsMenuItem.lockMode = ItemLockMode.slot;
-  player.getComponent('inventory').container.setItem(8, originsMenuItem);
+  setupMenuItem(player);
 
 }
 

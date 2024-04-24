@@ -1,8 +1,9 @@
 
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, ItemStack, TicksPerSecond, ItemLockMode } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
+import { toAllPlayers } from "./player";
 
 
 /**
@@ -167,6 +168,31 @@ function onCloseGUI(player) {
     player.removeTag(`was_${prevGamemode}`)
   }
 }
+
+/**
+ * 
+ * Sets up the Origins menu item for the given player
+ * 
+ * @param { import('@minecraft/server').Player } player 
+ */
+export function setupMenuItem(player) {
+
+  /**
+   * @type { import('@minecraft/server').Container }
+   */
+  const inventoryComponent = player.getComponent('inventory').container;
+  if (inventoryComponent.getItem(8)?.typeId !== 'r4isen1920_originspe:origins_menu') {
+
+  const originsMenuItem = new ItemStack('r4isen1920_originspe:origins_menu');
+    originsMenuItem.lockMode = ItemLockMode.slot;
+    originsMenuItem.keepOnDeath = true;
+    inventoryComponent.setItem(8, originsMenuItem);
+
+  }
+
+}
+
+toAllPlayers(setupMenuItem, TicksPerSecond * 2, TicksPerSecond * 10);
 
 /**
  * 
