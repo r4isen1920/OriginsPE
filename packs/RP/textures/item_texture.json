@@ -18,6 +18,7 @@
     "r4isen1920_originspe:origins_power.pounce": { "textures": [ "textures/origins/hud/controls/pounce" ] },
     "r4isen1920_originspe:origins_power.hyper_leap": { "textures": [ "textures/origins/hud/controls/hyper_leap" ] },
     "r4isen1920_originspe:origins_power.shooting_star": { "textures": [ "textures/origins/hud/controls/shooting_star" ] },
+    "r4isen1920_originspe:origins_power.prescience": { "textures": [ "textures/origins/hud/controls/prescience" ] },
 
 
 		"wooden_axe": { "textures": [ "textures/items/wood_axe" ] },

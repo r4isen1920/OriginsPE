@@ -28,6 +28,13 @@
           "default": true
         },
 
+        "r4isen1920_originspe:has_divine_aura": {
+          //* Returns 1.0 if the player has the divine aura, otherwise 0.0
+          "client_sync": true,
+          "type": "bool",
+          "default": false
+        },
+
         "r4isen1920_originspe:model_type": {
           //* Returns the current model type of the player
           "client_sync": true,
@@ -1093,6 +1100,14 @@
       }, 
       "r4isen1920_originspe:toggle_particles.off": {
         "set_property": { "r4isen1920_originspe:toggle_particles": false }
+      },
+
+
+      "r4isen1920_originspe:has_divine_aura.true": {
+        "set_property": { "r4isen1920_originspe:has_divine_aura": true }
+      }, 
+      "r4isen1920_originspe:has_divine_aura.false": {
+        "set_property": { "r4isen1920_originspe:has_divine_aura": false }
       },
 
 

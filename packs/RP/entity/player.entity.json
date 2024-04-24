@@ -10,17 +10,23 @@
         "spectator": "player_spectator",
 
         "ghostly": "ghostly",
+        "highlight_base": "highlight_base",
+        "highlight_outliner": "highlight_outliner",
         "custom": "entity_custom"
       },
       "textures": {
         "default": "textures/entity/steve",
         "cape": "textures/entity/cape_invisible",
 
-        "slimy": "textures/entity/slime_overlay"
+        "slimy": "textures/entity/slime_overlay",
+        "divine": "textures/entity/divine_aura"
       },
       "geometry": {
         "default": "geometry.humanoid.custom",
-        "cape": "geometry.cape"
+        "cape": "geometry.cape",
+
+        "default_scaled": "geometry.r4isen1920_originspe.player_scaled",
+        "default_scaled_slim_arms": "geometry.r4isen1920_originspe.player_scaled_slim_arms"
       },
       "scripts": {
         "scale": "0.9375",
@@ -36,11 +42,14 @@
 
           /* OriginsPE */
 
+          "v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);",
+
           "v.p_is_riding_dummy = false;",
           "v.p_toggle_particles = true;",
           "v.p_model_type = 'normal';",
           "v.p_skin_type = 'normal';",
-          "v.p_emitter_type = 'none';"
+          "v.p_emitter_type = 'none';",
+          "v.p_has_divine_aura = false;"
         ],
         "pre_animation": [
 
@@ -55,13 +64,17 @@
           "v.first_person_rotation_factor = math.sin((1 - v.attack_time) * 180.0);",
           "v.hand_bob = q.life_time < 0.01 ? 0.0 : v.hand_bob + ((q.is_on_ground && q.is_alive ? math.clamp(math.sqrt(math.pow(q.position_delta(0), 2.0) + math.pow(q.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - v.hand_bob) * 0.02;",
 
+          "v.map_angle = math.clamp(1 - v.player_x_rotation / 45.1, 0.0, 1.0);",
+          "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;",
+
 
           /* OriginsPE */
 
-          "!q.is_in_ui && !v.is_paperdoll ? { v.p_is_riding_dummy = q.property('r4isen1920_originspe:is_riding_dummy'); v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles'); v.p_model_type = q.property('r4isen1920_originspe:model_type'); v.p_skin_type = q.property('r4isen1920_originspe:skin_type'); v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type'); };",
+          "!q.is_in_ui && !v.is_paperdoll ? { v.p_is_riding_dummy = q.property('r4isen1920_originspe:is_riding_dummy'); v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles'); v.p_model_type = q.property('r4isen1920_originspe:model_type'); v.p_skin_type = q.property('r4isen1920_originspe:skin_type'); v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type'); v.p_has_divine_aura = q.property('r4isen1920_originspe:has_divine_aura'); };",
 
-          "v.map_angle = math.clamp(1 - v.player_x_rotation / 45.1, 0.0, 1.0);",
-          "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;"
+          "v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);"
+
+
         ],
         "animate": [
           "root",
@@ -171,7 +184,10 @@
         { "controller.render.player.ghostly.third_person": "q.any(v.p_skin_type, 'ghostly', 'shadow') && !v.is_first_person && !v.map_face_icon" },
         { "controller.render.player.ghostly.third_person_overlay": "q.any(v.p_skin_type, 'ghostly', 'shadow') && !v.is_first_person && !v.map_face_icon" },
         { "controller.render.player.slimy": "v.p_skin_type == 'slimy' && v.is_first_person" },
-        { "controller.render.player.slimy.third_person": "v.p_skin_type == 'slimy' && !v.is_first_person && !v.map_face_icon" }
+        { "controller.render.player.slimy.third_person": "v.p_skin_type == 'slimy' && !v.is_first_person && !v.map_face_icon" },
+        { "controller.render.player.divine": "v.p_skin_type == 'normal' && v.p_has_divine_aura && v.is_first_person" },
+        { "controller.render.player.divine.third_person": "v.p_skin_type == 'normal' && v.p_has_divine_aura && !v.is_first_person && !v.map_face_icon" },
+        { "controller.render.player.divine.third_person_slim": "v.p_skin_type == 'normal' && v.p_has_divine_aura && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" }
       ],
       "enable_attachables": true
     }
