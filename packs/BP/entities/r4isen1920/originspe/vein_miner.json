@@ -1,0 +1,81 @@
+{
+  "format_version": "1.18.30",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:vein_miner",
+
+      "is_summonable": true
+    },
+
+    "component_groups": {
+      "r4isen1920_originspe:instant_despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.0,
+        "height": 0.0
+      },
+
+      "minecraft:interact": {
+        "interactions": {
+          "on_interact": {
+            "filters": {
+              "all_of": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              }
+            }
+          }
+        }
+      },
+      "minecraft:health": {
+        "min": 1,
+        "value": 1
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:type_family": {
+        "family": [ "vein_miner", "originspe", "inanimate" ]
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:movement": {
+        "value": 0.0
+      },
+      "minecraft:timer": {
+        "time": 0.25,
+        "looping": true,
+        "time_down_event": {
+          "event": "r4isen1920_originspe:instant_despawn",
+          "target": "self"
+        }
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false,
+        "push_towards_closest_space": false
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+      }
+    },
+
+    "events": {
+
+      "r4isen1920_originspe:instant_despawn": {
+        "add": {
+          "component_groups": [ "r4isen1920_originspe:instant_despawn" ]
+        }
+      }
+
+    }
+  }
+}

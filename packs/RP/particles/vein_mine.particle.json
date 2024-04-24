@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "r4isen1920_originspe:lumberjack_dig_down",
+			"identifier": "r4isen1920_originspe:vein_mine",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
 				"texture": "textures/particle/particles"
@@ -17,7 +17,7 @@
 				"rotation": true
 			},
 			"minecraft:emitter_rate_instant": {
-				"num_particles": 25
+				"num_particles": 5
 			},
 			"minecraft:emitter_lifetime_looping": {
 				"active_time": 1
@@ -26,13 +26,12 @@
 				"offset": [0, "variable.box_size", 0],
 				"half_dimensions": ["variable.box_size", "variable.box_size", "variable.box_size"],
 				"surface_only": true,
-				"direction": [0, -1, 0]
+				"direction": [0, 1, 0]
 			},
 			"minecraft:particle_lifetime_expression": {
 				"max_lifetime": "variable.particle_random_1*variable.lifetime"
 			},
 			"minecraft:particle_initial_speed": 1,
-			"minecraft:particle_motion_dynamic": {},
 			"minecraft:particle_appearance_billboard": {
 				"size": ["variable.size*(variable.particle_random_1*variable.lifetime-variable.particle_age)", "variable.size*(variable.particle_random_1*variable.lifetime-variable.particle_age)"],
 				"facing_camera_mode": "rotate_xyz",
