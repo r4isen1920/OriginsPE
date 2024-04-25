@@ -80,7 +80,8 @@
             "enderian",
             "starborne",
             "elven",
-            "voidwalker"
+            "voidwalker",
+            "diviner"
           ]
         }
 
@@ -1556,6 +1557,14 @@
           {
             "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "voidwalker" },
             "set_property": { "r4isen1920_originspe:emitter_type": "voidwalker" }
+          }
+        ]
+      },
+      "r4isen1920_originspe:emitter_type.diviner": {
+        "sequence": [
+          {
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:emitter_type", "operator": "!=", "value": "diviner" },
+            "set_property": { "r4isen1920_originspe:emitter_type": "diviner" }
           }
         ]
       },

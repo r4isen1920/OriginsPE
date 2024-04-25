@@ -10,5 +10,8 @@ export const diviner = {
   ],
   'controls': [
     'prescience',
-  ]
+  ],
+  'effects': {
+    'emitter': 'diviner'
+  }
 }

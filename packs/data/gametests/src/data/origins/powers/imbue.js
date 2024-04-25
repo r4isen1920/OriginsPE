@@ -25,10 +25,11 @@ system.runTimeout(() => {
 
       hurtEntity.applyDamage(Math.round(additionalDamage), { cause: EntityDamageCause.override, damagingEntity: damageSource.damagingEntity });
 
-      hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_charge', Vector3.add(hurtEntity.location, new Vector3(0, 1, 0)));
+      damageSource.damagingEntity.runCommand('particle r4isen1920_originspe:elven_bow_charge ^^1^1.25');
       hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', Vector3.add(hurtEntity.location, new Vector3(0, 1, 0)));
       world.playSound('ender_eye.dead', hurtEntity.location);
       damageSource.damagingEntity.playSound('ender_eye.dead');
+
     }
   )
 

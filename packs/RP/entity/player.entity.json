@@ -84,7 +84,8 @@
           { "enderian_particles": "!v.is_paperdoll" },
           { "starborne_particles": "!v.is_paperdoll" },
           { "elven_particles": "!v.is_paperdoll" },
-          { "voidwalker_particles": "!v.is_paperdoll" }
+          { "voidwalker_particles": "!v.is_paperdoll" },
+          { "diviner_particles": "!v.is_paperdoll" }
         ]
       },
       "animations": {
@@ -154,7 +155,8 @@
         "enderian_particles": "controller.animation.r4isen1920_originspe.particles.enderian",
         "starborne_particles": "controller.animation.r4isen1920_originspe.particles.starborne",
         "elven_particles": "controller.animation.r4isen1920_originspe.particles.elf",
-        "voidwalker_particles": "controller.animation.r4isen1920_originspe.particles.voidwalker"
+        "voidwalker_particles": "controller.animation.r4isen1920_originspe.particles.voidwalker",
+        "diviner_particles": "controller.animation.r4isen1920_originspe.particles.diviner"
       },
       "particle_effects": {
         "enderian_aura": "r4isen1920_originspe:space_aura",
@@ -165,7 +167,9 @@
 
         "elven_aura": "r4isen1920_originspe:elven_aura",
 
-        "voidwalker_aura": "r4isen1920_originspe:voidwalker_aura"
+        "voidwalker_aura": "r4isen1920_originspe:voidwalker_aura",
+
+        "diviner_aura": "r4isen1920_originspe:diviner_aura"
       },
       "render_controllers": [
 

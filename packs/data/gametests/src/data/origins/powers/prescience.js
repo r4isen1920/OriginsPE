@@ -36,6 +36,9 @@ system.runTimeout(() => {
       hitEntity.addTag(`_under_prescience_id_${setId}`)
       hitEntity.triggerEvent('r4isen1920_originspe:has_divine_aura.true')
 
+      //* Player effects
+      world.playSound('ender_eye.dead', hitEntity.location, { volume: 1.5, pitch: 0.75 })
+
     }
   )
 
@@ -114,5 +117,8 @@ export function removePrescienceEffect(player, id=undefined) {
   }
 
   player.triggerEvent('r4isen1920_originspe:has_divine_aura.false')
+
+  //* Player effects
+  world.playSound('respawn_anchor.deplete', player.location, { pitch: 1.75 })
 
 }
