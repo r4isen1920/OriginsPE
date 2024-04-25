@@ -18,17 +18,6 @@
       },
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:food": {
-        "can_always_eat": true
-      },
-
-      "minecraft:use_modifiers": {
-        "use_duration": 99999,
-        "movement_modifier": 0
-      },
-      "minecraft:use_animation": {
-        "value": "bow"
       }
     }
   }

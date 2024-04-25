@@ -117,10 +117,10 @@ function pride(player) {
     value: goldWearables.find(goldItem => goldItem.typeId === item.typeId)?.value || 0
   }));
 
-  const prevValue = parseInt(player.getTags()?.filter(tag => tag?.startsWith('_pride_value_'))[0]?.split('_pride_value_')[1]);
+  const prevValue = parseInt(player.getTags()?.filter(tag => tag?.startsWith('_dmg_reduce_value_'))[0]?.split('_dmg_reduce_value_')[1]);
   const currentValue = Math.round(totalGold + wornEquipments.reduce((total, item) => total + item.value, 0))
 
-  if (prevValue === undefined) { player.addTag('_pride_value_0'); return }
+  if (prevValue === undefined) { player.addTag('_dmg_reduce_value_0'); return }
 
   if (!player.hasTag('_init_bar')) {
     new ResourceBar(15, normalize(currentValue, 90), normalize(currentValue, 90), 1, true)
@@ -131,8 +131,8 @@ function pride(player) {
   }
 
   if (prevValue !== currentValue) {
-    removeTags(player, '_pride_value_')
-    player.addTag('_pride_value_' + currentValue)
+    removeTags(player, '_dmg_reduce_value_')
+    player.addTag('_dmg_reduce_value_' + currentValue)
 
     if (currentValue > 0) {
       new ResourceBar(15, normalize(prevValue, 90) || 0, normalize(currentValue, 90), 1, true)

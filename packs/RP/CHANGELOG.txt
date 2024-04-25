@@ -25,11 +25,11 @@ current TODO
   - [Life Drain]: Whenever you deal damage, your health is reduced by the target's missing health, up to 50% of your max health. When your health is equal to 1, this will not reduce any further.
 
 # Diviner Origin Idea
-  - [Prescience]: Punch with the ability selected to cast on up to two other players. Upon cast, increases both you and the other player's max health by 50% of all of your health combined.
-  - [Oracle]: When players under the effect of [Prescience] you've casted, took any damage or received healing, it will be distributed among you and the other players.
-  - [Aegis]: Any external damage taken directly will deflect 50% of the damage back to the attacker. This ability will not trigger on attackers wherein you have casted [Prescience] on.
-  - [Divine Aura]: Players under the effect of [Prescience] will glow, and can be seen through walls.
-  - [Fragility]: The less health you have, the more damage you will take.
+  - [Prescience]: Punch with the ability selected to cast onto another player. Upon cast, increases both you and the other player's max health by 50% to 60% of both of your health combined.
+  - [Oracle]: When the player under the effect of [Prescience] you've casted took any damage or received healing, it will be distributed to you and the other player.
+  - [Aegis]: Any external damage taken directly will deflect 50% of the damage back to the attacker.
+  - [Divine Aura]: You and the other player under the effect of [Prescience] will glow, and can be seen through walls.
+  - [Fragility]: The less health you have, the more susceptible you are from any damage.
   - [Instability]: For every unique status effect applied to you, your max health will be reduced by 1. When your health is equal to 1, this will not reduce any further.
 
 # re-write everything to scripts
