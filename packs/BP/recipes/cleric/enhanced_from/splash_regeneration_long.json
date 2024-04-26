@@ -9,7 +9,7 @@
 
     "input": "r4isen1920_originspe:cleric_potion_of_regeneration_long",
     "reagent": "minecraft:gunpowder",
-    "output": "r4isen1920_originspe:cleric_splash_potion_of_regeneration_long"
+    "output": "r4isen1920_originspe:temp_splash_potion_of_regeneration_long"
   }
 
 }

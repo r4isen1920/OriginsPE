@@ -20,26 +20,31 @@ export const potency = [
 
 /**
  * 
+ * Main runtime for this perk
+ * 
  * @param { import('@minecraft/server').Player } player 
+ * @param { '_long' | '_potent' } potion_filter 
+ * @param { Array<{ typeId: string, dataValue: number, effects: { name: string, duration: number, amplifier: number, isNegativeEffect: boolean }[], whenApplied: string[] }> } itemList 
  */
-function longer_potions(player) {
-  const potionItemsInInventory = findItems(player).filter(item => items.some(i => (item?.item?.typeId?.includes(`temp_${i.typeId}`) && item?.item?.typeId?.includes('_long'))))
+export function main(player, potion_filter, itemList) {
+  const potionItemsInInventory = findItems(player).filter(item => items.some(i => (item?.item?.typeId?.includes(`temp_${i.typeId}`) && item?.item?.typeId?.includes(potion_filter))))
   if (potionItemsInInventory.length === 0) return;
 
   for (const item of potionItemsInInventory) {
     const convertItem = new ItemStack(item.item.typeId.replace('r4isen1920_originspe:temp_', 'r4isen1920_originspe:cleric_'), item.item.amount)
 
-    const itemData = items.find(i => item.item.typeId.includes(i.typeId))
+    const itemData = itemList.find(i => item.item.typeId.includes(i.typeId))
     let setLore = []
     itemData.effects.forEach(effect => {
-      const effectName = effect.name.replace(/.+_of_|_/gm, ' ').toTitle()
+      const effectName = (effect.isNegativeEffect ? '§c' : '§7') + effect.name.replace(/.+_of_|_/gm, ' ').toTitle()
       const amplifier = potency[effect.amplifier] || effect.amplifier
       const duration = Math.floor(effect.duration / 60) + ':' + ((effect.duration % 60).toString().padStart(2, '0'))
 
-      if (effect.amplifier === 0) setLore.push(`§r§7${effectName} (${duration})`);
-      else setLore.push(`§r§7${effectName} ${amplifier} (${duration})`);
+      if (effect.amplifier === 0) setLore.push(`§r${effectName} (${duration})`);
+      else if (effect.duration === 0) setLore.push(`§r${effectName} ${amplifier}`);
+      else setLore.push(`§r${effectName} ${amplifier} (${duration})`);
     })
-    if (itemData.whenApplied.length > 0) setLore.push('§r§7', '§r§9When Applied:', ...itemData.whenApplied)
+    if (itemData.whenApplied.length > 0) setLore.push('§r§7', '§r§5When Applied:', ...itemData.whenApplied)
     setLore.push('§r§7', '§r§6Enhanced Potion§r')
     convertItem.setLore(setLore)
 
@@ -52,6 +57,7 @@ function longer_potions(player) {
 
 }
 
+var longer_potions = (player) => main(player, '_long', items)
 toAllPlayers(longer_potions, 15, TicksPerSecond * 15)
 
 
@@ -73,7 +79,7 @@ system.runTimeout(() => {
       if (!itemData) return
 
       itemData.effects.forEach(effect => {
-        source.addEffect(effect.name, TicksPerSecond * effect.duration, { amplifier: effect.amplifier, showParticles: true })
+        source.addEffect(effect.name, Math.max(TicksPerSecond * effect.duration, 1), { amplifier: effect.amplifier, showParticles: true })
       })
 
     }
@@ -86,7 +92,7 @@ system.runTimeout(() => {
  * 
  * List of potion items and their effects
  * 
- * @type { Array<{ typeId: string, dataValue: number, effects: { name: string, duration: number, amplifier: number }[], whenApplied: string[] }> }
+ * @type { Array<{ typeId: string, dataValue: number, effects: { name: string, duration: number, amplifier: number, isNegativeEffect: boolean }[], whenApplied: string[] }> }
  */
 const items = [
 
@@ -94,7 +100,7 @@ const items = [
     typeId: 'lingering_potion_of_fire_resistance',
     dataValue: 13,
     effects: [
-      { name: 'fire_resistance', duration: 960, amplifier: 0 }
+      { name: 'fire_resistance', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -102,7 +108,7 @@ const items = [
     typeId: 'lingering_potion_of_invisibility',
     dataValue: 8,
     effects: [
-      { name: 'invisibility', duration: 960, amplifier: 0 }
+      { name: 'invisibility', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -110,7 +116,7 @@ const items = [
     typeId: 'lingering_potion_of_leaping',
     dataValue: 10,
     effects: [
-      { name: 'jump_boost', duration: 960, amplifier: 0 }
+      { name: 'jump_boost', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -118,7 +124,7 @@ const items = [
     typeId: 'lingering_potion_of_night_vision',
     dataValue: 6,
     effects: [
-      { name: 'night_vision', duration: 960, amplifier: 0 }
+      { name: 'night_vision', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -126,7 +132,7 @@ const items = [
     typeId: 'lingering_potion_of_poison',
     dataValue: 26,
     effects: [
-      { name: 'poison', duration: 180, amplifier: 0 }
+      { name: 'poison', duration: 180, amplifier: 0, isNegativeEffect: true }
     ],
     whenApplied: []
   },
@@ -134,7 +140,7 @@ const items = [
     typeId: 'lingering_potion_of_regeneration',
     dataValue: 29,
     effects: [
-      { name: 'regeneration', duration: 240, amplifier: 0 }
+      { name: 'regeneration', duration: 240, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -142,7 +148,7 @@ const items = [
     typeId: 'lingering_potion_of_slow_falling',
     dataValue: 41,
     effects: [
-      { name: 'slow_falling', duration: 180, amplifier: 0 }
+      { name: 'slow_falling', duration: 180, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -150,15 +156,17 @@ const items = [
     typeId: 'lingering_potion_of_slowness',
     dataValue: 18,
     effects: [
-      { name: 'slowness', duration: 480, amplifier: 0 }
+      { name: 'slowness', duration: 480, amplifier: 0, isNegativeEffect: true }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-15% Speed§r'
+    ]
   },
   {
     typeId: 'lingering_potion_of_strength',
     dataValue: 32,
     effects: [
-      { name: 'strength', duration: 960, amplifier: 0 }
+      { name: 'strength', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -166,24 +174,28 @@ const items = [
     typeId: 'lingering_potion_of_swiftness',
     dataValue: 15,
     effects: [
-      { name: 'speed', duration: 960, amplifier: 0 }
+      { name: 'speed', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§9+20% Speed§r'
+    ]
   },
   {
     typeId: 'lingering_potion_of_turtle_master',
     dataValue: 38,
     effects: [
-      { name: 'slowness', duration: 80, amplifier: 3 },
-      { name: 'resistance', duration: 80, amplifier: 2 },
+      { name: 'slowness', duration: 80, amplifier: 3, isNegativeEffect: true },
+      { name: 'resistance', duration: 80, amplifier: 2, isNegativeEffect: false },
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-60% Speed§r'
+    ]
   },
   {
     typeId: 'lingering_potion_of_water_breathing',
     dataValue: 20,
     effects: [
-      { name: 'water_breathing', duration: 960, amplifier: 0 }
+      { name: 'water_breathing', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -191,9 +203,11 @@ const items = [
     typeId: 'lingering_potion_of_weakness',
     dataValue: 35,
     effects: [
-      { name: 'weakness', duration: 480, amplifier: 0 }
+      { name: 'weakness', duration: 480, amplifier: 0, isNegativeEffect: false }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-0.7 Attack Damage§r'
+    ]
   },
 
 
@@ -201,7 +215,7 @@ const items = [
     typeId: 'potion_of_fire_resistance',
     dataValue: 13,
     effects: [
-      { name: 'fire_resistance', duration: 960, amplifier: 0 }
+      { name: 'fire_resistance', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -209,7 +223,7 @@ const items = [
     typeId: 'potion_of_invisibility',
     dataValue: 8,
     effects: [
-      { name: 'invisibility', duration: 960, amplifier: 0 }
+      { name: 'invisibility', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -217,7 +231,7 @@ const items = [
     typeId: 'potion_of_leaping',
     dataValue: 10,
     effects: [
-      { name: 'jump_boost', duration: 960, amplifier: 0 }
+      { name: 'jump_boost', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -225,7 +239,7 @@ const items = [
     typeId: 'potion_of_night_vision',
     dataValue: 6,
     effects: [
-      { name: 'night_vision', duration: 960, amplifier: 0 }
+      { name: 'night_vision', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -233,7 +247,7 @@ const items = [
     typeId: 'potion_of_poison',
     dataValue: 26,
     effects: [
-      { name: 'poison', duration: 180, amplifier: 0 }
+      { name: 'poison', duration: 180, amplifier: 0, isNegativeEffect: true }
     ],
     whenApplied: []
   },
@@ -241,7 +255,7 @@ const items = [
     typeId: 'potion_of_regeneration',
     dataValue: 29,
     effects: [
-      { name: 'regeneration', duration: 240, amplifier: 0 }
+      { name: 'regeneration', duration: 240, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -249,7 +263,7 @@ const items = [
     typeId: 'potion_of_slow_falling',
     dataValue: 41,
     effects: [
-      { name: 'slow_falling', duration: 180, amplifier: 0 }
+      { name: 'slow_falling', duration: 180, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -257,15 +271,17 @@ const items = [
     typeId: 'potion_of_slowness',
     dataValue: 18,
     effects: [
-      { name: 'slowness', duration: 480, amplifier: 0 }
+      { name: 'slowness', duration: 480, amplifier: 0, isNegativeEffect: true }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-15% Speed§r'
+    ]
   },
   {
     typeId: 'potion_of_strength',
     dataValue: 32,
     effects: [
-      { name: 'strength', duration: 960, amplifier: 0 }
+      { name: 'strength', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -273,24 +289,28 @@ const items = [
     typeId: 'potion_of_swiftness',
     dataValue: 15,
     effects: [
-      { name: 'speed', duration: 960, amplifier: 0 }
+      { name: 'speed', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§9+20% Speed§r'
+    ]
   },
   {
     typeId: 'potion_of_turtle_master',
     dataValue: 38,
     effects: [
-      { name: 'slowness', duration: 80, amplifier: 3 },
-      { name: 'resistance', duration: 80, amplifier: 2 },
+      { name: 'slowness', duration: 80, amplifier: 3, isNegativeEffect: true },
+      { name: 'resistance', duration: 80, amplifier: 2, isNegativeEffect: false },
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-60% Speed§r'
+    ]
   },
   {
     typeId: 'potion_of_water_breathing',
     dataValue: 20,
     effects: [
-      { name: 'water_breathing', duration: 960, amplifier: 0 }
+      { name: 'water_breathing', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -298,9 +318,11 @@ const items = [
     typeId: 'potion_of_weakness',
     dataValue: 35,
     effects: [
-      { name: 'weakness', duration: 480, amplifier: 0 }
+      { name: 'weakness', duration: 480, amplifier: 0, isNegativeEffect: true }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-0.7 Attack Damage§r'
+    ]
   },
 
 
@@ -308,7 +330,7 @@ const items = [
     typeId: 'splash_potion_of_fire_resistance',
     dataValue: 13,
     effects: [
-      { name: 'fire_resistance', duration: 960, amplifier: 0 }
+      { name: 'fire_resistance', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -316,7 +338,7 @@ const items = [
     typeId: 'splash_potion_of_invisibility',
     dataValue: 8,
     effects: [
-      { name: 'invisibility', duration: 960, amplifier: 0 }
+      { name: 'invisibility', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -324,7 +346,7 @@ const items = [
     typeId: 'splash_potion_of_leaping',
     dataValue: 10,
     effects: [
-      { name: 'jump_boost', duration: 960, amplifier: 0 }
+      { name: 'jump_boost', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -332,7 +354,7 @@ const items = [
     typeId: 'splash_potion_of_night_vision',
     dataValue: 6,
     effects: [
-      { name: 'night_vision', duration: 960, amplifier: 0 }
+      { name: 'night_vision', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -340,7 +362,7 @@ const items = [
     typeId: 'splash_potion_of_poison',
     dataValue: 26,
     effects: [
-      { name: 'poison', duration: 180, amplifier: 0 }
+      { name: 'poison', duration: 180, amplifier: 0, isNegativeEffect: true }
     ],
     whenApplied: []
   },
@@ -348,7 +370,7 @@ const items = [
     typeId: 'splash_potion_of_regeneration',
     dataValue: 29,
     effects: [
-      { name: 'regeneration', duration: 240, amplifier: 0 }
+      { name: 'regeneration', duration: 240, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -356,7 +378,7 @@ const items = [
     typeId: 'splash_potion_of_slow_falling',
     dataValue: 41,
     effects: [
-      { name: 'slow_falling', duration: 180, amplifier: 0 }
+      { name: 'slow_falling', duration: 180, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -364,15 +386,17 @@ const items = [
     typeId: 'splash_potion_of_slowness',
     dataValue: 18,
     effects: [
-      { name: 'slowness', duration: 480, amplifier: 0 }
+      { name: 'slowness', duration: 480, amplifier: 0, isNegativeEffect: true }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-15% Speed§r'
+    ]
   },
   {
     typeId: 'splash_potion_of_strength',
     dataValue: 32,
     effects: [
-      { name: 'strength', duration: 960, amplifier: 0 }
+      { name: 'strength', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -380,24 +404,28 @@ const items = [
     typeId: 'splash_potion_of_swiftness',
     dataValue: 15,
     effects: [
-      { name: 'speed', duration: 960, amplifier: 0 }
+      { name: 'speed', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§9+20% Speed§r'
+    ]
   },
   {
     typeId: 'splash_potion_of_turtle_master',
     dataValue: 38,
     effects: [
-      { name: 'slowness', duration: 80, amplifier: 3 },
-      { name: 'resistance', duration: 80, amplifier: 2 },
+      { name: 'slowness', duration: 80, amplifier: 3, isNegativeEffect: true },
+      { name: 'resistance', duration: 80, amplifier: 2, isNegativeEffect: false },
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-60% Speed§r'
+    ]
   },
   {
     typeId: 'splash_potion_of_water_breathing',
     dataValue: 20,
     effects: [
-      { name: 'water_breathing', duration: 960, amplifier: 0 }
+      { name: 'water_breathing', duration: 960, amplifier: 0, isNegativeEffect: false }
     ],
     whenApplied: []
   },
@@ -405,9 +433,11 @@ const items = [
     typeId: 'splash_potion_of_weakness',
     dataValue: 35,
     effects: [
-      { name: 'weakness', duration: 480, amplifier: 0 }
+      { name: 'weakness', duration: 480, amplifier: 0, isNegativeEffect: true }
     ],
-    whenApplied: []
+    whenApplied: [
+      '§r§c-0.7 Attack Damage§r'
+    ]
   },
 
 ]

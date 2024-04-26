@@ -1,0 +1,15 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_brewing_mix": {
+    "description": {
+      "identifier": "r4isen1920_originspe:brew_temp_splash_strength_potent"
+    },
+
+    "tags": [ "brewing_stand" ],
+
+    "input": "r4isen1920_originspe:temp_potion_of_strength_potent",
+    "reagent": "minecraft:gunpowder",
+    "output": "r4isen1920_originspe:temp_splash_potion_of_strength_potent"
+  }
+
+}

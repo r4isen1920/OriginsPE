@@ -7,9 +7,9 @@
 
     "tags": [ "brewing_stand" ],
 
-    "input": "r4isen1920_originspe:cleric_potion_of_weakness_long",
+    "input": "r4isen1920_originspe:cleric_splash_potion_of_weakness_long",
     "reagent": "minecraft:dragon_breath",
-    "output": "r4isen1920_originspe:cleric_lingering_potion_of_weakness_long"
+    "output": "r4isen1920_originspe:temp_lingering_potion_of_weakness_long"
   }
 
 }

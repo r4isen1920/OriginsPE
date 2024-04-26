@@ -7,9 +7,9 @@
 
     "tags": [ "brewing_stand" ],
 
-    "input": "r4isen1920_originspe:cleric_potion_of_regeneration_potent",
+    "input": "r4isen1920_originspe:cleric_splash_potion_of_regeneration_potent",
     "reagent": "minecraft:dragon_breath",
-    "output": "r4isen1920_originspe:cleric_lingering_potion_of_regeneration_potent"
+    "output": "r4isen1920_originspe:temp_lingering_potion_of_regeneration_potent"
   }
 
 }
