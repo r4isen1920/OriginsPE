@@ -3,7 +3,6 @@ import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/ser
 
 import { ResourceBar } from "../../../origins/resource_bar";
 import { toAllPlayers } from "../../../origins/player";
-import { MathR4 } from "../../../utils/Math";
 import { Vector3 } from "../../../utils/Vec3";
 
 import { life_drain } from "./life_drain";
@@ -98,5 +97,5 @@ export function getBeelzebubProperty(attacker, type='phase') {
  * @param { number } incrementValue 
  */
 export function incrementBeelzebubProperty(attacker, type='phase', incrementValue=1) {
-  return attacker.setDynamicProperty(`r4isen1920_originspe:beelzebub_${type}`, type === 'phase' ? MathR4.clamp(getBeelzebubProperty(attacker, type) + incrementValue, 0, 4) : getBeelzebubProperty(attacker, type) + incrementValue)
+  return attacker.setDynamicProperty(`r4isen1920_originspe:beelzebub_${type}`, type === 'phase' ? Math.clamp(getBeelzebubProperty(attacker, type) + incrementValue, 0, 4) : getBeelzebubProperty(attacker, type) + incrementValue)
 }

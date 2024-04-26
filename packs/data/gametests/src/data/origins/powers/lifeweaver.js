@@ -3,7 +3,6 @@ import { world, system, TicksPerSecond } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { MathR4 } from "../../../utils/Math";
 import { Vector3 } from "../../../utils/Vec3";
 
 /**
@@ -28,7 +27,7 @@ function lifeweaver(player) {
     const addedHealth = Math.ceil(health.currentValue + player.getDynamicProperty('r4isen1920_originspe:accumulated_damage'))
 
     health.setCurrentValue(
-      MathR4.clamp(addedHealth, health.effectiveMin, health.effectiveMax)
+      Math.clamp(addedHealth, health.effectiveMin, health.effectiveMax)
     )
     player.addEffect('absorption', TicksPerSecond * 12, { amplifier: Math.floor(player.getDynamicProperty('r4isen1920_originspe:accumulated_damage') / 4) });
     player.removeEffect('regeneration');

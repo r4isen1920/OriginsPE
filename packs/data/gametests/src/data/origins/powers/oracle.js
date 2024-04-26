@@ -2,7 +2,6 @@
 import { world, system, TicksPerSecond } from "@minecraft/server";
 
 import { findPlayersWithSameID } from "./prescience";
-import { MathR4 } from "../../../utils/Math";
 
 system.runTimeout(() => {
 
@@ -28,7 +27,7 @@ system.runTimeout(() => {
          * @type { import('@minecraft/server').EntityHealthComponent }
          */
         const playerHealth = player.getComponent('health')
-        playerHealth.setCurrentValue(MathR4.clamp(playerHealth.currentValue + healthDiff, 1, playerHealth.effectiveMax))
+        playerHealth.setCurrentValue(Math.clamp(playerHealth.currentValue + healthDiff, 1, playerHealth.effectiveMax))
 
       })
 

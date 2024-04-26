@@ -1,8 +1,8 @@
 
 import { EntityDamageCause } from "@minecraft/server";
+
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
-import { MathR4 } from "../../../utils/Math";
 import { removeTags } from "../../../utils/tags";
 
 const BAR_LEVELS = [
@@ -152,7 +152,7 @@ toAllPlayers(sacrifice_stinger, 3)
  * @param { string | number } level 
  */
 export function changeStingerLevel(player, level) {
-  const levelClamped = MathR4.clamp(level, 0, 7)
+  const levelClamped = Math.clamp(level, 0, 7)
   const removedTags = removeTags(player, 'stinger_level')
   player.addTag(`stinger_level_${levelClamped}`)
   if (removedTags.length > 0) player.addTag(`_was_${removedTags[0]}`)
