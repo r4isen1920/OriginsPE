@@ -6,13 +6,13 @@
       "menu_category": {
         "category": "items",
         "group": "itemGroup.name.splashPotion",
-        "is_hidden_in_commands": true
+        "is_hidden_in_commands": false
       }
     },
 
     "components": {
       "minecraft:icon": {
-        "texture": "potion_splash_harming"
+        "texture": "r4isen1920_originspe:potion_splash_harming"
       },
       "minecraft:display_name": {
         "value": "potion.harm.splash.name"

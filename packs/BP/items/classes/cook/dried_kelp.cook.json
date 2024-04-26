@@ -4,7 +4,7 @@
     "description": {
       "identifier": "r4isen1920_originspe:temp_dried_kelp",
       "menu_category": {
-        "category": "items",
+        "category": "none",
         "group": "itemGroup.name.miscFood",
         "is_hidden_in_commands": true
       }

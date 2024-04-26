@@ -1,0 +1,59 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:cleric_potion_of_turtle_master_long",
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.potion",
+        "is_hidden_in_commands": false
+      }
+    },
+
+    "components": {
+      "minecraft:icon": {
+        "texture": "r4isen1920_originspe:potion_bottle_turtle_master"
+      },
+      "minecraft:display_name": {
+        "value": "potion.turtleMaster.name"
+      },
+      "minecraft:food": {
+        "nutrition": 0,
+
+        "can_always_eat": true,
+        "is_meat": false,
+        "using_converts_to": "minecraft:glass_bottle",
+
+        "effects": [
+          {
+            "name": "slowness",
+            "chance": 1.0,
+            "duration": 40,
+            "amplifier": 3
+          },
+          {
+            "name": "resistance",
+            "chance": 1.0,
+            "duration": 40,
+            "amplifier": 2
+          }
+        ]
+      },
+
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:glint": {
+        "value": true
+      },
+
+      "minecraft:use_modifiers": {
+        "use_duration": 1.6,
+        "movement_modifier": 0.5
+      },
+      "minecraft:use_animation": {
+        "value": "drink"
+      }
+    }
+  }
+}
