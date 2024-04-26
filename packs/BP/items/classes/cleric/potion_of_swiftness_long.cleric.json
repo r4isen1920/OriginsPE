@@ -4,9 +4,9 @@
     "description": {
       "identifier": "r4isen1920_originspe:cleric_potion_of_swiftness_long",
       "menu_category": {
-        "category": "items",
+        "category": "none",
         "group": "itemGroup.name.potion",
-        "is_hidden_in_commands": false
+        "is_hidden_in_commands": true
       }
     },
 
@@ -22,16 +22,7 @@
 
         "can_always_eat": true,
         "is_meat": false,
-        "using_converts_to": "minecraft:glass_bottle",
-
-        "effects": [
-          {
-            "name": "speed",
-            "chance": 1.0,
-            "duration": 480,
-            "amplifier": 0
-          }
-        ]
+        "using_converts_to": "minecraft:glass_bottle"
       },
 
       "minecraft:max_stack_size": {

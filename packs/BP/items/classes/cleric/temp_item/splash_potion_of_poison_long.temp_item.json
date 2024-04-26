@@ -4,9 +4,9 @@
     "description": {
       "identifier": "r4isen1920_originspe:temp_splash_potion_of_poison_long",
       "menu_category": {
-        "category": "items",
+        "category": "none",
         "group": "itemGroup.name.splashPotion",
-        "is_hidden_in_commands": false
+        "is_hidden_in_commands": true
       }
     },
 
