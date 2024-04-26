@@ -5,6 +5,11 @@ import { openScreenPickerGUI, setupMenuItem } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
 import { ResourceBar } from "./resource_bar.js";
 
+/**
+ * 
+ * List of available Origins to randomize
+ * from
+ */
 const ORIGINS = [
   'avian',
   'arachnid',
@@ -25,6 +30,12 @@ const ORIGINS = [
   'voidwalker',
   'diviner',
 ]
+
+/**
+ * 
+ * List of available Classes to
+ * randomize from
+ */
 const CLASSES = [
   'archer',
   'beastmaster',
@@ -40,9 +51,21 @@ const CLASSES = [
   'rogue',
   'warrior',
 ]
+
+/**
+ * 
+ * Default imports for Origins and Classes
+ */
 const DEFAULT_IMPORT = {
   'powers': [],
-  'perks': [],
+  'perks': [
+
+    'better_stew',
+    'longer_potions',
+    'more_saturated_food',
+    'powerful_potions'
+  
+  ],
   'controls': [],
   'effects': {
     'model': 'normal',
@@ -128,8 +151,8 @@ export async function initModules(player) {
   try {
     await import(`../data/origins/${playerOrigin}.js`).then(mod => {
       if (mod) {
-        ORIGIN_POWERS = mod[playerOrigin].powers || _IMPORT_ORIGIN.powers;
-        CONTROLS = mod[playerOrigin].controls || _IMPORT_ORIGIN.controls;
+        ORIGIN_POWERS = [..._IMPORT_ORIGIN.powers, ...(mod[playerOrigin].powers || [])];
+        CONTROLS = [..._IMPORT_ORIGIN.controls, ...(mod[playerOrigin].controls || [])];
         EFFECTS = { ..._IMPORT_ORIGIN.effects, ...mod[playerOrigin].effects };
       } else player.addTag('load_failed');
     })
@@ -142,8 +165,8 @@ export async function initModules(player) {
   try {
     await import(`../data/classes/${playerClass}.js`).then(mod => {
       if (mod) {
-        CLASS_PERKS = mod[playerClass].perks || _IMPORT_CLASS.perks;
-        CONTROLS.push(...mod[playerClass].controls || _IMPORT_CLASS.controls);
+        CLASS_PERKS = [..._IMPORT_CLASS.perks, ...(mod[playerClass].perks || [])];
+        CONTROLS.push(..._IMPORT_CLASS.controls, ...(mod[playerClass].controls || []));
       } else player.addTag('load_failed');
     })
   } catch (e) {
