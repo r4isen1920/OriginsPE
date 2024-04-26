@@ -1,0 +1,121 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:blacksmith_wooden_hoe",
+      "menu_category": {
+        "category": "none",
+        "is_hidden_in_commands": true
+      }
+    },
+    
+    "components": {
+      "minecraft:icon": {
+        "texture": "wooden_hoe"
+      },
+      "minecraft:display_name": {
+        "value": "item.wooden_hoe.name"
+      },
+      "minecraft:hover_text_color": {
+        "value": "aqua"
+      },
+
+      "minecraft:damage": {
+        "value": 4
+      },
+      "minecraft:enchantable": {
+        "slot": "hoe",
+        "value": 20
+      },
+      "minecraft:durability": {
+        "max_durability": 59,
+        "damage_chance": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_wooden_hoe",
+              "r4isen1920_originspe:blacksmith_wooden_hoe"
+            ]
+          },
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_wooden_hoe",
+              "minecraft:wooden_hoe"
+            ]
+          },
+          {
+            "items": [ "minecraft:planks", "minecraft:wooden_hoe" ],
+            "repair_amount": 22
+          },
+          {
+            "items": [ "minecraft:stick" ],
+            "repair_amount": 5
+          },
+          {
+            "items": [ "r4isen1920_originspe:blacksmith_wooden_hoe" ],
+            "repair_amount": 59
+          }
+        ]
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          { "block": "minecraft:azalea_leaves", "speed": 8 },
+          { "block": "minecraft:azalea_leaves_flowered", "speed": 8 },
+          { "block": "minecraft:beetroot", "speed": 8 },
+          { "block": "minecraft:brown_mushroom", "speed": 8 },
+          { "block": "minecraft:carrots", "speed": 8 },
+          { "block": "minecraft:cave_vines_body_with_berries", "speed": 8 },
+          { "block": "minecraft:cave_vines_head_with_berries", "speed": 8 },
+          { "block": "minecraft:chorus_flower", "speed": 8 },
+          { "block": "minecraft:chorus_plant", "speed": 8 },
+          { "block": "minecraft:crimson_fungus", "speed": 8 },
+          { "block": "minecraft:hay_block", "speed": 8 },
+          { "block": "minecraft:kelp", "speed": 8 },
+          { "block": "minecraft:leaves", "speed": 8 },
+          { "block": "minecraft:leaves2", "speed": 8 },
+          { "block": "minecraft:moss_block", "speed": 8 },
+          { "block": "minecraft:nether_wart", "speed": 8 },
+          { "block": "minecraft:nether_wart_block", "speed": 8 },
+          { "block": "minecraft:potatoes", "speed": 8 },
+          { "block": "minecraft:red_mushroom", "speed": 8 },
+          { "block": "minecraft:reeds", "speed": 8 },
+          { "block": "minecraft:sculk_sensor", "speed": 8 },
+          { "block": "minecraft:sea_pickle", "speed": 8 },
+          { "block": "minecraft:shroomlight", "speed": 8 },
+          { "block": "minecraft:sponge", "speed": 8 },
+          { "block": "minecraft:sweet_berry_bush", "speed": 8 },
+          { "block": "minecraft:target", "speed": 8 },
+          { "block": "minecraft:warped_fungus", "speed": 8 },
+          { "block": "minecraft:warped_wart_block", "speed": 8 },
+          { "block": "minecraft:wheat", "speed": 8 }
+        ]
+      },
+
+      "minecraft:tags": {
+        "tags": [
+          "tag:r4isen1920_originspe:blacksmith_forged",
+
+          "tag:minecraft:is_hoe"
+        ]
+      },
+
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:blacksmith_iron_sword",
+      "menu_category": {
+        "category": "none",
+        "is_hidden_in_commands": true
+      }
+    },
+
+    "components": {
+      "minecraft:icon": {
+        "texture": "iron_sword"
+      },
+      "minecraft:display_name": {
+        "value": "item.iron_sword.name"
+      },
+      "minecraft:hover_text_color": {
+        "value": "aqua"
+      },
+
+      "minecraft:damage": {
+        "value": 8
+      },
+      "minecraft:enchantable": {
+        "slot": "sword",
+        "value": 20
+      },
+      "minecraft:durability": {
+        "max_durability": 251,
+        "damage_chance": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_iron_sword",
+              "r4isen1920_originspe:blacksmith_iron_sword"
+            ]
+          },
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
+            "items": [
+              "minecraft:iron_sword",
+              "r4isen1920_originspe:blacksmith_iron_sword"
+            ]
+          },
+          {
+            "items": [ "minecraft:iron_ingot", "minecraft:iron_sword" ],
+            "repair_amount": 94
+          },
+          {
+            "items": [ "minecraft:iron_nugget" ],
+            "repair_amount": 10
+          },
+          {
+            "items": [ "r4isen1920_originspe:blacksmith_iron_sword" ],
+            "repair_amount": 251
+          }
+        ]
+      },
+      "minecraft:digger": {
+        "destroy_speeds": [
+          { "block": "minecraft:web", "speed": 16 },
+          { "block": "minecraft:bamboo", "speed": 16 },
+          { "block": "minecraft:pumpkin", "speed": 6 },
+          { "block": "minecraft:carved_pumpkin", "speed": 6 },
+          { "block": "minecraft:lit_pumpkin", "speed": 6 },
+          { "block": "minecraft:cocoa", "speed": 18 },
+          { "block": "minecraft:leaves", "speed": 16 },
+          { "block": "minecraft:leaves2", "speed": 16 },
+          { "block": "minecraft:hay_block", "speed": 12 }
+        ]
+      },
+      "minecraft:can_destroy_in_creative": {
+        "value": false
+      },
+
+      "minecraft:tags": {
+        "tags": [
+          "tag:r4isen1920_originspe:blacksmith_forged",
+
+          "tag:minecraft:is_sword"
+        ]
+      },
+
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      }
+    }
+  }
+}

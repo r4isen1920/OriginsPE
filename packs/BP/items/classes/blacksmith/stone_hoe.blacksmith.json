@@ -1,0 +1,117 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:blacksmith_stone_hoe",
+      "menu_category": {
+        "category": "none",
+        "is_hidden_in_commands": true
+      }
+    },
+    
+    "components": {
+      "minecraft:icon": {
+        "texture": "stone_hoe"
+      },
+      "minecraft:display_name": {
+        "value": "item.stone_hoe.name"
+      },
+      "minecraft:hover_text_color": {
+        "value": "aqua"
+      },
+
+      "minecraft:damage": {
+        "value": 4
+      },
+      "minecraft:enchantable": {
+        "slot": "hoe",
+        "value": 20
+      },
+      "minecraft:durability": {
+        "max_durability": 2031,
+        "damage_chance": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_stone_hoe",
+              "r4isen1920_originspe:blacksmith_stone_hoe"
+            ]
+          },
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_stone_hoe",
+              "minecraft:stone_hoe"
+            ]
+          },
+          {
+            "items": [ "minecraft:cobblestone", "minecraft:blackstone", "minecraft:cobbled_deepslate", "minecraft:stone_hoe" ],
+            "repair_amount": 50
+          },
+          {
+            "items": [ "r4isen1920_originspe:blacksmith_stone_hoe" ],
+            "repair_amount": 131
+          }
+        ]
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          { "block": "minecraft:azalea_leaves", "speed": 10 },
+          { "block": "minecraft:azalea_leaves_flowered", "speed": 10 },
+          { "block": "minecraft:beetroot", "speed": 10 },
+          { "block": "minecraft:brown_mushroom", "speed": 10 },
+          { "block": "minecraft:carrots", "speed": 10 },
+          { "block": "minecraft:cave_vines_body_with_berries", "speed": 10 },
+          { "block": "minecraft:cave_vines_head_with_berries", "speed": 10 },
+          { "block": "minecraft:chorus_flower", "speed": 10 },
+          { "block": "minecraft:chorus_plant", "speed": 10 },
+          { "block": "minecraft:crimson_fungus", "speed": 10 },
+          { "block": "minecraft:hay_block", "speed": 10 },
+          { "block": "minecraft:kelp", "speed": 10 },
+          { "block": "minecraft:leaves", "speed": 10 },
+          { "block": "minecraft:leaves2", "speed": 10 },
+          { "block": "minecraft:moss_block", "speed": 10 },
+          { "block": "minecraft:nether_wart", "speed": 10 },
+          { "block": "minecraft:nether_wart_block", "speed": 10 },
+          { "block": "minecraft:potatoes", "speed": 10 },
+          { "block": "minecraft:red_mushroom", "speed": 10 },
+          { "block": "minecraft:reeds", "speed": 10 },
+          { "block": "minecraft:sculk_sensor", "speed": 10 },
+          { "block": "minecraft:sea_pickle", "speed": 10 },
+          { "block": "minecraft:shroomlight", "speed": 10 },
+          { "block": "minecraft:sponge", "speed": 10 },
+          { "block": "minecraft:sweet_berry_bush", "speed": 10 },
+          { "block": "minecraft:target", "speed": 10 },
+          { "block": "minecraft:warped_fungus", "speed": 10 },
+          { "block": "minecraft:warped_wart_block", "speed": 10 },
+          { "block": "minecraft:wheat", "speed": 10 }
+        ]
+      },
+
+      "minecraft:tags": {
+        "tags": [
+          "tag:r4isen1920_originspe:blacksmith_forged",
+
+          "tag:minecraft:is_hoe"
+        ]
+      },
+
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      }
+    }
+  }
+}

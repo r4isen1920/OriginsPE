@@ -1,0 +1,103 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r4isen1920_originspe:blacksmith_stone_shovel",
+      "menu_category": {
+        "category": "none",
+        "is_hidden_in_commands": true
+      }
+    },
+    
+    "components": {
+      "minecraft:icon": {
+        "texture": "stone_shovel"
+      },
+      "minecraft:display_name": {
+        "value": "item.stone_shovel.name"
+      },
+      "minecraft:hover_text_color": {
+        "value": "aqua"
+      },
+
+      "minecraft:damage": {
+        "value": 3
+      },
+      "minecraft:enchantable": {
+        "slot": "shovel",
+        "value": 20
+      },
+      "minecraft:durability": {
+        "max_durability": 131,
+        "damage_chance": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.10 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_stone_shovel",
+              "r4isen1920_originspe:blacksmith_stone_shovel"
+            ]
+          },
+          {
+            "repair_amount": "c.other -> q.remaining_durability + 0.05 * c.other -> q.max_durability",
+            "items": [
+              "r4isen1920_originspe:blacksmith_stone_shovel",
+              "minecraft:stone_shovel"
+            ]
+          },
+          {
+            "items": [ "minecraft:cobblestone", "minecraft:blackstone", "minecraft:cobbled_deepslate", "minecraft:stone_shovel" ],
+            "repair_amount": 50
+          },
+          {
+            "items": [ "r4isen1920_originspe:blacksmith_stone_shovel" ],
+            "repair_amount": 131
+          }
+        ]
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          { "block": "minecraft:concretepowder", "speed": 10 },
+          { "block": "minecraft:clay", "speed": 10 },
+          { "block": "minecraft:snow", "speed": 10 },
+          { "block": "minecraft:podzol", "speed": 10 },
+          { "block": "minecraft:mycelium", "speed": 10 },
+          { "block": "minecraft:soul_soil", "speed": 10 },
+          { "block": "minecraft:soul_sand", "speed": 10 },
+          { "block": "minecraft:dirt_with_roots", "speed": 10 },
+          { "block": "minecraft:dirt", "speed": 10 },
+          { "block": "minecraft:sand", "speed": 10 },
+          { "block": "minecraft:grass", "speed": 10 },
+          { "block": "minecraft:gravel", "speed": 10 },
+          { "block": "minecraft:snow_layer", "speed": 10 },
+          { "block": "minecraft:snow", "speed": 10 },
+          { "block": "minecraft:powder_snow", "speed": 10 }
+        ]
+      },
+
+      "minecraft:tags": {
+        "tags": [
+          "tag:r4isen1920_originspe:blacksmith_forged",
+
+          "tag:minecraft:is_shovel"
+        ]
+      },
+
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      }
+    }
+  }
+}
