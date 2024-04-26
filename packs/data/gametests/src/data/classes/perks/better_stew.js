@@ -21,14 +21,14 @@ function better_stew(player) {
 
   for (const item of foodItemsInInventory) {
     const convertItem = new ItemStack(item.item.typeId.replace('r4isen1920_originspe:temp_', 'minecraft:'), item.item.amount)
-    if (player.hasTag('perk_better_stew')) convertItem.setLore(['§r§6Rejuvenating Soup§r'])
+    if (player.hasTag('class_cook')) convertItem.setLore(['§r§6Rejuvenating Soup§r'])
     player.getComponent('inventory').container.setItem(item.slot, convertItem)
   }
-  if (player.hasTag('perk_better_stew')) player.playSound('random.cook')
+  if (player.hasTag('class_cook')) player.playSound('random.cook')
 
 }
 
-toAllPlayers(better_stew, 15)
+toAllPlayers(better_stew, 15, TicksPerSecond * 15)
 
 
 /**

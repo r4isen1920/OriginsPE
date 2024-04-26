@@ -30,14 +30,14 @@ function more_saturated_food(player) {
 
   for (const item of foodItemsInInventory) {
     const convertItem = new ItemStack(item.item.typeId.replace('r4isen1920_originspe:temp_', 'minecraft:'), item.item.amount)
-    if (player.hasTag('perk_more_saturated_food')) convertItem.setLore(['§r§6Good Meals§r'])
+    if (player.hasTag('class_cook')) convertItem.setLore(['§r§6Good Meals§r'])
     player.getComponent('inventory').container.setItem(item.slot, convertItem)
   }
-  if (player.hasTag('perk_more_saturated_food')) player.playSound('random.cook')
+  if (player.hasTag('class_cook')) player.playSound('random.cook')
 
 }
 
-toAllPlayers(more_saturated_food, 15)
+toAllPlayers(more_saturated_food, 15, TicksPerSecond * 15)
 
 
 /**
