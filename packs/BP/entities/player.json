@@ -490,6 +490,17 @@
         }
       },
 
+      "r4isen1920_originspe:add_knockback_resistance": {
+        "minecraft:knockback_resistance": {
+          "value": 1
+        }
+      },
+      "r4isen1920_originspe:remove_knockback_resistance": {
+        "minecraft:knockback_resistance": {
+          "value": 0
+        }
+      },
+
 
       /* Vanilla */
 
@@ -918,6 +929,39 @@
               ]
             },
             "event": "r4isen1920_originspe:power.shulk_inventory.close"
+          },
+
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "any_of": [
+                    { "test": "has_equipment", "domain": "head", "value": "r4isen1920_originspe:blacksmith_netherite_helmet" },
+                    { "test": "has_equipment", "domain": "torso", "value": "r4isen1920_originspe:blacksmith_netherite_chestplate" },
+                    { "test": "has_equipment", "domain": "leg", "value": "r4isen1920_originspe:blacksmith_netherite_leggings" },
+                    { "test": "has_equipment", "domain": "feet", "value": "r4isen1920_originspe:blacksmith_netherite_boots" }
+                  ]
+                },
+                { "test": "has_tag", "operator": "!=", "value": "_knockback_resistance" }
+              ]
+            },
+            "event": "r4isen1920_originspe:add_knockback_resistance"
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "none_of": [
+                    { "test": "has_equipment", "domain": "head", "value": "r4isen1920_originspe:blacksmith_netherite_helmet" },
+                    { "test": "has_equipment", "domain": "torso", "value": "r4isen1920_originspe:blacksmith_netherite_chestplate" },
+                    { "test": "has_equipment", "domain": "leg", "value": "r4isen1920_originspe:blacksmith_netherite_leggings" },
+                    { "test": "has_equipment", "domain": "feet", "value": "r4isen1920_originspe:blacksmith_netherite_boots" }
+                  ]
+                },
+                { "test": "has_tag", "value": "_knockback_resistance" }
+              ]
+            },
+            "event": "r4isen1920_originspe:remove_knockback_resistance"
           }
 
         ]
@@ -1347,6 +1391,19 @@
       },
       "r4isen1920_originspe:display_name.false": {
         "add": { "component_groups": [ "r4isen1920_originspe:hide_name" ] }
+      },
+
+      "r4isen1920_originspe:add_knockback_resistance": {
+        "sequence": [
+          { "add": { "component_groups": [ "r4isen1920_originspe:add_knockback_resistance" ] } },
+          { "queue_command": { "command": [ "tag @s add _knockback_resistance" ] } }
+        ]
+      },
+      "r4isen1920_originspe:remove_knockback_resistance": {
+        "sequence": [
+          { "add": { "component_groups": [ "r4isen1920_originspe:remove_knockback_resistance" ] } },
+          { "queue_command": { "command": [ "tag @s remove _knockback_resistance" ] } }
+        ]
       },
 
 

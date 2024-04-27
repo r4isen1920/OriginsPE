@@ -11,7 +11,7 @@
     
     "components": {
       "minecraft:icon": {
-        "texture": "wooden_axe"
+        "texture": "r4isen1920_originspe:wooden_axe"
       },
       "minecraft:display_name": {
         "value": "item.wooden_axe.name"
@@ -176,17 +176,15 @@
 
       "minecraft:tags": {
         "tags": [
-          "tag:r4isen1920_originspe:blacksmith_forged",
+          "r4isen1920_originspe:blacksmith_forged",
 
-          "tag:minecraft:is_axe"
+          "minecraft:wooden_tier",
+          "minecraft:is_axe"
         ]
       },
 
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:glint": {
-        "value": true
       },
       "minecraft:hand_equipped": {
         "value": true

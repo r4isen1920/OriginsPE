@@ -11,7 +11,7 @@
     
     "components": {
       "minecraft:icon": {
-        "texture": "wooden_hoe"
+        "texture": "r4isen1920_originspe:wooden_hoe"
       },
       "minecraft:display_name": {
         "value": "item.wooden_hoe.name"
@@ -101,17 +101,15 @@
 
       "minecraft:tags": {
         "tags": [
-          "tag:r4isen1920_originspe:blacksmith_forged",
+          "r4isen1920_originspe:blacksmith_forged",
 
-          "tag:minecraft:is_hoe"
+          "minecraft:wooden_tier",
+          "minecraft:is_hoe"
         ]
       },
 
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:glint": {
-        "value": true
       },
       "minecraft:hand_equipped": {
         "value": true

@@ -11,7 +11,7 @@
 
     "components": {
       "minecraft:icon": {
-        "texture": "golden_leggings"
+        "texture": "r4isen1920_originspe:golden_leggings"
       },
       "minecraft:display_name": {
         "value": "item.golden_leggings.name"
@@ -64,18 +64,16 @@
 
       "minecraft:tags": {
         "tags": [
-          "tag:r4isen1920_originspe:blacksmith_forged",
+          "r4isen1920_originspe:blacksmith_forged",
 
-          "tag:minecraft:is_armor",
-          "tag:minecraft:trimmable_armors"
+          "minecraft:golden_tier",
+          "minecraft:is_armor",
+          "minecraft:trimmable_armors"
         ]
       },
 
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:glint": {
-        "value": true
       }
     }
   }

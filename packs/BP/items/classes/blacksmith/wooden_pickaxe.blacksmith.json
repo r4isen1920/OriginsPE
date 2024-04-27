@@ -11,7 +11,7 @@
     
     "components": {
       "minecraft:icon": {
-        "texture": "wooden_pickaxe"
+        "texture": "r4isen1920_originspe:wooden_pickaxe"
       },
       "minecraft:display_name": {
         "value": "item.wooden_pickaxe.name"
@@ -270,17 +270,15 @@
 
       "minecraft:tags": {
         "tags": [
-          "tag:r4isen1920_originspe:blacksmith_forged",
+          "r4isen1920_originspe:blacksmith_forged",
 
-          "tag:minecraft:is_pickaxe"
+          "minecraft:wooden_tier",
+          "minecraft:is_pickaxe"
         ]
       },
 
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:glint": {
-        "value": true
       },
       "minecraft:hand_equipped": {
         "value": true

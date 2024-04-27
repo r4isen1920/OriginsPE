@@ -11,7 +11,7 @@
 
     "components": {
       "minecraft:icon": {
-        "texture": "diamond_axe"
+        "texture": "r4isen1920_originspe:diamond_axe"
       },
       "minecraft:display_name": {
         "value": "item.diamond_axe.name"
@@ -172,18 +172,16 @@
 
       "minecraft:tags": {
         "tags": [
-          "tag:r4isen1920_originspe:blacksmith_forged",
+          "r4isen1920_originspe:blacksmith_forged",
 
-          "tag:minecraft:is_axe",
-          "tag:minecraft:transformable_items"
+          "minecraft:diamond_tier",
+          "minecraft:is_axe",
+          "minecraft:transformable_items"
         ]
       },
 
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:glint": {
-        "value": true
       },
       "minecraft:hand_equipped": {
         "value": true

@@ -63,7 +63,8 @@ const DEFAULT_IMPORT = {
     'better_stew',
     'longer_potions',
     'more_saturated_food',
-    'powerful_potions'
+    'powerful_potions',
+    'quality_equipment',
   
   ],
   'controls': [],

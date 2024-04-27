@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "r4isen1920_originspe:temp_diamond_boots.player",
+      "item": { "r4isen1920_originspe:temp_diamond_boots": "query.owner_identifier == 'minecraft:player'" },
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/models/armor/diamond_1",
+        "enchanted": "textures/origins/blacksmith_armor_glint"
+      },
+      "geometry": {
+        "default": "geometry.player.armor.boots"
+      },
+      "scripts": {
+        "parent_setup": "variable.boot_layer_visible = 0.0;",
+        "animate": [
+          "offset"
+        ]
+      },
+      "animations": {
+        "offset": "animation.armor.boots.offset"
+      },
+      "render_controllers": [ "controller.render.armor" ]
+    }
+  }
+}

@@ -11,7 +11,7 @@
     
     "components": {
       "minecraft:icon": {
-        "texture": "netherite_hoe"
+        "texture": "r4isen1920_originspe:netherite_hoe"
       },
       "minecraft:display_name": {
         "value": "item.netherite_hoe.name"
@@ -97,17 +97,15 @@
 
       "minecraft:tags": {
         "tags": [
-          "tag:r4isen1920_originspe:blacksmith_forged",
+          "r4isen1920_originspe:blacksmith_forged",
 
-          "tag:minecraft:is_hoe"
+          "minecraft:netherite_tier",
+          "minecraft:is_hoe"
         ]
       },
 
       "minecraft:max_stack_size": {
         "value": 1
-      },
-      "minecraft:glint": {
-        "value": true
       },
       "minecraft:hand_equipped": {
         "value": true

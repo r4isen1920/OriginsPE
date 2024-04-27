@@ -1,0 +1,24 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "r4isen1920_originspe:temp_iron_leggings.player",
+      "item": { "r4isen1920_originspe:temp_iron_leggings": "query.owner_identifier == 'minecraft:player'" },
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/models/armor/iron_2",
+        "enchanted": "textures/origins/blacksmith_armor_glint"
+      },
+      "geometry": {
+        "default": "geometry.player.armor.leggings"
+      },
+      "scripts": {
+        "parent_setup": "variable.leg_layer_visible = 0.0;"
+      },
+      "render_controllers": [ "controller.render.armor" ]
+    }
+  }
+}
