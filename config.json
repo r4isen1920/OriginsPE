@@ -42,8 +42,7 @@
                 "target": "es2020"
               },
               "modules": [
-                "@minecraft/server@1.10.0",
-                "@minecraft/server-ui@1.1.0"
+                "@minecraft/server@1.10.0"
               ],
               "outdir": "BP/scripts/r4isen1920/originspe",
               "outfile": "BP/scripts/r4isen1920/originspe/main.js"
@@ -75,8 +74,7 @@
                 "target": "es2020"
               },
               "modules": [
-                "@minecraft/server@1.10.0",
-                "@minecraft/server-ui@1.1.0"
+                "@minecraft/server@1.10.0"
               ],
               "outdir": "BP/scripts/r4isen1920/originspe",
               "outfile": "BP/scripts/r4isen1920/originspe/main.js"
@@ -97,8 +95,7 @@
             "filter": "gametests",
             "settings": {
               "modules": [
-                "@minecraft/server@1.10.0",
-                "@minecraft/server-ui@1.1.0"
+                "@minecraft/server@1.10.0"
               ],
               "buildOptions": {
                 "entryPoints": [
