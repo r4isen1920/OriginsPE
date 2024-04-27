@@ -46,7 +46,7 @@ system.runTimeout(() => {
         BlockPermutation.resolve(`minecraft:${saplingBlock}`)
       );
 
-      block.dimension.spawnParticle('r4isen1920_originspe:farmers_touch', saplingLocation.block.center())
+      block.dimension.spawnParticle('r4isen1920_originspe:experience_touch', saplingLocation.block.center())
       world.playSound('random.orb', saplingLocation.block.center(), { volume: 0.25, pitch: 1.75 })
 
     }

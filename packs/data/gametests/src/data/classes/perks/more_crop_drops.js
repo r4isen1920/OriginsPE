@@ -23,7 +23,7 @@ system.runTimeout(() => {
 
       player.runCommand(`loot spawn ${block.location.x} ${block.location.y} ${block.location.z} loot "gameplay/farming/${crop}_twice"`)
 
-      block.dimension.spawnParticle('r4isen1920_originspe:farmers_touch', block.center())
+      block.dimension.spawnParticle('r4isen1920_originspe:experience_touch', block.center())
       world.playSound('random.orb', block.center(), { volume: 0.25, pitch: 2.0 })
       world.playSound('firework.twinkle', block.center(), { volume: 0.1, pitch: 1.25 })
 

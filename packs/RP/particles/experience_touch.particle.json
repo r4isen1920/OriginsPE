@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "r4isen1920_originspe:farmers_touch",
+			"identifier": "r4isen1920_originspe:experience_touch",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
 				"texture": "textures/particle/particles"
@@ -10,14 +10,14 @@
 		},
 		"components": {
 			"minecraft:emitter_initialization": {
-				"creation_expression": "variable.lifetime = 3.0;variable.size = math.random(0.1,0.2)/variable.lifetime;variable.sphere_size = 0.2;"
+				"creation_expression": "variable.lifetime = 3.0;variable.size = math.random(0.1,0.2)/variable.lifetime;variable.sphere_size = 0.5;"
 			},
 			"minecraft:emitter_local_space": {
 				"position": true,
 				"rotation": true
 			},
 			"minecraft:emitter_rate_instant": {
-				"num_particles": 10
+				"num_particles": 7
 			},
 			"minecraft:emitter_lifetime_once": {
 				"active_time": 1
@@ -25,7 +25,6 @@
 			"minecraft:emitter_shape_sphere": {
 				"offset": [0, "variable.sphere_size*2", 0],
 				"radius": "variable.sphere_size",
-				"surface_only": true,
 				"direction": "outwards"
 			},
 			"minecraft:particle_lifetime_expression": {

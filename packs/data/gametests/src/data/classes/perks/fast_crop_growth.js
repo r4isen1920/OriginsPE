@@ -38,7 +38,7 @@ system.runTimeout(() => {
         )
       )
 
-      block.dimension.spawnParticle('r4isen1920_originspe:farmers_touch', block.center())
+      block.dimension.spawnParticle('r4isen1920_originspe:experience_touch', block.center())
       world.playSound('random.orb', block.center(), { volume: 0.25, pitch: 1.75 })
 
     }

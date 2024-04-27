@@ -20,6 +20,15 @@ declare global {
      * @returns The clamped value.
      */
     clamp(value: number, min: number, max: number): number;
+
+    /**
+     * Generates a random float between a minimum and maximum.
+     * 
+     * @param min - The minimum value.
+     * @param max - The maximum value.
+     * @returns The random float.
+     */
+    randomFloat(min: number, max: number): number;
   }
 }
 
@@ -29,6 +38,10 @@ Math.lerp = function(a: number, b: number, t: number): number {
 
 Math.clamp = function(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
+};
+
+Math.randomFloat = function(min: number, max: number): number {
+  return min + Math.random() * (max - min);
 };
 
 export {};
