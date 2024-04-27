@@ -11,7 +11,8 @@ system.runTimeout(() => {
       if (
         entity?.typeId !== 'minecraft:player' ||
         !entity?.hasTag('perk_more_animal_loot') ||
-        !deadEntity.matches({ families: [ 'mob' ]})
+        !deadEntity.matches({ families: [ 'mob' ]}) ||
+        deadEntity.getComponent('is_baby')
       ) return;
 
       if (Math.random() > 0.5) return
