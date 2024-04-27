@@ -8,7 +8,7 @@
   },
 
   "$files": {
-    "array": "listBPFiles('recipes', semver('1.20.80')).filter(x => items.contains(fileBaseName(x)))",
+    "array": "listLatestBPFiles('recipes').filter(x => items.contains(fileBaseName(x)))",
     "filename": "{{fileBaseName(value)}}"
   },
   "$copy": "{{value}}",
