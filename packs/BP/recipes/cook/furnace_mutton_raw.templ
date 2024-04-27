@@ -1,6 +1,6 @@
 {
   "$files": {
-    "array": "listLatestBPFiles('recipes').filter(x => fileBaseName(x).contains('furnace_mutton_raw'))",
+    "array": "listBPFiles('recipes', semver('1.20.80')).filter(x => fileBaseName(x).contains('furnace_mutton_raw'))",
     "filename": "{{fileBaseName(value)}}"
   },
   "$copy": "{{value}}",
