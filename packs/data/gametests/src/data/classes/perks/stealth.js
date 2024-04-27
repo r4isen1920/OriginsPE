@@ -10,7 +10,7 @@ function stealth(player) {
   if (!player.hasTag('perk_stealth')) return;
 
   if (player.getEffect('invisibility') !== undefined) {
-    player.addEffect('strength', TicksPerSecond * 1, { amplifier: 0, showParticles: false });
+    player.addEffect('strength', TicksPerSecond * 3, { amplifier: 0, showParticles: false });
   }
 
 }
