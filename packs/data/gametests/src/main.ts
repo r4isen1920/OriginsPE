@@ -5,5 +5,5 @@ import "./origins/item"
 import "./origins/player"
 import "./origins/world"
 
-import "./utils/Math"
-import "./utils/String"
+import "./utils/math"
+import "./utils/string"
