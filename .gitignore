@@ -8,3 +8,5 @@ node_modules/
 *.py
 *.ase
 *.aseprj
+*.mcworld
+*.mcpack
