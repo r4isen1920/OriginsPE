@@ -1,6 +1,6 @@
 
 pack.name=§7[v5.0]§r OriginsPE [RP]
-pack.description=(Note: do not set this as your Global Resource pack!) This Add-On adds several Origins and Classes with passive abilities to the game, in which you choose upon the start of your adventure. Created by r4isen1920.
+pack.description=This Add-On adds several Origins and Classes with passive abilities to the game, in which you choose upon the start of your adventure. Created by r4isen1920.
 
 origins.welcome_message=§eWelcome back!§r The [OriginsPE] Add-On is installed and is working correctly in this world!
 origins.changelog_message=(Scroll down to see changelog)
@@ -391,7 +391,7 @@ origins.gui.options.ban.evict.description=Force all online players to change the
 origins.gui.options.toggle.root.name=Add-On gamerules
 origins.gui.options.toggle.root.description=Manage additional options that changes how the Add-On behaves and affects the players.
 origins.gui.options.toggle.unique.name=Unique selection
-origins.gui.options.toggle.unique.description=Only allow one Origin per player. Note that this will not force players to change their Origin if already selected, please select the §e[Initialize players]§f option to do so. (default: off)
+origins.gui.options.toggle.unique.description=Only allow one Origin per player. Note that this will not force players to change their Origin if already selected, please select the §e[Initialize everything]§f option to do so. (default: off)
 origins.gui.options.toggle.orb.name=Orb of Origins
 origins.gui.options.toggle.orb.description=Allow players to change their Origin using the §e[Orb of Origins]§f item. (default: on)
 origins.gui.options.toggle.paper.name=Resignation Paper
