@@ -5,7 +5,7 @@ pack.description=(Note: do not set this as your Global Resource pack!) This Add-
 origins.welcome_message=§eWelcome back!§r The [OriginsPE] Add-On is installed and is working correctly in this world!
 origins.changelog_message=(Scroll down to see changelog)
 
-origins.race.random.name=Random Origin
+origins.race.random.name=Random
 origins.race.random.description=You'll be assigned to one of the following Origins listed below, only if it's available for use:
 origins.race.random.description_changed=You'll be assigned to a random available Origin.
 origins.race.human.name=Human
@@ -47,7 +47,7 @@ origins.race.voidwalker.description=Born in the depths of a sinister realm, you 
 origins.race.diviner.name=Diviner
 origins.race.diviner.description=Diviners possesses the ability to tap into the mystical energies of the universe, wielding them to protect and aid other players in need.
 
-origins.class.random.name=Random Class
+origins.class.random.name=Random
 origins.class.random.description=You'll be classified to one of the following classes listed below, only if it's available for use:
 origins.class.random.description_changed=You'll be assigned to a random available class.
 origins.class.nitwit.name=Nitwit
@@ -411,25 +411,21 @@ origins.ability_controls.info.usage=You have active abilities
 origins.ability_controls.info.usage_tip=(Use them like an item)
 origins.ability_controls.info.none=No active abilities
 
-entity.r4isen1920_originspe:burning_control.name=§7[Blazeborn's Wrath]§r
-entity.r4isen1920_originspe:cleric_area_effect_cloud.name=§7[Cleric's Potion]§r
-entity.r4isen1920_originspe:cleric_lingering_potion.name=§7[Cleric's Lingering Potion]§r
-entity.r4isen1920_originspe:cleric_splash_potion.name=§7[Cleric's Splash Potion]§r
-entity.r4isen1920_originspe:dark_energy.name=§7[Voidwalker's Dark Energy]§r
-entity.r4isen1920_originspe:dialogue_handler.name=§7[GUI]§r
-entity.r4isen1920_originspe:elven_link.name=§7[Elven's Yggdrasil Branch]§r
-entity.r4isen1920_originspe:enderian_pearl.name=§7[Enderian Pearl]§r
-entity.r4isen1920_originspe:hyper_leap.name=§7[Starborne's Hyper Leap]§r
-entity.r4isen1920_originspe:jump_leap.name=§7[Slimecican's Super Jump]§r
-entity.r4isen1920_originspe:pounce_leap.name=§7[Fox's Pounce]§r
-entity.r4isen1920_originspe:inventory_keep.name=§7[Custom Inventory]§r
-entity.r4isen1920_originspe:shooting_star.name=§7[Starborne's Shooting Stars]§r
-entity.r4isen1920_originspe:webbing_control.name=§7[Arachnid's Web]§r
+entity.r4isen1920_originspe:cleric_area_effect_cloud.name=§z
+entity.r4isen1920_originspe:cleric_lingering_potion.name=§z
+entity.r4isen1920_originspe:cleric_splash_potion.name=§z
+entity.r4isen1920_originspe:dialogue_handler.name=§z
+entity.r4isen1920_originspe:elven_arrow.name=§z
+entity.r4isen1920_originspe:huge_explosion.name=§z
+entity.r4isen1920_originspe:inventory_keep.name=§z
+entity.r4isen1920_originspe:knockback_roar.name=§z
+entity.r4isen1920_originspe:safe_teleporter.name=§z
+entity.r4isen1920_originspe:shooting_star.name=§z
+entity.r4isen1920_originspe:vein_miner.name=§z
+entity.r4isen1920_originspe:webbing_attack.name=§z
 
-action.hint.exit.r4isen1920_originspe:inventory_keep=Tap the Inventory tab to view your Shulk inventory
+action.hint.exit.r4isen1920_originspe:inventory_keep=Open Inventory to view your Shulk inventory
 action.hint.exit.console.r4isen1920_originspe:inventory_keep=Press :_input_key.inventory: to view your Shulk inventory
-action.hint.exit.r4isen1920_originspe:dark_energy=Tap the jump button to stop flying
-action.hint.exit.console.r4isen1920_originspe:dark_energy=Press :_input_key.sneak: to stop flying
 
 progressScreen.title.modifiedWorldWarning=Loading Origins and classes
 progressScreen.message.modifiedWorldWarning=Please wait while the game loads your Origin and class
