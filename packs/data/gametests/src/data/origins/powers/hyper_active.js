@@ -20,7 +20,8 @@ function hyper_active(player) {
     convertTo = 'minecraft:sugar'
   }
 
-  if (!targetSugar) return;
+  if (!targetSugar) return
+  if (targetSugar.item.typeId !== 'minecraft:sugar') return;
 
   player.getComponent('inventory').container.setItem(targetSugar.slot, new ItemStack(convertTo, targetSugar.item.amount))
 
