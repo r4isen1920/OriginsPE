@@ -1,408 +1,93 @@
 {
-  "block_sounds": {
-    "r4isen1920_originspe:temp_oak_log": {
-      "events": {
-        "break": {
-          "pitch": [0.8, 1.0],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "default": "",
-        "hit": {
-          "pitch": 0.5,
-          "sound": "hit.wood",
-          "volume": 0.23
-        },
-        "item.use.on": {
-          "pitch": 0.8,
-          "sound": "use.wood"
-        },
-        "place": {
-          "pitch": [0.8, 0.8],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "power.off": {
-          "pitch": 0.5,
-          "sound": "block.click"
-        },
-        "power.on": {
-          "pitch": 0.6,
-          "sound": "block.click"
-        }
-      },
-      "pitch": 1.0,
-      "volume": 1.0
-    },
-    "r4isen1920_originspe:temp_spruce_log": {
-      "events": {
-        "break": {
-          "pitch": [0.8, 1.0],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "default": "",
-        "hit": {
-          "pitch": 0.5,
-          "sound": "hit.wood",
-          "volume": 0.23
-        },
-        "item.use.on": {
-          "pitch": 0.8,
-          "sound": "use.wood"
-        },
-        "place": {
-          "pitch": [0.8, 0.8],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "power.off": {
-          "pitch": 0.5,
-          "sound": "block.click"
-        },
-        "power.on": {
-          "pitch": 0.6,
-          "sound": "block.click"
-        }
-      },
-      "pitch": 1.0,
-      "volume": 1.0
-    },
-    "r4isen1920_originspe:temp_birch_log": {
-      "events": {
-        "break": {
-          "pitch": [0.8, 1.0],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "default": "",
-        "hit": {
-          "pitch": 0.5,
-          "sound": "hit.wood",
-          "volume": 0.23
-        },
-        "item.use.on": {
-          "pitch": 0.8,
-          "sound": "use.wood"
-        },
-        "place": {
-          "pitch": [0.8, 0.8],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "power.off": {
-          "pitch": 0.5,
-          "sound": "block.click"
-        },
-        "power.on": {
-          "pitch": 0.6,
-          "sound": "block.click"
-        }
-      },
-      "pitch": 1.0,
-      "volume": 1.0
-    },
-    "r4isen1920_originspe:temp_jungle_log": {
-      "events": {
-        "break": {
-          "pitch": [0.8, 1.0],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "default": "",
-        "hit": {
-          "pitch": 0.5,
-          "sound": "hit.wood",
-          "volume": 0.23
-        },
-        "item.use.on": {
-          "pitch": 0.8,
-          "sound": "use.wood"
-        },
-        "place": {
-          "pitch": [0.8, 0.8],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "power.off": {
-          "pitch": 0.5,
-          "sound": "block.click"
-        },
-        "power.on": {
-          "pitch": 0.6,
-          "sound": "block.click"
-        }
-      },
-      "pitch": 1.0,
-      "volume": 1.0
-    },
-    "r4isen1920_originspe:temp_acacia_log": {
-      "events": {
-        "break": {
-          "pitch": [0.8, 1.0],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "default": "",
-        "hit": {
-          "pitch": 0.5,
-          "sound": "hit.wood",
-          "volume": 0.23
-        },
-        "item.use.on": {
-          "pitch": 0.8,
-          "sound": "use.wood"
-        },
-        "place": {
-          "pitch": [0.8, 0.8],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "power.off": {
-          "pitch": 0.5,
-          "sound": "block.click"
-        },
-        "power.on": {
-          "pitch": 0.6,
-          "sound": "block.click"
-        }
-      },
-      "pitch": 1.0,
-      "volume": 1.0
-    },
-    "r4isen1920_originspe:temp_dark_oak_log": {
-      "events": {
-        "break": {
-          "pitch": [0.8, 1.0],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "default": "",
-        "hit": {
-          "pitch": 0.5,
-          "sound": "hit.wood",
-          "volume": 0.23
-        },
-        "item.use.on": {
-          "pitch": 0.8,
-          "sound": "use.wood"
-        },
-        "place": {
-          "pitch": [0.8, 0.8],
-          "sound": "dig.wood",
-          "volume": 1.0
-        },
-        "power.off": {
-          "pitch": 0.5,
-          "sound": "block.click"
-        },
-        "power.on": {
-          "pitch": 0.6,
-          "sound": "block.click"
-        }
-      },
-      "pitch": 1.0,
-      "volume": 1.0
-    }
-  },
 
   "entity_sounds": {
     "entities": {
-      "r4isen1920_originspe:burning_control": {
-        "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
-        },
-        "pitch": 1.0,
-        "volume": 1.0
-      },
-      "r4isen1920_originspe:camera": {
-        "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
-        },
-        "pitch": 1.0,
-        "volume": 1.0
-      },
+
       "r4isen1920_originspe:cleric_area_effect_cloud": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
       "r4isen1920_originspe:cleric_lingering_potion": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
       "r4isen1920_originspe:cleric_splash_potion": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
-      },
-      "r4isen1920_originspe:dark_energy": {
-        "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
-        },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
       "r4isen1920_originspe:dialogue_handler": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
-      "r4isen1920_originspe:elven_link": {
+      "r4isen1920_originspe:elven_arrow": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
-      "r4isen1920_originspe:enderian_pearl": {
+      "r4isen1920_originspe:huge_explosion": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
-      "r4isen1920_originspe:hyper_leap": {
+      "r4isen1920_originspe:inventory_keep": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
-      "r4isen1920_originspe:jump_leap": {
+      "r4isen1920_originspe:knockback_roar": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
-      "r4isen1920_originspe:pounce_leap": {
+      "r4isen1920_originspe:safe_teleporter": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
-      },
-      "r4isen1920_originspe:shulk_inventory": {
-        "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
-        },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       },
       "r4isen1920_originspe:shooting_star": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
+      },
+      "r4isen1920_originspe:vein_miner": {
+        "events": {
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
+        },
+        "pitch": 0.1,
+        "volume": 0.1
       },
       "r4isen1920_originspe:webbing_attack": {
         "events": {
-          "default": "",
-          "step": "",
-          "death": "",
-          "hurt": "",
-          "jump": "",
-          "fall": "",
-          "land": ""
+          "default": "", "step": "", "death": "", "hurt": "", "jump": "", "fall": "", "land": ""
         },
-        "pitch": 1.0,
-        "volume": 1.0
+        "pitch": 0.1,
+        "volume": 0.1
       }
+
     }
   }
 
