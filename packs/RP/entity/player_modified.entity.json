@@ -175,8 +175,8 @@
 
         /* Vanilla */
 
-        { "controller.render.player.first_person_spectator": "variable.is_first_person && query.is_spectator && !q.any(v.p_skin_type, 'ghostly', 'shadow')" },
-        { "controller.render.player.third_person_spectator": "!variable.is_first_person && !variable.map_face_icon && query.is_spectator && !q.any(v.p_skin_type, 'ghostly', 'shadow')" },
+        { "controller.render.player.first_person_spectator": "v.is_first_person && q.is_spectator && !q.any(v.p_skin_type, 'ghostly', 'shadow')" },
+        { "controller.render.player.third_person_spectator": "!v.is_first_person && !v.map_face_icon && q.is_spectator && !q.any(v.p_skin_type, 'ghostly', 'shadow')" },
         { "controller.render.player.first_person": "v.is_first_person" },
         { "controller.render.player.third_person": "!v.is_first_person && !v.map_face_icon" },
         { "controller.render.player.map": "v.map_face_icon" },

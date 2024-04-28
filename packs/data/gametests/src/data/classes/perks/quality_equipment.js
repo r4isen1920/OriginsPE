@@ -90,9 +90,9 @@ system.runTimeout(() => {
 
       const { block, brokenBlockPermutation, itemStackBeforeBreak } = event;
       if (
-        !items.some(i => itemStackBeforeBreak.typeId.includes(i.replace('r4isen1920_originspe:temp_', ''))) ||
-        !templateDiggableTypes.some(i => itemStackBeforeBreak.typeId.includes(i)) ||
-        !itemStackBeforeBreak.getLore().includes('§r§6Quality Equipment§r')
+        !items.some(i => itemStackBeforeBreak?.typeId?.includes(i.replace('r4isen1920_originspe:temp_', ''))) ||
+        !templateDiggableTypes.some(i => itemStackBeforeBreak?.typeId?.includes(i)) ||
+        !itemStackBeforeBreak?.getLore()?.includes('§r§6Quality Equipment§r')
       ) return
 
       const cropTypes = [

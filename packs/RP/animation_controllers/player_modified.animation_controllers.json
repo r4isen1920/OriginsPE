@@ -1,0 +1,83 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+
+    "controller.animation.player.root" : {
+			"initial_state" : "first_person",
+			"states" : {
+				"first_person" : {
+					"animations" : [
+						{ "first_person_swap_item": "!q.blocking" },
+						{ "first_person_shield_block": "q.blocking" },
+						{ "first_person_attack_controller" : "v.attack_time > 0.0f && q.get_equipped_item_name != 'filled_map'" },
+						"first_person_base_pose",
+						{ "first_person_empty_hand" : "q.get_equipped_item_name(0, 1) != 'filled_map'" },
+						{ "first_person_walk" : "v.bob_animation" },
+						{ "first_person_map_controller" : "(q.get_equipped_item_name(0, 1) == 'filled_map' || q.get_equipped_item_name('off_hand') == 'filled_map')" },
+						{ "first_person_crossbow_equipped": "q.get_equipped_item_name == 'crossbow' && (v.item_use_normalized > 0 && v.item_use_normalized < 1.0)" },
+						{ "first_person_breathing_bob": "v.attack_time <= 0.0" }
+					],
+					"transitions" : [
+						{ "paperdoll" : "v.is_paperdoll" },
+						{ "map_player" : "v.map_face_icon" },
+						{ "third_person" : "!v.is_first_person" }
+					]
+				},
+				"map_player" : {
+					"transitions" : [
+						{ "paperdoll" : "v.is_paperdoll" },
+						{ "first_person" : "v.is_first_person" },
+						{ "third_person" : "!v.map_face_icon && !v.is_first_person" }
+					]
+				},
+				"paperdoll" : {
+					"animations" : [ "humanoid_base_pose", "look_at_target_ui", "move.arms", "move.legs", "cape" ],
+					"transitions" : [
+						{ "first_person" : "!v.is_paperdoll && v.is_first_person" },
+						{ "map_player" : "v.map_face_icon" },
+						{ "third_person" : "!v.is_paperdoll && !v.is_first_person" }
+					]
+				},
+				"third_person" : {
+					"animations" : [
+						"humanoid_base_pose",
+						{ "look_at_target" : "!q.is_sleeping && !q.is_emoting" },
+						"move.arms",
+						"move.legs",
+						"cape",
+						{ "riding.arms" : "q.is_riding && !(v.p_is_riding_dummy)" },
+						{ "riding.legs" : "q.is_riding && !(v.p_is_riding_dummy)" },
+						"holding",
+						{ "brandish_spear" : "v.is_brandishing_spear" },
+						{ "holding_spyglass": "v.is_holding_spyglass" },
+						{ "charging" : "q.is_charging" },
+						{ "sneaking" : "q.is_sneaking && !q.is_sleeping" },
+						{ "bob": "!v.is_holding_spyglass && !v.is_tooting_goat_horn && !v.is_using_brush" },
+						{ "damage_nearby_mobs" : "v.damage_nearby_mobs" },
+						{ "swimming" : "v.swim_amount > 0.0" },
+						{ "swimming.legs" : "v.swim_amount > 0.0" },
+						{ "crawling" : "q.is_crawling" },
+						{ "crawling.legs" : "q.is_crawling" },
+						{ "use_item_progress": "( v.use_item_interval_progress > 0.0 ) || ( v.use_item_startup_progress > 0.0 ) && !v.is_brandishing_spear && !v.is_holding_spyglass && !v.is_tooting_goat_horn && !v.is_using_brush && !q.is_item_name_any('slot.weapon.mainhand', 'minecraft:bow')" },
+						{ "sleeping" : "q.is_sleeping && q.is_alive" },
+						{ "attack.positions" : "v.attack_time >= 0.0" },
+						{ "attack.rotations" : "v.attack_time >= 0.0" },
+						{ "shield_block_main_hand" : "q.blocking && q.get_equipped_item_name('off_hand') != 'shield' && q.get_equipped_item_name == 'shield'" },
+						{ "shield_block_off_hand" : "q.blocking && q.get_equipped_item_name('off_hand') == 'shield'" },
+						{ "crossbow_controller" : "q.get_equipped_item_name == 'crossbow'" },
+						{ "third_person_bow_equipped" : "q.get_equipped_item_name == 'bow' && (v.item_use_normalized > 0 && v.item_use_normalized < 1.0)" },
+						{ "tooting_goat_horn": "v.is_tooting_goat_horn" },
+						{ "holding_brush": "q.get_equipped_item_name == 'brush'" },
+						{ "brushing": "v.is_using_brush" }
+					],
+					"transitions" : [
+						{ "paperdoll" : "v.is_paperdoll" },
+						{ "first_person" : "v.is_first_person" },
+						{ "map_player" : "v.map_face_icon" }
+					]
+				}
+			}
+		}
+
+  }
+}
