@@ -35,7 +35,7 @@
 							"buildOptions": {
 								"bundle": true,
 								"entryPoints": [
-									"data/gametests/src/main.ts"
+									"data/gametests/src/main.js"
 								],
 								"format": "esm",
 								"minify": true,
@@ -73,7 +73,7 @@
 							"buildOptions": {
 								"bundle": true,
 								"entryPoints": [
-									"data/gametests/src/main.ts"
+									"data/gametests/src/main.js"
 								],
 								"format": "esm",
 								"minify": false,
@@ -105,7 +105,7 @@
 								"entryPoints": [
 									"data/gametests/src/*.js",
 									"data/gametests/src/**/*.js",
-									"data/gametests/src/main.ts"
+									"data/gametests/src/main.js"
 								],
 								"format": "esm",
 								"minify": false,
