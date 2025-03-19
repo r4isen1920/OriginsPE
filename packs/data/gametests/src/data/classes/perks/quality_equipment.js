@@ -57,11 +57,11 @@ const items = [
  * @param { import('@minecraft/server').Player } player 
  */
 function quality_equipment(player) {
-  const unsetBlacksmithItemsInInventory = findItems(player).filter(item => items.includes(item?.item?.typeId) && !item?.item?.getDynamicProperty(is_quality_set_property))
+  const unsetItemsInInventory = findItems(player).filter(item => items.includes(item?.item?.typeId) && !item?.item?.getDynamicProperty(is_quality_set_property))
 
-  if (unsetBlacksmithItemsInInventory.length === 0) return;
+  if (unsetItemsInInventory.length === 0) return;
 
-  for (const item of unsetBlacksmithItemsInInventory) {
+  for (const item of unsetItemsInInventory) {
     const baseTypeId = item.item.typeId.replace('minecraft:', '');
     const newItemTypeId = player.hasTag('class_blacksmith') ? `r4isen1920_originspe:blacksmith_${baseTypeId}` : `minecraft:${baseTypeId}`;
     const newItem = new ItemStack(newItemTypeId, item.item.amount);
