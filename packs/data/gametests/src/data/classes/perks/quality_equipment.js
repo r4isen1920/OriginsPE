@@ -56,7 +56,8 @@ const items = [
  * @param { import('@minecraft/server').Player } player 
  */
 function quality_equipment(player) {
-  const foodItemsInInventory = findItems(player).filter(item => items.includes(item?.item?.typeId))
+  const foodItemsInInventory = findItems(player).filter(item => items.includes(item?.item?.typeId) && !item?.item?.getDynamicProperty('maker_set'))
+
   if (foodItemsInInventory.length === 0) return;
 
   for (const item of foodItemsInInventory) {
@@ -70,7 +71,11 @@ function quality_equipment(player) {
     if (player.hasTag('class_blacksmith')) setLore.push('§r§6Quality Equipment§r');
     newItem.setLore(setLore);
 
+    // If this property is not set, tools made by non-blacksmith players may be converted to Quality Equiptment when it enters a blacksmith's inventory
+    newItem.setDynamicProperty('maker_set', true)
+
     player.getComponent('inventory').container.setItem(item.slot, newItem);
+
   }
   if (player.hasTag('class_blacksmith')) player.playSound('smithing_table.use', { volume: 0.75, pitch: 1.25 })
 
