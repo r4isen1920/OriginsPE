@@ -5,6 +5,7 @@ import { toAllPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
 
 const is_blacksmith_class_item = "r4isen1920_originspe:blacksmith_"
+const is_quality_set_property = 'is_quality_set'
 
 /**
  * 
@@ -56,11 +57,11 @@ const items = [
  * @param { import('@minecraft/server').Player } player 
  */
 function quality_equipment(player) {
-  const foodItemsInInventory = findItems(player).filter(item => items.includes(item?.item?.typeId) && !item?.item?.getDynamicProperty('maker_set'))
+  const unsetBlacksmithItemsInInventory = findItems(player).filter(item => items.includes(item?.item?.typeId) && !item?.item?.getDynamicProperty(is_quality_set_property))
 
-  if (foodItemsInInventory.length === 0) return;
+  if (unsetBlacksmithItemsInInventory.length === 0) return;
 
-  for (const item of foodItemsInInventory) {
+  for (const item of unsetBlacksmithItemsInInventory) {
     const baseTypeId = item.item.typeId.replace('minecraft:', '');
     const newItemTypeId = player.hasTag('class_blacksmith') ? `r4isen1920_originspe:blacksmith_${baseTypeId}` : `minecraft:${baseTypeId}`;
     const newItem = new ItemStack(newItemTypeId, item.item.amount);
@@ -72,7 +73,7 @@ function quality_equipment(player) {
     newItem.setLore(setLore);
 
     // If this property is not set, tools made by non-blacksmith players may be converted to Quality Equiptment when it enters a blacksmith's inventory
-    newItem.setDynamicProperty('maker_set', true)
+    newItem.setDynamicProperty(is_quality_set_property, true)
 
     player.getComponent('inventory').container.setItem(item.slot, newItem);
 
