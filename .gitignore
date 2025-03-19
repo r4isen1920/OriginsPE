@@ -1,6 +1,7 @@
 /build
 /publish
 /.regolith
+deploy_originspe.sh
 
 /.vscode
 node_modules/

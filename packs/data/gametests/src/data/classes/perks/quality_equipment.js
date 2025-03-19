@@ -4,6 +4,8 @@ import { ItemStack, world, system, TicksPerSecond, EquipmentSlot } from "@minecr
 import { toAllPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
 
+const is_blacksmith_class_item = "r4isen1920_originspe:blacksmith_"
+
 /**
  * 
  * Materials of the quality equipment
@@ -45,9 +47,8 @@ const templateTypes = [
 const items = [
 
   ...templateMaterials.flatMap(material => 
-    templateTypes.map(type => `r4isen1920_originspe:temp_${material}_${type}`)
+    templateTypes.map(type => `minecraft:${material}_${type}`)
   )
-
 ]
 
 /**
@@ -59,7 +60,7 @@ function quality_equipment(player) {
   if (foodItemsInInventory.length === 0) return;
 
   for (const item of foodItemsInInventory) {
-    const baseTypeId = item.item.typeId.replace('r4isen1920_originspe:temp_', '');
+    const baseTypeId = item.item.typeId.replace('minecraft:', '');
     const newItemTypeId = player.hasTag('class_blacksmith') ? `r4isen1920_originspe:blacksmith_${baseTypeId}` : `minecraft:${baseTypeId}`;
     const newItem = new ItemStack(newItemTypeId, item.item.amount);
 
@@ -79,33 +80,119 @@ toAllPlayers(quality_equipment, 15, TicksPerSecond * 15)
 
 
 /**
- * 
- * Run the effects of quality
- * equipments
+ * Runs the effects of quality equipment.
  */
 system.runTimeout(() => {
+  world.afterEvents.playerBreakBlock.subscribe(event => {
+    const { block, brokenBlockPermutation, itemStackBeforeBreak, player } = event;
 
-  world.afterEvents.playerBreakBlock.subscribe(
-    event => {
+    if (!isValidQualityEquipment(itemStackBeforeBreak)) return;
 
-      const { block, brokenBlockPermutation, itemStackBeforeBreak } = event;
-      if (
-        !items.some(i => itemStackBeforeBreak?.typeId?.includes(i.replace('r4isen1920_originspe:temp_', ''))) ||
-        !templateDiggableTypes.some(i => itemStackBeforeBreak?.typeId?.includes(i)) ||
-        !itemStackBeforeBreak?.getLore()?.includes('§r§6Quality Equipment§r')
-      ) return
-
-      const cropTypes = [
-        'wheat', 'beetroot', 'carrots', 'potatoes', 'melon_stem', 'pumpkin_stem', 'sweet_berry_bush', 'nether_wart'
-      ]
-      const isCropBlock = cropTypes.some(type => brokenBlockPermutation.matches(`minecraft:${type}`))
-
-      block.dimension.spawnParticle(
-        `r4isen1920_originspe:blacksmiths_${isCropBlock ? 'harvest' : 'dig'}`, 
-        block.center()
-      )
-
+    if (itemStackBeforeBreak?.typeId.includes(is_blacksmith_class_item)) {
+      handleDurability(itemStackBeforeBreak, player);
     }
-  )
 
-}, TicksPerSecond * 11)
+    spawnBreakParticles(block, brokenBlockPermutation);
+  });
+}, TicksPerSecond * 11);
+
+
+/**
+ * Checks if the broken item is a valid piece of quality equipment.
+ */
+function isValidQualityEquipment(itemStack) {
+  return (
+    itemStack &&
+    items.some(i => itemStack.typeId.includes(i.replace("minecraft:", ""))) &&
+    templateDiggableTypes.some(i => itemStack.typeId.includes(i)) &&
+    itemStack.getLore()?.includes("§r§6Quality Equipment§r")
+  );
+}
+
+/**
+ * Handles durability logic, including applying damage and removing the item if it breaks.
+ */
+function handleDurability(itemStack, player) {
+  const durability = itemStack.getComponent("durability");
+  if (!durability) return;
+
+  const damageAmount = calculateDurabilityLoss(durability);
+
+  updateInventory(itemStack, durability, player, damageAmount);
+}
+
+/**
+ * Determines how much durability should be lost, based on Minecraft's damage chance logic.
+ */
+function calculateDurabilityLoss(durability) {
+
+  const damageChance = durability.getDamageChanceRange();
+
+  const max = damageChance.max || 1
+  const min = damageChance.min || 1
+
+  // Apply damage based on Minecraft's logic
+  let damageAmount = 0;
+
+  // If min === max, apply damage 100% of the time
+  if (min === max) {
+    damageAmount = min;
+  } else {
+    // If min !== max, we need to implement the probability logic
+    const randomRoll = Math.floor(Math.random() * max) + 1; // Random number from 1 to max
+    if (randomRoll === min) {
+      damageAmount = min; // 50% chance of taking damage
+    }
+  }
+
+  return damageAmount
+}
+
+/**
+ * Finds the item in the inventory, updates durability, or removes it if it is broken.
+ */
+function updateInventory(itemStack, durability, player, damageAmount) {
+  const inventory = player.getComponent("inventory").container;
+  let itemSlot = -1;
+
+  for (let i = 0; i < inventory.size; i++) {
+     const currentItem = inventory.getItem(i);
+     if (currentItem && currentItem.typeId === itemStack.typeId) {
+       const currentDurability = currentItem.getComponent("durability");
+       
+       // ✅ Match the item based on its durability value
+       if (currentDurability && currentDurability.damage === durability.damage) {
+         itemSlot = i;
+         break;
+       }
+     }
+   }
+
+  if (itemSlot === -1) return;
+
+  durability.damage += Math.min(damageAmount, durability.maxDurability - durability.damage);
+
+  if (durability.damage >= durability.maxDurability) {
+    // Item Broke
+    player.playSound("random.break", { volume: 1.0, pitch: 1.0 });
+    inventory.setItem(itemSlot, undefined);
+  } else {
+    inventory.setItem(itemSlot, itemStack);
+  }
+}
+
+/**
+ * Spawns particle effects based on the type of block broken.
+ */
+function spawnBreakParticles(block, brokenBlockPermutation) {
+  const cropTypes = [
+    "wheat", "beetroot", "carrots", "potatoes", "melon_stem", "pumpkin_stem",
+    "sweet_berry_bush", "nether_wart"
+  ];
+  const isCropBlock = cropTypes.some(type => brokenBlockPermutation.matches(`minecraft:${type}`));
+
+  block.dimension.spawnParticle(
+    `r4isen1920_originspe:blacksmiths_${isCropBlock ? "harvest" : "dig"}`,
+    block.center()
+  );
+}
