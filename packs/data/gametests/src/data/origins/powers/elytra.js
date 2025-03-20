@@ -17,7 +17,7 @@ function elytra(player) {
        * @type { string[] }
        */
       const lore = playerEquipment.getEquipment(EquipmentSlot.Chest)?.getLore()
-      if (!lore.includes('§r§6Elytrian§r')) return
+      if (!lore?.includes('§r§6Elytrian§r')) return
       playerEquipment.setEquipment(EquipmentSlot.Chest, undefined)
     }
 
