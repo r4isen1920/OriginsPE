@@ -63,8 +63,6 @@ world.afterEvents.playerSpawn.subscribe(
       player.addTag('has_any_race');
       player.addTag('has_any_class');
     }
-
-    player.setDynamicProperty("starting_gamemode", player.getGameMode());
   }
 )
 

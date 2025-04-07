@@ -1,5 +1,5 @@
 
-import { world, GameMode } from "@minecraft/server";
+import { world } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
@@ -10,9 +10,7 @@ import { ResourceBar } from "../../../origins/resource_bar";
  */
 function phantomize(player) {
 
-  const started_in_spectator_mode = player.getDynamicProperty('starting_gamemode') === GameMode.spectator;
-
-  if (!player.hasTag('power_phantomize') && !started_in_spectator_mode) return;
+  if (!player.hasTag('power_phantomize')) return;
 
   if (player.hasTag('_control_use_phantomize')) {
 
@@ -34,7 +32,7 @@ function phantomize(player) {
 
   const cooldown = new ResourceBar(5, 100, 0, 2)
 
-  if (player.hasTag('_phantomized') || started_in_spectator_mode) {
+  if (player.hasTag('_phantomized')) {
 
     const isPlayerMoving = player.getVelocity().x !== 0 || player.getVelocity().y !== 0 || player.getVelocity().z !== 0;
 
@@ -99,5 +97,4 @@ function exitPhantomizedForm(player) {
   player.removeTag('_phantomized');
   player.removeTag('_control_use_phantomize');
   player.setDynamicProperty('r4isen1920_originspe:move_ticks', 0)
-  player.setDynamicProperty("starting_gamemode", player.getGameMode());
 }
