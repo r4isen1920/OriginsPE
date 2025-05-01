@@ -4,6 +4,9 @@ import { Direction, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
 
+const blocksPerChunk = 16;
+const safeMaxRenderChunks = 12;
+
 /**
  * 
  * @param { import('@minecraft/server').Player } player 
@@ -14,10 +17,17 @@ function throw_ender_pearl(player) {
     !player.hasTag('_control_use_throw_ender_pearl')
   ) return
 
+  const playerMaxRenderChunks = player.clientSystemInfo.maxRenderDistance;
+
+  const maxRenderDistance = Math.min(playerMaxRenderChunks, safeMaxRenderChunks) * blocksPerChunk;
 
   if (!player.hasTag('cooldown_3')) {
 
-    const targetBlock = player.getBlockFromViewDirection()
+    const targetBlock = player.getBlockFromViewDirection({ 
+      maxDistance: MAX_TELEPORT_DISTANCE, 
+      includeLiquidBlocks: false 
+    });
+
     if (!targetBlock) {
       player.removeTag('_control_use_throw_ender_pearl');
       player.playSound('note.bass', { volume: 1, pitch: 1.5 });

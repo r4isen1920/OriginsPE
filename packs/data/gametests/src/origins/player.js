@@ -1,5 +1,5 @@
 
-import { world, system } from "@minecraft/server";
+import { world, system, GameMode } from "@minecraft/server";
 
 import { openScreenPickerGUI, setupMenuItem } from "./gui.js";
 import { removeTags } from "../utils/tags.js";
@@ -193,6 +193,9 @@ export async function initModules(player) {
 
   setupMenuItem(player);
 
+  if(player.hasTag('power_phantomize') && player.getGameMode() === GameMode.spectator) {
+    player.addTag('_phantomized');
+  }
 }
 
 
