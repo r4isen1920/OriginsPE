@@ -1,5 +1,5 @@
 
-import { EntityDamageCause } from "@minecraft/server";
+import { EntityDamageCause, system } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
@@ -130,7 +130,13 @@ function sacrifice_stinger(player) {
 
     case player.hasTag('stinger_level_0'):
       if (player.hasTag('_was_stinger_level_1')) {
-        onDecrementStingerLevel(player, 0); break
+        onDecrementStingerLevel(player, 0);
+        player.kill();
+        system.runTimeout(() => {
+          player.kill();
+        }, 20)
+        changeStingerLevel(player, 7);
+        break
       }
 
       if (!player.hasTag('_init_bar') && _SCOREBOARD('gui').getScore(player) === 1) {
@@ -190,10 +196,10 @@ function onDecrementStingerLevel(player, level) {
       break
 
     case '0':
-      player.applyDamage(9999, { cause: EntityDamageCause.magic })
+      player.kill();
       changeStingerLevel(player, 1)
-      break
-
+      break;
+    
   }
 
   new ResourceBar(13, BAR_LEVELS[level + 1], BAR_LEVELS[level], 1, true)
