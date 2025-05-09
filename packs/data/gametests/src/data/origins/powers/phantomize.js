@@ -9,6 +9,7 @@ import { ResourceBar } from "../../../origins/resource_bar";
  * @param { import('@minecraft/server').Player } player 
  */
 function phantomize(player) {
+
   if (!player.hasTag('power_phantomize')) return;
 
   if (player.hasTag('_control_use_phantomize')) {
@@ -96,5 +97,4 @@ function exitPhantomizedForm(player) {
   player.removeTag('_phantomized');
   player.removeTag('_control_use_phantomize');
   player.setDynamicProperty('r4isen1920_originspe:move_ticks', 0)
-
 }

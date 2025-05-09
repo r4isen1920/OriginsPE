@@ -56,7 +56,10 @@
 						"settings": {
 							"output": "OriginsPE-${git.tag ?? 'test'}${git.tagCommit !== git.commit ? '-' + git.commit.substr(0, 6) : ''}.mcworld",
 							"worldName": "OriginsPE-${git.tag ?? 'test'}",
-							"worldPath": "../../world"
+							"worldPath": "../../world",
+							"exclude": [
+					      "**/.DS_Store"
+					    ]
 						}
 					}
 				]

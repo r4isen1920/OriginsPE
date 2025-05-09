@@ -1,36 +1,53 @@
-
-import { EquipmentSlot, ItemLockMode, ItemStack } from "@minecraft/server";
-
+import {
+  EquipmentSlot,
+  ItemLockMode,
+  ItemStack,
+  ItemComponentTypes,
+  TicksPerSecond,
+} from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 /**
- * 
- * @param { import('@minecraft/server').Player } player 
+ * Equips or removes an Elytra with custom lore and keeps it repaired.
+ * @param {import('@minecraft/server').Player} player
  */
 function elytra(player) {
+  const equipment = player.getComponent("equippable");
 
-  if (!player.hasTag('power_elytra')) {
+  if (!equipment) return;
 
-    const playerEquipment = player.getComponent('equippable');
-    if (playerEquipment) {
-      /**
-       * @type { string[] }
-       */
-      const lore = playerEquipment.getEquipment(EquipmentSlot.Chest)?.getLore()
-      if (!lore.includes('§r§6Elytrian§r')) return
-      playerEquipment.setEquipment(EquipmentSlot.Chest, undefined)
+  const chestItem = equipment.getEquipment(EquipmentSlot.Chest);
+  const hasElytraPower = player.hasTag("power_elytra");
+  const isCustomElytra = chestItem?.getLore()?.includes("§r§6Elytrian§r");
+
+  if (!hasElytraPower) {
+    // Remove Elytra if equipped and it matches the custom one
+    if (isCustomElytra) {
+      equipment.setEquipment(EquipmentSlot.Chest, undefined);
     }
-
-    return
+    return;
   }
 
-  if (player.getComponent('equippable').getEquipment(EquipmentSlot.Chest)?.typeId === 'minecraft:elytra') return
+  if (isCustomElytra) {
+    // 🔁 Reset durability if custom elytra is already equipped
+    const durability = chestItem.getComponent(ItemComponentTypes.Durability);
+    if (durability && durability.damage > 0) {
+      durability.damage = 0;
+      equipment.setEquipment(EquipmentSlot.Chest, chestItem);
+    }
+    return;
+  }
 
-  const newElytra = new ItemStack('minecraft:elytra')
-  newElytra.lockMode = ItemLockMode.slot
-  newElytra.setLore(['§r§6Elytrian§r'])
+  // 🎯 Equip new Elytra if not present
+  const newElytra = new ItemStack("minecraft:elytra");
+  newElytra.lockMode = ItemLockMode.slot;
+  newElytra.keepOnDeath = true;
+  newElytra.setLore(["§r§6Elytrian§r"]);
 
-  player.getComponent('equippable').setEquipment(EquipmentSlot.Chest, newElytra)
+  const durability = newElytra.getComponent(ItemComponentTypes.Durability);
+  if (durability) durability.damage = 0;
+
+  equipment.setEquipment(EquipmentSlot.Chest, newElytra);
 }
 
-toAllPlayers(elytra, 5)
+toAllPlayers(elytra, TicksPerSecond * 5);

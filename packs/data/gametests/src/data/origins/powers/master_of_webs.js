@@ -1,4 +1,3 @@
-
 import { toAllPlayers } from "../../../origins/player";
 import { Vector3 } from "../../../utils/Vec3";
 import { removeTags } from "../../../utils/tags";
@@ -20,17 +19,21 @@ function master_of_webs(player) {
   if (!player.hasTag('power_master_of_webs')) return;
 
   if (block(0).permutation.matches('web') || block(1).permutation.matches('web')) {
+      player.addEffect('minecraft:speed', 100, { amplifier: 50, showParticles:false });
 
     if (block(0).permutation.matches('web') && block(1).permutation.matches('web')) {
       player.addTag('_master_of_webs_1')
       player.removeTag('_master_of_webs_0')
+      
     } else {
       player.addTag('_master_of_webs_0')
       player.removeTag('_master_of_webs_1')
     }
+        
 
   } else {
-    removeTags(player, '_master_of_webs')
+    removeTags(player, '_master_of_webs');
+    player.removeEffect('minecraft:speed'); // Remove speed effect if not in a web
   }
 
 }
