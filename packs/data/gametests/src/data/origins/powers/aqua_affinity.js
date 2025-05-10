@@ -16,12 +16,16 @@ function aqua_affinity(player) {
     return player.dimension.getBlock(Vector3.add(player.location, posOffset));
   };
 
-  const headBlock = getBlock(new Vector3(0, 1, 0)); // Block at the player's head
+  const headBlock = getBlock(new Vector3(0, 1, 0));
 
   if (
     player.hasTag('power_aqua_affinity') &&
     headBlock && 
-    (headBlock.permutation.matches('water') || headBlock.permutation.matches('flowing_water'))
+    (
+      headBlock.permutation.matches('water') || 
+      headBlock.permutation.matches('flowing_water') || 
+      headBlock.isWaterlogged 
+    )
   ) {
     player.addEffect('conduit_power', TicksPerSecond * 12, { amplifier: 1, showParticles: false });
   } else {
