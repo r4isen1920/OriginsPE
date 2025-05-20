@@ -76,19 +76,19 @@ const goldItems = [
 const goldWearables = [
   {
     typeId: 'minecraft:golden_helmet',
-    value: 22.5
+    value: 15
   },
   {
     typeId: 'minecraft:golden_chestplate',
-    value: 22.5
+    value: 15
   },
   {
     typeId: 'minecraft:golden_leggings',
-    value: 22.5
+    value: 15
   },
   {
     typeId: 'minecraft:golden_boots',
-    value: 22.5
+    value: 15
   }
 ]
 
@@ -97,7 +97,7 @@ const goldWearables = [
  * @param {number} max 
  * @returns {number}
  */
-const normalize = function(value=0, max=90) {
+const normalize = function(value=0, max=60) {
   return (value / max) * 100
 }
 
@@ -105,12 +105,18 @@ const normalize = function(value=0, max=90) {
  * 
  * @param { import('@minecraft/server').Player } player 
  */
+
+
+
 function pride(player) {
   if (!player.hasTag('power_pride')) return
 
   const inventoryItems = getItemsCountInInventory(player);
+  const goldArmorTypes = goldWearables.map(item => item.typeId);
+  const goldArmorInInventory = inventoryItems.filter(item => goldArmorTypes.includes(item.typeId));
+
   const goldItemsInInventory = inventoryItems.filter(item => goldItems.some(goldItem => goldItem.typeId === item.typeId));
-  const totalGold = Math.min(goldItemsInInventory.reduce((total, item) => total + (item.amount * goldItems.find(goldItem => goldItem.typeId === item.typeId).value), 0), 90);
+  const totalGold = Math.min(goldItemsInInventory.reduce((total, item) => total + (item.amount * goldItems.find(goldItem => goldItem.typeId === item.typeId).value), 0), 60);
 
   const wornEquipments = getEquipment(player).map(item => ({
     typeId: item.typeId,
@@ -123,7 +129,7 @@ function pride(player) {
   if (prevValue === undefined) { player.addTag('_dmg_reduce_value_0'); return }
 
   if (!player.hasTag('_init_bar')) {
-    new ResourceBar(15, normalize(currentValue, 90), normalize(currentValue, 90), 1, true)
+    new ResourceBar(15, normalize(currentValue, 60), normalize(currentValue, 60), 1, true)
         .push(player)
 
     player.addTag('_init_bar');
@@ -135,15 +141,19 @@ function pride(player) {
     player.addTag('_dmg_reduce_value_' + currentValue)
 
     if (currentValue > 0) {
-      new ResourceBar(15, normalize(prevValue, 90) || 0, normalize(currentValue, 90), 1, true)
+      new ResourceBar(15, normalize(prevValue, 60) || 0, normalize(currentValue, 60), 1, true)
           .push(player)
     } else {
-      new ResourceBar(15, normalize(prevValue, 90) || 0, 0, 1)
+      new ResourceBar(15, normalize(prevValue, 60) || 0, 0, 1)
           .pop(player)
     }
 
   }
-
+   if (currentValue > 1 && goldArmorInInventory.length > 0) {
+    player.runCommandAsync('tellraw @s {"rawtext":[{"text":"You must WEAR your gold armor for damage reduction!"}]}');
+  } else if (currentValue < 1 && goldArmorInInventory.length === 0) {
+    player.runCommandAsync('tellraw @s {"rawtext":[{"text":"You must CRAFT your gold armor for damage reduction!"}]}');
+  }
 }
 
 toAllPlayers(pride, 5)

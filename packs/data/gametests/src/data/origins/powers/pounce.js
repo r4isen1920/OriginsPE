@@ -6,7 +6,7 @@ import { ResourceBar } from "../../../origins/resource_bar";
 import { Vector3 } from "../../../utils/Vec3";
 import { removeTags } from "../../../utils/tags";
 
-const MAX_DISTANCE = 20;
+const MAX_DISTANCE = 10;
 
 /**
  * 

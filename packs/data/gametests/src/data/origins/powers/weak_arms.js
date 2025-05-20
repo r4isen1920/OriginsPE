@@ -18,9 +18,28 @@ function weak_arms(player) {
     return
   }
 
-  player.addEffect('weakness', TicksPerSecond * 12, { amplifier: 0, showParticles: false });
-  player.addEffect('mining_fatigue', TicksPerSecond * 12, { amplifier: 0, showParticles: false });
+  const stoneTypes = [
+    "minecraft:stone",
+    "minecraft:cobblestone",
+    "minecraft:andesite",
+    "minecraft:diorite",
+    "minecraft:granite",
+    "minecraft:deepslate",
+    "minecraft:tuff",
+    "minecraft:calcite",
+    "minecraft:dripstone_block"
+  ];
 
+   const block = player.getBlockFromViewDirection?.()?.block;
+
+  player.addEffect('weakness', TicksPerSecond * 12, { amplifier: 0, showParticles: false });
+
+  if (block && stoneTypes.includes(block.typeId)) {
+  
+  player.addEffect('mining_fatigue', TicksPerSecond * 12, { amplifier: 3, showParticles: false });
+  } else {
+    player.removeEffect('mining_fatigue');
+  }
 }
 
 toAllPlayers(weak_arms, 2)
