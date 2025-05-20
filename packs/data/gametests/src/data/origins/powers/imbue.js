@@ -11,7 +11,8 @@ system.runTimeout(() => {
       const { damageSource, hurtEntity } = event;
       if (
         !damageSource.damagingEntity?.hasTag('power_imbue') ||
-        damageSource.cause !== EntityDamageCause.projectile
+        damageSource.cause !== EntityDamageCause.projectile ||
+        damageSource.damagingProjectile?.typeId !== 'minecraft:arrow'
       ) return;
 
       /**
