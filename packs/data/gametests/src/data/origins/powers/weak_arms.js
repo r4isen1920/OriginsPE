@@ -58,6 +58,5 @@ function weak_arms(player) {
   } catch (e) {
     // Ignore errors
   }
-}
 
 toAllPlayers(weak_arms, 2);

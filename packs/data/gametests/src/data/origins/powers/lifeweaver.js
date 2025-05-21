@@ -13,13 +13,17 @@ function lifeweaver(player) {
   if (
     !player.hasTag('power_lifeweaver') ||
     (player.getDynamicProperty('r4isen1920_originspe:accumulated_damage') || 0) < 1
-  ) return
+  ) return;
+
+   if (player.hasTag('cooldown_lifeweaver')) {
+    player.runCommandAsync('tellraw @s {"rawtext":[{"text":"Lifeweaver is on cooldown!"}]}');
+    return;
+   }
 
   if (
     (player.getDynamicProperty('r4isen1920_originspe:accumulated_damage') || 0) > 0 &&
-    !player.hasTag('cooldown_16')
+    !player.hasTag('cooldown_30')
   ) {
-
     /**
      * @type { import('@minecraft/server').EntityHealthComponent }
       */
@@ -37,6 +41,11 @@ function lifeweaver(player) {
 
     player.setDynamicProperty('r4isen1920_originspe:accumulated_damage', 0);
     player.addTag('_lifeweaver_on_trigger');
+
+    player.addTag('cooldown_lifeweaver');
+    system.runTimeout(() => {
+      player.removeTag('cooldown_lifeweaver');
+    }, TicksPerSecond * 30);
 
   } else player.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 0 })
 }
@@ -60,16 +69,16 @@ system.runTimeout(() => {
 
       if (
         (hurtEntity.getDynamicProperty('r4isen1920_originspe:accumulated_damage') || 0) > 1 &&
-        hurtEntity.hasTag('cooldown_16') &&
+        hurtEntity.hasTag('cooldown_30') &&
         hurtEntity.hasTag('_lifeweaver_on_trigger')
       ) {
 
-        hurtEntity.removeTag('cooldown_16');
+        hurtEntity.removeTag('cooldown_30');
         hurtEntity.removeTag('_lifeweaver_on_trigger');
 
       }
 
-      if (!hurtEntity.hasTag('cooldown_16'))
+      if (!hurtEntity.hasTag('cooldown_30'))
         new ResourceBar(16, 0, 100, 3, false).push(hurtEntity)
 
       hurtEntity.setDynamicProperty(
