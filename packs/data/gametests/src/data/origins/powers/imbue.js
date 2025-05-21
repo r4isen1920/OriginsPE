@@ -1,4 +1,3 @@
-
 import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/server";
 
 import { Vector3 } from "../../../utils/Vec3";
@@ -19,10 +18,8 @@ system.runTimeout(() => {
        * @type { import('@minecraft/server').EntityHealthComponent }
        */
       const damagerHealthComponent = damageSource.damagingEntity.getComponent('health');
-      const isTargetUndead = hurtEntity.matches({ families: [ 'undead' ]});
-
+      // Nerfed: Remove undead bonus, only scale with current health
       let additionalDamage = damagerHealthComponent.currentValue * 0.5;
-      if (isTargetUndead) additionalDamage += ((hurtEntity.getComponent('health')?.effectiveMax || 0) * 0.25);
 
       hurtEntity.applyDamage(Math.round(additionalDamage), { cause: EntityDamageCause.override, damagingEntity: damageSource.damagingEntity });
 
@@ -35,3 +32,8 @@ system.runTimeout(() => {
   )
 
 }, TicksPerSecond * 6)
+
+/**
+ * IMBUE
+ * Enhances your projectiles to deal additional damage equivalent to 50% of your current health. This additional damage is treated as magic and will bypass armor.
+ */
