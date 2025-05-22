@@ -12,13 +12,13 @@ import { _SCOREBOARD } from "./resource_bar";
  * 
  * Old build id
  */
-const OLD_BUILDID = '000000';
+const OLD_BUILDID = '12rqlf';
 
 /**
  * 
  * New build id
  */
-const NEW_BUILDID = '12rqlf';
+const NEW_BUILDID = '18a9c377';
 
 
 /**

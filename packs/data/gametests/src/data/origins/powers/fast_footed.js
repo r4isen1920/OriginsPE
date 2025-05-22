@@ -12,7 +12,7 @@ function fast_footed(player) {
     player.hasTag('_scale_set')
   ) return
 
-  player.triggerEvent('r4isen1920_originspe:movement.0.15');
+  player.triggerEvent('r4isen1920_originspe:movement.0.1425');
   player.triggerEvent('r4isen1920_originspe:scale.0.75');
 
   player.addTag('_scale_set');

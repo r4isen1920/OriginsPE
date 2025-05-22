@@ -114,16 +114,65 @@
     "component_groups": {
 
       /* OriginsPE */
-
+      
+      "r4isen1920_originspe:fill_bubbles": {
+        "minecraft:breathable": {
+          "total_supply": 15,
+          "suffocate_time": -1,
+          "inhale_time": 3.75,
+          "generates_bubbles": false
+        }
+      },
+      "r4isen1920_originspe:movement.0.025": {
+        "minecraft:movement": { "value": 0.025 }
+      },
       "r4isen1920_originspe:movement.0.05": {
         "minecraft:movement": { "value": 0.05 }
+      },
+      "r4isen1920_originspe:movement.0.075": {
+        "minecraft:movement": { "value": 0.075 }
       },
       "r4isen1920_originspe:movement.0.1": {
         "minecraft:movement": { "value": 0.1 }
       },
+      "r4isen1920_originspe:movement.0.1425": {
+        "minecraft:movement": { "value": 0.1425 }
+      },
       "r4isen1920_originspe:movement.0.15": {
         "minecraft:movement": { "value": 0.15 }
       },
+      "r4isen1920_originspe:movement.0.2": {
+        "minecraft:movement": { "value": 0.2 }
+      },
+      "r4isen1920_originspe:movement.0.25": {
+        "minecraft:movement": { "value": 0.25 }
+      },
+
+      "r4isen1920_originspe:underwater_movement.0.025": {
+        "minecraft:underwater_movement": { "value": 0.025 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.05": {
+        "minecraft:underwater_movement": { "value": 0.05 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.075": {
+        "minecraft:underwater_movement": { "value": 0.075 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1": {
+        "minecraft:underwater_movement": { "value": 0.1 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1425": {
+        "minecraft:underwater_movement": { "value": 0.1425 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.15": {
+        "minecraft:underwater_movement": { "value": 0.15 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.2": {
+        "minecraft:underwater_movement": { "value": 0.2 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.25": {
+        "minecraft:underwater_movement": { "value": 0.25 }
+      },
+
 
 
       "r4isen1920_originspe:health.1": { "minecraft:health": { "max": 1 } },
@@ -725,6 +774,7 @@
             },
             "deals_damage": false
           },
+          
 
           { "cause": "all", "on_damage": { "filters": { "all_of": [ { "test": "has_tag", "value": "_dmg_reduce_value_0" } ] } }, "deals_damage": true, "damage_multiplier": 1.00 },
           { "cause": "all", "on_damage": { "filters": { "all_of": [ { "test": "has_tag", "value": "_dmg_reduce_value_1" } ] } }, "deals_damage": true, "damage_multiplier": 0.99 },
@@ -1099,15 +1149,61 @@
 
       /* OriginsPE */
 
+      "r4isen1920_originspe:fill_bubbles": {
+        "add": { "component_groups": [ "r4isen1920_originspe:fill_bubbles" ] }
+      },
+
+      "r4isen1920_originspe:movement.0.025": {
+        "add": { "component_groups": [ "r4isen1920_originspe:movement.0.025" ] }
+      },
       "r4isen1920_originspe:movement.0.05": {
         "add": { "component_groups": [ "r4isen1920_originspe:movement.0.05" ] }
+      },
+      "r4isen1920_originspe:movement.0.075": {
+        "add": { "component_groups": [ "r4isen1920_originspe:movement.0.075" ] }
       },
       "r4isen1920_originspe:movement.0.1": {
         "add": { "component_groups": [ "r4isen1920_originspe:movement.0.1" ] }
       },
+      "r4isen1920_originspe:movement.0.1425": {
+        "add": { "component_groups": [ "r4isen1920_originspe:movement.0.1425" ] }
+      },
       "r4isen1920_originspe:movement.0.15": {
         "add": { "component_groups": [ "r4isen1920_originspe:movement.0.15" ] }
       },
+      "r4isen1920_originspe:movement.0.2": {
+        "add": { "component_groups": [ "r4isen1920_originspe:movement.0.2" ] }
+      },
+      "r4isen1920_originspe:movement.0.25": {
+        "add": { "component_groups": [ "r4isen1920_originspe:movement.0.25" ] }
+      },
+
+      "r4isen1920_originspe:underwater_movement.0.025": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.025" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.05": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.05" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.075": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.075" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.1" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1425": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.1425" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.15": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.15" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.2": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.2" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.25": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.25" ] }
+      },
+      
+      
 
       "r4isen1920_originspe:health.1": { "sequence": [ { "add": { "component_groups": [ "r4isen1920_originspe:health.1" ] } }, { "filters": { "test": "has_tag", "operator": "!=", "value": "_health_no_update" }, "set_property": { "r4isen1920_originspe:definitive_max_health": 1 } } ] },
       "r4isen1920_originspe:health.2": { "sequence": [ { "add": { "component_groups": [ "r4isen1920_originspe:health.2" ] } }, { "filters": { "test": "has_tag", "operator": "!=", "value": "_health_no_update" }, "set_property": { "r4isen1920_originspe:definitive_max_health": 2 } } ] },

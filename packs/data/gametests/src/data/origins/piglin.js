@@ -6,5 +6,6 @@ export const piglin = {
     'gluttony',
     'courage',
     'nether_spawn',
+    'heavy_pockets'
   ]
 }

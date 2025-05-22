@@ -20,16 +20,7 @@
 
       "minecraft:food": {
         "nutrition": 8,
-        "is_meat": false,
-        "can_always_eat": false,
-        "effects": [
-          {
-            "name": "regeneration",
-            "chance": 0.5,
-            "duration": 10,
-            "amplifier": 0
-          }
-        ]
+        "can_always_eat": false
       },
 
       "minecraft:use_modifiers": {
