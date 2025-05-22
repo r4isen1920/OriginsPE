@@ -15,11 +15,6 @@ function lifeweaver(player) {
     (player.getDynamicProperty('r4isen1920_originspe:accumulated_damage') || 0) < 1
   ) return;
 
-   if (player.hasTag('cooldown_lifeweaver')) {
-    player.runCommandAsync('tellraw @s {"rawtext":[{"text":"Lifeweaver is on cooldown!"}]}');
-    return;
-   }
-
   if (
     (player.getDynamicProperty('r4isen1920_originspe:accumulated_damage') || 0) > 0 &&
     !player.hasTag('cooldown_30')
