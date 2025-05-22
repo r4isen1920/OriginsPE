@@ -149,11 +149,7 @@ function pride(player) {
     }
 
   }
-   if (currentValue > 1 && goldArmorInInventory.length > 0) {
-    player.runCommandAsync('tellraw @s {"rawtext":[{"text":"You must WEAR your gold armor for damage reduction!"}]}');
-  } else if (currentValue < 1 && goldArmorInInventory.length === 0) {
-    player.runCommandAsync('tellraw @s {"rawtext":[{"text":"You must CRAFT your gold armor for damage reduction!"}]}');
-  }
+   
 }
 
 toAllPlayers(pride, 5)
