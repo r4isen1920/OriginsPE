@@ -21,6 +21,7 @@ scoreboard players operation "banr" index += "ban_starborne" index
 scoreboard players operation "banr" index += "ban_elf" index
 scoreboard players operation "banr" index += "ban_voidwalker" index
 scoreboard players operation "banr" index += "ban_diviner" index
+scoreboard players operation "banr" index += "ban_mole" index
 
 scoreboard players operation "banc" index += "ban_nitwit" index
 scoreboard players operation "banc" index += "ban_archer" index
@@ -37,13 +38,14 @@ scoreboard players operation "banc" index += "ban_rancher" index
 scoreboard players operation "banc" index += "ban_rogue" index
 scoreboard players operation "banc" index += "ban_warrior" index
 scoreboard players operation "banc" index += "ban_diviner" index
+scoreboard players operation "banc" index += "ban_mole" index
 
-execute if score "banr" index matches 19.. run scoreboard players set "ban_human" index 0
+execute if score "banr" index matches 20.. run scoreboard players set "ban_human" index 0
 execute if score "banc" index matches 13.. run scoreboard players set "ban_nitwit" index 0
-execute if score "banr" index matches 19.. run scoreboard players set "ban_human" index 18
+execute if score "banr" index matches 20.. run scoreboard players set "ban_human" index 19
 execute if score "banc" index matches 13.. run scoreboard players set "ban_nitwit" index 12
 
-execute if score "banr" index matches 20.. run scoreboard players set "banc" index 19
+execute if score "banr" index matches 21.. run scoreboard players set "banc" index 20
 execute if score "banc" index matches 14.. run scoreboard players set "banr" index 13
 execute if score "banr" index matches ..-1 run scoreboard players set "banc" index 0
 execute if score "banc" index matches ..-1 run scoreboard players set "banr" index 0

@@ -250,6 +250,19 @@
         }
       },
       {
+        "race_mole@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/armadillo_scute",
+          "$being_name_text": "origins.race.mole.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.mole.description",
+          "$being_traits": "origin_powers.mole",
+
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.mole') or (#dialogtext = 'vieworigin.mole') or (#dialogtext = 'changeorigin.mole') or (#dialogtext = 'banorigin.mole'))"
+        }
+      },
+      {
         "race_random@origin_common.origin_picker_window_template": {
           "$being_icon_texture": "random",
           "$being_name_text": "origins.race.random.name",

@@ -10,8 +10,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
-              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
+              "/execute as @initiator if score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_mole",
+              "/execute as @initiator unless score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_mole"
             ]
           },
           {
@@ -549,10 +549,39 @@
           {
             "name": ">",
             "commands": [
+              "/execute as @initiator if score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_mole",
+              "/execute as @initiator unless score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_mole"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_banned_mole",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.mole",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
+            ]
+          },
+          {
+            "name": "unban_race",
+            "commands": [ "/scoreboard players set \"ban_mole\" index 0", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_unbanned_mole", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
               "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_human",
-              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 15.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
-              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
-              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_human"
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 16.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 16.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 16.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_human"
             ]
           }
         ]
@@ -627,8 +656,8 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
-              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
+              "/execute as @initiator if score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_mole",
+              "/execute as @initiator unless score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_mole"
             ]
           },
           {
@@ -1166,10 +1195,39 @@
           {
             "name": ">",
             "commands": [
+              "/execute as @initiator if score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_mole",
+              "/execute as @initiator unless score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_mole"
+            ]
+          }
+        ]
+      },
+      {
+        "scene_tag": "gui_race_unbanned_mole",
+        "npc_name": "origins.custom_dialogue",
+        "text": "banorigin.mole",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_diviner",
+              "/execute as @initiator unless score \"ban_diviner\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_diviner"
+            ]
+          },
+          {
+            "name": "ban_race",
+            "commands": [ "/scoreboard players set \"ban_mole\" index 1", "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_banned_mole", "/execute as @initiator at @s run function indexc" ]
+          },
+          {
+            "name": "return",
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_options_admin_ban_root" ]
+          },
+          {
+            "name": ">",
+            "commands": [
               "/execute as @initiator if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_banned_human",
-              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 16.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
-              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
-              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 15.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_human"
+              "/execute as @initiator unless score \"ban_human\" index matches 1 if score \"banr\" index matches 17.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_limit_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 16.. if score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_locked_human",
+              "/execute as @initiator unless score \"ban_human\" index matches 1 unless score \"banr\" index matches 16.. unless score \"toggle_unique\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_unbanned_human"
             ]
           }
         ]

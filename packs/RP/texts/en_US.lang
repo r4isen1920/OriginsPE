@@ -46,6 +46,8 @@ origins.race.voidwalker.name=Voidwalker
 origins.race.voidwalker.description=Born in the depths of a sinister realm, you have acquired the ability to manipulate and harness dark energies from within to harm others.
 origins.race.diviner.name=Diviner
 origins.race.diviner.description=Diviners possesses the ability to tap into the mystical energies of the universe, wielding them to protect and aid other players in need.
+origins.race.mole.name=Mole
+origins.race.mole.description=origins.race.mole.description
 
 origins.class.random.name=Random
 origins.class.random.description=You'll be classified to one of the following classes listed below, only if it's available for use:

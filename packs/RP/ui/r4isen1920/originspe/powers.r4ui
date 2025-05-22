@@ -36,7 +36,8 @@
             { "starborne@origin_common.text_label": { "text": "origins.race.starborne.name", "color": "$7_color_format" } },
             { "elf@origin_common.text_label": { "text": "origins.race.elf.name", "color": "$7_color_format" } },
             { "voidwalker@origin_common.text_label": { "text": "origins.race.voidwalker.name", "color": "$7_color_format" } },
-            { "diviner@origin_common.text_label": { "text": "origins.race.diviner.name", "color": "$7_color_format" } }
+            { "diviner@origin_common.text_label": { "text": "origins.race.diviner.name", "color": "$7_color_format" } },
+            { "mole@origin_common.text_label": { "text": "origins.race.mole.name", "color": "$7_color_format" } }
           ]
         }
       },
@@ -778,6 +779,21 @@
           "$power_description": "origins.trait.instability.description"
         }
       }
+    ]
+  },
+
+  "mole": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    
+    "controls": [
+      {
+        "mole@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.power.mole.name",
+          "$power_description": "origins.power.mole.description"
+        }
+      }
+			
     ]
   },
 
