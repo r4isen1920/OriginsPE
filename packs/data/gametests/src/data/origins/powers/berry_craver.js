@@ -1,5 +1,5 @@
 
-import { ItemStack } from "@minecraft/server";
+import { ItemStack, TicksPerSecond, world } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { findItem } from "../../../utils/items";
@@ -26,5 +26,21 @@ function berry_craver(player) {
   player.getComponent('inventory').container.setItem(targetBerry.slot, new ItemStack(convertTo, targetBerry.item.amount))
 
 }
+
+world.afterEvents.itemCompleteUse.subscribe(event => {
+	const { itemStack, source } = event;
+	if (
+		!itemStack.typeId.includes('sweet_berries') ||
+		!source.hasTag('power_berry_craver')
+	) return;
+
+	const chance = 10 / 100;
+	if (Math.random() < chance) {
+		source.addEffect('minecraft:regeneration', TicksPerSecond * 10, {
+			amplifier: 1
+		})
+	}
+
+})
 
 toAllPlayers(berry_craver, 3)
