@@ -147,7 +147,31 @@
       "r4isen1920_originspe:movement.0.25": {
         "minecraft:movement": { "value": 0.25 }
       },
-      
+
+      "r4isen1920_originspe:underwater_movement.0.025": {
+        "minecraft:underwater_movement": { "value": 0.025 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.05": {
+        "minecraft:underwater_movement": { "value": 0.05 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.075": {
+        "minecraft:underwater_movement": { "value": 0.075 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1": {
+        "minecraft:underwater_movement": { "value": 0.1 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1425": {
+        "minecraft:underwater_movement": { "value": 0.1425 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.15": {
+        "minecraft:underwater_movement": { "value": 0.15 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.2": {
+        "minecraft:underwater_movement": { "value": 0.2 }
+      },
+      "r4isen1920_originspe:underwater_movement.0.25": {
+        "minecraft:underwater_movement": { "value": 0.25 }
+      },
 
 
 
@@ -1152,6 +1176,31 @@
       },
       "r4isen1920_originspe:movement.0.25": {
         "add": { "component_groups": [ "r4isen1920_originspe:movement.0.25" ] }
+      },
+
+      "r4isen1920_originspe:underwater_movement.0.025": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.025" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.05": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.05" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.075": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.075" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.1" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.1425": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.1425" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.15": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.15" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.2": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.2" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.25": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.25" ] }
       },
       
       
