@@ -8,5 +8,6 @@ export const merling = {
     'like_water',
     'no_trident_damage',
     'fluid_motion',
+    'water_bottle_increase_bubble',
   ]
 }
