@@ -788,12 +788,59 @@
     
     "controls": [
       {
-        "kupal@origin_powers.origin_powers_container_template": {
-          "$power_name": "Burrow Sense",
+        "burrow@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.burrow.name",
           "$power_description": "You can sense nearby ores and caves through walls (using a glow effect or temporary outline). Triggered by crouching or interacting with an item like a Sniffing Nose."
         }
+      },
+			{
+        "claw@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.claw.name",
+          "$power_description": "You mine dirt, gravel, and sand instantly with your bare hands (like having an Efficiency V shovel). Stone and ores are also mined faster (like Haste II), but only while underground (Y-level < 40)."
+        }
+      },
+      {
+        "darkvision@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.darkvision.name",
+          "$power_description": "Permanent Night Vision in darkness or caves. Could disable in sunlight or daylight to balance."
+        }
+      },
+      {
+        "tunnel@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.tunnel.name",
+          "$power_description": "A custom tunneling dash: propel forward and break soft blocks in your path (e.g., dirt, sand, gravel).Useful for escape or mobility in cave systems."
+        }
+      },
+      {
+        "compact@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.compact.name",
+          "$power_description": "Reduced hitbox or crawling by default. You can move through 1-block-high spaces without sneaking. Fits the tunneler fantasy."
+        }
+      },
+      {
+        "claustrophile@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.claustrophile.name",
+          "$power_description": "Get Strength or Regeneration when below Y=30, but lose it above Y=60. Encourages staying underground."
+        }
+      },
+      {
+        "photosensitive@origins_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.photosensitive.name",
+          "$power_description": "Take damage or get blindness when exposed to direct sunlight (like a reverse Phantom). Debuffs in sunlight: Weakness + Slowness."
+        }
+      },
+      {
+        "poor@origins_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.poor.name",
+          "$power_description": "Slower swimming and sinks in water. Heavy bones make them bad in aquatic areas."
+        }
+      },
+      {
+        "vegetarian@origins_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.vegetarian.name",
+          "$power_description": "Cannot eat meat; takes damage or hunger loss if they do. Encourages a mushroom or plant-based underground diet."
+        }
       }
-			
     ]
   },
 

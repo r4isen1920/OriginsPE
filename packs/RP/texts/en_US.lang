@@ -268,6 +268,22 @@ origins.trait.fragility.name=Fragility
 origins.trait.fragility.description=The less health you have, the more susceptible you are from any damage.
 origins.trait.instability.name=Instability
 origins.trait.instability.description=For every unique status effect applied to you, your max health will be reduced by 1. When your health is equal to 1, this will not reduce any further.
+origins.trait.burrow.name=Burrow Sense
+origins.trait.burrow.description=You can "sense" nearby ores and caves through walls (using a glow effect or temporary outline). Triggered by crouching or interacting with an item like a Sniffing Nose.
+origins.trait.claw.name=Claw Digging
+origins.trait.claw.descripton=You mine dirt, gravel, and sand instantly with your bare hands (like having an Efficiency V shovel). Stone and ores are also mined faster (like Haste II), but only while underground (Y-level < 40).
+origins.trait.darkvision.name=Darkvision
+origins.trait.darkvision.description=Permanent Night Vision in darkness or caves. Could disable in sunlight or daylight to balance.
+origins.trait.tunnel.name=Tunnel Leap
+origins.trait.tunnel.description=A custom tunneling dash: propel forward and break soft blocks in your path (e.g., dirt, sand, gravel). Useful for escape or mobility in cave systems.
+origins.trait.compact.name=Compact Size
+origins.trait.compact.description=Reduced hitbox or crawling by default. You can move through 1-block-high spaces without sneaking. Fits the tunneler fantasy.
+origins.trait.claustrophile.name=Claustrophile
+origins.trait.claustrophile.description=Get Strength or Regeneration when below Y=30, but lose it above Y=60. Encourages staying underground.
+origins.trait.photosensitive.name=Photosensitive
+origins.trait.photosensitive.description=Take damage or get blindness when exposed to direct sunlight (like a reverse Phantom). Debuffs in sunlight: Weakness + Slowness.
+origins.trait.poor.name=Poor Swimmer
+origins.trait.poor.description=Slower swimming and sinks in water. Heavy bones make them bad in aquatic areas.
 
 origins.perk.has=Class Perks:
 origins.perk.sneaky.name=Sneaky
