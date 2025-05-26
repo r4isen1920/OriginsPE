@@ -1,6 +1,7 @@
 
 export const mole = {
   'powers': [
-		"vegetarian"
+		"vegetarian",
+    "claustrophile"
   ]
 }
