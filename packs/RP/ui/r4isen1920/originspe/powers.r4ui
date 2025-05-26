@@ -789,8 +789,8 @@
     "controls": [
       {
         "kupal@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.kupal.name",
-          "$power_description": "origins.trait.kupal.description"
+          "$power_name": "Burrow Sense",
+          "$power_description": "You can sense nearby ores and caves through walls (using a glow effect or temporary outline). Triggered by crouching or interacting with an item like a Sniffing Nose."
         }
       }
 			
