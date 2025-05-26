@@ -18,9 +18,8 @@ const GOLD_ITEMS = [
 
 const STACK_SIZE = 64;
 const THRESHOLDS = [
-  { stacks: 18, tag: "_heavy_pockets_slow3", event: "r4isen1920_originspe:movement.0.025" }, // 97.5% slow
-  { stacks: 12, tag: "_heavy_pockets_slow2", event: "r4isen1920_originspe:movement.0.05" },  // 95% slow
-  { stacks: 6,  tag: "_heavy_pockets_slow1", event: "r4isen1920_originspe:movement.0.075" }, // 92.5% slow
+  { stacks: 18, tag: "_heavy_pockets_slow3", event: "r4isen1920_originspe:movement.0.05" }, // 97.5% slow
+  { stacks: 12, tag: "_heavy_pockets_slow2", event: "r4isen1920_originspe:movement.0.075" },  // 95% slow
 ];
 const NUGGET_THRESHOLD = 12; // 12 nuggets = slow
 const NUGGET_TAG = "_heavy_pockets_nugget_slow";

@@ -7,6 +7,5 @@ export const feline = {
     'scare_creepers',
     'nine_lives',
     'weak_arms',
-    'agile_stride'
   ]
 }

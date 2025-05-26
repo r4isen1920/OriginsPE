@@ -15,7 +15,7 @@ function sprint_jump(player) {
   }
 
   player.addEffect('jump_boost', TicksPerSecond * 12, { amplifier: 1, showParticles: false })
-
+  player.triggerEvent('r4isen1920_originspe:movement.0.15')
 }
 
 toAllPlayers(sprint_jump, 2)
