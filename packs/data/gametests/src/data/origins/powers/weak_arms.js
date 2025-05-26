@@ -47,8 +47,8 @@ function weak_arms(player) {
     const heldItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Mainhand);
     const y = Math.floor(player.location.y);
 
-    // Only apply mining fatigue if player is below Y=60
-    if (y < 60 && (!heldItem || !isTool(heldItem) || !hasEfficiency(heldItem))) {
+    
+    if ((!heldItem || !isTool(heldItem) || !hasEfficiency(heldItem))) {
       player.addEffect("minecraft:mining_fatigue", TicksPerSecond * 12, { amplifier: 0, showParticles: false });
     } else {
       player.removeEffect("minecraft:mining_fatigue");

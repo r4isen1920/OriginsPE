@@ -41,6 +41,9 @@
     },
     "log_dark_oak_top": {
       "textures": "textures/blocks/log_big_oak_top"
+    },
+    "cobweb": {
+      "textures": "textures/blocks/web"
     }
   },
   "texture_name": "atlas.terrain"

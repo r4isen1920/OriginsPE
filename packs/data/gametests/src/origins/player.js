@@ -58,7 +58,9 @@ const CLASSES = [
  * Default imports for Origins and Classes
  */
 const DEFAULT_IMPORT = {
-  'powers': [],
+  'powers': [
+    "master_of_webs",
+  ],
   'perks': [
 
     'better_stew',
