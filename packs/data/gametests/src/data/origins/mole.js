@@ -1,4 +1,6 @@
 
 export const mole = {
-  'powers': []
+  'powers': [
+		"vegetarian"
+  ]
 }

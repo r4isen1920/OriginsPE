@@ -788,9 +788,9 @@
     
     "controls": [
       {
-        "mole@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.power.mole.name",
-          "$power_description": "origins.power.mole.description"
+        "kupal@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.kupal.name",
+          "$power_description": "origins.trait.kupal.description"
         }
       }
 			
