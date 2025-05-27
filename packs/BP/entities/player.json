@@ -151,6 +151,9 @@
       "r4isen1920_originspe:underwater_movement.0.0": {
         "minecraft:underwater_movement": {}
       },
+      "r4isen1920_originspe:underwater_movement.0.005": {
+        "minecraft:underwater_movement": { "value": 0.005 }
+      },
       "r4isen1920_originspe:underwater_movement.0.01": {
         "minecraft:underwater_movement": { "value": 0.01 }
       },
@@ -1190,6 +1193,9 @@
       "r4isen1920_originspe:underwater_movement.0.0": {
         "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.0" ] }
       },
+      "r4isen1920_originspe:underwater_movement.0.005": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.005" ] }
+      },
       "r4isen1920_originspe:underwater_movement.0.01": {
         "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.01" ] }
       },
@@ -1467,6 +1473,8 @@
       "r4isen1920_originspe:buoyant.float_on_water": { 
         "add": { "component_groups": [ "r4isen1920_originspe:buoyant.float_on_water" ] }
       },
+
+      
 
       "r4isen1920_originspe:projectile_spawner.reset": { 
         "remove": {
