@@ -247,6 +247,7 @@ export function resetPlayerAttributes(player) {
 
   const events = [
     'r4isen1920_originspe:movement.0.1',
+    'r4isen1920_originspe:underwater_movement.0.025',
     'r4isen1920_originspe:health.20',
     'r4isen1920_originspe:attack.1',
     'r4isen1920_originspe:scale.1',
