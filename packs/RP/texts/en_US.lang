@@ -281,7 +281,7 @@ origins.trait.compact.description=Reduced hitbox or crawling by default. You can
 origins.trait.claustrophile.name=Claustrophile
 origins.trait.claustrophile.description=Get Strength or Regeneration when below Y=30, but lose it above Y=60. Encourages staying underground.
 origins.trait.photosensitive.name=Photosensitive
-origins.trait.photosensitive.description=Take damage or get blindness when exposed to direct sunlight (like a reverse Phantom). Debuffs in sunlight: Weakness + Slowness.
+origins.trait.photosensitive.description=Take damage when exposed to direct sunlight. Debuffs in sunlight: Weakness + Slowness.
 origins.trait.poor.name=Poor Swimmer
 origins.trait.poor.description=Slower swimming and sinks in water. Heavy bones make them bad in aquatic areas.
 

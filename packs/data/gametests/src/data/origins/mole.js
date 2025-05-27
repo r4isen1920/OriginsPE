@@ -6,6 +6,7 @@ export const mole = {
     "burrow_sense",
     "claw_digging",
     "darkvision",
+    "photosensitive",
     "heavy_bones",
     "minimole",
 

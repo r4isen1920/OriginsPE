@@ -14,7 +14,7 @@ export function darkvision(player) {
         const lightLevel = player.getProperty('r4isen1920_originspe:light_level');
         
         if (lightLevel < 7) {
-            player.addEffect("night_vision", 400,{
+            player.addEffect("night_vision", 250,{
                 amplifier: 0,
                 showParticles: false
             });
