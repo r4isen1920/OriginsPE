@@ -4,6 +4,7 @@ export const mole = {
 		"vegetarian",
     "claustrophile",
     "burrow_sense",
+    "claw_digging"
     
   ],
   'controls': [
