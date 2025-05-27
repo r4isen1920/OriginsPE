@@ -12,7 +12,7 @@ function fluidMotion(player) {
     player.triggerEvent('r4isen1920_originspe:underwater_movement.0.1425');
   } else {
     // Reset to normal movement speed when not in water
-    player.triggerEvent('r4isen1920_originspe:movement.0.1');
+    player.triggerEvent('r4isen1920_originspe:underwater_movement.0.01');
   }
 }
 

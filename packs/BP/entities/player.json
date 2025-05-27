@@ -148,6 +148,12 @@
         "minecraft:movement": { "value": 0.25 }
       },
 
+      "r4isen1920_originspe:underwater_movement.0.0": {
+        "minecraft:underwater_movement": {}
+      },
+      "r4isen1920_originspe:underwater_movement.0.01": {
+        "minecraft:underwater_movement": { "value": 0.01 }
+      },
       "r4isen1920_originspe:underwater_movement.0.025": {
         "minecraft:underwater_movement": { "value": 0.025 }
       },
@@ -1178,6 +1184,12 @@
         "add": { "component_groups": [ "r4isen1920_originspe:movement.0.25" ] }
       },
 
+      "r4isen1920_originspe:underwater_movement.0.0": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.0" ] }
+      },
+      "r4isen1920_originspe:underwater_movement.0.01": {
+        "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.01" ] }
+      },
       "r4isen1920_originspe:underwater_movement.0.025": {
         "add": { "component_groups": [ "r4isen1920_originspe:underwater_movement.0.025" ] }
       },
