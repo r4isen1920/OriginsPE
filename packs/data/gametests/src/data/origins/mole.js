@@ -5,8 +5,9 @@ export const mole = {
     "claustrophile",
     "burrow_sense",
     "claw_digging",
+    "darkvision",
     "heavy_bones",
-    "minimole"
+    "minimole",
 
   ],
   'controls': [
