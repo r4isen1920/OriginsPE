@@ -9,9 +9,10 @@ export const mole = {
     "photosensitive",
     "heavy_bones",
     "minimole",
-
+    "tunnel_leap"
   ],
   'controls': [
-    "burrow_sense"
+    "burrow_sense",
+    "tunnel_leap"
   ]
 }
