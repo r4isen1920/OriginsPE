@@ -1,4 +1,3 @@
-
 import { TicksPerSecond, world } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
@@ -21,12 +20,13 @@ function hyper_leap(player) {
 
   if (
     player.hasTag('cooldown_21') &&
-    (_SCOREBOARD('cd2').getScore(player) === 0 || _SCOREBOARD('cd2').getScore(player) !== 21) &&
-    (_SCOREBOARD('cd3').getScore(player) === 0 || _SCOREBOARD('cd3').getScore(player) !== 21)
-  ) player.removeTag('cooldown_21');
+    _SCOREBOARD('cd2').getScore(player) <= 0 &&
+    _SCOREBOARD('cd3').getScore(player) <= 0
+  ) {
+    player.removeTag('cooldown_21');
+  }
 
   if (!player.hasTag('cooldown_21')) {
-
     player.addTag('cooldown_21');
 
     player.dimension.getEntities({
@@ -51,6 +51,10 @@ function hyper_leap(player) {
     player.dimension.spawnParticle('r4isen1920_originspe:star_leap_stars', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
     world.playSound('origins.starborne.leap', player.location);
     player.playSound('origins.starborne.leap_direct')
+
+    // Set proper cooldown scores
+    _SCOREBOARD('cd2').setScore(player, 21);
+    _SCOREBOARD('cd3').setScore(player, 21);
 
     new ResourceBar(21, 0, 100, currentStressValue > 70 ? 1 : 3)
         .push(player)
