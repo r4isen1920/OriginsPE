@@ -263,6 +263,19 @@
         }
       },
       {
+        "race_grovecaller@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/blocks/vine_carried",
+          "$being_name_text": "origins.race.grovecaller.name",
+          "$being_difficulty": "medium",
+          "$being_description": "origins.race.grovecaller.description",
+          "$being_traits": "origin_powers.grovecaller",
+
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.grovecaller') or (#dialogtext = 'vieworigin.grovecaller') or (#dialogtext = 'changeorigin.grovecaller') or (#dialogtext = 'banorigin.grovecaller'))"
+        }
+      },
+      {
         "race_random@origin_common.origin_picker_window_template": {
           "$being_icon_texture": "random",
           "$being_name_text": "origins.race.random.name",

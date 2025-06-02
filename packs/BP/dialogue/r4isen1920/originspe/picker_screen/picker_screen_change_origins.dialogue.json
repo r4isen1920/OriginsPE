@@ -301,6 +301,21 @@
             "commands": [ "/execute as @initiator run clear @s[tag=!was_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
           }
         ]
+      },
+      {
+        "scene_tag": "gui_race_change_grovecaller",
+        "npc_name": "origins.custom_dialogue",
+        "text": "changeorigin.grovecaller",
+        "buttons": [
+          {
+            "name": "cancel",
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:gui on_close" ]
+          },
+          {
+            "name": "continue_race",
+            "commands": [ "/execute as @initiator run clear @s[tag=!was_creative] r4isen1920_originspe:orb_of_origins 0 1", "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_unknown" ]
+          }
+        ]
       }
     ]
   }

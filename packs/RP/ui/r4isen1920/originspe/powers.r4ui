@@ -846,6 +846,44 @@
     ]
   },
 
+  "grovecaller": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+
+    "controls": [
+      {
+        "vine_bind@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.vine_bind.name",
+          "$power_description": "origins.trait.vine_bind.description"
+        }
+      },
+      {
+        "golem_master@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.golem_master.name",
+          "$power_description": "origins.trait.golem_master.description"
+        }
+      },
+      {
+        "leech_life@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.leech_life.name",
+          "$power_description": "origins.trait.leech_life.description"
+        }
+      },
+      {
+        "vegetarian@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.vegetarian.name",
+          "$power_description": "origins.trait.vegetarian.description"
+        }
+      },
+      {
+        "flammable@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.flammable.name",
+          "$power_description": "origins.trait.flammable.description"
+        }
+      }
+    ]
+  },
+
   "class_random": {
     "type": "panel",
     

@@ -48,6 +48,8 @@ origins.race.diviner.name=Diviner
 origins.race.diviner.description=Diviners possesses the ability to tap into the mystical energies of the universe, wielding them to protect and aid other players in need.
 origins.race.mole.name=Mole
 origins.race.mole.description=Born to burrow, you thrive in darkness and detest the sunlit surface. The depths are your true domain.
+origins.race.grovecaller.name=Grovecaller
+origins.race.grovecaller.description=A living conduit of the wild, summoning golems and binding foes with roots, you are nature's fierce protector.
 
 origins.class.random.name=Random
 origins.class.random.description=You'll be classified to one of the following classes listed below, only if it's available for use:
@@ -284,6 +286,14 @@ origins.trait.photosensitive.name=Photosensitive
 origins.trait.photosensitive.description=You burn and take damage when exposed to direct sunlight.
 origins.trait.poor.name=Poor Swimmer
 origins.trait.poor.description=You struggle swimming and sink in water.
+origins.trait.vine_bind.name=Vine Bind
+origins.trait.vine_bind.description=When attacking other entities, creates a chain that links it and other nearby entities around, rendering them immobilized for 1 second. If there are no other nearby entities around, this is not triggered. This has a 13 second cooldown.
+origins.trait.golem_master.name=Golem Master
+origins.trait.golem_master.description=Capable of summoning golems when needed. If there are hostile entities nearby, summons 4 golems that will fight alongside you. Golems summoned does not die, and will only disappear when there are no more hostile entities nearby.
+origins.trait.leech_life.name=Leech Life
+origins.trait.leech_life.description=Restores own health equivalent to 33% of the amount of damage dealt to the other entity.
+origins.trait.flammable.name=Flammable
+origins.trait.flammable.description=Being part of the nature as you are, you take twice the fire damage.
 
 origins.perk.has=Class Perks:
 origins.perk.sneaky.name=Sneaky
