@@ -790,7 +790,15 @@
       {
         "burrow@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.burrow.name",
-          "$power_description": "origins.trait.burrow.description"
+          "$power_description": "origins.trait.burrow.description",
+          "$power_icon_index": "burrow_sense"
+        }
+      },
+      {
+        "tunnel@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.tunnel.name",
+          "$power_description": "origins.trait.tunnel.description",
+          "$power_icon_index": "mole_dash"
         }
       },
       {
@@ -803,12 +811,6 @@
         "darkvision@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.darkvision.name",
           "$power_description": "origins.trait.darkvision.description"
-        }
-      },
-      {
-        "tunnel@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.tunnel.name",
-          "$power_description": "origins.trait.tunnel.description"
         }
       },
       {
