@@ -37,7 +37,8 @@
             { "elf@origin_common.text_label": { "text": "origins.race.elf.name", "color": "$7_color_format" } },
             { "voidwalker@origin_common.text_label": { "text": "origins.race.voidwalker.name", "color": "$7_color_format" } },
             { "diviner@origin_common.text_label": { "text": "origins.race.diviner.name", "color": "$7_color_format" } },
-            { "mole@origin_common.text_label": { "text": "origins.race.mole.name", "color": "$7_color_format" } }
+            { "mole@origin_common.text_label": { "text": "origins.race.mole.name", "color": "$7_color_format" } },
+            { "grovecaller@origin_common.text_label": { "text": "origins.race.grovecaller.name", "color": "$7_color_format" } }
           ]
         }
       },

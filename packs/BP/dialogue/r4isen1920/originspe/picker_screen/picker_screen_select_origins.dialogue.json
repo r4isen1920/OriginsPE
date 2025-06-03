@@ -44,10 +44,10 @@
               "/scoreboard players operation \"c_origins\" index += \"banr\" index",
               "/scoreboard players operation \"c_origins\" index += \"c_all\" index",
 
-              "/execute as @initiator if score \"c_origins\" index matches 17.. if score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_starborne",
-              "/execute as @initiator if score \"c_origins\" index matches 17.. unless score \"ban_starborne\" index matches 1 if score \"c_starborne\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_starborne",
-              "/execute as @initiator if score \"c_origins\" index matches 17.. unless score \"ban_starborne\" index matches 1 unless score \"c_starborne\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_starborne",
-              "/execute as @initiator unless score \"c_origins\" index matches 14.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random" 
+              "/execute as @initiator if score \"c_origins\" index matches 18.. if score \"ban_starborne\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_starborne",
+              "/execute as @initiator if score \"c_origins\" index matches 18.. unless score \"ban_starborne\" index matches 1 if score \"c_starborne\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_starborne",
+              "/execute as @initiator if score \"c_origins\" index matches 18.. unless score \"ban_starborne\" index matches 1 unless score \"c_starborne\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_starborne",
+              "/execute as @initiator unless score \"c_origins\" index matches 15.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random" 
             ]
           },
           {
@@ -1164,18 +1164,47 @@
           {
             "name": ">",
             "commands": [
-              "/scoreboard players set \"c_origins\" index 0",
-              "/scoreboard players operation \"c_origins\" index += \"banr\" index",
-              "/scoreboard players operation \"c_origins\" index += \"c_all\" index",
-
-              "/execute as @initiator if score \"c_origins\" index matches 18.. if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_human",
-              "/execute as @initiator if score \"c_origins\" index matches 18.. unless score \"ban_human\" index matches 1 if score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_human",
-              "/execute as @initiator if score \"c_origins\" index matches 18.. unless score \"ban_human\" index matches 1 unless score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_human",
-              "/execute as @initiator unless score \"c_origins\" index matches 15.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random"
+              "/execute as @initiator if score \"ban_grovecaller\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_grovecaller",
+              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 if score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_grovecaller",
+              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 unless score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_grovecaller"
             ]
           }
         ]
       },
+      {
+        "scene_tag": "gui_race_pickban_grovecaller",
+        "npc_name": "origins.custom_dialogue",
+        "text": "pickorigin.grovecaller",
+        "buttons": [
+          {
+            "name": "<",
+            "commands": [
+              "/execute as @initiator if score \"ban_mole\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_mole",
+              "/execute as @initiator unless score \"ban_mole\" index matches 1 if score \"c_mole\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_mole",
+              "/execute as @initiator unless score \"ban_mole\" index matches 1 unless score \"c_mole\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_mole"
+            ]
+          },
+          {
+            "name": "select_ban",
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_grovecaller" ]
+          },
+          {
+            "name": ">",
+            "commands": [
+              "/scoreboard players set \"c_origins\" index 0",
+              "/scoreboard players operation \"c_origins\" index += \"banr\" index",
+              "/scoreboard players operation \"c_origins\" index += \"c_all\" index",
+
+              "/execute as @initiator if score \"c_origins\" index matches 19.. if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_human",
+              "/execute as @initiator if score \"c_origins\" index matches 19.. unless score \"ban_human\" index matches 1 if score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_human",
+              "/execute as @initiator if score \"c_origins\" index matches 19.. unless score \"ban_human\" index matches 1 unless score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_human",
+              "/execute as @initiator unless score \"c_origins\" index matches 16.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random"
+            ]
+          }
+        ]
+      },
+
+
 
       {
         "scene_tag": "gui_race_picklock_human",
@@ -1750,10 +1779,10 @@
               "/scoreboard players operation \"c_origins\" index += \"banr\" index",
               "/scoreboard players operation \"c_origins\" index += \"c_all\" index",
 
-              "/execute as @initiator if score \"c_origins\" index matches 18.. if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_human",
-              "/execute as @initiator if score \"c_origins\" index matches 18.. unless score \"ban_human\" index matches 1 if score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_human",
-              "/execute as @initiator if score \"c_origins\" index matches 18.. unless score \"ban_human\" index matches 1 unless score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_human",
-              "/execute as @initiator unless score \"c_origins\" index matches 15.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random"
+              "/execute as @initiator if score \"c_origins\" index matches 19.. if score \"ban_human\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_human",
+              "/execute as @initiator if score \"c_origins\" index matches 19.. unless score \"ban_human\" index matches 1 if score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_human",
+              "/execute as @initiator if score \"c_origins\" index matches 19.. unless score \"ban_human\" index matches 1 unless score \"c_human\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_human",
+              "/execute as @initiator unless score \"c_origins\" index matches 16.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_random"
             ]
           }
         ]
