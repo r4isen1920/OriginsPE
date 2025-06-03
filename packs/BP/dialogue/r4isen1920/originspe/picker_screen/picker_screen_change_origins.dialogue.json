@@ -303,9 +303,9 @@
         ]
       },
       {
-        "scene_tag": "gui_race_change_grovecaller",
+        "scene_tag": "gui_race_change_rootkin",
         "npc_name": "origins.custom_dialogue",
-        "text": "changeorigin.grovecaller",
+        "text": "changeorigin.rootkin",
         "buttons": [
           {
             "name": "cancel",

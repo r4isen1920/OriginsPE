@@ -30,7 +30,7 @@ const ORIGINS = [
   'voidwalker',
   'diviner',
   'mole',
-  'grovecaller',
+  'rootkin',
 ]
 
 /**

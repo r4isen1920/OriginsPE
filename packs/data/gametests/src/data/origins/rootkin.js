@@ -1,5 +1,5 @@
 
-export const grovecaller = {
+export const rootkin = {
   'powers': [],
   'controls': []
 }

@@ -38,7 +38,7 @@
             { "voidwalker@origin_common.text_label": { "text": "origins.race.voidwalker.name", "color": "$7_color_format" } },
             { "diviner@origin_common.text_label": { "text": "origins.race.diviner.name", "color": "$7_color_format" } },
             { "mole@origin_common.text_label": { "text": "origins.race.mole.name", "color": "$7_color_format" } },
-            { "grovecaller@origin_common.text_label": { "text": "origins.race.grovecaller.name", "color": "$7_color_format" } }
+            { "rootkin@origin_common.text_label": { "text": "origins.race.rootkin.name", "color": "$7_color_format" } }
           ]
         }
       },
@@ -847,11 +847,18 @@
     ]
   },
 
-  "grovecaller": {
+  "rootkin": {
     "type": "stack_panel",
     "orientation": "vertical",
 
     "controls": [
+      {
+        "invoke_ward@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.invoke_ward.name",
+          "$power_description": "origins.trait.invoke_ward.description",
+          "$power_icon_index": "invoke_ward"
+        }
+      },
       {
         "vine_bind@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.vine_bind.name",
@@ -864,12 +871,6 @@
           "$power_name": "origins.trait.reconvene.name",
           "$power_description": "origins.trait.reconvene.description",
           "$power_icon_index": "reconvene"
-        }
-      },
-      {
-        "golem_master@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.golem_master.name",
-          "$power_description": "origins.trait.golem_master.description"
         }
       },
       {

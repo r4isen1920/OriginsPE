@@ -10,9 +10,9 @@
           {
             "name": "<",
             "commands": [
-              "/execute as @initiator if score \"ban_grovecaller\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 if score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 unless score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_grovecaller"
+              "/execute as @initiator if score \"ban_rootkin\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 if score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 unless score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_rootkin"
             ]
           },
           {
@@ -580,17 +580,17 @@
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_grovecaller\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 if score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 unless score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_grovecaller"
+              "/execute as @initiator if score \"ban_rootkin\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 if score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 unless score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_rootkin"
             ]
           }
         ]
       },
       {
-        "scene_tag": "gui_race_pick_grovecaller",
+        "scene_tag": "gui_race_pick_rootkin",
         "npc_name": "origins.custom_dialogue",
-        "text": "pickorigin.grovecaller",
+        "text": "pickorigin.rootkin",
         "buttons": [
           {
             "name": "<",
@@ -602,7 +602,7 @@
           },
           {
             "name": "select",
-            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_grovecaller" ]
+            "commands": [ "/execute as @initiator run scriptevent r4isen1920_originspe:player become_race_rootkin" ]
           },
           {
             "name": ">",
@@ -1164,17 +1164,17 @@
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_grovecaller\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 if score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 unless score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_grovecaller"
+              "/execute as @initiator if score \"ban_rootkin\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 if score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 unless score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_rootkin"
             ]
           }
         ]
       },
       {
-        "scene_tag": "gui_race_pickban_grovecaller",
+        "scene_tag": "gui_race_pickban_rootkin",
         "npc_name": "origins.custom_dialogue",
-        "text": "pickorigin.grovecaller",
+        "text": "pickorigin.rootkin",
         "buttons": [
           {
             "name": "<",
@@ -1186,7 +1186,7 @@
           },
           {
             "name": "select_ban",
-            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_grovecaller" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_rootkin" ]
           },
           {
             "name": ">",
@@ -1748,17 +1748,17 @@
           {
             "name": ">",
             "commands": [
-              "/execute as @initiator if score \"ban_grovecaller\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 if score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_grovecaller",
-              "/execute as @initiator unless score \"ban_grovecaller\" index matches 1 unless score \"c_grovecaller\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_grovecaller"
+              "/execute as @initiator if score \"ban_rootkin\" index matches 1 run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pickban_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 if score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_picklock_rootkin",
+              "/execute as @initiator unless score \"ban_rootkin\" index matches 1 unless score \"c_rootkin\" index matches 1.. run dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @s gui_race_pick_rootkin"
             ]
           }
         ]
       },
       {
-        "scene_tag": "gui_race_picklock_grovecaller",
+        "scene_tag": "gui_race_picklock_rootkin",
         "npc_name": "origins.custom_dialogue",
-        "text": "pickorigin.grovecaller",
+        "text": "pickorigin.rootkin",
         "buttons": [
           {
             "name": "<",
@@ -1770,7 +1770,7 @@
           },
           {
             "name": "select_lock",
-            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_grovecaller" ]
+            "commands": [ "/dialogue open @e[type=r4isen1920_originspe:dialogue_handler,c=1] @initiator gui_race_pickban_rootkin" ]
           },
           {
             "name": ">",

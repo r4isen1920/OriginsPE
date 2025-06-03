@@ -48,7 +48,7 @@
         "value": 1
       },
       "minecraft:type_family": {
-        "family": [ "grovecaller_control", "origins", "inanimate" ]
+        "family": [ "rootkin_control", "origins", "inanimate" ]
       },
       "minecraft:variant": {
         "value": 0

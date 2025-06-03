@@ -327,14 +327,14 @@
         ]
       },
       {
-        "scene_tag": "gui_race_view_grovecaller",
+        "scene_tag": "gui_race_view_rootkin",
         "npc_name": "origins.custom_dialogue",
-        "text": "vieworigin.grovecaller",
+        "text": "vieworigin.rootkin",
         "buttons": [
           {
             "name": "start",
             "commands": [ 
-              "/execute as @initiator[tag=change_resign] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.grovecaller.name\"}]}}]}", 
+              "/execute as @initiator[tag=change_resign] if score \"toggle_announce\" index matches 1 run tellraw @a {\"rawtext\":[{\"text\":\"§e\"},{\"translate\":\"origins.change.announce.race\",\"with\":{\"rawtext\":[{\"selector\":\"@s\"},{\"translate\":\"origins.race.rootkin.name\"}]}}]}", 
               "/execute as @initiator[tag=has_any_class] run scriptevent r4isen1920_originspe:gui on_close", 
               "/execute as @initiator[tag=!has_any_class] run scriptevent r4isen1920_originspe:gui open_screen_picker_class",
               "/execute as @initiator if score \"toggle_unique\" index matches 1.. run function indexs"
@@ -564,9 +564,9 @@
         ]
       },
       {
-        "scene_tag": "gui_race_viewonly_grovecaller",
+        "scene_tag": "gui_race_viewonly_rootkin",
         "npc_name": "origins.custom_dialogue",
-        "text": "vieworigin.grovecaller",
+        "text": "vieworigin.rootkin",
         "buttons": [
           {
             "name": "return_start",
