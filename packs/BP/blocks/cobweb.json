@@ -2,13 +2,13 @@
     "format_version": "1.20.80",
     "minecraft:block": {
         "description": {
-            "identifier": "arachnid:cobweb",
+            "identifier": "r4isen1920_originspe:fake_cobweb",
             "menu_category": {
                 "category": "none"
             }
         },
         "components": {
-            "minecraft:geometry":"geometry.cobweb",
+            "minecraft:geometry":"geometry.r4isen1920_originspe.cobweb",
 
             "minecraft:material_instances" : {
                 "*" : {

@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.cobweb",
+				"identifier": "geometry.r4isen1920_originspe.cobweb",
 				"texture_width": 16,
 				"texture_height": 16,
 				"visible_bounds_width": 4,

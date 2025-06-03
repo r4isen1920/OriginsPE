@@ -2,6 +2,7 @@
   "num_mip_levels": 4,
   "padding": 8,
   "resource_pack_name": "origins",
+  "texture_name": "atlas.terrain",
   "texture_data": {
     "empty": {
       "textures": "textures/empty"
@@ -45,6 +46,5 @@
     "cobweb": {
       "textures": "textures/blocks/web"
     }
-  },
-  "texture_name": "atlas.terrain"
+  }
 }
