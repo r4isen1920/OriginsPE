@@ -1,5 +1,5 @@
 {
-  "format_version": "1.18.30",
+  "format_version": "1.21.0",
   "minecraft:entity": {
     "description": {
       "identifier": "r4isen1920_originspe:dialogue_handler",
@@ -44,7 +44,7 @@
       "minecraft:damage_sensor": {
         "triggers": {
           "cause": "all",
-          "deals_damage": false
+          "deals_damage": "no"
         }
       },
       "minecraft:type_family": {
