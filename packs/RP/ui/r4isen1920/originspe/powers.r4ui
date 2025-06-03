@@ -788,23 +788,23 @@
     
     "controls": [
       {
-        "burrow@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.burrow.name",
-          "$power_description": "origins.trait.burrow.description",
+        "burrow_sense@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.burrow_sense.name",
+          "$power_description": "origins.trait.burrow_sense.description",
           "$power_icon_index": "burrow_sense"
         }
       },
       {
-        "tunnel@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.tunnel.name",
-          "$power_description": "origins.trait.tunnel.description",
+        "tunnel_leap@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.tunnel_leap.name",
+          "$power_description": "origins.trait.tunnel_leap.description",
           "$power_icon_index": "mole_dash"
         }
       },
       {
-        "claw@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.claw.name",
-          "$power_description": "origins.trait.claw.description"
+        "claw_digging@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.claw_digging.name",
+          "$power_description": "origins.trait.claw_digging.description"
         }
       },
       {
@@ -814,9 +814,9 @@
         }
       },
       {
-        "compact@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.compact.name",
-          "$power_description": "origins.trait.compact.description"
+        "compact_size@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.compact_size.name",
+          "$power_description": "origins.trait.compact_size.description"
         }
       },
       {
@@ -832,9 +832,9 @@
         }
       },
       {
-        "poor@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.poor.name",
-          "$power_description": "origins.trait.poor.description"
+        "poor_swimmer@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.poor_swimmer.name",
+          "$power_description": "origins.trait.poor_swimmer.description"
         }
       },
       {
