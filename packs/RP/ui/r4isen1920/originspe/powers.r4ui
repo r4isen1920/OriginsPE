@@ -854,7 +854,15 @@
       {
         "vine_bind@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.vine_bind.name",
-          "$power_description": "origins.trait.vine_bind.description"
+          "$power_description": "origins.trait.vine_bind.description",
+          "$power_icon_index": "vine_bind"
+        }
+      },
+      {
+        "reconvene@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.reconvene.name",
+          "$power_description": "origins.trait.reconvene.description",
+          "$power_icon_index": "reconvene"
         }
       },
       {
@@ -870,15 +878,21 @@
         }
       },
       {
-        "vegetarian@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.vegetarian.name",
-          "$power_description": "origins.trait.vegetarian.description"
-        }
-      },
-      {
         "flammable@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.flammable.name",
           "$power_description": "origins.trait.flammable.description"
+        }
+      },
+      {
+        "pacifist@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.pacifist.name",
+          "$power_description": "origins.trait.pacifist.description"
+        }
+      },
+      {
+        "nectar_diet@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.nectar_diet.name",
+          "$power_description": "origins.trait.nectar_diet.description"
         }
       }
     ]

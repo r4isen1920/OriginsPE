@@ -267,7 +267,7 @@
           "$being_icon_texture": "texture_path",
           "$being_icon_texture_path": "textures/blocks/vine_carried",
           "$being_name_text": "origins.race.grovecaller.name",
-          "$being_difficulty": "medium",
+          "$being_difficulty": "hard",
           "$being_description": "origins.race.grovecaller.description",
           "$being_traits": "origin_powers.grovecaller",
 

@@ -288,12 +288,16 @@ origins.trait.poor_swimmer.name=Poor Swimmer
 origins.trait.poor_swimmer.description=You struggle swimming and sink in water.
 origins.trait.vine_bind.name=Vine Bind
 origins.trait.vine_bind.description=When attacking other entities, creates a chain that links it and other nearby entities around, rendering them immobilized for 1 second. If there are no other nearby entities around, this is not triggered. This has a 13 second cooldown.
+origins.trait.reconvene.name=Reconvene
+origins.trait.reconvene.description=If the amount of entities chained by [Vine Bind] is greater than or equal to 7, pulls them towards each other, then deals damage equal to 50% of all of the chained entities' health combined.
 origins.trait.golem_master.name=Golem Master
 origins.trait.golem_master.description=Capable of summoning golems when needed. If there are hostile entities nearby, summons 4 golems that will fight alongside you. Golems summoned does not die, and will only disappear when there are no more hostile entities nearby.
 origins.trait.leech_life.name=Leech Life
 origins.trait.leech_life.description=Restores own health equivalent to 33% of the amount of damage dealt to the other entity.
 origins.trait.flammable.name=Flammable
 origins.trait.flammable.description=Being part of the nature as you are, you take twice the fire damage.
+origins.trait.pacifist.name=Pacifist
+origins.trait.pacifist.description=You are unable to inflict damage directly, using swords or bows. However, you can still use your abilities to deal damage indirectly.
 
 origins.perk.has=Class Perks:
 origins.perk.sneaky.name=Sneaky
