@@ -1,0 +1,14 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+
+    "controller.render.r4isen1920_originspe.vine_bind": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.default" ],
+      "part_visibility": [ { "*": true } ],
+      "ignore_lighting": true
+    }
+
+  }
+}

@@ -1,5 +1,7 @@
 
 export const rootkin = {
-  'powers': [],
+  'powers': [
+   'vine_bind'
+  ],
   'controls': []
 }

@@ -13,24 +13,9 @@
           "client_sync": true,
           "type": "int",
           "default": 0,
-          "range": [ 0, 16 ]
-        },
-
-        "r4isen1920_originspe:rot_x": {
-          //* The pitch rotation
-          "client_sync": true,
-          "type": "int",
-          "default": 0,
-          "range": [ 0, 360 ]
-        },
-
-        "r4isen1920_originspe:rot_y": {
-          //* The yaw rotation
-          "client_sync": true,
-          "type": "int",
-          "default": 0,
-          "range": [ 0, 360 ]
+          "range": [ 0, 32 ]
         }
+
       }
     },
 
@@ -48,10 +33,7 @@
         "value": 1
       },
       "minecraft:type_family": {
-        "family": [ "rootkin_control", "origins", "inanimate" ]
-      },
-      "minecraft:variant": {
-        "value": 0
+        "family": [ "vine_bind", "origins", "inanimate" ]
       },
       "minecraft:damage_sensor": {
         "triggers": {
@@ -59,21 +41,9 @@
           "deals_damage": "no"
         }
       },
-      "minecraft:environment_sensor": {
-        "triggers": [
-          {
-            "filters": {
-              "test": "is_variant",
-              "operator": "==",
-              "value": 0
-            },
-            "event": "r4isen1920_originspe:instant_despawn"
-          }
-        ]
-      },
       "minecraft:collision_box": {
-        "width": 0.01,
-        "height": 0.01
+        "width": 0.0,
+        "height": 0.0
       },
       "minecraft:physics": {
         "has_gravity": false,

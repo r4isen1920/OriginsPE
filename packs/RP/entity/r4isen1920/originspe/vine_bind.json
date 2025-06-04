@@ -2,29 +2,33 @@
   "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
-      "identifier": "r4isen1920_originspe:shooting_star",
+      "identifier": "r4isen1920_originspe:vine_bind",
       "materials": {
-        "default": "bat"
+        "default": "spider"
       },
       "textures": {
-        "default": "textures/none"
+        "default": "textures/entity/r4isen1920/originspe/vine_bind"
       },
       "geometry": {
-        "default": "geometry.bat"
+        "default": "geometry.r4isen1920_originspe.vine_bind"
       },
       "scripts": {
-        "scale": "0.1",
-        "animate": [ "particles" ],
-        "should_update_bones_and_effects_offscreen": "1.0"
+        "initialize": [
+          "v.rot_x = q.target_x_rotation;",
+          "v.rot_y = q.target_y_rotation;"
+        ],
+        "pre_animation": [
+          "v.vine_length = q.property('r4isen1920_originspe:length');"
+        ],
+        "animate": [ "rotation", "length" ]
       },
       "animations": {
-        "particles": "controller.animation.r4isen1920_originspe.particles.starborne.shooting_star"
+        "rotation": "animation.r4isen1920_originspe.vine_bind.rot",
+        "length": "animation.r4isen1920_originspe.vine_bind.length"
       },
-      "particle_effects": {
-        "stars": "r4isen1920_originspe:star_projectile_stars",
-        "trail": "r4isen1920_originspe:star_projectile_trail"
-      },
-      "render_controllers": [ "controller.render.bat" ]
+      "render_controllers": [
+        "controller.render.r4isen1920_originspe.vine_bind"
+      ]
     }
   }
 }
