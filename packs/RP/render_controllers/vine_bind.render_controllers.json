@@ -4,10 +4,102 @@
 
     "controller.render.r4isen1920_originspe.vine_bind": {
       "geometry": "Geometry.default",
-      "materials": [ { "*": "Material.default" } ],
+      "materials": [ { "*": "Material.highlight_base" } ],
       "textures": [ "Texture.default" ],
-      "part_visibility": [ { "*": true } ],
-      "ignore_lighting": true
+
+      "on_fire_color": {},
+      "is_hurt_color": {},
+      "ignore_lighting": true,
+
+      "part_visibility": [
+        { "*": false },
+        { "vine0": "v.vine_length >= 0" },
+        { "vine1": "v.vine_length >= 1" },
+        { "vine2": "v.vine_length >= 2" },
+        { "vine3": "v.vine_length >= 3" },
+        { "vine4": "v.vine_length >= 4" },
+        { "vine5": "v.vine_length >= 5" },
+        { "vine6": "v.vine_length >= 6" },
+        { "vine7": "v.vine_length >= 7" },
+        { "vine8": "v.vine_length >= 8" },
+        { "vine9": "v.vine_length >= 9" },
+        { "vine10": "v.vine_length >= 10" },
+        { "vine11": "v.vine_length >= 11" },
+        { "vine12": "v.vine_length >= 12" },
+        { "vine13": "v.vine_length >= 13" },
+        { "vine14": "v.vine_length >= 14" },
+        { "vine15": "v.vine_length >= 15" },
+        { "vine16": "v.vine_length >= 16" },
+        { "vine17": "v.vine_length >= 17" },
+        { "vine18": "v.vine_length >= 18" },
+        { "vine19": "v.vine_length >= 19" },
+        { "vine20": "v.vine_length >= 20" },
+        { "vine21": "v.vine_length >= 21" },
+        { "vine22": "v.vine_length >= 22" },
+        { "vine23": "v.vine_length >= 23" },
+        { "vine24": "v.vine_length >= 24" },
+        { "vine25": "v.vine_length >= 25" },
+        { "vine26": "v.vine_length >= 26" },
+        { "vine27": "v.vine_length >= 27" },
+        { "vine28": "v.vine_length >= 28" },
+        { "vine29": "v.vine_length >= 29" },
+        { "vine30": "v.vine_length >= 30" },
+        { "vine31": "v.vine_length >= 31" },
+        { "vine32": "v.vine_length >= 32" }
+      ]
+    },
+
+    "controller.render.r4isen1920_originspe.vine_bind.aura": {
+      "geometry": "Geometry.default_scaled",
+      "materials": [ { "*": "Material.highlight_outliner" } ],
+      "textures": [ "Texture.aura" ],
+
+      "uv_anim": {
+          "offset": [ "(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01", 
+                      "(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01" ],
+          "scale": [ 1.0, 1.0 ]
+      },
+
+      "on_fire_color": {},
+      "is_hurt_color": {},
+      "ignore_lighting": true,
+
+      "part_visibility": [
+        { "*": false },
+        { "vine0": "v.vine_length >= 0" },
+        { "vine1": "v.vine_length >= 1" },
+        { "vine2": "v.vine_length >= 2" },
+        { "vine3": "v.vine_length >= 3" },
+        { "vine4": "v.vine_length >= 4" },
+        { "vine5": "v.vine_length >= 5" },
+        { "vine6": "v.vine_length >= 6" },
+        { "vine7": "v.vine_length >= 7" },
+        { "vine8": "v.vine_length >= 8" },
+        { "vine9": "v.vine_length >= 9" },
+        { "vine10": "v.vine_length >= 10" },
+        { "vine11": "v.vine_length >= 11" },
+        { "vine12": "v.vine_length >= 12" },
+        { "vine13": "v.vine_length >= 13" },
+        { "vine14": "v.vine_length >= 14" },
+        { "vine15": "v.vine_length >= 15" },
+        { "vine16": "v.vine_length >= 16" },
+        { "vine17": "v.vine_length >= 17" },
+        { "vine18": "v.vine_length >= 18" },
+        { "vine19": "v.vine_length >= 19" },
+        { "vine20": "v.vine_length >= 20" },
+        { "vine21": "v.vine_length >= 21" },
+        { "vine22": "v.vine_length >= 22" },
+        { "vine23": "v.vine_length >= 23" },
+        { "vine24": "v.vine_length >= 24" },
+        { "vine25": "v.vine_length >= 25" },
+        { "vine26": "v.vine_length >= 26" },
+        { "vine27": "v.vine_length >= 27" },
+        { "vine28": "v.vine_length >= 28" },
+        { "vine29": "v.vine_length >= 29" },
+        { "vine30": "v.vine_length >= 30" },
+        { "vine31": "v.vine_length >= 31" },
+        { "vine32": "v.vine_length >= 32" }
+      ]
     }
 
   }

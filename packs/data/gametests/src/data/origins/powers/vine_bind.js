@@ -1,13 +1,16 @@
-import { Entity, system, TicksPerSecond, world } from "@minecraft/server";
+import { Entity, EntityComponentTypes, Player, system, TicksPerSecond, world } from "@minecraft/server";
+import { ResourceBar } from "../../../origins/resource_bar";
+import { toAllPlayers } from "../../../origins/player";
 
 /** Maximum number of entities that can be chained at a time (excluding the first entity) */
 const MAX_CHAIN_LINKS = 6;
 /** Search radius in blocks for finding the next target of the chain */
 const CHAIN_SEARCH_RADIUS = 32;
 /** Delay in ticks before the chain can propagate to the next target */
-const CHAIN_PROPAGATION_DELAY_TICKS = 2;
+const CHAIN_PROPAGATION_DELAY_TICKS = 3;
 /** Duration in ticks for which the vine effect lasts */
 const VINE_EFFECT_DURATION_TICKS = TicksPerSecond * 2;
+
 
 system.runTimeout(() => {
 
@@ -18,31 +21,55 @@ system.runTimeout(() => {
          return;
       }
 
-      if (hitEntity.hasTag('is_in_active_chain')) {
+      const playerId = damagingEntity.id;
+      const playerSpecificTag = `is_in_active_chain_${playerId}`;
+
+      if (hitEntity.hasTag(playerSpecificTag)) {
          return;
       }
 
-      if (damagingEntity.hasTag('power_vine_bind')) {
-         const linkedEntitiesInChainSet = new Set();
+      if (damagingEntity.hasTag('power_vine_bind') && !damagingEntity.hasTag('cooldown_24')) {
+         hitEntity.addTag(playerSpecificTag);
 
-         hitEntity.addTag('is_in_active_chain');
-         linkedEntitiesInChainSet.add(hitEntity.id);
-
-         system.runTimeout(() => {
+         const hitEntityTagTimeoutId = system.runTimeout(() => {
             if (hitEntity.isValid()) {
-               hitEntity.removeTag('is_in_active_chain');
+               hitEntity.removeTag(playerSpecificTag);
             }
          }, VINE_EFFECT_DURATION_TICKS + (MAX_CHAIN_LINKS * CHAIN_PROPAGATION_DELAY_TICKS) + TicksPerSecond); // Longest chain + vine duration + buffer
 
-         propagateChain(hitEntity, linkedEntitiesInChainSet, 0);
+         const chainContext = {
+            chainOwnerId: playerId,
+            entityInfos: [{ entity: hitEntity, tagTimeoutId: hitEntityTagTimeoutId }],
+            vineLinkInfos: []
+         };
+
+         propagateChain(hitEntity, chainContext, 0);
       }
    });
 
 }, TicksPerSecond * 7);
 
 
-function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMadeCount) {
+/**
+ *
+ * @param { Entity } currentSourceEntity
+ * @param { { chainOwnerId: string, entityInfos: Array<{ entity: Entity, tagTimeoutId: number }>, vineLinkInfos: Array<{ vineEntity: Entity }> } } chainContext
+ * @param { number } linksMadeCount
+ * @returns
+ */
+function propagateChain(currentSourceEntity, chainContext, linksMadeCount) {
+   const player = world.getEntity(chainContext.chainOwnerId);
+   if (!player || !player.isValid()) {
+      return;
+   }
+
+   const BAR_LEVELS = [ 0, 15, 29, 43, 57, 71, 85, 100 ];
+   new ResourceBar(25, BAR_LEVELS[linksMadeCount + 1], BAR_LEVELS[linksMadeCount + 1], 1, true)
+       .push(player);
+
    if (linksMadeCount >= MAX_CHAIN_LINKS) {
+      triggerChainCollapse(chainContext);
+      startCooldown(player, linksMadeCount);
       return;
    }
 
@@ -50,6 +77,7 @@ function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMade
       if (!currentSourceEntity.isValid()) {
          return;
       }
+      const playerSpecificTag = `is_in_active_chain_${chainContext.chainOwnerId}`;
 
       const searchOptions = {
          location: currentSourceEntity.location,
@@ -58,7 +86,7 @@ function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMade
             'minecraft:agent', 'minecraft:area_effect_cloud', 'minecraft:armor_stand', 'minecraft:arrow', 'minecraft:boat', 'minecraft:chest', 'minecraft:chest_boat', 'minecraft:chest_minecart', 'minecraft:command_block_minecart', 'minecraft:dragon_fireball', 'minecraft:minecart', 'minecraft:fireball', 'minecraft:egg', 'minecraft:ender_crystal', 'minecraft:ender_pearl', 'minecraft:eye_of_ender_signal', 'minecraft:fireworks_rocket', 'minecraft:fishing_hook', 'minecraft:hopper_minecart', 'minecraft:item', 'minecraft:lightning_bolt', 'minecraft:lingering_potion', 'minecraft:player', 'minecraft:potion', 'minecraft:llama_spit', 'minecraft:npc', 'minecraft:shulker_bullet', 'minecraft:snowball', 'minecraft:small_fireball', 'minecraft:splash_potion', 'minecraft:thrown_trident', 'minecraft:tnt', 'minecraft:tnt_minecart', 'minecraft:tripod_camera', 'minecraft:wither_skull', 'minecraft:wither_skull_dangerous', 'minecraft:xp_bottle', 'minecraft:xp_orb',
          ],
          excludeFamilies: ['vine_bind', 'projectile', 'inanimate'],
-         excludeTags: ['is_in_active_chain']
+         excludeTags: [playerSpecificTag]
       };
       const potentialTargets = currentSourceEntity.dimension.getEntities(searchOptions);
 
@@ -66,11 +94,16 @@ function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMade
       let minDistanceSq = Infinity;
 
       for (const entity of potentialTargets) {
-         if (!entity.isValid() || entity.id === currentSourceEntity.id || linkedEntitiesInChainSet.has(entity.id)) {
+         if (!entity.isValid() || entity.id === currentSourceEntity.id || chainContext.entityInfos.some(ei => ei.entity.id === entity.id)) {
             continue;
          }
 
-         const sourceLocation = currentSourceEntity.getHeadLocation();
+         const sourceLocationRaw = currentSourceEntity.getHeadLocation();
+         const sourceLocation = {
+            x: sourceLocationRaw.x,
+            y: sourceLocationRaw.y + 1,
+            z: sourceLocationRaw.z
+         }
          const targetLocation = entity.location;
 
          const direction = {
@@ -81,7 +114,11 @@ function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMade
          const distance = Math.sqrt(direction.x ** 2 + direction.y ** 2 + direction.z ** 2);
 
          if (distance > 0) {
-            const hitBlock = currentSourceEntity.dimension.getBlockFromRay(sourceLocation, direction, { maxDistance: distance });
+            const hitBlock = currentSourceEntity.dimension.getBlockFromRay(sourceLocation, direction, {
+               maxDistance: distance,
+               includeLiquidBlocks: true,
+               includePassableBlocks: false,
+            });
             const ignoredBlockTypes = [
                // TODO: expand this list
                "minecraft:bush",
@@ -94,7 +131,8 @@ function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMade
                "minecraft:tall_dry_grass",
                "minecraft:seagrass",
                "minecraft:fern",
-               "minecraft:large_fern"
+               "minecraft:large_fern",
+               "minecraft:light_block"
             ];
             if (hitBlock && !ignoredBlockTypes.includes(hitBlock.typeId)) {
                continue;
@@ -112,18 +150,26 @@ function propagateChain(currentSourceEntity, linkedEntitiesInChainSet, linksMade
       }
 
       if (nextTargetEntity && nextTargetEntity.isValid()) {
-         nextTargetEntity.addTag('is_in_active_chain');
-         linkedEntitiesInChainSet.add(nextTargetEntity.id);
-
-         system.runTimeout(() => {
+         nextTargetEntity.addTag(playerSpecificTag);
+         
+         const nextTargetTagTimeoutId = system.runTimeout(() => {
             if (nextTargetEntity.isValid()) {
-               nextTargetEntity.removeTag('is_in_active_chain');
+               nextTargetEntity.removeTag(playerSpecificTag);
             }
          }, VINE_EFFECT_DURATION_TICKS + CHAIN_PROPAGATION_DELAY_TICKS);
+         chainContext.entityInfos.push({ entity: nextTargetEntity, tagTimeoutId: nextTargetTagTimeoutId });
 
-         spawnVine(currentSourceEntity, nextTargetEntity, linksMadeCount === 0);
+         const vineSpawnData = spawnVine(currentSourceEntity, nextTargetEntity, linksMadeCount === 0);
+         if (vineSpawnData.vineEntity) {
+            chainContext.vineLinkInfos.push({
+               vineEntity: vineSpawnData.vineEntity
+            });
+         }
 
-         propagateChain(nextTargetEntity, linkedEntitiesInChainSet, linksMadeCount + 1);
+         propagateChain(nextTargetEntity, chainContext, linksMadeCount + 1);
+      } else {
+         // No next target found, chain ends naturally
+         startCooldown(player, linksMadeCount);
       }
    }, CHAIN_PROPAGATION_DELAY_TICKS);
 }
@@ -188,14 +234,40 @@ function spawnVine(from, to, isInitialSourceInChain) {
    })[0];
 
    if (!vineEntity) {
-      return;
+      return {};
    }
 
    vineEntity.setProperty('r4isen1920_originspe:length', Math.max(distance - 1, 0));
 
+   // Dispell the invisibility effect of the target entities if they have it
+   if (from.getEffect('minecraft:invisibility') || to.getEffect('minecraft:invisibility')) {
+      from.removeEffect('minecraft:invisibility');
+      to.removeEffect('minecraft:invisibility');
+   }
+
+   const particleCount = Math.max(1, distance);
+   if (particleCount > 0) {
+      const particleStep = 1 / particleCount;
+      for (let i = 0; i <= 1; i += particleStep) {
+         const particlePos = {
+            x: locationFrom.x + direction.x * i,
+            y: locationFrom.y + direction.y * i,
+            z: locationFrom.z + direction.z * i
+         };
+         from.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_spawn', particlePos);
+         system.runTimeout(() => {
+            from.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_despawn', particlePos);
+         }, VINE_EFFECT_DURATION_TICKS)
+      }
+   }
+
    const tick = system.runInterval(() => {
       if (isInitialSourceInChain && from.isValid()) {
-         from.teleport(locationFrom);
+         from.teleport({
+            x: locationFrom.x,
+            y: from.isOnGround ? Math.floor(locationFrom.y) : locationFrom.y,
+            z: locationFrom.z,
+         });
       }
       if (to.isValid()) {
          to.teleport(adjustedLocationTo);
@@ -203,8 +275,65 @@ function spawnVine(from, to, isInitialSourceInChain) {
    })
 
    system.runTimeout(() => {
-      vineEntity.triggerEvent('r4isen1920_originspe:instant_despawn');
+      if (vineEntity.isValid()) {
+         vineEntity.triggerEvent('r4isen1920_originspe:instant_despawn');
+      }
 
       system.clearRun(tick);
    }, VINE_EFFECT_DURATION_TICKS);
+
+   return { vineEntity };
 }
+
+function triggerChainCollapse(chainContext) {
+   system.runTimeout(() => {
+      let totalHealth = 0;
+      const entitiesToDamage = [];
+
+      for (const entityInfo of chainContext.entityInfos) {
+         const entity = entityInfo.entity;
+         if (entity?.isValid()) {
+            const healthComponent = entity.getComponent(EntityComponentTypes.Health);
+            if (healthComponent) {
+               totalHealth += healthComponent.currentValue;
+            }
+            entitiesToDamage.push(entity);
+         }
+      }
+
+      const damageToApply = totalHealth * 0.01;
+      const entityDimension = chainContext.entityInfos[0].entity.dimension;
+
+      for (const entity of entitiesToDamage) {
+         if (entity.isValid()) {
+            entityDimension.spawnParticle('r4isen1920_originspe:rootkin_vine_break', entity.location);
+            entity.applyDamage(damageToApply);
+         }
+      }
+   }, MAX_CHAIN_LINKS * CHAIN_PROPAGATION_DELAY_TICKS);
+}
+
+/**
+ * @param { Player } player 
+ * @param { number } chainLinks
+ */
+function startCooldown(player, chainLinks = 0) {
+   const BAR_LEVELS = [ 0, 15, 29, 43, 57, 71, 85, 100 ];
+   new ResourceBar(25, BAR_LEVELS[chainLinks + 1], 0, 1, true)
+       .push(player);
+   system.runTimeout(() => {
+      new ResourceBar(24, 0, 100, 15, false)
+          .push(player);
+   }, TicksPerSecond * 2.5);
+}
+
+function initCooldown(player) {
+   if (player.hasTag('power_vine_bind') && !player.hasTag('_init_bar')) {
+      new ResourceBar(25, 0, 0, 1, true)
+          .push(player);
+      player.removeTag('cooldown_24');
+      player.addTag('_init_bar');
+   }
+}
+
+toAllPlayers(initCooldown, 5, TicksPerSecond * 7);

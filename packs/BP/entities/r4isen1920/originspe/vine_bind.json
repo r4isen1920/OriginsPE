@@ -14,6 +14,14 @@
           "type": "int",
           "default": 0,
           "range": [ 0, 32 ]
+        },
+
+        "r4isen1920_originspe:state": {
+          //* The current state of the vine
+          "client_sync": true,
+          "type": "enum",
+          "default": "staying",
+          "values": [ "in", "staying", "out" ]
         }
 
       }
@@ -22,6 +30,39 @@
     "component_groups": {
       "r4isen1920_originspe:instant_despawn": {
         "minecraft:instant_despawn": {}
+      },
+
+      "r4isen1920_originspe:on_spawn": {
+        "minecraft:timer": {
+          "time": 0.2,
+          "looping": false,
+          "time_down_event": {
+            "event": "r4isen1920_originspe:spawned",
+            "target": "self"
+          }
+        }
+      },
+
+      "r4isen1920_originspe:spawned": {
+        "minecraft:timer": {
+          "time": 2.1, //? Max duration of the vine + buffer
+          "looping": false,
+          "time_down_event": {
+            "event": "r4isen1920_originspe:instant_despawn.final",
+            "target": "self"
+          }
+        }
+      },
+
+      "r4isen1920_originspe:despawning": {
+        "minecraft:timer": {
+          "time": 0.2,
+          "looping": false,
+          "time_down_event": {
+            "event": "r4isen1920_originspe:instant_despawn.final",
+            "target": "self"
+          }
+        }
       }
     },
 
@@ -56,11 +97,52 @@
     },
 
     "events": {
-      "r4isen1920_originspe:instant_despawn": {
+
+      "minecraft:entity_spawned": {
         "add": {
-          "component_groups": ["r4isen1920_originspe:instant_despawn"]
+          "component_groups": [
+            "r4isen1920_originspe:on_spawn"
+          ]
+        },
+        "set_property": {
+          "r4isen1920_originspe:state": "in"
+        }
+      },
+      "r4isen1920_originspe:spawned": {
+        "add": {
+          "component_groups": [
+            "r4isen1920_originspe:spawned"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "r4isen1920_originspe:on_spawn"
+          ]
+        },
+        "set_property": {
+          "r4isen1920_originspe:state": "staying"
+        }
+      },
+
+
+      "r4isen1920_originspe:instant_despawn": {
+        "set_property": {
+          "r4isen1920_originspe:state": "out"
+        },
+        "add": {
+          "component_groups": [
+            "r4isen1920_originspe:despawning"
+          ]
+        }
+      },
+      "r4isen1920_originspe:instant_despawn.final": {
+        "add": {
+          "component_groups": [
+            "r4isen1920_originspe:instant_despawn"
+          ]
         }
       }
+
     }
   }
 }

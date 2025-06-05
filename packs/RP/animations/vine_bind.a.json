@@ -1,120 +1,54 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.r4isen1920_originspe.vine_bind.rot" : {
-			"loop" : true,
-			"bones" : {
-				"vine0" : {
-					"relative_to" : {
-						"rotation" : "entity"
+		"animation.r4isen1920_originspe.vine_bind.rot": {
+			"loop": true,
+			"bones": {
+				"vine0": {
+					"relative_to": {
+						"rotation": "entity"
 					},
-					"rotation" : [ "v.rot_x", "v.rot_y", 0.0 ]
+					"rotation": ["v.rot_x", "v.rot_y", 0]
 				}
 			}
 		},
-    "animation.r4isen1920_originspe.vine_bind.length": {
-      "loop": true,
-      "bones": {
-        "vine0": {
-          "scale": "v.vine_length >= 0 ? 1 : 0"
-        },
-        "vine1": {
-          "scale": "v.vine_length >= 1 ? 1 : 0"
-        },
-        "vine2": {
-          "scale": "v.vine_length >= 2 ? 1 : 0"
-        },
-        "vine3": {
-          "scale": "v.vine_length >= 3 ? 1 : 0"
-        },
-        "vine4": {
-          "scale": "v.vine_length >= 4 ? 1 : 0"
-        },
-        "vine5": {
-          "scale": "v.vine_length >= 5 ? 1 : 0"
-        },
-        "vine6": {
-          "scale": "v.vine_length >= 6 ? 1 : 0"
-        },
-        "vine7": {
-          "scale": "v.vine_length >= 7 ? 1 : 0"
-        },
-        "vine8": {
-          "scale": "v.vine_length >= 8 ? 1 : 0"
-        },
-        "vine9": {
-          "scale": "v.vine_length >= 9 ? 1 : 0"
-        },
-        "vine10": {
-          "scale": "v.vine_length >= 10 ? 1 : 0"
-        },
-        "vine11": {
-          "scale": "v.vine_length >= 11 ? 1 : 0"
-        },
-        "vine12": {
-          "scale": "v.vine_length >= 12 ? 1 : 0"
-        },
-        "vine13": {
-          "scale": "v.vine_length >= 13 ? 1 : 0"
-        },
-        "vine14": {
-          "scale": "v.vine_length >= 14 ? 1 : 0"
-        },
-        "vine15": {
-          "scale": "v.vine_length >= 15 ? 1 : 0"
-        },
-        "vine16": {
-          "scale": "v.vine_length >= 16 ? 1 : 0"
-        },
-        "vine17": {
-          "scale": "v.vine_length >= 17 ? 1 : 0"
-        },
-        "vine18": {
-          "scale": "v.vine_length >= 18 ? 1 : 0"
-        },
-        "vine19": {
-          "scale": "v.vine_length >= 19 ? 1 : 0"
-        },
-        "vine20": {
-          "scale": "v.vine_length >= 20 ? 1 : 0"
-        },
-        "vine21": {
-          "scale": "v.vine_length >= 21 ? 1 : 0"
-        },
-        "vine22": {
-          "scale": "v.vine_length >= 22 ? 1 : 0"
-        },
-        "vine23": {
-          "scale": "v.vine_length >= 23 ? 1 : 0"
-        },
-        "vine24": {
-          "scale": "v.vine_length >= 24 ? 1 : 0"
-        },
-        "vine25": {
-          "scale": "v.vine_length >= 25 ? 1 : 0"
-        },
-        "vine26": {
-          "scale": "v.vine_length >= 26 ? 1 : 0"
-        },
-        "vine27": {
-          "scale": "v.vine_length >= 27 ? 1 : 0"
-        },
-        "vine28": {
-          "scale": "v.vine_length >= 28 ? 1 : 0"
-        },
-        "vine29": {
-          "scale": "v.vine_length >= 29 ? 1 : 0"
-        },
-        "vine30": {
-          "scale": "v.vine_length >= 30 ? 1 : 0"
-        },
-        "vine31": {
-          "scale": "v.vine_length >= 31 ? 1 : 0"
-        },
-        "vine32": {
-          "scale": "v.vine_length >= 32 ? 1 : 0"
-        }
-      }
-    }
+		"animation.r4isen1920_originspe.vine_bind.in": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1667,
+			"bones": {
+				"vine0": {
+					"scale": {
+						"0.0": {
+							"post": [0, 1, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.0833": {
+							"post": [2, 1, 2],
+							"lerp_mode": "catmullrom"
+						},
+						"0.1667": [2, 1, 2]
+					}
+				}
+			}
+		},
+		"animation.r4isen1920_originspe.vine_bind.out": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1667,
+			"bones": {
+				"vine0": {
+					"scale": {
+						"0.0": {
+							"post": [2, 1, 2],
+							"lerp_mode": "catmullrom"
+						},
+						"0.0833": {
+							"post": [0, 1, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.1667": [0, 1, 0]
+					}
+				}
+			}
+		}
 	}
 }

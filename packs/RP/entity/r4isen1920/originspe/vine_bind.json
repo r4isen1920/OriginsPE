@@ -4,13 +4,16 @@
     "description": {
       "identifier": "r4isen1920_originspe:vine_bind",
       "materials": {
-        "default": "spider"
+        "highlight_base": "highlight_base",
+        "highlight_outliner": "highlight_outliner_no_depth"
       },
       "textures": {
-        "default": "textures/entity/r4isen1920/originspe/vine_bind"
+        "default": "textures/entity/r4isen1920/originspe/vine_bind",
+        "aura": "textures/entity/r4isen1920/originspe/vine_bind_aura"
       },
       "geometry": {
-        "default": "geometry.r4isen1920_originspe.vine_bind"
+        "default": "geometry.r4isen1920_originspe.vine_bind",
+        "default_scaled": "geometry.r4isen1920_originspe.vine_bind_scaled"
       },
       "scripts": {
         "initialize": [
@@ -20,14 +23,20 @@
         "pre_animation": [
           "v.vine_length = q.property('r4isen1920_originspe:length');"
         ],
-        "animate": [ "rotation", "length" ]
+        "animate": [
+          "root",
+          "rotation"
+        ]
       },
       "animations": {
+        "root": "controller.animation.r4isen1920_originspe.vine_bind.root",
         "rotation": "animation.r4isen1920_originspe.vine_bind.rot",
-        "length": "animation.r4isen1920_originspe.vine_bind.length"
+        "in": "animation.r4isen1920_originspe.vine_bind.in",
+        "out": "animation.r4isen1920_originspe.vine_bind.out"
       },
       "render_controllers": [
-        "controller.render.r4isen1920_originspe.vine_bind"
+        "controller.render.r4isen1920_originspe.vine_bind",
+        "controller.render.r4isen1920_originspe.vine_bind.aura"
       ]
     }
   }
