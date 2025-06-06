@@ -1,6 +1,8 @@
 import { Entity, EntityComponentTypes, Player, system, TicksPerSecond, world } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { toAllPlayers } from "../../../origins/player";
+import { incrementReconveneStack } from "./reconvene";
+
+
 
 /** Maximum number of entities that can be chained at a time (excluding the first entity) */
 const MAX_CHAIN_LINKS = 6;
@@ -10,6 +12,7 @@ const CHAIN_SEARCH_RADIUS = 32;
 const CHAIN_PROPAGATION_DELAY_TICKS = 3;
 /** Duration in ticks for which the vine effect lasts */
 const VINE_EFFECT_DURATION_TICKS = TicksPerSecond * 2;
+
 
 
 system.runTimeout(() => {
@@ -63,13 +66,9 @@ function propagateChain(currentSourceEntity, chainContext, linksMadeCount) {
       return;
    }
 
-   const BAR_LEVELS = [ 0, 15, 29, 43, 57, 71, 85, 100 ];
-   new ResourceBar(25, BAR_LEVELS[linksMadeCount + 1], BAR_LEVELS[linksMadeCount + 1], 1, true)
-       .push(player);
-
    if (linksMadeCount >= MAX_CHAIN_LINKS) {
       triggerChainCollapse(chainContext);
-      startCooldown(player, linksMadeCount);
+      startCooldown(player);
       return;
    }
 
@@ -169,7 +168,7 @@ function propagateChain(currentSourceEntity, chainContext, linksMadeCount) {
          propagateChain(nextTargetEntity, chainContext, linksMadeCount + 1);
       } else {
          // No next target found, chain ends naturally
-         startCooldown(player, linksMadeCount);
+         startCooldown(player);
       }
    }, CHAIN_PROPAGATION_DELAY_TICKS);
 }
@@ -310,30 +309,17 @@ function triggerChainCollapse(chainContext) {
             entity.applyDamage(damageToApply);
          }
       }
+
+      incrementReconveneStack(world.getEntity(chainContext.chainOwnerId));
    }, MAX_CHAIN_LINKS * CHAIN_PROPAGATION_DELAY_TICKS);
 }
 
 /**
  * @param { Player } player 
- * @param { number } chainLinks
  */
-function startCooldown(player, chainLinks = 0) {
-   const BAR_LEVELS = [ 0, 15, 29, 43, 57, 71, 85, 100 ];
-   new ResourceBar(25, BAR_LEVELS[chainLinks + 1], 0, 1, true)
-       .push(player);
+function startCooldown(player) {
    system.runTimeout(() => {
-      new ResourceBar(24, 0, 100, 15, false)
+      new ResourceBar(24, 0, 100, 13, false)
           .push(player);
    }, TicksPerSecond * 2.5);
 }
-
-function initCooldown(player) {
-   if (player.hasTag('power_vine_bind') && !player.hasTag('_init_bar')) {
-      new ResourceBar(25, 0, 0, 1, true)
-          .push(player);
-      player.removeTag('cooldown_24');
-      player.addTag('_init_bar');
-   }
-}
-
-toAllPlayers(initCooldown, 5, TicksPerSecond * 7);

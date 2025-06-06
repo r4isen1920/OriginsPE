@@ -1,4 +1,4 @@
 
-function fall_immunity(player) {
+function cold_vacuum(player) {
   return true
 }

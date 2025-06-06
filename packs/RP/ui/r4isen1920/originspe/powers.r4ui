@@ -853,17 +853,23 @@
 
     "controls": [
       {
-        "invoke_ward@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.invoke_ward.name",
-          "$power_description": "origins.trait.invoke_ward.description",
-          "$power_icon_index": "invoke_ward"
-        }
-      },
-      {
         "vine_bind@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.vine_bind.name",
           "$power_description": "origins.trait.vine_bind.description",
           "$power_icon_index": "vine_bind"
+        }
+      },
+      {
+        "vine_bind_power@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.vine_bind_power.name",
+          "$power_description": "origins.trait.vine_bind_power.description"
+        }
+      },
+      {
+        "invoke_ward@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.invoke_ward.name",
+          "$power_description": "origins.trait.invoke_ward.description",
+          "$power_icon_index": "invoke_ward"
         }
       },
       {
