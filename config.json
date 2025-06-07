@@ -1,131 +1,134 @@
 {
-	"$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.2.json",
-	"author": "r4isen1920",
-	"name": "OriginsPE",
-	"packs": {
-		"behaviorPack": "./packs/BP",
-		"resourcePack": "./packs/RP"
-	},
-	"regolith": {
-		"dataPath": "./packs/data",
-		"filterDefinitions": {
-			"gametests": {
-				"url": "github.com/Bedrock-OSS/regolith-filters",
-				"version": "1.5.3"
-			},
-			"jsonte": {
-				"url": "github.com/MCDevKit/regolith-library",
-				"version": "2.14.0"
-			},
-			"packer": {
-				"url": "github.com/MCDevKit/regolith-library",
-				"version": "1.0.3"
-			}
-		},
-		"profiles": {
-			"ci": {
-				"export": {
-					"readOnly": false,
-					"target": "local"
-				},
-				"filters": [
-					{
-						"filter": "gametests",
-						"settings": {
-							"buildOptions": {
-								"bundle": true,
-								"entryPoints": [
-									"data/gametests/src/main.js"
-								],
-								"format": "esm",
-								"minify": true,
-								"target": "es2020"
-							},
-							"modules": [
-								"@minecraft/server@1.10.0"
-							],
-							"outdir": "BP/scripts/r4isen1920/originspe",
-							"outfile": "BP/scripts/r4isen1920/originspe/main.js"
-						}
-					},
-					{
-						"filter": "jsonte"
-					},
-					{
-						"filter": "packer",
-						"settings": {
-							"output": "OriginsPE-${git.tag ?? 'test'}${git.tagCommit !== git.commit ? '-' + git.commit.substr(0, 6) : ''}.mcworld",
-							"worldName": "OriginsPE-${git.tag ?? 'test'}",
-							"worldPath": "../../world",
-							"exclude": [
-					      "**/.DS_Store"
-					    ]
-						}
-					}
-				]
-			},
-			"default": {
-				"export": {
-					"readOnly": false,
-					"target": "development"
-				},
-				"filters": [
-					{
-						"filter": "gametests",
-						"settings": {
-							"buildOptions": {
-								"bundle": true,
-								"entryPoints": [
-									"data/gametests/src/main.js"
-								],
-								"format": "esm",
-								"minify": false,
-								"target": "es2020"
-							},
-							"modules": [
-								"@minecraft/server@1.10.0"
-							],
-							"outdir": "BP/scripts/r4isen1920/originspe",
-							"outfile": "BP/scripts/r4isen1920/originspe/main.js"
-						}
-					},
-					{
-						"filter": "jsonte"
-					}
-				]
-			},
-			"raw": {
-				"export": {
-					"readOnly": false,
-					"target": "development"
-				},
-				"filters": [
-					{
-						"filter": "gametests",
-						"settings": {
-							"buildOptions": {
-								"bundle": false,
-								"entryPoints": [
-									"data/gametests/src/*.js",
-									"data/gametests/src/**/*.js",
-									"data/gametests/src/main.js"
-								],
-								"format": "esm",
-								"minify": false,
-								"target": "es2020"
-							},
-							"modules": [
-								"@minecraft/server@1.10.0"
-							],
-							"outdir": "BP/scripts/r4isen1920/originspe",
-							"outfile": "BP/scripts/r4isen1920/originspe/main.js"
-						}
-					},
-					{
-						"filter": "jsonte"
-					}
-				]
-			}
-		}
-	}
+  "author": "r4isen1920",
+  "name": "OriginsPE",
+  "packs": {
+    "behaviorPack": "./packs/BP",
+    "resourcePack": "./packs/RP"
+  },
+  "regolith": {
+    "formatVersion": "1.2.0",
+    "dataPath": "./packs/data",
+    "filterDefinitions": {
+      "gametests": {
+        "url": "github.com/Bedrock-OSS/regolith-filters",
+        "version": "1.7.1"
+      },
+      "jsonte": {
+        "url": "github.com/MCDevKit/regolith-library",
+        "version": "2.14.0"
+      },
+      "packer": {
+        "url": "github.com/MCDevKit/regolith-library",
+        "version": "1.0.3"
+      }
+    },
+    "profiles": {
+      "default": {
+        "export": {
+          "readOnly": false,
+          "target": "development"
+        },
+        "filters": [
+          {
+            "filter": "jsonte"
+          },
+          {
+            "profile": "scripts-dev"
+          }
+        ]
+      },
+      "build-dev": {
+        "export": {
+          "readOnly": false,
+          "target": "local"
+        },
+        "filters": [
+          {
+            "profile": "default"
+          },
+          {
+            "filter": "packer",
+            "settings": {
+              "output": "OriginsPE-${git.tag ?? 'test'}-dev.mcaddon"
+            }
+          }
+        ]
+      },
+      "build-release": {
+        "export": {
+          "readOnly": false,
+          "target": "local"
+        },
+        "filters": [
+          {
+            "filter": "jsonte"
+          },
+          {
+            "profile": "scripts"
+          },
+          {
+            "filter": "packer",
+            "settings": {
+              "output": "OriginsPE-${git.tag ?? 'test'}.mcaddon"
+            }
+          }
+        ]
+      },
+      "scripts": {
+        "export": {
+          "readOnly": false,
+          "target": "local"
+        },
+        "filters": [
+          {
+            "filter": "gametests",
+            "settings": {
+              "buildOptions": {
+                "entryPoints": ["data/gametests/src/index.ts"],
+                "dropLabels": ["DEBUG", "LOGGING"],
+                "bundle": true,
+                "minify": false
+              },
+              "modules": ["@minecraft/server@1.18.0"],
+              "outfile": "BP/scripts/r4isen1920/OriginsPE/main.js"
+            }
+          }
+        ]
+      },
+      "scripts-dev": {
+        "export": {
+          "readOnly": false,
+          "target": "local"
+        },
+        "filters": [
+          {
+            "filter": "gametests",
+            "settings": {
+              "buildOptions": {
+                "entryPoints": ["data/gametests/src/index.ts"],
+                "bundle": true,
+                "minify": false
+              },
+              "modules": ["@minecraft/server@1.18.0"],
+              "outfile": "BP/scripts/r4isen1920/OriginsPE/main.js"
+            }
+          }
+        ]
+      },
+      "build": {
+        "export": {
+          "readOnly": false,
+          "target": "local"
+        },
+        "filters": [
+          {
+            "profile": "build-dev"
+          },
+          {
+            "profile": "build-release"
+          }
+        ]
+      }
+    }
+  }
 }
