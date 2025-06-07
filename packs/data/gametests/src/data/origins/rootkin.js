@@ -1,10 +1,10 @@
 
 export const rootkin = {
   'powers': [
+      'wrathbloom',
       'vine_bind',
-      'reconvene',
       'cold_vacuum', // Re-use Starborne power--take twice fire damage
-      'pacifist'
+      'barehanded'
   ],
   'controls': []
 }

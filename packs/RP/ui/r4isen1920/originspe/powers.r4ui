@@ -853,6 +853,13 @@
 
     "controls": [
       {
+        "wrathroot@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.wrathroot.name",
+          "$power_description": "origins.trait.wrathroot.description",
+          "$power_icon_index": "wrathroot"
+        }
+      },
+      {
         "vine_bind@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.vine_bind.name",
           "$power_description": "origins.trait.vine_bind.description",
@@ -863,20 +870,6 @@
         "vine_bind_power@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.vine_bind_power.name",
           "$power_description": "origins.trait.vine_bind_power.description"
-        }
-      },
-      {
-        "invoke_ward@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.invoke_ward.name",
-          "$power_description": "origins.trait.invoke_ward.description",
-          "$power_icon_index": "invoke_ward"
-        }
-      },
-      {
-        "reconvene@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.reconvene.name",
-          "$power_description": "origins.trait.reconvene.description",
-          "$power_icon_index": "reconvene"
         }
       },
       {
@@ -892,15 +885,9 @@
         }
       },
       {
-        "pacifist@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.pacifist.name",
-          "$power_description": "origins.trait.pacifist.description"
-        }
-      },
-      {
-        "nectar_diet@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.nectar_diet.name",
-          "$power_description": "origins.trait.nectar_diet.description"
+        "no_weapon@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.no_weapon.name",
+          "$power_description": "origins.trait.no_weapon.description"
         }
       }
     ]

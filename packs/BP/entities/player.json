@@ -345,14 +345,59 @@
       "r4isen1920_originspe:attack.2": {
         "minecraft:attack": { "damage": 2 }
       },
+      "r4isen1920_originspe:attack.3": {
+        "minecraft:attack": { "damage": 3 }
+      },
+      "r4isen1920_originspe:attack.4": {
+        "minecraft:attack": { "damage": 4 }
+      },
       "r4isen1920_originspe:attack.5": {
         "minecraft:attack": { "damage": 5 }
+      },
+      "r4isen1920_originspe:attack.6": {
+        "minecraft:attack": { "damage": 6 }
       },
       "r4isen1920_originspe:attack.7": {
         "minecraft:attack": { "damage": 7 }
       },
+      "r4isen1920_originspe:attack.8": {
+        "minecraft:attack": { "damage": 8 }
+      },
+      "r4isen1920_originspe:attack.9": {
+        "minecraft:attack": { "damage": 9 }
+      },
       "r4isen1920_originspe:attack.10": {
         "minecraft:attack": { "damage": 10 }
+      },
+      "r4isen1920_originspe:attack.11": {
+        "minecraft:attack": { "damage": 11 }
+      },
+      "r4isen1920_originspe:attack.12": {
+        "minecraft:attack": { "damage": 12 }
+      },
+      "r4isen1920_originspe:attack.13": {
+        "minecraft:attack": { "damage": 13 }
+      },
+      "r4isen1920_originspe:attack.14": {
+        "minecraft:attack": { "damage": 14 }
+      },
+      "r4isen1920_originspe:attack.15": {
+        "minecraft:attack": { "damage": 15 }
+      },
+      "r4isen1920_originspe:attack.16": {
+        "minecraft:attack": { "damage": 16 }
+      },
+      "r4isen1920_originspe:attack.17": {
+        "minecraft:attack": { "damage": 17 }
+      },
+      "r4isen1920_originspe:attack.18": {
+        "minecraft:attack": { "damage": 18 }
+      },
+      "r4isen1920_originspe:attack.19": {
+        "minecraft:attack": { "damage": 19 }
+      },
+      "r4isen1920_originspe:attack.20": {
+        "minecraft:attack": { "damage": 20 }
       },
 
 
@@ -1385,14 +1430,59 @@
       "r4isen1920_originspe:attack.2": {
         "add": { "component_groups": [ "r4isen1920_originspe:attack.2" ] }
       },
+      "r4isen1920_originspe:attack.3": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.3" ] }
+      },
+      "r4isen1920_originspe:attack.4": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.4" ] }
+      },
       "r4isen1920_originspe:attack.5": {
         "add": { "component_groups": [ "r4isen1920_originspe:attack.5" ] }
+      },
+      "r4isen1920_originspe:attack.6": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.6" ] }
       },
       "r4isen1920_originspe:attack.7": {
         "add": { "component_groups": [ "r4isen1920_originspe:attack.7" ] }
       },
+      "r4isen1920_originspe:attack.8": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.8" ] }
+      },
+      "r4isen1920_originspe:attack.9": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.9" ] }
+      },
       "r4isen1920_originspe:attack.10": {
         "add": { "component_groups": [ "r4isen1920_originspe:attack.10" ] }
+      },
+      "r4isen1920_originspe:attack.11": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.11" ] }
+      },
+      "r4isen1920_originspe:attack.12": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.12" ] }
+      },
+      "r4isen1920_originspe:attack.13": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.13" ] }
+      },
+      "r4isen1920_originspe:attack.14": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.14" ] }
+      },
+      "r4isen1920_originspe:attack.15": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.15" ] }
+      },
+      "r4isen1920_originspe:attack.16": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.16" ] }
+      },
+      "r4isen1920_originspe:attack.17": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.17" ] }
+      },
+      "r4isen1920_originspe:attack.18": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.18" ] }
+      },
+      "r4isen1920_originspe:attack.19": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.19" ] }
+      },
+      "r4isen1920_originspe:attack.20": {
+        "add": { "component_groups": [ "r4isen1920_originspe:attack.20" ] }
       },
 
       "r4isen1920_originspe:scale.0.25": {

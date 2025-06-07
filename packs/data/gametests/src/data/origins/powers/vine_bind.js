@@ -1,15 +1,15 @@
-import { Entity, EntityComponentTypes, Player, system, TicksPerSecond, world } from "@minecraft/server";
+import { Entity, EntityComponentTypes, EntityDamageCause, Player, system, TicksPerSecond, world } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { incrementReconveneStack } from "./reconvene";
+import { incrementWrathbloomStack } from "./wrathbloom";
 
 
 
 /** Maximum number of entities that can be chained at a time (excluding the first entity) */
-const MAX_CHAIN_LINKS = 6;
+const MAX_CHAIN_LINKS = 4;
 /** Search radius in blocks for finding the next target of the chain */
 const CHAIN_SEARCH_RADIUS = 32;
 /** Delay in ticks before the chain can propagate to the next target */
-const CHAIN_PROPAGATION_DELAY_TICKS = 3;
+const CHAIN_PROPAGATION_DELAY_TICKS = 4;
 /** Duration in ticks for which the vine effect lasts */
 const VINE_EFFECT_DURATION_TICKS = TicksPerSecond * 2;
 
@@ -47,6 +47,35 @@ system.runTimeout(() => {
          };
 
          propagateChain(hitEntity, chainContext, 0);
+      }
+   });
+
+   world.afterEvents.entityHurt.subscribe(event => {
+      const { hurtEntity, damage, damageSource } = event;
+
+      if (!hurtEntity?.isValid() && damageSource.cause !== EntityDamageCause.magic) {
+         return;
+      }
+
+      // Check if the hurt entity is part of any active chain by checking for chain tags
+      const hurtEntityTags = hurtEntity.getTags();
+      const chainTag = hurtEntityTags.find(tag => tag.startsWith('is_in_active_chain_'));
+
+      if (chainTag) {
+         // Find all other entities with the same chain tag
+         const chainedEntities = hurtEntity.dimension.getEntities({
+            tags: [chainTag]
+         });
+
+         // Apply the same damage to all other entities in the chain
+         for (const entity of chainedEntities) {
+            if (entity?.isValid() && entity.id !== hurtEntity.id) {
+               const damageToApply = Math.floor(damage * 0.25);
+               //? `applyDamage` method doesnt seem to work under these conditions
+               entity.runCommand(`damage @s ${damageToApply} magic`);
+               entity.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_break', entity.location);
+            }
+         }
       }
    });
 
@@ -232,6 +261,8 @@ function spawnVine(from, to, isInitialSourceInChain) {
       maxDistance: 1
    })[0];
 
+   world.playSound('totem_shield.break', from.location, { pitch: 0.5 });
+
    if (!vineEntity) {
       return {};
    }
@@ -255,6 +286,7 @@ function spawnVine(from, to, isInitialSourceInChain) {
          };
          from.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_spawn', particlePos);
          system.runTimeout(() => {
+            if (!from.isValid()) return;
             from.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_despawn', particlePos);
          }, VINE_EFFECT_DURATION_TICKS)
       }
@@ -276,6 +308,7 @@ function spawnVine(from, to, isInitialSourceInChain) {
    system.runTimeout(() => {
       if (vineEntity.isValid()) {
          vineEntity.triggerEvent('r4isen1920_originspe:instant_despawn');
+         world.playSound('totem_shield.break', vineEntity.location, { pitch: 1.5 });
       }
 
       system.clearRun(tick);
@@ -300,17 +333,24 @@ function triggerChainCollapse(chainContext) {
          }
       }
 
-      const damageToApply = totalHealth * 0.01;
-      const entityDimension = chainContext.entityInfos[0].entity.dimension;
+      const damageToApply = totalHealth * 0.12;
 
       for (const entity of entitiesToDamage) {
          if (entity.isValid()) {
-            entityDimension.spawnParticle('r4isen1920_originspe:rootkin_vine_break', entity.location);
-            entity.applyDamage(damageToApply);
+            try {
+               const entityDimension = entity.dimension;
+               entityDimension.spawnParticle('r4isen1920_originspe:rootkin_vine_break', entity.location);
+            } catch {}
+            entity.applyDamage(damageToApply, {
+               cause: EntityDamageCause.magic,
+            });
+
+            world.playSound('totem_shield.deactivate', entity.location);
          }
       }
 
-      incrementReconveneStack(world.getEntity(chainContext.chainOwnerId));
+      incrementWrathbloomStack(world.getEntity(chainContext.chainOwnerId));
+      
    }, MAX_CHAIN_LINKS * CHAIN_PROPAGATION_DELAY_TICKS);
 }
 

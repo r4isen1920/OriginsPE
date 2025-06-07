@@ -45,7 +45,37 @@
         }
       ]
     },
-  
+
+    "totem_shield.break": {
+      "category": "neutral",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "is3D": false,
+          "name": "sounds/random/totem_shield_break_0"
+        },
+        {
+          "is3D": false,
+          "name": "sounds/random/totem_shield_break_1"
+        },
+        {
+          "is3D": false,
+          "name": "sounds/random/totem_shield_break_2"
+        }
+      ]
+    },
+
+    "totem_shield.deactivate": {
+      "category": "neutral",
+      "max_distance": 32,
+      "sounds": [
+        {
+          "is3D": false,
+          "name": "sounds/random/totem_shield_deactivate"
+        }
+      ]
+    },
+
     "origins.starborne.leap": {
       "category": "player",
       "sounds": [
