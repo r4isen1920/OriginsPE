@@ -73,7 +73,7 @@ system.runTimeout(() => {
                const damageToApply = Math.floor(damage * 0.25);
                //? `applyDamage` method doesnt seem to work under these conditions
                entity.runCommand(`damage @s ${damageToApply} magic`);
-               entity.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_break', entity.location);
+               entity.dimension.spawnParticle('r4isen1920_originspe:rootkin_vine_dmg_spread', entity.location);
             }
          }
       }
@@ -261,7 +261,7 @@ function spawnVine(from, to, isInitialSourceInChain) {
       maxDistance: 1
    })[0];
 
-   world.playSound('totem_shield.break', from.location, { pitch: 0.5 });
+   world.playSound('totem_shield.break', locationFrom, { pitch: 0.5 });
 
    if (!vineEntity) {
       return {};
@@ -308,7 +308,7 @@ function spawnVine(from, to, isInitialSourceInChain) {
    system.runTimeout(() => {
       if (vineEntity.isValid()) {
          vineEntity.triggerEvent('r4isen1920_originspe:instant_despawn');
-         world.playSound('totem_shield.break', vineEntity.location, { pitch: 1.5 });
+         world.playSound('totem_shield.break', locationFrom, { pitch: 1.5 });
       }
 
       system.clearRun(tick);
