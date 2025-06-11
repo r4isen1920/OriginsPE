@@ -103,7 +103,7 @@
         }
       },
       {
-        "version@origin_common.image_with_text_description": {
+        "translators@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/map_locked",
           "$text_header": "Translators",
           "$text_body": " - xinyue0226\n - fin9er\n - skybird2333"
