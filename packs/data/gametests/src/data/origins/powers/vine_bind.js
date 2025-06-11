@@ -11,7 +11,7 @@ const CHAIN_SEARCH_RADIUS = 32;
 /** Delay in ticks before the chain can propagate to the next target */
 const CHAIN_PROPAGATION_DELAY_TICKS = 4;
 /** Duration in ticks for which the vine effect lasts */
-const VINE_EFFECT_DURATION_TICKS = TicksPerSecond * 2;
+const VINE_EFFECT_DURATION_TICKS = TicksPerSecond * 4;
 
 
 
@@ -187,7 +187,7 @@ function propagateChain(currentSourceEntity, chainContext, linksMadeCount) {
          }, VINE_EFFECT_DURATION_TICKS + CHAIN_PROPAGATION_DELAY_TICKS);
          chainContext.entityInfos.push({ entity: nextTargetEntity, tagTimeoutId: nextTargetTagTimeoutId });
 
-         const vineSpawnData = spawnVine(currentSourceEntity, nextTargetEntity, linksMadeCount === 0);
+         const vineSpawnData = spawnVine(currentSourceEntity, nextTargetEntity, linksMadeCount === 0, world.getEntity(chainContext.chainOwnerId));
          if (vineSpawnData.vineEntity) {
             chainContext.vineLinkInfos.push({
                vineEntity: vineSpawnData.vineEntity
@@ -208,8 +208,9 @@ function propagateChain(currentSourceEntity, chainContext, linksMadeCount) {
  * @param { Entity } from The entity where the vine would start
  * @param { Entity } to The entity where the vine would end
  * @param { boolean } isInitialSourceInChain Whether the 'from' entity is the first entity hit in the entire chain.
+ * @param { Player } owner The owner of the vine, used for sound effects.
  */
-function spawnVine(from, to, isInitialSourceInChain) {
+function spawnVine(from, to, isInitialSourceInChain, owner) {
    const rawlocationFrom = from.location;
    const rawlocationTo = to.location;
    const yHeadLocationFrom = from.getHeadLocation().y;
@@ -261,7 +262,8 @@ function spawnVine(from, to, isInitialSourceInChain) {
       maxDistance: 1
    })[0];
 
-   world.playSound('totem_shield.break', locationFrom, { pitch: 0.5 });
+   world.playSound('totem_shield.break', locationFrom, { volume: 0.5, pitch: 0.5 });
+   owner.playSound('totem_shield.break', { volume: 0.5, pitch: 0.5 });
 
    if (!vineEntity) {
       return {};
@@ -308,7 +310,8 @@ function spawnVine(from, to, isInitialSourceInChain) {
    system.runTimeout(() => {
       if (vineEntity.isValid()) {
          vineEntity.triggerEvent('r4isen1920_originspe:instant_despawn');
-         world.playSound('totem_shield.break', locationFrom, { pitch: 1.5 });
+         world.playSound('totem_shield.break', locationFrom, { volume: 0.5, pitch: 1.5 });
+         owner.playSound('totem_shield.break', { volume: 0.5, pitch: 0.5 });
       }
 
       system.clearRun(tick);
@@ -335,17 +338,20 @@ function triggerChainCollapse(chainContext) {
 
       const damageToApply = totalHealth * 0.12;
 
+      const chainOwner = world.getEntity(chainContext.chainOwnerId);
+
       for (const entity of entitiesToDamage) {
          if (entity.isValid()) {
             try {
                const entityDimension = entity.dimension;
                entityDimension.spawnParticle('r4isen1920_originspe:rootkin_vine_break', entity.location);
-            } catch {}
+            } catch { /** empty */}
             entity.applyDamage(damageToApply, {
                cause: EntityDamageCause.magic,
             });
 
             world.playSound('totem_shield.deactivate', entity.location);
+            chainOwner.playSound('totem_shield.deactivate');
          }
       }
 
@@ -359,7 +365,7 @@ function triggerChainCollapse(chainContext) {
  */
 function startCooldown(player) {
    system.runTimeout(() => {
-      new ResourceBar(24, 0, 100, 13, false)
+      new ResourceBar(24, 0, 100, 6, false)
           .push(player);
    }, TicksPerSecond * 2.5);
 }

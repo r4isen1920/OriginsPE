@@ -127,7 +127,8 @@ system.runTimeout(() => {
          changeWrathbloomStack(deadEntity, 0);
          deadEntity.removeTag('_init_bar');
       } else if (damageSource.damagingEntity?.typeId === 'minecraft:player' &&
-                 damageSource.damagingEntity.hasTag('power_wrathbloom')) {
+                 damageSource.damagingEntity.hasTag('power_wrathbloom') &&
+                 !damageSource.damagingEntity.hasTag('cooldown_24')) {
          // Decrement wrathbloom stack on kill
          decrementWrathbloomStack(damageSource.damagingEntity);
       }

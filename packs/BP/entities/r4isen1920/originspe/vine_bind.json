@@ -45,7 +45,7 @@
 
       "r4isen1920_originspe:spawned": {
         "minecraft:timer": {
-          "time": 2.1, //? Max duration of the vine + buffer
+          "time": 4.1, //? Max duration of the vine + buffer
           "looping": false,
           "time_down_event": {
             "event": "r4isen1920_originspe:instant_despawn.final",
