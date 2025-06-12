@@ -263,6 +263,19 @@
         }
       },
       {
+        "race_rootkin@origin_common.origin_picker_window_template": {
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/items/pitcher_pod",
+          "$being_name_text": "origins.race.rootkin.name",
+          "$being_difficulty": "hard",
+          "$being_description": "origins.race.rootkin.description",
+          "$being_traits": "origin_powers.rootkin",
+
+          "$child_control": "origin_screen_picker_common.picker_window_panel_content",
+          "$visible_binding": "((#dialogtext = 'pickorigin.rootkin') or (#dialogtext = 'vieworigin.rootkin') or (#dialogtext = 'changeorigin.rootkin') or (#dialogtext = 'banorigin.rootkin'))"
+        }
+      },
+      {
         "race_random@origin_common.origin_picker_window_template": {
           "$being_icon_texture": "random",
           "$being_name_text": "origins.race.random.name",

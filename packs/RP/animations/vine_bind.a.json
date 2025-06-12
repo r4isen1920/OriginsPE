@@ -1,0 +1,54 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.r4isen1920_originspe.vine_bind.rot": {
+			"loop": true,
+			"bones": {
+				"vine0": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": ["v.rot_x", "v.rot_y", 0]
+				}
+			}
+		},
+		"animation.r4isen1920_originspe.vine_bind.in": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1667,
+			"bones": {
+				"vine0": {
+					"scale": {
+						"0.0": {
+							"post": [0, 1, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.0833": {
+							"post": [2, 1, 2],
+							"lerp_mode": "catmullrom"
+						},
+						"0.1667": [2, 1, 2]
+					}
+				}
+			}
+		},
+		"animation.r4isen1920_originspe.vine_bind.out": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.1667,
+			"bones": {
+				"vine0": {
+					"scale": {
+						"0.0": {
+							"post": [2, 1, 2],
+							"lerp_mode": "catmullrom"
+						},
+						"0.0833": {
+							"post": [0, 1, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.1667": [0, 1, 0]
+					}
+				}
+			}
+		}
+	}
+}

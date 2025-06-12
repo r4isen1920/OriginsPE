@@ -100,5 +100,6 @@ execute if score "c_elf" index matches 1.. run scoreboard players operation "c_a
 execute if score "c_voidwalker" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
 execute if score "c_diviner" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
 execute if score "c_mole" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
+execute if score "c_rootkin" index matches 1.. run scoreboard players operation "c_all" index += "c_temp" index
 
 scoreboard players reset "c_temp"

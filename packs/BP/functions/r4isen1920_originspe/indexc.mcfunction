@@ -39,13 +39,14 @@ scoreboard players operation "banc" index += "ban_rogue" index
 scoreboard players operation "banc" index += "ban_warrior" index
 scoreboard players operation "banc" index += "ban_diviner" index
 scoreboard players operation "banc" index += "ban_mole" index
+scoreboard players operation "banc" index += "ban_rootkin" index
 
-execute if score "banr" index matches 20.. run scoreboard players set "ban_human" index 0
+execute if score "banr" index matches 21.. run scoreboard players set "ban_human" index 0
 execute if score "banc" index matches 13.. run scoreboard players set "ban_nitwit" index 0
-execute if score "banr" index matches 20.. run scoreboard players set "ban_human" index 19
+execute if score "banr" index matches 21.. run scoreboard players set "ban_human" index 20
 execute if score "banc" index matches 13.. run scoreboard players set "ban_nitwit" index 12
 
-execute if score "banr" index matches 21.. run scoreboard players set "banc" index 20
+execute if score "banr" index matches 22.. run scoreboard players set "banc" index 21
 execute if score "banc" index matches 14.. run scoreboard players set "banr" index 13
 execute if score "banr" index matches ..-1 run scoreboard players set "banc" index 0
 execute if score "banc" index matches ..-1 run scoreboard players set "banr" index 0

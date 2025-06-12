@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "r4isen1920_originspe:vine_bind",
+      "materials": {
+        "highlight_base": "highlight_base",
+        "highlight_outliner": "highlight_outliner_no_depth"
+      },
+      "textures": {
+        "default": "textures/entity/r4isen1920/originspe/vine_bind",
+        "aura": "textures/entity/r4isen1920/originspe/vine_bind_aura"
+      },
+      "geometry": {
+        "default": "geometry.r4isen1920_originspe.vine_bind",
+        "default_scaled": "geometry.r4isen1920_originspe.vine_bind_scaled"
+      },
+      "scripts": {
+        "initialize": [
+          "v.rot_x = q.target_x_rotation;",
+          "v.rot_y = q.target_y_rotation;"
+        ],
+        "pre_animation": [
+          "v.vine_length = q.property('r4isen1920_originspe:length');"
+        ],
+        "animate": [
+          "root",
+          "rotation"
+        ]
+      },
+      "animations": {
+        "root": "controller.animation.r4isen1920_originspe.vine_bind.root",
+        "rotation": "animation.r4isen1920_originspe.vine_bind.rot",
+        "in": "animation.r4isen1920_originspe.vine_bind.in",
+        "out": "animation.r4isen1920_originspe.vine_bind.out"
+      },
+      "render_controllers": [
+        "controller.render.r4isen1920_originspe.vine_bind",
+        "controller.render.r4isen1920_originspe.vine_bind.aura"
+      ]
+    }
+  }
+}

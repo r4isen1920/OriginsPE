@@ -37,7 +37,8 @@
             { "elf@origin_common.text_label": { "text": "origins.race.elf.name", "color": "$7_color_format" } },
             { "voidwalker@origin_common.text_label": { "text": "origins.race.voidwalker.name", "color": "$7_color_format" } },
             { "diviner@origin_common.text_label": { "text": "origins.race.diviner.name", "color": "$7_color_format" } },
-            { "mole@origin_common.text_label": { "text": "origins.race.mole.name", "color": "$7_color_format" } }
+            { "mole@origin_common.text_label": { "text": "origins.race.mole.name", "color": "$7_color_format" } },
+            { "rootkin@origin_common.text_label": { "text": "origins.race.rootkin.name", "color": "$7_color_format" } }
           ]
         }
       },
@@ -788,15 +789,23 @@
     
     "controls": [
       {
-        "burrow@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.burrow.name",
-          "$power_description": "origins.trait.burrow.description"
+        "burrow_sense@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.burrow_sense.name",
+          "$power_description": "origins.trait.burrow_sense.description",
+          "$power_icon_index": "burrow_sense"
         }
       },
       {
-        "claw@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.claw.name",
-          "$power_description": "origins.trait.claw.description"
+        "tunnel_leap@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.tunnel_leap.name",
+          "$power_description": "origins.trait.tunnel_leap.description",
+          "$power_icon_index": "mole_dash"
+        }
+      },
+      {
+        "claw_digging@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.claw_digging.name",
+          "$power_description": "origins.trait.claw_digging.description"
         }
       },
       {
@@ -806,15 +815,9 @@
         }
       },
       {
-        "tunnel@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.tunnel.name",
-          "$power_description": "origins.trait.tunnel.description"
-        }
-      },
-      {
-        "compact@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.compact.name",
-          "$power_description": "origins.trait.compact.description"
+        "compact_size@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.compact_size.name",
+          "$power_description": "origins.trait.compact_size.description"
         }
       },
       {
@@ -830,15 +833,61 @@
         }
       },
       {
-        "poor@origin_powers.origin_powers_container_template": {
-          "$power_name": "origins.trait.poor.name",
-          "$power_description": "origins.trait.poor.description"
+        "poor_swimmer@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.poor_swimmer.name",
+          "$power_description": "origins.trait.poor_swimmer.description"
         }
       },
       {
         "vegetarian@origin_powers.origin_powers_container_template": {
           "$power_name": "origins.trait.vegetarian.name",
           "$power_description": "origins.trait.vegetarian.description"
+        }
+      }
+    ]
+  },
+
+  "rootkin": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+
+    "controls": [
+      {
+        "wrathroot@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.wrathroot.name",
+          "$power_description": "origins.trait.wrathroot.description",
+          "$power_icon_index": "wrathroot"
+        }
+      },
+      {
+        "vine_bind@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.vine_bind.name",
+          "$power_description": "origins.trait.vine_bind.description",
+          "$power_icon_index": "vine_bind"
+        }
+      },
+      {
+        "vine_bind_power@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.vine_bind_power.name",
+          "$power_description": "origins.trait.vine_bind_power.description"
+        }
+      },
+      {
+        "leech_life@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.leech_life.name",
+          "$power_description": "origins.trait.leech_life.description"
+        }
+      },
+      {
+        "flammable@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.flammable.name",
+          "$power_description": "origins.trait.flammable.description"
+        }
+      },
+      {
+        "no_weapon@origin_powers.origin_powers_container_template": {
+          "$power_name": "origins.trait.no_weapon.name",
+          "$power_description": "origins.trait.no_weapon.description"
         }
       }
     ]

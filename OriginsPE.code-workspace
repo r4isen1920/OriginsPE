@@ -3,8 +3,5 @@
 		{
 			"path": "."
 		}
-  ],
-  "settings": {
-    "workbench.iconTheme": "vscode-icons"
-  }
+  ]
 }

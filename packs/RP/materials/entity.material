@@ -45,6 +45,22 @@
 			},
 
 			"stencilRef": 3
+		},
+		"highlight_outliner_no_depth:charged_creeper": {
+			"-states": [ "DisableCulling" ],
+			"+states": [
+				"EnableStencilTest",
+				"InvertCulling"
+			],
+
+			"-defines": [ "FANCY" ],
+      "+defines": [ "USE_UV_ANIM" ],
+
+			"frontFace": {
+				"stencilFunc": "NotEqual"
+			},
+
+			"stencilRef": 3
 		}
 
   }

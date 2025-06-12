@@ -726,7 +726,7 @@
       { "toggle.announce@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.toggle.announce.description", "$visible_binding": "((#student_button_text = 'announce.on') or (#student_button_text = 'announce.off'))" } },
       { "reset_all@origin_options_menu.options_button_description": { "$hover_text": "origins.gui.options.reset_all.description", "$visible_binding": "(#student_button_text = 'reset_all')" } },
       {
-        "reset_all@origin_options_menu.options_button_description": {
+        "reset_all_confirm@origin_options_menu.options_button_description": {
           "$hover_text": "origins.gui.options.reset_all.description",
           "$hover_text_2": "origins.gui.options.reset_all.description_confirm",
           "$hover_text_2_color": "$c_color_format",

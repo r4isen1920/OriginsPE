@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.r4isen1920_originspe.vine_bind.root": {
+      "initial_state": "init",
+      "states": {
+
+        "init": {
+          "transitions": [
+            { "in": "q.property('r4isen1920_originspe:state') == 'in'" },
+            { "staying": "q.property('r4isen1920_originspe:state') == 'staying'" },
+            { "out": "q.property('r4isen1920_originspe:state') == 'out'" }
+          ]
+        },
+
+        "in": {
+          "animations": [ "in" ],
+          "transitions": [
+            { "staying": "q.property('r4isen1920_originspe:state') == 'staying'" }
+          ],
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true
+        },
+
+        "staying": {
+          "transitions": [
+            { "out": "q.property('r4isen1920_originspe:state') == 'out'" }
+          ],
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true
+        },
+
+        "out": {
+          "animations": [ "out" ],
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true
+        }
+      }
+    }
+  }
+}

@@ -19,8 +19,8 @@
         "default": "textures/entity/steve",
         "cape": "textures/entity/cape_invisible",
 
-        "slimy": "textures/entity/slime_overlay",
-        "divine": "textures/entity/divine_aura"
+        "slimy": "textures/entity/r4isen1920/originspe/slime_overlay",
+        "divine": "textures/entity/r4isen1920/originspe/divine_aura"
       },
       "geometry": {
         "default": "geometry.humanoid.custom",
@@ -56,7 +56,7 @@
 
           /* Vanilla */
 
-          "v.helmet_layer_visible = 1.0;",
+          "v.helmet_layer_visible = !q.has_head_gear;",
           "v.leg_layer_visible = 1.0;",
           "v.boot_layer_visible = 1.0;",
           "v.chest_layer_visible = 1.0;",
@@ -64,7 +64,6 @@
           "v.tcos0 = (math.cos(q.modified_distance_moved * 38.17) * q.modified_move_speed / v.gliding_speed_value) * 57.3;",
           "v.first_person_rotation_factor = math.sin((1 - v.attack_time) * 180.0);",
           "v.hand_bob = q.life_time < 0.01 ? 0.0 : v.hand_bob + ((q.is_on_ground && q.is_alive ? math.clamp(math.sqrt(math.pow(q.position_delta(0), 2.0) + math.pow(q.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - v.hand_bob) * 0.02;",
-
           "v.map_angle = math.clamp(1 - v.player_x_rotation / 45.1, 0.0, 1.0);",
           "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;",
 
@@ -108,13 +107,10 @@
         "move.legs": "animation.player.move.legs",
         "swimming": "animation.player.swim",
         "swimming.legs": "animation.player.swim.legs",
-        "crawling": "animation.player.crawl",
-        "crawling.legs": "animation.player.crawl.legs",
         "riding.arms": "animation.player.riding.arms",
         "riding.legs": "animation.player.riding.legs",
         "holding": "animation.player.holding",
         "brandish_spear": "animation.humanoid.brandish_spear",
-        "holding_spyglass": "animation.humanoid.holding_spyglass",
         "charging": "animation.humanoid.charging",
         "attack.positions": "animation.player.attack.positions",
         "attack.rotations": "animation.player.attack.rotations",
@@ -128,9 +124,9 @@
         "first_person_base_pose": "animation.player.first_person.base_pose",
         "first_person_empty_hand": "animation.player.first_person.empty_hand",
         "first_person_swap_item": "animation.player.first_person.swap_item",
-        "first_person_shield_block": "animation.player.first_person.shield_block",
         "first_person_attack_controller": "controller.animation.player.first_person_attack",
         "first_person_attack_rotation": "animation.player.first_person.attack_rotation",
+        "first_person_attack_rotation_item": "animation.player.first_person.attack_rotation_item",
         "first_person_vr_attack_rotation": "animation.player.first_person.vr_attack_rotation",
         "first_person_walk": "animation.player.first_person.walk",
         "first_person_map_controller": "controller.animation.player.first_person_map",
@@ -139,6 +135,8 @@
         "first_person_map_hold_off_hand": "animation.player.first_person.map_hold_off_hand",
         "first_person_map_hold_main_hand": "animation.player.first_person.map_hold_main_hand",
         "first_person_crossbow_equipped": "animation.player.first_person.crossbow_equipped",
+        "first_person_crossbow_hold": "animation.player.first_person.crossbow_hold",
+        "first_person_breathing_bob": "animation.player.first_person.breathing_bob",
         "third_person_crossbow_equipped": "animation.player.crossbow_equipped",
         "third_person_bow_equipped": "animation.player.bow_equipped",
         "crossbow_hold": "animation.player.crossbow_hold",
@@ -146,9 +144,15 @@
         "shield_block_main_hand": "animation.player.shield_block_main_hand",
         "shield_block_off_hand": "animation.player.shield_block_off_hand",
         "blink": "controller.animation.persona.blink",
-		    "tooting_goat_horn": "animation.humanoid.tooting_goat_horn",
-		    "holding_brush": "animation.humanoid.holding_brush",
-		    "brushing": "animation.humanoid.brushing",
+        "fishing_rod": "animation.humanoid.fishing_rod",
+        "holding_spyglass": "animation.humanoid.holding_spyglass",
+        "first_person_shield_block": "animation.player.first_person.shield_block",
+        "tooting_goat_horn": "animation.humanoid.tooting_goat_horn",
+        "holding_brush": "animation.humanoid.holding_brush",
+        "brushing": "animation.humanoid.brushing",
+        "crawling": "animation.player.crawl",
+        "crawling.legs": "animation.player.crawl.legs",
+        "holding_heavy_core": "animation.player.holding_heavy_core",
 
 
         /* OriginsPE */

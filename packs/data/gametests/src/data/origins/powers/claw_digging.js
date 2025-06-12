@@ -5,7 +5,7 @@ const CLAW_DIGGABLE_BLOCKS = [
     "minecraft:dirt",
     "minecraft:gravel",
     "minecraft:sand",
-    "minecraft:grass"
+    "minecraft:grass_block"
 ];
 
 const UNDERGROUND_BLOCKS = [
