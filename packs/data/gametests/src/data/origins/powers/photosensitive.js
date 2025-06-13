@@ -1,4 +1,5 @@
 import { world, system } from "@minecraft/server";
+import { blazeborn } from "../blazeborn";
 
 /**
  * @param {import('@minecraft/server').Player} player 
@@ -22,13 +23,12 @@ export function photosensitive(player) {
                 amplifier: 1,
                 showParticles: true
             });
-            // Add small fire effect to prevent healing
-            player.setOnFire(1, true);
+     
             // Direct sunlight damage
             if (!player.hasTag('sunlight_damage_cooldown')) {
-                player.applyDamage(2); // Increased damage
+                player.applyDamage(2);
+                player.dimension.spawnParticle("r4isen1920_originspe:blaze_aura", player.location);
                 player.addTag('sunlight_damage_cooldown');
-                
                 system.runTimeout(() => {
                     player.removeTag('sunlight_damage_cooldown');
                 }, 20);

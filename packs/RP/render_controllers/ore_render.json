@@ -1,0 +1,28 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+
+    "controller.render.r4isen1920_originspe.ore_highlight": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.highlight_base" } ],
+      "textures": [ "Texture.default" ],
+
+      "on_fire_color": {},
+      "is_hurt_color": {},
+      "ignore_lighting": true
+
+    },
+
+    "controller.render.r4isen1920_originspe.ore_highlight.aura": {
+      "geometry": "Geometry.default_scaled",
+      "materials": [ { "*": "Material.highlight_outliner" } ],
+      "textures": [ "Texture.aura" ],
+
+      "on_fire_color": {},
+      "is_hurt_color": {},
+      "ignore_lighting": true
+
+    }
+
+  }
+}

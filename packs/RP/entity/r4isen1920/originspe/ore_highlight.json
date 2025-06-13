@@ -1,0 +1,24 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "origins:ore_highlight",
+            "materials": {
+                "highlight_base": "highlight_base",
+                "highlight_outliner": "highlight_outliner"
+            },
+            "textures": {
+                "default": "textures/none",
+                "aura": "textures/entity/r4isen1920/originspe/ore_highlight"
+            },
+            "geometry": {
+                "default": "geometry.ore_highlight",
+                "default_scaled": "geometry.ore_highlight.scaled"
+            },
+            "render_controllers": [
+                "controller.render.r4isen1920_originspe.ore_highlight",
+                "controller.render.r4isen1920_originspe.ore_highlight.aura"
+            ]
+        }
+    }
+}

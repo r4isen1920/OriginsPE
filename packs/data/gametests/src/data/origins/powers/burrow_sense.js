@@ -1,4 +1,4 @@
-import { Player, system } from "@minecraft/server";
+import { Player, system, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 const supportedOres = [
@@ -9,7 +9,17 @@ const supportedOres = [
     "minecraft:deepslate_coal_ore",
     "minecraft:deepslate_iron_ore",
     "minecraft:deepslate_gold_ore",
-    "minecraft:deepslate_diamond_ore"
+    "minecraft:deepslate_diamond_ore",
+    "minecraft:copper_ore",
+    "minecraft:emerald_ore",
+    "minecraft:lapis_ore",
+    "minecraft:redstone_ore",
+    "minecraft:deepslate_copper_ore",
+    "minecraft:deepslate_emerald_ore",
+    "minecraft:deepslate_lapis_ore",
+    "minecraft:deepslate_redstone_ore",
+    "minecraft:nether_gold_ore",
+    "minecraft:nether_quartz_ore"
 ];
 
 /**
@@ -25,9 +35,9 @@ export function burrow_sense(player) {
 
     const dimension = player.dimension;
     const pos = player.location;
-    let foundOre = null;
+    const foundOres = [];
 
-    // Scan for ores in a 16x16x16 cube around player
+    // Scan for ores
     for (let dx = -8; dx <= 8; dx++) {
         for (let dy = -8; dy <= 8; dy++) {
             for (let dz = -8; dz <= 8; dz++) {
@@ -35,61 +45,51 @@ export function burrow_sense(player) {
                 const block = dimension.getBlock(blockLoc);
 
                 if (block && supportedOres.includes(block.typeId)) {
-                    if (!foundOre) {
-                        foundOre = blockLoc;
-                    }
+                    foundOres.push(block.center());
                 }
             }
         }
     }
 
-    // Create particle trail to ore if found
-    if (foundOre) {
-        const steps = 30; // Number of particles
-        const duration = 1200; // Duration in ticks (60 seconds)
-        let elapsed = 0;
-        let trailActive = true;
-
-        // Create repeating particle trail
-        const trailInterval = system.runInterval(() => {
-            if (!trailActive) {
-                system.clearRun(trailInterval);
-                return;
-            }
-
-            elapsed++;
-            
-            // Check if ore still exists
-            const currentBlock = dimension.getBlock(foundOre);
-            if (!currentBlock || !supportedOres.includes(currentBlock.typeId)) {
-                trailActive = false;
-                system.clearRun(trailInterval);
-                return;
-            }
-
-            for (let i = 0; i <= steps; i++) {
-                const t = i / steps;
-                const particlePos = {
-                    x: pos.x + (foundOre.x - pos.x) * t,
-                    y: pos.y + (foundOre.y - pos.y) * t,
-                    z: pos.z + (foundOre.z - pos.z) * t
-                };
-                
-                dimension.spawnParticle(
-                    "minecraft:blue_flame_particle",
-                    particlePos
-                );
-            }
-
-            // Clear trail after duration
-            if (elapsed >= duration) {
-                trailActive = false;
-                system.clearRun(trailInterval);
-            }
-        }, 5);
+    // Create highlight cubes for found ores
+    if (foundOres.length > 0) {
+        const duration = 600; // 30 seconds
+        const entities = [];
+        
+        // Summon highlight entities for each ore
+        foundOres.forEach(oreLoc => {
+            const entity = dimension.spawnEntity("origins:ore_highlight", {
+                x: Math.floor(oreLoc.x) + 0.5,
+                y: Math.floor(oreLoc.y),
+                z: Math.floor(oreLoc.z) + 0.5
+            });
+            entities.push (entity);
+        });
+    
+        // Remove highlights after duration
+        system.runTimeout(() => {
+            entities.forEach(entity => {
+                if (entity && entity.isValid) {
+                    entity.remove();
+                }
+            });
+        }, duration);
+    }
 
     // Remove the control tag after use
     player.removeTag('_control_use_burrow_sense');
-    }
 }
+
+world.afterEvents.playerBreakBlock.subscribe(event => {
+    const block = event.block;
+    const dimension = event.dimension;
+
+    const entity = dimension.getEntitiesAtBlockLocation(block.location)
+        .find(e => e.typeId === "origins:ore_highlight");
+    if (entity) {
+        entity.remove();
+    }
+})
+
+
 toAllPlayers(burrow_sense, 3);

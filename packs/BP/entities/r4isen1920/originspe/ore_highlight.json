@@ -1,0 +1,60 @@
+{
+  "format_version": "1.19.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "origins:ore_highlight",
+      "is_spawnable": false,
+      "is_summonable": true
+    },
+    "component_groups": {
+        "despawn": {
+            "minecraft:instant_despawn": {
+                "remove_child_entities": false
+            }
+        }
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0,
+        "height": 0
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:breathable": {
+        "breathes_solids": true
+      },
+      "minecraft:timer": {
+        "time": 10,
+        "looping": true,
+        "time_down_event": {
+            "event": "instant_despawn",
+            "target": "self"
+        }
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+            {
+                "cause": "all",
+                "deals_damage": "no",
+                "on_damage": {
+                    "event": "instant_despawn"
+                }
+            }
+        ]
+      }
+    },
+    "events": {
+      "instant_despawn": {
+        "add": {
+            "component_groups": [
+                "despawn"
+            ]
+        }
+      }
+    }
+  }
+}
