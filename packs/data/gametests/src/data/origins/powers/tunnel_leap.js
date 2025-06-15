@@ -18,27 +18,35 @@ function tunnel_leap(player) {
 
   if (
     player.hasTag('cooldown_23') &&
-    (_SCOREBOARD('cd2').getScore(player) === 0 || _SCOREBOARD('cd2').getScore(player) !== 23) &&
-    (_SCOREBOARD('cd3').getScore(player) === 0 || _SCOREBOARD('cd3').getScore(player) !== 23)
-  ) player.removeTag('cooldown_23');
+    (_SCOREBOARD('cd2').getScore(player) <= 0 && _SCOREBOARD('cd3').getScore(player) <= 0)
+  ) {
+    player.removeTag('cooldown_23');
+  }
 
   if (!player.hasTag('cooldown_23')) {
     player.addTag('cooldown_23');
 
     // Configuration variables
-    const MAX_TUNNEL_DISTANCE = 8;  // Increased tunnel distance
+    const MAX_TUNNEL_DISTANCE = 8;
     const tunnelWidth = 1;  // Increased tunnel width
     const tunnelHeight = 1; // Added tunnel height
     
     // Get player's view direction and create tunnel effect
     const viewDir = player.getViewDirection();
     
+    // Create normalized horizontal direction for tunnel
+    const horizontalDir = new Vector3(
+      viewDir.x,
+      0, // Force vertical component to 0 for tunnel creation
+      viewDir.z
+    );
+    
     // Create tunnel effect by removing blocks
     for(let i = 0; i <= MAX_TUNNEL_DISTANCE; i++) {
       const pos = Vector3.add(player.location, new Vector3(
-        viewDir.x * i,
-        viewDir.y * i,
-        viewDir.z * i
+        horizontalDir.x * i,
+        0, // Keep tunnel at player's height level
+        horizontalDir.z * i
       ));
 
       // Get and break breakable blocks
@@ -60,7 +68,7 @@ function tunnel_leap(player) {
               block.typeId === 'minecraft:mycelium'
             )) {
               block.setType('minecraft:air');
-              player.dimension.spawnParticle('minecraft:explosion_particle', blockPos);
+              player.dimension.spawnParticle('minecraft:terrain_particle minecraft:dirt', blockPos);
             }
           }
         }
@@ -75,17 +83,23 @@ function tunnel_leap(player) {
       0  // Set vertical component to 0 to prevent faster upward movement
     );
 
+    // Set cooldown scores
+    const COOLDOWN_DURATION = 300; // 15 seconds at 20 ticks per second
+    _SCOREBOARD('cd2').setScore(player, COOLDOWN_DURATION);
+    _SCOREBOARD('cd3').setScore(player, COOLDOWN_DURATION);
+
     // Effects and cooldown
-    player.dimension.spawnParticle('minecraft:large_explosion', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
-    world.playSound('random.explode', player.location);
-    player.playSound('random.explode');
+    player.dimension.spawnParticle('minecraft:terrain_particle minecraft:dirt', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
+    player.playSound('item.trident.riptide_1', { volume: 0.8, pitch: 1.0});
 
-    // Set cooldown texture
-    _SCOREBOARD('cd2').setScore(player, 23);
-    _SCOREBOARD('cd3').setScore(player, 23);
-
-    new ResourceBar(23, 0, 100, currentStressValue > 70 ? 1 : 3)
-        .push(player);
+    // Fixed ResourceBar implementation
+    new ResourceBar(
+      23,           // id - must match the cooldown tag number
+      0,          
+      100,           
+      10,           // duration in seconds (not ticks)
+      false         // don't persist
+    ).push(player);
 
   } else {
     player.playSound('note.bass', { volume: 1, pitch: 1.5 });
@@ -94,4 +108,19 @@ function tunnel_leap(player) {
   player.removeTag('_control_use_tunnel_leap');
 }
 
-toAllPlayers(tunnel_leap, 2)
+// Make sure to reduce cooldown every tick
+function reduceCooldown(player) {
+  if (player.hasTag('cooldown_23')) {
+    const cd2 = _SCOREBOARD('cd2').getScore(player);
+    const cd3 = _SCOREBOARD('cd3').getScore(player);
+    
+    if (cd2 > 0) _SCOREBOARD('cd2').setScore(player, cd2 - 1);
+    if (cd3 > 0) _SCOREBOARD('cd3').setScore(player, cd3 - 1);
+  }
+}
+
+// Update the player function to include cooldown reduction
+toAllPlayers((player) => {
+  tunnel_leap(player);
+  reduceCooldown(player);
+}, 2);
