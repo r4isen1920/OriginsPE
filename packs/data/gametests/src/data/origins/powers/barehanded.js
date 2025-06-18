@@ -11,7 +11,7 @@ export function barehanded(player) {
    if (player.hasTag("power_barehanded") && (mainhand.typeId === '' || mainhand.typeId === 'minecraft:air')) {
       player.addTag('_barehanded');
       player.removeEffect('minecraft:weakness');
-   } else {
+   } else if (player.hasTag('_barehanded') && mainhand.typeId !== '' && mainhand.typeId !== 'minecraft:air') {
       player.addEffect('minecraft:weakness', 100, { amplifier: 255, showParticles: false });
       player.removeTag('_barehanded');
    }

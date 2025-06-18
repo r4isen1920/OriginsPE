@@ -1,5 +1,4 @@
 import { world, system } from "@minecraft/server";
-import { blazeborn } from "../blazeborn";
 
 /**
  * @param {import('@minecraft/server').Player} player 
@@ -15,11 +14,11 @@ export function photosensitive(player) {
         // Only apply effects when in direct sunlight (light level > 14)
         if (lightLevel > 14) {
             // Apply stronger debuff effects
-            player.addEffect("weakness", 40, {
+            player.addEffect("weakness", 100, {
                 amplifier: 1,
                 showParticles: true
             });
-            player.addEffect("slowness", 40, {
+            player.addEffect("slowness", 100, {
                 amplifier: 1,
                 showParticles: true
             });
