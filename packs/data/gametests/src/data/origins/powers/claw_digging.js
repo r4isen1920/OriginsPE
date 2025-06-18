@@ -1,4 +1,4 @@
-import { TicksPerSecond, EquipmentSlot, world } from "@minecraft/server";
+import { TicksPerSecond, EquipmentSlot, world, system } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 const UNDERGROUND_BLOCKS = [
@@ -57,25 +57,20 @@ export function claw_digging(player) {
     } else {
         player.removeEffect("minecraft:haste");
     }
-    player.sendMessage(`You feel your claws ready to dig!`);
-    
-    if (!player.hasTag(`_init_bar`)) {
-        world.beforeEvents.playerBreakBlock.subscribe((event) => {
-            const player = event.player;
-            const block = event.block;
-
-                block.dimension.runCommand(`setblock ${block.location.x} ${block.location.y} ${block.location.z} air destroy`);
-                player.sendMessage(`You dig through the ${block.typeId} with your claws!`);
-                event.cancel = true; // Prevent default block breaking behavior
-            
-        });
-        player.addTag(`_init_bar`);
-    }
-
 }
 
 toAllPlayers(claw_digging, 1);
 
 
+world.beforeEvents.playerBreakBlock.subscribe((event) => {
+   const { player, block } = event;
 
+   if (!player.hasTag('power_claw_digging')) return;
 
+   system.run(() => {
+      const commandToRun = `setblock ${block.location.x} ${block.location.y} ${block.location.z} air destroy`;
+      player.runCommand(commandToRun);
+   })
+
+   event.cancel = true;
+});
