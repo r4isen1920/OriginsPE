@@ -63,7 +63,11 @@ export function burrow_sense(player) {
                 y: Math.floor(oreLoc.y),
                 z: Math.floor(oreLoc.z) + 0.5
             });
-            entities.push (entity);
+
+            // Make the highlight visible only to the player who used the ability
+            entity.addTag(`owner:${player.id}`);
+            entity.setDynamicProperty("ownerName", player.name);
+            entities.push(entity);
         });
     
         // Remove highlights after duration

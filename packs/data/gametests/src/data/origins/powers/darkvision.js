@@ -1,5 +1,4 @@
 import { world, system } from "@minecraft/server"
-import { EffectTypes } from "@minecraft/server"
 
 
 /**
