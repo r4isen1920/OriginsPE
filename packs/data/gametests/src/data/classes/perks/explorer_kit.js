@@ -1,6 +1,5 @@
 
 import { ItemStack } from '@minecraft/server';
-
 import { toAllPlayers } from '../../../origins/player';
 
 /**

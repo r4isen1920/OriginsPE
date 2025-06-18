@@ -7,3 +7,4 @@ import "./origins/world";
 
 import "./utils/Math";
 import "./utils/string";
+import "./events/onDeath.js";
