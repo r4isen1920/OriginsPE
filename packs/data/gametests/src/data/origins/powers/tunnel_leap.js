@@ -1,4 +1,4 @@
-import { TicksPerSecond, world } from "@minecraft/server";
+import { TicksPerSecond, world, ItemStack } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
 import { Vector3 } from "../../../utils/Vec3";
@@ -51,24 +51,95 @@ function tunnel_leap(player) {
 
       // Get and break breakable blocks
       for(let x = -tunnelWidth; x <= tunnelWidth; x++) {
-        for(let y = -1; y <= tunnelHeight; y++) {  // Modified height range
+        for(let y = -1; y <= tunnelHeight; y++) {
           for(let z = -tunnelWidth; z <= tunnelWidth; z++) {
             const blockPos = Vector3.add(pos, new Vector3(x, y, z));
             const block = player.dimension.getBlock(blockPos);
             
-            // Expanded list of breakable blocks
-            if (block && (
-              block.typeId === 'minecraft:dirt' ||
-              block.typeId === 'minecraft:grass' ||
-              block.typeId === 'minecraft:coarse_dirt' ||
-              block.typeId === 'minecraft:rooted_dirt' ||
-              block.typeId === 'minecraft:grass_block' ||
-              block.typeId === 'minecraft:dirt_with_roots' ||
-              block.typeId === 'minecraft:farmland' ||
-              block.typeId === 'minecraft:mycelium'
-            )) {
-              block.setType('minecraft:air');
-              player.dimension.spawnParticle('minecraft:terrain_particle minecraft:dirt', blockPos);
+            // Expanded list of breakable blocks with their corresponding items
+            if (block) {
+              let itemToSpawn = null;
+              
+              switch(block.typeId) {
+                case 'minecraft:dirt':
+                case 'minecraft:coarse_dirt':
+                case 'minecraft:rooted_dirt':
+                  itemToSpawn = 'minecraft:dirt';
+                  break;
+                case 'minecraft:grass_block':
+                  itemToSpawn = 'minecraft:grass_block';
+                  break;
+                case 'minecraft:grass':
+                  itemToSpawn = 'minecraft:grass';
+                  break;
+                case 'minecraft:dirt_with_roots':
+                  itemToSpawn = 'minecraft:dirt_with_roots';
+                  break;
+                case 'minecraft:farmland':
+                  itemToSpawn = 'minecraft:dirt';
+                  break;
+                case 'minecraft:mycelium':
+                  itemToSpawn = 'minecraft:mycelium';
+                  break;
+                // Added new breakable blocks
+                case 'minecraft:sand':
+                  itemToSpawn = 'minecraft:sand';
+                  break;
+                case 'minecraft:gravel':
+                  itemToSpawn = 'minecraft:gravel';
+                  break;
+                case 'minecraft:clay':
+                  itemToSpawn = 'minecraft:clay';
+                  break;
+                case 'minecraft:soul_sand':
+                  itemToSpawn = 'minecraft:soul_sand';
+                  break;
+                case 'minecraft:soul_soil':
+                  itemToSpawn = 'minecraft:soul_soil';
+                  break;
+                case 'minecraft:snow':
+                case 'minecraft:snow_layer':
+                  itemToSpawn = 'minecraft:snow';
+                  break;
+                case 'minecraft:red_sand':
+                  itemToSpawn = 'minecraft:red_sand';
+                  break;
+                case 'minecraft:mud':
+                  itemToSpawn = 'minecraft:mud';
+                  break;
+                case 'minecraft:podzol':
+                  itemToSpawn = 'minecraft:podzol';
+                  break;
+              }
+
+              if (itemToSpawn) {
+                // Update sound based on block type
+                let breakSound = 'dig.grass';
+                if (block.typeId.includes('sand') || block.typeId.includes('gravel')) {
+                    breakSound = 'dig.sand';
+                } else if (block.typeId.includes('snow')) {
+                    breakSound = 'dig.snow';
+                }
+
+                player.playSound(breakSound, {
+                    location: blockPos,
+                    volume: 1.0,
+                    pitch: 1.0
+                });
+                
+                // Break the block
+                block.setType('minecraft:air');
+                
+                // Spawn the item
+                const itemLocation = Vector3.add(blockPos, new Vector3(0.5, 0.5, 0.5));
+                player.dimension.spawnItem(
+                  new ItemStack(itemToSpawn, 1),
+                  itemLocation
+                );
+                
+                // Spawn particle effect
+                player.dimension.spawnParticle('minecraft:terrain_particle minecraft:dirt', blockPos);
+              }
             }
           }
         }
@@ -79,7 +150,7 @@ function tunnel_leap(player) {
     player.applyKnockback(
       viewDir.x,
       viewDir.z,
-      10,
+      4,
       0  // Set vertical component to 0 to prevent faster upward movement
     );
 
@@ -124,3 +195,4 @@ toAllPlayers((player) => {
   tunnel_leap(player);
   reduceCooldown(player);
 }, 2);
+
