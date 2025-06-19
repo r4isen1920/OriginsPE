@@ -2,10 +2,14 @@
     "format_version": "1.10.0",
     "minecraft:client_entity": {
         "description": {
-            "identifier": "origins:ore_highlight",
+            "identifier": "r4isen1920_originspe:ore_highlight",
             "materials": {
                 "highlight_base": "highlight_base",
                 "highlight_outliner": "highlight_outliner"
+            },
+            "animations": {
+              "size.0": "animation.r4isen1920_originspe.ore_highlight.size.0",
+              "size.1": "animation.r4isen1920_originspe.ore_highlight.size.1"
             },
             "textures": {
                 "default": "textures/none",

@@ -2,7 +2,7 @@
   "format_version": "1.19.0",
   "minecraft:entity": {
     "description": {
-      "identifier": "origins:ore_highlight",
+      "identifier": "r4isen1920_originspe:ore_highlight",
       "is_spawnable": true,
       "is_summonable": true,
       "is_experimental": false
@@ -15,11 +15,6 @@
         }
     },
     "components": {
-      "minecraft:type_family": {
-        "family": [
-          "origins:ore_highlight"
-        ]
-      },
       "minecraft:collision_box": {
         "width": 0,
         "height": 0
@@ -51,10 +46,6 @@
                 }
             }
         ]
-      },
-      "minecraft:nameable": {
-        "allow_name_tag_renaming": false,
-        "always_show": false
       }
     },
     "events": {

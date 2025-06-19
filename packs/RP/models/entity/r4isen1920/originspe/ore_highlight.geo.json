@@ -12,7 +12,7 @@
 			},
 			"bones": [
 				{
-					"name": "block",
+					"name": "root",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{
@@ -60,7 +60,7 @@
 			},
 			"bones": [
 				{
-					"name": "block",
+					"name": "root",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{

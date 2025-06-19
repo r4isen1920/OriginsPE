@@ -1,110 +1,138 @@
-import { Player, system, world } from "@minecraft/server";
+import { BlockVolume, Player, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
-const supportedOres = [
-    "minecraft:coal_ore",
-    "minecraft:iron_ore",
-    "minecraft:gold_ore",
-    "minecraft:diamond_ore",
-    "minecraft:deepslate_coal_ore",
-    "minecraft:deepslate_iron_ore",
-    "minecraft:deepslate_gold_ore",
-    "minecraft:deepslate_diamond_ore",
-    "minecraft:copper_ore",
-    "minecraft:emerald_ore",
-    "minecraft:lapis_ore",
-    "minecraft:redstone_ore",
-    "minecraft:deepslate_copper_ore",
-    "minecraft:deepslate_emerald_ore",
-    "minecraft:deepslate_lapis_ore",
-    "minecraft:deepslate_redstone_ore",
-    "minecraft:nether_gold_ore",
-    "minecraft:nether_quartz_ore"
+
+
+//#region Configs
+const SUPPORTED_ORES = [
+   "minecraft:coal_ore",
+   "minecraft:iron_ore",
+   "minecraft:gold_ore",
+   "minecraft:diamond_ore",
+   "minecraft:deepslate_coal_ore",
+   "minecraft:deepslate_iron_ore",
+   "minecraft:deepslate_gold_ore",
+   "minecraft:deepslate_diamond_ore",
+   "minecraft:copper_ore",
+   "minecraft:emerald_ore",
+   "minecraft:lapis_ore",
+   "minecraft:redstone_ore",
+   "minecraft:deepslate_copper_ore",
+   "minecraft:deepslate_emerald_ore",
+   "minecraft:deepslate_lapis_ore",
+   "minecraft:deepslate_redstone_ore",
+   "minecraft:nether_gold_ore",
+   "minecraft:quartz_ore",
 ];
 
+const SCAN_RADIUS = 8;
+const HIGHLIGHT_ENTITY = "r4isen1920_originspe:ore_highlight";
+
+
+
+//#region burrowSense
 /**
- * @param {Player} player 
- * @returns 
+ * Burrow sense power - Detects nearby ores and highlights them
+ * @param {Player} player - The player to check for the power
  */
 export function burrow_sense(player) {
-    // Check if player has the power and is using the item
-    if (!player.hasTag('power_burrow_sense') ||
-        !player.hasTag('_control_use_burrow_sense')) {
-        return;
-    }
+   if (
+      !player.hasTag("power_burrow_sense") ||
+      !player.hasTag("_control_use_burrow_sense")
+   ) {
+      return;
+   }
 
-    const dimension = player.dimension;
-    const pos = player.location;
-    const foundOres = [];
+   const oreLocations = findNearbyOres(player);
 
-    // Scan for ores
-    for (let dx = -8; dx <= 8; dx++) {
-        for (let dy = -8; dy <= 8; dy++) {
-            for (let dz = -8; dz <= 8; dz++) {
-                const blockLoc = { x: pos.x + dx, y: pos.y + dy, z: pos.z + dz };
-                const block = dimension.getBlock(blockLoc);
+   if (oreLocations.length > 0) {
+      createOreHighlights(player, oreLocations);
+   }
 
-                if (block && supportedOres.includes(block.typeId)) {
-                    foundOres.push(block.center());
-                }
-            }
-        }
-    }
-
-    // Create highlight cubes for found ores
-    if (foundOres.length > 0) {
-        const duration = 600; // 30 seconds
-        const entities = [];
-
-        // Summon highlight entities for each ore
-        foundOres.forEach(oreLoc => {
-            const entity = dimension.spawnEntity("origins:ore_highlight", {
-                x: Math.floor(oreLoc.x) + 0.5,
-                y: Math.floor(oreLoc.y),
-                z: Math.floor(oreLoc.z) + 0.5
-            });
-
-            entity.nameTag = player.id;
-            entity.setDynamicProperty("hideNameTag", true);
-            entities.push(entity);
-        });
-
-        world.afterEvents.entitySpawn.subscribe((event) => {
-            const entity = event.entity;
-            if (entity.typeId === "origins:ore_highlight") {
-                for (const player of world.getAllPlayers()) {
-                    // Only show the highlight to the player whose ID matches the entity's name
-                    if (player.id !== entity.nameTag) {
-                        // Hide the entity from other players
-                        player.runCommand(`event entity @e[type=origins:ore_highlight,name="${entity.nameTag}"] instant_despawn`);
-                    }
-                }
-            }
-        });
-        // Remove highlights after duration
-        system.runTimeout(() => {
-            entities.forEach(entity => {
-                if (entity && entity.isValid) {
-                    entity.remove();
-                }
-            });
-        }, duration);
-    }
-
-    // Remove the control tag after use
-    player.removeTag('_control_use_burrow_sense');
+   player.removeTag("_control_use_burrow_sense");
 }
 
-world.afterEvents.playerBreakBlock.subscribe(event => {
-    const block = event.block;
-    const dimension = event.dimension;
-
-    const entity = dimension.getEntitiesAtBlockLocation(block.location)
-        .find(e => e.typeId === "origins:ore_highlight");
-    if (entity) {
-        entity.remove();
-    }
-})
 
 
+//#region findNearbyOres
+/**
+ * Finds all ore blocks within scan radius of the player
+ * @param {Player} player - The player to scan around
+ * @returns {Vector3[]} - Array of ore block center positions
+ */
+function findNearbyOres(player) {
+   const playerLoc = player.location;
+   const dimension = player.dimension;
+   const foundOres = [];
+
+   const blockVolume = new BlockVolume(
+      { x: playerLoc.x - SCAN_RADIUS, y: playerLoc.y - SCAN_RADIUS, z: playerLoc.z - SCAN_RADIUS },
+      { x: playerLoc.x + SCAN_RADIUS, y: playerLoc.y + SCAN_RADIUS, z: playerLoc.z + SCAN_RADIUS }
+   );
+   const oresInVolume = dimension
+      .getBlocks(blockVolume, { includeTypes: SUPPORTED_ORES }, false)
+      .getBlockLocationIterator();
+
+   for (const oreLoc of oresInVolume) {
+      foundOres.push(oreLoc);
+   }
+
+   return foundOres;
+}
+
+
+
+//#region createOreHighlights
+/**
+ * Creates highlight entities for the found ores
+ * @param {Player} player - The player who will see the highlights
+ * @param {Vector3[]} oreLocations - Array of ore positions to highlight
+ */
+function createOreHighlights(player, oreLocations) {
+   const dimension = player.dimension;
+
+   for (const oreLoc of oreLocations) {
+      const entity = dimension.spawnEntity(HIGHLIGHT_ENTITY, {
+         x: Math.floor(oreLoc.x) + 0.5,
+         y: Math.floor(oreLoc.y),
+         z: Math.floor(oreLoc.z) + 0.5,
+      });
+
+      world.sendMessage(entity.id);
+
+      entity.playAnimation(
+         'size.0',
+         {
+            nextState: '0',
+            blendOutTime: 0.0,
+            stopExpression: '!q.is_alive'
+         }
+      );
+   }
+}
+
+
+
+// Remove highlights when a block is broken
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+   const blockLoc = event.block.location;
+   const brokenBlockPermutation = event.brokenBlockPermutation;
+   const dimension = event.dimension;
+   const player = event.player;
+
+   if (
+      !player.hasTag('power_burrow_sense') ||
+      !SUPPORTED_ORES.includes(brokenBlockPermutation.type.id)
+   ) return;
+
+   const entity = dimension
+      .getEntitiesAtBlockLocation(blockLoc)
+      .find((e) => e.typeId === HIGHLIGHT_ENTITY);
+
+   if (entity) {
+      entity.remove();
+   }
+});
+
+// Register the power to run for all players
 toAllPlayers(burrow_sense, 3);
