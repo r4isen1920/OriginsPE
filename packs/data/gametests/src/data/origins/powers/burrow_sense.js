@@ -28,7 +28,7 @@ const supportedOres = [
  */
 export function burrow_sense(player) {
     // Check if player has the power and is using the item
-    if (!player.hasTag('power_burrow_sense') || 
+    if (!player.hasTag('power_burrow_sense') ||
         !player.hasTag('_control_use_burrow_sense')) {
         return;
     }
@@ -55,7 +55,7 @@ export function burrow_sense(player) {
     if (foundOres.length > 0) {
         const duration = 600; // 30 seconds
         const entities = [];
-        
+
         // Summon highlight entities for each ore
         foundOres.forEach(oreLoc => {
             const entity = dimension.spawnEntity("origins:ore_highlight", {
@@ -64,12 +64,23 @@ export function burrow_sense(player) {
                 z: Math.floor(oreLoc.z) + 0.5
             });
 
-            // Make the highlight visible only to the player who used the ability
-            entity.addTag(`owner:${player.id}`);
-            entity.setDynamicProperty("ownerName", player.name);
+            entity.nameTag = player.id;
+            entity.setDynamicProperty("hideNameTag", true);
             entities.push(entity);
         });
-    
+
+        world.afterEvents.entitySpawn.subscribe((event) => {
+            const entity = event.entity;
+            if (entity.typeId === "origins:ore_highlight") {
+                for (const player of world.getAllPlayers()) {
+                    // Only show the highlight to the player whose ID matches the entity's name
+                    if (player.id !== entity.nameTag) {
+                        // Hide the entity from other players
+                        player.runCommand(`event entity @e[type=origins:ore_highlight,name="${entity.nameTag}"] instant_despawn`);
+                    }
+                }
+            }
+        });
         // Remove highlights after duration
         system.runTimeout(() => {
             entities.forEach(entity => {

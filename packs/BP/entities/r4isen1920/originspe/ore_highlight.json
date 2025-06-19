@@ -51,6 +51,10 @@
                 }
             }
         ]
+      },
+      "minecraft:nameable": {
+        "allow_name_tag_renaming": false,
+        "always_show": false
       }
     },
     "events": {
