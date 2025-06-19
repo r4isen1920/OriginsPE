@@ -1,7 +1,52 @@
-
 import { TicksPerSecond, system, world } from "@minecraft/server";
-
 import { toAllPlayers } from "../../../origins/player";
+
+/**
+ * Creates a small obsidian platform, clear space, and places a chest with starter items
+ * @param {import('@minecraft/server').Dimension} dimension 
+ * @param {import('@minecraft/server').Vector3} location 
+ */
+function createObsidianPlatform(dimension, location) {
+  const platformSize = 2;
+  
+  // Create the obsidian platform
+  for (let x = -platformSize; x <= platformSize; x++) {
+    for (let z = -platformSize; z <= platformSize; z++) {
+      const blockLoc = {
+        x: Math.floor(location.x) + x,
+        y: Math.floor(location.y) - 1,
+        z: Math.floor(location.z) + z
+      };
+      dimension.runCommandAsync(`setblock ${blockLoc.x} ${blockLoc.y} ${blockLoc.z} obsidian`);
+    }
+  }
+
+  // Create air space around and above the player
+  for (let x = -1; x <= 1; x++) {
+    for (let y = 0; y <= 2; y++) {
+      for (let z = -1; z <= 1; z++) {
+        const airLoc = {
+          x: Math.floor(location.x) + x,
+          y: Math.floor(location.y) + y,
+          z: Math.floor(location.z) + z
+        };
+        dimension.runCommandAsync(`setblock ${airLoc.x} ${airLoc.y} ${airLoc.z} air`);
+      }
+    }
+  }
+
+  // Place chest with starter items in front of spawn position
+  const chestLoc = {
+    x: Math.floor(location.x),
+    y: Math.floor(location.y),
+    z: Math.floor(location.z) + 2  // 2 blocks in front of player
+  };
+
+  // Place and fill the chest
+  dimension.runCommandAsync(`setblock ${chestLoc.x} ${chestLoc.y} ${chestLoc.z} chest`);
+  dimension.runCommandAsync(`replaceitem block ${chestLoc.x} ${chestLoc.y} ${chestLoc.z} slot.container 0 netherrack 32`);
+  dimension.runCommandAsync(`replaceitem block ${chestLoc.x} ${chestLoc.y} ${chestLoc.z} slot.container 1 stone_pickaxe 1`);
+}
 
 /**
  * 
@@ -47,6 +92,9 @@ system.runTimeout(() => {
 
         let dummyEntity = player.dimension.getEntities({ location: player.location, minDistance: 3, maxDistance: 64, closest: 1, excludeFamilies: [ 'player', 'inanimate' ] })[0];
         if (!dummyEntity) dummyEntity = player.dimension.spawnEntity('r4isen1920_originspe:safe_teleporter', player.location);
+
+        // Create the obsidian platform before teleporting the player
+        createObsidianPlatform(player.dimension, dummyEntity.location);
 
         player.teleport(dummyEntity.location);
         player.setSpawnPoint({ dimension: player.dimension, x: dummyEntity.location.x, y: dummyEntity.location.y, z: dummyEntity.location.z });
