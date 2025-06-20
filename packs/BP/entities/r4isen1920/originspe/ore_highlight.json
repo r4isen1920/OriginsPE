@@ -4,8 +4,7 @@
     "description": {
       "identifier": "origins:ore_highlight",
       "is_spawnable": true,
-      "is_summonable": true,
-      "is_experimental": false
+      "is_summonable": true
     },
     "component_groups": {
         "despawn": {
@@ -15,11 +14,6 @@
         }
     },
     "components": {
-      "minecraft:type_family": {
-        "family": [
-          "origins:ore_highlight"
-        ]
-      },
       "minecraft:collision_box": {
         "width": 0,
         "height": 0
@@ -51,10 +45,6 @@
                 }
             }
         ]
-      },
-      "minecraft:nameable": {
-        "allow_name_tag_renaming": false,
-        "always_show": false
       }
     },
     "events": {

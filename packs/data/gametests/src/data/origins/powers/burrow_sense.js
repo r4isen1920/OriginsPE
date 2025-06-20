@@ -63,24 +63,10 @@ export function burrow_sense(player) {
                 y: Math.floor(oreLoc.y),
                 z: Math.floor(oreLoc.z) + 0.5
             });
-
-            entity.nameTag = player.id;
-            entity.setDynamicProperty("hideNameTag", true);
+            
             entities.push(entity);
         });
 
-        world.afterEvents.entitySpawn.subscribe((event) => {
-            const entity = event.entity;
-            if (entity.typeId === "origins:ore_highlight") {
-                for (const player of world.getAllPlayers()) {
-                    // Only show the highlight to the player whose ID matches the entity's name
-                    if (player.id !== entity.nameTag) {
-                        // Hide the entity from other players
-                        player.runCommand(`event entity @e[type=origins:ore_highlight,name="${entity.nameTag}"] instant_despawn`);
-                    }
-                }
-            }
-        });
         // Remove highlights after duration
         system.runTimeout(() => {
             entities.forEach(entity => {
@@ -90,21 +76,23 @@ export function burrow_sense(player) {
             });
         }, duration);
     }
-
     // Remove the control tag after use
     player.removeTag('_control_use_burrow_sense');
 }
 
-world.afterEvents.playerBreakBlock.subscribe(event => {
-    const block = event.block;
-    const dimension = event.dimension;
-
-    const entity = dimension.getEntitiesAtBlockLocation(block.location)
-        .find(e => e.typeId === "origins:ore_highlight");
-    if (entity) {
-        entity.remove();
-    }
-})
-
+world.afterEvents.brokenBlockPermutation.subscribe(event => {
+       const block = event.block; // The block that was broken
+       const dimension = event.dimension; // The dimension in which the block was broken
+       const brokenBlockPermutation = event.brokenBlockPermutation; // The permutation of the block that was broken 
+       play.sendMessage(`You broke a block: ${block.typeId}`);
+       // Finding the entity of type "origins:ore_highlight" at the block's location
+       const entity = dimension.getEntitiesAtBlockLocation(brokenBlockPermutation.location)
+           .find(e => e.typeId === "origins:ore_highlight");
+           
+       // If the entity exists, remove it
+       if (entity) {
+           entity.remove();
+       }
+   });
 
 toAllPlayers(burrow_sense, 3);

@@ -27,7 +27,8 @@ export function replaceItems(player, items, replacementNamespace) {
  * @param { import('@minecraft/server').Player } player 
  */
 function vegetarian(player) {
-  if (!player.hasTag('power_vegetarian')) return
+  if (!player.hagTag('power_vegetarian')) return;
+  if (!player.hasTag('_control_use_vegetarian')) return;
 
   const EATABLE_ITEMS = [
     'r4isen1920_originspe:uneatable_apple',
