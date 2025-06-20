@@ -65,7 +65,10 @@ toAllPlayers(claw_digging, 1);
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
    const { player, block } = event;
 
-   if (!player.hasTag('power_claw_digging')) return;
+   if (
+      !player.hasTag('power_claw_digging') ||
+      player.getGameMode() === 'creative'
+   ) return;
 
    system.run(() => {
       const commandToRun = `setblock ${block.location.x} ${block.location.y} ${block.location.z} air destroy`;
