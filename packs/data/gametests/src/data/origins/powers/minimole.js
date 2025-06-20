@@ -1,3 +1,4 @@
+import { world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 /**
@@ -9,8 +10,17 @@ function minimole(player) {
 
   player.triggerEvent('r4isen1920_originspe:scale.0.5');
   player.triggerEvent('r4isen1920_originspe:health.14');
-  // Optionally, set a custom family type for minimole if you want to add one in player.json
-  // player.triggerEvent('r4isen1920_originspe:family_type.minimole');
+
+  const location = player.location;
+  // Get the block above the player's head
+  const block = world.getDimension(player.dimension.id).getBlock({
+    x: Math.floor(location.x),
+    y: Math.floor(location.y) + 1,
+    z: Math.floor(location.z)
+  });
+  if (block && !block.isAir) {
+    player.addEffect('speed', 20, { amplifier: 2, showParticles: false });
+  }
 }
 
 toAllPlayers(minimole, 5);
