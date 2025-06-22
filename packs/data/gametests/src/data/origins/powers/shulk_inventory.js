@@ -1,7 +1,7 @@
-
 import { toAllPlayers } from "../../../origins/player";
 import { Vector3 } from "../../../utils/Vec3";
 import { removeTags } from "../../../utils/tags";
+import { system, world } from "@minecraft/server";
 
 /**
  * 
@@ -78,3 +78,18 @@ function closeShulkInv(player) {
   player.triggerEvent('r4isen1920_originspe:is_riding_dummy.false');
 
 }
+
+system.runInterval(() => {
+  for (const player of world.getPlayers()) {
+    if (!player.hasTag('_shulk_inventory_open')) continue;
+
+    // Check for movement or jump input
+    const velocity = player.getVelocity?.();
+    const isMoving = velocity && (Math.abs(velocity.x) > 0.01 || Math.abs(velocity.z) > 0.01);
+    const isJumping = velocity && velocity.y > 0.1;
+
+    if (isMoving || isJumping) {
+      closeShulkInv(player);
+    }
+  }
+}, 1); // Check every tick
