@@ -1,3 +1,4 @@
+
 import { EquipmentSlot, ItemStack, TicksPerSecond, system, world } from "@minecraft/server";
 
 import { openOptionsGUI, openScreenPickerGUI, getToggleValue } from "./gui";
@@ -28,11 +29,6 @@ system.runTimeout(() => {
       switch (itemStack.typeId) {
 
         case 'r4isen1920_originspe:orb_of_origins':
-          // Prevent use if not on ground
-          if (!source.isOnGround) {
-            source.onScreenDisplay.setActionBar('You must be on the ground to use the Origin Orb!');
-            break;
-          }
           if (getToggleValue('orb') === 1) {
 
             source.addTag('change_resign');
