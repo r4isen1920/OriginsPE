@@ -1090,7 +1090,8 @@
             "filters": {
               "all_of": [
                 { "test": "in_contact_with_water", "value": true },
-                { "test": "has_tag", "value": "power_water_vulnerability" }
+                { "test": "has_tag", "value": "power_water_vulnerability" },
+                { "test": "has_tag", "operator": "not", "value": "just_respawned" }
               ]
             },
             "cause": "drowning",
