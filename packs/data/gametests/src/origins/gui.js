@@ -1,4 +1,3 @@
-
 import { world, system, ItemStack, TicksPerSecond, ItemLockMode } from "@minecraft/server";
 
 import { Vector3 } from "../utils/Vec3";
@@ -97,6 +96,12 @@ export function openOptionsGUI(player, optionType) {
   switch (true) {
 
     case optionType === 'general':
+      // Prevent opening if player is not on ground
+      if (!player.isOnGround) {
+        player.onScreenDisplay.setActionBar('You must be on the ground to open the General Options!');
+        player.playSound('note.bass');
+        return;
+      }
       if (player.getProperty('r4isen1920_originspe:toggle_particles')) dialogueId = 'gui_options_general_root_particleon'
       else dialogueId = 'gui_options_general_root_particleoff'
       break;
