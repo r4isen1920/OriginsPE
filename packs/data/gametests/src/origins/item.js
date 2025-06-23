@@ -42,7 +42,12 @@ system.runTimeout(() => {
 
           } else source.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.race');
           break;
-        case 'r4isen1920_originspe:resignation_paper': 
+        case 'r4isen1920_originspe:resignation_paper':
+          if (!source.isOnGround) {
+            source.onScreenDisplay.setActionBar('You must be on the ground to use the Resignation Paper!');
+            source.playSound('note.bass');
+            break;
+          }
           if (getToggleValue('paper') === 1) {
 
             source.addTag('change_resign');
