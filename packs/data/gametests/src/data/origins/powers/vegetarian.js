@@ -26,9 +26,8 @@ export function replaceItems(player, items, replacementNamespace) {
  * 
  * @param { import('@minecraft/server').Player } player 
  */
-function vegetarian(player) {
-  if (!player.hagTag('power_vegetarian')) return;
-  if (!player.hasTag('_control_use_vegetarian')) return;
+export function vegetarian(player) {
+  if (!player.hasTag('power_vegetarian')) return;
 
   const EATABLE_ITEMS = [
     'r4isen1920_originspe:uneatable_apple',
@@ -53,6 +52,7 @@ function vegetarian(player) {
   ]
 
   const UNEATABLE_ITEMS = [
+    'minecraft:cooked_beef',
     'minecraft:cooked_chicken',
     'minecraft:cooked_cod',
     'minecraft:cooked_mutton',
@@ -60,16 +60,15 @@ function vegetarian(player) {
     'minecraft:cooked_rabbit',
     'minecraft:cooked_salmon',
     'minecraft:pufferfish',
-    'minecraft:raw_beef',
-    'minecraft:raw_chicken',
-    'minecraft:raw_cod',
+    'minecraft:beef',
+    'minecraft:chicken',
+    'minecraft:cod',
     'minecraft:mutton',
-    'minecraft:raw_porkchop',
-    'minecraft:raw_rabbit',
-    'minecraft:raw_salmon',
+    'minecraft:porkchop',
+    'minecraft:rabbit',
+    'minecraft:salmon',
     'minecraft:rotten_flesh',
     'minecraft:spider_eye',
-    'minecraft:steak',
     'minecraft:tropical_fish',
   ]
 
