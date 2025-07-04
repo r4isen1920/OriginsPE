@@ -5,7 +5,7 @@
 
   "$r4isen_safe_mode": false,
   "$use_dirt_background": false,
-  "$r4ui_animation_scale": 1.0,
+  "$r4ui_animation_scale": 0.75,
 
   /* Ensure color schemes are retained to vanilla */
   "$0_color_format": [ 0.0, 0.0, 0.0 ],       // Black
