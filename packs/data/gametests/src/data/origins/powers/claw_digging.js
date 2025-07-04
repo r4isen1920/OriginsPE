@@ -1,4 +1,4 @@
-import { TicksPerSecond, EquipmentSlot, world, system } from "@minecraft/server";
+import { TicksPerSecond, EquipmentSlot, world, system, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 const UNDERGROUND_BLOCKS = [
@@ -28,6 +28,10 @@ const CLAW_DIGGABLE_BLOCKS = [
     "minecraft:grass_block"
 ];
 
+/**
+ * @param {Player} player 
+ * @returns 
+ */
 export function claw_digging(player) {
     if (!player.hasTag('power_claw_digging')) {
         player.removeEffect("minecraft:haste");
@@ -35,7 +39,14 @@ export function claw_digging(player) {
     }
 
     const heldItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Mainhand);
-    const targetBlock = player.getBlockFromViewDirection()?.block;
+    const targetBlock = (() => {
+      let block;
+      try {
+         block = player.getBlockFromViewDirection()?.block;
+      } catch { /** empty */ }
+      return block;
+    })();
+    if (!targetBlock || !targetBlock.isValid()) return;
     const isUnderground = player.location.y < 40;
 
     // Apply effects when bare handed

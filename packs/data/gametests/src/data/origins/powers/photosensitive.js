@@ -18,11 +18,6 @@ export function photosensitive(player) {
                 amplifier: 1,
                 showParticles: true
             });
-            player.addEffect("slowness", 100, {
-                amplifier: 1,
-                showParticles: true
-            });
-     
             // Direct sunlight damage
             if (!player.hasTag('sunlight_damage_cooldown')) {
                 player.applyDamage(2);

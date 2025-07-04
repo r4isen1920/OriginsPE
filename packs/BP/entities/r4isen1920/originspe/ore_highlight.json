@@ -4,7 +4,17 @@
     "description": {
       "identifier": "r4isen1920_originspe:ore_highlight",
       "is_spawnable": true,
-      "is_summonable": true
+      "is_summonable": true,
+      "properties": {
+
+        //* Whether this entity is visible to the player or not
+        "r4isen1920_originspe:is_visible":{
+          "type": "bool",
+          "client_sync": true,
+          "default": false
+        }
+
+      }
     },
     "component_groups": {
         "despawn": {

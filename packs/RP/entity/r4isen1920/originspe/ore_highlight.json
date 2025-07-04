@@ -7,10 +7,6 @@
                 "highlight_base": "highlight_base",
                 "highlight_outliner": "highlight_outliner"
             },
-            "animations": {
-              "size.0": "animation.r4isen1920_originspe.ore_highlight.size.0",
-              "size.1": "animation.r4isen1920_originspe.ore_highlight.size.1"
-            },
             "textures": {
                 "default": "textures/none",
                 "aura": "textures/entity/r4isen1920/originspe/ore_highlight"
@@ -20,8 +16,8 @@
                 "default_scaled": "geometry.ore_highlight.scaled"
             },
             "render_controllers": [
-                "controller.render.r4isen1920_originspe.ore_highlight",
-                "controller.render.r4isen1920_originspe.ore_highlight.aura"
+                { "controller.render.r4isen1920_originspe.ore_highlight": "q.property('r4isen1920_originspe:is_visible')" },
+                { "controller.render.r4isen1920_originspe.ore_highlight.aura": "q.property('r4isen1920_originspe:is_visible')" }
             ]
         }
     }

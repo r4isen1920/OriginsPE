@@ -1,4 +1,4 @@
-import { BlockVolume, Player, world } from "@minecraft/server";
+import { BlockVolume, Player, system, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 
@@ -44,59 +44,13 @@ export function burrow_sense(player) {
    }
 
    const oreLocations = findNearbyOres(player);
-
    if (oreLocations.length > 0) {
       createOreHighlights(player, oreLocations);
    }
 
-
-      
-    // Create highlight cubes for found ores
-    if (foundOres.length > 0) {
-        const duration = 600; // 30 seconds
-        const entities = [];
-
-        // Summon highlight entities for each ore
-        foundOres.forEach(oreLoc => {
-            const entity = dimension.spawnEntity("origins:ore_highlight", {
-                x: Math.floor(oreLoc.x) + 0.5,
-                y: Math.floor(oreLoc.y),
-                z: Math.floor(oreLoc.z) + 0.5
-            });
-            
-            entities.push(entity);
-        });
-
-        // Remove highlights after duration
-        system.runTimeout(() => {
-            entities.forEach(entity => {
-                if (entity && entity.isValid) {
-                    entity.remove();
-                }
-            });
-        }, duration);
-    }
-    // Remove the control tag after use
-    player.removeTag('_control_use_burrow_sense');
+   // Remove the control tag after use
+   player.removeTag('_control_use_burrow_sense');
 }
-
-world.afterEvents.brokenBlockPermutation.subscribe(event => {
-       const block = event.block; // The block that was broken
-       const dimension = event.dimension; // The dimension in which the block was broken
-       const brokenBlockPermutation = event.brokenBlockPermutation; // The permutation of the block that was broken 
-       play.sendMessage(`You broke a block: ${block.typeId}`);
-       // Finding the entity of type "origins:ore_highlight" at the block's location
-       const entity = dimension.getEntitiesAtBlockLocation(brokenBlockPermutation.location)
-           .find(e => e.typeId === "origins:ore_highlight");
-           
-       // If the entity exists, remove it
-       if (entity) {
-           entity.remove();
-       }
-   });
-
-   player.removeTag("_control_use_burrow_sense");
-
 
 
 
@@ -136,25 +90,34 @@ function findNearbyOres(player) {
  */
 function createOreHighlights(player, oreLocations) {
    const dimension = player.dimension;
+   const playerLocation = player.location;
 
-   for (const oreLoc of oreLocations) {
-      const entity = dimension.spawnEntity(HIGHLIGHT_ENTITY, {
-         x: Math.floor(oreLoc.x) + 0.5,
-         y: Math.floor(oreLoc.y),
-         z: Math.floor(oreLoc.z) + 0.5,
-      });
-
-      world.sendMessage(entity.id);
-
-      entity.playAnimation(
-         'size.0',
-         {
-            nextState: '0',
-            blendOutTime: 0.0,
-            stopExpression: '!q.is_alive'
-         }
+   // sort the ore locations from the closest to the farthest
+   const sortedLoc = oreLocations.sort((a, b) => {
+      const distA = Math.sqrt(
+         Math.pow(a.x - playerLocation.x, 2) +
+         Math.pow(a.y - playerLocation.y, 2) +
+         Math.pow(a.z - playerLocation.z, 2)
       );
-   }
+      const distB = Math.sqrt(
+         Math.pow(b.x - playerLocation.x, 2) +
+         Math.pow(b.y - playerLocation.y, 2) +
+         Math.pow(b.z - playerLocation.z, 2)
+      );
+      return distA - distB;
+   });
+
+   sortedLoc.forEach((oreLoc, index) => {
+      system.runTimeout(() => {
+         const entity = dimension.spawnEntity(HIGHLIGHT_ENTITY, {
+            x: Math.floor(oreLoc.x) + 0.5,
+            y: Math.floor(oreLoc.y),
+            z: Math.floor(oreLoc.z) + 0.5,
+         });
+
+         player.setPropertyOverrideForEntity(entity, "r4isen1920_originspe:is_visible", true);
+      }, index + Math.random() * 5); // stagger the creation slightly
+   });
 }
 
 
