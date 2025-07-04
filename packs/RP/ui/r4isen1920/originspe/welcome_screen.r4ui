@@ -92,8 +92,8 @@
       {
         "version@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/paper",
-          "$text_header": "v5.0 changelog",
-          "$text_body": " - Added support for 1.20.60+\n - New Origin: Diviner\n - Revamped Origins\n - Many bug fixes, optimizations, and tweaks\n\nPlease refer to the MCPEDL and CurseForge page for more information."
+          "$text_header": "v5.1 changelog",
+          "$text_body": " - Added support for 1.21.80+\n - New Origins: Mole & Rootkin\n - Many bug fixes, optimizations, and tweaks\n\nPlease refer to the MCPEDL and CurseForge page for more information."
         }
       },
       {
@@ -103,10 +103,10 @@
         }
       },
       {
-        "translators@origin_common.image_with_text_description": {
+        "contributors@origin_common.image_with_text_description": {
           "$image_icon": "textures/items/map_locked",
-          "$text_header": "Translators",
-          "$text_body": " - xinyue0226\n - fin9er\n - skybird2333"
+          "$text_header": "Contributors",
+          "$text_body": " - xinyue0226\n - fin9er\n - skybird2333\n - Ram\n - Yardy"
         }
       }
     ]
