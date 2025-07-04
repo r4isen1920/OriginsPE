@@ -69,7 +69,7 @@
       },
       {
         "changelog_text@origin_common.text_label": {
-          "text": "('v5.0.0 beta (build ' + $build_id + ')')",
+          "text": "('v5.1.0 (build ' + $build_id + ')')",
           "size": [ "98%", "default" ],
           "font_scale_factor": 0.8,
           "color": "$7_color_format"
