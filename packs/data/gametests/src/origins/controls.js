@@ -1,5 +1,5 @@
 
-import { ItemLockMode, ItemStack } from "@minecraft/server";
+import { ItemLockMode, ItemStack, world } from "@minecraft/server";
 
 
 /**
@@ -96,7 +96,9 @@ export function openAbilityHotbar(player) {
   if (playerControlTags?.length > 0) player.onScreenDisplay.setActionBar('origins.hud.ability_hotbar_label:origins.ability_controls.info.usage');
   else player.onScreenDisplay.setActionBar('origins.hud.ability_hotbar_label:origins.ability_controls.info.none');
 
-  player.addTag('controls_opened')
+  player.addTag('controls_opened');
+
+  world.gameRules.showTags = false;
 
 
 }
@@ -154,6 +156,8 @@ export function closeAbilityHotbar(player) {
 
   player.onScreenDisplay.setActionBar('origins.clear');
 
-  player.removeTag('controls_opened')
+  player.removeTag('controls_opened');
+
+  world.gameRules.showTags = false;
 
 }
