@@ -89,7 +89,7 @@
                 "bundle": true,
                 "minify": false
               },
-              "modules": ["@minecraft/server@1.18.0"],
+              "modules": ["@minecraft/server@1.19.0"],
               "outfile": "BP/scripts/r4isen1920/OriginsPE/main.js"
             }
           }
@@ -109,7 +109,7 @@
                 "bundle": true,
                 "minify": false
               },
-              "modules": ["@minecraft/server@1.18.0"],
+              "modules": ["@minecraft/server@1.19.0"],
               "outfile": "BP/scripts/r4isen1920/OriginsPE/main.js"
             }
           }

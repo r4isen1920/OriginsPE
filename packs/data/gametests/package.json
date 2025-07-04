@@ -8,7 +8,7 @@
     "@bedrock-oss/bedrock-boost": "^0.0.14",
     "@minecraft/common": "^1.2.0",
     "@minecraft/math": "^1.4.0",
-    "@minecraft/server": "^1.18.0",
+    "@minecraft/server": "^1.19.0",
     "@minecraft/server-ui": "^1.2.0",
     "@minecraft/vanilla-data": "^1.21.20"
   },
