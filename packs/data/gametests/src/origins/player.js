@@ -267,6 +267,8 @@ export function resetPlayerAttributes(player) {
   player.getComponent('scale').value = 1.0;
   removeTags(player, '_');
 
+  player.camera.clear();
+
   player.clearDynamicProperties();
 
 }
