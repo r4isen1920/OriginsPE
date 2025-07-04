@@ -1,8 +1,8 @@
-name: Build test world
+name: Build Add-On (Dev)
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 permissions:
   contents: write
@@ -14,10 +14,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: Bedrock-OSS/regolith-action@v1.1.0
         with:
-          profile: ci
+          profile: build-dev
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           fail_on_unmatched_files: true
           files: |
-            *.mcworld
+            *-dev.mcaddon
