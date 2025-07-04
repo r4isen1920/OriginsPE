@@ -5,25 +5,25 @@
     "description": "pack.description",
     "uuid": "7cf56d1a-5c7b-40f7-8d90-f8b8d3931390",
     "pack_scope": "world",
-    "version": [ 5, 0, 0 ],
-    "min_engine_version": [ 1, 20, 80 ]
+    "version": [ 5, 1, 0 ],
+    "min_engine_version": [ 1, 21, 80 ]
   },
   "modules": [
     {
       "type": "resources",
       "description": "Resource Pack",
       "uuid": "9b83fa23-b850-4394-a2ba-d0aa22a62263",
-      "version": [ 5, 0, 0 ]
+      "version": [ 5, 1, 0 ]
     }
   ],
   "dependencies": [
     {
       "uuid": "6a7bdced-90c9-457b-8db2-78871e5d5705",
-      "version": [ 5, 0, 0 ]
+      "version": [ 5, 1, 0 ]
     }
   ],
   "metadata": {
-    "authors": [ "r4isen1920" ],
+    "authors": [ "r4isen1920", "Ram", "Yardy" ],
     "url": "https://mcpedl.com/user/r4isen1920",
     "product_type": "addon"
   }
