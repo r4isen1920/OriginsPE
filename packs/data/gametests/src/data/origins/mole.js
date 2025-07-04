@@ -14,5 +14,8 @@ export const mole = {
   'controls': [
     "burrow_sense",
     "tunnel_leap"
-  ]
+  ],
+  'effects': {
+    'model': 'small'
+  }
 }

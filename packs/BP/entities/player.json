@@ -1741,7 +1741,7 @@
       "r4isen1920_originspe:model_type.medium": {
         "sequence": [
           {
-            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "tiny" },
+            "filters": { "test": "enum_property", "domain": "r4isen1920_originspe:model_type", "operator": "!=", "value": "medium" },
             "set_property": { "r4isen1920_originspe:model_type": "tiny" }
           }
         ]

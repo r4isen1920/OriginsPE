@@ -1,0 +1,9 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:camera_preset": {
+    "identifier": "r4isen1920_originspe:small",
+    "inherit_from": "minecraft:follow_orbit",
+    "entity_offset":  [0.0, -0.8, 0.5], 
+    "radius": 0.1
+  }
+}
