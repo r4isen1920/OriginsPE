@@ -285,8 +285,12 @@ export function resetPlayerAttributes(player) {
  */
 export function toAllPlayers(func, interval=1, timeout=interval) {
   system.runTimeout(() => {
-    system.runInterval(() => {
-      world.getAllPlayers().forEach(player => func(player))
+    system.runInterval(() => { // TODO: cache intervals in buckets depending on specified interval
+      const players = world.getAllPlayers(); // TODO: cache player list
+      for (const player of players) {
+        if (!player.isValid()) continue;
+        func(player);
+      }
     }, interval)
   }, timeout)
 }
