@@ -48,7 +48,7 @@
             ]
           },
           {
-            "items": [ "minecraft:netherite" ],
+            "items": [ "minecraft:netherite_ingot" ],
             "repair_amount": "q.max_durability * 0.25"
           },
           {
