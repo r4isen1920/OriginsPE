@@ -49,7 +49,7 @@ origins.race.diviner.description=Diviners possesses the ability to tap into the 
 origins.race.mole.name=Mole
 origins.race.mole.description=Born to burrow, you thrive in darkness and detest the sunlit surface. The depths are your true domain.
 origins.race.rootkin.name=Rootkin
-origins.race.rootkin.description=A nature-wrought brawler who binds enemies with roots, redirects damage, and grows stronger with every fight--but cannot wield tools or endure fire.
+origins.race.rootkin.description=A nature-wrought brawler who binds enemies with roots, redirects damage, and grows stronger with every fight—incapable of wielding weapons nor endure fire.
 
 origins.class.random.name=Random
 origins.class.random.description=You'll be classified to one of the following classes listed below, only if it's available for use:
