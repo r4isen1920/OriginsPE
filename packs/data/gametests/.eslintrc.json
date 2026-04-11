@@ -1,0 +1,41 @@
+{
+	"root": true,
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		// Dirty fix for the fact that the vscode extension treats this path relative to the root of the workspace
+		"project": "./packs/data/gametests/tsconfig.json"
+	},
+	"plugins": ["@typescript-eslint", "minecraft-linting"],
+	"overrides": [
+		{
+			"files": ["*.ts"]
+		}
+	],
+	"rules": {
+		"minecraft-linting/avoid-unnecessary-command": "error",
+		"prefer-const": "off",
+		"@typescript-eslint/prefer-as-const": "warn",
+		"@typescript-eslint/no-explicit-any": "off",
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{
+				"args": "all",
+				"argsIgnorePattern": "^_",
+				"caughtErrorsIgnorePattern": "^_",
+				"destructuredArrayIgnorePattern": "^_",
+				"varsIgnorePattern": "^_"
+			}
+		],
+		"semi": "off",
+		"@typescript-eslint/semi": ["error", "always"],
+		"no-unused-labels": "off",
+		"@typescript-eslint/no-namespace": "off",
+		"no-inner-declarations": "off",
+		"@typescript-eslint/no-shadow": "error",
+		"no-duplicate-imports": "error"
+	}
+}

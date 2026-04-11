@@ -1,0 +1,19 @@
+name: Clean
+on:
+    schedule:
+        # 00:00 UTC every Friday
+        - cron: '0 0 * * 5'
+
+jobs:
+    remove-old-artifacts:
+        runs-on: ubuntu-latest
+
+        permissions:
+            actions: write
+
+        steps:
+            - name: Remove old artifacts
+              uses: c-hive/gha-remove-artifacts@v1
+              with:
+                  age: '3 day'
+                  skip-recent: 2
