@@ -296,6 +296,21 @@ export function toAllPlayers(func, interval=1, timeout=interval) {
     }, interval)
   }, timeout)
 }
+world.afterEvents.entityDie.subscribe((event) => {
+  const player = event.deadEntity;
+
+  if (!player || player.typeId !== 'minecraft:player') return;
+
+  system.runTimeout(() => {
+    const inventory = player.getComponent('inventory');
+    if (!inventory) return;
+
+    const container = inventory.container;
+    for (let i = 0; i < container.size; i++) {
+      container.setItem(i, undefined);
+    }
+  }, 1);
+})
 
 /**
  * 
