@@ -290,7 +290,7 @@ export function toAllPlayers(func, interval=1, timeout=interval) {
     system.runInterval(() => { // TODO: cache intervals in buckets depending on specified interval
       const players = world.getAllPlayers(); // TODO: cache player list
       for (const player of players) {
-        if (!player.isValid()) continue;
+        if (!player.isValid) continue;
         func(player);
       }
     }, interval)
