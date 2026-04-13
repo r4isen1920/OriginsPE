@@ -1,5 +1,5 @@
 
-import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/server";
+/*import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/server";
 
 system.runTimeout(() => {
 
@@ -25,3 +25,4 @@ system.runTimeout(() => {
   )
 
 }, TicksPerSecond * 7)
+*/
