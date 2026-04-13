@@ -4,7 +4,6 @@
 deploy_originspe.sh
 build.sh
 
-/.vscode
 node_modules/
 
 *.txt
