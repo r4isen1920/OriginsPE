@@ -1,3 +1,4 @@
+import { Entity } from "@minecraft/server";
 
 /**
  * 
@@ -9,12 +10,12 @@
  * specified prefix and returns the tags
  * that were removed
  * 
- * @param { import("@minecraft/server").Entity } entity 
- * @param { string } prefix 
+ * @param entity 
+ * @param prefix 
  * 
- * @returns { string[] }
+ * @returns 
  */
-export function removeTags(entity, prefix) {
+export function removeTags(entity: Entity, prefix: string): string[] {
   const removedTags = entity.getTags().filter((tag) => tag.startsWith(prefix));
   removedTags.forEach((tag) => entity.removeTag(tag));
   return removedTags;

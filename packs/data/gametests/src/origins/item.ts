@@ -1,4 +1,4 @@
-import { EquipmentSlot, ItemStack, TicksPerSecond, system, world } from "@minecraft/server";
+import { EquipmentSlot, ItemStack, TicksPerSecond, system, world, Player, Entity } from "@minecraft/server";
 
 import { openOptionsGUI, openScreenPickerGUI, getToggleValue } from "./gui";
 import { openAbilityHotbar, closeAbilityHotbar, getControlTags } from "./controls";
@@ -130,11 +130,12 @@ system.runTimeout(() => {
 
 /**
  * 
- * @param { import('@minecraft/server').Entity } player 
+ * @param player 
  */
-function checkForItemsInHand(player) {
+function checkForItemsInHand(player: Player): void {
 
-  const item = player.getComponent('equippable').getEquipment(EquipmentSlot.Mainhand) || new ItemStack('minecraft:air');
+  const equippable = player.getComponent('equippable');
+  const item = equippable?.getEquipment(EquipmentSlot.Mainhand) || new ItemStack('minecraft:air');
 
   if (_SCOREBOARD('gui').getScore(player) !== 1) return;
 

@@ -1,6 +1,5 @@
-import { world, system, ItemStack, TicksPerSecond, ItemLockMode } from "@minecraft/server";
+import { world, system, ItemStack, TicksPerSecond, ItemLockMode, GameMode, Player, Container, Entity } from "@minecraft/server";
 
-import { Vector3 } from "../utils/Vec3";
 import { removeTags } from "../utils/tags";
 import { toAllPlayers } from "./player";
 import { _SCOREBOARD } from "./resource_bar";
@@ -10,16 +9,17 @@ import { _SCOREBOARD } from "./resource_bar";
  * 
  * Runs the dialogue command for the given dialogue ID
  * 
- * @param { import('@minecraft/server').Player } player 
- * @param { string } dialogueId 
+ * @param player 
+ * @param dialogueId 
  */
-export function runDialogueCommand(player, dialogueId) {
+export function runDialogueCommand(player: Player, dialogueId: string): void {
   if (player.dimension.getEntities({
     type: 'r4isen1920_originspe:dialogue_handler',
     location: player.location,
     maxDistance: 32
   }).length === 0) {
-    player.dimension.spawnEntity('r4isen1920_originspe:dialogue_handler', Vector3.add(player.location, new Vector3(0, 1, 0)));
+    const spawnLocation = { x: player.location.x, y: player.location.y + 1, z: player.location.z };
+    player.dimension.spawnEntity('r4isen1920_originspe:dialogue_handler', spawnLocation);
   }
 
   removeTags(player, 'was_')
@@ -39,11 +39,11 @@ export function runDialogueCommand(player, dialogueId) {
  * Opens the screen picker
  * GUI for the given player
  * 
- * @param { import('@minecraft/server').Player } player 
- * @param { 'race' | 'class' } set 
- * @param { 'pick' | 'change' | 'view' | 'viewonly' } viewType 
+ * @param player 
+ * @param set 
+ * @param viewType 
  */
-export function openScreenPickerGUI(player, set='race', viewType='pick') {
+export function openScreenPickerGUI(player: Player, set: 'race' | 'class' = 'race', viewType: 'pick' | 'change' | 'view' | 'viewonly' = 'pick'): void {
   const playerOrigin = player.getTags().find(tag => tag.startsWith(`${set}_`))?.replace(`${set}_`, '');
   const dialogueId = playerOrigin ? `gui_${set}_${viewType}_${playerOrigin}` : `gui_${set}_${viewType}_${set === 'race' ? 'human' : 'nitwit'}`;
 
@@ -68,17 +68,17 @@ export function openScreenPickerGUI(player, set='race', viewType='pick') {
  * Retrieves or initializes the scoreboard
  * value for a given options toggle.
  * 
- * @param { 'orb' | 'paper' | 'unique' | 'announce' } toggleName 
- * @returns { number }
+ * @param toggleName 
+ * @returns 
  */
-export function getToggleValue(toggleName) {
+export function getToggleValue(toggleName: 'orb' | 'paper' | 'unique' | 'announce'): number {
   let score = 0;
   try {
-    score = _SCOREBOARD('index').getScore(`toggle_${toggleName}`);
+    score = _SCOREBOARD('index').getScore(`toggle_${toggleName}`) as number;
   } catch {
     _SCOREBOARD('index').setScore(`toggle_${toggleName}`, toggleName === 'unique' ? 0 : 1);
   }
-  return _SCOREBOARD('index').getScore(`toggle_${toggleName}`);
+  return _SCOREBOARD('index').getScore(`toggle_${toggleName}`) as number;
 }
 
 /**
@@ -86,10 +86,10 @@ export function getToggleValue(toggleName) {
  * Opens the options GUI for
  * the given player
  * 
- * @param { import('@minecraft/server').Player } player 
- * @param { string } optionType 
+ * @param player 
+ * @param optionType 
  */
-export function openOptionsGUI(player, optionType) {
+export function openOptionsGUI(player: Player, optionType: string): void {
 
   let dialogueId = '';
 
@@ -135,13 +135,19 @@ export function openOptionsGUI(player, optionType) {
  * for on_close and on_open commands processing
  * and returns the gamemode they were on
  * 
- * @param { import('@minecraft/server').Player } player 
- * @returns { import('@minecraft/server').GameMode }
+ * @param player 
+ * @returns 
  */
-export function setPlayerGameMode(player) {
+export function setPlayerGameMode(player: Player): string {
 
-  const gameModes = [ 'adventure', 'creative', 'spectator', 'survival' ]
-  const prevGamemode = gameModes.find(gamemode => player.matches({ gameMode: gamemode }))
+  const gameModes: [GameMode, string][] = [
+    [GameMode.Adventure, 'adventure'],
+    [GameMode.Creative, 'creative'],
+    [GameMode.Spectator, 'spectator'],
+    [GameMode.Survival, 'survival']
+  ];
+  const matchedEntry = gameModes.find(([mode]) => player.matches({ gameMode: mode }));
+  const prevGamemode = matchedEntry ? matchedEntry[1] : 'survival';
 
   player.addEffect('invisibility', TicksPerSecond * 255, { amplifier: 255, showParticles: false });
   player.addEffect('resistance', TicksPerSecond * 255, { amplifier: 255, showParticles: false });
@@ -161,9 +167,9 @@ export function setPlayerGameMode(player) {
  * 
  * Runs when the GUI is closed
  * 
- * @param { import('@minecraft/server').Player } player 
+ * @param player 
  */
-function onCloseGUI(player) {
+function onCloseGUI(player: Player): void {
   player.addTag('_out_of_ui');
   player.removeTag('change_resign');
   player.removeTag('_init_bar');
@@ -182,20 +188,17 @@ function onCloseGUI(player) {
  * 
  * Sets up the Origins menu item for the given player
  * 
- * @param { import('@minecraft/server').Player } player 
+ * @param player 
  */
-export function setupMenuItem(player) {
+export function setupMenuItem(player: Player): void {
 
-  /**
-   * @type { import('@minecraft/server').Container }
-   */
-  const inventoryComponent = player.getComponent('inventory').container;
-  if (inventoryComponent.getItem(8)?.typeId !== 'r4isen1920_originspe:origins_menu') {
+  const inventoryComponent = player.getComponent('inventory')?.container as Container | undefined;
+  if (inventoryComponent?.getItem(8)?.typeId !== 'r4isen1920_originspe:origins_menu') {
 
   const originsMenuItem = new ItemStack('r4isen1920_originspe:origins_menu');
     originsMenuItem.lockMode = ItemLockMode.slot;
     originsMenuItem.keepOnDeath = true;
-    inventoryComponent.setItem(8, originsMenuItem);
+    inventoryComponent?.setItem(8, originsMenuItem);
 
   }
 
@@ -213,36 +216,37 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
 
   if (id !== 'r4isen1920_originspe:gui' || !sourceEntity) return
 
-  const playerOrigin = sourceEntity.getTags().find(tag => tag.startsWith(`race_`));
-  const playerClass = sourceEntity.getTags().find(tag => tag.startsWith(`class_`));
+  const player = sourceEntity as Player;
+  const playerOrigin = player.getTags().find(tag => tag.startsWith(`race_`));
+  const playerClass = player.getTags().find(tag => tag.startsWith(`class_`));
 
   switch (message) {
     case 'open_screen_picker_race':
-      if (!playerOrigin) openScreenPickerGUI(sourceEntity, 'race');
-      else onCloseGUI(sourceEntity)
+      if (!playerOrigin) openScreenPickerGUI(player, 'race');
+      else onCloseGUI(player)
       break;
     case 'open_screen_picker_class':
-      if (!playerClass) openScreenPickerGUI(sourceEntity, 'class');
-      else onCloseGUI(sourceEntity)
+      if (!playerClass) openScreenPickerGUI(player, 'class');
+      else onCloseGUI(player)
       break;
     case 'on_close': 
-      onCloseGUI(sourceEntity)
+      onCloseGUI(player)
       break;
 
     case 'open_options_general':
-      openOptionsGUI(sourceEntity, 'general')
+      openOptionsGUI(player, 'general')
       break;
     case 'open_options_view_origin':
-      openOptionsGUI(sourceEntity, 'view_origin')
+      openOptionsGUI(player, 'view_origin')
       break;
     case 'open_options_view_class':
-      openOptionsGUI(sourceEntity, 'view_class')
+      openOptionsGUI(player, 'view_class')
       break;
     case 'open_options_admin':
-      openOptionsGUI(sourceEntity, 'admin')
+      openOptionsGUI(player, 'admin')
       break;
     case 'open_options_admin_toggle':
-      openOptionsGUI(sourceEntity, 'admin_toggle')
+      openOptionsGUI(player, 'admin_toggle')
       break;
 
     default:

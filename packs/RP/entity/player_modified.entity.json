@@ -39,6 +39,7 @@
           "v.is_blinking = 0.0;",
           "v.last_blink_time = 0.0;",
           "v.hand_bob = 0.0;",
+          "v.first_person_item_rotation_factor = 0.0;",
 
 
           /* OriginsPE */
@@ -63,6 +64,7 @@
           "v.attack_body_rot_y = Math.sin(360*Math.sqrt(v.attack_time)) * 5.0;",
           "v.tcos0 = (math.cos(q.modified_distance_moved * 38.17) * q.modified_move_speed / v.gliding_speed_value) * 57.3;",
           "v.first_person_rotation_factor = math.sin((1 - v.attack_time) * 180.0);",
+          "v.first_person_item_rotation_factor = math.sin((1 - v.attack_time) * 180.0);",
           "v.hand_bob = q.life_time < 0.01 ? 0.0 : v.hand_bob + ((q.is_on_ground && q.is_alive ? math.clamp(math.sqrt(math.pow(q.position_delta(0), 2.0) + math.pow(q.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - v.hand_bob) * 0.02;",
           "v.map_angle = math.clamp(1 - v.player_x_rotation / 45.1, 0.0, 1.0);",
           "v.item_use_normalized = q.main_hand_item_use_duration / q.main_hand_item_max_duration;",

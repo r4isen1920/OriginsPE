@@ -1,23 +1,14 @@
-
-import { TicksPerSecond } from "@minecraft/server";
+import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "./player";
 
 
 /**
  * 
- * @param { import('@minecraft/server').Player } player 
+ * @param player 
  */
-function getAllPlayerTags(player) {
-  return player.getTags()
-}
-
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-async function runServerWideAbilities(player) {
-  const tags = getAllPlayerTags(player);
+async function runServerWideAbilities(player: Player): Promise<void> {
+  const tags = player.getTags();
   const relevantTags = tags.filter(tag => tag.startsWith('power_') || tag.startsWith('perk_'));
 
   if (
@@ -26,7 +17,7 @@ async function runServerWideAbilities(player) {
     relevantTags.some(tag => tag.includes('nitwit'))
   ) return;
 
-  relevantTags.forEach(async tag => {
+  for (const tag of relevantTags) {
     const [type, ...rest] = tag.split('_');
     const name = rest.join('_');
 
@@ -36,12 +27,10 @@ async function runServerWideAbilities(player) {
     try {
       await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
     } catch (e) {
-
       console.warn(`[r4isen1920][OriginsPE] Failed to load ${type}: '${name}' for ${player.name}`);
       console.warn(`[r4isen1920][OriginsPE] ${e}`);
-
     }
-  });
+  }
 }
 
 /**

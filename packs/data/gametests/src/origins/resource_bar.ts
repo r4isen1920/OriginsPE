@@ -1,5 +1,4 @@
-
-import { system, world } from '@minecraft/server';
+import { system, world, Player, ScoreboardObjective } from '@minecraft/server';
 
 import { removeTags } from '../utils/tags';
 
@@ -9,9 +8,9 @@ import { removeTags } from '../utils/tags';
  * Returns the specified scoreboard
  * objective
  * 
- * @param { string } id 
+ * @param id 
  */
-export const _SCOREBOARD = function(id) {
+export const _SCOREBOARD = function(id: string): ScoreboardObjective {
   return world.scoreboard.getObjective(id) || world.scoreboard.addObjective(id, id)
 }
 
@@ -22,23 +21,29 @@ export const _SCOREBOARD = function(id) {
  * abilities
  */
 export class ResourceBar {
+  id: number;
+  from: number;
+  to: number;
+  duration: number;
+  persist: boolean;
+
   /**
    * 
    * Creates a new instance of
    * resource bar
    * 
-   * @param { number } id 
+   * @param id 
    * The numerical ID of the cooldown bar from `textures/origins/hud/cooldown/`
-   * @param { number } from 
+   * @param from 
    * The start value of the cooldown from 1 to 100 percent
-   * @param { number } to 
+   * @param to 
    * The end value of the cooldown from 1 to 100 percent
-   * @param { number } duration 
+   * @param duration 
    * The duration of the cooldown in seconds
-   * @param { boolean } persist 
+   * @param persist 
    * Whether to remove the cooldown bar or not when the duration ends
    */
-  constructor(id=1, from=0, to=100, duration=1, persist=false) {
+  constructor(id: number = 1, from: number = 0, to: number = 100, duration: number = 1, persist: boolean = false) {
     this.id = id;
     this.from = from;
     this.to = to;
@@ -51,12 +56,12 @@ export class ResourceBar {
    * Appends the resource bar to the
    * cooldown list
    * 
-   * @param { import('@minecraft/server').Player } player 
+   * @param player 
    * The player to send the cooldown to
    * 
-   * @returns { ResourceBar }
+   * @returns 
    */
-  push(player) {
+  push(player: Player): ResourceBar {
 
     _SCOREBOARD('cd').setScore(player, this.id);
     _SCOREBOARD('cdfrom').setScore(player, this.from);
@@ -74,14 +79,14 @@ export class ResourceBar {
    * Immediately ends the existing 
    * resource bar from the player
    * 
-   * @param { import('@minecraft/server').Player } player 
+   * @param player 
    * The player to send the push to
-   * @param { number } id 
+   * @param id 
    * The ID of the cooldown bar to remove
    * 
-   * @returns { ResourceBar }
+   * @returns 
    */
-  pop(player, id=this.id) {
+  pop(player: Player, id: number = this.id): ResourceBar {
     _SCOREBOARD('cdhide').setScore(player, id);
 
     return this
@@ -91,10 +96,10 @@ export class ResourceBar {
    * 
    * Clears the resource bar from the player
    * 
-   * @param { import('@minecraft/server').Player } player 
+   * @param player 
    * The player to send the push to
    */
-  clear(player) {
+  clear(player: Player): void {
 
     _SCOREBOARD('cd1duration').setScore(player, 0);
     _SCOREBOARD('cd2duration').setScore(player, 0);
@@ -118,18 +123,20 @@ system.afterEvents.scriptEventReceive.subscribe(
 
     if (id !== 'r4isen1920_originspe:resource_bar' || sourceEntity?.typeId !== 'minecraft:player') return;
 
+    const player = sourceEntity as Player;
+
     switch (message) {
 
       case 'cd_end.1':
-        sourceEntity.removeTag(`cooldown_${_SCOREBOARD('cd1').getScore(sourceEntity)}`);
+        player.removeTag(`cooldown_${_SCOREBOARD('cd1').getScore(player)}`);
         break;
 
       case 'cd_end.2':
-        sourceEntity.removeTag(`cooldown_${_SCOREBOARD('cd2').getScore(sourceEntity)}`);
+        player.removeTag(`cooldown_${_SCOREBOARD('cd2').getScore(player)}`);
         break;
 
       case 'cd_end.3':
-        sourceEntity.removeTag(`cooldown_${_SCOREBOARD('cd3').getScore(sourceEntity)}`);
+        player.removeTag(`cooldown_${_SCOREBOARD('cd3').getScore(player)}`);
         break;
 
     }

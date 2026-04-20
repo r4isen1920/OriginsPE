@@ -1,5 +1,4 @@
-
-import { system, world } from "@minecraft/server";
+import { system, world, Player } from "@minecraft/server";
 
 import { openScreenPickerGUI, runDialogueCommand } from "./gui";
 import { closeAbilityHotbar } from "./controls";
@@ -71,7 +70,7 @@ world.afterEvents.playerSpawn.subscribe(
  * Runs the setup functions in
  * the world if not already
  */
-function initialize() {
+function initialize(): void {
 
   const initType = world.scoreboard.getObjective(`originspe${OLD_BUILDID}`) !== undefined ? 'update_from_old_version' :
     world.scoreboard.getObjective(`originspe${NEW_BUILDID}`) !== undefined ? 'up_to_date' : 'register_new_world';

@@ -1,9 +1,8 @@
+import { world, system, GameMode, Player } from "@minecraft/server";
 
-import { world, system, GameMode } from "@minecraft/server";
-
-import { openScreenPickerGUI, setupMenuItem } from "./gui.js";
-import { removeTags } from "../utils/tags.js";
-import { ResourceBar } from "./resource_bar.js";
+import { openScreenPickerGUI, setupMenuItem } from "./gui";
+import { removeTags } from "../utils/tags";
+import { ResourceBar } from "./resource_bar";
 
 /**
  * 
@@ -71,7 +70,7 @@ const DEFAULT_IMPORT = {
     'quality_equipment',
   
   ],
-  'controls': [],
+  'controls': [] as string[],
   'effects': {
     'model': 'normal',
     'skin': 'normal',
@@ -83,10 +82,10 @@ const DEFAULT_IMPORT = {
  * 
  * Set the Origin (race) of a player
  * 
- * @param { import('@minecraft/server').Player } player 
- * @param { string } param_race 
+ * @param player 
+ * @param param_race 
  */
-function setRace(player, param_race) {
+function setRace(player: Player, param_race: string): void {
   if (param_race === 'random') {
     param_race = ORIGINS[Math.floor(Math.random() * ORIGINS.length)]
   }
@@ -107,10 +106,10 @@ function setRace(player, param_race) {
  * 
  * Set the Class of a player
  * 
- * @param { import('@minecraft/server').Player } player 
- * @param { string } param_class 
+ * @param player 
+ * @param param_class 
  */
-function setClass(player, param_class) {
+function setClass(player: Player, param_class: string): void {
   if (param_class === 'random') {
     param_class = CLASSES[Math.floor(Math.random() * CLASSES.length)]
   }
@@ -130,19 +129,19 @@ function setClass(player, param_class) {
  * Initializes the required modules for
  * the player's selected Origin and Class
  * 
- * @param { import('@minecraft/server').Player } player 
+ * @param player 
  */
-export async function initModules(player) {
+export async function initModules(player: Player): Promise<void> {
 
   if (player.hasTag('load_failed')) return;
 
   const _IMPORT_ORIGIN = DEFAULT_IMPORT;
   const _IMPORT_CLASS = DEFAULT_IMPORT;
 
-  let ORIGIN_POWERS = [];
-  let CLASS_PERKS = [];
-  let CONTROLS = [];
-  let EFFECTS = {};
+  let ORIGIN_POWERS: string[] = [];
+  let CLASS_PERKS: string[] = [];
+  let CONTROLS: string[] = [];
+  let EFFECTS: { model?: string; skin?: string; emitter?: string } = {};
 
 
   const playerOrigin = player.getTags().find(tag => tag.startsWith('race_'))?.replace('race_', '') || 'human';
@@ -197,7 +196,7 @@ export async function initModules(player) {
 
   setupMenuItem(player);
 
-  if(player.hasTag('power_phantomize') && player.getGameMode() === GameMode.spectator) {
+  if(player.hasTag('power_phantomize') && player.getGameMode() === GameMode.Spectator) {
     player.addTag('_phantomized');
   }
 }
@@ -207,11 +206,11 @@ export async function initModules(player) {
  * 
  * Loads a player effect
  * 
- * @param { import('@minecraft/server').Player } player 
- * @param { string } type
- * @param { string } value
+ * @param player 
+ * @param type
+ * @param value
  */
-function loadPlayerEffects(player, type, value) {
+function loadPlayerEffects(player: Player, type: string, value: string | undefined): void {
   try {
     player.triggerEvent(`r4isen1920_originspe:${type}_type.${value}`);
   } catch (e) {
@@ -223,11 +222,11 @@ function loadPlayerEffects(player, type, value) {
 
 /**
  * 
- * @param { string } path 
- * @param { string } errMsg 
- * @returns { Promise<object> }
+ * @param path 
+ * @param errMsg 
+ * @returns 
  */
-export async function importOriginsModule(path, errMsg) {
+export async function importOriginsModule(path: string, errMsg: string): Promise<object | null> {
   try {
     return await import(path);
   } catch (e) {
@@ -242,9 +241,9 @@ export async function importOriginsModule(path, errMsg) {
  * 
  * Reset the player's attributes
  * 
- * @param { import('@minecraft/server').Player } player 
+ * @param player 
  */
-export function resetPlayerAttributes(player) {
+export function resetPlayerAttributes(player: Player): void {
 
   const events = [
     'r4isen1920_originspe:movement.0.1',
@@ -264,7 +263,6 @@ export function resetPlayerAttributes(player) {
   ];
   events.forEach(event => player.triggerEvent(event));
 
-  player.getComponent('scale').value = 1.0;
   removeTags(player, '_');
 
   player.camera.clear();
@@ -278,14 +276,14 @@ export function resetPlayerAttributes(player) {
  * Runs a function with an interval
  * for all players in the world
  * 
- * @param { function } func 
+ * @param func 
  * The function to run
- * @param { number } interval 
+ * @param interval 
  * The interval to run the function at
- * @param { number } timeout 
+ * @param timeout 
  * The timeout before the function runs
  */
-export function toAllPlayers(func, interval=1, timeout=interval) {
+export function toAllPlayers(func: (player: Player) => void, interval: number = 1, timeout: number = interval): void {
   system.runTimeout(() => {
     system.runInterval(() => { // TODO: cache intervals in buckets depending on specified interval
       const players = world.getAllPlayers(); // TODO: cache player list
@@ -302,10 +300,11 @@ world.afterEvents.entityDie.subscribe((event) => {
   if (!player || player.typeId !== 'minecraft:player') return;
 
   system.runTimeout(() => {
-    const inventory = player.getComponent('inventory');
+    const inventory = (player as Player).getComponent('inventory');
     if (!inventory) return;
 
     const container = inventory.container;
+    if (!container) return;
     for (let i = 0; i < container.size; i++) {
       container.setItem(i, undefined);
     }
@@ -323,34 +322,36 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
 
   if (id !== 'r4isen1920_originspe:player' || !sourceEntity || message.length === 0) return
 
+  const player = sourceEntity as Player;
+
   switch (true) {
 
     case message === 'reset':
-      resetPlayerAttributes(sourceEntity);
-      initModules(sourceEntity);
+      resetPlayerAttributes(player);
+      initModules(player);
       break;
 
     case message === 'become_race_unknown':
-      removeTags(sourceEntity, '_');
-      openScreenPickerGUI(sourceEntity, 'race', 'pick');
+      removeTags(player, '_');
+      openScreenPickerGUI(player, 'race', 'pick');
       break;
     case message === 'become_class_unknown':
-      removeTags(sourceEntity, '_');
-      openScreenPickerGUI(sourceEntity, 'class', 'pick');
+      removeTags(player, '_');
+      openScreenPickerGUI(player, 'class', 'pick');
       break;
 
     case message === 'become_race_random':
-      setRace(sourceEntity, 'random');
+      setRace(player, 'random');
       break;
     case message === 'become_class_random':
-      setClass(sourceEntity, 'random');
+      setClass(player, 'random');
       break;
 
     case message.startsWith('become_race_'):
-      setRace(sourceEntity, message.replace('become_race_', ''));
+      setRace(player, message.replace('become_race_', ''));
       break;
     case message.startsWith('become_class_'):
-      setClass(sourceEntity, message.replace('become_class_', ''));
+      setClass(player, message.replace('become_class_', ''));
       break;
 
     default:
