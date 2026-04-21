@@ -24,7 +24,7 @@ function throw_ender_pearl(player) {
   if (!player.hasTag('cooldown_3')) {
 
     const targetBlock = player.getBlockFromViewDirection({ 
-      maxDistance: MAX_TELEPORT_DISTANCE, 
+      maxDistance: maxRenderDistance, 
       includeLiquidBlocks: false 
     });
 
@@ -46,8 +46,8 @@ function throw_ender_pearl(player) {
 
     targetLocation = locationMap[targetBlock.face] || targetBlock.block.location;
 
-    world.playSound('mob.endermen.portal', player.location);
-    world.playSound('mob.endermen.portal', targetLocation);
+    player.dimension.playSound("mob.endermen.portal", player.location);
+    player.dimension.playSound("mob.endermen.portal", targetLocation);
 
     player.teleport(targetLocation, { dimension: targetBlock.block.dimension })
 
