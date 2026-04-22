@@ -27,8 +27,12 @@ async function runServerWideAbilities(player: Player): Promise<void> {
     try {
       await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
     } catch (e) {
-      console.warn(`[r4isen1920][OriginsPE] Failed to load ${type}: '${name}' for ${player.name}`);
-      console.warn(`[r4isen1920][OriginsPE] ${e}`);
+      try {
+        await import(`../data/${typeToPath}/${typeToFolder}/${name}.ts`);
+      } catch (e2) {
+        console.warn(`[r4isen1920][OriginsPE] Failed to load ${type}: '${name}' for ${player.name}`);
+        console.warn(`[r4isen1920][OriginsPE] ${e2}`);
+      }
     }
   }
 }
