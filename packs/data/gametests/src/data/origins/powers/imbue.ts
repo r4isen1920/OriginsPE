@@ -2,6 +2,9 @@ import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/ser
 
 import { Vector3 } from "../../../utils/Vec3";
 
+import type { Player } from "@minecraft/server";
+import { toAllPlayers } from "../../../origins/player";
+
 system.runTimeout(() => {
 
   world.afterEvents.entityHurt.subscribe(
@@ -17,7 +20,8 @@ system.runTimeout(() => {
       /**
        * @type { import('@minecraft/server').EntityHealthComponent }
        */
-      const damagerHealthComponent = damageSource.damagingEntity.getComponent('health');
+      // const damagerHealthComponent = damageSource.damagingEntity.getComponent('health');
+      const damagerHealthComponent: any = damageSource.damagingEntity.getComponent('health');
       // Nerfed: Remove undead bonus, only scale with current health
       let additionalDamage = damagerHealthComponent.currentValue * 0.5;
 
@@ -25,8 +29,8 @@ system.runTimeout(() => {
 
       damageSource.damagingEntity.runCommand('particle r4isen1920_originspe:elven_bow_charge ^^1^1.25');
       hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', Vector3.add(hurtEntity.location, new Vector3(0, 1, 0)));
-      world.playSound('ender_eye.dead', hurtEntity.location);
-      damageSource.damagingEntity.playSound('ender_eye.dead');
+      damageSource.damagingEntity.dimension.playSound('ender_eye.dead', hurtEntity.location);
+      damageSource.damagingEntity.dimension.playSound('ender_eye.dead', damageSource.damagingEntity.location);
 
     }
   )

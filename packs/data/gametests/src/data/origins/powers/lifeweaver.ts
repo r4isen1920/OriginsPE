@@ -52,9 +52,9 @@ function lifeweaver(Player: Player): void {
     Player.addTag('cooldown_lifeweaver');
     system.runTimeout(() => {
       Player.removeTag('cooldown_lifeweaver');
-    }, TicksPerSecond * 30);
+    }, TicksPerSecond * 50);
 
-  } else Player.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 0 })
+  } // else Player.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 0 })
 }
 
 toAllPlayers(lifeweaver, 3)
