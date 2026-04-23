@@ -13,10 +13,7 @@ function getAccumulatedDamage(player: Player): number {
   return typeof value === 'number' ? value : 0;
 }
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
+
 function lifeweaver(Player: Player): void {
   const accumulatedDamage = getAccumulatedDamage(Player);
 
@@ -27,8 +24,9 @@ function lifeweaver(Player: Player): void {
 
   if (
     accumulatedDamage > 0 &&
-    !Player.hasTag('cooldown_30')
+    !Player.hasTag('cooldown_lifeweaver')   
   ) {
+    Player.addTag('cooldown_lifeweaver');
     /**
      * @type { import('@minecraft/server').EntityHealthComponent }
       */
@@ -40,7 +38,7 @@ function lifeweaver(Player: Player): void {
     health.setCurrentValue(
       Math.clamp(addedHealth, health.effectiveMin, health.effectiveMax)
     )
-    Player.addEffect('absorption', TicksPerSecond * 12, { amplifier: Math.floor(accumulatedDamage / 4) });
+    Player.addEffect('absorption', TicksPerSecond * 12, { amplifier: Math.floor(accumulatedDamage * 0.02) });
     Player.removeEffect('regeneration');
 
     Player.dimension.spawnParticle('r4isen1920_originspe:elven_heal', Vector3.add(Player.location, new Vector3(0, 1, 0)));
@@ -49,10 +47,9 @@ function lifeweaver(Player: Player): void {
     Player.setDynamicProperty(ACCUMULATED_DAMAGE_KEY, 0);
     Player.addTag('_lifeweaver_on_trigger');
 
-    Player.addTag('cooldown_lifeweaver');
     system.runTimeout(() => {
       Player.removeTag('cooldown_lifeweaver');
-    }, TicksPerSecond * 50);
+    }, TicksPerSecond * 30);
 
   } // else Player.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 0 })
 }
@@ -80,16 +77,16 @@ system.runTimeout(() => {
 
       if (
         accumulatedDamage > 1 &&
-        hurtPlayer.hasTag('cooldown_30') &&
+        hurtPlayer.hasTag('cooldown_lifeweaver') &&
         hurtPlayer.hasTag('_lifeweaver_on_trigger')
       ) {
 
-        hurtPlayer.removeTag('cooldown_30');
+        hurtPlayer.removeTag('cooldown_lifeweaver');
         hurtPlayer.removeTag('_lifeweaver_on_trigger');
 
       }
 
-      if (!hurtPlayer.hasTag('cooldown_30'))
+      if (!hurtPlayer.hasTag('cooldown_lifeweaver'))
         new ResourceBar(16, 0, 100, 3, false).push(hurtPlayer)
 
       hurtPlayer.setDynamicProperty(
