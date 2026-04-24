@@ -1,4 +1,4 @@
-
+// Origins Registry
 import { arachnid } from './origins/arachnid'
 import { avian } from './origins/avian'
 import { bee } from './origins/bee'
@@ -12,6 +12,7 @@ import { human } from './origins/human'
 import { inchling } from './origins/inchling'
 import { kitsune } from './origins/kitsune'
 
+// Class Registry
 import { archer } from './classes/archer'
 
 export const ORIGIN_REGISTRY: Record<string, any> = {
