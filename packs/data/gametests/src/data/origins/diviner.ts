@@ -1,5 +1,17 @@
 
-export const diviner = {
+interface OriginEffects {
+  model?: string
+  skin?: string
+  emitter?: string
+}
+
+interface Origin {
+  powers: string[]
+  controls?: string[]
+  effects?: OriginEffects
+}
+
+export const diviner: Origin = {
   'powers': [
     'prescience',
     'oracle',
