@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const elytrian: Origin = {
-  'powers': [
+  powers: [
     'launch_into_air',
     'elytra',
     'aerial_combatant',
@@ -20,7 +20,7 @@ export const elytrian: Origin = {
     'claustrophobia',
     'more_kinetic_damage',
   ],
-  'controls': [
+  controls: [
     'launch_into_air'
   ]
 }

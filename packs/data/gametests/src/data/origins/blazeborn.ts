@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const blazeborn: Origin = {
-  'powers': [
+  powers: [
     'burning_wrath',
     'fire_immunity',
     'hotblooded',

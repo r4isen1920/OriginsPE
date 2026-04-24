@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const feline: Origin = {
-  'powers': [
+  powers: [
     'fall_immunity',
     'sprint_jump',
     'cat_vision',

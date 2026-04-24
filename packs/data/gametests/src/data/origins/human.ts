@@ -12,9 +12,9 @@ interface Origin {
 }
 
 export const human: Origin = {
-  'powers': [],
-  'controls': [],
-  'effects': {
+  powers: [],
+  controls: [],
+  effects: {
     'model': 'normal',
     'skin': 'normal',
     'emitter': 'none'

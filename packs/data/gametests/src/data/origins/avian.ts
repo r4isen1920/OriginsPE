@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const avian: Origin = {
-  'powers': [
+  powers: [
     'tail_wind',
     'slow_falling',
     'vegetarian',

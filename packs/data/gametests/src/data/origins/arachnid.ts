@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const arachnid: Origin = {
-  'powers': [
+  powers: [
     'webbing',
     'master_of_webs',
     'climbing',

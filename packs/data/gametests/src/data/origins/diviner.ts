@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const diviner: Origin = {
-  'powers': [
+  powers: [
     'prescience',
     'oracle',
     'aegis',
@@ -20,10 +20,10 @@ export const diviner: Origin = {
     'fragility',
     'instability',
   ],
-  'controls': [
+  controls: [
     'prescience',
   ],
-  'effects': {
+  effects: {
     'emitter': 'diviner'
   }
 }

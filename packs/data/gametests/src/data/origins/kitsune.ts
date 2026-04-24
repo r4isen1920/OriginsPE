@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const kitsune: Origin = {
-  'powers': [
+  powers: [
     'pounce',
     'camouflage',
     'fast_footed',
@@ -21,7 +21,7 @@ export const kitsune: Origin = {
     'smaller_heart',
     'more_exhaustion'
   ],
-  'controls': [
+  controls: [
     'pounce-hold'
   ]
 }

@@ -12,7 +12,7 @@ interface Origin {
 }
 
 export const bee: Origin = {
-  'powers': [
+  powers: [
     'sacrifice_stinger',
     'poisonous',
     'poison_bonus_damage',

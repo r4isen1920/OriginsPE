@@ -12,16 +12,16 @@ interface Origin {
 }
 
 export const enderian: Origin = {
-  'powers': [
+  powers: [
     'throw_ender_pearl',
     'familiar_face',
     'water_vulnerability',
     'pumpkin_hate'
   ],
-  'controls': [
+  controls: [
     'throw_ender_pearl'
   ],
-  'effects': {
+  effects: {
     'emitter': 'enderian'
   }
 }

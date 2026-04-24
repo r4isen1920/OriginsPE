@@ -12,13 +12,13 @@ interface Origin {
 }
 
 export const inchling: Origin = {
-  'powers': [
+  powers: [
     'hyper_active',
     'nimble',
     'bite_sized',
     'small_apetite',
   ],
-  'effects': {
+  effects: {
     'model': 'tiny'
   }
 }
