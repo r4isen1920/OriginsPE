@@ -26,7 +26,10 @@ import { voidwalker } from './origins/voidwalker'
 import { archer } from './classes/archer'
 
 export const ORIGIN_REGISTRY: Record<string, any> = {
-	elf, arachnid, avian, bee, blazeborn, diviner, elytrian, enderian, feline, human, inchling, kitsune
+	elf, arachnid, avian, bee, blazeborn, diviner, elytrian, 
+	enderian,feline, human, inchling, kitsune, merling, mole, 
+	phantom,piglin, rootkin, shulk, slimecican, starborne, 
+	voidwalker
 }
 
 export const CLASS_REGISTRY: Record<string, any> = {
