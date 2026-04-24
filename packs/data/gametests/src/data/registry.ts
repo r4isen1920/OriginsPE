@@ -11,6 +11,16 @@ import { feline } from './origins/feline'
 import { human } from './origins/human'
 import { inchling } from './origins/inchling'
 import { kitsune } from './origins/kitsune'
+import { merling } from './origins/merling'
+import { mole } from '.origins/mole'
+import { phantom } from '.origins/phantom'
+import { piglin } from '.origins/piglin'
+import { rootkin } from '.origins/rootkin'
+import { shulk } from '.origins/shulk'
+import { slimecican } from '.origins/slimecican'
+import { starborne } from './origins/starborne'
+import { voidwalker } from './origins/voidwalker'
+
 
 // Class Registry
 import { archer } from './classes/archer'
