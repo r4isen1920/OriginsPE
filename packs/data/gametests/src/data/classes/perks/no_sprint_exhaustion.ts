@@ -1,12 +1,9 @@
-
+//no_sprint_exhaustion.ts
+import { Player } from '@minecraft/server';
 import { toAllPlayers } from '../../../origins/player';
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- * @returns 
- */
-function no_sprint_exhaustion(player) {
+
+function no_sprint_exhaustion(player: Player): void {
   if (!player.hasTag('perk_no_sprint_exhaustion')) return;
 
   player.triggerEvent('r4isen1920_originspe:exhaustion.explorer');

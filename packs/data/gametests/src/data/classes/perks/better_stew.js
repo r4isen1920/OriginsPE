@@ -1,4 +1,4 @@
-
+//yardy
 import { ItemStack, world, system, TicksPerSecond } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
