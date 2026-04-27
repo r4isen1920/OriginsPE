@@ -1,3 +1,4 @@
+//weak_arms.ts
 import { TicksPerSecond, EquipmentSlot } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 

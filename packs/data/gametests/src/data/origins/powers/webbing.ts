@@ -1,3 +1,4 @@
+//webbing.ts
 import { BlockPermutation, world } from "@minecraft/server";
 import type { Player } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
