@@ -1,0 +1,90 @@
+//vegetarian.ts
+import { ItemStack } from "@minecraft/server";
+import { toAllPlayers } from "../../../origins/player";
+import { findItem } from "../../../utils/items";
+
+import type { Player } from "@minecraft/server";
+
+/**
+ *
+ * @param { import('@minecraft/server').Player } player
+ * @param { string[] } items
+ * @param { string } replacementNamespace
+ */
+export function replaceItems(
+  player: Player,
+  items: string[],
+  replacementNamespace: string,
+) {
+  for (const item of items) {
+    const foundItem = findItem(player, item);
+    if (foundItem) {
+      const foundItemName = foundItem.item!.typeId;
+      const foundItemNamespace = foundItemName.replace(/(?<=:).+/g, "");
+      const newItem = new ItemStack(
+        `${replacementNamespace}${foundItemName.replace(`${foundItemNamespace}uneatable_`, "").replace(foundItemNamespace, "")}`,
+        foundItem.item!.amount,
+      );
+      (player.getComponent("inventory") as any).container.setItem(
+        foundItem.slot,
+        newItem,
+      );
+    }
+  }
+}
+
+/**
+ *
+ * @param { import('@minecraft/server').Player } player
+ */
+export function vegetarian(player: Player) {
+  if (!player.hasTag("power_vegetarian")) return;
+
+  const EATABLE_ITEMS = [
+    "r4isen1920_originspe:uneatable_apple",
+    "r4isen1920_originspe:uneatable_baked_potato",
+    "r4isen1920_originspe:uneatable_beetroot",
+    "r4isen1920_originspe:uneatable_beetroot_soup",
+    "r4isen1920_originspe:uneatable_bread",
+    "r4isen1920_originspe:uneatable_carrot",
+    "r4isen1920_originspe:uneatable_chorus_fruit",
+    "r4isen1920_originspe:uneatable_cookie",
+    "r4isen1920_originspe:uneatable_dried_kelp",
+    "r4isen1920_originspe:uneatable_enchanted_golden_apple",
+    "r4isen1920_originspe:uneatable_glow_berries",
+    "r4isen1920_originspe:uneatable_golden_apple",
+    "r4isen1920_originspe:uneatable_golden_carrot",
+    "r4isen1920_originspe:uneatable_melon_slice",
+    "r4isen1920_originspe:uneatable_mushroom_stew",
+    "r4isen1920_originspe:uneatable_poisonous_potato",
+    "r4isen1920_originspe:uneatable_potato",
+    "r4isen1920_originspe:uneatable_pumpkin_pie",
+    "r4isen1920_originspe:uneatable_sweet_berries",
+  ];
+
+  const UNEATABLE_ITEMS = [
+    "minecraft:cooked_beef",
+    "minecraft:cooked_chicken",
+    "minecraft:cooked_cod",
+    "minecraft:cooked_mutton",
+    "minecraft:cooked_porkchop",
+    "minecraft:cooked_rabbit",
+    "minecraft:cooked_salmon",
+    "minecraft:pufferfish",
+    "minecraft:beef",
+    "minecraft:chicken",
+    "minecraft:cod",
+    "minecraft:mutton",
+    "minecraft:porkchop",
+    "minecraft:rabbit",
+    "minecraft:salmon",
+    "minecraft:rotten_flesh",
+    "minecraft:spider_eye",
+    "minecraft:tropical_fish",
+  ];
+
+  replaceItems(player, UNEATABLE_ITEMS, "r4isen1920_originspe:uneatable_");
+  replaceItems(player, EATABLE_ITEMS, "minecraft:");
+}
+
+toAllPlayers(vegetarian, 3);
