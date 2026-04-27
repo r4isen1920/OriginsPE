@@ -1,6 +1,6 @@
 import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/server";
 
-import { Vector3 } from "../../../utils/Vec3";
+import { Vector3 } from "../../../utils/vec3";
 
 import type { Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";

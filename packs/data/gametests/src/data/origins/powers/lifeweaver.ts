@@ -4,7 +4,7 @@ import { world, system, TicksPerSecond } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import type { Player } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vector3 } from "../../../utils/vec3";
 
 const ACCUMULATED_DAMAGE_KEY = 'r4isen1920_originspe:accumulated_damage';
 

@@ -2,7 +2,7 @@
 import { TicksPerSecond } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vector3 } from "../../../utils/vec3";
 import { type Player } from "@minecraft/server";
 
 function wandering_trader_spawn(player: Player): void {
