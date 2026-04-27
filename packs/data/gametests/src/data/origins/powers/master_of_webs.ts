@@ -1,5 +1,5 @@
 // yardy
-import { system, world } from "@minecraft/server";
+import { Dimension, Entity, Player, system, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { Vector3 } from "../../../utils/Vec3";
 import { removeTags } from "../../../utils/tags";
@@ -8,7 +8,7 @@ import { removeTags } from "../../../utils/tags";
  * 
  * @param { import('@minecraft/server').Player } player 
  */
-function master_of_webs(player) {
+function master_of_webs(player: Player) {
 
   /**
    * @param { number } yPos 
@@ -46,8 +46,21 @@ function master_of_webs(player) {
 
 }
 
+let dimension: Dimension | undefined = undefined;
+let entities: Entity[] | undefined = undefined;
+
 system.runInterval(() => {
-  world.getDimension('overworld').getEntities().forEach(entity => {
+  if (!dimension) {
+    dimension = world.getDimension('overworld');
+  }
+
+  if (!entities) {
+    entities = dimension.getEntities();
+  }
+
+  for (const entity of entities) {
+    if (entity.id === 'minecraft:player') {
       master_of_webs(entity);
-  });
+    }
+  }
 });
