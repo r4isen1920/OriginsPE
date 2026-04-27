@@ -1,4 +1,7 @@
 
 export const cook = {
-  'perks': []
+  'perks': [
+    'better_stew',
+    'more_saturated_foods'
+  ]
 }
