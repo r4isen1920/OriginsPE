@@ -1,3 +1,4 @@
+// r4m
 import { world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
