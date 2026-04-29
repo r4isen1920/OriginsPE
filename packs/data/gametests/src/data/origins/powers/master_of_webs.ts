@@ -1,21 +1,12 @@
 // yardy
 import { Dimension, Entity, Player, system, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vector3 } from "../../../utils/vec3";
 import { removeTags } from "../../../utils/tags";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-function master_of_webs(player: Player) {
-
-  /**
-   * @param { number } yPos 
-   * @returns { import('@minecraft/server').Block | undefined }
-   */
-  const block = function(yPos) {
-    return player.dimension.getBlock(Vector3.add(player.location, new Vector3(0, yPos, 0)))
+function master_of_webs(player: Player): void { 
+  const block = function(yPos: number): import('@minecraft/server').Block | undefined {
+    return player.dimension.getBlock(Vector3.add(player.location, new Vector3(0, yPos, 0)));
   }
 
   player.runCommand(
@@ -60,7 +51,7 @@ system.runInterval(() => {
 
   for (const entity of entities) {
     if (entity.id === 'minecraft:player') {
-      master_of_webs(entity);
+      master_of_webs(entity as Player);
     }
   }
 });

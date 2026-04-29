@@ -1,0 +1,41 @@
+//photosensitive.ts
+import { world, system } from "@minecraft/server";
+
+import type { Player } from "@minecraft/server";
+
+export function photosensitive(player: Player): void {
+  if (!player.hasTag("power_photosensitive")) return;
+
+  // Check for direct sunlight exposure
+  player.triggerEvent("r4isen1920_originspe:light_level");
+  const lightLevel = player.getProperty(
+    "r4isen1920_originspe:light_level",
+  ) as number;
+
+  // Only apply effects when in direct sunlight (light level > 14)
+  if (lightLevel > 14) {
+    // Apply stronger debuff effects
+    player.addEffect("weakness", 100, {
+      amplifier: 1,
+      showParticles: true,
+    });
+    // Direct sunlight damage
+    if (!player.hasTag("sunlight_damage_cooldown")) {
+      player.applyDamage(2);
+      player.dimension.spawnParticle(
+        "r4isen1920_originspe:blaze_aura",
+        player.location,
+      );
+      player.addTag("sunlight_damage_cooldown");
+      system.runTimeout(() => {
+        player.removeTag("sunlight_damage_cooldown");
+      }, 20);
+    }
+  }
+}
+// Run check every 10 ticks
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    photosensitive(player);
+  }
+}, 10);
