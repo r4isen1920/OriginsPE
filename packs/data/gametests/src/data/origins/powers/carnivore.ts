@@ -2,13 +2,11 @@
 
 import { toAllPlayers } from "../../../origins/player";
 import { replaceItems } from "./vegetarian";
+import { Player } from "@minecraft/server";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-function carnivore(player) {
-  if (!player.hasTag('power_carnivore')) return
+
+function carnivore(player: Player) {
+  if (!player.hasTag('power_carnivore')) return;
 
   const EATABLE_ITEMS = [
     'r4isen1920_originspe:uneatable_cooked_chicken',
@@ -29,7 +27,7 @@ function carnivore(player) {
     'r4isen1920_originspe:uneatable_spider_eye',
     'r4isen1920_originspe:uneatable_steak',
     'r4isen1920_originspe:uneatable_tropical_fish',
-  ]
+  ];
 
   const UNEATABLE_ITEMS = [
     'minecraft:apple',
@@ -51,11 +49,11 @@ function carnivore(player) {
     'minecraft:potato',
     'minecraft:pumpkin_pie',
     'minecraft:sweet_berries',
-  ]
+  ];
 
   replaceItems(player, UNEATABLE_ITEMS, 'r4isen1920_originspe:uneatable_');
   replaceItems(player, EATABLE_ITEMS, 'minecraft:');
 
 }
 
-toAllPlayers(carnivore, 3)
+toAllPlayers(carnivore, 3);

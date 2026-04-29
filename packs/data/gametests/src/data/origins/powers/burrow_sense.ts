@@ -1,4 +1,4 @@
-import { BlockVolume, Player, system, world } from "@minecraft/server";
+import { BlockVolume, Player, system, Vector3, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 
@@ -29,13 +29,7 @@ const SCAN_RADIUS = 8;
 const HIGHLIGHT_ENTITY = "r4isen1920_originspe:ore_highlight";
 
 
-
-//#region burrowSense
-/**
- * Burrow sense power - Detects nearby ores and highlights them
- * @param {Player} player - The player to check for the power
- */
-export function burrow_sense(player) {
+export function burrow_sense(player: Player) {
    if (
       !player.hasTag("power_burrow_sense") ||
       !player.hasTag("_control_use_burrow_sense")
@@ -54,13 +48,8 @@ export function burrow_sense(player) {
 
 
 
-//#region findNearbyOres
-/**
- * Finds all ore blocks within scan radius of the player
- * @param {Player} player - The player to scan around
- * @returns {Vector3[]} - Array of ore block center positions
- */
-function findNearbyOres(player) {
+
+function findNearbyOres(player: Player) {
    const playerLoc = player.location;
    const dimension = player.dimension;
    const foundOres = [];
@@ -88,7 +77,7 @@ function findNearbyOres(player) {
  * @param {Player} player - The player who will see the highlights
  * @param {Vector3[]} oreLocations - Array of ore positions to highlight
  */
-function createOreHighlights(player, oreLocations) {
+function createOreHighlights(player: Player, oreLocations: Vector3[]) {
    const dimension = player.dimension;
    const playerLocation = player.location;
 
@@ -119,7 +108,6 @@ function createOreHighlights(player, oreLocations) {
       }, index + Math.random() * 5); // stagger the creation slightly
    });
 }
-
 
 
 // Remove highlights when a block is broken

@@ -1,17 +1,14 @@
 
-import { TicksPerSecond } from "@minecraft/server";
+import { TicksPerSecond, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-function cat_vision(player) {
 
-  if (!player.hasTag('power_cat_vision')) return
+function cat_vision(player: Player) {
+
+  if (!player.hasTag('power_cat_vision')) return;
 
   player.triggerEvent('r4isen1920_originspe:light_level');
-  const lightLevel = player.getProperty('r4isen1920_originspe:light_level');
+  const lightLevel = Number(player.getProperty('r4isen1920_originspe:light_level') ?? 0);
 
   if (lightLevel < 8) {
     player.addEffect('night_vision', TicksPerSecond * 12, { showParticles: false });
@@ -23,4 +20,4 @@ function cat_vision(player) {
 
 }
 
-toAllPlayers(cat_vision, 3)
+toAllPlayers(cat_vision, 3);
