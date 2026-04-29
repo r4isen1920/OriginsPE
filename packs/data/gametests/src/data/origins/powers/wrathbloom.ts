@@ -23,11 +23,9 @@ function wrathbloom(player: Player): void {
     changeWrathbloomStack(player, 0);
   }
 
-  // Get current level from tags
   const currentLevelTag = wrathbloomTags[0] || "wrathbloom_stacks_7";
   const currentLevel = parseInt(currentLevelTag.split("_").pop() as string);
 
-  // Handle transitions between levels
   if (player.hasTag(`_was_wrathbloom_stacks_${currentLevel + 1}`)) {
     onDecrementWrathbloomStack(player, currentLevel);
   } else if (
@@ -39,7 +37,6 @@ function wrathbloom(player: Player): void {
     initializeResourceBar(player, currentLevel);
   }
 
-  // Apply increased damage depending on level--provided they are barehanded
   if (player.hasTag("_barehanded")) {
     player.triggerEvent(
       "r4isen1920_originspe:attack." + Math.max(1, currentLevel),
@@ -133,7 +130,6 @@ system.runTimeout(() => {
       deadEntity.typeId === "minecraft:player" &&
       deadEntity.hasTag("power_wrathbloom")
     ) {
-      // Remove all wrathbloom tags on death
       changeWrathbloomStack(deadEntity as Player, 0);
       (deadEntity as Player).removeTag("_init_bar");
     } else if (
@@ -141,7 +137,6 @@ system.runTimeout(() => {
       damageSource.damagingEntity.hasTag("power_wrathbloom") &&
       !damageSource.damagingEntity.hasTag("cooldown_24")
     ) {
-      // Decrement wrathbloom stack on kill
       decrementWrathbloomStack(damageSource.damagingEntity as Player);
     }
   });

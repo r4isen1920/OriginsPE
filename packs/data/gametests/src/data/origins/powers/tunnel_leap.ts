@@ -29,40 +29,26 @@ function tunnel_leap(player: Player): void {
   if (!player.hasTag("cooldown_23")) {
     player.addTag("cooldown_23");
 
-    // Configuration variables
     const MAX_TUNNEL_DISTANCE = 8;
-    const tunnelWidth = 1; // Increased tunnel width
-    const tunnelHeight = 1; // Added tunnel height
+    const tunnelWidth = 1;
+    const tunnelHeight = 1;
 
-    // Get player's view direction and create tunnel effect
     const viewDir = player.getViewDirection();
 
-    // Create normalized horizontal direction for tunnel
-    const horizontalDir = new Vector3(
-      viewDir.x,
-      0, // Force vertical component to 0 for tunnel creation
-      viewDir.z,
-    );
+    const horizontalDir = new Vector3(viewDir.x, 0, viewDir.z);
 
-    // Create tunnel effect by removing blocks
     for (let i = 0; i <= MAX_TUNNEL_DISTANCE; i++) {
       const pos = Vector3.add(
         player.location,
-        new Vector3(
-          horizontalDir.x * i,
-          0, // Keep tunnel at player's height level
-          horizontalDir.z * i,
-        ),
+        new Vector3(horizontalDir.x * i, 0, horizontalDir.z * i),
       );
 
-      // Get and break breakable blocks
       for (let x = -tunnelWidth; x <= tunnelWidth; x++) {
         for (let y = -1; y <= tunnelHeight; y++) {
           for (let z = -tunnelWidth; z <= tunnelWidth; z++) {
             const blockPos = Vector3.add(pos, new Vector3(x, y, z));
             const block = player.dimension.getBlock(blockPos);
 
-            // Expanded list of breakable blocks with their corresponding items
             if (block) {
               let itemToSpawn = null;
 
@@ -87,7 +73,6 @@ function tunnel_leap(player: Player): void {
                 case "minecraft:mycelium":
                   itemToSpawn = "minecraft:mycelium";
                   break;
-                // Added new breakable blocks
                 case "minecraft:sand":
                   itemToSpawn = "minecraft:sand";
                   break;
@@ -119,7 +104,6 @@ function tunnel_leap(player: Player): void {
               }
 
               if (itemToSpawn) {
-                // Update sound based on block type
                 let breakSound = "dig.grass";
                 if (
                   block.typeId.includes("sand") ||
@@ -136,10 +120,8 @@ function tunnel_leap(player: Player): void {
                   pitch: 1.0,
                 });
 
-                // Break the block
                 block.setType("minecraft:air");
 
-                // Spawn the item
                 const itemLocation = Vector3.add(
                   blockPos,
                   new Vector3(0.5, 0.5, 0.5),
@@ -149,7 +131,6 @@ function tunnel_leap(player: Player): void {
                   itemLocation,
                 );
 
-                // Spawn particle effect
                 player.dimension.spawnParticle(
                   "minecraft:terrain_particle minecraft:dirt",
                   blockPos,
@@ -161,7 +142,6 @@ function tunnel_leap(player: Player): void {
       }
     }
 
-    // Launch player forward with consistent speed
     const knockbackDir = new Vector3(
       player.getViewDirection().x,
       0,
@@ -169,26 +149,17 @@ function tunnel_leap(player: Player): void {
     );
     player.applyKnockback(knockbackDir, 4);
 
-    // Set cooldown scores
-    const COOLDOWN_DURATION = 300; // 15 seconds at 20 ticks per second
+    const COOLDOWN_DURATION = 300;
     _SCOREBOARD("cd2").setScore(player, COOLDOWN_DURATION);
     _SCOREBOARD("cd3").setScore(player, COOLDOWN_DURATION);
 
-    // Effects and cooldown
     player.dimension.spawnParticle(
       "minecraft:terrain_particle minecraft:dirt",
       Vector3.add(player.location, new Vector3(0, 0.5, 0)),
     );
     player.playSound("item.trident.riptide_1", { volume: 0.8, pitch: 1.0 });
 
-    // Fixed ResourceBar implementation
-    new ResourceBar(
-      23, // id - must match the cooldown tag number
-      0,
-      100,
-      10, // duration in seconds (not ticks)
-      false, // don't persist
-    ).push(player);
+    new ResourceBar(23, 0, 100, 10, false).push(player);
   } else {
     player.playSound("note.bass", { volume: 1, pitch: 1.5 });
   }
@@ -196,7 +167,6 @@ function tunnel_leap(player: Player): void {
   player.removeTag("_control_use_tunnel_leap");
 }
 
-// Make sure to reduce cooldown every tick
 function reduceCooldown(player: Player): void {
   if (player.hasTag("cooldown_23")) {
     const cd2 = _SCOREBOARD("cd2").getScore(player) ?? 0;
@@ -207,7 +177,6 @@ function reduceCooldown(player: Player): void {
   }
 }
 
-// Update the player function to include cooldown reduction
 toAllPlayers((player) => {
   tunnel_leap(player);
   reduceCooldown(player);

@@ -25,13 +25,9 @@ interface ChainContext {
   vineLinkInfos: VineLinkInfo[];
 }
 
-/** Maximum number of entities that can be chained at a time (excluding the first entity) */
 const MAX_CHAIN_LINKS = 4;
-/** Search radius in blocks for finding the next target of the chain */
 const CHAIN_SEARCH_RADIUS = 32;
-/** Delay in ticks before the chain can propagate to the next target */
 const CHAIN_PROPAGATION_DELAY_TICKS = 4;
-/** Duration in ticks for which the vine effect lasts */
 const VINE_EFFECT_DURATION_TICKS = TicksPerSecond * 4;
 
 system.runTimeout(() => {
@@ -64,7 +60,7 @@ system.runTimeout(() => {
         VINE_EFFECT_DURATION_TICKS +
           MAX_CHAIN_LINKS * CHAIN_PROPAGATION_DELAY_TICKS +
           TicksPerSecond,
-      ); // Longest chain + vine duration + buffer
+      );
 
       const chainContext: ChainContext = {
         chainOwnerId: playerId,
@@ -88,23 +84,19 @@ system.runTimeout(() => {
       return;
     }
 
-    // Check if the hurt entity is part of any active chain by checking for chain tags
     const hurtEntityTags = hurtEntity.getTags();
     const chainTag = hurtEntityTags.find((tag) =>
       tag.startsWith("is_in_active_chain_"),
     );
 
     if (chainTag) {
-      // Find all other entities with the same chain tag
       const chainedEntities = hurtEntity.dimension.getEntities({
         tags: [chainTag],
       });
 
-      // Apply the same damage to all other entities in the chain
       for (const entity of chainedEntities) {
         if (entity?.isValid && entity.id !== hurtEntity.id) {
           const damageToApply = Math.floor(damage * 0.25);
-          //? `applyDamage` method doesnt seem to work under these conditions
           entity.runCommand(`damage @s ${damageToApply} magic`);
           entity.dimension.spawnParticle(
             "r4isen1920_originspe:rootkin_vine_dmg_spread",
@@ -292,9 +284,6 @@ function propagateChain(
   }, CHAIN_PROPAGATION_DELAY_TICKS);
 }
 
-/**
- * Spawns a vine between two entities. This will create a link between the two entities.
- */
 function spawnVine(
   from: Entity,
   to: Entity,
@@ -347,7 +336,6 @@ function spawnVine(
     };
   }
 
-  //? Summon command supports initial rotation upon spawning
   from.runCommand(
     `summon r4isen1920_originspe:vine_bind ${locationFrom.x} ${locationFrom.y} ${locationFrom.z} facing ${locationTo.x} ${locationTo.y} ${locationTo.z}`,
   );
@@ -372,7 +360,6 @@ function spawnVine(
     Math.max(distance - 1, 0),
   );
 
-  // Dispell the invisibility effect of the target entities if they have it
   if (
     from.getEffect("minecraft:invisibility") ||
     to.getEffect("minecraft:invisibility")
@@ -463,9 +450,7 @@ function triggerChainCollapse(chainContext: ChainContext): void {
             "r4isen1920_originspe:rootkin_vine_break",
             entity.location,
           );
-        } catch {
-          /** empty */
-        }
+        } catch {}
         entity.applyDamage(damageToApply, {
           cause: EntityDamageCause.magic,
         });

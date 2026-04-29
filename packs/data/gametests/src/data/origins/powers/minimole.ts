@@ -13,7 +13,6 @@ function minimole(player: Player): void {
   player.camera.setCamera("r4isen1920_originspe:small");
 
   const location = player.location;
-  // Get the block above the player's head
   const block = world.getDimension(player.dimension.id).getBlock({
     x: Math.floor(location.x),
     y: Math.floor(location.y) + 1,

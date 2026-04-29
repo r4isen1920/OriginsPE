@@ -1,14 +1,12 @@
-
+//slime_ball_consume.ts
 import { ItemStack, system, TicksPerSecond, world } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { findItem } from "../../../utils/items";
-import { changeFragementationLevel } from "./fragmentation";
+import { changeFragementationLevel } from "./fragmentation.js";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-function slime_ball_consume(player) {
+import type { Player } from "@minecraft/server";
+
+function slime_ball_consume(player: Player): void {
 
   let targetSlimeBall;
   let convertTo;
@@ -23,7 +21,10 @@ function slime_ball_consume(player) {
 
   if (!targetSlimeBall) return;
 
-  player.getComponent('inventory').container.setItem(targetSlimeBall.slot, new ItemStack(convertTo, targetSlimeBall.item.amount))
+  const inventory = player.getComponent('inventory');
+  if (inventory && inventory.container && targetSlimeBall.item) {
+    inventory.container.setItem(targetSlimeBall.slot, new ItemStack(convertTo, targetSlimeBall.item.amount));
+  }
 
 }
 
