@@ -5,12 +5,6 @@ import { findItem } from "../../../utils/items";
 
 import type { Player } from "@minecraft/server";
 
-/**
- *
- * @param { import('@minecraft/server').Player } player
- * @param { string[] } items
- * @param { string } replacementNamespace
- */
 export function replaceItems(
   player: Player,
   items: string[],
@@ -33,10 +27,6 @@ export function replaceItems(
   }
 }
 
-/**
- *
- * @param { import('@minecraft/server').Player } player
- */
 export function vegetarian(player: Player) {
   if (!player.hasTag("power_vegetarian")) return;
 
