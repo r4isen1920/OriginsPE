@@ -1,16 +1,4 @@
-//shulk.ts
-
-interface OriginEffects{
-  model?: string
-  skin?: string
-  emitter?: string
-}
-
-interface Origin{
-  powers: string[]
-  controls?: string[]
-  effects?: OriginEffects
-}
+import { Origin } from './types'
 
 export const shulk: Origin = {
   powers: [
