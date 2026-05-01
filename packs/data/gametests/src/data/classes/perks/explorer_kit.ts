@@ -19,7 +19,8 @@ function explorer_kit(player: Player) {
     },
   ];
 
-  const playerInventory = player.getComponent("inventory").container as Container;
+  const playerInventory: Container | undefined = player.getComponent("inventory")?.container;
+  if (!playerInventory) return;
 
   itemsToGive.forEach((item) => {
     let newItem: ItemStack;

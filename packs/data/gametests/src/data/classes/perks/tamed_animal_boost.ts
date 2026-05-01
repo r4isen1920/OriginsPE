@@ -1,8 +1,7 @@
 //tamed_animal_boost.ts
-import { TicksPerSecond } from "@minecraft/server";
+import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { type Player } from "@minecraft/server";
 
 function tamed_animal_boost(player: Player): void {
   if (!player.hasTag("perk_tamed_animal_boost")) return;

@@ -22,8 +22,8 @@ system.runTimeout(() => {
     const { block, player } = event;
     if (!player.hasTag("perk_fast_crop_growth")) return;
 
-    const crop = cropTypes.find((crop) =>
-      block.permutation.matches(`minecraft:${typeof crop === "string" ? crop : crop.typeId}`),
+    const crop = cropTypes.find((cropType): boolean =>
+      block.permutation.matches(`minecraft:${typeof cropType === "string" ? cropType : cropType.typeId}`),
     );
     if (!crop) return;
 

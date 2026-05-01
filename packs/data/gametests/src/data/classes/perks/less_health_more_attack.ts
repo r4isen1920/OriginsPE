@@ -2,10 +2,7 @@ import { TicksPerSecond, type EntityHealthComponent, type Player } from "@minecr
 
 import { toAllPlayers } from "../../../origins/player";
 
-/**
- *
- * @param { import('@minecraft/server').Player } player
- */
+
 function less_health_more_attack(player: Player) {
   if (!player.hasTag("perk_less_health_more_attack")) return;
 

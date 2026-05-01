@@ -5,6 +5,7 @@ import {
   TicksPerSecond,
   EquipmentSlot,
   GameMode,
+  BlockPermutation,
   type ItemStack,
   type Player,
 } from "@minecraft/server";
@@ -153,7 +154,7 @@ function ore_vein_miner(player: Player): void {
           );
         });
 
-        veinMinerEntity.runCommand("setblock ~~~ air [] destroy");
+        currentBlock.setPermutation(BlockPermutation.resolve("minecraft:air"));
         player.dimension.spawnParticle(
           "r4isen1920_originspe:vein_mine",
           currentBlock.center(),

@@ -32,6 +32,8 @@ system.runTimeout(() => {
         "r4isen1920_originspe:experience_touch",
         entity.location,
       );
-    } catch {}
+    } catch {
+      // Ignore runtime errors from unsupported entity operations.
+    }
   });
 }, TicksPerSecond * 16);

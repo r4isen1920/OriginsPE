@@ -45,11 +45,11 @@ export function main(player: Player, potion_filter: "_long" | "_potent", itemLis
 
   const potionItemsInInventory = foundItems.filter(
     (item): item is { item: ItemStack; slot: number } =>
-      item?.item?.typeId !== undefined &&
-      itemList.some(
-        (i) =>
-          item.item.typeId.includes(`temp_${i.typeId}`) &&
-          item.item.typeId.includes(potion_filter),
+      item?.item !== undefined &&
+      item.item.typeId !== undefined &&
+      itemList.some((i) =>
+        item?.item?.typeId?.includes(`temp_${i.typeId}`) &&
+        item?.item?.typeId?.includes(potion_filter),
       ),
   );
   if (potionItemsInInventory.length === 0) return;
@@ -92,10 +92,12 @@ export function main(player: Player, potion_filter: "_long" | "_potent", itemLis
       : item?.item?.typeId?.includes("lingering")
         ? "lingering_potion"
         : "potion";
-    if (player.hasTag("class_cleric")) player.getComponent("inventory").container.setItem(item.slot, convertItem);
-    else
+    if (player.hasTag("class_cleric")) {
+      const inventoryComponent = player.getComponent("inventory");
+      if (inventoryComponent) inventoryComponent.container.setItem(item.slot, convertItem);
+    } else
       player.runCommand(
-        `replaceitem entity @s slot.${slotType} ${item.slot - (8 * (slotType === "inventory"))} ${potionType} 1 ${itemData.dataValue}`,
+        `replaceitem entity @s slot.${slotType} ${item.slot - (8 * (slotType === "inventory" ? 1 : 0))} ${potionType} 1 ${itemData.dataValue}`,
       );
   }
   if (player.hasTag("class_cleric")) player.playSound("ui.enchant", { volume: 0.5, pitch: 1.75 });

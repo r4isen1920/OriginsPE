@@ -1,4 +1,6 @@
 
 export const cleric = {
-  'perks': []
+  'perks': [
+    'explorer_kit'
+  ]
 }

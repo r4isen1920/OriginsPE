@@ -1,4 +1,5 @@
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, TicksPerSecond, Dimension, Player } from "@minecraft/server";
+import { toAllPlayers } from "../../../origins/player";
 
 const cropTypes = ["wheat", "beetroot", "carrots", "potatoes"] as const;
 
@@ -7,10 +8,13 @@ system.runTimeout(() => {
     const { block, brokenBlockPermutation, player } = event;
     if (!player.hasTag("perk_more_crop_drops")) return;
 
-    const crop = cropTypes.find((crop) =>
-      brokenBlockPermutation.matches(`minecraft:${crop}`),
+    const crop = cropTypes.find((cropType) =>
+      brokenBlockPermutation.matches(`minecraft:${cropType}`),
     );
-    if (!crop || brokenBlockPermutation.getState("growth") < 7) return;
+
+    const isFullyGrown = brokenBlockPermutation.getState("growth") === 7;
+
+    if (!crop || !isFullyGrown) return;
 
     if (Math.random() < 0.6) return;
 
@@ -22,11 +26,11 @@ system.runTimeout(() => {
       "r4isen1920_originspe:experience_touch",
       block.center(),
     );
-    world.playSound("random.orb", block.center(), {
+    block.dimension.playSound("random.orb", block.center(), {
       volume: 0.25,
       pitch: 2.0,
     });
-    world.playSound("firework.twinkle", block.center(), {
+    block.dimension.playSound("firework.twinkle", block.center(), {
       volume: 0.1,
       pitch: 1.25,
     });

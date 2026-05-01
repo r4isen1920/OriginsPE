@@ -1,4 +1,4 @@
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, TicksPerSecond, Dimension } from "@minecraft/server";
 
 system.runTimeout(() => {
   world.afterEvents.entityDie.subscribe((event) => {
@@ -16,7 +16,7 @@ system.runTimeout(() => {
 
     deadEntity.runCommand("loot spawn ~~0.5~ kill @s");
 
-    world.playSound("random.orb", deadEntity.location, { pitch: 1.75 });
+    // Dimension.playSound("random.orb", deadEntity.location, { pitch: 1.75 });
     deadEntity.dimension.spawnParticle(
       "r4isen1920_originspe:experience_touch",
       deadEntity.location,

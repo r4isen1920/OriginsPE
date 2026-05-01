@@ -1,9 +1,8 @@
 //wandering_trader_spawn.ts
-import { TicksPerSecond } from "@minecraft/server";
+import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/vec3";
-import { type Player } from "@minecraft/server";
+import { Vector3 } from "../../../utils/Vec3";
 
 function wandering_trader_spawn(player: Player): void {
   if (!player.hasTag("perk_wandering_trader_spawn")) return;

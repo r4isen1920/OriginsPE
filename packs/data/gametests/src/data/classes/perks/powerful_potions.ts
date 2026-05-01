@@ -1,8 +1,6 @@
-//powerful_potions.ts
 import { TicksPerSecond, type Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-// @ts-expect-error – longer_potions.js has no type declarations yet
 import { main } from "./longer_potions";
 
 export interface PotionEffect {

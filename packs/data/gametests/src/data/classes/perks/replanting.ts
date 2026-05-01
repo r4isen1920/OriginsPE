@@ -7,7 +7,7 @@ import {
   BlockPermutation,
 } from "@minecraft/server";
 
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 import { logBlocks } from "./tree_felling";
 
 const saplingBlocks: Record<string, string> = {

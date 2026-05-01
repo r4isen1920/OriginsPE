@@ -3,10 +3,7 @@ import { EquipmentSlot, TicksPerSecond, type ItemStack, type Player } from "@min
 import { toAllPlayers } from "../../../origins/player";
 import { getEquipment } from "../../../utils/items";
 
-/**
- *
- * @param { import('@minecraft/server').Player } player
- */
+
 function less_shield_slowdown(player: Player) {
   if (!player.hasTag("perk_less_shield_slowdown")) return;
 
