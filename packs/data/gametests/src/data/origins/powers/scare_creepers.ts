@@ -14,7 +14,6 @@ function scare_creepers(player: Player): void {
 
   for (const creeper of nearbyEntities) {
     creeper.triggerEvent("minecraft:stop_exploding");
-    creeper.triggerEvent("minecraft:start_panicking_event");
     creeper.clearVelocity();
 
     const dx = creeper.location.x - player.location.x;

@@ -19,7 +19,7 @@ const Meta = {
     },
   },
   github: {
-    commit: "5be203260ca4f2b216473bee70210c692f197acd",
+    commit: "defd217e475db47bf0759c2bfc2f12276cabdbc8",
     tag: "v5.1.0",
   },
 } as const;
