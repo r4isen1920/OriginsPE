@@ -1,6 +1,6 @@
 
 
-import { TicksPerSecond, system, world, Player, Dimension } from "@minecraft/server";
+import { TicksPerSecond, system, world, Player } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
 
 system.runTimeout(() => {
@@ -16,7 +16,8 @@ system.runTimeout(() => {
         damagingEntity.hasTag('cooldown_4')
       ) return;
 
-      const fireDuration = (hitEntity.getComponent('health').currentValue / 2) + (((damagingEntity.getEffect('strength')?.amplifier + 1) || 0) * 2);
+      const healthComponent = hitEntity.getComponent('health');
+      const fireDuration = ((healthComponent?.currentValue ?? 20) / 2) + (((damagingEntity.getEffect('strength')?.amplifier ?? -1) + 1) * 2);
       const targets = damagingEntity.dimension.getEntities({
         location: hitEntity.location,
         maxDistance: 4,
