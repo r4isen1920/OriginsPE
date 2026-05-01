@@ -2,7 +2,7 @@ import { TicksPerSecond, world, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 
 
 function hyper_leap(player: Player) {

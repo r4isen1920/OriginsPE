@@ -1,7 +1,6 @@
 //no_hitting.ts
-import { system, world } from "@minecraft/server";
+import { system, world, Player } from "@minecraft/server";
 
-import type { Player } from "@minecraft/server";
 
 system.runTimeout(() => {
   world.afterEvents.entityHitEntity.subscribe((event) => {

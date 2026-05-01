@@ -1,8 +1,7 @@
 //minimole.ts
-import { world } from "@minecraft/server";
+import { world, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
-import type { Player } from "@minecraft/server";
 
 function minimole(player: Player): void {
   if (!player.hasTag("power_minimole")) return;

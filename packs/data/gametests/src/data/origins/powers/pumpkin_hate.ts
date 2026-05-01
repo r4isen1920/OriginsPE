@@ -1,9 +1,9 @@
 //pumpkin_hate.ts
-import { TicksPerSecond } from "@minecraft/server";
+import { TicksPerSecond, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { searchItemId } from "../../../utils/items";
 
-import type { Player } from "@minecraft/server";
+
 
 function pumpkin_hate(player: Player): void {
   if (

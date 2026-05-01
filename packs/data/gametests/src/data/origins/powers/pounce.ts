@@ -1,12 +1,11 @@
 //pounce.ts
-import { EntityDamageCause, world } from "@minecraft/server";
+import { EntityDamageCause, world, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 import { removeTags } from "../../../utils/tags";
 
-import type { Player } from "@minecraft/server";
 const MAX_DISTANCE = 10;
 
 function pounce(player: Player): void {

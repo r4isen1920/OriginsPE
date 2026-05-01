@@ -1,10 +1,9 @@
 //no_shield.ts
-import { EquipmentSlot } from "@minecraft/server";
+import { EquipmentSlot, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 
-import type { Player } from "@minecraft/server";
 
 function no_shield(player: Player): void {
   if (!player.hasTag("power_no_shield") || !player.isSneaking) return;

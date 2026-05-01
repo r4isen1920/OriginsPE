@@ -3,10 +3,7 @@ import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
+
 function cosmic_gift(player: Player) {
   if (!player.hasTag('power_cosmic_gift')) return;
 

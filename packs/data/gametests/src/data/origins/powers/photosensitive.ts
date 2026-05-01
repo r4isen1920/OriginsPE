@@ -1,7 +1,6 @@
 //photosensitive.ts
-import { world, system } from "@minecraft/server";
+import { world, system, Player } from "@minecraft/server";
 
-import type { Player } from "@minecraft/server";
 
 export function photosensitive(player: Player): void {
   if (!player.hasTag("power_photosensitive")) return;

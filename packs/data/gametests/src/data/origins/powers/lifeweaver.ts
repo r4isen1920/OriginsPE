@@ -1,10 +1,8 @@
 
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import type { Player } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/vec3";
 
 const ACCUMULATED_DAMAGE_KEY = 'r4isen1920_originspe:accumulated_damage';
 
@@ -14,47 +12,51 @@ function getAccumulatedDamage(player: Player): number {
 }
 
 
-function lifeweaver(Player: Player): void {
-  const accumulatedDamage = getAccumulatedDamage(Player);
+function lifeweaver(player: Player): void {
+  const accumulatedDamage = getAccumulatedDamage(player);
 
   if (
-    !Player.hasTag('power_lifeweaver') &&
+    !player.hasTag('power_lifeweaver') &&
     accumulatedDamage < 1
   ) return;
 
   if (
     accumulatedDamage > 0 &&
-    !Player.hasTag('cooldown_lifeweaver')   
+    !player.hasTag('cooldown_lifeweaver')   
   ) {
-    Player.addTag('cooldown_lifeweaver');
+    player.addTag('cooldown_lifeweaver');
     /**
      * @type { import('@minecraft/server').EntityHealthComponent }
       */
-    const health = Player.getComponent('health');
+    const health = player.getComponent('health');
     if (!health) return;
 
-    const addedHealth = Math.ceil(health.currentValue + accumulatedDamage)
+    const addedHealth = Math.ceil(health.currentValue + accumulatedDamage);
 
     health.setCurrentValue(
       Math.clamp(addedHealth, health.effectiveMin, health.effectiveMax)
-    )
-    Player.addEffect('absorption', TicksPerSecond * 12, { amplifier: Math.floor(accumulatedDamage * 0.02) });
-    Player.removeEffect('regeneration');
+    );
+    player.addEffect('absorption', TicksPerSecond * 12, { amplifier: Math.floor(accumulatedDamage * 0.02) });
+    player.removeEffect('regeneration');
 
-    Player.dimension.spawnParticle('r4isen1920_originspe:elven_heal', Vector3.add(Player.location, new Vector3(0, 1, 0)));
-    Player.dimension.playSound('ender_eye.dead', Player.location, { volume: 2.0, pitch: 1.25 });
+    player.dimension.spawnParticle('r4isen1920_originspe:elven_heal', {
+      x: player.location.x,
+      y: player.location.y + 1,
+      z: player.location.z,
+    });
+    player.dimension.playSound('ender_eye.dead', player.location, { volume: 2.0, pitch: 1.25 });
 
-    Player.setDynamicProperty(ACCUMULATED_DAMAGE_KEY, 0);
-    Player.addTag('_lifeweaver_on_trigger');
+    player.setDynamicProperty(ACCUMULATED_DAMAGE_KEY, 0);
+    player.addTag('_lifeweaver_on_trigger');
 
     system.runTimeout(() => {
-      Player.removeTag('cooldown_lifeweaver');
+      player.removeTag('cooldown_lifeweaver');
     }, TicksPerSecond * 30);
 
-  } // else Player.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 0 })
+  } // else player.addEffect('regeneration', TicksPerSecond * 12, { amplifier: 0 })
 }
 
-toAllPlayers(lifeweaver, 3)
+toAllPlayers(lifeweaver, 3);
 
 system.runTimeout(() => {
 
@@ -87,13 +89,13 @@ system.runTimeout(() => {
       }
 
       if (!hurtPlayer.hasTag('cooldown_lifeweaver'))
-        new ResourceBar(16, 0, 100, 3, false).push(hurtPlayer)
+        new ResourceBar(16, 0, 100, 3, false).push(hurtPlayer);
 
       hurtPlayer.setDynamicProperty(
         ACCUMULATED_DAMAGE_KEY,
         accumulatedDamage + damage
-      )
+      );
     }
-  )
+  );
 
-}, TicksPerSecond * 4)
+}, TicksPerSecond * 4);

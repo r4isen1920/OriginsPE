@@ -1,34 +1,30 @@
 
-import { ItemStack, TicksPerSecond, world } from "@minecraft/server";
-import { Player } from "@minecraft/server";
+import { ItemStack, TicksPerSecond, world, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { findItem } from "../../../utils/items";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
-function berry_craver(Player: Player) {
+
+function berry_craver(player: Player) {
 
   let targetBerry;
   let convertTo;
 
-  if (Player.hasTag('power_berry_craver')) {
-    targetBerry = findItem(Player, 'minecraft:sweet_berries')
-    convertTo = 'r4isen1920_originspe:kitsune_sweet_berries'
+  if (player.hasTag('power_berry_craver')) {
+    targetBerry = findItem(player, 'minecraft:sweet_berries');
+    convertTo = 'r4isen1920_originspe:kitsune_sweet_berries';
   } else {
-    targetBerry = findItem(Player, 'r4isen1920_originspe:kitsune_sweet_berries')
-    convertTo = 'minecraft:sweet_berries'
+    targetBerry = findItem(player, 'r4isen1920_originspe:kitsune_sweet_berries');
+    convertTo = 'minecraft:sweet_berries';
   }
 
   if (!targetBerry) return;
 
-  const inventory = Player.getComponent('inventory');
+  const inventory = player.getComponent('inventory');
   if (!inventory?.container) return;
 
   const amount = targetBerry.item?.amount ?? 1;
-  inventory.container.setItem(targetBerry.slot, new ItemStack(convertTo, amount))
+  inventory.container.setItem(targetBerry.slot, new ItemStack(convertTo, amount));
 
 }
 
@@ -43,9 +39,9 @@ world.afterEvents.itemCompleteUse.subscribe(event => {
 	if (Math.random() < chance) {
 		source.addEffect('minecraft:regeneration', TicksPerSecond * 10, {
 			amplifier: 1
-		})
+		});
 	}
 
-})
+});
 
-toAllPlayers(berry_craver, 3)
+toAllPlayers(berry_craver, 3);

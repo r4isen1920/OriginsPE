@@ -1,9 +1,8 @@
 //oracle.ts
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, TicksPerSecond, Player } from "@minecraft/server";
 
 import { findPlayersWithSameID } from "./prescience.js";
 
-import type { Player } from "@minecraft/server";
 
 system.runTimeout(() => {
   world.afterEvents.entityHealthChanged.subscribe((event) => {

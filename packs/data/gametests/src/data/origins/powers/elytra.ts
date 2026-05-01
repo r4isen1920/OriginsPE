@@ -8,10 +8,7 @@ import {
 } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
-/**
- * Equips or removes an Elytra with custom lore and keeps it repaired.
- * @param {import('@minecraft/server').Player} player
- */
+
 function elytra(player: Player) {
   const equipment = player.getComponent("equippable");
 

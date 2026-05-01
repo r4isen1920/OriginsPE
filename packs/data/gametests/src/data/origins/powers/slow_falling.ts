@@ -2,7 +2,7 @@
 import { TicksPerSecond } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 import type { Player } from "@minecraft/server";
 
 const SLOW_FALLING_CHECK_INTERVAL = TicksPerSecond;

@@ -2,10 +2,7 @@
 import { toAllPlayers } from "../../../origins/player";
 import { Player } from "@minecraft/server";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
+
 function divine_aura(player: Player) {
   if (
     !player.hasTag('power_divine_aura') &&

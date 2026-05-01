@@ -1,8 +1,7 @@
 //nighttime.ts
-import { system, TicksPerSecond, WeatherType, world } from "@minecraft/server";
+import { system, TicksPerSecond, WeatherType, world, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
-import type { Player } from "@minecraft/server";
 
 system.runTimeout(() => {
   world.afterEvents.weatherChange.subscribe((event) => {

@@ -1,10 +1,9 @@
 //prescience.ts
-import { world, system, TicksPerSecond } from "@minecraft/server";
+import { world, system, TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { removeTags } from "../../../utils/tags";
 
-import type { Player } from "@minecraft/server";
 
 system.runTimeout(() => {
   world.afterEvents.entityHitEntity.subscribe((event) => {
@@ -71,8 +70,8 @@ function prescience(player: Player): void {
     return acc + numValue;
   }, 0);
 
-  allPlayerTags.forEach((player) => {
-    player.addEffect("health_boost", TicksPerSecond * 12, {
+  allPlayerTags.forEach((targetPlayer) => {
+    targetPlayer.addEffect("health_boost", TicksPerSecond * 12, {
       amplifier: Math.floor((totalMaxHP * 0.5) / 4),
       showParticles: false,
     });

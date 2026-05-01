@@ -4,7 +4,7 @@ import {
   getBeelzebubProperty,
   incrementBeelzebubProperty,
 } from "./beelzebub.js";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 import type { Player } from "@minecraft/server";
 
 export function soulburst(attacker: Player, hurtEntity: Player): void {

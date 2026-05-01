@@ -3,10 +3,7 @@ import {  Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 
-/**
- * 
- * @param { import('@minecraft/server').Player } player 
- */
+
 function courage(player: Player) {
   if (!player.hasTag('power_courage')) return;
 
@@ -19,8 +16,6 @@ function courage(player: Player) {
     player.removeEffect('wither');
 
   }
-
-
 }
 
 toAllPlayers(courage, 3);

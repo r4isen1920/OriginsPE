@@ -3,7 +3,7 @@ import { LocationOutOfWorldBoundariesError, TicksPerSecond, Player } from "@mine
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 
 
 function launch_into_air(player: Player) {

@@ -1,7 +1,7 @@
 //stress_and_meditate.ts
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 
 import type { Player } from "@minecraft/server";
 

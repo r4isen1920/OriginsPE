@@ -1,6 +1,6 @@
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 import { Player } from "@minecraft/server";
 
 

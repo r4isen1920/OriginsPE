@@ -1,10 +1,6 @@
 import { world, system, Player } from "@minecraft/server";
 
 
-/**
- * @param {Player} player 
- * @returns 
- */
 export function darkvision(player: Player) {
   
         if (!player.hasTag('power_darkvision')) return;

@@ -1,8 +1,7 @@
-import { world, system, TicksPerSecond, EntityDamageCause } from "@minecraft/server";
+import { world, system, TicksPerSecond, EntityDamageCause, Player } from "@minecraft/server";
 
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 
-import type { Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
 system.runTimeout(() => {
@@ -27,15 +26,21 @@ system.runTimeout(() => {
 
       hurtEntity.applyDamage(Math.round(additionalDamage), { cause: EntityDamageCause.override, damagingEntity: damageSource.damagingEntity });
 
-      damageSource.damagingEntity.runCommand('particle r4isen1920_originspe:elven_bow_charge ^^1^1.25');
+      const viewDirection = damageSource.damagingEntity.getViewDirection();
+      const chargeParticleLocation = {
+        x: damageSource.damagingEntity.location.x + (viewDirection.x * 1.25),
+        y: damageSource.damagingEntity.location.y + 1 + (viewDirection.y * 1.25),
+        z: damageSource.damagingEntity.location.z + (viewDirection.z * 1.25),
+      };
+      damageSource.damagingEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_charge', chargeParticleLocation);
       hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', Vector3.add(hurtEntity.location, new Vector3(0, 1, 0)));
       damageSource.damagingEntity.dimension.playSound('ender_eye.dead', hurtEntity.location);
       damageSource.damagingEntity.dimension.playSound('ender_eye.dead', damageSource.damagingEntity.location);
 
     }
-  )
+  );
 
-}, TicksPerSecond * 6)
+}, TicksPerSecond * 6);
 
 /**
  * IMBUE

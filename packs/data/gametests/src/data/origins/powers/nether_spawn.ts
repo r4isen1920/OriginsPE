@@ -1,8 +1,7 @@
 //nether_spawn.ts
-import { TicksPerSecond, system, world } from "@minecraft/server";
+import { TicksPerSecond, system, world, Dimension, DimensionLocation, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 
-import type { Dimension, DimensionLocation, Player } from "@minecraft/server";
 
 function createObsidianPlatform(
   dimension: Dimension,

@@ -3,7 +3,7 @@ import { world, system, TicksPerSecond, EntityDamageCause, Player } from "@minec
 
 import { ResourceBar } from "../../../origins/resource_bar";
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 
 import { life_drain } from "./life_drain";
 import { soulburst } from "./soulburst";

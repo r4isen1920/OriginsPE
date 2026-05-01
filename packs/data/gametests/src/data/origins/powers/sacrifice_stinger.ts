@@ -1,11 +1,10 @@
 //sacrifice_stinger.ts
-import { EntityDamageCause, system } from "@minecraft/server";
+import { EntityDamageCause, system, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
 import { removeTags } from "../../../utils/tags";
 
-import type { Player } from "@minecraft/server";
 
 const BAR_LEVELS = [0, 15, 29, 43, 57, 71, 85, 100];
 

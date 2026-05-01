@@ -1,6 +1,6 @@
 
 
-import { TicksPerSecond, system, world, Player } from "@minecraft/server";
+import { TicksPerSecond, system, world, Player, Dimension } from "@minecraft/server";
 import { ResourceBar } from "../../../origins/resource_bar";
 
 system.runTimeout(() => {
@@ -27,8 +27,8 @@ system.runTimeout(() => {
       targets.forEach(entity => {
         entity.setOnFire(fireDuration, false);
       });
-      hitEntity.dimension.spawnParticle('r4isen1920_originspe:blaze_impact', hitEntity.location)
-      world.playSound('mob.ghast.fireball', hitEntity.location, { pitch: 1.25 })
+      hitEntity.dimension.spawnParticle('r4isen1920_originspe:blaze_impact', hitEntity.location);
+      damagingEntity.dimension.playSound('mob.ghast.fireball', hitEntity.location, { pitch: 1.25 });
 
       new ResourceBar(4, 0, 100, 3)
           .push(damagingEntity as Player);
