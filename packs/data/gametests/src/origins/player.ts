@@ -5,11 +5,7 @@ import { removeTags } from "../utils/tags";
 import { ResourceBar } from "./resource_bar";
 import { ORIGIN_REGISTRY, CLASS_REGISTRY  } from "../data/registry";
 
-/**
- * 
- * List of available Origins to randomize
- * from
- */
+
 const ORIGINS = [
   'avian',
   'arachnid',
@@ -33,11 +29,6 @@ const ORIGINS = [
   'rootkin',
 ]
 
-/**
- * 
- * List of available Classes to
- * randomize from
- */
 const CLASSES = [
   'archer',
   'beastmaster',
@@ -54,10 +45,6 @@ const CLASSES = [
   'warrior',
 ]
 
-/**
- * 
- * Default imports for Origins and Classes
- */
 const DEFAULT_IMPORT = {
   'powers': [
     "master_of_webs",
@@ -79,13 +66,6 @@ const DEFAULT_IMPORT = {
   }
 }
 
-/**
- * 
- * Set the Origin (race) of a player
- * 
- * @param player 
- * @param param_race 
- */
 function setRace(player: Player, param_race: string): void {
   if (param_race === 'random') {
     param_race = ORIGINS[Math.floor(Math.random() * ORIGINS.length)]
@@ -103,13 +83,6 @@ function setRace(player: Player, param_race: string): void {
   openScreenPickerGUI(player, 'race', 'view');
 }
 
-/**
- * 
- * Set the Class of a player
- * 
- * @param player 
- * @param param_class 
- */
 function setClass(player: Player, param_class: string): void {
   if (param_class === 'random') {
     param_class = CLASSES[Math.floor(Math.random() * CLASSES.length)]
@@ -125,13 +98,6 @@ function setClass(player: Player, param_class: string): void {
   openScreenPickerGUI(player, 'class', 'view');
 }
 
-/**
- * 
- * Initializes the required modules for
- * the player's selected Origin and Class
- * 
- * @param player 
- */
 export async function initModules(player: Player): Promise<void> {
 
   if (player.hasTag('load_failed')) return;
@@ -151,34 +117,6 @@ export async function initModules(player: Player): Promise<void> {
   removeTags(player, 'power_');
   removeTags(player, 'perk_');
   removeTags(player, 'control_');
-
-
-  // try {
-  //   await import(`../data/origins/${playerOrigin}.js`).then(mod => {
-  //     if (mod) {
-  //       ORIGIN_POWERS = [..._IMPORT_ORIGIN.powers, ...(mod[playerOrigin].powers || [])];
-  //       CONTROLS = [..._IMPORT_ORIGIN.controls, ...(mod[playerOrigin].controls || [])];
-  //       EFFECTS = { ..._IMPORT_ORIGIN.effects, ...mod[playerOrigin].effects };
-  //     } else player.addTag('load_failed');
-  //   })
-  // } catch (e) {
-  //   console.warn(`[r4isen1920][OriginsPE] Failed to load Origin: '${playerOrigin}' for ${player.name}`);
-  //   console.warn(`[r4isen1920][OriginsPE] ${e}`);
-  //   player.addTag('load_failed');
-  // }
-
-  // try {
-  //   await import(`../data/classes/${playerClass}.js`).then(mod => {
-  //     if (mod) {
-  //       CLASS_PERKS = [..._IMPORT_CLASS.perks, ...(mod[playerClass].perks || [])];
-  //       CONTROLS.push(..._IMPORT_CLASS.controls, ...(mod[playerClass].controls || []));
-  //     } else player.addTag('load_failed');
-  //   })
-  // } catch (e) {
-  //   console.warn(`[r4isen1920][OriginsPE] Failed to load Class: '${playerClass}' for ${player.name}`);
-  //   console.warn(`[r4isen1920][OriginsPE] ${e}`);
-  //   player.addTag('load_failed');
-  // }
 
   const originData = ORIGIN_REGISTRY[playerOrigin];
   if (originData) {
@@ -222,14 +160,6 @@ export async function initModules(player: Player): Promise<void> {
 }
 
 
-/**
- * 
- * Loads a player effect
- * 
- * @param player 
- * @param type
- * @param value
- */
 function loadPlayerEffects(player: Player, type: string, value: string | undefined): void {
   try {
     player.triggerEvent(`r4isen1920_originspe:${type}_type.${value}`);
@@ -240,12 +170,6 @@ function loadPlayerEffects(player: Player, type: string, value: string | undefin
 }
 
 
-/**
- * 
- * @param path 
- * @param errMsg 
- * @returns 
- */
 export async function importOriginsModule(path: string, errMsg: string): Promise<object | null> {
   try {
     return await import(path);
@@ -257,12 +181,6 @@ export async function importOriginsModule(path: string, errMsg: string): Promise
 }
 
 
-/**
- * 
- * Reset the player's attributes
- * 
- * @param player 
- */
 export function resetPlayerAttributes(player: Player): void {
 
   const events = [
@@ -291,22 +209,11 @@ export function resetPlayerAttributes(player: Player): void {
 
 }
 
-/**
- * 
- * Runs a function with an interval
- * for all players in the world
- * 
- * @param func 
- * The function to run
- * @param interval 
- * The interval to run the function at
- * @param timeout 
- * The timeout before the function runs
- */
+
 export function toAllPlayers(func: (player: Player) => void, interval: number = 1, timeout: number = interval): void {
   system.runTimeout(() => {
-    system.runInterval(() => { // TODO: cache intervals in buckets depending on specified interval
-      const players = world.getAllPlayers(); // TODO: cache player list
+    system.runInterval(() => { 
+      const players = world.getAllPlayers(); 
       for (const player of players) {
         if (!player.isValid) continue;
         func(player);
@@ -331,11 +238,6 @@ world.afterEvents.entityDie.subscribe((event) => {
   }, 1);
 })
 
-/**
- * 
- * Intercept requests for player-specific
- * events
- */
 system.afterEvents.scriptEventReceive.subscribe(event => {
 
   const { id, message, sourceEntity } = event;
