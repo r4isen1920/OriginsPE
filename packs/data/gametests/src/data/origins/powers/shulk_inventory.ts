@@ -1,10 +1,9 @@
 //shulk_inventory.ts
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/vec3";
+import { Vector3 } from "../../../utils/Vec3";
 import { removeTags } from "../../../utils/tags";
-import { system, world } from "@minecraft/server";
+import { system, world, Player } from "@minecraft/server";
 
-import type { Player } from "@minecraft/server";
 
 function shulk_inventory(player: Player): void {
   if (!player.hasTag("power_shulk_inventory")) return;

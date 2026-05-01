@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const shulk: Origin = {
   powers: [
@@ -11,4 +11,4 @@ export const shulk: Origin = {
   controls: [
     'shulk_inventory'
   ]
-}
+};
