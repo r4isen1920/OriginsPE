@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const feline: Origin = {
   powers: [
@@ -9,4 +9,4 @@ export const feline: Origin = {
     'nine_lives',
     'weak_arms',
   ]
-}
+};

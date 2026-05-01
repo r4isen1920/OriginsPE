@@ -1,5 +1,15 @@
-import { Player } from "@minecraft/server";
+import { EntityDamageCause, world } from "@minecraft/server";
 
-function fall_immunity(player: Player) {
-  return true;
-}
+world.beforeEvents.entityHurt.subscribe((event) => {
+  const { damageSource, hurtEntity } = event;
+
+  if (
+    hurtEntity.typeId !== "minecraft:player" ||
+    !hurtEntity.hasTag("power_fall_immunity") ||
+    damageSource.cause !== EntityDamageCause.fall
+  ) {
+    return;
+  }
+
+  event.cancel = true;
+});
