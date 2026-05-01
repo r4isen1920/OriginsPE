@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const inchling: Origin = {
   powers: [
@@ -10,4 +10,4 @@ export const inchling: Origin = {
   effects: {
     'model': 'tiny'
   }
-}
+};

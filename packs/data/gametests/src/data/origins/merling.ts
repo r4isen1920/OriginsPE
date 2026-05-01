@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const merling: Origin = {
   powers: [
@@ -11,4 +11,4 @@ export const merling: Origin = {
     'fluid_motion',
     'water_bottle_increase_bubble',
   ]
-}
+};

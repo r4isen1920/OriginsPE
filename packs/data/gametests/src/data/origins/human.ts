@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const human: Origin = {
   powers: [],
@@ -8,4 +8,4 @@ export const human: Origin = {
     'skin': 'normal',
     'emitter': 'none'
   }
-}
+};

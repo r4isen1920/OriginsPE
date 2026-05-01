@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const rootkin: Origin = {
   powers: [
@@ -8,4 +8,4 @@ export const rootkin: Origin = {
       'barehanded'
   ],
   controls: []
-}
+};

@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const phantom: Origin  = {
   powers: [
@@ -14,4 +14,4 @@ export const phantom: Origin  = {
   effects: {
     'skin': 'ghostly'
   }
-}
+};

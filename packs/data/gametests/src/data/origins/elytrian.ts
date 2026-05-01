@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const elytrian: Origin = {
   powers: [
@@ -12,4 +12,4 @@ export const elytrian: Origin = {
   controls: [
     'launch_into_air'
   ]
-}
+};

@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const starborne: Origin = {
   powers: [
@@ -17,3 +17,4 @@ export const starborne: Origin = {
     'emitter': 'starborne'
   }
 }
+;

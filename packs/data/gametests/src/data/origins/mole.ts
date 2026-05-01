@@ -1,8 +1,8 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const mole: Origin = {
   powers: [
-	 "vegetarian",
+    "vegetarian",
     "claustrophile",
     "burrow_sense",
     "claw_digging",
@@ -19,4 +19,4 @@ export const mole: Origin = {
   effects: {
     'model': 'small'
   }
-}
+};

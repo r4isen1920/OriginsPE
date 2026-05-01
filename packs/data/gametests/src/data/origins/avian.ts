@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const avian: Origin = {
   powers: [
@@ -7,4 +7,4 @@ export const avian: Origin = {
     'vegetarian',
     'fresh_air',
   ]
-}
+};

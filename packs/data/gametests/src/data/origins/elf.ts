@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const elf: Origin = {
   powers: [
@@ -11,4 +11,4 @@ export const elf: Origin = {
   effects: {
     emitter: 'elven'
   }
-}
+};

@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const arachnid: Origin = {
   powers: [
@@ -8,4 +8,4 @@ export const arachnid: Origin = {
     'carnivore',
     'fragile',
   ]
-}
+};

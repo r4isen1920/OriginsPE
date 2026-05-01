@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const piglin: Origin = {
   powers: [
@@ -9,4 +9,4 @@ export const piglin: Origin = {
     'nether_spawn',
     'heavy_pockets'
   ]
-}
+};

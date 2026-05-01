@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const enderian: Origin = {
   powers: [
@@ -13,4 +13,4 @@ export const enderian: Origin = {
   effects: {
     'emitter': 'enderian'
   }
-}
+};

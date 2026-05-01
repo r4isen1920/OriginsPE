@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const slimecican: Origin = {
   powers: [
@@ -11,4 +11,4 @@ export const slimecican: Origin = {
   effects: {
     'skin': 'slimy'
   }
-}
+};

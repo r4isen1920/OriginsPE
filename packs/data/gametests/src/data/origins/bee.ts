@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const bee: Origin = {
   powers: [
@@ -9,4 +9,4 @@ export const bee: Origin = {
     'nighttime',
     'lifespan',
   ]
-}
+};

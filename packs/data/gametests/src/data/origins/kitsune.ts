@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const kitsune: Origin = {
   powers: [
@@ -13,4 +13,4 @@ export const kitsune: Origin = {
   controls: [
     'pounce-hold'
   ]
-}
+};

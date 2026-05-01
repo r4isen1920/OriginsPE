@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const blazeborn: Origin = {
   powers: [
@@ -8,4 +8,4 @@ export const blazeborn: Origin = {
     'nether_spawn',
     'water_vulnerability'
   ]
-}
+};

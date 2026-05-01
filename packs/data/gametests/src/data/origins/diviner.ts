@@ -1,4 +1,4 @@
-import { Origin } from './types'
+import { Origin } from './types';
 
 export const diviner: Origin = {
   powers: [
@@ -15,4 +15,4 @@ export const diviner: Origin = {
   effects: {
     'emitter': 'diviner'
   }
-}
+};
