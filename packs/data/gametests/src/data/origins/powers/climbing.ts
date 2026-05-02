@@ -1,7 +1,7 @@
 
 import { toAllPlayers } from "../../../origins/player";
 import { Vector3 } from "../../../utils/Vec3";
-import { Player } from "@minecraft/server";
+import { Player, world, EntityDamageCause } from "@minecraft/server";
 
 
 function climbing(player: Player) {
@@ -37,9 +37,23 @@ function climbing(player: Player) {
     return;
   }
 
-  player.applyKnockback({ x: 0, z: 0 }, 0);
+  player.applyImpulse(new Vector3(0, 0.15, 0));
   player.addTag('_climbing');
 
 }
 
 toAllPlayers(climbing, 1);
+
+world.beforeEvents.entityHurt.subscribe((event) => {
+  const { damageSource, hurtEntity } = event;
+
+  if (
+    hurtEntity.typeId !== "minecraft:player" ||
+    !hurtEntity.hasTag("_climbing") ||
+    damageSource.cause !== EntityDamageCause.fall
+  ) {
+    return;
+  }
+
+  event.damage = event.damage * 0.25;
+});
