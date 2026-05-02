@@ -18,10 +18,7 @@ interface CountedItem {
   amount: number;
 }
 
-export function findItems(
-  entity: Entity,
-  item: string = "all",
-): InventoryItem[] | false {
+function snapshotInventory(entity: Entity): InventoryItem[] | false {
   const inventory = entity.getComponent("inventory") as
     | EntityInventoryComponent
     | undefined;
@@ -29,39 +26,33 @@ export function findItems(
 
   const container = inventory.container as Container;
   const size = container.size;
-
-  const results: InventoryItem[] = [];
+  const snapshot: InventoryItem[] = [];
 
   for (let i = 0; i < size; i++) {
-    const itemStack = container.getItem(i);
-
-    if (item === "all") {
-      results.push({ item: itemStack, slot: i });
-    } else if (itemStack?.typeId.includes(item)) {
-      results.push({ item: itemStack, slot: i });
-    }
+    snapshot.push({ item: container.getItem(i), slot: i });
   }
 
-  return results;
+  return snapshot;
+}
+
+export function findItems(
+  entity: Entity,
+  item: string = "all",
+): InventoryItem[] | false {
+  const snapshot = snapshotInventory(entity);
+  if (!snapshot) return false;
+
+  if (item === "all") return snapshot;
+
+  const results = snapshot.filter((x) => x.item?.typeId.includes(item));
+  return results.length > 0 ? results : false;
 }
 
 export function findItem(entity: Entity, item: string): InventoryItem | false {
-  const inventory = entity.getComponent("inventory") as
-    | EntityInventoryComponent
-    | undefined;
-  if (!inventory) return false;
+  const snapshot = snapshotInventory(entity);
+  if (!snapshot) return false;
 
-  const container = inventory.container as Container;
-  const size = container.size; // ✅ Cached
-
-  for (let i = 0; i < size; i++) {
-    const itemStack = container.getItem(i);
-    if (itemStack?.typeId.includes(item)) {
-      return { item: itemStack, slot: i };
-    }
-  }
-
-  return false;
+  return snapshot.find((x) => x.item?.typeId.includes(item)) ?? false;
 }
 
 export function findItemsWithLore(
@@ -72,8 +63,6 @@ export function findItemsWithLore(
   const items = findItems(entity, item);
   if (!items) return false;
 
-  const loreSet = new Set(lore);
-
   const results = items.filter((x) =>
     x.item?.getLore().some((y) => lore.some((z) => y.includes(z))),
   );
@@ -82,33 +71,18 @@ export function findItemsWithLore(
 }
 
 export function searchItemId(entity: Entity, itemKey: string): boolean {
-  const inventory = entity.getComponent("inventory") as
-    | EntityInventoryComponent
-    | undefined;
-  if (!inventory) return false;
+  const snapshot = snapshotInventory(entity);
+  if (!snapshot) return false;
 
-  const container = inventory.container as Container;
-  const size = container.size;
-
-  for (let i = 0; i < size; i++) {
-    const itemStack = container.getItem(i);
-    if (itemStack?.typeId.includes(itemKey)) return true;
-  }
-
-  return false;
+  return snapshot.some((x) => x.item?.typeId.includes(itemKey));
 }
 
 export function getItemsCountInInventory(player: Player): CountedItem[] {
-  const inventory = player.getComponent(
-    "inventory",
-  ) as EntityInventoryComponent;
-  const container = inventory.container as Container;
-  const size = container.size;
+  const snapshot = snapshotInventory(player);
+  if (!snapshot) return [];
 
   const results: CountedItem[] = [];
-
-  for (let i = 0; i < size; i++) {
-    const item = container.getItem(i);
+  for (const { item } of snapshot) {
     if (item) results.push({ typeId: item.typeId, amount: item.amount });
   }
 
