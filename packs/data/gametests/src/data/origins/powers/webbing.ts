@@ -17,8 +17,9 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
     .setPermutation(BlockPermutation.resolve("minecraft:web"));
 
   hitEntity.dimension.spawnEntity(
-    "r4isen1920_originspe:webbing_attack<r4isen1920_originspe:start_webbing_control>",
+    "r4isen1920_originspe:webbing_attack",
     hitEntity.location,
+    { spawnEvent: "r4isen1920_originspe:start_webbing_control" },
   );
 
   new ResourceBar(1, 0, 100, 13).push(damagingEntity as Player);
