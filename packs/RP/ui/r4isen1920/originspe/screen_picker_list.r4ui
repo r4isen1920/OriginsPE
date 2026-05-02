@@ -35,7 +35,8 @@
       },
       {
         "race_arachnid@origin_common.origin_picker_window_template": {
-          "$being_icon_texture": 1966080,
+          "$being_icon_texture": "texture_path",
+          "$being_icon_texture_path": "textures/origins/hud/controls/webbing",
           "$being_name_text": "origins.race.arachnid.name",
           "$being_difficulty": "easy",
           "$being_description": "origins.race.arachnid.description",
