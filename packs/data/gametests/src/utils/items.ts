@@ -8,144 +8,113 @@ import {
   EntityEquippableComponent,
 } from "@minecraft/server";
 
-/** Represents an item found in an inventory slot */
 interface InventoryItem {
   item: ItemStack | undefined;
   slot: number;
 }
 
-/** Represents a counted item in inventory */
 interface CountedItem {
   typeId: string;
   amount: number;
 }
 
-/**
- *
- * @author
- * r4isen1920
- *
- * @remarks
- * Returns all items found within
- * the entity's inventory in an
- * array, optionally filtered by item type
- * otherwise returns all items
- */
 export function findItems(
   entity: Entity,
   item: string = "all",
 ): InventoryItem[] | false {
-  const _A: InventoryItem[] = [];
-
   const inventory = entity.getComponent("inventory") as
     | EntityInventoryComponent
     | undefined;
   if (!inventory) return false;
 
-  const inventoryContainer = inventory.container as Container;
+  const container = inventory.container as Container;
+  const size = container.size;
 
-  for (let i = 0; i < inventoryContainer.size; i++) {
-    const itemStack = inventoryContainer.getItem(i);
-    if (item === "all") _A.push({ item: itemStack, slot: i });
-    else if (itemStack?.typeId.includes(item)) {
-      _A.push({ item: itemStack, slot: i });
+  const results: InventoryItem[] = [];
+
+  for (let i = 0; i < size; i++) {
+    const itemStack = container.getItem(i);
+
+    if (item === "all") {
+      results.push({ item: itemStack, slot: i });
+    } else if (itemStack?.typeId.includes(item)) {
+      results.push({ item: itemStack, slot: i });
     }
   }
 
-  return _A;
+  return results;
 }
 
-/**
- *
- * @author
- * r4isen1920
- *
- * @remarks
- * Returns the specified item
- * if found within the entity's inventory,
- * otherwise return false
- */
 export function findItem(entity: Entity, item: string): InventoryItem | false {
-  const items = findItems(entity, item);
-  if (items === false) return false;
-  return items[0] || false;
+  const inventory = entity.getComponent("inventory") as
+    | EntityInventoryComponent
+    | undefined;
+  if (!inventory) return false;
+
+  const container = inventory.container as Container;
+  const size = container.size; // ✅ Cached
+
+  for (let i = 0; i < size; i++) {
+    const itemStack = container.getItem(i);
+    if (itemStack?.typeId.includes(item)) {
+      return { item: itemStack, slot: i };
+    }
+  }
+
+  return false;
 }
 
-/**
- *
- * @author
- * r4isen1920
- *
- * @remarks
- * Returns the specified items
- * if found within the entity's inventory
- * with the specified lore, otherwise
- * return false
- */
 export function findItemsWithLore(
   entity: Entity,
   item: string,
   lore: string[],
 ): InventoryItem[] | false {
   const items = findItems(entity, item);
-  if (items === false) return false;
+  if (!items) return false;
 
-  const _A = items.filter((x) =>
+  const loreSet = new Set(lore);
+
+  const results = items.filter((x) =>
     x.item?.getLore().some((y) => lore.some((z) => y.includes(z))),
   );
-  return _A.length > 0 ? _A : false;
+
+  return results.length > 0 ? results : false;
 }
 
-/**
- *
- * @author
- * r4isen1920
- *
- * @remarks
- * Returns true if the specified rough
- * item name keyword is found within
- * the entity's inventory
- */
 export function searchItemId(entity: Entity, itemKey: string): boolean {
-  const items = findItems(entity, itemKey);
-  if (items === false) return false;
-  return items.length > 0;
+  const inventory = entity.getComponent("inventory") as
+    | EntityInventoryComponent
+    | undefined;
+  if (!inventory) return false;
+
+  const container = inventory.container as Container;
+  const size = container.size;
+
+  for (let i = 0; i < size; i++) {
+    const itemStack = container.getItem(i);
+    if (itemStack?.typeId.includes(itemKey)) return true;
+  }
+
+  return false;
 }
 
-/**
- *
- * @author
- * r4isen1920
- *
- * @remarks
- * Returns an array of all items
- * in the player's inventory that
- * is enumerable in nature with
- * their typeId and amount
- */
 export function getItemsCountInInventory(player: Player): CountedItem[] {
   const inventory = player.getComponent(
     "inventory",
   ) as EntityInventoryComponent;
   const container = inventory.container as Container;
+  const size = container.size;
 
-  return Array.from({ length: container.size }, (_, i) => {
+  const results: CountedItem[] = [];
+
+  for (let i = 0; i < size; i++) {
     const item = container.getItem(i);
-    return item ? { typeId: item.typeId, amount: item.amount } : null;
-  }).filter((item): item is CountedItem => item !== null);
+    if (item) results.push({ typeId: item.typeId, amount: item.amount });
+  }
+
+  return results;
 }
 
-/**
- *
- * @author
- * r4isen1920
- *
- * @remarks
- * Returns an array of all items
- * in the player's equipment with
- * the provided slot, returns all
- * slots otherwise.
- */
 export function getEquipment(
   player: Player,
   slot: EquipmentSlot | "all" = "all",
@@ -153,25 +122,18 @@ export function getEquipment(
   const equipment = player.getComponent(
     "equippable",
   ) as EntityEquippableComponent;
+  const air = () => new ItemStack("minecraft:air");
 
-  let _A: ItemStack | ItemStack[];
+  if (slot !== "all") {
+    return equipment.getEquipment(slot) ?? air();
+  }
 
-  if (slot === "all") {
-    _A = [
-      equipment.getEquipment(EquipmentSlot.Head) ||
-        new ItemStack("minecraft:air"),
-      equipment.getEquipment(EquipmentSlot.Chest) ||
-        new ItemStack("minecraft:air"),
-      equipment.getEquipment(EquipmentSlot.Legs) ||
-        new ItemStack("minecraft:air"),
-      equipment.getEquipment(EquipmentSlot.Feet) ||
-        new ItemStack("minecraft:air"),
-      equipment.getEquipment(EquipmentSlot.Mainhand) ||
-        new ItemStack("minecraft:air"),
-      equipment.getEquipment(EquipmentSlot.Offhand) ||
-        new ItemStack("minecraft:air"),
-    ];
-  } else _A = equipment.getEquipment(slot) || new ItemStack("minecraft:air");
-
-  return _A;
+  return [
+    EquipmentSlot.Head,
+    EquipmentSlot.Chest,
+    EquipmentSlot.Legs,
+    EquipmentSlot.Feet,
+    EquipmentSlot.Mainhand,
+    EquipmentSlot.Offhand,
+  ].map((s) => equipment.getEquipment(s) ?? air());
 }
