@@ -1,5 +1,12 @@
 import { world, system, TicksPerSecond } from "@minecraft/server";
 
+/**
+ * 
+ * Gives the player a chance to get extra drops from fully grown crops they break,
+ * but only if they have the "perk_more_crop_drops" tag
+ * 
+ */
+
 const cropTypes = ["wheat", "beetroot", "carrots", "potatoes"] as const;
 
 system.runTimeout(() => {

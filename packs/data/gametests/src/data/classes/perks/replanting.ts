@@ -10,6 +10,13 @@ import {
 import { Vector3 } from "../../../utils/Vec3";
 import { logBlocks } from "./tree_felling";
 
+/**
+ * 
+ * Automatically replants saplings when the player breaks logs, 
+ * but only if they have the "perk_replanting" tag
+ * 
+ */
+
 const saplingBlocks: Record<string, string> = {
   acacia_log: "acacia_sapling",
   birch_log: "birch_sapling",

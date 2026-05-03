@@ -3,6 +3,15 @@ import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 
+/**
+ * 
+ * Grants nearby tamed animals a health boost when the player has the
+ * "perk_tamed_animal_boost" tag, with the boost amount based on the
+ * animal's default health, simulating a bond between the player and their
+ * pets that makes them stronger in combat
+ * 
+ */
+
 function tamed_animal_boost(player: Player): void {
   if (!player.hasTag("perk_tamed_animal_boost")) return;
 

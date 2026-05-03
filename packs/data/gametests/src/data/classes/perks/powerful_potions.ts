@@ -3,6 +3,14 @@ import { TicksPerSecond, type Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { main } from "./longer_potions";
 
+/**
+ *
+ * Makes the player's potions more powerful by increasing 
+ * their amplifier level, but only if they have the 
+ * "perk_powerful_potions" tag
+ *
+ */
+
 export interface PotionEffect {
   name: string;
   duration: number;

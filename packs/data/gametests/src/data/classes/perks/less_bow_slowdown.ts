@@ -3,6 +3,13 @@ import { EquipmentSlot, TicksPerSecond, type ItemStack, type Player } from "@min
 import { toAllPlayers } from "../../../origins/player";
 import { getEquipment } from "../../../utils/items";
 
+/**
+ * 
+ * Gives the player a speed boost when using a bow to 
+ * reduce the slowdown effect
+ * 
+ */
+
 
 function less_bow_slowdown(player: Player) {
   if (!player.hasTag("perk_less_bow_slowdown")) return;
