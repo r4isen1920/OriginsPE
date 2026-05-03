@@ -4,4 +4,4 @@ export const rancher = {
     'twin_breeding',
     'more_animal_loot'
   ]
-}
+};

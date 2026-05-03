@@ -4,4 +4,4 @@ export const merchant = {
     'cheaper_trades',
     'wandering_trader_spawn'
   ]
-}
+};

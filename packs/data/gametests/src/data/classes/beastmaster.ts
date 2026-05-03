@@ -4,4 +4,4 @@ export const beastmaster = {
     'tamed_animal_boost',
     'effective_empathy'
   ]
-}
+};
