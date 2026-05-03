@@ -1,4 +1,4 @@
-import { world, system, TicksPerSecond, Dimension } from "@minecraft/server";
+import { world, system, TicksPerSecond } from "@minecraft/server";
 
 system.runTimeout(() => {
   world.afterEvents.entityDie.subscribe((event) => {

@@ -13,7 +13,8 @@ const items = [
 
 /**
  *
- * 
+ * make stews better by giving them a regeneration effect
+ * and a different name/lore
  * 
  */
 

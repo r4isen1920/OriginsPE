@@ -1,5 +1,4 @@
-import { world, system, TicksPerSecond, Dimension, Player } from "@minecraft/server";
-import { toAllPlayers } from "../../../origins/player";
+import { world, system, TicksPerSecond } from "@minecraft/server";
 
 const cropTypes = ["wheat", "beetroot", "carrots", "potatoes"] as const;
 

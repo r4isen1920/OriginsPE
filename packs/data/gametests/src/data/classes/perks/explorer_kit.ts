@@ -2,11 +2,7 @@ import { ItemStack, type Container, type Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 
-/**
- *
- * @param { import('@minecraft/server').Player } player
- * @returns
- */
+
 function explorer_kit(player: Player) {
   if (!player.hasTag("perk_explorer_kit") || player.hasTag("explorer_kit_given")) return;
 
