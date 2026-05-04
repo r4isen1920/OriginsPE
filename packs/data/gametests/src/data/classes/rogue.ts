@@ -4,4 +4,4 @@ export const rogue = {
     'sneaky',
     'stealth'
   ]
-}
+};

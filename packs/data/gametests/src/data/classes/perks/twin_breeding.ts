@@ -1,6 +1,14 @@
 //twin_breeding.ts
 import { world, system, TicksPerSecond } from "@minecraft/server";
 
+/**
+ * 
+ * Gives animals a chance to produce twins when they breed if the player
+ * has the "perk_twin_breeding" tag and is nearby, simulating a genetic trait
+ * that increases the likelihood of multiple births in the player's animals
+ * 
+ */
+
 system.runTimeout(() => {
   world.afterEvents.dataDrivenEntityTrigger.subscribe((event) => {
     const { entity, eventId } = event;

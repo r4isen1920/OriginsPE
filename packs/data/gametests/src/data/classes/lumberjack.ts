@@ -4,4 +4,4 @@ export const lumberjack = {
     'tree_felling',
     'replanting'
   ]
-}
+};

@@ -3,6 +3,13 @@ import { EquipmentSlot, TicksPerSecond, type ItemStack, type Player } from "@min
 import { toAllPlayers } from "../../../origins/player";
 import { getEquipment } from "../../../utils/items";
 
+/**
+ * 
+ * Gives the player a resistance boost when using a shield to 
+ * reduce the slowdown effect
+ * 
+ */
+
 
 function less_shield_slowdown(player: Player) {
   if (!player.hasTag("perk_less_shield_slowdown")) return;

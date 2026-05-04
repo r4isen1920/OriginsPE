@@ -13,6 +13,12 @@ import {
 import { toAllPlayers } from "../../../origins/player";
 import { getEquipment } from "../../../utils/items";
 
+/**
+ * 
+ * Allows the player to mine connected ore blocks in a vein
+ * 
+ */
+
 const oreBlocks: string[] = [
   "ancient_debris",
   "coal_ore",

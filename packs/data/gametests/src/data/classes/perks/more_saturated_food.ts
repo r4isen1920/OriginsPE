@@ -4,6 +4,14 @@ import { ItemStack, Player, system, TicksPerSecond, world } from "@minecraft/ser
 import { toAllPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
 
+/**
+ * 
+ * Makes certain food items more saturated by replacing them with custom 
+ * items that have the same properties but give more saturation when 
+ * eaten, but only if the player has the "perk_more_saturated_food" tag
+ * 
+ */
+
 const items = [
 
   'r4isen1920_originspe:temp_baked_potato',

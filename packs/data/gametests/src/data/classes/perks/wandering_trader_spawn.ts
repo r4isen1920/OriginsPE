@@ -4,6 +4,15 @@ import { TicksPerSecond, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { Vector3 } from "../../../utils/Vec3";
 
+/**
+ * 
+ * Spawns a wandering trader near the player when they have the
+ * "perk_wandering_trader_spawn" tag, but only if there isn't already
+ * a wandering trader nearby, simulating a magical connection that attracts
+ * wandering traders to the player
+ * 
+ */
+
 function wandering_trader_spawn(player: Player): void {
   if (!player.hasTag("perk_wandering_trader_spawn")) return;
 

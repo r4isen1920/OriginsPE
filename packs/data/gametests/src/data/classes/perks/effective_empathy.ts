@@ -1,5 +1,13 @@
 import { world, system, TicksPerSecond } from "@minecraft/server";
 
+/**
+ * 
+ * Gives nearby tamed animals the same potion effects as the player,
+ * but only if the player has certain potion effects and the nearby
+ * animals have the "perk_tamed_animal_boost" tag
+ * 
+ */
+
 const potionEffects = [
   "fire_resistance",
   "invisibility",

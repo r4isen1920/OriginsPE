@@ -1,4 +1,11 @@
-import { world, system, TicksPerSecond, Dimension } from "@minecraft/server";
+import { world, system, TicksPerSecond } from "@minecraft/server";
+
+/**
+ * 
+ * Gives the player a chance to get extra loot from animals they kill,
+ * but only if they have the "perk_more_animal_loot" tag
+ * 
+ */
 
 system.runTimeout(() => {
   world.afterEvents.entityDie.subscribe((event) => {

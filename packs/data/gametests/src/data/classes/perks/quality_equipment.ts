@@ -14,6 +14,15 @@ import {
 import { toAllPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
 
+/**
+ * 
+ * Upgrades certain equipment items to higher quality versions 
+ * by replacing them with custom items that have the same properties 
+ * but better durability and/or additional effects, but only 
+ * if the player has the "perk_quality_equipment" tag
+ * 
+ */
+
 const is_blacksmith_class_item = "r4isen1920_originspe:blacksmith_";
 const is_quality_set_property = "is_quality_set";
 

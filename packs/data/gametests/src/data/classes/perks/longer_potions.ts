@@ -4,6 +4,15 @@ import { toAllPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
 import * as powerful_potions from "./powerful_potions";
 
+/**
+ *
+ * Makes potions last longer and have better effects by replacing 
+ * them with custom potions that have the same effects but with 
+ * longer durations and higher amplifiers, as well as a different 
+ * name/lore to indicate that they are enhanced
+ * 
+ */
+
 export interface PotionEffect {
   name: string;
   duration: number;

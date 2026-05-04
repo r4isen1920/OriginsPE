@@ -1,5 +1,12 @@
 import { world, system, TicksPerSecond, BlockPermutation } from "@minecraft/server";
 
+/**
+ * 
+ * Gives crops a chance to grow faster when planted, 
+ * but only if the player has the "perk_fast_crop_growth" tag
+ * 
+ */
+
 const cropTypes = [
   "wheat",
   "beetroot",

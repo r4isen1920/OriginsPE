@@ -24,6 +24,19 @@ import { voidwalker } from './origins/voidwalker';
 
 // Class Registry
 import { archer } from './classes/archer';
+import { beastmaster } from './classes/beastmaster';
+import { blacksmith } from './classes/blacksmith';
+import { cleric } from './classes/cleric';
+import { cook } from './classes/cook';
+import { explorer } from './classes/explorer';
+import { farmer } from './classes/farmer';
+import { lumberjack } from './classes/lumberjack';
+import { merchant } from './classes/merchant';
+import { miner } from './classes/miner';
+import { nitwit } from './classes/nitwit';
+import { rancher } from './classes/rancher';
+import { rogue } from './classes/rogue';
+import { warrior } from './classes/warrior';
 
 export const ORIGIN_REGISTRY: Record<string, any> = {
 	elf, arachnid, avian, bee, blazeborn, diviner, elytrian, 
@@ -33,5 +46,7 @@ export const ORIGIN_REGISTRY: Record<string, any> = {
 };
 
 export const CLASS_REGISTRY: Record<string, any> = {
-	archer
+	archer, beastmaster, blacksmith, cleric, cook, explorer,
+	farmer, lumberjack, merchant, miner, nitwit, rancher, rogue, 
+	warrior
 };

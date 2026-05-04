@@ -3,6 +3,13 @@ import { TicksPerSecond, type EntityHealthComponent, type Player } from "@minecr
 import { toAllPlayers } from "../../../origins/player";
 
 
+/**
+ * 
+ * Gives the player a strength boost when their health is low,
+ * but only if they have the "perk_less_health_more_attack" tag
+ * 
+ */
+
 function less_health_more_attack(player: Player) {
   if (!player.hasTag("perk_less_health_more_attack")) return;
 

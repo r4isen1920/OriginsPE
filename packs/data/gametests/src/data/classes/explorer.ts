@@ -4,4 +4,4 @@ export const explorer = {
     'no_sprint_exhaustion',
     'explorer_kit'
   ]
-}
+};

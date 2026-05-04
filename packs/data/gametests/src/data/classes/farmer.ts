@@ -4,4 +4,4 @@ export const farmer = {
     'fast_crop_growth',
     'more_crop_drops'
   ]
-}
+};

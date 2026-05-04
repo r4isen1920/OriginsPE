@@ -11,6 +11,13 @@ import {
 import { directions } from "./ore_vein_miner";
 import { getEquipment } from "../../../utils/items";
 
+/**
+ * 
+ * Allows the player to fell entire trees by breaking one log block, 
+ * but only if they have the "perk_tree_felling" tag and are using an axe
+ * 
+ */
+
 export const logBlocks: string[] = [
   "acacia_log",
   "birch_log",
