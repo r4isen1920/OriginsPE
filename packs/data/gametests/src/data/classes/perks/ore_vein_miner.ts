@@ -1,4 +1,3 @@
-//ore_vein_miner.ts
 import {
   world,
   system,
@@ -7,17 +6,9 @@ import {
   GameMode,
   BlockPermutation,
   type ItemStack,
-  type Player,
+  Vector3,
 } from "@minecraft/server";
-
-import { toAllPlayers } from "../../../origins/player";
 import { getEquipment } from "../../../utils/items";
-
-/**
- * 
- * Allows the player to mine connected ore blocks in a vein
- * 
- */
 
 const oreBlocks: string[] = [
   "ancient_debris",
@@ -42,16 +33,25 @@ const oreBlocks: string[] = [
   "lit_redstone_ore",
 ];
 
-export const directions = [
-  "north",
-  "south",
-  "west",
-  "east",
-  "above",
-  "below",
-] as const;
+const directions = [
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
 
-type Direction = (typeof directions)[number];
+interface VeinTask {
+  location: Vector3;
+  targetBlock: string;
+  playerId: string;
+  dimensionId: string;
+  iteration: number;
+}
+
+let pendingBlocks: VeinTask[] = [];
+const MAX_BLOCKS_PER_TICK = 5;
 
 system.runTimeout(() => {
   world.afterEvents.playerBreakBlock.subscribe((event) => {
@@ -72,121 +72,77 @@ system.runTimeout(() => {
     );
     if (!oreBlock) return;
 
-    directions.forEach((direction: Direction) => {
-      const neighbor = block[direction]();
-      if (!neighbor) return;
-      const newVeinMinerEntity = player.dimension.spawnEntity(
-        "r4isen1920_originspe:vein_miner",
-        neighbor.center(),
-      );
-
-      newVeinMinerEntity.setDynamicProperty(
-        "r4isen1920_originspe:targetBlock",
-        oreBlock,
-      );
-      newVeinMinerEntity.setDynamicProperty(
-        "r4isen1920_originspe:originator",
-        player.id,
-      );
-      newVeinMinerEntity.setDynamicProperty(
-        "r4isen1920_originspe:iteration",
-        0,
-      );
+    directions.forEach((dir) => {
+      pendingBlocks.push({
+        location: {
+          x: block.x + dir.x,
+          y: block.y + dir.y,
+          z: block.z + dir.z,
+        },
+        targetBlock: `minecraft:${oreBlock}`,
+        playerId: player.id,
+        dimensionId: player.dimension.id,
+        iteration: 0,
+      });
     });
   });
 }, TicksPerSecond * 6);
 
-/**
- *
- * Ticks vein miner entities
- * throughout the world
- *
- * @param player
- */
-function ore_vein_miner(player: Player): void {
-  if (
-    !player.hasTag("perk_ore_vein_miner") &&
-    !player.hasTag("perk_tree_felling")
-  )
-    return;
+system.runInterval(() => {
+  if (pendingBlocks.length === 0) return;
 
-  player.dimension
-    .getEntities({
-      location: player.location,
-      maxDistance: 48,
-      type: "r4isen1920_originspe:vein_miner",
-    })
-    ?.forEach((veinMinerEntity) => {
-      const currentBlock = veinMinerEntity.dimension.getBlock(
-        veinMinerEntity.location,
-      );
+  const currentBatch = pendingBlocks.splice(0, MAX_BLOCKS_PER_TICK);
 
-      const iteration = veinMinerEntity.getDynamicProperty(
-        "r4isen1920_originspe:iteration",
-      ) as number;
+  for (const task of currentBatch) {
+    if (task.iteration > 27) continue;
 
-      if (iteration > 27) {
-        veinMinerEntity.remove();
-        return;
-      }
+    const dimension = world.getDimension(task.dimensionId);
+    const block = dimension.getBlock(task.location);
+    const player = world.getEntity(task.playerId);
 
-      const targetBlock = veinMinerEntity.getDynamicProperty(
-        "r4isen1920_originspe:targetBlock",
-      ) as string;
-      const originatorId = veinMinerEntity.getDynamicProperty(
-        "r4isen1920_originspe:originator",
-      ) as string;
+    if (block?.permutation.matches(task.targetBlock)) {
+      block.setPermutation(BlockPermutation.resolve("minecraft:air"));
+      dimension.spawnParticle("r4isen1920_originspe:vein_mine", {
+        x: task.location.x + 0.5,
+        y: task.location.y + 0.5,
+        z: task.location.z + 0.5,
+      });
 
-      if (currentBlock?.permutation.matches(targetBlock)) {
-        directions.forEach((direction: Direction) => {
-          const neighbor = currentBlock[direction]();
-          if (!neighbor) return;
-          const newVeinMinerEntity = player.dimension.spawnEntity(
-            "r4isen1920_originspe:vein_miner",
-            neighbor.center(),
-          );
-
-          newVeinMinerEntity.setDynamicProperty(
-            "r4isen1920_originspe:targetBlock",
-            targetBlock,
-          );
-          newVeinMinerEntity.setDynamicProperty(
-            "r4isen1920_originspe:originator",
-            originatorId,
-          );
-          newVeinMinerEntity.setDynamicProperty(
-            "r4isen1920_originspe:iteration",
-            iteration + 1,
-          );
+      directions.forEach((dir) => {
+        pendingBlocks.push({
+          location: {
+            x: task.location.x + dir.x,
+            y: task.location.y + dir.y,
+            z: task.location.z + dir.z,
+          },
+          targetBlock: task.targetBlock,
+          playerId: task.playerId,
+          dimensionId: task.dimensionId,
+          iteration: task.iteration + 1,
         });
+      });
 
-        currentBlock.setPermutation(BlockPermutation.resolve("minecraft:air"));
-        player.dimension.spawnParticle(
-          "r4isen1920_originspe:vein_mine",
-          currentBlock.center(),
-        );
-
-        //* Teleport items to originator
-        const originator = world.getEntity(originatorId);
-        currentBlock.dimension
+      if (player) {
+        dimension
           .getEntities({
-            location: currentBlock.location,
-            maxDistance: 5,
+            location: task.location,
+            maxDistance: 2,
             type: "minecraft:item",
           })
-          .forEach((itemEntity) => {
-            const itemStack = itemEntity.getComponent("item")?.itemStack;
+          .forEach((item) => {
             if (
-              itemStack?.typeId.includes(targetBlock.replace("_ore", "")) &&
-              originator
+              item
+                .getComponent("item")
+                ?.itemStack.typeId.includes(
+                  task.targetBlock
+                    .replace("minecraft:", "")
+                    .replace("_ore", ""),
+                )
             ) {
-              itemEntity.teleport(originator.location);
+              item.teleport(player.location);
             }
           });
       }
-
-      veinMinerEntity.remove();
-    });
-}
-
-toAllPlayers(ore_vein_miner, 2);
+    }
+  }
+}, 1);
