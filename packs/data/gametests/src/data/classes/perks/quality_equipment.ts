@@ -1,4 +1,3 @@
-//quality_equipment.ts
 import {
   ItemStack,
   world,
@@ -11,22 +10,12 @@ import {
   type ItemDurabilityComponent,
 } from "@minecraft/server";
 
-import { toAllPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
-
-/**
- * 
- * Upgrades certain equipment items to higher quality versions 
- * by replacing them with custom items that have the same properties 
- * but better durability and/or additional effects, but only 
- * if the player has the "perk_quality_equipment" tag
- * 
- */
 
 const is_blacksmith_class_item = "r4isen1920_originspe:blacksmith_";
 const is_quality_set_property = "is_quality_set";
 
-const templateMaterials: string[] = [
+const templateMaterials = [
   "diamond",
   "golden",
   "iron",
@@ -35,80 +24,108 @@ const templateMaterials: string[] = [
   "stone",
   "wooden",
 ];
-const templateDiggableTypes: string[] = ["axe", "hoe", "shovel", "pickaxe"];
-const templateArmorTypes: string[] = [
-  "boots",
-  "chestplate",
-  "helmet",
-  "leggings",
-];
-const templateTypes: string[] = [
+const templateDiggableTypes = ["axe", "hoe", "shovel", "pickaxe"];
+const templateArmorTypes = ["boots", "chestplate", "helmet", "leggings"];
+const templateTypes = [
   "sword",
   ...templateDiggableTypes,
   ...templateArmorTypes,
 ];
 
-const items: string[] = [
-  ...templateMaterials.flatMap((material) =>
+const itemsSet = new Set(
+  templateMaterials.flatMap((material) =>
     templateTypes.map((type) => `minecraft:${material}_${type}`),
   ),
-];
+);
 
-function quality_equipment(player: Player): void {
-  const found = findItems(player);
-  if (found === false) return;
-  const unsetItemsInInventory = found.filter(
-    (item) =>
-      item?.item?.typeId !== undefined &&
-      items.includes(item.item.typeId) &&
-      !item.item.getDynamicProperty(is_quality_set_property),
-  );
+const inventoryStateCache = new Map<string, string>();
 
-  if (unsetItemsInInventory.length === 0) return;
+function processPlayerInventory(player: Player): void {
+  if (!player.isValid) return;
 
-  for (const item of unsetItemsInInventory) {
-    if (!item.item) continue;
-    const baseTypeId = item.item.typeId.replace("minecraft:", "");
-    const newItemTypeId = player.hasTag("class_blacksmith")
-      ? `r4isen1920_originspe:blacksmith_${baseTypeId}`
-      : `minecraft:${baseTypeId}`;
-    const newItem = new ItemStack(newItemTypeId, item.item.amount);
+  const inv = player.getComponent("inventory") as
+    | EntityInventoryComponent
+    | undefined;
+  const container = inv?.container;
+  if (!container) return;
 
-    const setLore: string[] = [];
-    if (
-      templateArmorTypes.some(
-        (type) => baseTypeId.includes(type) && baseTypeId.includes("netherite"),
-      )
-    )
-      setLore.push("§r§7", "§r§9+1 Knockback Resistance§r");
-    if (player.hasTag("class_blacksmith"))
-      setLore.push("§r§6Quality Equipment§r");
-    newItem.setLore(setLore);
-
-    newItem.setDynamicProperty(is_quality_set_property, true);
-
-    const inv = player.getComponent("inventory") as
-      | EntityInventoryComponent
-      | undefined;
-    inv?.container?.setItem(item.slot, newItem);
+  let currentHash = "";
+  const size = container.size;
+  for (let i = 0; i < size; i++) {
+    const item = container.getItem(i);
+    currentHash += item ? `${item.typeId}${item.amount},` : "e,";
   }
-  if (player.hasTag("class_blacksmith"))
-    player.playSound("smithing_table.use", { volume: 0.75, pitch: 1.25 });
+
+  if (inventoryStateCache.get(player.id) === currentHash) return;
+  inventoryStateCache.set(player.id, currentHash);
+
+  const found = findItems(player);
+  if (!found) return;
+
+  for (const slotData of found) {
+    const item = slotData?.item;
+    if (!item || item.getDynamicProperty(is_quality_set_property) === true)
+      continue;
+
+    const typeId = item.typeId;
+    if (itemsSet.has(typeId)) {
+      const baseTypeId = typeId.replace("minecraft:", "");
+      const isBlacksmith = player.hasTag("class_blacksmith");
+      const newItemTypeId = isBlacksmith
+        ? `${is_blacksmith_class_item}${baseTypeId}`
+        : typeId;
+
+      const newItem = new ItemStack(newItemTypeId, item.amount);
+      const setLore: string[] = [];
+
+      if (
+        templateArmorTypes.some(
+          (type) =>
+            baseTypeId.includes(type) && baseTypeId.includes("netherite"),
+        )
+      ) {
+        setLore.push("§r§7", "§r§9+1 Knockback Resistance§r");
+      }
+
+      if (isBlacksmith) {
+        setLore.push("§r§6Quality Equipment§r");
+      }
+
+      newItem.setLore(setLore);
+      newItem.setDynamicProperty(is_quality_set_property, true);
+      container.setItem(slotData.slot, newItem);
+
+      if (isBlacksmith) {
+        player.playSound("smithing_table.use", { volume: 0.75, pitch: 1.25 });
+      }
+    }
+  }
 }
 
-toAllPlayers(quality_equipment, 15, TicksPerSecond * 15);
+let playerIndex = 0;
+system.runInterval(() => {
+  const players = world.getAllPlayers();
+  if (players.length === 0) return;
+
+  if (playerIndex >= players.length) playerIndex = 0;
+
+  processPlayerInventory(players[playerIndex]);
+  playerIndex++;
+}, 2);
+
+world.afterEvents.playerLeave.subscribe((ev) =>
+  inventoryStateCache.delete(ev.playerId),
+);
 
 system.runTimeout(() => {
   world.afterEvents.playerBreakBlock.subscribe((event) => {
     const { block, brokenBlockPermutation, itemStackBeforeBreak, player } =
       event;
-
     if (!isValidQualityEquipment(itemStackBeforeBreak)) return;
 
-    if (itemStackBeforeBreak?.typeId.includes(is_blacksmith_class_item)) {
+    if (itemStackBeforeBreak.typeId.includes(is_blacksmith_class_item)) {
       handleDurability(itemStackBeforeBreak, player);
     }
-
     spawnBreakParticles(block, brokenBlockPermutation);
   });
 }, TicksPerSecond * 11);
@@ -116,12 +133,12 @@ system.runTimeout(() => {
 function isValidQualityEquipment(
   itemStack: ItemStack | undefined,
 ): itemStack is ItemStack {
-  return (
-    !!itemStack &&
-    items.some((i) => itemStack.typeId.includes(i.replace("minecraft:", ""))) &&
-    templateDiggableTypes.some((i) => itemStack.typeId.includes(i)) &&
-    (itemStack.getLore()?.includes("§r§6Quality Equipment§r") ?? false)
-  );
+  if (!itemStack) return false;
+  const tid = itemStack.typeId;
+  const normalizedId = tid.replace(is_blacksmith_class_item, "minecraft:");
+  if (!itemsSet.has(normalizedId)) return false;
+  const lore = itemStack.getLore();
+  return lore ? lore.includes("§r§6Quality Equipment§r") : false;
 }
 
 function handleDurability(itemStack: ItemStack, player: Player): void {
@@ -129,30 +146,14 @@ function handleDurability(itemStack: ItemStack, player: Player): void {
     | ItemDurabilityComponent
     | undefined;
   if (!durability) return;
-
   const damageAmount = calculateDurabilityLoss(durability);
-
   updateInventory(itemStack, durability, player, damageAmount);
 }
 
 function calculateDurabilityLoss(durability: ItemDurabilityComponent): number {
-  const damageChance = durability.getDamageChanceRange();
-
-  const max = damageChance.max || 1;
-  const min = damageChance.min || 1;
-
-  let damageAmount = 0;
-
-  if (min === max) {
-    damageAmount = min;
-  } else {
-    const randomRoll = Math.floor(Math.random() * max) + 1;
-    if (randomRoll === min) {
-      damageAmount = min;
-    }
-  }
-
-  return damageAmount;
+  const { min = 1, max = 1 } = durability.getDamageChanceRange();
+  if (min === max) return min;
+  return Math.floor(Math.random() * max) + 1 === min ? min : 0;
 }
 
 function updateInventory(
@@ -166,34 +167,27 @@ function updateInventory(
     | undefined;
   const inventory = inv?.container;
   if (!inventory) return;
-  let itemSlot = -1;
 
   for (let i = 0; i < inventory.size; i++) {
     const currentItem = inventory.getItem(i);
-    if (currentItem && currentItem.typeId === itemStack.typeId) {
+    if (currentItem?.typeId === itemStack.typeId) {
       const currentDurability = currentItem.getComponent("durability") as
         | ItemDurabilityComponent
         | undefined;
-
-      if (currentDurability && currentDurability.damage === durability.damage) {
-        itemSlot = i;
+      if (currentDurability?.damage === durability.damage) {
+        durability.damage += Math.min(
+          damageAmount,
+          durability.maxDurability - durability.damage,
+        );
+        if (durability.damage >= durability.maxDurability) {
+          player.playSound("random.break", { volume: 1.0, pitch: 1.0 });
+          inventory.setItem(i, undefined);
+        } else {
+          inventory.setItem(i, itemStack);
+        }
         break;
       }
     }
-  }
-
-  if (itemSlot === -1) return;
-
-  durability.damage += Math.min(
-    damageAmount,
-    durability.maxDurability - durability.damage,
-  );
-
-  if (durability.damage >= durability.maxDurability) {
-    player.playSound("random.break", { volume: 1.0, pitch: 1.0 });
-    inventory.setItem(itemSlot, undefined);
-  } else {
-    inventory.setItem(itemSlot, itemStack);
   }
 }
 
@@ -214,7 +208,6 @@ function spawnBreakParticles(
   const isCropBlock = cropTypes.some((type) =>
     brokenBlockPermutation.matches(`minecraft:${type}`),
   );
-
   block.dimension.spawnParticle(
     `r4isen1920_originspe:blacksmiths_${isCropBlock ? "harvest" : "dig"}`,
     block.center(),
