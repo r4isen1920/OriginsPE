@@ -52,7 +52,7 @@ system.runTimeout(() => {
 
     directions.forEach((direction) => {
       //* Re-use the vein miner entity functionality
-      const neighbor = block[direction]();
+      const neighbor = block.offset(direction);
       if (!neighbor) return;
       const newVeinMinerEntity = player.dimension.spawnEntity(
         "r4isen1920_originspe:vein_miner",
