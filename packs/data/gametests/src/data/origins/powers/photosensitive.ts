@@ -1,6 +1,6 @@
 //photosensitive.ts
 import { world, system, Player } from "@minecraft/server";
-
+import { getCachedPlayers } from "../../../origins/player";
 
 export function photosensitive(player: Player): void {
   if (!player.hasTag("power_photosensitive")) return;
@@ -34,7 +34,7 @@ export function photosensitive(player: Player): void {
 }
 // Run check every 10 ticks
 system.runInterval(() => {
-  for (const player of world.getAllPlayers()) {
+  for (const player of getCachedPlayers()) {
     photosensitive(player);
   }
 }, 10);

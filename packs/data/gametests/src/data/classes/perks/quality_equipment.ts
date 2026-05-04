@@ -10,6 +10,7 @@ import {
   type ItemDurabilityComponent,
 } from "@minecraft/server";
 
+import { getCachedPlayers } from "../../../origins/player";
 import { findItems } from "../../../utils/items";
 
 const is_blacksmith_class_item = "r4isen1920_originspe:blacksmith_";
@@ -104,7 +105,7 @@ function processPlayerInventory(player: Player): void {
 
 let playerIndex = 0;
 system.runInterval(() => {
-  const players = world.getAllPlayers();
+  const players = getCachedPlayers();
   if (players.length === 0) return;
 
   if (playerIndex >= players.length) playerIndex = 0;

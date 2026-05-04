@@ -214,6 +214,16 @@ export function resetPlayerAttributes(player: Player): void {
   player.clearDynamicProperties();
 }
 
+let cachedPlayers: Player[] = [];
+
+system.runInterval(() => {
+  cachedPlayers = world.getAllPlayers().filter((player) => player.isValid);
+}, 1);
+
+export function getCachedPlayers() {
+  return cachedPlayers;
+}
+
 export function toAllPlayers(
   func: (player: Player) => void,
   playersPerTick = 2,
@@ -221,7 +231,7 @@ export function toAllPlayers(
   let playerIndex = 0;
 
   return system.runInterval(() => {
-    const players = world.getAllPlayers().filter((p) => p.isValid);
+    const players = getCachedPlayers();
 
     if (players.length === 0) {
       playerIndex = 0;

@@ -1,5 +1,5 @@
 import { world, system, Player } from "@minecraft/server";
-
+import { getCachedPlayers } from "../../../origins/player";
 
 export function darkvision(player: Player) {
   
@@ -28,7 +28,7 @@ export function darkvision(player: Player) {
 }
 // Add this at the end of the file
 system.runInterval(() => {
-    for (const player of world.getAllPlayers()) {
+    for (const player of getCachedPlayers()) {
         darkvision(player);
     }
 }, 10);

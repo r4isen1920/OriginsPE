@@ -1,7 +1,7 @@
 //prescience.ts
 import { world, system, TicksPerSecond, Player } from "@minecraft/server";
 
-import { toAllPlayers } from "../../../origins/player";
+import { toAllPlayers, getCachedPlayers } from "../../../origins/player";
 import { removeTags } from "../../../utils/tags";
 
 
@@ -81,8 +81,7 @@ function prescience(player: Player): void {
 toAllPlayers(prescience, 6);
 
 export function findPlayersWithSameID(id: string | number) {
-  return world
-    .getAllPlayers()
+  return getCachedPlayers()
     .filter(
       (player) =>
         player.hasTag("_under_prescience") &&
