@@ -7,6 +7,7 @@ function fragile(player: Player) {
   if (!player.hasTag('power_fragile')) return;
 
   player.triggerEvent('r4isen1920_originspe:health.14');
+  player.removeTag('power_fragile');
 
 }
 

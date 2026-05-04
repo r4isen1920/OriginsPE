@@ -210,16 +210,15 @@ export function resetPlayerAttributes(player: Player): void {
 }
 
 
-export function toAllPlayers(func: (player: Player) => void, interval: number = 1, timeout: number = interval): void {
-  system.runTimeout(() => {
-    system.runInterval(() => { 
-      const players = world.getAllPlayers(); 
-      for (const player of players) {
-        if (!player.isValid) continue;
+export function toAllPlayers(func: (player: Player) => void, interval = 1) {
+  return system.runInterval(() => {
+    const players = world.getAllPlayers();
+    for (const player of players) {
+      if (player.isValid) {
         func(player);
       }
-    }, interval)
-  }, timeout)
+    }
+  }, interval);
 }
 world.afterEvents.entityDie.subscribe((event) => {
   const player = event.deadEntity;
