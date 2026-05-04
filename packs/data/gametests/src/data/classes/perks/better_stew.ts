@@ -37,7 +37,7 @@ function better_stew(player: Player) {
 
 }
 
-toAllPlayers(better_stew, 15, TicksPerSecond * 15);
+toAllPlayers(better_stew, TicksPerSecond * 15);
 
 
 /**

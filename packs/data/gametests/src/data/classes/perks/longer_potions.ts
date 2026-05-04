@@ -113,7 +113,7 @@ export function main(player: Player, potion_filter: "_long" | "_potent", itemLis
 }
 
 const longer_potions = (player: Player): void => main(player, "_long", items);
-toAllPlayers(longer_potions, 15, TicksPerSecond * 15);
+toAllPlayers(longer_potions, TicksPerSecond * 15);
 
 /**
  *

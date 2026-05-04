@@ -26,7 +26,7 @@ export interface PotionItem {
 }
 
 const powerful_potions = (player: Player): void => main(player, "_potent", items);
-toAllPlayers(powerful_potions, 15, TicksPerSecond * 15);
+toAllPlayers(powerful_potions, TicksPerSecond * 15);
 
 /**
  *

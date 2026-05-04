@@ -47,7 +47,7 @@ function more_saturated_food(player: Player) {
 
 }
 
-toAllPlayers(more_saturated_food, 15, TicksPerSecond * 15);
+toAllPlayers(more_saturated_food, TicksPerSecond * 15);
 
 
 /**
