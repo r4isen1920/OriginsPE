@@ -3,10 +3,7 @@ import { TicksPerSecond, Player } from "@minecraft/server";
 import { toAllPlayers } from "./player";
 
 
-/**
- * 
- * @param player 
- */
+
 async function runServerWideAbilities(player: Player): Promise<void> {
   const tags = player.getTags();
   const relevantTags = tags.filter(tag => tag.startsWith('power_') || tag.startsWith('perk_'));
@@ -25,7 +22,7 @@ async function runServerWideAbilities(player: Player): Promise<void> {
     const typeToFolder = type === 'power' ? 'powers' : 'perks';
 
     try {
-      await import(`../data/${typeToPath}/${typeToFolder}/${name}.js`);
+      await import(`../data/${typeToPath}/${typeToFolder}/${name}.ts`);
     } catch (e) {
       try {
         await import(`../data/${typeToPath}/${typeToFolder}/${name}.ts`);
@@ -43,5 +40,5 @@ async function runServerWideAbilities(player: Player): Promise<void> {
  * all players
  */
 toAllPlayers(player => {
-  runServerWideAbilities(player)
-}, TicksPerSecond * 2)
+  runServerWideAbilities(player);
+}, TicksPerSecond * 2);

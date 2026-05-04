@@ -1,9 +1,9 @@
     
-import "./origins/controls.js";
-import "./origins/init.js";
-import "./origins/item.js";
-import "./origins/player.js";
-import "./origins/world.js";
+import "./origins/controls";
+import "./origins/init";
+import "./origins/item";
+import "./origins/player";
+import "./origins/world";
 
-import "./utils/math.js";
-import "./utils/string.js";
+import "./utils/Math";
+import "./utils/string";
