@@ -1,16 +1,16 @@
 import { Player, TicksPerSecond } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 
 function aqua_affinity(player: Player) {
 
-  const getBlock = function(posOffset: Vector3): import('@minecraft/server').Block | null {
-    return player.dimension.getBlock(Vector3.add(player.location, posOffset)) ?? null;
+  const getBlock = function(posOffset: Vec3): import('@minecraft/server').Block | null {
+    return player.dimension.getBlock(Vec3.from(player.location).add(posOffset)) ?? null;
   };
 
-  const headBlock = getBlock(new Vector3(0, 1, 0));
+  const headBlock = getBlock(Vec3.from(0, 1, 0));
 
   if (
     player.hasTag('power_aqua_affinity') &&

@@ -1,8 +1,8 @@
-import { TicksPerSecond, world, Player } from "@minecraft/server";
+import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 
 function hyper_leap(player: Player) {
@@ -17,8 +17,8 @@ function hyper_leap(player: Player) {
 
   if (
     player.hasTag('cooldown_21') &&
-    _SCOREBOARD('cd2').getScore(player) <= 0 &&
-    _SCOREBOARD('cd3').getScore(player) <= 0
+    (_SCOREBOARD('cd2').getScore(player) ?? 0) <= 0 &&
+    (_SCOREBOARD('cd3').getScore(player) ?? 0) <= 0
   ) {
     player.removeTag('cooldown_21');
   }
@@ -39,14 +39,15 @@ function hyper_leap(player: Player) {
 
     const viewDirection = player.getViewDirection();
     player.applyKnockback(
-      viewDirection?.x ?? 0,
-      viewDirection?.z ?? 0,
-      7,
+      {
+        x: viewDirection?.x ?? 0,
+        z: viewDirection?.z ?? 0,
+      },
       Math.min(Math.max((viewDirection?.y ?? 0) + 0.20, 0), 1.0) * 1.75
     );
 
-    player.dimension.spawnParticle('r4isen1920_originspe:star_leap_base', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
-    player.dimension.spawnParticle('r4isen1920_originspe:star_leap_stars', Vector3.add(player.location, new Vector3(0, 0.5, 0)));
+    player.dimension.spawnParticle('r4isen1920_originspe:star_leap_base', Vec3.from(player.location).add(Vec3.from(0, 0.5, 0)));
+    player.dimension.spawnParticle('r4isen1920_originspe:star_leap_stars', Vec3.from(player.location).add(Vec3.from(0, 0.5, 0)));
     player.dimension.playSound('origins.starborne.leap', player.location);
     player.dimension.playSound('origins.starborne.leap_direct', player.location);
 

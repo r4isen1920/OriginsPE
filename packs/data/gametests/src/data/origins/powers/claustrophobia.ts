@@ -1,6 +1,6 @@
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 import { Player } from "@minecraft/server";
 
 
@@ -8,7 +8,7 @@ function claustrophobia(player: Player) {
 
   if (!player.hasTag('power_claustrophobia')) return;
 
-  const block = player.dimension.getBlockFromRay(player.getHeadLocation(), new Vector3(0, 1, 0), { maxDistance: 4 })?.block;
+  const block = player.dimension.getBlockFromRay(player.getHeadLocation(), Vec3.from(0, 1, 0), { maxDistance: 4 })?.block;
 
   if (block === undefined) {
     player.setDynamicProperty(

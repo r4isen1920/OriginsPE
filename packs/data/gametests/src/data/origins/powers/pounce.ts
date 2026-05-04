@@ -3,7 +3,7 @@ import { EntityDamageCause, world, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 import { removeTags } from "../../../utils/tags";
 
 const MAX_DISTANCE = 10;
@@ -75,7 +75,7 @@ function pounce(player: Player): void {
 
     player.dimension.spawnParticle(
       "r4isen1920_originspe:air_burst",
-      Vector3.add(player.location, new Vector3(0, 0.5, 0)),
+      Vec3.from(player.location).add(Vec3.from(0, 0.5, 0)),
     );
 
     removeTags(player, "_pounce");

@@ -1,6 +1,6 @@
 //shulk_inventory.ts
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 import { removeTags } from "../../../utils/tags";
 import { system, world, Player } from "@minecraft/server";
 
@@ -57,7 +57,7 @@ function openShulkInv(player: Player): void {
   player.playSound("random.enderchestopen");
   player.dimension.spawnParticle(
     "r4isen1920_originspe:shulk_inventory",
-    Vector3.add(player.location, new Vector3(0, 1.5, 0)),
+    Vec3.from(player.location).add(Vec3.from(0, 1.5, 0)),
   );
 
   player.addTag("_shulk_inventory_open");
@@ -71,7 +71,7 @@ function closeShulkInv(player: Player): void {
   player.playSound("random.enderchestclosed");
   player.dimension.spawnParticle(
     "r4isen1920_originspe:player_inventory",
-    Vector3.add(player.location, new Vector3(0, 1.5, 0)),
+    Vec3.from(player.location).add(Vec3.from(0, 1.5, 0)),
   );
 
   removeTags(player, "_shulk_inventory");

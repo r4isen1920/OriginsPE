@@ -1,6 +1,5 @@
 import { Dimension, Entity, Player, system, world } from "@minecraft/server";
-import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 import { removeTags } from "../../../utils/tags";
 
 function master_of_webs(player: Player): void {
@@ -8,7 +7,7 @@ function master_of_webs(player: Player): void {
     yPos: number,
   ): import("@minecraft/server").Block | undefined {
     return player.dimension.getBlock(
-      Vector3.add(player.location, new Vector3(0, yPos, 0)),
+      Vec3.from(player.location).add(Vec3.from(0, yPos, 0)),
     );
   };
 

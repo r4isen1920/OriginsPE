@@ -7,7 +7,7 @@ import {
   BlockPermutation,
 } from "@minecraft/server";
 
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 import { logBlocks } from "./tree_felling";
 
 /**
@@ -44,11 +44,10 @@ system.runTimeout(() => {
 
     const viewDirection = player.getViewDirection();
     const saplingLocation = block.dimension.getBlockFromRay(
-      Vector3.add(
-        block.location,
-        new Vector3(viewDirection.x, 0, viewDirection.z),
+      Vec3.from(block.location).add(
+        Vec3.from(viewDirection.x, 0, viewDirection.z),
       ),
-      new Vector3(0, -1, 0),
+      Vec3.from(0, -1, 0),
       {
         maxDistance: 16,
         includeLiquidBlocks: false,

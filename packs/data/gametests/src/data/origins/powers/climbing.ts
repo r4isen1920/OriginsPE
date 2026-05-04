@@ -1,10 +1,10 @@
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 import { Player, world, EntityDamageCause } from "@minecraft/server";
 
 function climbing(player: Player) {
   const blockBelow = player.dimension.getBlock(
-    Vector3.add(player.location, new Vector3(0, -1, 0)),
+    Vec3.from(player.location).add(Vec3.from(0, -1, 0)),
   );
   const maxDistance = blockBelow?.isAir ? 2 : 1;
 
@@ -40,7 +40,7 @@ function climbing(player: Player) {
     return;
   }
 
-  player.applyImpulse(new Vector3(0, 0.15, 0));
+  player.applyImpulse(Vec3.from(0, 0.15, 0));
   player.addTag("_climbing");
 }
 

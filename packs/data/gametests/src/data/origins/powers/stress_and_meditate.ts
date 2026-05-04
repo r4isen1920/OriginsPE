@@ -1,7 +1,7 @@
 //stress_and_meditate.ts
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 import type { Player } from "@minecraft/server";
 
@@ -48,7 +48,7 @@ function stress_and_meditate(player: Player): void {
     );
     player.dimension.spawnParticle(
       "r4isen1920_originspe:star_supernova",
-      Vector3.add(player.location, new Vector3(0, 1, 0)),
+      Vec3.from(player.location).add(Vec3.from(0, 1, 0)),
     );
 
     player.kill();

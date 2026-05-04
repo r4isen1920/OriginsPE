@@ -3,7 +3,7 @@ import { LocationOutOfWorldBoundariesError, TicksPerSecond, Player } from "@mine
 
 import { toAllPlayers } from "../../../origins/player";
 import { ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 
 function launch_into_air(player: Player) {
@@ -15,14 +15,14 @@ function launch_into_air(player: Player) {
 
   if (!player.hasTag('cooldown_2')) {
 
-    if (!player.hasTag('_heavy')) player.applyKnockback(new Vector3(0, 0, 0), 3);
-    else player.applyKnockback(new Vector3(0, 0, 0), 1.5);
+    if (!player.hasTag('_heavy')) player.applyKnockback(new Vec3(0, 0, 0), 3);
+    else player.applyKnockback(new Vec3(0, 0, 0), 1.5);
     player.addEffect('slow_falling', TicksPerSecond * 3, { amplifier: 255, showParticles: false });
 
     player.dimension.playSound('firework.launch', player.location, { volume: 1, pitch: 1.25 });
 
     try {
-      player.dimension.spawnParticle('r4isen1920_originspe:air_burst', Vector3.add(player.location, new Vector3(0, 1, 0)));
+      player.dimension.spawnParticle('r4isen1920_originspe:air_burst', Vec3.from(player.location).add(Vec3.from(0, 1, 0)));
     } catch (e) {
       if (!(e instanceof LocationOutOfWorldBoundariesError)) throw e;
     }

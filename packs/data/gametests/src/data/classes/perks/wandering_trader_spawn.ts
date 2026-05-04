@@ -2,7 +2,7 @@
 import { TicksPerSecond, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 /**
  * 
@@ -27,11 +27,10 @@ function wandering_trader_spawn(player: Player): void {
 
   player.dimension.spawnEntity(
     "minecraft:wandering_trader",
-    Vector3.add(
-      player.location,
-      new Vector3(Math.random() * 32 - 16, 1, Math.random() * 32 - 16),
+    Vec3.from(player.location).add(
+      Vec3.from(Math.random() * 32 - 16, 1, Math.random() * 32 - 16),
     ),
   );
 }
 
-toAllPlayers(wandering_trader_spawn, 12000, TicksPerSecond * 10);
+toAllPlayers(wandering_trader_spawn, TicksPerSecond * 10);

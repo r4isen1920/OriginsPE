@@ -1,8 +1,6 @@
 import { world, system, TicksPerSecond, EntityDamageCause, Player } from "@minecraft/server";
 
-import { Vector3 } from "../../../utils/Vec3";
-
-import { toAllPlayers } from "../../../origins/player";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 system.runTimeout(() => {
 
@@ -33,7 +31,7 @@ system.runTimeout(() => {
         z: damageSource.damagingEntity.location.z + (viewDirection.z * 1.25),
       };
       damageSource.damagingEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_charge', chargeParticleLocation);
-      hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', Vector3.add(hurtEntity.location, new Vector3(0, 1, 0)));
+      hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', Vec3.from(hurtEntity.location).add(Vec3.from(0, 1, 0)));
       damageSource.damagingEntity.dimension.playSound('ender_eye.dead', hurtEntity.location);
       damageSource.damagingEntity.dimension.playSound('ender_eye.dead', damageSource.damagingEntity.location);
 

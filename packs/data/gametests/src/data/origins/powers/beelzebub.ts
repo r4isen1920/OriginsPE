@@ -3,7 +3,7 @@ import { world, system, TicksPerSecond, EntityDamageCause, Player } from "@minec
 
 import { ResourceBar } from "../../../origins/resource_bar";
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 import { life_drain } from "./life_drain";
 import { soulburst } from "./soulburst";
@@ -65,15 +65,15 @@ system.runTimeout(() => {
 
       attacker.dimension.spawnParticle(
         `r4isen1920_originspe:voidwalker_beelzebub_phase_${phase}`,
-        Vector3.add(
-          attacker.getHeadLocation(),
-          Vector3.multiply(attacker.getViewDirection(), 1.75)
+        Vec3.from(attacker.getHeadLocation()).add(
+          Vec3.from(attacker.getViewDirection()).multiply(1.75)
         )
       );
 
       // world.playSound('enchant.sweeping_edge.hit', hurtEntity.location, { volume: 0.75, pitch: 1.25 });
 
       const attackerHealth = attacker.getComponent('health');
+      if (!attackerHealth) return;
       attacker.runCommand(`damage @e[tag="_beelzebub_target_${attacker.id}",c=1] ${Math.ceil(attackerHealth.effectiveMax - attackerHealth.currentValue)}`);
 
     }

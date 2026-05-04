@@ -1,10 +1,8 @@
 //tunnel_leap.ts
-import { ItemStack } from "@minecraft/server";
+import { ItemStack, Player } from "@minecraft/server";
 import { toAllPlayers } from "../../../origins/player";
 import { _SCOREBOARD, ResourceBar } from "../../../origins/resource_bar";
-import { Vector3 } from "../../../utils/Vec3";
-
-import type { Player } from "@minecraft/server";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 function tunnel_leap(player: Player): void {
   if (
@@ -35,18 +33,18 @@ function tunnel_leap(player: Player): void {
 
     const viewDir = player.getViewDirection();
 
-    const horizontalDir = new Vector3(viewDir.x, 0, viewDir.z);
+    const horizontalDir = new Vec3(viewDir.x, 0, viewDir.z);
 
     for (let i = 0; i <= MAX_TUNNEL_DISTANCE; i++) {
-      const pos = Vector3.add(
-        player.location,
-        new Vector3(horizontalDir.x * i, 0, horizontalDir.z * i),
+      const pos = Vec3.from(
+        Vec3.from(player.location)).add(
+        new Vec3(horizontalDir.x * i, 0, horizontalDir.z * i),
       );
 
       for (let x = -tunnelWidth; x <= tunnelWidth; x++) {
         for (let y = -1; y <= tunnelHeight; y++) {
           for (let z = -tunnelWidth; z <= tunnelWidth; z++) {
-            const blockPos = Vector3.add(pos, new Vector3(x, y, z));
+            const blockPos = pos.add(new Vec3(x, y, z));
             const block = player.dimension.getBlock(blockPos);
 
             if (block) {
@@ -122,10 +120,7 @@ function tunnel_leap(player: Player): void {
 
                 block.setType("minecraft:air");
 
-                const itemLocation = Vector3.add(
-                  blockPos,
-                  new Vector3(0.5, 0.5, 0.5),
-                );
+                const itemLocation = blockPos.add(new Vec3(0.5, 0.5, 0.5));
                 player.dimension.spawnItem(
                   new ItemStack(itemToSpawn, 1),
                   itemLocation,
@@ -142,7 +137,7 @@ function tunnel_leap(player: Player): void {
       }
     }
 
-    const knockbackDir = new Vector3(
+    const knockbackDir = new Vec3(
       player.getViewDirection().x,
       0,
       player.getViewDirection().z,
@@ -155,7 +150,7 @@ function tunnel_leap(player: Player): void {
 
     player.dimension.spawnParticle(
       "minecraft:terrain_particle minecraft:dirt",
-      Vector3.add(player.location, new Vector3(0, 0.5, 0)),
+      Vec3.from(player.location).add(new Vec3(0, 0.5, 0)),
     );
     player.playSound("item.trident.riptide_1", { volume: 0.8, pitch: 1.0 });
 

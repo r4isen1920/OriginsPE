@@ -2,7 +2,7 @@
 import { EquipmentSlot, Player } from "@minecraft/server";
 
 import { toAllPlayers } from "../../../origins/player";
-import { Vector3 } from "../../../utils/Vec3";
+import { Vec3 } from "@bedrock-oss/bedrock-boost";
 
 
 function no_shield(player: Player): void {
@@ -37,6 +37,6 @@ function onShieldBroken(player: Player): void {
   player.playSound("random.break", { location: player.location });
   player.dimension.spawnParticle(
     "r4isen1920_originspe:shield_break",
-    Vector3.add(player.location, new Vector3(0, 0.5, 0)),
+    Vec3.from(player.location).add(Vec3.from(0, 0.5, 0)),
   );
 }
