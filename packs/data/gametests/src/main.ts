@@ -42,13 +42,10 @@ import { lockAllDomainRegistries } from './domain/Registries';
 import './services/DamageService';
 import { ResourceBarService } from './services/ResourceBarService';
 
-import { system } from '@minecraft/server';
-
 import { OnWorldLoad, init as initStylish } from '@bedrock-oss/stylish';
 initStylish();
 
 import { Log } from './utils/Log';
-import Meta from './Meta';
 const log = Log.get('Main');
 
 class Bootstrap {
@@ -60,5 +57,3 @@ class Bootstrap {
 	}
 }
 void Bootstrap;
-
-log.info(`OriginsPE running on build ${Meta.github.commit} (${Meta.github.tag})`);
