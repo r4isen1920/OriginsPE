@@ -83,18 +83,3 @@ export const RENDER_SB = {
 	cd3: 'cd3', cd3From: 'cd3from', cd3To: 'cd3to', cd3Duration: 'cd3duration', cd3Persist: 'cd3persist',
 } as const;
 
-
-//#region ENTITIES & ITEMS
-
-export const ENTITIES = {
-	dialogueHandler: `${NS}:dialogue_handler`,
-	inventoryKeep: `${NS}:inventory_keep`,
-} as const;
-
-export const ITEMS = {
-	orbOfOrigins: `${NS}:orb_of_origins`,
-	resignationPaper: `${NS}:resignation_paper`,
-	originsMenu: `${NS}:origins_menu`,
-	originsSubmenu: `${NS}:origins_submenu`,
-	menuPadding: `${NS}:origins_menu_padding`,
-} as const;
