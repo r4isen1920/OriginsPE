@@ -1,3 +1,5 @@
+import { OnWorldLoad } from "@bedrock-oss/stylish";
+
 /**
  * Generic immutable registry for domain singletons keyed by id.
  * Use {@link Registry.lock} after all entries are registered to freeze it.

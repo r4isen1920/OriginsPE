@@ -3,6 +3,7 @@ import { Player, ScoreboardObjective, world } from '@minecraft/server';
 import { RENDER_SB } from '../Constants';
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
+import { OnWorldLoad } from '@bedrock-oss/stylish';
 
 
 //#region TYPES
@@ -54,6 +55,7 @@ export class ResourceBarService {
 	 * Ensures every render-bridge scoreboard objective exists. Drops any
 	 * legacy objectives we no longer use. Call once at world load.
 	 */
+	@OnWorldLoad
 	static initialize(): void {
 		if (this.initialized) return;
 		this.initialized = true;

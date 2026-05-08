@@ -1,6 +1,8 @@
-import { Player, system, world } from '@minecraft/server';
+import { Player, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, system, world } from '@minecraft/server';
 
 import { Log } from '../utils/Log';
+import { AfterPlayerJoin, AfterPlayerLeave } from './DecoratedEvents';
+import { OnWorldLoad } from '@bedrock-oss/stylish';
 
 
 //#region TYPES
@@ -69,21 +71,16 @@ export class Ticker {
 	}
 
 	/** Force the cached player list to refresh next tick. */
-	static invalidatePlayers(): void {
+	@AfterPlayerJoin
+	@AfterPlayerLeave
+	static invalidatePlayers(_: PlayerJoinAfterEvent | PlayerLeaveAfterEvent): void {
 		this.playersDirty = true;
 	}
 
-	/**
-	 * Boots the underlying `system.runInterval` loop. Call once from `Main.ts`.
-	 * Safe to call multiple times; only the first call has an effect.
-	 */
+	@OnWorldLoad
 	static start(): void {
 		if (this.started) return;
 		this.started = true;
-
-		// Refresh cache when players join/leave.
-		world.afterEvents.playerJoin.subscribe(() => this.invalidatePlayers());
-		world.afterEvents.playerLeave.subscribe(() => this.invalidatePlayers());
 
 		system.runInterval(() => this.pump(), 1);
 		this.log.info('Ticker started');

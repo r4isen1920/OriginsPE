@@ -1,3 +1,4 @@
+import { OnWorldLoad } from '@bedrock-oss/stylish';
 import { Registry } from '../core/Registry';
 import { CharacterClass, Origin, Perk, Power } from './Ability';
 
@@ -47,9 +48,13 @@ export function RegisterPerk<T extends new () => Perk>(ctor: T): T {
 //#region LOCK
 
 /** Freezes every domain registry. Call once after all imports complete. */
-export function lockAllDomainRegistries(): void {
-	OriginRegistry.lock();
-	ClassRegistry.lock();
-	PowerRegistry.lock();
-	PerkRegistry.lock();
+class LockAllDomainRegistries {
+	@OnWorldLoad
+	static lockAllDomainRegistries(): void {
+		OriginRegistry.lock();
+		ClassRegistry.lock();
+		PowerRegistry.lock();
+		PerkRegistry.lock();
+	}
 }
+
