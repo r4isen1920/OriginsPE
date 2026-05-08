@@ -5,7 +5,7 @@ import {
 	Player,
 } from '@minecraft/server';
 
-import { ENTITIES, ITEMS } from '../Constants';
+import { Entities, Items } from '../Files';
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
 import { ItemUtils } from '../utils/ItemUtils';
@@ -41,7 +41,7 @@ export class InventoryService {
 		const stashInv = ItemUtils.container(stash);
 		if (!stashInv) return;
 
-		const padding = ItemUtils.lockedItem(ITEMS.menuPadding);
+		const padding = ItemUtils.lockedItem(Items.OriginsMenuPadding);
 		for (let i = 0; i < this.HOTBAR_SIZE; i++) {
 			stashInv.setItem(i, playerInv.getItem(i));
 			playerInv.setItem(i, padding);
@@ -70,7 +70,7 @@ export class InventoryService {
 
 	private static getStash(player: Player): Entity | undefined {
 		const tags = [`${this.OWNER_TAG_PREFIX}${player.id}`, '_inventory_keep_hotbar'];
-		const matches = player.dimension.getEntities({ type: ENTITIES.inventoryKeep, tags });
+		const matches = player.dimension.getEntities({ type: Entities.InventoryKeep, tags });
 		if (matches.length === 0) return undefined;
 		const e = matches[0];
 		try { e.teleport(player.location, { dimension: player.dimension }); } catch { /* ignore */ }
@@ -80,7 +80,7 @@ export class InventoryService {
 	private static getOrCreateStash(player: Player): Entity {
 		const existing = this.getStash(player);
 		if (existing) return existing;
-		const e = player.dimension.spawnEntity(ENTITIES.inventoryKeep, player.location);
+		const e = player.dimension.spawnEntity(Entities.InventoryKeep, player.location);
 		e.addTag(`${this.OWNER_TAG_PREFIX}${player.id}`);
 		e.addTag('_inventory_keep_hotbar');
 		return e;

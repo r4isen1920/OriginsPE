@@ -7,7 +7,7 @@ import {
 	ProjectileHitEntityAfterEvent,
 } from '@minecraft/server';
 
-import { AttributeSet } from '../services/AttributeService';
+import type { DEFAULT_ATTRIBUTES } from '../services/AttributeService';
 
 
 //#region SHARED TYPES
@@ -41,7 +41,7 @@ export interface Ability {
 	 * this ability is active. Multiple active abilities are merged in
 	 * registration order; later entries win for conflicting keys.
 	 */
-	readonly attributes?: Partial<AttributeSet>;
+	readonly attributes?: Partial<Record<keyof typeof DEFAULT_ATTRIBUTES, string>>;
 
 	/** Called once when the ability is granted to the player. */
 	onAcquire?(player: Player): void;

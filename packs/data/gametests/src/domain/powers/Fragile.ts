@@ -1,4 +1,3 @@
-import { AttributeSet } from '../../services/AttributeService';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
@@ -10,7 +9,7 @@ import { RegisterPower } from '../Registries';
 @RegisterPower
 export class Fragile implements Power {
 	readonly id = 'fragile';
-	readonly attributes: Partial<AttributeSet> = {
+	readonly attributes = {
 		health: '14',
-	};
+	} satisfies NonNullable<Power['attributes']>;
 }

@@ -8,7 +8,7 @@ import {
 	ModalFormResponse,
 } from '@minecraft/server-ui';
 
-import { ENTITIES } from '../Constants';
+import { Entities } from '../Files';
 import { Log } from '../utils/Log';
 import { PlayerState } from './PlayerState';
 
@@ -48,7 +48,7 @@ export class UiBridge {
 			if (!player.isValid) { system.clearRun(handle); return; }
 			try {
 				player.runCommand(
-					`dialogue open @e[type=${ENTITIES.dialogueHandler},c=1] @s ${dialogueId}`,
+					`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
 				);
 			} catch (e: any) {
 				this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
@@ -111,13 +111,13 @@ export class UiBridge {
 
 	private static ensureHandler(player: Player): void {
 		const nearby = player.dimension.getEntities({
-			type: ENTITIES.dialogueHandler,
+			type: Entities.DialogueHandler,
 			location: player.location,
 			maxDistance: 32,
 		});
 		if (nearby.length > 0) return;
 		try {
-			player.dimension.spawnEntity(ENTITIES.dialogueHandler, {
+			player.dimension.spawnEntity(Entities.DialogueHandler, {
 				x: player.location.x,
 				y: player.location.y + 1,
 				z: player.location.z,

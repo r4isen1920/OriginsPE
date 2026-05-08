@@ -5,7 +5,7 @@ import {
 	Player,
 } from '@minecraft/server';
 
-import { ITEMS } from '../Constants';
+import { Items } from '../Files';
 import {
 	AfterItemCompleteUse,
 	AfterItemStartUse,
@@ -42,7 +42,7 @@ const requireOnGround: ItemUseGate = (player) =>
 //#region BUILT-IN HANDLERS
 
 const ORB_OF_ORIGINS: ItemHandler = {
-	id: ITEMS.orbOfOrigins,
+	id: Items.OrbOfOrigins,
 	gate: requireOnGround,
 	onStartUse(player) {
 		if (WorldToggles.get('orb', 1) !== 1) {
@@ -56,7 +56,7 @@ const ORB_OF_ORIGINS: ItemHandler = {
 };
 
 const RESIGNATION_PAPER: ItemHandler = {
-	id: ITEMS.resignationPaper,
+	id: Items.ResignationPaper,
 	gate: requireOnGround,
 	onStartUse(player) {
 		if (WorldToggles.get('paper', 1) !== 1) {
@@ -70,7 +70,7 @@ const RESIGNATION_PAPER: ItemHandler = {
 };
 
 const ORIGINS_MENU: ItemHandler = {
-	id: ITEMS.originsMenu,
+	id: Items.OriginsMenu,
 	onStartUse(player) {
 		if (InventoryService.isOpen(player)) InventoryService.close(player);
 		else InventoryService.open(player);
@@ -79,7 +79,7 @@ const ORIGINS_MENU: ItemHandler = {
 };
 
 const ORIGINS_SUBMENU: ItemHandler = {
-	id: ITEMS.originsSubmenu,
+	id: Items.OriginsSubmenu,
 	onStartUse(player) {
 		InventoryService.close(player);
 		// Options form not yet ported; legacy `openOptionsGUI(player, 'general')`.

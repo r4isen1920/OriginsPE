@@ -131,7 +131,7 @@ export class PlayerLifecycle {
 		state.setControls(nextControls);
 
 		// Apply attributes: defaults overlaid by every active power/perk.
-		const merged: Record<string, string> = { ...DEFAULT_ATTRIBUTES } as Record<string, string>;
+		const merged: Partial<Record<keyof typeof DEFAULT_ATTRIBUTES, string>> = { ...DEFAULT_ATTRIBUTES };
 		for (const id of nextPowers) {
 			const attrs = PowerRegistry.get(id)?.attributes;
 			if (attrs) Object.assign(merged, attrs);
@@ -140,7 +140,7 @@ export class PlayerLifecycle {
 			const attrs = PerkRegistry.get(id)?.attributes;
 			if (attrs) Object.assign(merged, attrs);
 		}
-		AttributeService.apply(player, merged as Partial<typeof DEFAULT_ATTRIBUTES>);
+		AttributeService.apply(player, merged);
 
 		// Apply origin render effects via data-driven events.
 		this.applyEffects(player, origin?.effects?.model, 'model_type');
