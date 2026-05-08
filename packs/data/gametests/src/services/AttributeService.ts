@@ -3,46 +3,8 @@ import { Player } from '@minecraft/server';
 import { NS } from '../Constants';
 import { Log } from '../utils/Log';
 
-
-//#region TYPES
-
-/**
- * Immutable snapshot of attribute values applied via the data-driven entity
- * events on `r4isen1920_originspe:player`. Keys map 1:1 to event suffixes.
- */
-export interface AttributeSet {
-	/** e.g. "0.1" */
-	movement: string;
-	/** e.g. "0.025" */
-	underwaterMovement: string;
-	/** e.g. "20" */
-	health: string;
-	/** e.g. "1" */
-	attack: string;
-	/** e.g. "1" */
-	scale: string;
-	/** "normal" | other named exhaustion profiles */
-	exhaustion: string;
-	/** e.g. "player" | "undead" */
-	familyType: string;
-	/** "land" | "water" | etc. */
-	breathable: string;
-	/** "normal" | etc. */
-	buoyant: string;
-	/** "reset" | named projectile profiles */
-	projectileSpawner: string;
-	/** "true" | "false" */
-	isShaking: string;
-	/** "true" | "false" */
-	burnsInDaylight: string;
-	/** "true" | "false" */
-	displayName: string;
-	/** "true" | "false" */
-	hasDivineAura: string;
-}
-
 /** Default attribute profile applied on origin/class change. */
-export const DEFAULT_ATTRIBUTES: AttributeSet = Object.freeze({
+export const DEFAULT_ATTRIBUTES = Object.freeze({
 	movement: '0.1',
 	underwaterMovement: '0.025',
 	health: '20',
@@ -59,11 +21,14 @@ export const DEFAULT_ATTRIBUTES: AttributeSet = Object.freeze({
 	hasDivineAura: 'false',
 });
 
+type AttributeKey = keyof typeof DEFAULT_ATTRIBUTES;
+type AttributeOverrides = Partial<Record<AttributeKey, string>>;
+
 
 //#region SERVICE
 
 /**
- * Centralized attribute applier. Translates an {@link AttributeSet} into the
+ * Centralized attribute applier. Translates attribute overrides into the
  * smallest possible set of `Entity.triggerEvent` calls and skips redundant
  * triggers via per-player diffing.
  *
@@ -71,14 +36,14 @@ export const DEFAULT_ATTRIBUTES: AttributeSet = Object.freeze({
  */
 export class AttributeService {
 	private static readonly log = Log.get('AttributeService');
-	private static readonly applied = new Map<string, Partial<AttributeSet>>();
+	private static readonly applied = new Map<string, AttributeOverrides>();
 
 	/** Applies the given attributes. Only triggers events for keys that changed. */
-	static apply(player: Player, attrs: Partial<AttributeSet>): void {
+	static apply(player: Player, attrs: AttributeOverrides): void {
 		const last = this.applied.get(player.id) ?? {};
-		const next: Partial<AttributeSet> = { ...last };
+		const next: AttributeOverrides = { ...last };
 
-		for (const key of Object.keys(attrs) as Array<keyof AttributeSet>) {
+		for (const key of Object.keys(attrs) as AttributeKey[]) {
 			const value = attrs[key];
 			if (value === undefined) continue;
 			if (last[key] === value) continue;
@@ -103,7 +68,7 @@ export class AttributeService {
 
 	//#region INTERNAL
 
-	private static trigger(player: Player, key: keyof AttributeSet, value: string): void {
+	private static trigger(player: Player, key: AttributeKey, value: string): void {
 		const eventName = `${NS}:${this.eventNameFor(key)}.${value}`;
 		try {
 			player.triggerEvent(eventName);
@@ -112,7 +77,7 @@ export class AttributeService {
 		}
 	}
 
-	private static eventNameFor(key: keyof AttributeSet): string {
+	private static eventNameFor(key: AttributeKey): string {
 		// The data-driven events use snake_case suffixes. Map camelCase keys back.
 		switch (key) {
 			case 'underwaterMovement': return 'underwater_movement';
