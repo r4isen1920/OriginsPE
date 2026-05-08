@@ -12,6 +12,10 @@
 				"url": "github.com/Bedrock-OSS/regolith-filters",
 				"version": "1.7.4"
 			},
+			"json_cleaner": {
+				"url": "github.com/Bedrock-OSS/regolith-filters",
+				"version": "2.0.2"
+			},
 			"jsonte": {
 				"url": "github.com/MCDevKit/regolith-library",
 				"version": "2.15.0"
@@ -23,6 +27,10 @@
 			"packer": {
 				"url": "github.com/MCDevKit/regolith-library",
 				"version": "1.1.1"
+			},
+			"type_gen": {
+				"url": "github.com/Bedrock-OSS/regolith-filters",
+				"version": "1.4.2"
 			}
 		},
 		"formatVersion": "1.2.0",
@@ -34,7 +42,13 @@
 				},
 				"filters": [
 					{
+						"filter": "json_cleaner"
+					},
+					{
 						"filter": "jsonte"
+					},
+					{
+						"filter": "type_gen"
 					},
 					{
 						"filter": "meta_gen",
