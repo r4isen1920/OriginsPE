@@ -56,7 +56,6 @@ export const enum Entities {
     Piglin = "minecraft:piglin",
     PiglinBrute = "minecraft:piglin_brute",
     Pillager = "minecraft:pillager",
-    Player = "minecraft:player",
     PolarBear = "minecraft:polar_bear",
     Pufferfish = "minecraft:pufferfish",
     Rabbit = "minecraft:rabbit",
@@ -165,59 +164,6 @@ export namespace EntityProperties {
          * Client sync: true
          */
         ClimateVariant = "minecraft:climate_variant",
-    }
-
-    export const enum Player {
-        /**
-         * Type: int
-         * Default: 20
-         * Client sync: true
-         * Range: [1,150]
-         */
-        DefinitiveMaxHealth = "r4isen1920_originspe:definitive_max_health",
-        /**
-         * Type: enum
-         * Default: none
-         * Client sync: true
-         */
-        EmitterType = "r4isen1920_originspe:emitter_type",
-        /**
-         * Type: bool
-         * Default: false
-         * Client sync: true
-         */
-        HasDivineAura = "r4isen1920_originspe:has_divine_aura",
-        /**
-         * Type: bool
-         * Default: false
-         * Client sync: true
-         */
-        IsRidingDummy = "r4isen1920_originspe:is_riding_dummy",
-        /**
-         * Type: int
-         * Default: 15
-         * Client sync: false
-         * Range: [0,15]
-         */
-        LightLevel = "r4isen1920_originspe:light_level",
-        /**
-         * Type: enum
-         * Default: normal
-         * Client sync: true
-         */
-        ModelType = "r4isen1920_originspe:model_type",
-        /**
-         * Type: enum
-         * Default: normal
-         * Client sync: true
-         */
-        SkinType = "r4isen1920_originspe:skin_type",
-        /**
-         * Type: bool
-         * Default: true
-         * Client sync: true
-         */
-        ToggleParticles = "r4isen1920_originspe:toggle_particles",
     }
 
     export const enum Wolf {

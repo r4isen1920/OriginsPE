@@ -1,0 +1,122 @@
+{
+  "$scope": {
+    "pickers": [
+			{
+				"{{#kinds as k}}": {
+					"{{#modes as m}}": {
+						"kind": "{{k}}",
+						"kind_char": "{{substring(k, 0, 1)}}",
+						"mode": "{{m}}",
+						"mode_char": "{{substring(m, 0, 1)}}"
+					}
+				}
+			}
+		]
+  },
+
+	"$files": {
+		"array": "pickers",
+		"fileName": "pickers/{{kind}}_{{mode}}.dialogue"
+	},
+
+	"$template": {
+		"format_version": "1.17.0",
+		"minecraft:npc_dialogue": {
+			"scenes": [
+				{
+					"{{#((kind == 'race' ? origins : classes).filter(e => e.navigable || mode == 'pick'))}}": {
+						"scene_tag": "gui_{{kind}}_{{mode}}_{{id}}",
+						"npc_name": "_op:picker",
+
+						//* _op:creelytrian
+						"text": "_op:{{mode_char}}{{kind_char}}{{difficulty == 'human' ? 'a' : (difficulty == 'easy' ? 'b' : (difficulty == 'medium' ? 'c' : (difficulty == 'hard' ? 'd' : (difficulty == 'random_race' ? 'e' : (difficulty == 'nitwit' ? 'f' : (difficulty == 'fair' ? 'g' : (difficulty == 'decent' ? 'h' : (difficulty == 'very' ? 'i' : 'j'))))))))}}{{id}}",
+
+						"buttons": [
+
+							// TODO: add missing "ban_limit" && "ban_locked" buttons
+
+							{
+                "{{?mode == 'pick' || mode == 'banned' || mode == 'unbanned'}}": {
+                  "name": "<",
+                  "commands": [
+                    "/execute as @initiator run scriptevent r4isen1920_originspe:ui nav:{{kind}}:prev:{{id}}:{{mode}}"
+                  ]
+                }
+              },
+
+							{
+								"{{?mode == 'pick'}}": {
+									"name": "select",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui pick:{{kind}}:{{id}}"
+									]
+								}
+							},
+
+							{
+								"{{?mode == 'change'}}": {
+									"name": "cancel",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui close:"
+									]
+								}
+							},
+							{
+								"{{?mode == 'change'}}": {
+									"name": "continue_{{kind}}",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui change:{{kind}}:{{id}}"
+									]
+								}
+							},
+
+              {
+								"{{?mode == 'view'}}": {
+									"name": "start",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui close:"
+									]
+								}
+              },
+
+              {
+								"{{?mode == 'banned'}}": {
+									"name": "unban_{{kind}}",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui unban:{{kind}}:{{id}}"
+									]
+								}
+              },
+              {
+								"{{?mode == 'unbanned'}}": {
+									"name": "ban_{{kind}}",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui ban:{{kind}}:{{id}}"
+									]
+								}
+              },
+							{
+                "{{? mode == 'banned' || mode == 'unbanned'}}": {
+                  "name": "return",
+                  "commands": [
+                    "/execute as @initiator run scriptevent r4isen1920_originspe:ui close:"
+                  ]
+                }
+              },
+
+							{
+                "{{?mode == 'pick' || mode == 'banned' || mode == 'unbanned'}}": {
+                  "name": ">",
+                  "commands": [
+                    "/execute as @initiator run scriptevent r4isen1920_originspe:ui nav:{{kind}}:next:{{id}}:{{mode}}"
+                  ]
+                }
+              }
+
+						]
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"classes": [
+    { "id": "random",      "icon_kind": "random",       "icon": "random",                              "difficulty": "random_class", "traits": "origin_powers.class_random",      "navigable": false },
+    { "id": "nitwit",      "icon_kind": "texture_path", "icon": "textures/origins/gui/icon_nitwit",   "difficulty": "nitwit",       "traits": "origin_powers.none",              "navigable": true  },
+    { "id": "archer",      "icon_kind": "texture_path", "icon": "textures/items/bow_standby",          "difficulty": "decent",       "traits": "origin_powers.class_archer",      "navigable": true  },
+    { "id": "beastmaster", "icon_kind": "texture_path", "icon": "textures/items/bone",                 "difficulty": "decent",       "traits": "origin_powers.class_beastmaster", "navigable": true  },
+    { "id": "blacksmith",  "icon_kind": "texture_path", "icon": "textures/items/iron_ingot",           "difficulty": "very",         "traits": "origin_powers.class_blacksmith",  "navigable": true  },
+    { "id": "cleric",      "icon_kind": "texture_path", "icon": "textures/items/dragons_breath",       "difficulty": "very",         "traits": "origin_powers.class_cleric",      "navigable": true  },
+    { "id": "cook",        "icon_kind": "texture_path", "icon": "textures/items/rabbit_stew",          "difficulty": "very",         "traits": "origin_powers.class_cook",        "navigable": true  },
+    { "id": "explorer",    "icon_kind": "texture_path", "icon": "textures/items/compass_item",         "difficulty": "decent",       "traits": "origin_powers.class_explorer",    "navigable": true  },
+    { "id": "farmer",      "icon_kind": "texture_path", "icon": "textures/items/wheat",                "difficulty": "decent",       "traits": "origin_powers.class_farmer",      "navigable": true  },
+    { "id": "lumberjack",  "icon_kind": "texture_path", "icon": "textures/items/iron_axe",             "difficulty": "decent",       "traits": "origin_powers.class_lumberjack",  "navigable": true  },
+    { "id": "merchant",    "icon_kind": "texture_path", "icon": "textures/items/emerald",              "difficulty": "very",         "traits": "origin_powers.class_merchant",    "navigable": true  },
+    { "id": "miner",       "icon_kind": "texture_path", "icon": "textures/items/iron_pickaxe",         "difficulty": "decent",       "traits": "origin_powers.class_miner",       "navigable": true  },
+    { "id": "rancher",     "icon_kind": "texture_path", "icon": "textures/items/lead",                 "difficulty": "decent",       "traits": "origin_powers.class_rancher",     "navigable": true  },
+    { "id": "rogue",       "icon_kind": "texture_path", "icon": "textures/origins/gui/leather_cap",    "difficulty": "very",         "traits": "origin_powers.class_rogue",       "navigable": true  },
+    { "id": "warrior",     "icon_kind": "texture_path", "icon": "textures/items/iron_sword",           "difficulty": "very",         "traits": "origin_powers.class_warrior",     "navigable": true  }
+  ]
+}

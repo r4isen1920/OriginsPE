@@ -12,9 +12,10 @@ import {
 	AfterItemUse,
 } from '../core/DecoratedEvents';
 import { Log } from '../utils/Log';
-import { PlayerState, WorldToggles } from '../core/PlayerState';
+import { PlayerState } from '../core/PlayerState';
 import { UiBridge } from '../core/UiBridge';
 import { InventoryService } from '../services/InventoryService';
+import { isToggleOn } from '../ui/OptionsState';
 import { EntityUtils } from '../utils/EntityUtils';
 import { PerkRegistry, PowerRegistry } from './Registries';
 
@@ -45,7 +46,7 @@ const ORB_OF_ORIGINS: ItemHandler = {
 	id: Items.OrbOfOrigins,
 	gate: requireOnGround,
 	onStartUse(player) {
-		if (WorldToggles.get('orb', 1) !== 1) {
+		if (!isToggleOn('orb')) {
 			player.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.race');
 			return;
 		}
@@ -59,7 +60,7 @@ const RESIGNATION_PAPER: ItemHandler = {
 	id: Items.ResignationPaper,
 	gate: requireOnGround,
 	onStartUse(player) {
-		if (WorldToggles.get('paper', 1) !== 1) {
+		if (!isToggleOn('paper')) {
 			player.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.class');
 			return;
 		}
@@ -82,7 +83,10 @@ const ORIGINS_SUBMENU: ItemHandler = {
 	id: Items.OriginsSubmenu,
 	onStartUse(player) {
 		InventoryService.close(player);
-		// Options form not yet ported; legacy `openOptionsGUI(player, 'general')`.
+		const tag = isToggleOn('particle')
+			? 'gui_options_general_root_particleon'
+			: 'gui_options_general_root_particleoff';
+		UiBridge.openDialogue(player, tag);
 		player.playSound('ui.wood_click');
 		player.playSound('random.orb', { volume: 1, pitch: 0.5 });
 	},

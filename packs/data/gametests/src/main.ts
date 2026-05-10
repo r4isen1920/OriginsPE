@@ -30,6 +30,8 @@ import './domain/perks/LessHealthMoreAttack';
 import './core/Commands';
 import './core/Ticker';
 
+import './ui/UiEventRouter';
+
 import { installDecoratedEventSubscribers } from './core/DecoratedEvents';
 installDecoratedEventSubscribers();
 

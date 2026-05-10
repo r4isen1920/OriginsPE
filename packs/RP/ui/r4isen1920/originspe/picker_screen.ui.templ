@@ -1,0 +1,492 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+	"$scope": {
+		"list": "{{[origins, classes].flatMap().filter(o => !endsWith(o.traits, 'random') && !endsWith(o.traits, 'none'))}}"
+	},
+
+	//? $vars are to be delimited by another '$' prefix because otherwise jsonte will translate that into a field literal
+	"$template": {
+		"namespace": "origin_picker_screen",
+
+		//* _op:<mode><kind><difficulty><id>
+		//* _op:creelytrian
+
+		"description_trait_item_factory": {
+			"type": "stack_panel",
+			"orientation": "horizontal",
+
+			"layer": 3,
+
+			"collection_name": "description_trait_item",
+			"factory": {
+				"name": "description_trait_item_factory",
+				"control_name": "$being_traits"
+			},
+
+			"bindings": [
+				{
+					"binding_type": "global",
+					"binding_name": "#dialogtext"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "(((#dialogtext - ('%.7s' * #dialogtext)) = $being_id) * 1)",
+					"target_property_name": "#collection_length"
+				}
+			]
+		},
+
+		"{{#list as tt}}": {
+			"description_trait_{{tt.id}}_item_factory@description_trait_item_factory": {
+				"$$being_traits": "{{tt.traits}}",
+				"$$being_id": "{{tt.id}}"
+			}
+		},
+
+
+		"description_stack@origin_common.verti_stack": {
+			"size": ["100%cm", "100%c" ],
+
+			"layer": 2,
+
+			"controls": [
+				{
+					"scroll_top@origin_common.empty_button": {
+						"size": [1, 1] // width does not matter
+					}
+				},
+				{
+					"being_description@origin_common.text_label": {
+						"size": ["default", "default"],
+						"max_size": [120, "default"],
+
+						"text": "#being_description",
+						"localize": true,
+
+						"bindings": [
+							{
+								"binding_type": "global",
+								"binding_name": "#dialogtext"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(#dialogtext - ('%.7s' * #dialogtext))",
+								"target_property_name": "#being_id"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "('origins.' + #being_id + '.description')",
+								"target_property_name": "#being_description"
+							}
+						]
+					}
+				},
+				{
+					"traits_list_padding@common.empty_panel": {
+						"size": [1, 10] // width does not matter
+					}
+				},
+				{
+					"{{#list as tt}}": {
+						"trait_{{tt.id}}_factory@origin_picker_screen.description_trait_{{tt.id}}_item_factory": {}
+					}
+				},
+				{
+					"footer_padding@common.empty_panel": {
+						"size": [1, 11] // width does not matter
+					}
+				}
+			]
+		},
+
+
+		"picker_screen_content": {
+			"type": "stack_panel",
+			"orientation": "vertical",
+			"offset": ["4%", "-1%"],
+
+			"controls": [
+				{
+					"header@common.empty_panel": {
+						"size": ["100%c", "100%c - 14px"],
+
+						"$$panel_base_layer": 150,
+						"clips_children": true,
+
+						"controls": [
+							{ "icon@origin_picker_screen.being_icon_holder": {} },
+							{ "name@origin_picker_screen.being_nameplate": {} }
+						]
+					}
+				},
+
+				{
+					"content_panel@common.empty_panel": {
+						"size": ["100%c", 121],
+
+						"controls": [
+							{
+								"scrollable_panel@origin_common.scrolling_panel": {
+									"anchor_from": "top_left",
+									"anchor_to": "top_left",
+									"size": ["100%c", "100%"],
+
+									"$$scrolling_pane_size": ["100%cm", "100%"],
+									"$$scrolling_pane_offset": [-0.5, 0],
+
+									"$$scroll_bar_and_track_size": [10, "100%"],
+									"$$scroll_box_image_control": "origin_common.scroll_box_active",
+									"$$scroll_track_image_control": "common.container_scrollbar_track",
+
+									"$$scroll_view_port_size": ["100%c", "100%"], // clip excess
+									"$$scrolling_content": "origin_picker_screen.description_stack"
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+
+
+		"being_icon_holder": {
+			"type": "image",
+			"texture": "#texture",
+			"anchor_from": "left_middle",
+			"anchor_to": "left_middle",
+			"size": [32, 32],
+
+			"layer": "$panel_base_layer",
+
+			"controls": [
+				{
+					"being_icon": {
+						"type": "image",
+						"texture": "#texture",
+						"size": [18, 18],
+						"layer": "($panel_base_layer - 1)",
+
+						"bindings": [
+							{
+								"binding_name": "#dialogtext",
+								"binding_type": "global"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(#dialogtext - ('%.7s' * #dialogtext))",
+								"target_property_name": "#being_id"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "('textures/origins/gui/icons/' + #being_id)",
+								"target_property_name": "#texture"
+							}
+						]
+					}
+				}
+			],
+
+			"bindings": [
+				{
+					"binding_name": "#dialogtext",
+					"binding_type": "global"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.6s' * #dialogtext) - ('%.5s' * #dialogtext))",
+					"target_property_name": "#being_icon_type"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "('textures/origins/gui/icon_holder_' + #being_icon_type)",
+					"target_property_name": "#texture"
+				}
+			]
+		},
+
+
+		"being_nameplate": {
+			"type": "image",
+			"texture": "#texture",
+			"anchor_from": "left_middle",
+			"anchor_to": "left_middle",
+			"size": [135, 24],
+			"offset": [15, 0],
+
+			"layer": "($panel_base_layer - 1)",
+			"clips_children": true,
+
+			"controls": [
+				{
+					"being_name": {
+						"type": "label",
+						"anchor_from": "left_middle",
+						"anchor_to": "left_middle",
+
+						"size": ["default", "default"],
+						"max_size": [74, 16],
+						"offset": [20, -1],
+
+						"text": "#text",
+						"shadow": true,
+						"localize": true,
+
+						"layer": "($panel_base_layer - 1)",
+
+						"bindings": [
+							{
+								"binding_name": "#dialogtext",
+								"binding_type": "global"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(#dialogtext - ('%.7s' * #dialogtext))",
+								"target_property_name": "#being_name"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "('origins.' + #being_name + '.name')",
+								"target_property_name": "#text"
+							}
+						]
+					}
+				},
+
+				{
+					"picker_difficulty@picker_difficulty": {}
+				}
+			],
+			"bindings": [
+				{
+					"binding_name": "#dialogtext",
+					"binding_type": "global"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.6s' * #dialogtext) - ('%.5s' * #dialogtext))",
+					"target_property_name": "#being_nameplate_type"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "('textures/origins/gui/nameplate_' + #being_nameplate_type)",
+					"target_property_name": "#texture"
+				}
+			]
+		},
+
+		"picker_difficulty": {
+			"type": "image",
+			"texture": "#texture",
+
+			"anchor_from": "right_middle",
+			"anchor_to": "right_middle",
+			"size": [33, 11],
+			"offset": [-6, -1],
+
+			"layer": "($panel_base_layer - 1)",
+
+			"controls": [
+				{
+					"hover_panel@origin_common.empty_button": {
+						"size": ["100%", "100%"],
+
+						"$$panel_base_layer|default": 150,
+						"layer": "$panel_base_layer",
+
+						"controls": [
+							{
+								"hover@common.empty_panel": {
+									"size": ["100%", "100%"],
+									"layer": "$panel_base_layer",
+
+									"controls": [
+										{
+											"label_bg": {
+												"type": "image",
+												"texture": "textures/ui/purpleBorder",
+
+												"anchor_from": "left_middle",
+												"anchor_to": "left_middle",
+												"size": ["100%c + 9px", "100%c + 8px"],
+												"offset": [8, -20],
+
+												"layer": "($panel_base_layer + 1)",
+												"allow_clipping": false,
+
+												"controls": [
+													{
+														"label": {
+															"type": "label",
+
+															"anchor_from": "top_left",
+															"anchor_to": "top_left",
+															"size": ["default", "default"],
+															"max_size": ["145px", "default"],
+															"offset": [4, 3],
+
+															"text": "#text",
+															"localize": true,
+
+															"layer": "($panel_base_layer + 2)",
+															"allow_clipping": false,
+
+															"bindings": [
+																{
+																	"binding_name": "#dialogtext",
+																	"binding_type": "global"
+																},
+																{
+																	"binding_type": "view",
+																	"source_property_name": "(('%.7s' * #dialogtext) - ('%.6s' * #dialogtext))",
+																	"target_property_name": "#being_diff_type"
+																},
+																{
+																	"binding_type": "view",
+																	"source_property_name": "('origins.gui.impact.' + #being_diff_type)",
+																	"target_property_name": "#text"
+																}
+															]
+														}
+													}
+												]
+											}
+										},
+
+										{
+											"hover_image": {
+												"type": "image",
+												"texture": "#texture",
+
+												"layer": "($panel_base_layer + 1)",
+
+												"bindings": [
+													{
+														"binding_name": "#dialogtext",
+														"binding_type": "global"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "(('%.6s' * #dialogtext) - ('%.5s' * #dialogtext))",
+														"target_property_name": "#being_diff_type"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "('textures/origins/gui/impact_hover_' + #being_diff_type)",
+														"target_property_name": "#texture"
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			],
+
+			"bindings": [
+				{
+					"binding_name": "#dialogtext",
+					"binding_type": "global"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.7s' * #dialogtext) - ('%.6s' * #dialogtext))",
+					"target_property_name": "#being_diff_type"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "('textures/origins/gui/impact_' + #being_diff_type)",
+					"target_property_name": "#texture"
+				}
+			]
+		},
+
+
+		"picker_title_text@common.empty_panel": {
+			"anchor_from": "center",
+			"anchor_to": "top_middle",
+			"size": ["100%cm", "100%cm"],
+			"offset": [0, "-10% - 85px"],
+
+			"controls": [
+				{
+					"picker_title_text": {
+						"type": "label",
+						"text": "#text",
+						"localize": true,
+						"shadow": true,
+						"layer": 2,
+
+						"bindings": [
+							{
+								"binding_name": "#dialogtext",
+								"binding_type": "global"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(('%.6s' * #dialogtext) - ('%.4s' * #dialogtext))",
+								"target_property_name": "#picker_title_text_type"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "('origins.gui.title.' + #picker_title_text_type)",
+								"target_property_name": "#text"
+							}
+						]
+					}
+				}
+			]
+		},
+
+
+		"picker_shine": {
+			"type": "image",
+			"texture": "#texture",
+			"offset": [0, -4],
+			"allow_clipping": false,
+
+			"size": "@origin_common.anim_beat_size_01",
+			"alpha": "@origin_common.anim_beat_alpha_01",
+
+			"layer": 2,
+
+			"bindings": [
+				{
+					"binding_name": "#dialogtext",
+					"binding_type": "global"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "('textures/origins/gui/dialog_shine_' + (('%.6s' * #dialogtext) - ('%.5s' * #dialogtext)))",
+					"target_property_name": "#texture"
+				}
+			]
+		},
+
+
+
+		"root@common.empty_panel": {
+			"size": ["100%", "100%"],
+
+			"controls": [
+				{
+					"picker_main_window@origin_common.origin_picker_window_template": {
+						"$$child_control": "origin_picker_screen.picker_screen_content"
+					}
+				},
+				{
+					"picker_buttons@origin_buttons.root": {
+						"anchor_to": "center",
+						"anchor_from": "center",
+						"layer": 3
+					}
+				},
+
+				{ "picker_title_text@picker_title_text": {} },
+				{ "picker_shine@picker_shine": {} }
+			]
+		}
+	}
+}

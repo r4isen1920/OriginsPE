@@ -1,0 +1,26 @@
+{
+	"origins": [
+    { "id": "random",     "icon_kind": "random",       "icon": "random",                                "difficulty": "random_race", "traits": "origin_powers.random",      "navigable": false },
+    { "id": "human",      "icon_kind": "texture_path", "icon": "textures/origins/gui/race_human",       "difficulty": "human",       "traits": "origin_powers.none",        "navigable": true  },
+    { "id": "avian",      "icon_kind": "texture_path", "icon": "textures/items/feather",                "difficulty": "easy",        "traits": "origin_powers.avian",       "navigable": true  },
+    { "id": "arachnid",   "icon_kind": "texture_path", "icon": "textures/origins/hud/controls/webbing", "difficulty": "easy",        "traits": "origin_powers.arachnid",    "navigable": true  },
+    { "id": "elytrian",   "icon_kind": "texture_path", "icon": "textures/items/elytra",                 "difficulty": "easy",        "traits": "origin_powers.elytrian",    "navigable": true  },
+    { "id": "shulk",      "icon_kind": "texture_path", "icon": "textures/items/shulker_shell",          "difficulty": "medium",      "traits": "origin_powers.shulk",       "navigable": true  },
+    { "id": "feline",     "icon_kind": "texture_path", "icon": "textures/origins/gui/orange_wool",      "difficulty": "medium",      "traits": "origin_powers.feline",      "navigable": true  },
+    { "id": "enderian",   "icon_kind": "texture_path", "icon": "textures/items/ender_pearl",            "difficulty": "medium",      "traits": "origin_powers.enderian",    "navigable": true  },
+    { "id": "merling",    "icon_kind": "texture_path", "icon": "textures/items/fish_raw",               "difficulty": "hard",        "traits": "origin_powers.merling",     "navigable": true  },
+    { "id": "blazeborn",  "icon_kind": "texture_path", "icon": "textures/items/blaze_powder",           "difficulty": "hard",        "traits": "origin_powers.blazeborn",   "navigable": true  },
+    { "id": "phantom",    "icon_kind": "texture_path", "icon": "textures/items/phantom_membrane",       "difficulty": "hard",        "traits": "origin_powers.phantom",     "navigable": true  },
+    { "id": "kitsune",    "icon_kind": "texture_path", "icon": "textures/items/sweet_berries",          "difficulty": "hard",        "traits": "origin_powers.kitsune",     "navigable": true  },
+    { "id": "slimecican", "icon_kind": "texture_path", "icon": "textures/items/slimeball",              "difficulty": "hard",        "traits": "origin_powers.slimecican",  "navigable": true  },
+    { "id": "inchling",   "icon_kind": "texture_path", "icon": "textures/origins/gui/icon_inchling",   "difficulty": "medium",      "traits": "origin_powers.inchling",    "navigable": true  },
+    { "id": "bee",        "icon_kind": "texture_path", "icon": "textures/items/honeycomb",              "difficulty": "hard",        "traits": "origin_powers.bee",         "navigable": true  },
+    { "id": "piglin",     "icon_kind": "texture_path", "icon": "textures/origins/gui/icon_piglin",     "difficulty": "hard",        "traits": "origin_powers.piglin",      "navigable": true  },
+    { "id": "starborne",  "icon_kind": "texture_path", "icon": "textures/items/nether_star",            "difficulty": "hard",        "traits": "origin_powers.starborne",   "navigable": true  },
+    { "id": "elf",        "icon_kind": "texture_path", "icon": "textures/origins/gui/icon_elf",        "difficulty": "hard",        "traits": "origin_powers.elf",         "navigable": true  },
+    { "id": "voidwalker", "icon_kind": "texture_path", "icon": "textures/origins/gui/icon_voidwalker", "difficulty": "hard",        "traits": "origin_powers.voidwalker",  "navigable": true  },
+    { "id": "diviner",    "icon_kind": "texture_path", "icon": "textures/items/ender_eye",              "difficulty": "hard",        "traits": "origin_powers.diviner",     "navigable": true  },
+    { "id": "mole",       "icon_kind": "texture_path", "icon": "textures/items/armadillo_scute",        "difficulty": "hard",        "traits": "origin_powers.mole",        "navigable": true  },
+    { "id": "rootkin",    "icon_kind": "texture_path", "icon": "textures/items/pitcher_pod",            "difficulty": "hard",        "traits": "origin_powers.rootkin",     "navigable": true  }
+  ]
+}

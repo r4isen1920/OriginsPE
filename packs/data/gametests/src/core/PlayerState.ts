@@ -1,4 +1,4 @@
-import { Player, world } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 
 import { DPK } from '../Constants';
 import { Log } from '../utils/Log';
@@ -239,56 +239,5 @@ export class PlayerState {
 			const parsed = JSON.parse(raw);
 			return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed as T : {} as T;
 		} catch { return {} as T; }
-	}
-}
-
-
-//#region WORLD STATE
-
-/**
- * Cached, JSON-encoded toggle store. Replaces the legacy `index` scoreboard
- * scheme (e.g. `toggle_orb`, `toggle_paper`, `toggle_unique`, `toggle_announce`).
- */
-export class WorldToggles {
-	private static readonly log = Log.get('WorldToggles');
-	private static cache: Record<string, number> | undefined;
-
-	private static load(): Record<string, number> {
-		if (this.cache) return this.cache;
-		const raw = world.getDynamicProperty('op:toggles');
-		if (typeof raw === 'string') {
-			try {
-				const parsed = JSON.parse(raw);
-				if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-					this.cache = parsed as Record<string, number>;
-					return this.cache;
-				}
-			} catch (e: any) {
-				this.log.error(`Failed to parse toggles: ${e?.stack ?? e}`);
-			}
-		}
-		this.cache = {};
-		return this.cache;
-	}
-
-	private static persist(): void {
-		try { world.setDynamicProperty('op:toggles', JSON.stringify(this.load())); }
-		catch (e: any) { this.log.error(`Failed to write toggles: ${e?.stack ?? e}`); }
-	}
-
-	/** Returns the toggle value, defaulting to `defaultValue` (and persisting it) if unset. */
-	static get(name: string, defaultValue: number): number {
-		const c = this.load();
-		if (c[name] === undefined) {
-			c[name] = defaultValue;
-			this.persist();
-		}
-		return c[name];
-	}
-
-	static set(name: string, value: number): void {
-		const c = this.load();
-		c[name] = value;
-		this.persist();
 	}
 }

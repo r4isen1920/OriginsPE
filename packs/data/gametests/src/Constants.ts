@@ -40,9 +40,11 @@ export const DPK = {
 	/** JSON record of arbitrary boolean/number flags (transient state). */
 	flags: `${DP_NS}:flags`,
 	/** Build id the player was last initialized for; triggers re-init on mismatch. */
-	buildId: `${DP_NS}:build_id`,
+	buildId: `${DP_NS}:r4ui_build_id`,
 	/** Whether the player has finished the welcome screen. */
 	welcomed: `${DP_NS}:welcomed`,
+	/** Whether the player has admin permissions for the options menu. */
+	admin: `${DP_NS}:admin`,
 } as const;
 
 
@@ -51,9 +53,39 @@ export const DPK = {
 /** World-scoped dynamic properties. Replaces the legacy `index` scoreboard. */
 export const WORLD_DPK = {
 	/** Build id the world was last initialized for. */
-	buildId: `${DP_NS}:build_id`,
+	buildId: `${DP_NS}:r4ui_build_id`,
 	/** JSON record of toggle option name -> 0/1. */
 	toggles: `${DP_NS}:toggles`,
+	/** JSON record of `${kind}:${id}` -> 1 for banned origins/classes. */
+	bans: `${DP_NS}:bans`,
+} as const;
+
+
+//#region UI EVENTS
+
+/**
+ * Single scriptevent id used by every dialogue button to call back into TS.
+ * Payload syntax: `<verb>[:<arg>...]` (colon-delimited). See {@link UiEventRouter}.
+ */
+export const UI_EVENT = `${NS}:ui` as const;
+
+/**
+ * Magic prefix on the picker dialogue `text` field (exposed in JSON UI as
+ * `#dialogtext`). Layout: `_op:<mode><kind><id>`.
+ *
+ * - chars 0..3  -- magic `'_op:'`
+ * - char  4     -- mode: `p` pick, `c` change, `v` view, `b` ban
+ * - char  5     -- kind: `r` race, `c` class
+ * - chars 6..   -- being id (variable-length, no padding)
+ */
+export const UI_PAYLOAD = {
+	prefix: '_op:',
+	prefixLen: 4,
+	modeOffset: 4,
+	kindOffset: 5,
+	idOffset: 6,
+	mode: { pick: 'p', change: 'c', view: 'v', ban: 'b' },
+	kind: { race: 'r', class: 'c' },
 } as const;
 
 
