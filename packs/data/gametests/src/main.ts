@@ -15,7 +15,19 @@ import './domain/powers/Carnivore';
 
 //* Classes
 import './domain/classes/Nitwit';
+import './domain/classes/Archer';
+import './domain/classes/Beastmaster';
 import './domain/classes/Warrior';
+import './domain/classes/Explorer';
+import './domain/classes/Farmer';
+import './domain/classes/Lumberjack';
+import './domain/classes/Cook';
+import './domain/classes/Merchant';
+import './domain/classes/Miner';
+import './domain/classes/Rancher';
+import './domain/classes/Rogue';
+import './domain/classes/Cleric';
+import './domain/classes/Blacksmith'
 
 //* Perks
 import './domain/perks/BetterStew';
