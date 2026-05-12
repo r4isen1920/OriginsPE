@@ -3,7 +3,38 @@
 
 	"namespace": "origin_options_screen",
 
-	"root@common.empty_panel": {
+	/*
+	 * Root factory wrap: the entire options subtree is only instantiated when
+	 * `#dialogtext` starts with `_op:general.` or `_op:admin.`. The starts-with
+	 * check is done by subtracting the literal prefix and testing whether the
+	 * result differs from the original (same trick used in buttons.ui.json
+	 * for `_op:welcome`).
+	 */
+	"root": {
+		"type": "stack_panel",
+		"orientation": "vertical",
+		"size": ["100%", "100%"],
+
+		"collection_name": "options_root_collection",
+		"factory": {
+			"name": "options_root_factory",
+			"control_name": "origin_options_screen.options_root_content"
+		},
+
+		"bindings": [
+			{
+				"binding_name": "#dialogtext",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(((not ((#dialogtext - '_op:general.') = #dialogtext)) + (not ((#dialogtext - '_op:admin.') = #dialogtext))) * 1)",
+				"target_property_name": "#collection_length"
+			}
+		]
+	},
+
+	"options_root_content@common.empty_panel": {
 		"size": ["100%", "100%"],
 
 		"controls": [
@@ -13,38 +44,15 @@
 			{ "screen_label@origin_picker_screen.picker_title_text_control": {} },
 			{
 				"screen_background_custom": {
-					"type": "panel",
-					"anchor_to": "center",
-					"anchor_from": "center",
-					"size": ["100% + 180px", "100% + 200px"],
+					"type": "image",
+					"texture": "textures/ui/White",
+					"color": [0.0, 0.0, 0.0],
+					"alpha": 0.6,
+
 					"allow_clipping": false,
 					"layer": 1,
-					"controls": [
-						{
-							"translucent_background": {
-								"ignored": "$use_dirt_background",
 
-								"type": "image",
-								"size": ["100%", "100%"],
-								"texture": "textures/ui/White",
-								"color": [0.0, 0.0, 0.0],
-								"alpha": 0.6,
-								"layer": 1
-							}
-						},
-						{
-							"legacy_dirt_background": {
-								"ignored": "(not $use_dirt_background)",
-
-								"type": "image",
-								"size": ["100%", "100%"],
-								"texture": "textures/origins/gui/screen_background",
-								"tiled": true,
-								"tiled_scale": [1, 1],
-								"layer": 1
-							}
-						}
-					]
+					"size": ["100% + 180px", "100% + 200px"]
 				}
 			}
 		]

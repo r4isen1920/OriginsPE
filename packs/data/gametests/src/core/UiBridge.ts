@@ -53,8 +53,8 @@ export class UiBridge {
 			} catch (e: any) {
 				this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
 			}
-			// Mark ready after first successful tick; stop after a hard timeout.
-			if (system.currentTick - startedAt > 1) {
+			// Retry every 4 ticks for up to ~1 second (20 ticks), then stop.
+			if (system.currentTick - startedAt >= 20) {
 				this.openHandles.set(player.id, system.currentTick);
 				system.clearRun(handle);
 			}

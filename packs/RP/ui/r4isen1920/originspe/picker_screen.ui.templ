@@ -8,8 +8,8 @@
 	"$template": {
 		"namespace": "origin_picker_screen",
 
-		//* _op:<mode><kind><difficulty><id>
-		//* _op:creelytrian
+		//* _op:picker.<mode><kind><difficulty><id>
+		//* _op:picker.creelytrian
 
 		"description_trait_item_factory": {
 			"type": "stack_panel",
@@ -30,7 +30,7 @@
 				},
 				{
 					"binding_type": "view",
-					"source_property_name": "(((#dialogtext - ('%.7s' * #dialogtext)) = $being_id) * 1)",
+					"source_property_name": "(((#dialogtext - ('%.14s' * #dialogtext)) = $being_id) * 1)",
 					"target_property_name": "#collection_length"
 				}
 			]
@@ -70,7 +70,7 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "(#dialogtext - ('%.7s' * #dialogtext))",
+								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
 								"target_property_name": "#being_id"
 							},
 							{
@@ -173,7 +173,7 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "(#dialogtext - ('%.7s' * #dialogtext))",
+								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
 								"target_property_name": "#being_id"
 							},
 							{
@@ -193,7 +193,7 @@
 				},
 				{
 					"binding_type": "view",
-					"source_property_name": "(('%.6s' * #dialogtext) - ('%.5s' * #dialogtext))",
+					"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
 					"target_property_name": "#being_icon_type"
 				},
 				{
@@ -240,7 +240,7 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "(#dialogtext - ('%.7s' * #dialogtext))",
+								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
 								"target_property_name": "#being_name"
 							},
 							{
@@ -263,7 +263,7 @@
 				},
 				{
 					"binding_type": "view",
-					"source_property_name": "(('%.6s' * #dialogtext) - ('%.5s' * #dialogtext))",
+					"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
 					"target_property_name": "#being_nameplate_type"
 				},
 				{
@@ -337,7 +337,7 @@
 																},
 																{
 																	"binding_type": "view",
-																	"source_property_name": "(('%.7s' * #dialogtext) - ('%.6s' * #dialogtext))",
+																	"source_property_name": "(('%.14s' * #dialogtext) - ('%.13s' * #dialogtext))",
 																	"target_property_name": "#being_diff_type"
 																},
 																{
@@ -366,7 +366,7 @@
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "(('%.6s' * #dialogtext) - ('%.5s' * #dialogtext))",
+														"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
 														"target_property_name": "#being_diff_type"
 													},
 													{
@@ -392,7 +392,7 @@
 				},
 				{
 					"binding_type": "view",
-					"source_property_name": "(('%.7s' * #dialogtext) - ('%.6s' * #dialogtext))",
+					"source_property_name": "(('%.14s' * #dialogtext) - ('%.13s' * #dialogtext))",
 					"target_property_name": "#being_diff_type"
 				},
 				{
@@ -426,7 +426,7 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "(('%.6s' * #dialogtext) - ('%.4s' * #dialogtext))",
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
 								"target_property_name": "#picker_title_text_type"
 							},
 							{
@@ -459,7 +459,7 @@
 				},
 				{
 					"binding_type": "view",
-					"source_property_name": "('textures/origins/gui/dialog_shine_' + (('%.6s' * #dialogtext) - ('%.5s' * #dialogtext)))",
+					"source_property_name": "('textures/origins/gui/dialog_shine_' + (('%.13s' * #dialogtext) - ('%.12s' * #dialogtext)))",
 					"target_property_name": "#texture"
 				}
 			]
@@ -467,7 +467,7 @@
 
 
 
-		"root@common.empty_panel": {
+		"picker_root_content@common.empty_panel": {
 			"size": ["100%", "100%"],
 
 			"controls": [
@@ -486,6 +486,34 @@
 
 				{ "picker_title_text@picker_title_text": {} },
 				{ "picker_shine@picker_shine": {} }
+			]
+		},
+
+		//* Root factory wrap: the entire picker subtree is only instantiated
+		//* when `#dialogtext` starts with `_op:picker.` (11 chars). When
+		//* `#collection_length` is 0 the factory emits nothing, skipping all
+		//* inner bindings entirely.
+		"root": {
+			"type": "stack_panel",
+			"orientation": "vertical",
+			"size": ["100%", "100%"],
+
+			"collection_name": "picker_root_collection",
+			"factory": {
+				"name": "picker_root_factory",
+				"control_name": "origin_picker_screen.picker_root_content"
+			},
+
+			"bindings": [
+				{
+					"binding_name": "#dialogtext",
+					"binding_type": "global"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "((('%.11s' * #dialogtext) = '_op:picker.') * 1)",
+					"target_property_name": "#collection_length"
+				}
 			]
 		}
 	}

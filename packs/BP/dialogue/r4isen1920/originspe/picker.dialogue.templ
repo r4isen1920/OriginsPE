@@ -28,21 +28,19 @@
 						"scene_tag": "gui_{{kind}}_{{mode}}_{{id}}",
 						"npc_name": "_op:picker",
 
-						//* _op:creelytrian
-						"text": "_op:{{mode_char}}{{kind_char}}{{difficulty == 'human' ? 'a' : (difficulty == 'easy' ? 'b' : (difficulty == 'medium' ? 'c' : (difficulty == 'hard' ? 'd' : (difficulty == 'random_race' ? 'e' : (difficulty == 'nitwit' ? 'f' : (difficulty == 'fair' ? 'g' : (difficulty == 'decent' ? 'h' : (difficulty == 'very' ? 'i' : 'j'))))))))}}{{id}}",
+						//* _op:picker.creelytrian
+						"text": "_op:picker.{{mode_char}}{{kind_char}}{{difficulty == 'human' ? 'a' : (difficulty == 'easy' ? 'b' : (difficulty == 'medium' ? 'c' : (difficulty == 'hard' ? 'd' : (difficulty == 'random_race' ? 'e' : (difficulty == 'nitwit' ? 'f' : (difficulty == 'fair' ? 'g' : (difficulty == 'decent' ? 'h' : (difficulty == 'very' ? 'i' : 'j'))))))))}}{{id}}",
 
 						"buttons": [
 
-							// TODO: add missing "ban_limit" && "ban_locked" buttons
-
 							{
-                "{{?mode == 'pick' || mode == 'banned' || mode == 'unbanned'}}": {
-                  "name": "<",
-                  "commands": [
-                    "/execute as @initiator run scriptevent r4isen1920_originspe:ui nav:{{kind}}:prev:{{id}}:{{mode}}"
-                  ]
-                }
-              },
+								"{{?mode == 'pick' || mode == 'pick_ban' || mode == 'pick_lock' || mode == 'banned' || mode == 'unbanned' || mode == 'ban_limit' || mode == 'ban_locked'}}": {
+									"name": "<",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui nav:{{kind}}:prev:{{id}}:{{mode}}"
+									]
+								}
+							},
 
 							{
 								"{{?mode == 'pick'}}": {
@@ -50,6 +48,16 @@
 									"commands": [
 										"/execute as @initiator run scriptevent r4isen1920_originspe:ui pick:{{kind}}:{{id}}"
 									]
+								}
+							},
+							{
+								"{{?mode == 'pick_ban'}}": {
+									"name": "select_ban"
+								}
+							},
+							{
+								"{{?mode == 'pick_lock'}}": {
+									"name": "select_lock"
 								}
 							},
 
@@ -70,48 +78,58 @@
 								}
 							},
 
-              {
+							{
 								"{{?mode == 'view'}}": {
 									"name": "start",
 									"commands": [
 										"/execute as @initiator run scriptevent r4isen1920_originspe:ui close:"
 									]
 								}
-              },
+							},
 
-              {
+							{
 								"{{?mode == 'banned'}}": {
 									"name": "unban_{{kind}}",
 									"commands": [
 										"/execute as @initiator run scriptevent r4isen1920_originspe:ui unban:{{kind}}:{{id}}"
 									]
 								}
-              },
-              {
+							},
+							{
 								"{{?mode == 'unbanned'}}": {
 									"name": "ban_{{kind}}",
 									"commands": [
 										"/execute as @initiator run scriptevent r4isen1920_originspe:ui ban:{{kind}}:{{id}}"
 									]
 								}
-              },
+							},
 							{
-                "{{? mode == 'banned' || mode == 'unbanned'}}": {
-                  "name": "return",
-                  "commands": [
-                    "/execute as @initiator run scriptevent r4isen1920_originspe:ui close:"
-                  ]
-                }
-              },
+								"{{?mode == 'ban_limit'}}": {
+									"name": "ban_limit"
+								}
+							},
+							{
+								"{{?mode == 'ban_locked'}}": {
+									"name": "ban_locked"
+								}
+							},
+							{
+								"{{?mode == 'banned' || mode == 'unbanned' || mode == 'ban_limit' || mode == 'ban_locked'}}": {
+									"name": "return",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui close:"
+									]
+								}
+							},
 
 							{
-                "{{?mode == 'pick' || mode == 'banned' || mode == 'unbanned'}}": {
-                  "name": ">",
-                  "commands": [
-                    "/execute as @initiator run scriptevent r4isen1920_originspe:ui nav:{{kind}}:next:{{id}}:{{mode}}"
-                  ]
-                }
-              }
+								"{{?mode == 'pick' || mode == 'pick_ban' || mode == 'pick_lock' || mode == 'banned' || mode == 'unbanned' || mode == 'ban_limit' || mode == 'ban_locked'}}": {
+									"name": ">",
+									"commands": [
+										"/execute as @initiator run scriptevent r4isen1920_originspe:ui nav:{{kind}}:next:{{id}}:{{mode}}"
+									]
+								}
+							}
 
 						]
 					}

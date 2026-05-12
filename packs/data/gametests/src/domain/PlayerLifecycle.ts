@@ -58,23 +58,30 @@ export class PlayerLifecycle {
 		state.setFlag('controls_opened', false);
 		state.setFlag('on_item_hold', true);
 
-		// Prompt origin/class pickers if missing.
-		if (!state.getOrigin()) {
-			UiBridge.openPicker(player, 'race', 'pick');
-			return;
-		}
-		if (!state.getClass()) {
-			UiBridge.openPicker(player, 'class', 'pick');
-			return;
-		}
+		// Delay UI prompts so the client finishes its join transition before
+		// dialogue open is attempted. The command silently does nothing if sent
+		// while the client is still loading.
+		system.runTimeout(() => {
+			if (!player.isValid) return;
 
-		if (!state.isWelcomed()) {
-			UiBridge.openDialogue(player, 'gui_welcome_screen');
-		} else {
-			ResourceBarService.markGuiReady(player, true);
-		}
+			// Prompt origin/class pickers if missing.
+			if (!state.getOrigin()) {
+				UiBridge.openPicker(player, 'race', 'pick');
+				return;
+			}
+			if (!state.getClass()) {
+				UiBridge.openPicker(player, 'class', 'pick');
+				return;
+			}
 
-		this.applyOriginAndClass(player);
+			if (!state.isWelcomed()) {
+				UiBridge.openDialogue(player, 'gui_welcome_screen');
+			} else {
+				ResourceBarService.markGuiReady(player, true);
+			}
+
+			this.applyOriginAndClass(player);
+		}, 80);
 	}
 
 	@AfterPlayerLeave()

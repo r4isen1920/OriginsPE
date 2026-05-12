@@ -1,4 +1,4 @@
 {
 	"kinds": ["race", "class"],
-	"modes": ["pick", "change", "view", "banned", "unbanned"]
+	"modes": ["pick", "pick_ban", "pick_lock", "change", "view", "banned", "unbanned", "ban_limit", "ban_locked"]
 }

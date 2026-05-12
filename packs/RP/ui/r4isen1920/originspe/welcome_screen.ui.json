@@ -170,7 +170,7 @@
 		]
 	},
 
-	"root@common.empty_panel": {
+	"welcome_root_content@common.empty_panel": {
 		"offset": [0, -15],
 
 		"controls": [
@@ -183,20 +183,38 @@
 						"@origin_welcome_screen.welcome_screen_entry_alpha"
 					],
 					"propagate_alpha": true,
-					"layer": 3,
-
-					"bindings": [
-						{
-							"binding_name": "#dialogtext",
-							"binding_type": "global"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#dialogtext = '_op:welcome')",
-							"target_property_name": "#visible"
-						}
-					]
+					"layer": 3
 				}
+			}
+		]
+	},
+
+	/*
+	 * Root factory wrap: the entire welcome subtree (animations, scrolling
+	 * panel, description text) is only instantiated when `#dialogtext` equals
+	 * `_op:welcome`. The inner `#visible` binding has been removed because the
+	 * factory skips instantiation entirely when `#collection_length` is 0.
+	 */
+	"root": {
+		"type": "stack_panel",
+		"orientation": "vertical",
+		"size": ["100%", "100%"],
+
+		"collection_name": "welcome_root_collection",
+		"factory": {
+			"name": "welcome_root_factory",
+			"control_name": "origin_welcome_screen.welcome_root_content"
+		},
+
+		"bindings": [
+			{
+				"binding_name": "#dialogtext",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "((#dialogtext = '_op:welcome') * 1)",
+				"target_property_name": "#collection_length"
 			}
 		]
 	}

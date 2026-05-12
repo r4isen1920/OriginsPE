@@ -9,7 +9,7 @@ import { Log } from '../utils/Log';
 import { adminToggleVector, flipToggle, isToggleOn, resetAllToggles } from './OptionsState';
 import type { ToggleKey } from './OptionsState';
 import { isValidId, defaultId } from './PickerRegistry';
-import { neighborId, toggleBan } from './PickerNavigation';
+import { neighborId, toggleBan, isBanned, wouldBanLimitIfBanned } from './PickerNavigation';
 import { pickerSceneTag } from './UiPayload';
 import type { PickerKind, PickerMode } from './UiPayload';
 
@@ -23,17 +23,21 @@ import type { PickerKind, PickerMode } from './UiPayload';
  *
  * Verb taxonomy:
  *
- * | Verb                                 | Behaviour                          |
- * |--------------------------------------|------------------------------------|
- * | `nav:<kind>:<dir>:<id>:<mode>`       | Open the prev/next scene.          |
- * | `pick:<kind>:<id>`                   | Commit a selection.                |
- * | `ban:<kind>:<id>`                    | Toggle ban; reopen current scene.  |
- * | `open:<kind>:<mode>[:<id>]`          | Open a picker fresh.               |
- * | `welcome:close`                      | Close welcome; mark player as done.|
- * | `welcome:ignore`                     | Toggle ignore tag on -- show alt.  |
- * | `welcome:unignore`                   | Toggle ignore tag off -- show main.|
+ * | Verb                                 | Behaviour                                          |
+ * |--------------------------------------|----------------------------------------------------|
+ * | `nav:<kind>:<dir>:<id>:<mode>`       | Open the prev/next scene (mode-aware).             |
+ * | `pick:<kind>:<id>`                   | Commit a selection.                                |
+ * | `ban:<kind>:<id>`                    | Ban an origin/class; reopen in 'banned' mode.      |
+ * | `unban:<kind>:<id>`                  | Remove ban; reopen in resolved ban mode.           |
+ * | `change:<kind>:<id>`                 | Open pick picker at id (continue-button callback). |
+ * | `open:<kind>:<mode>[:<id>]`          | Open a picker fresh (mode 'ban' also accepted).    |
+ * | `welcome:close`                      | Close welcome; mark player as done.                |
+ * | `welcome:ignore`                     | Toggle ignore tag on -- show alt.                  |
+ * | `welcome:unignore`                   | Toggle ignore tag off -- show main.                |
  *
- * `<kind>` -- `race` | `class`. `<mode>` -- `pick` | `change` | `view` | `ban`.
+ * `<kind>` -- `race` | `class`.
+ * `<mode>` -- `pick` | `pick_ban` | `pick_lock` | `change` | `view`
+ *           | `banned` | `unbanned` | `ban_limit` | `ban_locked`.
  * `<dir>` -- `prev` | `next`.
  */
 export class UiEventRouter {
@@ -63,6 +67,8 @@ export class UiEventRouter {
 			case 'nav': return this.handleNav(player, parts);
 			case 'pick': return this.handlePick(player, parts);
 			case 'ban': return this.handleBan(player, parts);
+			case 'unban': return this.handleUnban(player, parts);
+			case 'change': return this.handleChange(player, parts);
 			case 'open': return this.handleOpen(player, parts);
 			case 'open_options': return this.handleOpenOptions(player, parts);
 			case 'toggle': return this.handleToggle(player, parts);
@@ -84,7 +90,15 @@ export class UiEventRouter {
 		if (!id || !isValidId(kind, id)) return;
 
 		const next = neighborId(kind, mode, id, dir);
-		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, next));
+
+		// Determine the correct scene variant for the destination id.
+		const targetMode: PickerMode = this.isBanContextMode(mode)
+			? this.resolveBanMode(kind, next)
+			: this.isPickContextMode(mode)
+				? this.resolvePickMode(kind, next, player)
+				: mode; // change / view: stay in same mode.
+
+		UiBridge.openDialogue(player, pickerSceneTag(kind, targetMode, next));
 	}
 
 	private static handlePick(player: Player, [, kind, id]: string[]): void {
@@ -100,7 +114,8 @@ export class UiEventRouter {
 
 		// After commit, fall through to the welcome screen if first-time, else close.
 		if (kind === 'race' && !state.getClass()) {
-			UiBridge.openPicker(player, 'class', 'pick');
+			const classStart = defaultId('class');
+			UiBridge.openDialogue(player, pickerSceneTag('class', this.resolvePickMode('class', classStart, player), classStart));
 			return;
 		}
 		if (!state.isWelcomed()) {
@@ -111,14 +126,45 @@ export class UiEventRouter {
 
 	private static handleBan(player: Player, [, kind, id]: string[]): void {
 		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
+		const currentMode = this.resolveBanMode(kind, id);
+		if (currentMode === 'ban_locked' || currentMode === 'ban_limit') {
+			// Safety guard: blocked states should be non-interactive in the UI,
+			// but defend against any edge-case script path reaching here.
+			UiBridge.openDialogue(player, pickerSceneTag(kind, currentMode, id));
+			return;
+		}
 		toggleBan(kind, id);
-		// Reopen the same scene so the UI can re-render the new ban state.
-		UiBridge.openDialogue(player, pickerSceneTag(kind, 'ban', id));
+		// After banning, the mode for this id is now 'banned'.
+		UiBridge.openDialogue(player, pickerSceneTag(kind, 'banned', id));
+	}
+
+	private static handleUnban(player: Player, [, kind, id]: string[]): void {
+		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
+		toggleBan(kind, id); // removes ban
+		// Re-resolve mode now that the ban has been lifted.
+		UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolveBanMode(kind, id), id));
+	}
+
+	private static handleChange(player: Player, [, kind, id]: string[]): void {
+		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
+		// Open the pick picker at the current origin/class id. Does NOT commit or
+		// clear state -- the player will do that via the select button in pick mode.
+		UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolvePickMode(kind, id, player), id));
 	}
 
 	private static handleOpen(player: Player, [, kind, mode, id]: string[]): void {
-		if (!this.isKind(kind) || !this.isMode(mode)) return;
+		if (!this.isKind(kind)) return;
 		const target = id && isValidId(kind, id) ? id : defaultId(kind);
+		// 'ban' is a virtual entry-point token -- resolve to the actual ban sub-mode.
+		if (mode === 'ban') {
+			UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolveBanMode(kind, target), target));
+			return;
+		}
+		if (!this.isMode(mode)) return;
+		if (mode === 'pick') {
+			UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolvePickMode(kind, target, player), target));
+			return;
+		}
 		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, target));
 	}
 
@@ -176,11 +222,13 @@ export class UiEventRouter {
 
 	private static handleReset(player: Player, [, scope]: string[]): void {
 		switch (scope) {
-			case 'player':
+			case 'player': {
 				PlayerState.for(player).reset();
 				PlayerLifecycle.applyOriginAndClass(player);
-				UiBridge.openPicker(player, 'race', 'pick');
+				const raceStart = defaultId('race');
+				UiBridge.openDialogue(player, pickerSceneTag('race', this.resolvePickMode('race', raceStart, player), raceStart));
 				return;
+			}
 			case 'all':
 				if (!this.isAdmin(player)) { UiBridge.openDialogue(player, 'gui_options_admin_denied'); return; }
 				world.setDynamicProperty(WORLD_DPK.toggles, undefined);
@@ -189,7 +237,8 @@ export class UiEventRouter {
 				for (const p of world.getAllPlayers()) {
 					PlayerState.for(p).reset();
 					PlayerLifecycle.applyOriginAndClass(p);
-					UiBridge.openPicker(p, 'race', 'pick');
+					const raceStart = defaultId('race');
+					UiBridge.openDialogue(p, pickerSceneTag('race', this.resolvePickMode('race', raceStart, p), raceStart));
 				}
 				return;
 			default:
@@ -202,7 +251,8 @@ export class UiEventRouter {
 		for (const p of world.getAllPlayers()) {
 			const st = PlayerState.for(p);
 			if (!st.getOrigin() || !st.getClass()) {
-				UiBridge.openPicker(p, 'race', 'pick');
+				const raceStart = defaultId('race');
+				UiBridge.openDialogue(p, pickerSceneTag('race', this.resolvePickMode('race', raceStart, p), raceStart));
 			}
 		}
 	}
@@ -234,7 +284,48 @@ export class UiEventRouter {
 	}
 
 	private static isMode(v: string | undefined): v is PickerMode {
-		return v === 'pick' || v === 'change' || v === 'view' || v === 'ban';
+		return v === 'pick' || v === 'pick_ban' || v === 'pick_lock'
+			|| v === 'change'
+			|| v === 'view'
+			|| v === 'banned' || v === 'unbanned'
+			|| v === 'ban_limit' || v === 'ban_locked';
+	}
+
+	private static isBanContextMode(mode: PickerMode): boolean {
+		return mode === 'banned' || mode === 'unbanned' || mode === 'ban_limit' || mode === 'ban_locked';
+	}
+
+	private static isPickContextMode(mode: PickerMode): boolean {
+		return mode === 'pick' || mode === 'pick_ban' || mode === 'pick_lock';
+	}
+
+	/**
+	 * Resolves the correct ban-management scene mode for a given origin/class id.
+	 * Priority: already-banned > ban_locked (human + unique ON) > ban_limit > unbanned.
+	 */
+	private static resolveBanMode(kind: PickerKind, id: string): PickerMode {
+		if (isBanned(kind, id)) return 'banned';
+		if (kind === 'race' && id === 'human' && isToggleOn('unique')) return 'ban_locked';
+		if (wouldBanLimitIfBanned(kind, id)) return 'ban_limit';
+		return 'unbanned';
+	}
+
+	/**
+	 * Resolves the correct pick-mode scene variant for a given origin/class id.
+	 * Priority: random sentinel > banned > unique-locked > normal pick.
+	 */
+	private static resolvePickMode(kind: PickerKind, id: string, player: Player): PickerMode {
+		if (id === 'random') return 'pick';
+		if (isBanned(kind, id)) return 'pick_ban';
+		if (isToggleOn('unique')) {
+			const alreadyTaken = world.getAllPlayers().some((p) => {
+				if (p.id === player.id) return false;
+				const st = PlayerState.for(p);
+				return kind === 'race' ? st.getOrigin() === id : st.getClass() === id;
+			});
+			if (alreadyTaken) return 'pick_lock';
+		}
+		return 'pick';
 	}
 
 	private static isToggleKey(v: string | undefined): v is ToggleKey {

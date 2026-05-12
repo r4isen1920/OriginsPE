@@ -72,7 +72,9 @@ export function neighborId(
 	let i = ids.indexOf(currentId);
 	if (i < 0) i = 0;
 	const step = direction === 'next' ? 1 : -1;
-	const skipBanned = mode === 'pick' || mode === 'change';
+	// Only change mode skips banned -- all pick variants show banned origins with the
+	// appropriate blocked-button state so the player understands why they can't select.
+	const skipBanned = mode === 'change';
 
 	for (let safety = 0; safety < len; safety++) {
 		i = (i + step + len) % len;
@@ -87,4 +89,12 @@ export function neighborId(
 export function selectableIds(kind: PickerKind): readonly string[] {
 	const bans = readBans();
 	return navigableIds(kind).filter((id) => bans[banKey(kind, id)] !== 1);
+}
+
+/**
+ * True if banning `id` would leave zero selectable origins/classes --
+ * i.e., every other navigable id is already banned.
+ */
+export function wouldBanLimitIfBanned(kind: PickerKind, id: string): boolean {
+	return navigableIds(kind).filter((other) => other !== id && !isBanned(kind, other)).length === 0;
 }
