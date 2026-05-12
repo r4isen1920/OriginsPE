@@ -1,7 +1,25 @@
-
 //* Origins
 import './domain/origins/Human';
+import './domain/origins/Avian';
 import './domain/origins/Arachnid';
+import './domain/origins/Elytrian';
+import './domain/origins/Shulk';
+import './domain/origins/Feline';
+import './domain/origins/Enderian';
+import './domain/origins/Merling';
+import './domain/origins/Blazeborn';
+import './domain/origins/Phantom';
+import './domain/origins/Fox';
+import './domain/origins/Slimecican';
+import './domain/origins/Inchling';
+import './domain/origins/Bee';
+import './domain/origins/Starborne';
+import './domain/origins/Piglin';
+import './domain/origins/Elven';
+import './domain/origins/Voidwalker';
+import './domain/origins/Diviner';
+import './domain/origins/Mole';
+import './domain/origins/Rootkin';
 
 //* Powers
 import './domain/powers/MasterOfWebs';
