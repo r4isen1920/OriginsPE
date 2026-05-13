@@ -29,6 +29,11 @@ export class Carnivore implements Power {
 		'minecraft:glow_berries',
 		'minecraft:chorus_fruit',
 		'minecraft:dried_kelp',
+		'minecraft:golden_carrot',
+		'minecraft:poisonous_potato',
+		'minecraft:glistering_melon_slice',
+		'minecraft:cooked_salmon',
+		'minecraft:cooked_cod',
 	]);
 
 	onItemUse(player: Player, ev: ItemUseAfterEvent): void {
