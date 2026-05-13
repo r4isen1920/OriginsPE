@@ -95,7 +95,7 @@
       "r4isen1920_originspe:end_webbing_control": {
         "queue_command": {
           "command": [
-            "fill ~~1~~~-1~ air [] replace web",
+            "fill ~-1 ~-1 ~-1 ~1 ~2 ~1 air [] replace web",
             "tag @e[tag=webbing_inflicted,c=1] remove webbing_inflicted",
 
             "particle r4isen1920_originspe:webbing_poof ~~~",
