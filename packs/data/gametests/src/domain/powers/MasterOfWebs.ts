@@ -16,12 +16,12 @@ export class MasterOfWebs implements Power {
 	onTick(player: Player): void {
 		const loc = player.location;
 		const block = player.dimension.getBlock(loc);
-
+		if (!player.hasTag('power_master_of_webs')) return;
 		if (
 			block?.typeId === 'minecraft:web' ||
 			block?.typeId === 'r4isen1920_originspe:fake_web'
 		) {
-			player.addEffect('resistance', 2, {
+			player.addEffect('resistance', 5, {
 				amplifier: 4,
 				showParticles: false
 			});
