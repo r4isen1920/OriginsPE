@@ -28,6 +28,7 @@ import './domain/powers/Fragile';
 import './domain/powers/Climbing';
 import './domain/powers/HighJump';
 import './domain/powers/Carnivore';
+import './domain/powers/Tail_wind'
 
 //-------------------------------------------
 
