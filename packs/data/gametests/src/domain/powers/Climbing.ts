@@ -1,6 +1,8 @@
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
-import { EntityDamageCause, Player, system, world } from '@minecraft/server';
+import { EntityDamageCause, Player } from '@minecraft/server';
+import { PlayerTick } from '../../core/Ticker';
+import { PlayerState } from '../../core/PlayerState';
 /**
  * Wall-climb passive. The actual physics is driven by an attached entity
  * component / animation controller bound by the data-driven event triggered
@@ -11,7 +13,7 @@ import { EntityDamageCause, Player, system, world } from '@minecraft/server';
 export class Climbing implements Power {
 	readonly id = 'climbing';
 
-	private readonly IGNORED_BLOCKS: string[] = [
+	private static readonly IGNORED_BLOCKS: string[] = [
 		'minecraft:cave_vines',
 		'minecraft:cave_vines_body_with_berries',
 		'minecraft:cave_vines_head_with_berries',
@@ -24,22 +26,12 @@ export class Climbing implements Power {
 		'minecraft:yellow_flower',
 		'minecraft:weeping_vines'
 	];
+	@PlayerTick(1)
+	static onTick(player: Player) {
+		const state = PlayerState.for(player);
+		if (state.getOrigin() !== 'arachnid') return;
 
-	constructor() {
-		system.runInterval(() => {
-			for (const player of world.getAllPlayers()) {
-				this.runClimbLogic(player);
-			}
-		}, 1);
-	}
-
-	private runClimbLogic(player: Player): void {
-		if (!player.hasTag('power_climbing')) return;
-
-		if (!player.isJumping) {
-			player.removeTag('_climbing');
-			return;
-		}
+		if (!player.isJumping) return;
 
 		const ray = player.getBlockFromViewDirection({ maxDistance: 2.5 });
 		const block = ray?.block;
@@ -52,15 +44,13 @@ export class Climbing implements Power {
 			if (upwardForce > 0) {
 				player.applyImpulse({ x: 0, y: upwardForce + 0.03, z: 0 });
 			}
-
-			player.addTag('_climbing');
-		} else {
-			player.removeTag('_climbing');
 		}
 	}
 
 	onDamageTaken(player: Player, cause: EntityDamageCause, damage: number): number {
-		if (player.hasTag('_climbing') && cause === EntityDamageCause.fall) {
+		const state = PlayerState.for(player);
+
+		if (state.getOrigin() === 'arachnid' && cause === EntityDamageCause.fall) {
 			return damage * 0.01;
 		}
 		return damage;

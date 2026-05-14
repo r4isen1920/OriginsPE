@@ -19,8 +19,6 @@ export class Webbing implements Power {
 	private static readonly COOLDOWN_TICKS = TicksPerSecond * 13;
 
 	onAttack(player: Player, event: EntityHitEntityAfterEvent): void {
-		if (!player.hasTag('power_webbing')) return;
-
 		const state = PlayerState.for(player);
 		const now = system.currentTick;
 		if (state.isOnCooldown(Webbing.COOLDOWN_KEY, now)) return;
