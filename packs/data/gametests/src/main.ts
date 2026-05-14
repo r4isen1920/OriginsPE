@@ -28,9 +28,10 @@ import './domain/powers/Fragile';
 import './domain/powers/Climbing';
 import './domain/powers/HighJump';
 import './domain/powers/Carnivore';
-import './domain/powers/Tail_wind'
-import './domain/powers/Slow_falling'
-import './domain/powers/Vegetarian'
+import './domain/powers/Tail_wind';
+import './domain/powers/Slow_falling';
+import './domain/powers/Vegetarian';
+import './domain/powers/Fresh_air';
 
 //-------------------------------------------
 
@@ -48,7 +49,7 @@ import './domain/classes/Miner';
 import './domain/classes/Rancher';
 import './domain/classes/Rogue';
 import './domain/classes/Cleric';
-import './domain/classes/Blacksmith'
+import './domain/classes/Blacksmith';
 
 //* Perks
 import './domain/perks/Agility';
