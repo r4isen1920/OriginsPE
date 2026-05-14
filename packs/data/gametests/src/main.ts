@@ -32,6 +32,8 @@ import './domain/powers/Tail_wind';
 import './domain/powers/Slow_falling';
 import './domain/powers/Vegetarian';
 import './domain/powers/Fresh_air';
+import './domain/powers/Fatality';
+import './domain/powers/Short_lifespan';
 
 //-------------------------------------------
 
