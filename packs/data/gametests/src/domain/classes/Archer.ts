@@ -1,4 +1,5 @@
 import { CharacterClass } from '../Ability';
+import { Agility } from '../perks/Agility';
 import { RegisterClass } from '../Registries';
 
 
@@ -6,5 +7,7 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Archer implements CharacterClass {
 	readonly id = 'archer';
-	readonly perks: readonly string[] = [];
+	readonly perks: readonly string[] = [
+		'agility',
+	];
 }

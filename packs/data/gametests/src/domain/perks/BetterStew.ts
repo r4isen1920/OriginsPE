@@ -22,5 +22,6 @@ export class BetterStew implements Perk {
 	onItemCompleteUse(player: Player, ev: ItemCompleteUseAfterEvent): void {
 		if (!BetterStew.STEWS.has(ev.itemStack.typeId)) return;
 		player.addEffect('regeneration', 60, { amplifier: 1, showParticles: false });
+		console.warn("nag regen ka ULOL")
 	}
 }
