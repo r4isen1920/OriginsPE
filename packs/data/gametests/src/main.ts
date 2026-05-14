@@ -49,7 +49,6 @@ import './domain/classes/Cleric';
 import './domain/classes/Blacksmith'
 
 //* Perks
-import './domain/perks/Agility';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
 import './domain/perks/MoreSaturatedFood';
