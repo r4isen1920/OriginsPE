@@ -30,6 +30,7 @@ import './domain/powers/HighJump';
 import './domain/powers/Carnivore';
 import './domain/powers/Tail_wind'
 import './domain/powers/Slow_falling'
+import './domain/powers/Vegetarian'
 
 //-------------------------------------------
 
