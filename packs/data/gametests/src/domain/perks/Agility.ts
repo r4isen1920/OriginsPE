@@ -23,7 +23,7 @@ export class Agility implements Perk {
 	}
 }
 
-function checkBow(player: Player): boolean {
+export function checkBow(player: Player): boolean {
 	const container = ItemUtils.container(player);
 	if (!container) return false;
 

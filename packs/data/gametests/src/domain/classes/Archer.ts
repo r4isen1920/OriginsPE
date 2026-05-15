@@ -8,5 +8,6 @@ export class Archer implements CharacterClass {
 	readonly id = 'archer';
 	readonly perks: readonly string[] = [
 		'agility',
+		'precision',
 	];
 }
