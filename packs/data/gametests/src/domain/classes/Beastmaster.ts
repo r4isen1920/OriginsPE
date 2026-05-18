@@ -6,5 +6,8 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Beastmaster implements CharacterClass {
 	readonly id = 'beastmaster';
-	readonly perks: readonly string[] = [];
+	readonly perks: readonly string[] = [
+		'fauna_friends',
+		'effective_empathy',
+	];
 }
