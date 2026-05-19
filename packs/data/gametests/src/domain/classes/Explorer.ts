@@ -8,5 +8,6 @@ export class Explorer implements CharacterClass {
 	readonly id = 'explorer';
 	readonly perks: readonly string[] = [
 		'explorer_kit',
+		'fit',
 	];
 }

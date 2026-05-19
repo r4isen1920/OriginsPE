@@ -55,6 +55,7 @@ import './domain/classes/Blacksmith';
 
 //* Perks
 import './domain/perks/Agility';
+import './domain/perks/Fit';
 import './domain/perks/ExplorerKit';
 import './domain/perks/FaunaFriends';
 import './domain/perks/Precision';
