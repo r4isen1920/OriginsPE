@@ -2,7 +2,6 @@ import { Player } from '@minecraft/server';
 
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
-import { ItemUtils } from '../../utils/ItemUtils';
 
 
 /**
@@ -13,26 +12,11 @@ export class FaunaFriends implements Perk {
 	readonly id = 'fauna_friends';
 
 	onTick(player: Player): void {
-		if (checkBone(player)) {
-			player.addTag('perk_tamed_animal_boost');
-		} else {
-			player.removeTag('perk_tamed_animal_boost');
-		}
+		if (player.hasTag('perk_tamed_animal_boost')) return;
+		player.addTag('perk_tamed_animal_boost');
 	}
-}
 
-function checkBone(player: Player): boolean {
-	const container = ItemUtils.container(player);
-	if (!container) return false;
-
-	const selectedSlot = player.selectedSlotIndex;
-	if (selectedSlot < 0 || selectedSlot >= container.size) return false;
-
-	const item = container.getItem(selectedSlot);
-	if (!item) return false;
-
-	const typeId = item.typeId.toLowerCase();
-	if (!typeId.includes('bone')) return false;
-
-	return true;
+	onRelease(player: Player): void {
+		player.removeTag('perk_tamed_animal_boost');
+	}
 }
