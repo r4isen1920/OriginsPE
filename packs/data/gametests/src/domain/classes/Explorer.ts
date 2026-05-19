@@ -6,5 +6,7 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Explorer implements CharacterClass {
 	readonly id = 'explorer';
-	readonly perks: readonly string[] = [];
+	readonly perks: readonly string[] = [
+		'explorer_kit',
+	];
 }
