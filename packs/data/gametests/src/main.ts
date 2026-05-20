@@ -15,7 +15,7 @@ import './domain/origins/Inchling';
 import './domain/origins/Bee';
 import './domain/origins/Starborne';
 import './domain/origins/Piglin';
-import './domain/origins/Elven';
+import './domain/origins/Elf';
 import './domain/origins/Voidwalker';
 import './domain/origins/Diviner';
 import './domain/origins/Mole';
@@ -48,6 +48,11 @@ import './domain/powers/Aegis';
 import './domain/powers/Divine_Aura';
 import './domain/powers/Fragility';
 import './domain/powers/Instability';
+import './domain/powers/Lifeweaver';
+import './domain/powers/Endless_quiver';
+import './domain/powers/Imbue';
+import './domain/powers/Swift';
+import './domain/powers/Permeable';
 //-------------------------------------------
 
 //* Classes

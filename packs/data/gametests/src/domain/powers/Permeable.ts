@@ -4,6 +4,11 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
+/**
+ * Permeable: Players with this power take 10% more damage from all sources, 
+ * but are able to pass through certain blocks (not implemented in this test).
+ */
+
 @RegisterPower
 export class Permeable implements Power {
 	readonly id = 'permeable';

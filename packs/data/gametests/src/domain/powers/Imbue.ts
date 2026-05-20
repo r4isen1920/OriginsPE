@@ -4,6 +4,11 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
+/**
+ * Imbue: Players with this power can imbue their arrows with special effects.
+ */
+
+
 @RegisterPower
 export class Imbue implements Power {
 	readonly id = 'imbue';

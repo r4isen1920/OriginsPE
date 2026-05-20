@@ -5,6 +5,10 @@ import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
+/**
+ * Swift: Players with this power have increased movement speed.
+ */
+
 @RegisterPower
 export class Swift implements Power {
 	readonly id = 'swift';
