@@ -34,6 +34,9 @@ import './domain/powers/Vegetarian';
 import './domain/powers/Fresh_air';
 import './domain/powers/Fatality';
 import './domain/powers/Short_lifespan';
+import './domain/powers/Stingers';
+import './domain/powers/Pollenate';
+import './domain/powers/Diurnal';
 
 //-------------------------------------------
 
@@ -57,7 +60,7 @@ import './domain/classes/Blacksmith';
 import './domain/perks/Agility';
 import './domain/perks/Fit';
 import './domain/perks/ExplorerKit';
-import './domain/perks/FaunaFriends';
+import './domain/perks/faunaFriends';
 import './domain/perks/Precision';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
