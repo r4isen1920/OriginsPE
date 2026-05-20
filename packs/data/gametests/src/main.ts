@@ -37,6 +37,11 @@ import './domain/powers/Short_lifespan';
 import './domain/powers/Stingers';
 import './domain/powers/Pollenate';
 import './domain/powers/Diurnal';
+import './domain/powers/Impervious';
+import './domain/powers/Nether_inhabitant';
+import './domain/powers/Ember';
+import './domain/powers/Hotblooded';
+import './domain/powers/Hydrophobia';
 
 //-------------------------------------------
 
