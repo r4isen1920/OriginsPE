@@ -53,6 +53,12 @@ import './domain/powers/Endless_quiver';
 import './domain/powers/Imbue';
 import './domain/powers/Swift';
 import './domain/powers/Permeable';
+import './domain/powers/Gift_of_the_winds';
+import './domain/powers/Winged';
+import './domain/powers/Need_For_Mobility';
+import './domain/powers/Claustrophobia';
+import './domain/powers/Brittle_bones';
+import './domain/powers/Aerial_combatant';
 //-------------------------------------------
 
 //* Classes
