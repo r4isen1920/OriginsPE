@@ -5,6 +5,11 @@ import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
+/**
+ * Hydrophobia: Blazeborn with this power take damage when swimming or submerged in water.
+ * They also play a sizzling sound and emit lava particles while in water.
+ */
+
 @RegisterPower
 export class Hydrophobia implements Power {
 	readonly id = 'hydrophobia';
