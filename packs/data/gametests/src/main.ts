@@ -42,7 +42,12 @@ import './domain/powers/Nether_inhabitant';
 import './domain/powers/Ember';
 import './domain/powers/Hotblooded';
 import './domain/powers/Hydrophobia';
-
+import './domain/powers/Prescience';
+import './domain/powers/Oracle';
+import './domain/powers/Aegis';
+import './domain/powers/Divine_Aura';
+import './domain/powers/Fragility';
+import './domain/powers/Instability';
 //-------------------------------------------
 
 //* Classes
