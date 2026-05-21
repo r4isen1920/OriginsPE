@@ -50,12 +50,6 @@ export class Nether_inhabitant implements Power {
 					);
 
 					player.teleport(dummyEntity.location);
-					player.setSpawnPoint({
-						dimension: player.dimension,
-						x: dummyEntity.location.x,
-						y: dummyEntity.location.y,
-						z: dummyEntity.location.z
-					});
 
 					player.removeEffect('resistance');
 					state.setFlag('nether_spawn_check', false);
@@ -81,6 +75,11 @@ export class Nether_inhabitant implements Power {
 				) {
 					state.setFlag('nether_spawned', false);
 					state.setFlag('nether_spawn_check', false);
+				}
+				//* If the player has a Nether spawn point, remove it to prevent respawning in the Nether.
+				const spawnPoint = player.getSpawnPoint();
+				if (spawnPoint && spawnPoint.dimension.id === 'minecraft:nether') {
+					player.setSpawnPoint(undefined);
 				}
 				return;
 			}

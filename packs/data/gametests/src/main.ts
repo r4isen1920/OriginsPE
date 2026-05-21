@@ -59,6 +59,7 @@ import './domain/powers/Need_For_Mobility';
 import './domain/powers/Claustrophobia';
 import './domain/powers/Brittle_bones';
 import './domain/powers/Aerial_combatant';
+import './domain/powers/Teleportation';
 //-------------------------------------------
 
 //* Classes
@@ -83,7 +84,7 @@ import './domain/perks/Fit';
 import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
 import './domain/perks/OreVainMiner';
-import './domain/perks/FaunaFriends';
+import './domain/perks/faunaFriends';
 import './domain/perks/Precision';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
