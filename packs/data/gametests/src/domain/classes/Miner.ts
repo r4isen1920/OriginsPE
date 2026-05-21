@@ -6,5 +6,7 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Miner implements CharacterClass {
 	readonly id = 'miner';
-	readonly perks: readonly string[] = [];
+	readonly perks: readonly string[] = [
+		'ore_vein_miner',
+	];
 }
