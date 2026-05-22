@@ -84,7 +84,7 @@ import './domain/perks/Fit';
 import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
 import './domain/perks/OreVainMiner';
-import './domain/perks/faunaFriends';
+import './domain/perks/FaunaFriends';
 import './domain/perks/Precision';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
