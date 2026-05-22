@@ -6,5 +6,7 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Cook implements CharacterClass {
 	readonly id = 'cook';
-	readonly perks: readonly string[] = [];
+	readonly perks: readonly string[] = [
+		'good_meals',
+	];
 }
