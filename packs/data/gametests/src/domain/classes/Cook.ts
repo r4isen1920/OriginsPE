@@ -7,6 +7,7 @@ import { RegisterClass } from '../Registries';
 export class Cook implements CharacterClass {
 	readonly id = 'cook';
 	readonly perks: readonly string[] = [
+		'better_stew',
 		'good_meals',
 	];
 }
