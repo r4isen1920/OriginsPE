@@ -7,6 +7,7 @@ import { RegisterClass } from '../Registries';
 export class Lumberjack implements CharacterClass {
 	readonly id = 'lumberjack';
 	readonly perks: readonly string[] = [
-		'tree_capitator'
+		'tree_capitator',
+		'green_thumb',
 	];
 }
