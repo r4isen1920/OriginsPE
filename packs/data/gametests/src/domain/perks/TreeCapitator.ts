@@ -11,7 +11,7 @@ import { RegisterPerk } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
 
 
-const LOG_BLOCKS = [
+export const LOG_BLOCKS = [
     'acacia_log',
     'birch_log',
     'cherry_log',
