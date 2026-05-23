@@ -1,4 +1,4 @@
-import { Player, world, system } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
@@ -12,14 +12,17 @@ import { checkBow } from './Agility';
 export class Precision implements Perk {
     readonly id = 'precision';
 
-    onTick(player: Player): void {
-        const isShooting = checkBow(player);
+    onAcquire(_player: Player): void {}
 
-        if (isShooting) {
+    onRelease(player: Player): void {
+        player.removeTag('perk_no_projectile_divergence');
+    }
+
+    onTick(player: Player): void {
+        if (checkBow(player)) {
             player.addTag('perk_no_projectile_divergence');
         } else {
             player.removeTag('perk_no_projectile_divergence');
         }
     }
-
 }
