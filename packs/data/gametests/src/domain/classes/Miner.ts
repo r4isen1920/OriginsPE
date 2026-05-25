@@ -8,5 +8,6 @@ export class Miner implements CharacterClass {
 	readonly id = 'miner';
 	readonly perks: readonly string[] = [
 		'ore_vein_miner',
+		'veteran_excavator',
 	];
 }

@@ -83,6 +83,7 @@ import './domain/perks/Agility';
 import './domain/perks/Fit';
 import './domain/perks/GreenThumb';
 import './domain/perks/GoodMeals';
+import './domain/perks/GreatCraftsmanship';
 import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
 import './domain/perks/OreVainMiner';
@@ -94,6 +95,7 @@ import './domain/perks/MoreSaturatedFood';
 import './domain/perks/PowerfulPotions';
 import './domain/perks/QualityEquipment';
 import './domain/perks/LessHealthMoreAttack';
+import './domain/perks/VeteranExcavator';
 
 //-------------------------------------------
 

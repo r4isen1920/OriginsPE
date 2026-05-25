@@ -6,5 +6,7 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Blacksmith implements CharacterClass {
 	readonly id = 'blacksmith';
-	readonly perks: readonly string[] = [];
+	readonly perks: readonly string[] = [
+		'great_craftsmanship',
+	];
 }
