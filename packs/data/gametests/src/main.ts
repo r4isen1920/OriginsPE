@@ -62,6 +62,12 @@ import './domain/powers/Aerial_combatant';
 import './domain/powers/Teleportation';
 import './domain/powers/Scared_Of_Grounds';
 import './domain/powers/Familiar_face';
+import './domain/powers/Strong_ankles';
+import './domain/powers/Acrobatics';
+import './domain/powers/Nine_lives';
+import './domain/powers/Noctural';
+import './domain/powers/Weak_arms';
+import './domain/powers/Catlike_appearance';
 //-------------------------------------------
 
 //* Classes
