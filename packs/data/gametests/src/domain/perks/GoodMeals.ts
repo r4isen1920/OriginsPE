@@ -1,5 +1,4 @@
 import {
-    EquipmentSlot,
     ItemCompleteUseAfterEvent,
     ItemStack,
     Player,
@@ -28,6 +27,10 @@ const TEMP_FOOD_ITEMS = [
     'r4isen1920_originspe:temp_dried_kelp',
 ];
 
+const VANILLA_FOOD_IDS = new Set(
+    TEMP_FOOD_ITEMS.map(id => id.replace('r4isen1920_originspe:temp_', 'minecraft:'))
+);
+
 /**
  * Foods you cook will grant additional saturation when eaten.
  */
@@ -46,11 +49,23 @@ export class GoodMeals implements Perk {
         }
     }
 
-    onRelease(_player: Player): void {
+    onRelease(player: Player): void {
         GoodMeals.refCount = Math.max(0, GoodMeals.refCount - 1);
         if (GoodMeals.refCount === 0 && GoodMeals.handler) {
             world.afterEvents.itemCompleteUse.unsubscribe(GoodMeals.handler);
             GoodMeals.handler = undefined;
+        }
+
+        // Strip Good Meals lore from inventory on class change.
+        const inventory = player.getComponent('inventory')?.container;
+        if (!inventory) return;
+        for (let slot = 0; slot < inventory.size; slot++) {
+            const item = inventory.getItem(slot);
+            if (!item || !VANILLA_FOOD_IDS.has(item.typeId)) continue;
+            if (!item.getLore().includes(GOOD_MEALS_LORE)) continue;
+            const stripped = new ItemStack(item.typeId, item.amount);
+            stripped.setLore([]);
+            inventory.setItem(slot, stripped);
         }
     }
 
@@ -79,9 +94,8 @@ export class GoodMeals implements Perk {
     private static onItemCompleteUse(ev: ItemCompleteUseAfterEvent): void {
         const { itemStack, source } = ev;
 
-        if (!TEMP_FOOD_ITEMS.some(i => itemStack.typeId.includes(i.replace('r4isen1920_originspe:temp_', '')))) return;
+        if (!VANILLA_FOOD_IDS.has(itemStack.typeId)) return;
         if (!itemStack.getLore().includes(GOOD_MEALS_LORE)) return;
-        if (!PlayerState.for(source).hasPerk('good_meals')) return;
 
         source.addEffect('saturation', TicksPerSecond, { amplifier: 1 });
     }
