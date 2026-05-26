@@ -6,7 +6,7 @@ import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
 /**
- * Hydrophobia: Blazeborn with this power take damage when swimming or submerged in water.
+ * Hydrophobia: this power take damage when swimming or submerged in water.
  * They also play a sizzling sound and emit lava particles while in water.
  */
 
@@ -19,8 +19,8 @@ export class Hydrophobia implements Power {
 	static onPlayerTick(player: Player): void {
 		try {
 			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'blazeborn') return;
-
+			const origin = state.getOrigin();
+			if (origin !== 'blazeborn' && origin !== 'enderian') return;
 			if (player.isSwimming || player.isInWater) {
 				player.applyDamage(1, { cause: EntityDamageCause.drowning });
 				player.dimension.playSound('random.fizz', player.location, {

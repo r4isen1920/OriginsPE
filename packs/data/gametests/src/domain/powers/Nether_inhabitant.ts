@@ -5,11 +5,6 @@ import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
-/**
- * Nether_inhabitant: When a Blazeborn enters the Nether for the first time, they are teleported to a safe platform with some basic supplies. 
- * They also gain resistance for a short time to prevent early deaths from fall damage or lava.
- */
-
 @RegisterPower
 export class Nether_inhabitant implements Power {
 	readonly id = 'nether_inhabitant';
@@ -75,11 +70,6 @@ export class Nether_inhabitant implements Power {
 				) {
 					state.setFlag('nether_spawned', false);
 					state.setFlag('nether_spawn_check', false);
-				}
-				//* If the player has a Nether spawn point, remove it to prevent respawning in the Nether.
-				const spawnPoint = player.getSpawnPoint();
-				if (spawnPoint && spawnPoint.dimension.id === 'minecraft:nether') {
-					player.setSpawnPoint(undefined);
 				}
 				return;
 			}
