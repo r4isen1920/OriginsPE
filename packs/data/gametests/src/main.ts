@@ -74,6 +74,11 @@ import './domain/powers/Pounced';
 import './domain/powers/Berry_craver';
 import './domain/powers/Smaller_heart';
 import './domain/powers/Fast_metabolism';
+import './domain/powers/Gills';
+import './domain/powers/Aqua_affinity';
+import './domain/powers/Sea_inhabitant';
+import './domain/powers/Like_water';
+import './domain/powers/Oceans_gift';
 //-------------------------------------------
 
 //* Classes

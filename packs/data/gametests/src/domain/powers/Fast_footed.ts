@@ -14,15 +14,21 @@ export class Fast_footed implements Power {
 	static onPlayerTick(player: Player): void {
 		try {
 			const state = PlayerState.for(player);
+			const isKitsune = state.getOrigin() === 'kitsune';
+			const wasScaleApplied = state.getFlag<boolean>('scale_set') === true;
 
-			if (state.getOrigin() !== 'kitsune') {
-				if (state.getFlag<boolean>('scale_set') === true) {
-					player.triggerEvent('r4isen1920_originspe:movement.normal');
-					player.triggerEvent('r4isen1920_originspe:scale.normal');
+			if (!isKitsune) {
+				if (wasScaleApplied) {
+					try {
+						player.triggerEvent('r4isen1920_originspe:movement.normal');
+						player.triggerEvent('r4isen1920_originspe:scale.normal');
+					} catch {}
 					state.setFlag('scale_set', false);
 				}
 				return;
 			}
+
+			if (wasScaleApplied) return;
 
 			player.triggerEvent('r4isen1920_originspe:movement.0.1425');
 			player.triggerEvent('r4isen1920_originspe:scale.0.75');
