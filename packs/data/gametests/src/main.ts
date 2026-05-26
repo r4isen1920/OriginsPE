@@ -89,6 +89,7 @@ import './domain/classes/Blacksmith';
 //* Perks
 import './domain/perks/Agility';
 import './domain/perks/Fit';
+import './domain/perks/Sneaky';
 import './domain/perks/GreenThumb';
 import './domain/perks/GoodMeals';
 import './domain/perks/GreatCraftsmanship';
