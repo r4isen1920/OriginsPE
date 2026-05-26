@@ -23,7 +23,7 @@ export class StrongAnkles implements Power {
 
 			try {
 				const state = PlayerState.for(hurtEntity);
-				if (state.getOrigin() !== 'feline') return;
+				if (state.getOrigin() !== 'feline' && state.getOrigin() !== 'kitsune') return;
 
 				if (damageSource.cause === EntityDamageCause.fall) {
 					event.cancel = true;

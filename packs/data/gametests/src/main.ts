@@ -9,7 +9,7 @@ import './domain/origins/Enderian';
 import './domain/origins/Merling';
 import './domain/origins/Blazeborn';
 import './domain/origins/Phantom';
-import './domain/origins/Fox';
+import './domain/origins/Kitsune';
 import './domain/origins/Slimecican';
 import './domain/origins/Inchling';
 import './domain/origins/Bee';
@@ -68,6 +68,12 @@ import './domain/powers/Nine_lives';
 import './domain/powers/Noctural';
 import './domain/powers/Weak_arms';
 import './domain/powers/Catlike_appearance';
+import './domain/powers/Camouflage';
+import './domain/powers/Fast_footed';
+import './domain/powers/Pounced';
+import './domain/powers/Berry_craver';
+import './domain/powers/Smaller_heart';
+import './domain/powers/Fast_metabolism';
 //-------------------------------------------
 
 //* Classes
@@ -97,7 +103,7 @@ import './domain/perks/GreatCraftsmanship';
 import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
 import './domain/perks/OreVainMiner';
-import './domain/perks/FaunaFriends';
+import './domain/perks/faunaFriends';
 import './domain/perks/Precision';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';

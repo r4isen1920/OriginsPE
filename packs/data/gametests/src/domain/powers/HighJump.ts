@@ -50,7 +50,7 @@ export class HighJump implements Power {
 					`r4isen1920_originspe:knockback_roar<r4isen1920_originspe:knockback_targets.${fragLevel}>`,
 					player.location,
 				);
-			} catch { /* spawn may fail in unloaded chunks */ }
+			} catch {}
 		}
 	}
 }
