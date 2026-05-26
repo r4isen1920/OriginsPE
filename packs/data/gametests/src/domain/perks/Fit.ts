@@ -2,6 +2,7 @@ import { Player } from '@minecraft/server';
 
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
+import { PlayerState } from '../../core/PlayerState';
 
 
 /**
@@ -11,11 +12,17 @@ import { RegisterPerk } from '../Registries';
 export class Fit implements Perk {
     readonly id = 'fit';
 
-    onTick(player: Player): void {
-        const isSprinting = player.isSprinting;
-        
-        if (isSprinting) {
-            player.addEffect('saturation', 2, { amplifier: 1, showParticles: false });
-        }
+    onAcquire(player: Player): void {
+        player.triggerEvent('r4isen1920_originspe:exhaustion.explorer');
     }
+
+    onRelease(player: Player): void {
+        player.triggerEvent('r4isen1920_originspe:exhaustion.normal');
+    }
+
+    // onTick(player: Player): void {
+    //     if (!PlayerState.for(player).hasPerk('fit')) return;
+    //     if (!player.isSprinting) return;
+    //     player.addEffect('saturation', 2, { amplifier: 1, showParticles: false });
+    // }
 }
