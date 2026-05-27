@@ -116,6 +116,7 @@ import './domain/perks/PowerfulPotions';
 import './domain/perks/QualityEquipment';
 import './domain/perks/LessHealthMoreAttack';
 import './domain/perks/NoMiningExhaustion';
+import './domain/perks/EffectiveEmphaty';
 
 //-------------------------------------------
 

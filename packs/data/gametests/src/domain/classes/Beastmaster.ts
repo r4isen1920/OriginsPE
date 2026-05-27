@@ -8,6 +8,6 @@ export class Beastmaster implements CharacterClass {
 	readonly id = 'beastmaster';
 	readonly perks: readonly string[] = [
 		'fauna_friends',
-		'effective_empathy',
+		'Effective_empathy',
 	];
 }
