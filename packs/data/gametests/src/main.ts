@@ -99,24 +99,23 @@ import './domain/classes/Blacksmith';
 
 //* Perks
 import './domain/perks/Agility';
-import './domain/perks/Fit';
+import './domain/perks/NoSprintExhaustion';
 import './domain/perks/Sneaky';
 import './domain/perks/Stealth';
-import './domain/perks/GreenThumb';
-import './domain/perks/GoodMeals';
+import './domain/perks/Replanting';
+import './domain/perks/MoreSaturatedFood';
 import './domain/perks/GreatCraftsmanship';
 import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
-import './domain/perks/OreVainMiner';
-import './domain/perks/faunaFriends';
+import './domain/perks/OreVeinMiner';
+import './domain/perks/FaunaFriends';
 import './domain/perks/Precision';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
-import './domain/perks/MoreSaturatedFood';
 import './domain/perks/PowerfulPotions';
 import './domain/perks/QualityEquipment';
 import './domain/perks/LessHealthMoreAttack';
-import './domain/perks/VeteranExcavator';
+import './domain/perks/NoMiningExhaustion';
 
 //-------------------------------------------
 

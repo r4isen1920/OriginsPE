@@ -9,8 +9,8 @@ import { PlayerState } from '../../core/PlayerState';
  * Sprint doesnt reduce saturation, allowing you to sprint indefinitely without needing to eat.
  */
 @RegisterPerk
-export class Fit implements Perk {
-    readonly id = 'fit';
+export class NoSprintExhaustion implements Perk {
+    readonly id = 'no_sprint_exhaustion';
 
     onAcquire(player: Player): void {
         player.triggerEvent('r4isen1920_originspe:exhaustion.explorer');

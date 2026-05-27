@@ -9,11 +9,11 @@ import { PlayerState } from '../../core/PlayerState';
  * Mining doesnt reduce saturation, allowing you to mine indefinitely without needing to eat.
  */
 @RegisterPerk
-export class VeteranExcavator implements Perk {
-    readonly id = 'veteran_excavator';
+export class NoMiningExhaustion implements Perk {
+    readonly id = 'no_mining_exhaustion';
 
     onTick(player: Player): void {
-        if (!PlayerState.for(player).hasPerk('veteran_excavator')) return;
+        if (!PlayerState.for(player).hasPerk('no_mining_exhaustion')) return;
         player.triggerEvent('r4isen1920_originspe:exhaustion.miner');
     }
 }
