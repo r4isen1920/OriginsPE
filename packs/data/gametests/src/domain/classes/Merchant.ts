@@ -8,5 +8,6 @@ export class Merchant implements CharacterClass {
 	readonly id = 'merchant';
 	readonly perks: readonly string[] = [
 		'cheaper_trades',
+		'wandering_trader_spawn',
 	];
 }
