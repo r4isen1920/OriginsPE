@@ -100,6 +100,7 @@ import './domain/classes/Blacksmith';
 //* Perks
 import './domain/perks/Agility';
 import './domain/perks/NoSprintExhaustion';
+import './domain/perks/MoreBirths';
 import './domain/perks/FastGrowCrop';
 import './domain/perks/MoreCropsDrop';
 import './domain/perks/Sneaky';
