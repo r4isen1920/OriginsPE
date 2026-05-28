@@ -64,7 +64,6 @@ export class MoreBirths implements Perk {
             );
             additionalBirth.addTag('_perk_twin_breeding');
             additionalBirth.runCommand('event entity @s minecraft:entity_born');
-            console.warn('hello');
 
             entity.dimension.runCommand(`playsound random.orb @a[x=${entity.location.x},y=${entity.location.y},z=${entity.location.z},r=16] ${entity.location.x} ${entity.location.y} ${entity.location.z} 1 1.75`);
             entity.dimension.spawnParticle('r4isen1920_originspe:experience_touch', entity.location);
