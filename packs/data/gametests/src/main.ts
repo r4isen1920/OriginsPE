@@ -99,6 +99,7 @@ import './domain/classes/Blacksmith';
 
 //* Perks
 import './domain/perks/Agility';
+import './domain/perks/CheaperTrades';
 import './domain/perks/NoSprintExhaustion';
 import './domain/perks/MoreBirths';
 import './domain/perks/ShieldWield';
