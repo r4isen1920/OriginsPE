@@ -9,7 +9,7 @@ import { RegisterPerk } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
 
 
-const DOUBLE_LOOT_CHANCE = 100;
+const DOUBLE_LOOT_CHANCE = 50;
 
 
 /**
