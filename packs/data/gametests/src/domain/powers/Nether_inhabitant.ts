@@ -16,12 +16,11 @@ export class Nether_inhabitant implements Power {
 				const { toDimension, player } = event;
 				const state = PlayerState.for(player);
 
-				if (state.getOrigin() !== 'blazeborn') return;
+				if (!state.hasPower('nether_inhabitant')) return;
 				if (
 					state.getFlag<boolean>('nether_spawn_check') !== true ||
 					toDimension.id !== 'minecraft:nether'
-				)
-					return;
+				) return;
 
 				system.run(() => {
 					let dummyEntity = player.dimension.getEntities({
@@ -63,7 +62,7 @@ export class Nether_inhabitant implements Power {
 		try {
 			const state = PlayerState.for(player);
 
-			if (state.getOrigin() !== 'blazeborn') {
+			if (!state.hasPower('nether_inhabitant')) {
 				if (
 					state.getFlag<boolean>('nether_spawned') === true ||
 					state.getFlag<boolean>('nether_spawn_check') === true
@@ -77,8 +76,7 @@ export class Nether_inhabitant implements Power {
 			if (
 				state.getFlag<boolean>('nether_spawn_check') === true ||
 				state.getFlag<boolean>('nether_spawned') === true
-			)
-				return;
+			) return;
 
 			const netherDimension = world.getDimension('minecraft:nether');
 
