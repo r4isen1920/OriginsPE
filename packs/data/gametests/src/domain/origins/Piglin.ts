@@ -11,5 +11,6 @@ export class Piglin implements Origin {
 		'boasting_firepower',
 		'gluttony',
 		'courage',
+		'nether_inhabitant',
 	];
 }
