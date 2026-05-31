@@ -43,6 +43,8 @@ export const DPK = {
 	buildId: `${DP_NS}:r4ui_build_id`,
 	/** Whether the player has finished the welcome screen. */
 	welcomed: `${DP_NS}:welcomed`,
+	/** Add-on version this player's OriginsPE record was last initialized for. */
+	recordVersion: `${DP_NS}:record_version`,
 	/** Whether the player has admin permissions for the options menu. */
 	admin: `${DP_NS}:admin`,
 } as const;
@@ -58,6 +60,8 @@ export const WORLD_DPK = {
 	toggles: `${DP_NS}:toggles`,
 	/** JSON record of `${kind}:${id}` -> 1 for banned origins/classes. */
 	bans: `${DP_NS}:bans`,
+	/** Add-on version that should reset player records when they next join. */
+	recordResetVersion: `${DP_NS}:record_reset_version`,
 } as const;
 
 

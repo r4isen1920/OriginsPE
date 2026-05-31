@@ -4,12 +4,14 @@ import {
 	CustomCommandOrigin,
 	CustomCommandResult,
 	CustomCommandStatus,
+	Player,
 	world,
 } from '@minecraft/server';
 import Meta from '../Meta';
 import { BindThis, CustomCmd, OnWorldLoad } from '@bedrock-oss/stylish';
 import { Logger } from '@bedrock-oss/bedrock-boost';
-import { NS } from '../Constants';
+import { NS, WORLD_DPK } from '../Constants';
+import { PlayerState } from '../core/PlayerState';
 
 
 
@@ -46,6 +48,15 @@ export default class Version {
 		world.setDynamicProperty(`${NS}:version`, this.version);
 	}
 
+	private static setPlayerRecordResetVersion(version: string | undefined): void {
+		world.setDynamicProperty(WORLD_DPK.recordResetVersion, version);
+	}
+
+	private static getPlayerRecordResetVersion(): string | undefined {
+		const version = world.getDynamicProperty(WORLD_DPK.recordResetVersion);
+		return typeof version === 'string' ? version : undefined;
+	}
+
 	@OnWorldLoad
 	private static onWorldLoad(): void {
 		const version = world.getDynamicProperty(`${NS}:version`);
@@ -79,11 +90,16 @@ export default class Version {
 	//#region Hooks
 
 	private static onUpgrade() {
-		// TODO: add logic here to handle any necessary updates when the version upgrades
+		const currentVersion = this.get().version;
+		this.setPlayerRecordResetVersion(currentVersion);
+		this.log.info(
+			`Player records will reset on next join for version: ${currentVersion}.`
+		);
 	}
 
 	private static onDowngrade() {
-		// TODO: add logic here to handle any necessary updates when the version downgrades
+		this.setPlayerRecordResetVersion(undefined);
+		this.log.info('Cleared pending player record reset after downgrade.');
 	}
 
 
@@ -100,6 +116,49 @@ export default class Version {
 			);
 		}
 		return this._instance;
+	}
+
+	/** Marks the player's record as current for the running add-on version. */
+	public static markPlayerRecordCurrent(player: Player): void {
+		const currentVersion = this.get().version;
+		PlayerState.for(player).setRecordVersion(currentVersion);
+	}
+
+	/** Resets the player's OriginsPE record once for a pending upgrade reset. */
+	public static resetPlayerRecordIfUpgradePending(player: Player): boolean {
+		const resetVersion = this.getPlayerRecordResetVersion();
+		if (!resetVersion) {
+			this.log.debug(`No player record reset pending for player: ${player.name}`);
+			return false;
+		}
+
+		const currentVersion = this.get().version;
+		if (resetVersion !== currentVersion) {
+			this.log.debug(
+				`Ignoring player record reset for version: ${resetVersion}, current version: ${currentVersion}`
+			);
+			return false;
+		}
+
+		const state = PlayerState.for(player);
+		if (state.getRecordVersion() === resetVersion) {
+			this.log.debug(
+				`Player record already reset for version: ${resetVersion}, player: ${player.name}`
+			);
+			return false;
+		}
+
+		try {
+			this.log.info(`Resetting player record for version: ${resetVersion}, player: ${player.name}`);
+			state.reset();
+			state.setRecordVersion(resetVersion);
+			return true;
+		} catch (e: any) {
+			this.log.error(
+				`Failed to reset player record for version: ${resetVersion}, player: ${player.name}, error: ${e?.stack ?? e}`
+			);
+			return false;
+		}
 	}
 
 	/**

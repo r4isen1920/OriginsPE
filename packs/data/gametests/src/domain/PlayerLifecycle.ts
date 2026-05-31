@@ -10,6 +10,7 @@ import { PlayerTick, Ticker } from '../core/Ticker';
 import { UiBridge } from '../core/UiBridge';
 import { AttributeService, DEFAULT_ATTRIBUTES } from '../services/AttributeService';
 import { ResourceBarService } from '../services/ResourceBarService';
+import Version from '../utils/Version';
 import {
 	ClassRegistry,
 	OriginRegistry,
@@ -49,6 +50,7 @@ export class PlayerLifecycle {
 	static onSpawn(ev: PlayerSpawnAfterEvent): void {
 		if (!ev.initialSpawn) return;
 		const { player } = ev;
+		Version.resetPlayerRecordIfUpgradePending(player);
 		const state = PlayerState.for(player);
 
 		ResourceBarService.markGuiReady(player, false);
@@ -153,6 +155,8 @@ export class PlayerLifecycle {
 		this.applyEffects(player, origin?.effects?.model, 'model_type');
 		this.applyEffects(player, origin?.effects?.skin, 'skin_type');
 		this.applyEffects(player, origin?.effects?.emitter, 'emitter_type');
+
+		Version.markPlayerRecordCurrent(player);
 	}
 
 	private static diff(
