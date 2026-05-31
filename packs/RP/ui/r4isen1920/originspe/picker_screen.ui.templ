@@ -168,6 +168,7 @@
 								"binding_name": "#dialogtext",
 								"binding_type": "global"
 							},
+
 							{
 								"binding_type": "view",
 								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
@@ -175,7 +176,13 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "('textures/origins/gui/icons/' + #being_id)",
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
+								"target_property_name": "#being_nameplate_type"
+							},
+
+							{
+								"binding_type": "view",
+								"source_property_name": "('textures/origins/gui/icons/' + #being_nameplate_type + '/' + #being_id)",
 								"target_property_name": "#texture"
 							}
 						]
