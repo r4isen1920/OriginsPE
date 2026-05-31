@@ -5,6 +5,8 @@ deploy_originspe.sh
 build.sh
 
 node_modules/
+scripts/
+
 packs/data/gametests/src/Meta.ts
 
 *.txt
