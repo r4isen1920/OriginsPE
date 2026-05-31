@@ -119,7 +119,7 @@ import './domain/perks/GreatCraftsmanship';
 import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
 import './domain/perks/OreVeinMiner';
-import './domain/perks/FaunaFriends';
+import './domain/perks/FFaunaFriends';
 import './domain/perks/Precision';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
