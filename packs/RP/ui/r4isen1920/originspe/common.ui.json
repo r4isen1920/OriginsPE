@@ -507,6 +507,34 @@
 		"orientation": "vertical"
 	},
 
+	"factory_condition@hori_stack": {
+		"size": ["100%", "100%"],
+
+		"layer": 3,
+
+		"collection_name": "($target_name + '_collection')",
+		"factory": {
+			"name": "($target_name + '_factory')",
+			"control_name": "$target_control"
+		},
+
+		"bindings": [
+			{
+				"binding_name": "#title_text",
+				"binding_type": "global"
+			},
+			{
+				"binding_name": "#dialogtext",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "$condition",
+				"target_property_name": "#collection_length"
+			}
+		]
+	},
+
 	"origin_picker_window_template@common_dialogs.main_panel_no_title_no_buttons": {
 		"size": [180, 180],
 		"anchor_from": "center",
