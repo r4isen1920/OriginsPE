@@ -28,8 +28,6 @@ export type PickerMode = 'pick' | 'change' | 'view' | 'viewonly';
  */
 export class UiBridge {
 	private static readonly log = Log.get('UiBridge');
-	/** player.id -> tick at which the open dialogue is considered "ready". */
-	private static readonly openHandles = new Map<string, number>();
 
 
 	//#region DIALOGUE
@@ -43,22 +41,13 @@ export class UiBridge {
 	static openDialogue(player: Player, dialogueId: string): void {
 		this.ensureHandler(player);
 
-		const startedAt = system.currentTick;
-		const handle = system.runInterval(() => {
-			if (!player.isValid) { system.clearRun(handle); return; }
-			try {
-				player.runCommand(
-					`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
-				);
-			} catch (e: any) {
-				this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
-			}
-			// Retry every 4 ticks for up to ~1 second (20 ticks), then stop.
-			if (system.currentTick - startedAt >= 20) {
-				this.openHandles.set(player.id, system.currentTick);
-				system.clearRun(handle);
-			}
-		}, 4);
+		try {
+			player.runCommand(
+				`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
+			);
+		} catch (e: any) {
+			this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
+		}
 	}
 
 	/** Opens the origin/class picker dialogue for the given player. */
@@ -125,12 +114,5 @@ export class UiBridge {
 		} catch (e: any) {
 			this.log.error(`spawn dialogue_handler: ${e?.stack ?? e}`);
 		}
-	}
-
-	/** No-op cleanup hook called from `Main.ts` when the world unloads. */
-	static shutdown(): void {
-		this.openHandles.clear();
-		// Avoid unused-import lint when world isn't otherwise referenced.
-		void world;
 	}
 }
