@@ -11,38 +11,20 @@
 		//* _op:picker.<mode><kind><difficulty><id>
 		//* _op:picker.creelytrian
 
-		"description_trait_item_factory@origin_common.hori_stack": {
-			"layer": 3,
-
-			"collection_name": "description_trait_item",
-			"factory": {
-				"name": "description_trait_item_factory",
-				"control_name": "$being_traits"
-			},
-
-			"bindings": [
-				{
-					"binding_type": "global",
-					"binding_name": "#dialogtext"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "(((#dialogtext - ('%.14s' * #dialogtext)) = $being_id) * 1)",
-					"target_property_name": "#collection_length"
-				}
-			]
-		},
-
 		"{{#list as tt}}": {
-			"description_trait_{{tt.id}}_item_factory@description_trait_item_factory": {
-				"$$being_traits": "{{tt.traits}}",
-				"$$being_id": "{{tt.id}}"
+			"description_trait_{{tt.id}}_item_factory@origin_common.factory_condition": {
+				"size": ["100%", "100%c"],
+
+				"$$target_name": "{{tt.id}}_desc",
+				"$$target_control": "{{tt.traits}}",
+
+				"$$condition": "(((#dialogtext - ('%.14s' * #dialogtext)) = '{{tt.id}}') * 1)"
 			}
 		},
 
 
-		"description_stack@origin_common.verti_stack": {
-			"size": ["100%cm", "100%c" ],
+		"description_scroll_content@origin_common.verti_stack": {
+			"size": ["100%", "100%c"],
 
 			"layer": 2,
 
@@ -80,68 +62,84 @@
 				},
 				{
 					"traits_list_padding@common.empty_panel": {
-						"size": [1, 10] // width does not matter
+						"size": [1, 6] // width does not matter
 					}
 				},
 				{
 					"{{#list as tt}}": {
 						"trait_{{tt.id}}_factory@origin_picker_screen.description_trait_{{tt.id}}_item_factory": {}
 					}
-				},
+				}
+			]
+		},
+
+		"description_scroll@origin_common.scrolling_panel": {
+			"anchor_from": "top_left",
+			"anchor_to": "top_left",
+			"size": ["100%", "100%"],
+
+			"$$scrolling_pane_size": ["100%", "100%"],
+			"$$scrolling_pane_offset": [-0.5, 0],
+
+			"$$scroll_bar_and_track_size": [10, "100%"],
+			"$$scroll_box_image_control": "origin_common.scroll_box_active",
+			"$$scroll_track_image_control": "common.container_scrollbar_track",
+
+			"$$scroll_view_port_size": ["100% - 10px", "100%"], // clip excess; account for scroll bar and track
+			"$$scrolling_content": "origin_picker_screen.description_scroll_content"
+		},
+
+
+		"picker_screen_content_stack@origin_common.verti_stack": {
+			"size": ["100%cm", "100% - 8px"],
+
+			"controls": [
 				{
-					"footer_padding@common.empty_panel": {
-						"size": [1, 11] // width does not matter
+					"header@origin_common.hori_stack": {
+						"$$panel_base_layer": 20,
+
+						"controls": [
+							{ "icon@origin_picker_screen.being_icon_holder": {} },
+							{
+								"name_centerer@common.empty_panel": {
+									"size": ["100%c", "100%sm"],
+
+									"controls": [
+										{
+											"name@origin_picker_screen.being_nameplate": {
+												"offset": [-3, 0]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+
+				{
+					"padding@common.empty_panel": {
+						"size": [1, 4] // ignore width
+					}
+				},
+
+				{
+					"body_centerer@common.empty_panel": {
+						"size": ["100%sm - 1px", "fill"],
+
+						"controls": [
+							{ "scrollable_panel@origin_picker_screen.description_scroll": {} }
+						]
 					}
 				}
 			]
 		},
 
-
-		"picker_screen_content": {
-			"type": "stack_panel",
-			"orientation": "vertical",
-			"offset": ["4%", "-1%"],
+		"picker_screen_content@common.empty_panel": {
+			"size": ["100%", "100%"],
 
 			"controls": [
-				{
-					"header@common.empty_panel": {
-						"size": ["100%c", "100%c - 14px"],
-
-						"$$panel_base_layer": 150,
-						"clips_children": true,
-
-						"controls": [
-							{ "icon@origin_picker_screen.being_icon_holder": {} },
-							{ "name@origin_picker_screen.being_nameplate": {} }
-						]
-					}
-				},
-
-				{
-					"content_panel@common.empty_panel": {
-						"size": ["100%c", 121],
-
-						"controls": [
-							{
-								"scrollable_panel@origin_common.scrolling_panel": {
-									"anchor_from": "top_left",
-									"anchor_to": "top_left",
-									"size": ["100%c", "100%"],
-
-									"$$scrolling_pane_size": ["100%cm", "100%"],
-									"$$scrolling_pane_offset": [-0.5, 0],
-
-									"$$scroll_bar_and_track_size": [10, "100%"],
-									"$$scroll_box_image_control": "origin_common.scroll_box_active",
-									"$$scroll_track_image_control": "common.container_scrollbar_track",
-
-									"$$scroll_view_port_size": ["100%c", "100%"], // clip excess
-									"$$scrolling_content": "origin_picker_screen.description_stack"
-								}
-							}
-						]
-					}
-				}
+				{ "main@picker_screen_content_stack": {} }
 			]
 		},
 
@@ -149,9 +147,7 @@
 		"being_icon_holder": {
 			"type": "image",
 			"texture": "#texture",
-			"anchor_from": "left_middle",
-			"anchor_to": "left_middle",
-			"size": [32, 32],
+			"size": [31, 31],
 
 			"layer": "$panel_base_layer",
 
@@ -212,52 +208,56 @@
 		"being_nameplate": {
 			"type": "image",
 			"texture": "#texture",
-			"anchor_from": "left_middle",
-			"anchor_to": "left_middle",
-			"size": [135, 24],
-			"offset": [15, 0],
+			"size": [121, 17],
 
 			"layer": "($panel_base_layer - 1)",
 			"clips_children": true,
 
 			"controls": [
 				{
-					"being_name": {
-						"type": "label",
-						"anchor_from": "left_middle",
-						"anchor_to": "left_middle",
+					"nameplate_contents@origin_common.hori_stack": {
+						"size": ["90%", "100%cm"],
 
-						"size": ["default", "default"],
-						"max_size": [74, 16],
-						"offset": [20, -1],
-
-						"text": "#text",
-						"shadow": true,
-						"localize": true,
-
-						"layer": "($panel_base_layer - 1)",
-
-						"bindings": [
+						"controls": [
 							{
-								"binding_name": "#dialogtext",
-								"binding_type": "global"
+								"being_name": {
+									"type": "label",
+
+									"size": ["default", "default"],
+									"max_size": [74, 16],
+
+									"text": "#text",
+									"shadow": true,
+									"localize": true,
+
+									"layer": "($panel_base_layer - 1)",
+
+									"bindings": [
+										{
+											"binding_name": "#dialogtext",
+											"binding_type": "global"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
+											"target_property_name": "#being_name"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "('origins.' + #being_name + '.name')",
+											"target_property_name": "#text"
+										}
+									]
+								}
 							},
 							{
-								"binding_type": "view",
-								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
-								"target_property_name": "#being_name"
+								"padding@common.empty_panel": {
+									"size": ["fill", "100%sm"]
+								}
 							},
-							{
-								"binding_type": "view",
-								"source_property_name": "('origins.' + #being_name + '.name')",
-								"target_property_name": "#text"
-							}
+							{ "picker_difficulty@origin_picker_screen.picker_difficulty": {} }
 						]
 					}
-				},
-
-				{
-					"picker_difficulty@picker_difficulty": {}
 				}
 			],
 			"bindings": [
@@ -281,11 +281,7 @@
 		"picker_difficulty": {
 			"type": "image",
 			"texture": "#texture",
-
-			"anchor_from": "right_middle",
-			"anchor_to": "right_middle",
 			"size": [33, 11],
-			"offset": [-6, -1],
 
 			"layer": "($panel_base_layer - 1)",
 
@@ -531,12 +527,13 @@
 
 							{
 								"continue_and_cancel_buttons@origin_common.hori_stack": {
-									"size": ["180px", 22],
+									"size": ["100%c", 22],
 
 									"controls": [
 										{
 											"continue_button_panel@common.empty_panel": {
-												"size": ["83px", "100%"],
+												"size": [83, "100%"],
+
 												"controls": [
 													{
 														"changing_cost_display_panel@origin_buttons.continue_button_cost_display": {
@@ -576,6 +573,7 @@
 										{
 											"padding@common.empty_panel": {
 												"size": [14, "100%"],
+
 												"controls": [
 													{
 														"line_display": {
@@ -595,22 +593,22 @@
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
+														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
 														"target_property_name": "#is_changing_origin"
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
+														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
 														"target_property_name": "#is_banning_origin"
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
+														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
 														"target_property_name": "#is_changing_class"
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
+														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
 														"target_property_name": "#is_banning_class"
 													},
 													{
@@ -623,7 +621,7 @@
 										},
 										{
 											"cancel_button@common.empty_panel": {
-												"size": ["83px", "100%"],
+												"size": [83, "100%"],
 												"controls": [
 													{
 														"cancel_button_0@origin_buttons.dialog_button": {

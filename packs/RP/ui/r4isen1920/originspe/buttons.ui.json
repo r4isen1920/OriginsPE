@@ -508,8 +508,7 @@
 		]
 	},
 
-	"continue_button_cost_display": {
-		"type": "panel",
+	"continue_button_cost_display@common.empty_panel": {
 		"$panel_base_layer": 100,
 		"controls": [
 			{
@@ -532,7 +531,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -551,7 +550,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -565,12 +564,12 @@
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
 							"target_property_name": "#is_changing_origin"
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
 							"target_property_name": "#is_banning_origin"
 						},
 						{
@@ -587,6 +586,7 @@
 					"texture": "textures/origins/gui/side_ribbon_class",
 					"size": ["100%", "100%"],
 					"layer": "$panel_base_layer",
+
 					"controls": [
 						{
 							"resignation_paper_item_render@origin_common.hoverable_image": {
@@ -601,7 +601,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -620,7 +620,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -634,12 +634,12 @@
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
 							"target_property_name": "#is_changing_class"
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
 							"target_property_name": "#is_banning_class"
 						},
 						{

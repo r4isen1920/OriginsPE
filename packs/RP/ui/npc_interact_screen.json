@@ -41,7 +41,7 @@
 
           "controls": [
             { "picker_screen@origin_picker_screen.root": {} },
-            { "options@origin_picker_screen.root": {} },
+            { "options@origin_options_screen.root": {} },
             { "welcome_screen@origin_welcome_screen.root": {} }
           ]
         }
@@ -67,6 +67,7 @@
 
 		"cache_screen": true,
 		"close_on_player_hurt": false,
+    "$use_loading_bars": true,
 
 		"button_mappings": [
 			{
