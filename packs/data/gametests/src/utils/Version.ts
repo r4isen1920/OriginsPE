@@ -43,12 +43,12 @@ export default class Version {
 	//#region Tracker
 
 	private saveToWorld(): void {
-		world.setDynamicProperty('xp_furniture:version', this.version);
+		world.setDynamicProperty(`${NS}:version`, this.version);
 	}
 
 	@OnWorldLoad
 	private static onWorldLoad(): void {
-		const version = world.getDynamicProperty('xp_furniture:version');
+		const version = world.getDynamicProperty(`${NS}:version`);
 		const currentVersion = Version.get();
 		const comparison =
 			typeof version === 'string' ? Version.compareTo(version) : -1;
