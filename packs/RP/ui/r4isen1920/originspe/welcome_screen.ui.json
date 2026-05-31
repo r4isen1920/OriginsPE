@@ -33,10 +33,9 @@
 		"next": ""
 	},
 
-	"welcome_screen_description_panel": {
-		"type": "stack_panel",
-		"orientation": "vertical",
-		"layer": 100,
+	"welcome_screen_description_panel@origin_common.verti_stack": {
+		"size": ["100%", "100%c"],
+
 		"controls": [
 			{
 				"text_description@origin_common.text_label": {
@@ -109,10 +108,8 @@
 		]
 	},
 
-	"welcome_screen": {
-		"type": "stack_panel",
-		"orientation": "vertical",
-		"offset": [0, 0],
+	"welcome_screen@origin_common.verti_stack": {
+		"size": ["100%", "100%c"],
 
 		"controls": [
 			{
@@ -120,6 +117,7 @@
 					"type": "panel",
 					"size": ["100%", "100%c"],
 					"clips_children": true,
+
 					"controls": [
 						{
 							"title_image": {
@@ -170,6 +168,90 @@
 		]
 	},
 
+
+	"welcome_screen_buttons@common.empty_panel": {
+		"layer": 3,
+
+		"controls": [
+			{
+				"selection_buttons_at_bottom_middle@common.empty_panel": {
+					"anchor_from": "center",
+					"anchor_to": "bottom_middle",
+					"size": ["100%cm", 22],
+					"offset": [0, "9% + 90px"],
+
+					"controls": [
+						{
+							"welcome_screen_buttons@origin_common.verti_stack": {
+								"size": ["100%cm", "100%c"],
+								"use_child_anchors": true,
+
+								"controls": [
+									{
+										"ignore_welcome_screen_checkbox": {
+											"type": "stack_panel",
+											"orientation": "horizontal",
+											"use_child_anchors": true,
+
+											"size": ["100%c", "100%cm"],
+
+											"controls": [
+												{
+													"button@origin_buttons.dialog_button": {
+														"size": [12, 12],
+														"$collection_index": 1,
+														"$button_type": "ignore_welcome_screen"
+													}
+												},
+												{
+													"padding@common.empty_panel": {
+														"size": [2.5, 1]
+													}
+												},
+												{
+													"label@npc_interact.student_button_label": {
+														"size": ["default", "default"],
+														"max_size": ["default", "default"],
+
+														"text": "origins.gui.button.ignore_welcome_screen",
+														"font_scale_factor": 0.8,
+														"localize": true,
+														"$text_color": "$f_color_format",
+
+														"bindings": [
+															{
+																"binding_name": "#dialogtext",
+																"binding_type": "global"
+															},
+															{
+																"binding_type": "view",
+																"source_property_name": "(not ((#dialogtext - '_op:welcome') = #dialogtext))",
+																"target_property_name": "#visible"
+															}
+														]
+													}
+												}
+											]
+										}
+									},
+									{ "padding@common.empty_panel": { "size": [1, 5] } },
+									{
+										"close_welcome_screen_button@origin_buttons.dialog_button": {
+											"size": [75, 21],
+											"$collection_index": 0,
+											"$button_type": "close_welcome_screen"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+
 	"welcome_root_content@common.empty_panel": {
 		"offset": [0, -15],
 
@@ -185,38 +267,18 @@
 					"propagate_alpha": true,
 					"layer": 3
 				}
-			}
+			},
+			{ "welcome_buttons@origin_welcome_screen.welcome_screen_buttons": {} }
 		]
 	},
 
-	/*
-	 * Root factory wrap: the entire welcome subtree (animations, scrolling
-	 * panel, description text) is only instantiated when `#dialogtext` equals
-	 * `_op:welcome`. The inner `#visible` binding has been removed because the
-	 * factory skips instantiation entirely when `#collection_length` is 0.
-	 */
-	"root": {
-		"type": "stack_panel",
-		"orientation": "vertical",
+	"root@origin_common.factory_condition": {
 		"size": ["100%", "100%"],
 
-		"collection_name": "welcome_root_collection",
-		"factory": {
-			"name": "welcome_root_factory",
-			"control_name": "origin_welcome_screen.welcome_root_content"
-		},
+		"$target_name": "welcome_root",
+		"$target_control": "origin_welcome_screen.welcome_root_content",
 
-		"bindings": [
-			{
-				"binding_name": "#dialogtext",
-				"binding_type": "global"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "((#dialogtext = '_op:welcome') * 1)",
-				"target_property_name": "#collection_length"
-			}
-		]
+		"$condition": "((('%.12s' * #dialogtext) = '_op:welcome.') * 1)"
 	}
 
 }

@@ -11,10 +11,7 @@
 		//* _op:picker.<mode><kind><difficulty><id>
 		//* _op:picker.creelytrian
 
-		"description_trait_item_factory": {
-			"type": "stack_panel",
-			"orientation": "horizontal",
-
+		"description_trait_item_factory@origin_common.hori_stack": {
 			"layer": 3,
 
 			"collection_name": "description_trait_item",
@@ -457,14 +454,225 @@
 					"binding_name": "#dialogtext",
 					"binding_type": "global"
 				},
+
 				{
 					"binding_type": "view",
 					"source_property_name": "('textures/origins/gui/dialog_shine_' + (('%.13s' * #dialogtext) - ('%.12s' * #dialogtext)))",
 					"target_property_name": "#texture"
+				},
+
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+					"target_property_name": "#picker_title_text_type"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.1s' * #picker_title_text_type) = 'v')",
+					"target_property_name": "#visible"
 				}
 			]
 		},
 
+
+		"picker_buttons@common.empty_panel": {
+			"size": ["100%", "100%"],
+			"layer": 3,
+
+			"controls": [
+				{
+					"cycle_left_button@origin_buttons.dialog_button": {
+						"$$collection_index": 0,
+						"$$button_type": "left_cycle",
+
+						"size": [23, 23],
+						"offset": [-110, 0]
+					}
+				},
+				{
+					"selection_buttons_at_bottom_middle@common.empty_panel": {
+						"anchor_from": "center",
+						"anchor_to": "bottom_middle",
+						"size": ["100%cm", 22],
+						"offset": [0, "9% + 90px"],
+
+						"controls": [
+							{
+								"select_button@common.empty_panel": {
+									"size": [75, 21],
+
+									"controls": [
+										{
+											"select_button@origin_buttons.dialog_button": {
+												"$$collection_index": 1,
+												"$$button_type": "select",
+
+												"size": ["100%", "100%"]
+											}
+										},
+										{
+											"select_button_blocked@origin_buttons.dialog_button": {
+												"$$collection_index": 1,
+												"$$button_type": "select_blocked",
+
+												"size": ["100%", "100%"]
+											}
+										}
+									]
+								}
+							},
+
+							{
+								"continue_and_cancel_buttons@origin_common.hori_stack": {
+									"size": ["180px", 22],
+
+									"controls": [
+										{
+											"continue_button_panel@common.empty_panel": {
+												"size": ["83px", "100%"],
+												"controls": [
+													{
+														"changing_cost_display_panel@origin_buttons.continue_button_cost_display": {
+															"size": [31, 22],
+															"offset": [-27.5, 1.0]
+														}
+													},
+													{
+														"continue_button@common.empty_panel": {
+															"size": [82, 21],
+
+															"controls": [
+																{
+																	"continue_button_race@origin_buttons.dialog_button": {
+																		"$$collection_index": 1,
+																		"$$button_type": "continue_race"
+																	}
+																},
+																{
+																	"continue_button_class@origin_buttons.dialog_button": {
+																		"$$collection_index": 1,
+																		"$$button_type": "continue_class"
+																	}
+																},
+																{
+																	"continue_button_blocked@origin_buttons.dialog_button": {
+																		"$$collection_index": 1,
+																		"$$button_type": "continue_blocked"
+																	}
+																}
+															]
+														}
+													}
+												]
+											}
+										},
+										{
+											"padding@common.empty_panel": {
+												"size": [14, "100%"],
+												"controls": [
+													{
+														"line_display": {
+															"type": "image",
+															"size": [1, "100% + 2px"],
+															"offset": [1, 0],
+															"texture": "textures/ui/underline",
+															"tiled": "y",
+															"color": "$7_color_format"
+														}
+													}
+												],
+												"bindings": [
+													{
+														"binding_name": "#dialogtext",
+														"binding_type": "global"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
+														"target_property_name": "#is_changing_origin"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
+														"target_property_name": "#is_banning_origin"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
+														"target_property_name": "#is_changing_class"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
+														"target_property_name": "#is_banning_class"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "(#is_changing_origin or #is_banning_origin or #is_changing_class or #is_banning_class)",
+														"target_property_name": "#visible"
+													}
+												]
+											}
+										},
+										{
+											"cancel_button@common.empty_panel": {
+												"size": ["83px", "100%"],
+												"controls": [
+													{
+														"cancel_button_0@origin_buttons.dialog_button": {
+															"$$collection_index": 0,
+															"$$button_type": "cancel",
+
+															"size": [75, 21]
+														}
+													},
+													{
+														"cancel_button_1@origin_buttons.dialog_button": {
+															"$$collection_index": 2,
+															"$$button_type": "cancel",
+
+															"size": [75, 21]
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"cycle_right_button@common.empty_panel": {
+						"size": [23, 23],
+						"offset": [110, 0],
+						"controls": [
+							{
+								"cycle_right_button_0@origin_buttons.dialog_button": {
+									"$$collection_index": 2,
+									"$$button_type": "right_cycle",
+
+									"anchor_from": "center",
+									"anchor_to": "center",
+									"size": [23, 23]
+								}
+							},
+							{
+								"cycle_right_button_1@origin_buttons.dialog_button": {
+									"$$collection_index": 3,
+									"$$button_type": "right_cycle",
+
+									"anchor_from": "center",
+									"anchor_to": "center",
+									"size": [23, 23]
+								}
+							}
+						]
+					}
+				}
+			]
+		},
 
 
 		"picker_root_content@common.empty_panel": {
@@ -476,45 +684,20 @@
 						"$$child_control": "origin_picker_screen.picker_screen_content"
 					}
 				},
-				{
-					"picker_buttons@origin_buttons.root": {
-						"anchor_to": "center",
-						"anchor_from": "center",
-						"layer": 3
-					}
-				},
-
+				{ "picker_buttons@picker_buttons": {} },
 				{ "picker_title_text@picker_title_text": {} },
 				{ "picker_shine@picker_shine": {} }
 			]
 		},
 
-		//* Root factory wrap: the entire picker subtree is only instantiated
-		//* when `#dialogtext` starts with `_op:picker.` (11 chars). When
-		//* `#collection_length` is 0 the factory emits nothing, skipping all
-		//* inner bindings entirely.
-		"root": {
-			"type": "stack_panel",
-			"orientation": "vertical",
+		"root@origin_common.factory_condition": {
 			"size": ["100%", "100%"],
 
-			"collection_name": "picker_root_collection",
-			"factory": {
-				"name": "picker_root_factory",
-				"control_name": "origin_picker_screen.picker_root_content"
-			},
+			"$$target_name": "picker_root",
+			"$$target_control": "origin_picker_screen.picker_root_content",
 
-			"bindings": [
-				{
-					"binding_name": "#dialogtext",
-					"binding_type": "global"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "((('%.11s' * #dialogtext) = '_op:picker.') * 1)",
-					"target_property_name": "#collection_length"
-				}
-			]
+			"$$condition": "((('%.11s' * #dialogtext) = '_op:picker.') * 1)"
 		}
+
 	}
 }

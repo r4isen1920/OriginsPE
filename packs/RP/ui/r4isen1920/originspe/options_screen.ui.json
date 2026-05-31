@@ -3,61 +3,6 @@
 
 	"namespace": "origin_options_screen",
 
-	/*
-	 * Root factory wrap: the entire options subtree is only instantiated when
-	 * `#dialogtext` starts with `_op:general.` or `_op:admin.`. The starts-with
-	 * check is done by subtracting the literal prefix and testing whether the
-	 * result differs from the original (same trick used in buttons.ui.json
-	 * for `_op:welcome`).
-	 */
-	"root": {
-		"type": "stack_panel",
-		"orientation": "vertical",
-		"size": ["100%", "100%"],
-
-		"collection_name": "options_root_collection",
-		"factory": {
-			"name": "options_root_factory",
-			"control_name": "origin_options_screen.options_root_content"
-		},
-
-		"bindings": [
-			{
-				"binding_name": "#dialogtext",
-				"binding_type": "global"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(((not ((#dialogtext - '_op:general.') = #dialogtext)) + (not ((#dialogtext - '_op:admin.') = #dialogtext))) * 1)",
-				"target_property_name": "#collection_length"
-			}
-		]
-	},
-
-	"options_root_content@common.empty_panel": {
-		"size": ["100%", "100%"],
-
-		"controls": [
-			{ "window_tabs@origin_options_screen.origin_options_tab_stack": {} },
-			{ "window_main@origin_options_screen.origins_menu_window": {} },
-			{ "window_close_button@origin_options_screen.close_button": {} },
-			{ "screen_label@origin_picker_screen.picker_title_text_control": {} },
-			{
-				"screen_background_custom": {
-					"type": "image",
-					"texture": "textures/ui/White",
-					"color": [0.0, 0.0, 0.0],
-					"alpha": 0.6,
-
-					"allow_clipping": false,
-					"layer": 1,
-
-					"size": ["100% + 180px", "100% + 200px"]
-				}
-			}
-		]
-	},
-
 	"origin_options_tab_stack": {
 		"type": "stack_panel",
 		"orientation": "vertical",
@@ -1211,33 +1156,87 @@
 		]
 	},
 
-	"close_button": {
-		"type": "stack_panel",
-		"orientation": "vertical",
-		"collection_name": "student_buttons_collection",
+	"close_button@origin_common.hori_stack": {
 		"anchor_from": "center",
 		"anchor_to": "bottom_middle",
 		"size": ["100%cm", 22],
 		"offset": [0, "9% + 90px"],
+
+		"collection_name": "student_buttons_collection",
+
+		"$visible_binding": "(#title_text = '_op:options')",
+
 		"controls": [
 			{
 				"button_base@common.empty_panel": {
-					"collection_index": 0,
-					"size": ["100%c", "100%c"],
 					"anchor_from": "center",
 					"anchor_to": "center",
+					"size": ["100%c", "100%c"],
+
+					"collection_index": 0,
+
 					"controls": [
 						{
 							"button_control@origin_buttons.origin_selector_button": {
 								"$button_type": "cancel",
-								"size": [75, 21],
+
 								"anchor_from": "center",
-								"anchor_to": "center"
+								"anchor_to": "center",
+								"size": [75, 21]
 							}
 						}
 					]
 				}
 			}
 		]
+	},
+
+
+	"options_root_content@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{ "window_tabs@origin_options_screen.origin_options_tab_stack": {} },
+			{ "window_main@origin_options_screen.origins_menu_window": {} },
+			{ "window_close_button@origin_options_screen.close_button": {} },
+			{
+				"screen_label": {
+					"type": "label",
+					"text": "#text",
+					"localize": true,
+					"shadow": true,
+
+					"anchor_from": "center",
+					"anchor_to": "top_middle",
+					"size": ["100%cm", "100%cm"],
+					"offset": [0, "-10% - 85px"],
+
+					"layer": 3
+				}
+			},
+			{
+				"screen_background_custom": {
+					"type": "image",
+					"texture": "textures/ui/White",
+					"color": [0.0, 0.0, 0.0],
+					"alpha": 0.6,
+
+					"allow_clipping": false,
+					"layer": 1,
+
+					"size": ["100% + 180px", "100% + 200px"]
+				}
+			}
+		]
+	},
+
+	"root@origin_common.factory_condition": {
+		"size": ["100%", "100%"],
+
+		"$target_name": "options_root",
+		"$target_control": "origin_options_screen.options_root_content",
+
+		"$condition": "((('%.12s' * #dialogtext) = '_op:options.') * 1)"
 	}
+
 }
