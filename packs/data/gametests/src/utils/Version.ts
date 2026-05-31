@@ -60,16 +60,16 @@ export default class Version {
 	@OnWorldLoad
 	private static onWorldLoad(): void {
 		const version = world.getDynamicProperty(`${NS}:version`);
+		const savedVersion = typeof version === 'string' ? version : undefined;
 		const currentVersion = Version.get();
-		const comparison =
-			typeof version === 'string' ? Version.compareTo(version) : -1;
+		const comparison = savedVersion ? Version.compareTo(savedVersion) : -1;
 
 		if (comparison < 0) {
 			this.log.info(
 				`World was loaded with older version (${version ?? 'unknown'}). Upgrading to ${currentVersion.version}.`
 			);
 			currentVersion.saveToWorld();
-			this.onUpgrade();
+			this.onUpgrade(savedVersion);
 		} else if (comparison > 0) {
 			this.log.warn(
 				`World was loaded with newer version (${version}). Downgrading to ${currentVersion.version}.`
@@ -82,19 +82,47 @@ export default class Version {
 			);
 		}
 
-		this.log.info('OriginsPE is running!');
+		this.log.info(`OriginsPE is running! Version: ${currentVersion.version}, commit: ${Meta.github.commit}`);
 	}
 
 
 
 	//#region Hooks
 
-	private static onUpgrade() {
-		const currentVersion = this.get().version;
-		this.setPlayerRecordResetVersion(currentVersion);
+	private static onUpgrade(previousVersion: string | undefined) {
+		const currentVersion = this.get();
+		if (!this.hasMajorIncrement(previousVersion, currentVersion.version)) {
+			this.log.info(
+				`Version upgrade does not include a major increment. Player records will not queue for reset. previous version: ${previousVersion ?? 'unknown'}, current version: ${currentVersion.version}`
+			);
+			return;
+		}
+
+		this.setPlayerRecordResetVersion(currentVersion.version);
 		this.log.info(
-			`Player records will reset on next join for version: ${currentVersion}.`
+			`Player records will reset on next join for version: ${currentVersion.version}.`
 		);
+	}
+
+	private static hasMajorIncrement(previousVersion: string | undefined, currentVersion: string): boolean {
+		const previousMajor = this.getMajor(previousVersion);
+		const currentMajor = this.getMajor(currentVersion);
+		if (previousMajor === undefined || currentMajor === undefined) return false;
+		return currentMajor > previousMajor;
+	}
+
+	private static getMajor(version: string | undefined): number | undefined {
+		const parts = this.parseVersion(version);
+		return parts?.major;
+	}
+
+	private static parseVersion(version: string | undefined): { major: number; minor: number; patch: number } | undefined {
+		if (!version || !/^v?\d+\.\d+\.\d+$/.test(version)) return undefined;
+		const [major, minor, patch] = version
+			.replace(/[^0-9.]/g, '')
+			.split('.')
+			.map(Number);
+		return { major, minor, patch };
 	}
 
 	private static onDowngrade() {
@@ -132,18 +160,19 @@ export default class Version {
 			return false;
 		}
 
-		const currentVersion = this.get().version;
-		if (resetVersion !== currentVersion) {
-			this.log.debug(
-				`Ignoring player record reset for version: ${resetVersion}, current version: ${currentVersion}`
-			);
+		const resetMajor = this.getMajor(resetVersion);
+		if (resetMajor === undefined) {
+			this.log.warn(`Invalid player record reset version: ${resetVersion}`);
+			this.setPlayerRecordResetVersion(undefined);
 			return false;
 		}
 
+		const currentVersion = this.get().version;
 		const state = PlayerState.for(player);
-		if (state.getRecordVersion() === resetVersion) {
+		const recordMajor = this.getMajor(state.getRecordVersion());
+		if (recordMajor !== undefined && recordMajor >= resetMajor) {
 			this.log.debug(
-				`Player record already reset for version: ${resetVersion}, player: ${player.name}`
+				`Player record already reset for major version: ${resetMajor}, player: ${player.name}`
 			);
 			return false;
 		}
@@ -151,7 +180,7 @@ export default class Version {
 		try {
 			this.log.info(`Resetting player record for version: ${resetVersion}, player: ${player.name}`);
 			state.reset();
-			state.setRecordVersion(resetVersion);
+			state.setRecordVersion(currentVersion);
 			return true;
 		} catch (e: any) {
 			this.log.error(
