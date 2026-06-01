@@ -2,6 +2,7 @@ import {
 	ItemCompleteUseAfterEvent,
 	ItemStartUseAfterEvent,
 	ItemUseAfterEvent,
+	ItemUseBeforeEvent,
 	Player,
 } from '@minecraft/server';
 
@@ -10,14 +11,15 @@ import {
 	AfterItemCompleteUse,
 	AfterItemStartUse,
 	AfterItemUse,
+	BeforeItemUse,
 } from '../core/DecoratedEvents';
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
-import { UiBridge } from '../core/UiBridge';
+import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 import { InventoryService } from '../services/InventoryService';
 import { isToggleOn } from '../ui/OptionsState';
 import { EntityUtils } from '../utils/EntityUtils';
-import { PerkRegistry, PowerRegistry } from './Registries';
+import { AbilityDispatch } from './AbilityDispatch';
 
 
 //#region HANDLERS
@@ -51,7 +53,7 @@ const ORB_OF_ORIGINS: ItemHandler = {
 			return;
 		}
 		PlayerState.for(player).setFlag('change_resign', true);
-		UiBridge.openPicker(player, 'race', 'change');
+		UiBridge.openPicker(player, PickerKind.Race, PickerMode.Change);
 		player.playSound('ui.wood_click');
 	},
 };
@@ -65,7 +67,7 @@ const RESIGNATION_PAPER: ItemHandler = {
 			return;
 		}
 		PlayerState.for(player).setFlag('change_resign', true);
-		UiBridge.openPicker(player, 'class', 'change');
+		UiBridge.openPicker(player, PickerKind.Class, PickerMode.Change);
 		player.playSound('ui.wood_click');
 	},
 };
@@ -129,25 +131,20 @@ export class ItemEvents {
 	static onUse(ev: ItemUseAfterEvent): void {
 		if (!EntityUtils.isPlayer(ev.source)) return;
 		const player = ev.source as Player;
-		const state = PlayerState.for(player);
-		for (const id of state.getPowers()) {
-			PowerRegistry.get(id)?.onItemUse?.(player, ev);
-		}
-		for (const id of state.getPerks()) {
-			PerkRegistry.get(id)?.onItemUse?.(player, ev);
-		}
+		AbilityDispatch.toGranted(player, 'onItemUse', (a) => a.onItemUse?.(player, ev));
+	}
+
+	@BeforeItemUse()
+	static onBeforeUse(ev: ItemUseBeforeEvent): void {
+		if (!EntityUtils.isPlayer(ev.source)) return;
+		const player = ev.source as Player;
+		AbilityDispatch.toGranted(player, 'onBeforeItemUse', (a) => a.onBeforeItemUse?.(player, ev));
 	}
 
 	@AfterItemCompleteUse()
 	static onCompleteUse(ev: ItemCompleteUseAfterEvent): void {
 		if (!EntityUtils.isPlayer(ev.source)) return;
 		const player = ev.source as Player;
-		const state = PlayerState.for(player);
-		for (const id of state.getPowers()) {
-			PowerRegistry.get(id)?.onItemCompleteUse?.(player, ev);
-		}
-		for (const id of state.getPerks()) {
-			PerkRegistry.get(id)?.onItemCompleteUse?.(player, ev);
-		}
+		AbilityDispatch.toGranted(player, 'onItemCompleteUse', (a) => a.onItemCompleteUse?.(player, ev));
 	}
 }

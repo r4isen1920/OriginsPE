@@ -1,13 +1,20 @@
 import {
+	EffectAddAfterEvent,
+	EntityHealthChangedAfterEvent,
 	EntityHurtAfterEvent,
+	EntityHurtBeforeEvent,
 	EntityHitEntityAfterEvent,
 	ItemCompleteUseAfterEvent,
 	ItemUseAfterEvent,
+	ItemUseBeforeEvent,
 	Player,
+	PlayerBreakBlockAfterEvent,
+	PlayerDimensionChangeAfterEvent,
+	PlayerPlaceBlockAfterEvent,
 	ProjectileHitEntityAfterEvent,
 } from '@minecraft/server';
 
-import type { DEFAULT_ATTRIBUTES } from '../services/AttributeService';
+import type { AttributeOverrides } from '../services/Attributes';
 
 
 //#region SHARED TYPES
@@ -37,11 +44,11 @@ export interface Ability {
 	readonly tickInterval?: number;
 
 	/**
-	 * Attribute overrides layered on top of {@link DEFAULT_ATTRIBUTES} when
+	 * Attribute overrides layered on top of the default attribute profile when
 	 * this ability is active. Multiple active abilities are merged in
 	 * registration order; later entries win for conflicting keys.
 	 */
-	readonly attributes?: Partial<Record<keyof typeof DEFAULT_ATTRIBUTES, string>>;
+	readonly attributes?: AttributeOverrides;
 
 	/** Called once when the ability is granted to the player. */
 	onAcquire?(player: Player): void;
@@ -52,14 +59,37 @@ export interface Ability {
 	onTick?(player: Player): void;
 	/** Called from {@link DamageService} when the owner is hurt. */
 	onHurt?(player: Player, ev: EntityHurtAfterEvent): void;
+	/**
+	 * Called from {@link DamageService} when the owner deals damage to another
+	 * entity. Unlike {@link onAttack}, this fires from the `entityHurt` event so
+	 * the applied `ev.damage` amount is available (read-only).
+	 */
+	onDealDamage?(player: Player, ev: EntityHurtAfterEvent): void;
+	/**
+	 * Called from {@link DamageService} before the owner's incoming damage is
+	 * applied. Mutate `ev.damage` to rescale/cancel the hit.
+	 */
+	onHurtBefore?(player: Player, ev: EntityHurtBeforeEvent): void;
 	/** Called from {@link DamageService} when the owner attacks an entity. */
 	onAttack?(player: Player, ev: EntityHitEntityAfterEvent): void;
 	/** Called from {@link DamageService} when the owner's projectile hits. */
 	onProjectileHit?(player: Player, ev: ProjectileHitEntityAfterEvent): void;
 	/** Called from the item-use dispatcher when the owner uses any item. */
 	onItemUse?(player: Player, ev: ItemUseAfterEvent): void;
+	/** Called from the item-use dispatcher before the owner uses any item. */
+	onBeforeItemUse?(player: Player, ev: ItemUseBeforeEvent): void;
 	/** Called when the owner finishes consuming a food/potion item. */
 	onItemCompleteUse?(player: Player, ev: ItemCompleteUseAfterEvent): void;
+	/** Called from {@link AbilityEventService} when the owner's health changes. */
+	onHealthChange?(player: Player, ev: EntityHealthChangedAfterEvent): void;
+	/** Called from {@link AbilityEventService} when an effect is added to the owner. */
+	onEffectAdd?(player: Player, ev: EffectAddAfterEvent): void;
+	/** Called from {@link AbilityEventService} when the owner changes dimension. */
+	onDimensionChange?(player: Player, ev: PlayerDimensionChangeAfterEvent): void;
+	/** Called from {@link AbilityEventService} when the owner breaks a block. */
+	onBreakBlock?(player: Player, ev: PlayerBreakBlockAfterEvent): void;
+	/** Called from {@link AbilityEventService} when the owner places a block. */
+	onPlaceBlock?(player: Player, ev: PlayerPlaceBlockAfterEvent): void;
 }
 
 

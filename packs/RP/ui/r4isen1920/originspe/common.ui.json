@@ -501,24 +501,55 @@
 		"size": ["100%c", "100%c"]
 	},
 	"hori_stack@stack_panel": {
-		"orientation": "horizontal"
+		"orientation": "horizontal",
+		"size": ["100%c", "100%cm"]
 	},
 	"verti_stack@stack_panel": {
-		"orientation": "vertical"
+		"orientation": "vertical",
+		"size": ["100%cm", "100%c"]
+	},
+
+	"factory_condition@hori_stack": {
+		"size": ["100%", "100%"],
+
+		"layer": 3,
+
+		"collection_name": "($target_name + '_collection')",
+		"factory": {
+			"name": "($target_name + '_factory')",
+			"control_name": "$target_control"
+		},
+
+		"bindings": [
+			{
+				"binding_name": "#title_text",
+				"binding_type": "global"
+			},
+			{
+				"binding_name": "#dialogtext",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "$condition",
+				"target_property_name": "#collection_length"
+			}
+		]
 	},
 
 	"origin_picker_window_template@common_dialogs.main_panel_no_title_no_buttons": {
-		"size": [180, 180],
 		"anchor_from": "center",
 		"anchor_to": "center",
+		"size": [180, 180],
+
+		"$set_offset|default": [0, -4],
+		"offset": "$set_offset",
+
 		"$show_close_button": false,
 		"$dialog_background_texture": "textures/ui/Banners",
 		"clips_children": true,
 
-		"$set_offset|default": [0, -4],
 		"$set_layer|default": 3,
-
-		"offset": "$set_offset",
 		"layer": "$set_layer"
 	}
 

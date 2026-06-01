@@ -14,9 +14,27 @@ import { PlayerState } from './PlayerState';
 
 
 //#region TYPES
-
-export type PickerKind = 'race' | 'class';
-export type PickerMode = 'pick' | 'change' | 'view' | 'viewonly';
+/**
+ * Represents the different categories of pickers that can be opened for the player.
+ */
+export enum PickerKind {
+	/** Shows changing Origin. */
+	Race = 'race',
+	/** Shows changing Class. */
+	Class = 'class',
+};
+/**
+ * Represents the different modes in which a picker can be opened, affecting both the
+ * UI and the player's ability to make changes.
+ */
+export enum PickerMode {
+	/** Displays the picker for the player to choose an option. With navigation such as left and right arrows, and a select button. */
+	Pick = 'pick',
+	/** Allows the player to change their current selection. With two buttons: confirm and cancel. */
+	Change = 'change',
+	/** Displays the current selection without allowing changes. With a single "close" button. */
+	View = 'view',
+}
 
 
 //#region UIBRIDGE
@@ -28,8 +46,6 @@ export type PickerMode = 'pick' | 'change' | 'view' | 'viewonly';
  */
 export class UiBridge {
 	private static readonly log = Log.get('UiBridge');
-	/** player.id -> tick at which the open dialogue is considered "ready". */
-	private static readonly openHandles = new Map<string, number>();
 
 
 	//#region DIALOGUE
@@ -43,39 +59,30 @@ export class UiBridge {
 	static openDialogue(player: Player, dialogueId: string): void {
 		this.ensureHandler(player);
 
-		const startedAt = system.currentTick;
-		const handle = system.runInterval(() => {
-			if (!player.isValid) { system.clearRun(handle); return; }
-			try {
-				player.runCommand(
-					`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
-				);
-			} catch (e: any) {
-				this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
-			}
-			// Retry every 4 ticks for up to ~1 second (20 ticks), then stop.
-			if (system.currentTick - startedAt >= 20) {
-				this.openHandles.set(player.id, system.currentTick);
-				system.clearRun(handle);
-			}
-		}, 4);
+		try {
+			player.runCommand(
+				`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
+			);
+		} catch (e: any) {
+			this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
+		}
 	}
 
 	/** Opens the origin/class picker dialogue for the given player. */
-	static openPicker(player: Player, kind: PickerKind, mode: PickerMode = 'pick'): void {
+	static openPicker(player: Player, kind: PickerKind, mode: PickerMode = PickerMode.Pick): void {
 		const state = PlayerState.for(player);
-		const current = kind === 'race' ? state.getOrigin() : state.getClass();
-		const fallback = kind === 'race' ? 'human' : 'nitwit';
+		const current = kind === PickerKind.Race ? state.getOrigin() : state.getClass();
+		const fallback = kind === PickerKind.Race ? 'human' : 'nitwit';
 		const id = `gui_${kind}_${mode}_${current ?? fallback}`;
 
 		this.openDialogue(player, id);
 
 		switch (mode) {
-			case 'pick':
-				if (kind === 'race') state.setOrigin(undefined);
+			case PickerMode.Pick:
+				if (kind === PickerKind.Race) state.setOrigin(undefined);
 				else state.setClass(undefined);
 				break;
-			case 'view':
+			case PickerMode.View:
 				player.playSound('ui.enchant', { volume: 1, pitch: 1.25 });
 				break;
 			default: break;
@@ -125,12 +132,5 @@ export class UiBridge {
 		} catch (e: any) {
 			this.log.error(`spawn dialogue_handler: ${e?.stack ?? e}`);
 		}
-	}
-
-	/** No-op cleanup hook called from `Main.ts` when the world unloads. */
-	static shutdown(): void {
-		this.openHandles.clear();
-		// Avoid unused-import lint when world isn't otherwise referenced.
-		void world;
 	}
 }

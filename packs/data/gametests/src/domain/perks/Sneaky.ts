@@ -3,6 +3,7 @@ import { Player } from '@minecraft/server';
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 
 
 /**
@@ -14,9 +15,9 @@ export class Sneaky implements Perk {
 
     onTick(player: Player): void {
         if (!PlayerState.for(player).hasPerk('sneaky')) {
-            player.triggerEvent('r4isen1920_originspe:nameplate.true');
+            AttributeService.apply(player, { displayName: true });
         } else {
-            player.triggerEvent('r4isen1920_originspe:nameplate.false');
+            AttributeService.apply(player, { displayName: false });
         }    
     }
 }

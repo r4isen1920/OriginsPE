@@ -7,9 +7,13 @@ import {
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
 import { PlayerTick, Ticker } from '../core/Ticker';
-import { UiBridge } from '../core/UiBridge';
-import { AttributeService, DEFAULT_ATTRIBUTES } from '../services/AttributeService';
+import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
+import { AttributeService } from '../services/AttributeService';
+import { AttributeOverrides, DEFAULT_ATTRIBUTES } from '../services/Attributes';
 import { ResourceBarService } from '../services/ResourceBarService';
+import Version from '../utils/Version';
+import { Perk, Power } from './Ability';
+import { AbilityDispatch } from './AbilityDispatch';
 import {
 	ClassRegistry,
 	OriginRegistry,
@@ -49,6 +53,7 @@ export class PlayerLifecycle {
 	static onSpawn(ev: PlayerSpawnAfterEvent): void {
 		if (!ev.initialSpawn) return;
 		const { player } = ev;
+		Version.resetPlayerRecordIfUpgradePending(player);
 		const state = PlayerState.for(player);
 
 		ResourceBarService.markGuiReady(player, false);
@@ -66,11 +71,11 @@ export class PlayerLifecycle {
 
 			// Prompt origin/class pickers if missing.
 			if (!state.getOrigin()) {
-				UiBridge.openPicker(player, 'race', 'pick');
+				UiBridge.openPicker(player, PickerKind.Race, PickerMode.Pick);
 				return;
 			}
 			if (!state.getClass()) {
-				UiBridge.openPicker(player, 'class', 'pick');
+				UiBridge.openPicker(player, PickerKind.Class, PickerMode.Pick);
 				return;
 			}
 
@@ -138,7 +143,7 @@ export class PlayerLifecycle {
 		state.setControls(nextControls);
 
 		// Apply attributes: defaults overlaid by every active power/perk.
-		const merged: Partial<Record<keyof typeof DEFAULT_ATTRIBUTES, string>> = { ...DEFAULT_ATTRIBUTES };
+		const merged: AttributeOverrides = { ...DEFAULT_ATTRIBUTES };
 		for (const id of nextPowers) {
 			const attrs = PowerRegistry.get(id)?.attributes;
 			if (attrs) Object.assign(merged, attrs);
@@ -153,6 +158,8 @@ export class PlayerLifecycle {
 		this.applyEffects(player, origin?.effects?.model, 'model_type');
 		this.applyEffects(player, origin?.effects?.skin, 'skin_type');
 		this.applyEffects(player, origin?.effects?.emitter, 'emitter_type');
+
+		Version.markPlayerRecordCurrent(player);
 	}
 
 	private static diff(
@@ -176,26 +183,39 @@ export class PlayerLifecycle {
 
 	//#region TICK LOOP
 
+	/** Cadence applied to an ability that does not declare its own `tickInterval`. */
+	private static readonly DEFAULT_TICK_INTERVAL = 2;
+
 	/**
 	 * Single per-player loop that drives every active power/perk's `onTick`.
-	 * Eliminates the per-power `system.runInterval` pattern from the legacy code.
+	 * Eliminates the per-power `system.runInterval` and bespoke `@PlayerTick`
+	 * patterns from the legacy code. Each ability is gated by its declared
+	 * {@link Ability.tickInterval} (defaulting to {@link DEFAULT_TICK_INTERVAL}),
+	 * so converting a `@PlayerTick(n)` handler to an `onTick` hook preserves cadence.
 	 */
-	@PlayerTick(2)
+	@PlayerTick(1)
 	static onPlayerTick(player: Player): void {
 		const state = PlayerState.for(player);
 		const now = system.currentTick;
 		for (const id of state.getPowers()) {
-			const p = PowerRegistry.get(id);
-			if (p?.onTick) p.onTick(player);
+			this.tickAbility(player, now, 'Power', id, PowerRegistry.get(id));
 		}
 		for (const id of state.getPerks()) {
-			const p = PerkRegistry.get(id);
-			if (p?.onTick) p.onTick(player);
+			this.tickAbility(player, now, 'Perk', id, PerkRegistry.get(id));
 		}
-		// Stamp out expired cooldowns from the DP map.
-		const cooldowns = state.getPowers(); // touch state to keep cache hot
-		void cooldowns;
-		void now;
+	}
+
+	private static tickAbility(
+		player: Player,
+		now: number,
+		kind: string,
+		id: string,
+		ability: Power | Perk | undefined,
+	): void {
+		if (!ability?.onTick) return;
+		const interval = ability.tickInterval ?? this.DEFAULT_TICK_INTERVAL;
+		if (now % interval !== 0) return;
+		AbilityDispatch.invoke(kind, id, ability, 'onTick', (a) => a.onTick(player));
 	}
 
 	/** Force-installs the tick loop. Called from Main as a no-op safety. */

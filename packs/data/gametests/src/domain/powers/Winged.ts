@@ -7,61 +7,61 @@ import {
 } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
-import { PlayerState } from '../../core/PlayerState';
-import { Log } from '../../utils/Log';
 
 /**
- * Winged is a passive power that grants Elytrians a custom Elytra item when equipped.
+ * Winged is a passive power that grants the holder a custom Elytra item when equipped.
+ * Loose: dispatched to whoever is granted the power, with no origin coupling.
  */
 
 @RegisterPower
 export class Winged implements Power {
 	readonly id = 'winged';
-	private static readonly log = Log.get('Winged');
+	readonly tickInterval = 100;
 	private static readonly ELYTRA_LORE = '§r§6Elytrian§r';
 
-	@PlayerTick(100)
-	static onPlayerTick(player: Player): void {
-		try {
-			const state = PlayerState.for(player);
-			const equippableComp = player.getComponent('equippable');
-			if (!equippableComp) return;
+	onRelease(player: Player): void {
+		const equippableComp = player.getComponent('equippable');
+		if (!equippableComp) return;
 
-			const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);
-			const isCustomElytra =
-				chestItem &&
-				chestItem.typeId === 'minecraft:elytra' &&
-				chestItem.getLore()?.includes(Winged.ELYTRA_LORE);
+		const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);
+		const isCustomElytra =
+			chestItem &&
+			chestItem.typeId === 'minecraft:elytra' &&
+			chestItem.getLore()?.includes(Winged.ELYTRA_LORE);
 
-			if (state.getOrigin() !== 'elytrian') {
-				if (isCustomElytra) {
-					equippableComp.setEquipment(EquipmentSlot.Chest, undefined);
-				}
-				return;
-			}
-
-			if (isCustomElytra) {
-				if (!chestItem) return;
-				const durability = chestItem.getComponent(ItemComponentTypes.Durability);
-				if (durability && durability.damage > 0) {
-					durability.damage = 0;
-					equippableComp.setEquipment(EquipmentSlot.Chest, chestItem);
-				}
-				return;
-			}
-
-			const newElytra = new ItemStack('minecraft:elytra', 1);
-			newElytra.lockMode = ItemLockMode.slot;
-			newElytra.keepOnDeath = true;
-			newElytra.setLore([Winged.ELYTRA_LORE]);
-
-			const durability = newElytra.getComponent(ItemComponentTypes.Durability);
-			if (durability) durability.damage = 0;
-
-			equippableComp.setEquipment(EquipmentSlot.Chest, newElytra);
-		} catch (error: any) {
-			Winged.log.error(`Error inside Winged tick handler: ${error?.stack ?? error}`);
+		if (isCustomElytra) {
+			equippableComp.setEquipment(EquipmentSlot.Chest, undefined);
 		}
+	}
+
+	onTick(player: Player): void {
+		const equippableComp = player.getComponent('equippable');
+		if (!equippableComp) return;
+
+		const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);
+		const isCustomElytra =
+			chestItem &&
+			chestItem.typeId === 'minecraft:elytra' &&
+			chestItem.getLore()?.includes(Winged.ELYTRA_LORE);
+
+		if (isCustomElytra) {
+			if (!chestItem) return;
+			const durability = chestItem.getComponent(ItemComponentTypes.Durability);
+			if (durability && durability.damage > 0) {
+				durability.damage = 0;
+				equippableComp.setEquipment(EquipmentSlot.Chest, chestItem);
+			}
+			return;
+		}
+
+		const newElytra = new ItemStack('minecraft:elytra', 1);
+		newElytra.lockMode = ItemLockMode.slot;
+		newElytra.keepOnDeath = true;
+		newElytra.setLore([Winged.ELYTRA_LORE]);
+
+		const durability = newElytra.getComponent(ItemComponentTypes.Durability);
+		if (durability) durability.damage = 0;
+
+		equippableComp.setEquipment(EquipmentSlot.Chest, newElytra);
 	}
 }

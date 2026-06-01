@@ -1,18 +1,15 @@
-import { Player, world, EntityDamageCause } from '@minecraft/server';
+import { Player, EntityDamageCause, ProjectileHitEntityAfterEvent } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
-import { Log } from '../../utils/Log';
 
 /**
- * Imbue: Players with this power can imbue their arrows with special effects.
+ * Imbue: the holder's arrows deal bonus magic damage, increased against undead.
  */
 
 
 @RegisterPower
 export class Imbue implements Power {
 	readonly id = 'imbue';
-	private static readonly log = Log.get('Imbue');
 
 	private static readonly UNDEAD_TYPES = new Set([
 		'minecraft:zombie',
@@ -29,69 +26,53 @@ export class Imbue implements Power {
 		'minecraft:bogged'
 	]);
 
-	constructor() {
-		world.afterEvents.entityHurt.subscribe((event) => {
-			try {
-				const { damageSource, hurtEntity } = event;
+	onProjectileHit(player: Player, ev: ProjectileHitEntityAfterEvent): void {
+		if (ev.projectile?.typeId !== 'minecraft:arrow') return;
 
-				const attacker = damageSource.damagingEntity;
-				if (!(attacker instanceof Player)) return;
+		const hitInfo = ev.getEntityHit();
+		const hurtEntity = hitInfo?.entity;
+		if (!hurtEntity) return;
 
-				const state = PlayerState.for(attacker);
-				if (state.getOrigin() !== 'elf') return;
+		const attackerHealthComp = player.getComponent('health');
+		if (!attackerHealthComp) return;
 
-				if (
-					damageSource.cause !== EntityDamageCause.projectile ||
-					damageSource.damagingProjectile?.typeId !== 'minecraft:arrow'
-				)
-					return;
+		let additionalDamage = attackerHealthComp.currentValue * 0.5;
 
-				const attackerHealthComp = attacker.getComponent('health');
-				if (!attackerHealthComp) return;
+		const targetIsUndead = Imbue.UNDEAD_TYPES.has(hurtEntity.typeId);
+		if (targetIsUndead) {
+			const targetHealthComp = hurtEntity.getComponent('health');
+			const targetMax = targetHealthComp ? targetHealthComp.effectiveMax : 20;
+			additionalDamage += targetMax * 0.25;
+		}
 
-				let additionalDamage = attackerHealthComp.currentValue * 0.5;
+		const roundedDamage = Math.round(additionalDamage);
+		if (roundedDamage <= 0) return;
 
-				const targetIsUndead = Imbue.UNDEAD_TYPES.has(hurtEntity.typeId);
-				if (targetIsUndead) {
-					const targetHealthComp = hurtEntity.getComponent('health');
-					const targetMax = targetHealthComp ? targetHealthComp.effectiveMax : 20;
-					additionalDamage += targetMax * 0.25;
-				}
-
-				const roundedDamage = Math.round(additionalDamage);
-				if (roundedDamage <= 0) return;
-
-				hurtEntity.applyDamage(roundedDamage, {
-					cause: EntityDamageCause.magic,
-					damagingEntity: attacker
-				});
-
-				try {
-					const viewDirection = attacker.getViewDirection();
-					const chargeParticleLocation = {
-						x: attacker.location.x + viewDirection.x * 1.25,
-						y: attacker.location.y + 1 + viewDirection.y * 1.25,
-						z: attacker.location.z + viewDirection.z * 1.25
-					};
-
-					attacker.dimension.spawnParticle(
-						'r4isen1920_originspe:elven_bow_charge',
-						chargeParticleLocation
-					);
-					hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', {
-						x: hurtEntity.location.x,
-						y: hurtEntity.location.y + 1,
-						z: hurtEntity.location.z
-					});
-
-					attacker.dimension.playSound('ender_eye.dead', hurtEntity.location);
-					attacker.dimension.playSound('ender_eye.dead', attacker.location);
-				} catch {}
-			} catch (error: any) {
-				Imbue.log.error(
-					`Error inside Imbue projectile damage handler: ${error?.stack ?? error}`
-				);
-			}
+		hurtEntity.applyDamage(roundedDamage, {
+			cause: EntityDamageCause.magic,
+			damagingEntity: player
 		});
+
+		try {
+			const viewDirection = player.getViewDirection();
+			const chargeParticleLocation = {
+				x: player.location.x + viewDirection.x * 1.25,
+				y: player.location.y + 1 + viewDirection.y * 1.25,
+				z: player.location.z + viewDirection.z * 1.25
+			};
+
+			player.dimension.spawnParticle(
+				'r4isen1920_originspe:elven_bow_charge',
+				chargeParticleLocation
+			);
+			hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', {
+				x: hurtEntity.location.x,
+				y: hurtEntity.location.y + 1,
+				z: hurtEntity.location.z
+			});
+
+			player.dimension.playSound('ender_eye.dead', hurtEntity.location);
+			player.dimension.playSound('ender_eye.dead', player.location);
+		} catch {}
 	}
 }

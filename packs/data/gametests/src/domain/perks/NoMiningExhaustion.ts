@@ -3,6 +3,7 @@ import { Player } from '@minecraft/server';
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 
 
 /**
@@ -14,6 +15,6 @@ export class NoMiningExhaustion implements Perk {
 
     onTick(player: Player): void {
         if (!PlayerState.for(player).hasPerk('no_mining_exhaustion')) return;
-        player.triggerEvent('r4isen1920_originspe:exhaustion.miner');
+        AttributeService.apply(player, { exhaustion: 'miner' });
     }
 }

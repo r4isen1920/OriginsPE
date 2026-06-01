@@ -3,270 +3,6 @@
 
 	"namespace": "origin_buttons",
 
-	"root": {
-		"type": "panel",
-		"size": ["100%", "100%"],
-		"controls": [
-			{
-				"cycle_left_button@origin_buttons.dialog_button": {
-					"$collection_index": 0,
-					"$button_type": "left_cycle",
-					"size": [23, 23],
-					"anchor_from": "center",
-					"anchor_to": "center",
-					"offset": [-110, 0]
-				}
-			},
-			{
-				"selection_buttons_at_bottom_middle@common.empty_panel": {
-					"anchor_from": "center",
-					"anchor_to": "bottom_middle",
-					"size": ["100%cm", 22],
-					"offset": [0, "9% + 90px"],
-					"controls": [
-						{
-							"select_button@common.empty_panel": {
-								"size": [75, 21],
-								"controls": [
-									{
-										"select_button@origin_buttons.dialog_button": {
-											"$collection_index": 1,
-											"$button_type": "select",
-											"size": ["100%", "100%"]
-										}
-									},
-									{
-										"select_button_blocked@origin_buttons.dialog_button": {
-											"$collection_index": 1,
-											"$button_type": "select_blocked",
-											"size": ["100%", "100%"]
-										}
-									}
-								]
-							}
-						},
-						{
-							"start_button@origin_buttons.dialog_button": {
-								"$collection_index": 0,
-								"$button_type": "start",
-								"size": [75, 21]
-							}
-						},
-						{
-							"continue_and_cancel_buttons": {
-								"type": "stack_panel",
-								"orientation": "horizontal",
-								"size": ["180px", 22],
-								"controls": [
-									{
-										"continue_button_panel@common.empty_panel": {
-											"size": ["83px", "100%"],
-											"controls": [
-												{
-													"changing_cost_display_panel@origin_buttons.continue_button_cost_display": {
-														"size": [31, 22],
-														"offset": [-27.5, 1.0]
-													}
-												},
-												{
-													"continue_button@common.empty_panel": {
-														"size": [82, 21],
-														"controls": [
-															{
-																"continue_button_race@origin_buttons.dialog_button": {
-																	"$collection_index": 1,
-																	"$button_type": "continue_race"
-																}
-															},
-															{
-																"continue_button_class@origin_buttons.dialog_button": {
-																	"$collection_index": 1,
-																	"$button_type": "continue_class"
-																}
-															},
-															{
-																"continue_button_blocked@origin_buttons.dialog_button": {
-																	"$collection_index": 1,
-																	"$button_type": "continue_blocked"
-																}
-															}
-														]
-													}
-												}
-											]
-										}
-									},
-									{
-										"padding@common.empty_panel": {
-											"size": [14, "100%"],
-											"controls": [
-												{
-													"line_display": {
-														"type": "image",
-														"size": [1, "100% + 2px"],
-														"offset": [1, 0],
-														"texture": "textures/ui/underline",
-														"tiled": "y",
-														"color": "$7_color_format"
-													}
-												}
-											],
-											"bindings": [
-												{
-													"binding_name": "#dialogtext",
-													"binding_type": "global"
-												},
-												{
-													"binding_type": "view",
-													"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
-													"target_property_name": "#is_changing_origin"
-												},
-												{
-													"binding_type": "view",
-													"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
-													"target_property_name": "#is_banning_origin"
-												},
-												{
-													"binding_type": "view",
-													"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
-													"target_property_name": "#is_changing_class"
-												},
-												{
-													"binding_type": "view",
-													"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
-													"target_property_name": "#is_banning_class"
-												},
-												{
-													"binding_type": "view",
-													"source_property_name": "(#is_changing_origin or #is_banning_origin or #is_changing_class or #is_banning_class)",
-													"target_property_name": "#visible"
-												}
-											]
-										}
-									},
-									{
-										"cancel_button@common.empty_panel": {
-											"size": ["83px", "100%"],
-											"controls": [
-												{
-													"cancel_button_0@origin_buttons.dialog_button": {
-														"$collection_index": 0,
-														"$button_type": "cancel",
-														"size": [75, 21]
-													}
-												},
-												{
-													"cancel_button_1@origin_buttons.dialog_button": {
-														"$collection_index": 2,
-														"$button_type": "cancel",
-														"size": [75, 21]
-													}
-												}
-											]
-										}
-									}
-								]
-							}
-						},
-						{
-							"welcome_screen_buttons": {
-								"type": "stack_panel",
-								"orientation": "vertical",
-								"use_child_anchors": true,
-
-								"size": ["100%cm", "100%c"],
-
-								"controls": [
-									{
-										"ignore_welcome_screen_checkbox": {
-											"type": "stack_panel",
-											"orientation": "horizontal",
-											"use_child_anchors": true,
-
-											"size": ["100%c", "100%cm"],
-
-											"controls": [
-												{
-													"button@origin_buttons.dialog_button": {
-														"size": [12, 12],
-														"$collection_index": 1,
-														"$button_type": "ignore_welcome_screen"
-													}
-												},
-												{
-													"padding@common.empty_panel": {
-														"size": [2.5, 1]
-													}
-												},
-												{
-													"label@npc_interact.student_button_label": {
-														"size": ["default", "default"],
-														"max_size": ["default", "default"],
-
-														"text": "origins.gui.button.ignore_welcome_screen",
-														"font_scale_factor": 0.8,
-														"localize": true,
-														"$text_color": "$f_color_format",
-
-														"bindings": [
-															{
-																"binding_name": "#dialogtext",
-																"binding_type": "global"
-															},
-															{
-																"binding_type": "view",
-																"source_property_name": "(not ((#dialogtext - '_op:welcome') = #dialogtext))",
-																"target_property_name": "#visible"
-															}
-														]
-													}
-												}
-											]
-										}
-									},
-									{ "padding@common.empty_panel": { "size": [1, 5] } },
-									{
-										"close_welcome_screen_button@origin_buttons.dialog_button": {
-											"size": [75, 21],
-											"$collection_index": 0,
-											"$button_type": "close_welcome_screen"
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			},
-			{
-				"cycle_right_button@common.empty_panel": {
-					"size": [23, 23],
-					"offset": [110, 0],
-					"controls": [
-						{
-							"cycle_right_button_0@origin_buttons.dialog_button": {
-								"$collection_index": 2,
-								"$button_type": "right_cycle",
-								"anchor_from": "center",
-								"anchor_to": "center",
-								"size": [23, 23]
-							}
-						},
-						{
-							"cycle_right_button_1@origin_buttons.dialog_button": {
-								"$collection_index": 3,
-								"$button_type": "right_cycle",
-								"anchor_from": "center",
-								"anchor_to": "center",
-								"size": [23, 23]
-							}
-						}
-					]
-				}
-			}
-		]
-	},
-
 	"origin_selector_button_label_panel": {
 		"type": "panel",
 		"size": ["100%", "100%"],
@@ -674,17 +410,19 @@
 		]
 	},
 
-	"dialog_button": {
-		"type": "stack_panel",
-		"orientation": "vertical",
+	"dialog_button@origin_common.hori_stack": {
 		"collection_name": "student_buttons_collection",
+
 		"controls": [
 			{
 				"button_index@common.empty_panel": {
 					"collection_index": "$collection_index",
 					"size": ["100%", "100%"],
+
 					"$button_contents": "('origin_buttons.' + $button_type + '_dialog_button')",
-					"controls": [{ "button_contents@$button_contents": {} }]
+					"controls": [
+						{ "button_contents@$button_contents": {} }
+					]
 				}
 			}
 		]
@@ -770,8 +508,7 @@
 		]
 	},
 
-	"continue_button_cost_display": {
-		"type": "panel",
+	"continue_button_cost_display@common.empty_panel": {
 		"$panel_base_layer": 100,
 		"controls": [
 			{
@@ -794,7 +531,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -813,7 +550,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -827,12 +564,12 @@
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cr')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
 							"target_property_name": "#is_changing_origin"
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'br')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
 							"target_property_name": "#is_banning_origin"
 						},
 						{
@@ -849,6 +586,7 @@
 					"texture": "textures/origins/gui/side_ribbon_class",
 					"size": ["100%", "100%"],
 					"layer": "$panel_base_layer",
+
 					"controls": [
 						{
 							"resignation_paper_item_render@origin_common.hoverable_image": {
@@ -863,7 +601,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -882,7 +620,7 @@
 									},
 									{
 										"binding_type": "view",
-										"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
+										"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
 										"target_property_name": "#visible"
 									}
 								]
@@ -896,12 +634,12 @@
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'cc')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
 							"target_property_name": "#is_changing_class"
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "((('%.6s' * #dialogtext) - ('%.4s' * #dialogtext)) = 'bc')",
+							"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
 							"target_property_name": "#is_banning_class"
 						},
 						{

@@ -5,12 +5,14 @@
 			{
 				"scene_tag": "gui_welcome_screen",
 				"npc_name": "_op:welcome",
-				"text": "_op:unignored",
+
+				"text": "_op:welcome.unignored",
+
 				"buttons": [
 					{
 						"name": "close_wc",
 						"commands": [
-							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:close"
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:close:unignored"
 						]
 					},
 					{
@@ -25,15 +27,18 @@
 					"/execute as @initiator at @s run playsound random.wood_click @s ~~~ 0.5 1"
 				]
 			},
+
 			{
 				"scene_tag": "gui_welcome_screen_ignore",
 				"npc_name": "_op:welcome",
-				"text": "_op:ignored",
+
+				"text": "_op:welcome.ignored",
+
 				"buttons": [
 					{
 						"name": "close_wc",
 						"commands": [
-							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:close"
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:close:ignored"
 						]
 					},
 					{

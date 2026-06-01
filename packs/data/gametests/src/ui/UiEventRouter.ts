@@ -5,6 +5,7 @@ import { SystemAfterScriptEventReceive } from '../core/DecoratedEvents';
 import { PlayerState } from '../core/PlayerState';
 import { UiBridge } from '../core/UiBridge';
 import { PlayerLifecycle } from '../domain/PlayerLifecycle';
+import { ResourceBarService } from '../services/ResourceBarService';
 import { Log } from '../utils/Log';
 import { adminToggleVector, flipToggle, isToggleOn, resetAllToggles } from './OptionsState';
 import type { ToggleKey } from './OptionsState';
@@ -26,12 +27,13 @@ import type { PickerKind, PickerMode } from './UiPayload';
  * | Verb                                 | Behaviour                                          |
  * |--------------------------------------|----------------------------------------------------|
  * | `nav:<kind>:<dir>:<id>:<mode>`       | Open the prev/next scene (mode-aware).             |
- * | `pick:<kind>:<id>`                   | Commit a selection.                                |
+ * | `pick:<kind>:<id>`                   | Commit a selection and open its view scene.        |
+ * | `viewed:<kind>:<id>`                 | Continue after a post-pick view scene.             |
  * | `ban:<kind>:<id>`                    | Ban an origin/class; reopen in 'banned' mode.      |
  * | `unban:<kind>:<id>`                  | Remove ban; reopen in resolved ban mode.           |
  * | `change:<kind>:<id>`                 | Open pick picker at id (continue-button callback). |
  * | `open:<kind>:<mode>[:<id>]`          | Open a picker fresh (mode 'ban' also accepted).    |
- * | `welcome:close`                      | Close welcome; mark player as done.                |
+ * | `welcome:close:<state>`              | Close welcome; persist only if ignored.            |
  * | `welcome:ignore`                     | Toggle ignore tag on -- show alt.                  |
  * | `welcome:unignore`                   | Toggle ignore tag off -- show main.                |
  *
@@ -66,6 +68,7 @@ export class UiEventRouter {
 		switch (verb) {
 			case 'nav': return this.handleNav(player, parts);
 			case 'pick': return this.handlePick(player, parts);
+			case 'viewed': return this.handleViewed(player, parts);
 			case 'ban': return this.handleBan(player, parts);
 			case 'unban': return this.handleUnban(player, parts);
 			case 'change': return this.handleChange(player, parts);
@@ -112,16 +115,26 @@ export class UiEventRouter {
 
 		PlayerLifecycle.applyOriginAndClass(player);
 
-		// After commit, fall through to the welcome screen if first-time, else close.
-		if (kind === 'race' && !state.getClass()) {
+		if (state.getOrigin() && state.getClass()) ResourceBarService.markGuiReady(player, true);
+		UiBridge.openDialogue(player, pickerSceneTag(kind, 'view', resolved));
+	}
+
+	private static handleViewed(player: Player, [, kind, id]: string[]): void {
+		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
+
+		const state = PlayerState.for(player);
+		if (!state.getOrigin()) {
+			const raceStart = defaultId('race');
+			UiBridge.openDialogue(player, pickerSceneTag('race', this.resolvePickMode('race', raceStart, player), raceStart));
+			return;
+		}
+		if (!state.getClass()) {
 			const classStart = defaultId('class');
 			UiBridge.openDialogue(player, pickerSceneTag('class', this.resolvePickMode('class', classStart, player), classStart));
 			return;
 		}
-		if (!state.isWelcomed()) {
-			UiBridge.openDialogue(player, 'gui_welcome_screen');
-		}
-		// Otherwise let the dialogue close itself (no further open).
+
+		ResourceBarService.markGuiReady(player, true);
 	}
 
 	private static handleBan(player: Player, [, kind, id]: string[]): void {
@@ -260,10 +273,11 @@ export class UiEventRouter {
 
 	//#region WELCOME HANDLER
 
-	private static handleWelcome(player: Player, [, action]: string[]): void {
+	private static handleWelcome(player: Player, [, action, state]: string[]): void {
 		switch (action) {
 			case 'close':
-				PlayerState.for(player).setWelcomed(true);
+				PlayerState.for(player).setWelcomed(state === 'ignored');
+				ResourceBarService.markGuiReady(player, true);
 				return;
 			case 'ignore':
 				UiBridge.openDialogue(player, 'gui_welcome_screen_ignore');

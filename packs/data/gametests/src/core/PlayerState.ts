@@ -20,6 +20,7 @@ interface CachedState {
 	cooldowns: CooldownMap;
 	flags: FlagMap;
 	welcomed: boolean;
+	recordVersion: string | undefined;
 }
 
 
@@ -60,6 +61,7 @@ export class PlayerState {
 			cooldowns: this.readJsonObject(player, DPK.cooldowns),
 			flags: this.readJsonObject(player, DPK.flags),
 			welcomed: this.readBoolean(player, DPK.welcomed),
+			recordVersion: this.readString(player, DPK.recordVersion),
 		};
 		const inst = new PlayerState(player, state);
 		this.registry.set(player.id, inst);
@@ -184,6 +186,12 @@ export class PlayerState {
 		this.player.setDynamicProperty(DPK.welcomed, value);
 	}
 
+	getRecordVersion(): string | undefined { return this.state.recordVersion; }
+	setRecordVersion(version: string | undefined): void {
+		this.state.recordVersion = version;
+		this.writeString(DPK.recordVersion, version);
+	}
+
 	/** Wipes all OriginsPE-managed dynamic properties for this player. */
 	reset(): void {
 		this.state.origin = undefined;
@@ -194,6 +202,7 @@ export class PlayerState {
 		this.state.cooldowns = {};
 		this.state.flags = {};
 		this.state.welcomed = false;
+		this.state.recordVersion = undefined;
 		for (const key of Object.values(DPK)) {
 			this.player.setDynamicProperty(key, undefined);
 		}

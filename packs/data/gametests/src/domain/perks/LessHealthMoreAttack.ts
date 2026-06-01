@@ -10,7 +10,7 @@ import { RegisterPerk } from '../Registries';
 export class LessHealthMoreAttack implements Perk {
 	readonly id = 'less_health_more_attack';
 	readonly attributes = {
-		health: '16',
-		attack: '2',
+		health: 16,
+		attack: 2,
 	} satisfies NonNullable<Perk['attributes']>;
 }

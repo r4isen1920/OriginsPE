@@ -8,6 +8,7 @@ import {
 } from '@minecraft/server';
 import { CustomCmd } from '@bedrock-oss/stylish';
 
+import { NS } from '../Constants';
 import { Log } from '../utils/Log';
 import { PlayerState } from './PlayerState';
 import { ClassRegistry, OriginRegistry } from '../domain/Registries';
@@ -20,11 +21,11 @@ const log = Log.get('Commands');
 //#region setorigin
 
 /**
- * `/op:setorigin <originId>` - admin override for the executing player's origin.
+ * `/r4isen1920_originspe:setorigin <originId>` - admin override for the executing player's origin.
  */
 @CustomCmd
 export class SetOriginCommand implements CustomCommand {
-	readonly name = 'op:setorigin';
+	readonly name = `${NS}:setorigin`;
 	readonly description = 'Sets the executing player\'s origin.';
 	readonly permissionLevel = CommandPermissionLevel.GameDirectors;
 	readonly mandatoryParameters = [
@@ -50,11 +51,11 @@ export class SetOriginCommand implements CustomCommand {
 //#region setclass
 
 /**
- * `/op:setclass <classId>` - admin override for the executing player's class.
+ * `/r4isen1920_originspe:setclass <classId>` - admin override for the executing player's class.
  */
 @CustomCmd
 export class SetClassCommand implements CustomCommand {
-	readonly name = 'op:setclass';
+	readonly name = `${NS}:setclass`;
 	readonly description = 'Sets the executing player\'s class.';
 	readonly permissionLevel = CommandPermissionLevel.GameDirectors;
 	readonly mandatoryParameters = [
@@ -80,11 +81,11 @@ export class SetClassCommand implements CustomCommand {
 //#region debug
 
 /**
- * `/op:debug` - dumps the executing player's state to the chat log.
+ * `/r4isen1920_originspe:debug` - dumps the executing player's state to the chat log.
  */
 @CustomCmd
 export class DebugCommand implements CustomCommand {
-	readonly name = 'op:debug';
+	readonly name = `${NS}:debug`;
 	readonly description = 'Logs OriginsPE state for the executing player.';
 	readonly permissionLevel = CommandPermissionLevel.GameDirectors;
 

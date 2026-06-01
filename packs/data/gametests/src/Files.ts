@@ -169,13 +169,6 @@ export namespace EntityProperties {
 
     export const enum Player {
         /**
-         * Type: int
-         * Default: 20
-         * Client sync: true
-         * Range: [1,150]
-         */
-        DefinitiveMaxHealth = "r4isen1920_originspe:definitive_max_health",
-        /**
          * Type: enum
          * Default: none
          * Client sync: true
@@ -186,20 +179,25 @@ export namespace EntityProperties {
          * Default: false
          * Client sync: true
          */
-        HasDivineAura = "r4isen1920_originspe:has_divine_aura",
+        FlagA = "r4isen1920_originspe:flag_a",
         /**
          * Type: bool
          * Default: false
          * Client sync: true
          */
-        IsRidingDummy = "r4isen1920_originspe:is_riding_dummy",
+        FlagB = "r4isen1920_originspe:flag_b",
         /**
-         * Type: int
-         * Default: 15
-         * Client sync: false
-         * Range: [0,15]
+         * Type: bool
+         * Default: false
+         * Client sync: true
          */
-        LightLevel = "r4isen1920_originspe:light_level",
+        FlagC = "r4isen1920_originspe:flag_c",
+        /**
+         * Type: bool
+         * Default: false
+         * Client sync: true
+         */
+        FlagD = "r4isen1920_originspe:flag_d",
         /**
          * Type: enum
          * Default: normal

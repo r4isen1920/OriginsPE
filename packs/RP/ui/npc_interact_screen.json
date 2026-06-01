@@ -1,124 +1,82 @@
-// {
-// 	/* UI developed by r4isen1920 | Under MIT LICENSE */
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
 
-// 	"binding_control@common.empty_panel": {
-// 		"controls": [
-//       { "base@$target_control": {} }
-//     ],
+	"npc_screen_render_index@common.empty_panel": {
+		"controls": [
+			{
+				"custom@npc_screen_contents_custom": {
+					"bindings": [
+						{
+							"binding_name": "#dialogtext",
+							"binding_type": "global"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "('%.4s' * #dialogtext = '_op:')",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			},
 
-// 		"bindings": [
-// 			{
-// 				"binding_name": "#title_text",
-// 				"binding_type": "global"
-// 			},
-// 			{
-// 				"binding_name": "#dialogtext",
-// 				"binding_type": "global"
-// 			},
-// 			{
-// 				"binding_type": "view",
-// 				"source_property_name": "$visible_binding",
-// 				"target_property_name": "#visible"
-// 			}
-// 		]
-// 	},
+			{
+				"vanilla@origin_common.factory_condition": {
+					"$target_name": "vanilla_npc_screen",
+					"$target_control": "npc_interact.npc_screen_contents",
 
+					"$condition": "((not ('%.4s' * #dialogtext = '_op:')) * 1)"
+				}
+			}
+		]
+	},
 
-// 	"npc_screen_render_index@common.empty_panel": {
-// 		"controls": [
-// 			{
-// 				"custom@npc_screen_contents_custom": {
-// 					"bindings": [
-// 						{
-// 							"binding_name": "#title_text",
-// 							"binding_type": "global"
-// 						},
-// 						{
-// 							"binding_type": "view",
-// 							"source_property_name": "('%.4s' * #title_text = '_op:')",
-// 							"target_property_name": "#visible"
-// 						}
-// 					]
-// 				}
-// 			},
+	"npc_screen_contents_custom@common.empty_panel": {
+		"size": ["100%", "100%"],
 
-// 			{
-// 				"vanilla@npc_screen_contents": {
-// 					"bindings": [
-// 						{
-// 							"binding_name": "#title_text",
-// 							"binding_type": "global"
-// 						},
-// 						{
-// 							"binding_type": "view",
-// 							"source_property_name": "(not ('%.4s' * #title_text = '_op:'))",
-// 							"target_property_name": "#visible"
-// 						}
-// 					]
-// 				}
-// 			}
-// 		]
-// 	},
+		"controls": [
+			{
+				"foreground@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"layer": 2,
 
-// 	"npc_screen_contents_custom@common.empty_panel": {
-//     "size": ["100%", "100%"],
+					"controls": [
+						{ "picker_screen@origin_picker_screen.root": {} },
+						{ "options@origin_options_screen.root": {} },
+						{ "welcome_screen@origin_welcome_screen.root": {} }
+					]
+				}
+			},
 
-// 		"controls": [
-// 			{
-//         "foreground@common.empty_panel": {
-//           "size": ["100%", "100%"],
-//           "layer": 2,
+			{
+				"background": {
+					"type": "image",
+					"size": ["100%", "100%"],
+					"texture": "textures/ui/White",
+					"color": [0.0, 0.0, 0.0],
+					"alpha": 0.6,
+					"layer": 1
+				}
+			}
+		]
+	},
 
-//           "controls": [
-//             {
-//               "picker_screen@npc_interact.binding_control": {
-//                 "$visible_binding": "(#title_text = '_op:picker')",
-//                 "$target_control": "origin_picker_screen.root"
-//               }
-//             },
-//             {
-//               "options@npc_interact.binding_control": {
-//                 "$visible_binding": "(#title_text = '_op:options')",
-//                 "$target_control": "origin_options_screen.root"
-//               }
-//             },
-//             {
-//               "welcome_screen@npc_interact.binding_control": {
-//                 "$visible_binding": "(#title_text = '_op:welcome')",
-//                 "$target_control": "origin_welcome_screen.root"
-//               }
-//             }
-//           ]
-//         }
-//       },
+	"npc_screen@common.base_screen": {
+		"$screen_content": "npc_interact.npc_screen_render_index",
 
-//       {
-//         "background": {
-//           "type": "image",
-//           "size": ["100%", "100%"],
-//           "texture": "textures/ui/White",
-//           "color": [0.0, 0.0, 0.0],
-//           "alpha": 0.6,
-//           "layer": 1
-//         }
-//       }
-// 		]
-// 	},
+		"$screen_animations": [],
+		"$background_animations": [],
+		"$use_loading_bars": true,
 
-// 	"npc_screen@common.base_screen": {
-// 		"$screen_content": "npc_interact.npc_screen_render_index",
+		"cache_screen": true,
+		"close_on_player_hurt": false,
+		"load_screen_immediately": true,
 
-// 		"$screen_animations": [],
-
-// 		"cache_screen": true,
-// 		"close_on_player_hurt": false,
-
-// 		"button_mappings": [
-// 			{
-// 				"from_button_id": "button.menu_exit",
-// 				"to_button_id": "button.menu_continue",
-// 				"mapping_type": "global"
-// 			}
-// 		]
-// 	}
-// }
+		"button_mappings": [
+			{
+				"from_button_id": "button.menu_exit",
+				"to_button_id": "button.menu_continue",
+				"mapping_type": "global"
+			}
+		]
+	}
+}

@@ -1,9 +1,8 @@
 import { Player } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
-import { Log } from '../../utils/Log';
+import { AttributeService } from '../../services/AttributeService';
 
 /**
  * Instability: Players with this power have unstable health levels.
@@ -12,29 +11,27 @@ import { Log } from '../../utils/Log';
 @RegisterPower
 export class Instability implements Power {
 	readonly id = 'instability';
-	private static readonly log = Log.get('Instability');
+	readonly tickInterval = 20;
 
-	@PlayerTick(20)
-	static onPlayerTick(player: Player): void {
-		try {
-			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'diviner') return;
+	onRelease(player: Player): void {
+		const state = PlayerState.for(player);
+		state.setFlag('instability_last_level', undefined);
+		AttributeService.apply(player, { health: 20 });
+	}
 
-			const activeEffects = player
-				.getEffects()
-				.filter((effect) => effect.typeId !== 'health_boost').length;
+	onTick(player: Player): void {
+		const state = PlayerState.for(player);
 
-			const targetMaxHealth = Math.max(20 - activeEffects * 2, 2);
+		const activeEffects = player
+			.getEffects()
+			.filter((effect) => effect.typeId !== 'health_boost').length;
 
-			const lastLevel = state.getFlag<number>('instability_last_level') ?? 20;
-			if (lastLevel === targetMaxHealth) return;
+		const targetMaxHealth = Math.max(20 - activeEffects * 2, 2);
 
-			state.setFlag('instability_last_level', targetMaxHealth);
-			player.triggerEvent(`r4isen1920_originspe:health.${targetMaxHealth}`);
-		} catch (error: any) {
-			Instability.log.error(
-				`Error inside Instability ticker handler: ${error?.stack ?? error}`
-			);
-		}
+		const lastLevel = state.getFlag<number>('instability_last_level') ?? 20;
+		if (lastLevel === targetMaxHealth) return;
+
+		state.setFlag('instability_last_level', targetMaxHealth);
+		AttributeService.apply(player, { health: targetMaxHealth });
 	}
 }

@@ -19,8 +19,6 @@ export class Pounced implements Power {
 		const state = PlayerState.for(player);
 		const now = system.currentTick;
 
-		if (state.getOrigin() !== 'kitsune') return;
-
 		const isCharging = player.isSneaking && player.isJumping;
 		const currentCharge = state.getFlag<number>('pounce_hold_tick') ?? 0;
 

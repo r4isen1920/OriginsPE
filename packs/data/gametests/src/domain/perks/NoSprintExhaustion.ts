@@ -3,6 +3,7 @@ import { Player } from '@minecraft/server';
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 
 
 /**
@@ -13,11 +14,11 @@ export class NoSprintExhaustion implements Perk {
     readonly id = 'no_sprint_exhaustion';
 
     onAcquire(player: Player): void {
-        player.triggerEvent('r4isen1920_originspe:exhaustion.explorer');
+        AttributeService.apply(player, { exhaustion: 'explorer' });
     }
 
     onRelease(player: Player): void {
-        player.triggerEvent('r4isen1920_originspe:exhaustion.normal');
+        AttributeService.apply(player, { exhaustion: 'normal' });
     }
 
     // onTick(player: Player): void {

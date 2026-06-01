@@ -10,6 +10,6 @@ import { RegisterPower } from '../Registries';
 export class Fragile implements Power {
 	readonly id = 'fragile';
 	readonly attributes = {
-		health: '14',
+		health: 14,
 	} satisfies NonNullable<Power['attributes']>;
 }
