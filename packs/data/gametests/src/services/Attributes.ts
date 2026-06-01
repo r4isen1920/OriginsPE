@@ -61,8 +61,6 @@ export interface PlayerAttributes {
 	breathable: BreathableMode;
 	/** Buoyancy behaviour in water. */
 	buoyant: BuoyancyMode;
-	/** Projectile spawner override token (e.g. `'reset'`). */
-	projectileSpawner: string;
 	/** Whether the player visibly shakes (fear effect). */
 	isShaking: boolean;
 	/** Whether the player burns in daylight (undead behaviour). */
@@ -94,7 +92,6 @@ export const DEFAULT_ATTRIBUTES: Readonly<PlayerAttributes> = Object.freeze({
 	familyType: 'player',
 	breathable: 'land',
 	buoyant: 'normal',
-	projectileSpawner: 'reset',
 	isShaking: false,
 	burnsInDaylight: false,
 	displayName: true,
