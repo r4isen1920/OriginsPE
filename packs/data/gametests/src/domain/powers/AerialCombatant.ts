@@ -10,7 +10,7 @@ import { AttributeService } from '../../services/AttributeService';
  */
 
 @RegisterPower
-export class Aerial_combatant implements Power {
+export class AerialCombatant implements Power {
 	readonly id = 'aerial_combatant';
 	readonly tickInterval = 2;
 

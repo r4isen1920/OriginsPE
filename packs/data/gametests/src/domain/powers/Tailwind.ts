@@ -6,7 +6,7 @@ import { RegisterPower } from '../Registries';
  * The speed boost is applied via the data-driven attribute event suffix.
  */
 @RegisterPower
-export class Tail_wind implements Power {
+export class Tailwind implements Power {
 	readonly id = 'tail_wind';
 	readonly attributes = {
 		movement: 0.15,

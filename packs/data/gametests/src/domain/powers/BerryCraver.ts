@@ -3,7 +3,7 @@ import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
 @RegisterPower
-export class Berry_craver implements Power {
+export class BerryCraver implements Power {
 	readonly id = 'berry_craver';
 
 	readonly tickInterval = 2;

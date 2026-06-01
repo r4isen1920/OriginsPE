@@ -7,7 +7,7 @@ import { AttributeService } from '../../services/AttributeService';
 import { Log } from '../../utils/Log';
 
 @RegisterPower
-export class Familiar_face implements Power {
+export class FamiliarFace implements Power {
 	readonly id = 'familiar_face';
 	private static readonly log = Log.get('Familiar_face');
 
@@ -28,7 +28,7 @@ export class Familiar_face implements Power {
 				const targetUid = hurtEntity.id;
 				state.setFlag(`combat_retaliation_${targetUid}`, system.currentTick + 200);
 			} catch (error: any) {
-				Familiar_face.log.error(
+				FamiliarFace.log.error(
 					`Error inside Familiar_face combat tracker: ${error?.stack ?? error}`
 				);
 			}
@@ -71,7 +71,7 @@ export class Familiar_face implements Power {
 				} catch {}
 			}
 		} catch (error: any) {
-			Familiar_face.log.error(
+			FamiliarFace.log.error(
 				`Error inside Familiar_face tick handler: ${error?.stack ?? error}`
 			);
 		}

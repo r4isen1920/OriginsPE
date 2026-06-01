@@ -4,7 +4,7 @@ import { RegisterPower } from '../Registries';
 import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
-export class Sea_inhabitant implements Power {
+export class SeaInhabitant implements Power {
     readonly id = 'sea_inhabitant';
     readonly tickInterval = 3;
 

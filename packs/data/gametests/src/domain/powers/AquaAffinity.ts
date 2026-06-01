@@ -3,7 +3,7 @@ import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
 @RegisterPower
-export class Aqua_affinity implements Power {
+export class AquaAffinity implements Power {
     readonly id = 'aqua_affinity';
     readonly tickInterval = 3;
 

@@ -3,7 +3,7 @@ import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
 @RegisterPower
-export class Oceans_gift implements Power {
+export class OceansGift implements Power {
 	readonly id = 'oceans_gift';
 
 	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {

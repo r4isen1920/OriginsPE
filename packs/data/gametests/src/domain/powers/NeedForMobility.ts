@@ -11,7 +11,7 @@ import { AttributeService } from '../../services/AttributeService';
 */
 
 @RegisterPower
-export class Need_For_Mobility implements Power {
+export class NeedForMobility implements Power {
 	readonly id = 'need_for_mobility';
 	readonly tickInterval = 4;
 	private static readonly HEAVY_ARMOR_PREFIXES = ['netherite_', 'diamond_', 'iron_'];
@@ -38,7 +38,7 @@ export class Need_For_Mobility implements Power {
 		const hasHeavyArmor = currentArmor.some(
 			(armor) =>
 				armor &&
-				Need_For_Mobility.HEAVY_ARMOR_PREFIXES.some((prefix) => armor.includes(prefix))
+				NeedForMobility.HEAVY_ARMOR_PREFIXES.some((prefix) => armor.includes(prefix))
 		);
 
 		const isClaustrophobic = state.getFlag<boolean>('is_claustrophobic_slow') === true;

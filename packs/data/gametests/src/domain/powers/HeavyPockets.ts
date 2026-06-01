@@ -38,7 +38,7 @@ const NORMAL_EVENT = 'r4isen1920_originspe:movement.0.1';
  * Carrying too many gold items will slow your movement speed in stages.
  */
 @RegisterPower
-export class Heavy_pockets implements Power {
+export class HeavyPockets implements Power {
     readonly id = 'heavy_pockets';
     readonly tickInterval = 2;
 

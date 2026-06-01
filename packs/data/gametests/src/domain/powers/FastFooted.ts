@@ -5,7 +5,7 @@ import { PlayerState } from '../../core/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
-export class Fast_footed implements Power {
+export class FastFooted implements Power {
 	readonly id = 'fast_footed';
 	readonly tickInterval = 3;
 

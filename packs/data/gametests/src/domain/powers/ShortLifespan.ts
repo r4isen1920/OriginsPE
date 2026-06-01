@@ -7,7 +7,7 @@ import { RegisterPower } from '../Registries';
  * Lower health is applied via the data-driven attribute event suffix.
  */
 @RegisterPower
-export class Short_lifespan implements Power {
+export class ShortLifespan implements Power {
 	readonly id = 'short_lifespan';
 	readonly attributes = {
 		health: 14,

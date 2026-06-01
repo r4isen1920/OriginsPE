@@ -5,7 +5,7 @@ import { RegisterPower } from '../Registries';
 import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
-export class Fast_metabolism implements Power {
+export class FastMetabolism implements Power {
 	readonly id = 'fast_metabolism';
 
 	readonly tickInterval = 3;

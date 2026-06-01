@@ -4,7 +4,7 @@ import { Power } from '../Ability';
 import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
-export class Scared_Of_Grounds implements Power {
+export class ScaredOfGourds implements Power {
     readonly id = 'scared_of_grounds';
     readonly tickInterval = 3;
 

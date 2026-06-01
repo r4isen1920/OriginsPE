@@ -8,7 +8,7 @@ import { FlagService } from '../../services/FlagService';
  */
 
 @RegisterPower
-export class Divine_Aura implements Power {
+export class DivineAura implements Power {
 	readonly id = 'divine_aura';
 	readonly tickInterval = 10;
 

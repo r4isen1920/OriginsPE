@@ -8,7 +8,7 @@ import { RegisterPower } from '../Registries';
  * player is in the air. Loose: dispatched to whoever is granted the power.
  */
 @RegisterPower
-export class Slow_falling implements Power {
+export class SlowFalling implements Power {
 	readonly id = 'slow_falling';
 	readonly tickInterval = 1;
 

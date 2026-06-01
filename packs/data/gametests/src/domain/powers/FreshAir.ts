@@ -6,7 +6,7 @@ import { RegisterPower } from '../Registries';
  * when sleeping , to breathe fresh air.
  */
 @RegisterPower
-export class Fresh_air implements Power {
+export class FreshAir implements Power {
 	readonly id = 'fresh_air';
 	readonly tickInterval = 20;
 	private static readonly MIN_ALTITUDE = 151;
@@ -15,8 +15,8 @@ export class Fresh_air implements Power {
 		const currentY = Math.floor(player.location.y);
 		const isSleeping = player.isSleeping;
 
-		if (isSleeping && currentY < Fresh_air.MIN_ALTITUDE) {
-			Fresh_air.wakeUpPlayer(player);
+		if (isSleeping && currentY < FreshAir.MIN_ALTITUDE) {
+			FreshAir.wakeUpPlayer(player);
 		}
 	}
 

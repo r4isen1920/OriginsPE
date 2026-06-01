@@ -8,7 +8,7 @@ import { Power } from '../Ability';
  */
 
 @RegisterPower
-export class Brittle_bones implements Power {
+export class BrittleBones implements Power {
 	readonly id = 'brittle_bones';
 
 	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {

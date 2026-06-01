@@ -6,7 +6,7 @@ import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
 @RegisterPower
-export class Nether_inhabitant implements Power {
+export class NetherInhabitant implements Power {
 	readonly id = 'nether_inhabitant';
 	private static readonly log = Log.get('Nether_inhabitant');
 
@@ -38,7 +38,7 @@ export class Nether_inhabitant implements Power {
 						);
 					}
 
-					Nether_inhabitant.createObsidianPlatform(
+					NetherInhabitant.createObsidianPlatform(
 						player.dimension,
 						dummyEntity.location
 					);
@@ -50,7 +50,7 @@ export class Nether_inhabitant implements Power {
 					state.setFlag('nether_spawned', true);
 				});
 			} catch (error: any) {
-				Nether_inhabitant.log.error(
+				NetherInhabitant.log.error(
 					`Error inside playerDimensionChange: ${error?.stack ?? error}`
 				);
 			}
@@ -88,7 +88,7 @@ export class Nether_inhabitant implements Power {
 
 			state.setFlag('nether_spawn_check', true);
 		} catch (error: any) {
-			Nether_inhabitant.log.error(
+			NetherInhabitant.log.error(
 				`Error inside Nether_inhabitant ticker: ${error?.stack ?? error}`
 			);
 		}
