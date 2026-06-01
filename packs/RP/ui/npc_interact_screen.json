@@ -69,7 +69,6 @@
 
 		"cache_screen": true,
 		"close_on_player_hurt": false,
-		"load_screen_immediately": true,
 
 		"button_mappings": [
 			{
