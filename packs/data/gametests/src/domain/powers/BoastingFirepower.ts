@@ -9,25 +9,25 @@ import { PlayerState } from '../../core/PlayerState';
  * You deal more damage the more entities are nearby.
  */
 @RegisterPower
-export class Boasting_firepower implements Power {
+export class BoastingFirepower implements Power {
     readonly id = 'boasting_firepower';
 
     private static handler: ((ev: EntityHurtAfterEvent) => void) | undefined;
     private static refCount = 0;
 
     onAcquire(_player: Player): void {
-        Boasting_firepower.refCount++;
-        if (Boasting_firepower.refCount === 1) {
-            Boasting_firepower.handler = (ev) => Boasting_firepower.onEntityHurt(ev);
-            world.afterEvents.entityHurt.subscribe(Boasting_firepower.handler);
+        BoastingFirepower.refCount++;
+        if (BoastingFirepower.refCount === 1) {
+            BoastingFirepower.handler = (ev) => BoastingFirepower.onEntityHurt(ev);
+            world.afterEvents.entityHurt.subscribe(BoastingFirepower.handler);
         }
     }
 
     onRelease(_player: Player): void {
-        Boasting_firepower.refCount = Math.max(0, Boasting_firepower.refCount - 1);
-        if (Boasting_firepower.refCount === 0 && Boasting_firepower.handler) {
-            world.afterEvents.entityHurt.unsubscribe(Boasting_firepower.handler);
-            Boasting_firepower.handler = undefined;
+        BoastingFirepower.refCount = Math.max(0, BoastingFirepower.refCount - 1);
+        if (BoastingFirepower.refCount === 0 && BoastingFirepower.handler) {
+            world.afterEvents.entityHurt.unsubscribe(BoastingFirepower.handler);
+            BoastingFirepower.handler = undefined;
         }
     }
 
