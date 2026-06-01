@@ -3,6 +3,7 @@ import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
+import { FlagService } from '../../services/FlagService';
 import { Log } from '../../utils/Log';
 
 /**
@@ -63,7 +64,7 @@ export class Prescience implements Power {
 					showParticles: false
 				});
 
-				hitEntity.triggerEvent('r4isen1920_originspe:has_divine_aura.true');
+				FlagService.set(hitEntity, 'flag_a', true);
 
 				try {
 					hitEntity.dimension.playSound('ender_eye.dead', hitEntity.location, {
@@ -128,7 +129,7 @@ export class Prescience implements Power {
 			if (player.getEffect('health_boost')) {
 				player.removeEffect('health_boost');
 			}
-			player.triggerEvent('r4isen1920_originspe:has_divine_aura.false');
+			FlagService.set(player, 'flag_a', false);
 			player.playSound('respawn_anchor.deplete', { pitch: 1.75 });
 		} catch {}
 	}

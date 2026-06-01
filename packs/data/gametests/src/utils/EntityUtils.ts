@@ -15,4 +15,16 @@ export class EntityUtils {
 		const c = entity.getComponent('health');
 		return c?.currentValue;
 	}
+
+	/**
+	 * Returns the total brightness level (0-15) at the entity's location via
+	 * {@link Block.getLightLevel}. Returns 0 if the block cannot be read.
+	 */
+	static getLightLevel(entity: Entity): number {
+		try {
+			return entity.dimension.getBlock(entity.location)?.getLightLevel() ?? 0;
+		} catch {
+			return 0;
+		}
+	}
 }

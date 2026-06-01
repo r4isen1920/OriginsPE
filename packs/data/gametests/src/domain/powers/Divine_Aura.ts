@@ -3,6 +3,7 @@ import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
+import { FlagService } from '../../services/FlagService';
 import { Log } from '../../utils/Log';
 
 /**
@@ -21,11 +22,7 @@ export class Divine_Aura implements Power {
 			const isDiviner = state.getOrigin() === 'diviner';
 			const hasLink = state.getFlag<string>('prescience_linked_id') !== undefined;
 
-			if (isDiviner || hasLink) {
-				player.triggerEvent('r4isen1920_originspe:has_divine_aura.true');
-			} else {
-				player.triggerEvent('r4isen1920_originspe:has_divine_aura.false');
-			}
+			FlagService.set(player, 'flag_a', isDiviner || hasLink);
 		} catch (error: any) {
 			Divine_Aura.log.error(
 				`Error inside Divine Aura ticker handler: ${error?.stack ?? error}`

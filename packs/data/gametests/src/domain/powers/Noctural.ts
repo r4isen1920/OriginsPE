@@ -3,6 +3,7 @@ import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
+import { EntityUtils } from '../../utils/EntityUtils';
 import { Log } from '../../utils/Log';
 
 @RegisterPower
@@ -16,8 +17,7 @@ export class Noctural implements Power {
 			const state = PlayerState.for(player);
 			if (state.getOrigin() !== 'feline') return;
 
-			player.triggerEvent('r4isen1920_originspe:light_level');
-			const lightLevel = Number(player.getProperty('r4isen1920_originspe:light_level') ?? 0);
+			const lightLevel = EntityUtils.getLightLevel(player);
 
 			if (lightLevel < 8) {
 				player.addEffect('night_vision', TicksPerSecond * 12, { showParticles: false });
