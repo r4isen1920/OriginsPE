@@ -3,29 +3,15 @@ import { EntityAttributeComponent, Player } from '@minecraft/server';
 import { NS } from '../Constants';
 import { PlayerState } from '../core/PlayerState';
 import { Log } from '../utils/Log';
+import {
+	AttributeKey,
+	AttributeOverrides,
+	DEFAULT_ATTRIBUTES,
+	PlayerAttributes,
+} from './Attributes';
 
 
-//#region DEFAULTS
-
-/** Default attribute profile applied on origin/class change. */
-export const DEFAULT_ATTRIBUTES = Object.freeze({
-	movement: '0.1',
-	underwaterMovement: '0.025',
-	health: '20',
-	attack: '1',
-	scale: '1',
-	exhaustion: 'normal',
-	familyType: 'player',
-	breathable: 'land',
-	buoyant: 'normal',
-	projectileSpawner: 'reset',
-	isShaking: 'false',
-	burnsInDaylight: 'false',
-	displayName: 'true',
-});
-
-type AttributeKey = keyof typeof DEFAULT_ATTRIBUTES;
-type AttributeOverrides = Partial<Record<AttributeKey, string>>;
+//#region CONSTANTS
 
 /** Player max-health bounds. Mirrors the BP `minecraft:health` component range. */
 const MIN_MAX_HEALTH = 1;
@@ -75,7 +61,7 @@ export class AttributeService {
 			const value = attrs[key];
 			if (value === undefined) continue;
 			if (last[key] === value) continue;
-			next[key] = value;
+			(next as Record<string, unknown>)[key] = value;
 			this.trigger(player, key, value);
 		}
 		this.applied.set(player.id, next);
@@ -153,14 +139,14 @@ export class AttributeService {
 
 	//#region INTERNAL
 
-	private static trigger(player: Player, key: AttributeKey, value: string): void {
+	private static trigger(player: Player, key: AttributeKey, value: PlayerAttributes[AttributeKey]): void {
 		const componentId = NUMERIC_COMPONENT_IDS[key];
 		if (componentId) {
-			this.setComponentValue(player, componentId, Number(value));
+			this.setComponentValue(player, componentId, value as number);
 			return;
 		}
 		if (key === 'health') {
-			this.setMaxHealth(player, Number(value));
+			this.setMaxHealth(player, value as number);
 			return;
 		}
 

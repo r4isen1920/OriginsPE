@@ -145,6 +145,7 @@ import './domain/ItemEvents';
 import './domain/Registries';
 
 import './services/DamageService';
+import './services/AbilityEventService';
 import './services/ResourceBarService';
 
 import { init } from '@bedrock-oss/stylish';
