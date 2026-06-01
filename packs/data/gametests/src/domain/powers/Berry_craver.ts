@@ -1,6 +1,5 @@
 import { Player, TicksPerSecond, ItemStack, ItemCompleteUseAfterEvent } from '@minecraft/server';
 import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
 
 @RegisterPower
@@ -11,9 +10,6 @@ export class Berry_craver implements Power {
 
 	onTick(player: Player): void {
 		try {
-			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'kitsune') return;
-
 			const block = player.dimension.getBlock(player.location);
 			const blockAbove = player.dimension.getBlock({
 				x: player.location.x,
@@ -53,9 +49,6 @@ export class Berry_craver implements Power {
 		try {
 			const { itemStack } = ev;
 			if (!itemStack.typeId.includes('sweet_berries')) return;
-
-			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'kitsune') return;
 
 			player.addEffect('minecraft:regeneration', TicksPerSecond * 4, {
 				amplifier: 1

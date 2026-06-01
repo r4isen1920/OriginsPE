@@ -1,58 +1,60 @@
 import { Player } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
-import { Log } from '../../utils/Log';
+import { AttributeService } from '../../services/AttributeService';
 
 /**
- * Claustrophobia is a slow debuff that builds up when Elytrians are in tight spaces 
+ * Claustrophobia is a slow debuff that builds up while in tight spaces. Loose:
+ * dispatched to whoever is granted the power, with no origin coupling.
  */
 
 @RegisterPower
 export class Claustrophobia implements Power {
 	readonly id = 'claustrophobia';
-	private static readonly log = Log.get('Claustrophobia');
+	readonly tickInterval = 2;
 
-	@PlayerTick(2)
-	static onPlayerTick(player: Player): void {
-		try {
-			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'elytrian') return;
+	onRelease(player: Player): void {
+		const state = PlayerState.for(player);
+		state.setFlag('claustrophobia_level', undefined);
+		state.setFlag('is_claustrophobic_slow', false);
+		AttributeService.apply(player, { attack: 1 });
+		if (state.getFlag<boolean>('is_heavy') !== true) {
+			AttributeService.apply(player, { movement: 0.1 });
+		}
+	}
 
-			const headLocation = player.getHeadLocation();
-			const ceilingBlock = player.dimension.getBlockAbove({
-				x: headLocation.x,
-				y: headLocation.y,
-				z: headLocation.z
-			});
+	onTick(player: Player): void {
+		const state = PlayerState.for(player);
 
-			let claustrophobiaLevel = state.getFlag<number>('claustrophobia_level') ?? 0;
+		const headLocation = player.getHeadLocation();
+		const ceilingBlock = player.dimension.getBlockAbove({
+			x: headLocation.x,
+			y: headLocation.y,
+			z: headLocation.z
+		});
 
-			if (!ceilingBlock || !ceilingBlock.isValid || ceilingBlock.isAir) {
-				claustrophobiaLevel = Math.max(claustrophobiaLevel - 2, 0);
-			} else {
-				claustrophobiaLevel = Math.min(claustrophobiaLevel + 2, 200);
+		let claustrophobiaLevel = state.getFlag<number>('claustrophobia_level') ?? 0;
+
+		if (!ceilingBlock || !ceilingBlock.isValid || ceilingBlock.isAir) {
+			claustrophobiaLevel = Math.max(claustrophobiaLevel - 2, 0);
+		} else {
+			claustrophobiaLevel = Math.min(claustrophobiaLevel + 2, 200);
+		}
+
+		state.setFlag('claustrophobia_level', claustrophobiaLevel);
+
+		if (claustrophobiaLevel < 150) {
+			state.setFlag('is_claustrophobic_slow', false);
+			AttributeService.apply(player, { attack: 1 });
+
+			if (state.getFlag<boolean>('is_heavy') !== true) {
+				AttributeService.apply(player, { movement: 0.1 });
 			}
-
-			state.setFlag('claustrophobia_level', claustrophobiaLevel);
-
-			if (claustrophobiaLevel < 150) {
-				state.setFlag('is_claustrophobic_slow', false);
-				player.triggerEvent('r4isen1920_originspe:attack.1');
-
-				if (state.getFlag<boolean>('is_heavy') !== true) {
-					player.triggerEvent('r4isen1920_originspe:movement.0.1');
-				}
-			} else {
-				state.setFlag('is_claustrophobic_slow', true);
-				player.triggerEvent('r4isen1920_originspe:attack.0');
-				player.triggerEvent('r4isen1920_originspe:movement.0.05');
-			}
-		} catch (error: any) {
-			Claustrophobia.log.error(
-				`Error inside Claustrophobia tick handler: ${error?.stack ?? error}`
-			);
+		} else {
+			state.setFlag('is_claustrophobic_slow', true);
+			AttributeService.apply(player, { attack: 0 });
+			AttributeService.apply(player, { movement: 0.05 });
 		}
 	}
 }

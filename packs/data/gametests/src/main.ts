@@ -71,7 +71,7 @@ import './domain/powers/Acrobatics';
 import './domain/powers/Nine_lives';
 import './domain/powers/Noctural';
 import './domain/powers/Weak_arms';
-import './domain/powers/Catlike_appearance';
+import './domain/powers/CatlikeAppearance';
 import './domain/powers/Camouflage';
 import './domain/powers/Fast_footed';
 import './domain/powers/Pounced';

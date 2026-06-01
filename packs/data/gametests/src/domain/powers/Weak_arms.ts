@@ -1,46 +1,40 @@
 import { Player, TicksPerSecond, EquipmentSlot, ItemStack } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
-import { PlayerState } from '../../core/PlayerState';
-import { Log } from '../../utils/Log';
 
 @RegisterPower
 export class WeakArms implements Power {
 	readonly id = 'weak_arms';
-	private static readonly log = Log.get('WeakArms');
+	readonly tickInterval = 2;
 
-	@PlayerTick(2)
-	static onPlayerTick(player: Player): void {
-		try {
-			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'feline') return;
+	onRelease(player: Player): void {
+		player.removeEffect('minecraft:weakness');
+		player.removeEffect('minecraft:mining_fatigue');
+	}
 
-			if (player.getEffect('minecraft:strength')) {
-				player.removeEffect('minecraft:weakness');
-				player.removeEffect('minecraft:mining_fatigue');
-				return;
-			}
+	onTick(player: Player): void {
+		if (player.getEffect('minecraft:strength')) {
+			player.removeEffect('minecraft:weakness');
+			player.removeEffect('minecraft:mining_fatigue');
+			return;
+		}
 
-			const equippableComp = player.getComponent('equippable');
-			const heldItem = equippableComp?.getEquipment(EquipmentSlot.Mainhand);
+		const equippableComp = player.getComponent('equippable');
+		const heldItem = equippableComp?.getEquipment(EquipmentSlot.Mainhand);
 
-			if (!heldItem || !WeakArms.isTool(heldItem) || !WeakArms.hasEfficiency(heldItem)) {
-				player.addEffect('minecraft:mining_fatigue', TicksPerSecond * 12, {
-					amplifier: 0,
-					showParticles: false
-				});
-			} else {
-				player.removeEffect('minecraft:mining_fatigue');
-			}
-
-			player.addEffect('minecraft:weakness', TicksPerSecond * 12, {
+		if (!heldItem || !WeakArms.isTool(heldItem) || !WeakArms.hasEfficiency(heldItem)) {
+			player.addEffect('minecraft:mining_fatigue', TicksPerSecond * 12, {
 				amplifier: 0,
 				showParticles: false
 			});
-		} catch (error: any) {
-			WeakArms.log.error(`Error inside WeakArms tick handler: ${error?.stack ?? error}`);
+		} else {
+			player.removeEffect('minecraft:mining_fatigue');
 		}
+
+		player.addEffect('minecraft:weakness', TicksPerSecond * 12, {
+			amplifier: 0,
+			showParticles: false
+		});
 	}
 
 	private static hasEfficiency(item: ItemStack): boolean {

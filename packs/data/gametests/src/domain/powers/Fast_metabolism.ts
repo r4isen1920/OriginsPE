@@ -2,6 +2,7 @@ import { Player } from '@minecraft/server';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
+import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class Fast_metabolism implements Power {
@@ -9,21 +10,21 @@ export class Fast_metabolism implements Power {
 
 	readonly tickInterval = 3;
 
+	onRelease(player: Player): void {
+		const state = PlayerState.for(player);
+		if (state.getFlag<boolean>('exhaustion_applied') === true) {
+			AttributeService.apply(player, { exhaustion: 'normal' });
+			state.setFlag('exhaustion_applied', false);
+		}
+	}
+
 	onTick(player: Player): void {
 		try {
 			const state = PlayerState.for(player);
 
-			if (state.getOrigin() !== 'kitsune') {
-				if (state.getFlag<boolean>('exhaustion_applied') === true) {
-					player.triggerEvent('r4isen1920_originspe:exhaustion.normal');
-					state.setFlag('exhaustion_applied', false);
-				}
-				return;
-			}
-
 			if (state.getFlag<boolean>('exhaustion_applied') === true) return;
 
-			player.triggerEvent('r4isen1920_originspe:exhaustion.shulk');
+			AttributeService.apply(player, { exhaustion: 'shulk' });
 			state.setFlag('exhaustion_applied', true);
 		} catch {}
 	}

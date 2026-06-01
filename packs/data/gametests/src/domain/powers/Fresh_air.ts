@@ -1,8 +1,6 @@
 import { Player } from '@minecraft/server';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
-import { PlayerTick } from '../../core/Ticker';
-import { PlayerState } from '../../core/PlayerState';
 /**
  * The player must be an altitude of atleast 151 blocks,
  * when sleeping , to breathe fresh air.
@@ -10,18 +8,15 @@ import { PlayerState } from '../../core/PlayerState';
 @RegisterPower
 export class Fresh_air implements Power {
 	readonly id = 'fresh_air';
+	readonly tickInterval = 20;
 	private static readonly MIN_ALTITUDE = 151;
 
-	@PlayerTick(20)
-	static onPlayerTick(player: Player): void {
-		const state = PlayerState.for(player);
-		if (state.getOrigin() !== 'avian') return;
-
+	onTick(player: Player): void {
 		const currentY = Math.floor(player.location.y);
 		const isSleeping = player.isSleeping;
 
 		if (isSleeping && currentY < Fresh_air.MIN_ALTITUDE) {
-			this.wakeUpPlayer(player);
+			Fresh_air.wakeUpPlayer(player);
 		}
 	}
 

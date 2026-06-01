@@ -2,7 +2,6 @@ import { Player } from '@minecraft/server';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
-import { PlayerTick } from '../../core/Ticker';
 
 
 const GOLD_ITEMS = new Set([
@@ -41,16 +40,14 @@ const NORMAL_EVENT = 'r4isen1920_originspe:movement.0.1';
 @RegisterPower
 export class Heavy_pockets implements Power {
     readonly id = 'heavy_pockets';
+    readonly tickInterval = 2;
 
     onRelease(player: Player): void {
         player.runCommand(`event entity @s ${NORMAL_EVENT}`);
         PlayerState.for(player).clearFlagPrefix('heavy_pockets_');
     }
 
-    @PlayerTick(2)
-    static onPlayerTick(player: Player): void {
-        if (!PlayerState.for(player).hasPower('heavy_pockets')) return;
-
+    onTick(player: Player): void {
         const inventory = player.getComponent('inventory');
         if (!inventory) return;
 

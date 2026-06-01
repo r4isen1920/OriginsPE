@@ -3,6 +3,7 @@ import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 import { Log } from '../../utils/Log';
 
 @RegisterPower
@@ -40,11 +41,11 @@ export class Familiar_face implements Power {
 			const state = PlayerState.for(player);
 
 			if (state.getOrigin() !== 'enderian') {
-				player.triggerEvent('r4isen1920_originspe:family_type.player');
+				AttributeService.apply(player, { familyType: 'player' });
 				return;
 			}
 
-			player.triggerEvent('r4isen1920_originspe:family_type.enderman');
+			AttributeService.apply(player, { familyType: 'enderman' });
 
 			const currentTick = system.currentTick;
 			const nearbyHostiles = player.dimension.getEntities({

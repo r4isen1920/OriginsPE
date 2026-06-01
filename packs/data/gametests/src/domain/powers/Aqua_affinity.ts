@@ -1,19 +1,14 @@
 import { Player, TicksPerSecond } from '@minecraft/server';
 import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
-import { PlayerTick } from '../../core/Ticker';
 
 @RegisterPower
 export class Aqua_affinity implements Power {
     readonly id = 'aqua_affinity';
+    readonly tickInterval = 3;
 
-    @PlayerTick(3)
-    static onTick(player: Player): void {
+    onTick(player: Player): void {
         try {
-            const state = PlayerState.for(player);
-            if (state.getOrigin() !== 'merling') return;
-
             player.addEffect('night_vision', TicksPerSecond * 12, {
                 amplifier: 4,
                 showParticles: false

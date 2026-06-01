@@ -9,6 +9,6 @@ import { RegisterPower } from '../Registries';
 export class Tail_wind implements Power {
 	readonly id = 'tail_wind';
 	readonly attributes = {
-		movement: '0.15',
+		movement: 0.15,
 	} satisfies NonNullable<Power['attributes']>;
 }

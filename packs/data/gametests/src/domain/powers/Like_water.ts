@@ -1,28 +1,23 @@
 import { Player } from '@minecraft/server';
 import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
-import { PlayerTick } from '../../core/Ticker';
+import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class Like_water implements Power {
     readonly id = 'like_water';
+    readonly tickInterval = 3;
 
-    @PlayerTick(3)
-    static onTick(player: Player): void {
-        try {
-            const state = PlayerState.for(player);
-            if (state.getOrigin() !== 'merling') {
-                player.triggerEvent('r4isen1920_originspe:buoyant.normal');
-                return;
-            }
+    onRelease(player: Player): void {
+        AttributeService.apply(player, { buoyant: 'normal' });
+    }
 
-            if (player.isSneaking || player.isSwimming) {
-                player.triggerEvent('r4isen1920_originspe:buoyant.normal');
-                return;
-            }
+    onTick(player: Player): void {
+        if (player.isSneaking || player.isSwimming) {
+            AttributeService.apply(player, { buoyant: 'normal' });
+            return;
+        }
 
-            player.triggerEvent('r4isen1920_originspe:buoyant.float_on_water');
-        } catch {}
+        AttributeService.apply(player, { buoyant: 'float_on_water' });
     }
 }

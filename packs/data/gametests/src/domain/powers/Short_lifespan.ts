@@ -10,6 +10,6 @@ import { RegisterPower } from '../Registries';
 export class Short_lifespan implements Power {
 	readonly id = 'short_lifespan';
 	readonly attributes = {
-		health: '14',
+		health: 14,
 	} satisfies NonNullable<Power['attributes']>;
 }

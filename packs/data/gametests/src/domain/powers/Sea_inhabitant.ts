@@ -1,16 +1,19 @@
 import { Player } from '@minecraft/server';
 import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
-import { PlayerTick } from '../../core/Ticker';
+import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class Sea_inhabitant implements Power {
     readonly id = 'sea_inhabitant';
+    readonly tickInterval = 3;
 
-    @PlayerTick(3)
-    static onTick(player: Player): void {
-        player.triggerEvent("r4isen1920_originspe:family_type.fish");
-        player.triggerEvent("r4isen1920_originspe:family_type.undead");
+    onRelease(player: Player): void {
+        AttributeService.apply(player, { familyType: 'player' });
+    }
+
+    onTick(player: Player): void {
+        AttributeService.apply(player, { familyType: 'fish' });
+        AttributeService.apply(player, { familyType: 'undead' });
     }
 }

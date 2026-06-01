@@ -5,6 +5,6 @@ import { RegisterPower } from '../Registries';
 export class Smaller_heart implements Power {
 	readonly id = 'smaller_heart';
 	readonly attributes = {
-		health: '12',
+		health: 12,
 	} satisfies NonNullable<Power['attributes']>;
 }

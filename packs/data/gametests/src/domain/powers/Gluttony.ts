@@ -3,6 +3,7 @@ import { ItemUseAfterEvent, Player } from '@minecraft/server';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 
 /**
  * You get even more hungry than usual when replenishing health.
@@ -16,6 +17,6 @@ export class Gluttony implements Power {
 
         if (!state.hasPower('gluttony')) return;
 
-        player.triggerEvent('r4isen1920_originspe:exhaustion.piglin');
+        AttributeService.apply(player, { exhaustion: 'piglin' });
     }
 }
