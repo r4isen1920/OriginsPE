@@ -31,32 +31,32 @@
 	},
 
 	"npc_screen_contents_custom@common.empty_panel": {
-    "size": ["100%", "100%"],
+		"size": ["100%", "100%"],
 
 		"controls": [
 			{
-        "foreground@common.empty_panel": {
-          "size": ["100%", "100%"],
-          "layer": 2,
+				"foreground@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"layer": 2,
 
-          "controls": [
-            { "picker_screen@origin_picker_screen.root": {} },
-            { "options@origin_options_screen.root": {} },
-            { "welcome_screen@origin_welcome_screen.root": {} }
-          ]
-        }
-      },
+					"controls": [
+						{ "picker_screen@origin_picker_screen.root": {} },
+						{ "options@origin_options_screen.root": {} },
+						{ "welcome_screen@origin_welcome_screen.root": {} }
+					]
+				}
+			},
 
-      {
-        "background": {
-          "type": "image",
-          "size": ["100%", "100%"],
-          "texture": "textures/ui/White",
-          "color": [0.0, 0.0, 0.0],
-          "alpha": 0.6,
-          "layer": 1
-        }
-      }
+			{
+				"background": {
+					"type": "image",
+					"size": ["100%", "100%"],
+					"texture": "textures/ui/White",
+					"color": [0.0, 0.0, 0.0],
+					"alpha": 0.6,
+					"layer": 1
+				}
+			}
 		]
 	},
 
@@ -64,10 +64,12 @@
 		"$screen_content": "npc_interact.npc_screen_render_index",
 
 		"$screen_animations": [],
+		"$background_animations": [],
+		"$use_loading_bars": true,
 
 		"cache_screen": true,
 		"close_on_player_hurt": false,
-    "$use_loading_bars": true,
+		"load_screen_immediately": true,
 
 		"button_mappings": [
 			{
