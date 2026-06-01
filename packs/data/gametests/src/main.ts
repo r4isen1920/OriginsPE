@@ -22,6 +22,7 @@ import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 
 //* Powers
+import './domain/powers/Boasting_firepower'
 import './domain/powers/Pride';
 import './domain/powers/Gluttony';
 import './domain/powers/HeavyPockets';
