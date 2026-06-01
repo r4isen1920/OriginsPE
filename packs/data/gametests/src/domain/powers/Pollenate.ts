@@ -55,9 +55,6 @@ export class Pollenate implements Power {
 			player.dimension.playSound('block.bee_nest.work', player.location);
 
 			blockBelow.setType('minecraft:air');
-			Pollenate.log.info(
-				`Player ${player.name} harvested a flower at ${player.location.x}, ${player.location.y}, ${player.location.z} and recovered a stinger.`
-			);
 		}
 	}
 }
