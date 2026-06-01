@@ -96,3 +96,55 @@ export const DEFAULT_ATTRIBUTES: Readonly<PlayerAttributes> = Object.freeze({
 	burnsInDaylight: false,
 	displayName: true,
 });
+
+
+//#region STEPPED ATTRIBUTES
+
+/** Inclusive integer range helper. */
+function range(start: number, end: number): number[] {
+	const out: number[] = [];
+	for (let v = start; v <= end; v++) out.push(v);
+	return out;
+}
+
+/** A numeric attribute applied through discrete, data-driven entity events. */
+export interface SteppedAttribute {
+	/** Event/component-group suffix in the BP (snake_case). */
+	event: string;
+	/** Discrete values the BP generates events for. Applied values snap to the nearest. */
+	steps: readonly number[];
+}
+
+/**
+ * Numeric attributes whose base value (or max) can only be changed through
+ * data-driven entity events -- the Scripts API can set an attribute's *current*
+ * value but not its base/min/max. Each entry's {@link SteppedAttribute.steps}
+ * MUST mirror the matching `attributes.*` list in `player.se.templ`; applied
+ * values that fall between steps are snapped to the nearest available step.
+ */
+export const STEPPED_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, SteppedAttribute>>> = Object.freeze({
+	movement: {
+		event: 'movement',
+		steps: [0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25],
+	},
+	underwaterMovement: {
+		event: 'underwater_movement',
+		steps: [0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25],
+	},
+	health: {
+		event: 'health',
+		steps: range(1, 150),
+	},
+	attack: {
+		event: 'attack',
+		steps: range(0, 20),
+	},
+	scale: {
+		event: 'scale',
+		steps: [
+			0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+			1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2.0,
+			2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3.0,
+		],
+	},
+});

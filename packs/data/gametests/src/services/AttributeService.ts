@@ -1,49 +1,20 @@
-import { EntityAttributeComponent, Player } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 
 import { NS } from '../Constants';
-import { PlayerState } from '../core/PlayerState';
 import { Log } from '../utils/Log';
 import {
 	AttributeKey,
 	AttributeOverrides,
 	DEFAULT_ATTRIBUTES,
 	PlayerAttributes,
+	STEPPED_ATTRIBUTES,
 } from './Attributes';
-
-
-//#region CONSTANTS
-
-/** Player max-health bounds. Mirrors the BP `minecraft:health` component range. */
-const MIN_MAX_HEALTH = 1;
-const MAX_MAX_HEALTH = 150;
-
-/**
- * Flag key tracking the player's definitive max health. Replaces the removed
- * `r4isen1920_originspe:definitive_max_health` actor property and powers the
- * Diviner origin's bespoke abilities through {@link PlayerState}.
- */
-const DEFINITIVE_MAX_HEALTH_FLAG = 'definitive_max_health';
-
-/**
- * Numeric attribute keys backed directly by an {@link EntityAttributeComponent}.
- * These are adjusted through `setCurrentValue` (clamped to the component's
- * effective bounds) instead of triggering a data-driven entity event.
- */
-const NUMERIC_COMPONENT_IDS: Partial<Record<AttributeKey, string>> = {
-	movement: 'minecraft:movement',
-	underwaterMovement: 'minecraft:underwater_movement',
-};
 
 
 //#region SERVICE
 
 /**
- * Centralized attribute applier and the single abstraction layer over player
- * attributes. Numeric stats (movement, underwater movement) are adjusted via
- * {@link EntityAttributeComponent}; max health is driven through the BP
- * `health.N` events while the definitive value is cached in {@link PlayerState};
- * everything else is applied through the smallest possible set of
- * `Entity.triggerEvent` calls with per-player diffing.
+ * Centralized attribute applier and the single abstraction layer over player attributes.
  */
 export class AttributeService {
 	private static readonly log = Log.get('AttributeService');
@@ -80,82 +51,41 @@ export class AttributeService {
 	}
 
 
-	//#region NUMERIC ATTRIBUTES
-
-	/** Sets the player's base walking speed, clamped to the component bounds. */
-	static setMovement(player: Player, value: number): void {
-		this.setComponentValue(player, 'minecraft:movement', value);
-	}
-
-	/** Sets the player's base underwater speed, clamped to the component bounds. */
-	static setUnderwaterMovement(player: Player, value: number): void {
-		this.setComponentValue(player, 'minecraft:underwater_movement', value);
-	}
-
-	/**
-	 * Sets the current value of an attribute component, clamped to the
-	 * component's effective lower/upper bound (as defined in the BP entity).
-	 */
-	static setComponentValue(player: Player, componentId: string, value: number): void {
-		const comp = player.getComponent(componentId) as EntityAttributeComponent | undefined;
-		if (!comp) {
-			this.log.warn(`'${componentId}' component missing on ${player.name}`);
-			return;
-		}
-		const clamped = Math.min(Math.max(value, comp.effectiveMin), comp.effectiveMax);
-		try {
-			comp.setCurrentValue(clamped);
-		} catch (e: any) {
-			this.log.error(`setCurrentValue('${componentId}', ${clamped}) failed: ${e?.stack ?? e}`);
-		}
-	}
-
-
-	//#region MAX HEALTH
-
-	/**
-	 * Sets the player's definitive max health. Drives the BP `health.N` events
-	 * (the engine cannot raise an attribute's max from script) and caches the
-	 * value in {@link PlayerState} for the Diviner abilities to read back.
-	 */
-	static setMaxHealth(player: Player, value: number): void {
-		const clamped = Math.min(Math.max(Math.round(value), MIN_MAX_HEALTH), MAX_MAX_HEALTH);
-		try {
-			player.triggerEvent(`${NS}:health.${clamped}`);
-		} catch (e: any) {
-			this.log.error(`triggerEvent '${NS}:health.${clamped}' failed: ${e?.stack ?? e}`);
-		}
-		PlayerState.for(player).setFlag(DEFINITIVE_MAX_HEALTH_FLAG, clamped);
-	}
-
-	/** Returns the player's tracked definitive max health, falling back to the live component. */
-	static getDefinitiveMaxHealth(player: Player): number {
-		const tracked = PlayerState.for(player).getFlag<number>(DEFINITIVE_MAX_HEALTH_FLAG);
-		if (tracked !== undefined) return tracked;
-		const comp = player.getComponent('minecraft:health') as EntityAttributeComponent | undefined;
-		return comp?.effectiveMax ?? 20;
-	}
-
-
 	//#region INTERNAL
 
 	private static trigger(player: Player, key: AttributeKey, value: PlayerAttributes[AttributeKey]): void {
-		const componentId = NUMERIC_COMPONENT_IDS[key];
-		if (componentId) {
-			this.setComponentValue(player, componentId, value as number);
-			return;
-		}
-		if (key === 'health') {
-			this.setMaxHealth(player, value as number);
+		const stepped = STEPPED_ATTRIBUTES[key];
+		if (stepped) {
+			const snapped = this.snap(value as number, stepped.steps);
+			this.fireEvent(player, `${stepped.event}.${snapped}`);
 			return;
 		}
 
-		const eventName = `${NS}:${this.eventNameFor(key)}.${value}`;
+		this.fireEvent(player, `${this.eventNameFor(key)}.${value}`);
+	}
+
+	/** Fires a namespaced entity event, logging any failure. */
+	private static fireEvent(player: Player, suffix: string): void {
+		const eventName = `${NS}:${suffix}`;
 		try {
 			player.triggerEvent(eventName);
 		} catch (e: any) {
 			this.log.error(`triggerEvent '${eventName}' failed: ${e?.stack ?? e}`);
 		}
+	}
+
+	/** Returns the entry of `steps` closest to `value`. */
+	private static snap(value: number, steps: readonly number[]): number {
+		let best = steps[0];
+		let bestDist = Math.abs(value - best);
+		for (let i = 1; i < steps.length; i++) {
+			const dist = Math.abs(value - steps[i]);
+			if (dist < bestDist) {
+				best = steps[i];
+				bestDist = dist;
+			}
+		}
+		return best;
 	}
 
 	private static eventNameFor(key: AttributeKey): string {

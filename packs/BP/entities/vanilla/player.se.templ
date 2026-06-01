@@ -3,17 +3,24 @@
 		"attributes": {
 			"health": {
 				"range": [ 0, 100 ],
-				"default": 20
+				"default": 20,
+				//* Discrete max-health steps. minecraft:health max can only be raised via
+				//* component groups (not the Scripts API), so each step gets a group + event.
+				"steps": [ { "{{#1..150}}": "{{=value}}" } ]
 			},
 
 			"movement": {
 				"generic": {
 					"range": [ 0, 100 ],
-					"default": 0.1
+					"default": 0.1,
+					//* Base walking-speed steps. Mirror AttributeService STEPPED_ATTRIBUTES.
+					"steps": [ 0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25 ]
 				},
 				"underwater": {
 					"range": [ 0, 100 ],
-					"default": 0.025
+					"default": 0.025,
+					//* Base swim-speed steps. Mirror AttributeService STEPPED_ATTRIBUTES.
+					"steps": [ 0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25 ]
 				},
 				"lava": {
 					"range": [ 0, 100 ],
@@ -22,15 +29,12 @@
 			},
 
 			"scale": [
-				//todo: jsonte does not evaluate this as 0.1, 0.2, etc. and instead floors the value--we could just enumerate it one by one?
-				//todo: the only bottleneck would be the step value as well as the min-max bounds, but we'll add those as needed for granularity
-				//todo: remove these comment when solved
-				{ "{{#1..30}}": "{{=value / 10}}" }
+				0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+				1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2.0,
+				2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3.0
 			],
 
 			"attack": [
-				//* Whole-number melee damage tiers. minecraft:attack is not exposed to the Scripts API,
-				//* so it stays data-driven via generated component groups + events (mirrors scale).
 				{ "{{#0..20}}": "{{=value}}" }
 			]
 		}
@@ -120,6 +124,24 @@
 				"{{#attributes.attack as a}}": {
 					"r4isen1920_originspe:attack.{{a}}": {
 						"minecraft:attack": { "damage": "{{=a}}" }
+					}
+				},
+
+				"{{#attributes.health.steps as h}}": {
+					"r4isen1920_originspe:health.{{h}}": {
+						"minecraft:health": { "max": "{{=h}}" }
+					}
+				},
+
+				"{{#attributes.movement.generic.steps as m}}": {
+					"r4isen1920_originspe:movement.{{m}}": {
+						"minecraft:movement": { "value": "{{=m}}" }
+					}
+				},
+
+				"{{#attributes.movement.underwater.steps as u}}": {
+					"r4isen1920_originspe:underwater_movement.{{u}}": {
+						"minecraft:underwater_movement": { "value": "{{=u}}" }
 					}
 				},
 
@@ -317,6 +339,24 @@
 				"{{#attributes.attack as a}}": {
 					"r4isen1920_originspe:attack.{{a}}": {
 						"add": { "component_groups": ["r4isen1920_originspe:attack.{{a}}"] }
+					}
+				},
+
+				"{{#attributes.health.steps as h}}": {
+					"r4isen1920_originspe:health.{{h}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:health.{{h}}"] }
+					}
+				},
+
+				"{{#attributes.movement.generic.steps as m}}": {
+					"r4isen1920_originspe:movement.{{m}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:movement.{{m}}"] }
+					}
+				},
+
+				"{{#attributes.movement.underwater.steps as u}}": {
+					"r4isen1920_originspe:underwater_movement.{{u}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:underwater_movement.{{u}}"] }
 					}
 				},
 
