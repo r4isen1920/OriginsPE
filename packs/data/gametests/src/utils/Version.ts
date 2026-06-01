@@ -12,6 +12,7 @@ import { BindThis, CustomCmd, OnWorldLoad } from '@bedrock-oss/stylish';
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { NS, WORLD_DPK } from '../Constants';
 import { PlayerState } from '../core/PlayerState';
+import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 
 
 
@@ -181,6 +182,7 @@ export default class Version {
 			this.log.info(`Resetting player record for version: ${resetVersion}, player: ${player.name}`);
 			state.reset();
 			state.setRecordVersion(currentVersion);
+			UiBridge.openPicker(player, PickerKind.Race, PickerMode.Pick);
 			return true;
 		} catch (e: any) {
 			this.log.error(

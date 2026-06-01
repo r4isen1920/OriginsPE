@@ -13,7 +13,7 @@ import {
 } from '../core/DecoratedEvents';
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
-import { UiBridge } from '../core/UiBridge';
+import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 import { InventoryService } from '../services/InventoryService';
 import { isToggleOn } from '../ui/OptionsState';
 import { EntityUtils } from '../utils/EntityUtils';
@@ -51,7 +51,7 @@ const ORB_OF_ORIGINS: ItemHandler = {
 			return;
 		}
 		PlayerState.for(player).setFlag('change_resign', true);
-		UiBridge.openPicker(player, 'race', 'change');
+		UiBridge.openPicker(player, PickerKind.Race, PickerMode.Change);
 		player.playSound('ui.wood_click');
 	},
 };
@@ -65,7 +65,7 @@ const RESIGNATION_PAPER: ItemHandler = {
 			return;
 		}
 		PlayerState.for(player).setFlag('change_resign', true);
-		UiBridge.openPicker(player, 'class', 'change');
+		UiBridge.openPicker(player, PickerKind.Class, PickerMode.Change);
 		player.playSound('ui.wood_click');
 	},
 };

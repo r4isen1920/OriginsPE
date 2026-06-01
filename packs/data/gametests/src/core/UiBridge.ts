@@ -14,9 +14,27 @@ import { PlayerState } from './PlayerState';
 
 
 //#region TYPES
-
-export type PickerKind = 'race' | 'class';
-export type PickerMode = 'pick' | 'change' | 'view' | 'viewonly';
+/**
+ * Represents the different categories of pickers that can be opened for the player.
+ */
+export enum PickerKind {
+	/** Shows changing Origin. */
+	Race = 'race',
+	/** Shows changing Class. */
+	Class = 'class',
+};
+/**
+ * Represents the different modes in which a picker can be opened, affecting both the
+ * UI and the player's ability to make changes.
+ */
+export enum PickerMode {
+	/** Displays the picker for the player to choose an option. With navigation such as left and right arrows, and a select button. */
+	Pick = 'pick',
+	/** Allows the player to change their current selection. With two buttons: confirm and cancel. */
+	Change = 'change',
+	/** Displays the current selection without allowing changes. With a single "close" button. */
+	View = 'view',
+}
 
 
 //#region UIBRIDGE
@@ -51,20 +69,20 @@ export class UiBridge {
 	}
 
 	/** Opens the origin/class picker dialogue for the given player. */
-	static openPicker(player: Player, kind: PickerKind, mode: PickerMode = 'pick'): void {
+	static openPicker(player: Player, kind: PickerKind, mode: PickerMode = PickerMode.Pick): void {
 		const state = PlayerState.for(player);
-		const current = kind === 'race' ? state.getOrigin() : state.getClass();
-		const fallback = kind === 'race' ? 'human' : 'nitwit';
+		const current = kind === PickerKind.Race ? state.getOrigin() : state.getClass();
+		const fallback = kind === PickerKind.Race ? 'human' : 'nitwit';
 		const id = `gui_${kind}_${mode}_${current ?? fallback}`;
 
 		this.openDialogue(player, id);
 
 		switch (mode) {
-			case 'pick':
-				if (kind === 'race') state.setOrigin(undefined);
+			case PickerMode.Pick:
+				if (kind === PickerKind.Race) state.setOrigin(undefined);
 				else state.setClass(undefined);
 				break;
-			case 'view':
+			case PickerMode.View:
 				player.playSound('ui.enchant', { volume: 1, pitch: 1.25 });
 				break;
 			default: break;

@@ -7,7 +7,7 @@ import {
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
 import { PlayerTick, Ticker } from '../core/Ticker';
-import { UiBridge } from '../core/UiBridge';
+import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 import { AttributeService, DEFAULT_ATTRIBUTES } from '../services/AttributeService';
 import { ResourceBarService } from '../services/ResourceBarService';
 import Version from '../utils/Version';
@@ -68,11 +68,11 @@ export class PlayerLifecycle {
 
 			// Prompt origin/class pickers if missing.
 			if (!state.getOrigin()) {
-				UiBridge.openPicker(player, 'race', 'pick');
+				UiBridge.openPicker(player, PickerKind.Race, PickerMode.Pick);
 				return;
 			}
 			if (!state.getClass()) {
-				UiBridge.openPicker(player, 'class', 'pick');
+				UiBridge.openPicker(player, PickerKind.Class, PickerMode.Pick);
 				return;
 			}
 
