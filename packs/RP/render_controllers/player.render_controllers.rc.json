@@ -4,7 +4,7 @@
 
     "controller.render.player.first_person": {
       "geometry": "Geometry.default",
-      "materials": [ { "*": "!v.p_has_divine_aura ? Material.default : Material.highlight_base" } ],
+      "materials": [ { "*": "!v.p_flag_a ? Material.default : Material.highlight_base" } ],
       "textures": [ "Texture.default" ],
       "part_visibility": [
         { "*": false },
@@ -17,7 +17,7 @@
     },
     "controller.render.player.third_person": {
       "geometry": "Geometry.default",
-      "materials": [ { "*": "!v.p_has_divine_aura ? Material.default : Material.highlight_base" } ],
+      "materials": [ { "*": "!v.p_flag_a ? Material.default : Material.highlight_base" } ],
       "textures": [ "Texture.default" ],
       "part_visibility": [
         { "*": "!q.any(v.p_skin_type, 'ghostly', 'shadow')" },

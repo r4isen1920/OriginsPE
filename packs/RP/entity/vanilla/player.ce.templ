@@ -25,17 +25,29 @@
 
 				"scripts": {
 					"initialize": [
-						"v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);",
-
-						"v.p_is_riding_dummy = false;",
-						"v.p_toggle_particles = true;",
+						"v.p_toggle_particles = 1.0;",
 						"v.p_model_type = 'normal';",
 						"v.p_skin_type = 'normal';",
 						"v.p_emitter_type = 'none';",
-						"v.p_has_divine_aura = false;"
+						"v.p_flag_a = 0.0;",
+						"v.p_flag_b = 0.0;",
+						"v.p_flag_c = 0.0;",
+						"v.p_flag_d = 0.0;",
+
+						"v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);"
 					],
 					"pre_animation": [
-						"!q.is_in_ui && !v.is_paperdoll ? { v.p_is_riding_dummy = q.property('r4isen1920_originspe:is_riding_dummy'); v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles'); v.p_model_type = q.property('r4isen1920_originspe:model_type'); v.p_skin_type = q.property('r4isen1920_originspe:skin_type'); v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type'); v.p_has_divine_aura = q.property('r4isen1920_originspe:has_divine_aura'); };",
+						"(!q.is_in_ui && !v.is_paperdoll) ? { ",
+						"  v.p_toggle_particles = q.property('r4isen1920_originspe:toggle_particles');",
+						"  v.p_model_type = q.property('r4isen1920_originspe:model_type');",
+						"  v.p_skin_type = q.property('r4isen1920_originspe:skin_type');",
+						"  v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type');",
+						"  v.p_flag_a = q.property('r4isen1920_originspe:flag_a');",
+						"  v.p_flag_b = q.property('r4isen1920_originspe:flag_b');",
+						"  v.p_flag_c = q.property('r4isen1920_originspe:flag_c');",
+						"  v.p_flag_d = q.property('r4isen1920_originspe:flag_d');",
+						"};",
+
 						"v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);"
 					],
 					"animate": [
@@ -78,9 +90,9 @@
 					{ "controller.render.player.ghostly.third_person_overlay": "q.any(v.p_skin_type, 'ghostly', 'shadow') && !v.is_first_person && !v.map_face_icon" },
 					{ "controller.render.player.slimy": "v.p_skin_type == 'slimy' && v.is_first_person" },
 					{ "controller.render.player.slimy.third_person": "v.p_skin_type == 'slimy' && !v.is_first_person && !v.map_face_icon" },
-					{ "controller.render.player.divine": "v.p_skin_type == 'normal' && v.p_has_divine_aura && v.is_first_person" },
-					{ "controller.render.player.divine.third_person": "v.p_skin_type == 'normal' && v.p_has_divine_aura && !v.is_first_person && !v.map_face_icon" },
-					{ "controller.render.player.divine.third_person_slim": "v.p_skin_type == 'normal' && v.p_has_divine_aura && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" }
+					{ "controller.render.player.divine": "v.p_skin_type == 'normal' && v.p_flag_a && v.is_first_person" },
+					{ "controller.render.player.divine.third_person": "v.p_skin_type == 'normal' && v.p_flag_a && !v.is_first_person && !v.map_face_icon" },
+					{ "controller.render.player.divine.third_person_slim": "v.p_skin_type == 'normal' && v.p_flag_a && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" }
 				]
 			}
 		}
