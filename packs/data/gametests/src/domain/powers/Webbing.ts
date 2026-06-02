@@ -3,6 +3,7 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { Log } from '../../utils/Log';
 
 /**
  * Web-shooter / web-trap power for the Arachnid origin. The owner can place
@@ -13,6 +14,9 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 @RegisterPower
 export class Webbing implements Power {
 	readonly id = 'webbing';
+
+	private static readonly log = Log.get('Webbing');
+
 
 	private static readonly COOLDOWN_BAR_ID = 24;
 	private static readonly COOLDOWN_KEY = 'webbing';
@@ -42,6 +46,10 @@ export class Webbing implements Power {
 			});
 
 			if (block1?.isAir) block1.setType('minecraft:web');
-		} catch {}
+		} catch (error: any) {
+			Webbing.log.error(
+				`[${player.name ?? 'Unknown Player'}] Error in onAttack: ${error?.stack ?? error}`
+			);
+		}
 	}
 }
