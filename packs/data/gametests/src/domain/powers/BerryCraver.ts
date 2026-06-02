@@ -22,10 +22,7 @@ export class BerryCraver implements Power {
 				blockAbove?.typeId === 'minecraft:sweet_berry_bush'
 			) {
 				const healthComp = player.getComponent('health');
-				if (
-					healthComp &&
-					(healthComp as any).currentValue < (healthComp as any).defaultValue
-				) {
+				if (healthComp && healthComp.currentValue < healthComp.defaultValue) {
 					player.runCommand(`effect @s instant_health 1 0 true`);
 				}
 			}

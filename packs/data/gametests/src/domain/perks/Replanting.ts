@@ -81,14 +81,22 @@ export class GreenThumb implements Perk {
 
         if (!saplingLocation) return;
 
-        const targetBlock =
-            saplingLocation.face === Direction.Up   ? saplingLocation.block.above() :
-            saplingLocation.face === Direction.Down ? saplingLocation.block.below() :
-            (saplingLocation.block as any)[saplingLocation.face]?.();
+        const targetBlock = GreenThumb.getAdjacentBlock(saplingLocation.block, saplingLocation.face);
 
         if (!targetBlock) return;
 
         targetBlock.setPermutation(BlockPermutation.resolve(`minecraft:${saplingBlock}`));
         block.dimension.spawnParticle('r4isen1920_originspe:experience_touch', saplingLocation.block.center());
+    }
+
+    private static getAdjacentBlock(block: PlayerBreakBlockAfterEvent['block'], face: Direction): PlayerBreakBlockAfterEvent['block'] | undefined {
+        switch (face) {
+            case Direction.Up: return block.above();
+            case Direction.Down: return block.below();
+            case Direction.North: return block.north();
+            case Direction.South: return block.south();
+            case Direction.West: return block.west();
+            case Direction.East: return block.east();
+        }
     }
 }

@@ -21,7 +21,7 @@ export class ShieldWield implements Perk {
 
         const offhand = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Offhand);
         const hasShield = offhand?.typeId === 'minecraft:shield';
-        const isBlocking = hasShield && player.getComponent('is_blocking' as any) !== undefined;
+        const isBlocking = hasShield && player.getComponent('minecraft:is_blocking') !== undefined;
 
         if (isBlocking) {
             player.addEffect('resistance', TicksPerSecond * 3, { amplifier: 0, showParticles: false });

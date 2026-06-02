@@ -1,4 +1,5 @@
 import {
+    Block,
     EquipmentSlot,
     GameMode,
     Player,
@@ -35,6 +36,7 @@ const ORE_BLOCKS = [
 ];
 
 const DIRECTIONS = ['north', 'south', 'west', 'east', 'above', 'below'] as const;
+type NeighborDirection = typeof DIRECTIONS[number];
 
 @RegisterPerk
 export class OreVeinMiner implements Perk {
@@ -76,9 +78,12 @@ export class OreVeinMiner implements Perk {
             const targetBlock = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:targetBlock') as string;
             if (currentBlock?.permutation.matches(`minecraft:${targetBlock}`)) {
                 DIRECTIONS.forEach(direction => {
+                    const neighbor = OreVeinMiner.getNeighborBlock(currentBlock, direction);
+                    if (!neighbor) return;
+
                     const newEntity = player.dimension.spawnEntity(
                         'r4isen1920_originspe:vein_miner',
-                        (currentBlock[direction]() as any).center(),
+                        neighbor.center(),
                     );
                     newEntity.setDynamicProperty('r4isen1920_originspe:targetBlock', targetBlock);
                     newEntity.setDynamicProperty('r4isen1920_originspe:originator', veinMinerEntity.getDynamicProperty('r4isen1920_originspe:originator'));
@@ -121,13 +126,27 @@ export class OreVeinMiner implements Perk {
         if (!oreBlock) return;
 
         DIRECTIONS.forEach(direction => {
+            const neighbor = OreVeinMiner.getNeighborBlock(block, direction);
+            if (!neighbor) return;
+
             const newVeinMinerEntity = player.dimension.spawnEntity(
                 'r4isen1920_originspe:vein_miner',
-                (block[direction]() as any).center(),
+                neighbor.center(),
             );
             newVeinMinerEntity.setDynamicProperty('r4isen1920_originspe:targetBlock', oreBlock);
             newVeinMinerEntity.setDynamicProperty('r4isen1920_originspe:originator', player.id);
             newVeinMinerEntity.setDynamicProperty('r4isen1920_originspe:iteration', 0);
         });
+    }
+
+    private static getNeighborBlock(block: Block, direction: NeighborDirection): Block | undefined {
+        switch (direction) {
+            case 'north': return block.north();
+            case 'south': return block.south();
+            case 'west': return block.west();
+            case 'east': return block.east();
+            case 'above': return block.above();
+            case 'below': return block.below();
+        }
     }
 }
