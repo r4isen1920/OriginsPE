@@ -1,26 +1,39 @@
 import { Player, world, WeatherType, TicksPerSecond } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
+import { Ticker } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
 /**
  * Diurnal: Affects the player's abilities based on the time of day and weather conditions.
  */
-
 @RegisterPower
 export class Diurnal implements Power {
 	readonly id = 'diurnal';
+	readonly tickInterval = 4;
+
 	private static readonly log = Log.get('Diurnal');
 
 	constructor() {
+		try {
+			Ticker.everyPlayer(this.tickInterval, (player) => this.onTick(player), {
+				id: `power.${this.id}`
+			});
+		} catch (error: any) {
+			Diurnal.log.error(
+				`Failed to register Ticker hook for Diurnal: ${error?.stack ?? error}`
+			);
+		}
+
 		world.afterEvents.weatherChange.subscribe((event) => {
 			try {
 				const { dimension, newWeather } = event;
 				const playersInDimension = world.getDimension(dimension).getPlayers();
 
 				for (const player of playersInDimension) {
+					if (!player.isValid) continue;
+
 					const state = PlayerState.for(player);
 					if (state.getOrigin() !== 'bee') continue;
 
@@ -38,9 +51,10 @@ export class Diurnal implements Power {
 		});
 	}
 
-	@PlayerTick(4)
-	static onPlayerTick(player: Player): void {
+	onTick(player: Player): void {
 		try {
+			if (!player.isValid) return;
+
 			const state = PlayerState.for(player);
 			if (state.getOrigin() !== 'bee') return;
 
@@ -66,7 +80,9 @@ export class Diurnal implements Power {
 				}
 			}
 		} catch (error: any) {
-			Diurnal.log.error(`Error inside Diurnal ticker handler: ${error?.stack ?? error}`);
+			Diurnal.log.error(
+				`[${player.name ?? 'Unknown Player'}] Error inside Diurnal ticker handler: ${error?.stack ?? error}`
+			);
 		}
 	}
 }
