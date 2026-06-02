@@ -35,23 +35,37 @@ export class MasterOfWebs implements Power {
 			if (!player.isValid) return;
 
 			const loc = player.location;
-			const blockLoc = {
-				x: Math.floor(loc.x),
-				y: Math.floor(loc.y),
-				z: Math.floor(loc.z)
-			};
-
 			const dimension = player.dimension;
 			if (!dimension) return;
 
-			const block = dimension.getBlock(blockLoc);
-			if (!block || !block.isValid) return;
+			const baseLoc = {
+				x: Math.floor(loc.x),
+				z: Math.floor(loc.z)
+			};
 
-			if (
-				block.typeId === 'minecraft:web' ||
-				block.typeId === 'r4isen1920_originspe:fake_web'
-			) {
-				player.addEffect('resistance', 5, {
+			const feetBlock = dimension.getBlock({
+				x: baseLoc.x,
+				y: Math.floor(loc.y),
+				z: baseLoc.z
+			});
+			const torsoBlock = dimension.getBlock({
+				x: baseLoc.x,
+				y: Math.floor(loc.y) + 1,
+				z: baseLoc.z
+			});
+
+			const standsInWeb =
+				(feetBlock &&
+					feetBlock.isValid &&
+					(feetBlock.typeId === 'minecraft:web' ||
+						feetBlock.typeId === 'r4isen1920_originspe:fake_web')) ||
+				(torsoBlock &&
+					torsoBlock.isValid &&
+					(torsoBlock.typeId === 'minecraft:web' ||
+						torsoBlock.typeId === 'r4isen1920_originspe:fake_web'));
+
+			if (standsInWeb) {
+				player.addEffect('resistance', 20, {
 					amplifier: 4,
 					showParticles: false
 				});
