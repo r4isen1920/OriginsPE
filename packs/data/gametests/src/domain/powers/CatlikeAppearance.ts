@@ -4,6 +4,11 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
 
+type TargetComponent = {
+	target?: { id: string };
+	clearTarget(): void;
+};
+
 @RegisterPower
 export class CatlikeAppearance implements Power {
 	readonly id = 'catlike_appearance';
@@ -39,10 +44,10 @@ export class CatlikeAppearance implements Power {
 
 				creeper.triggerEvent('minecraft:stop_exploding');
 
-				const targetComp = creeper.getComponent('target');
-				if (targetComp && (targetComp as any).target?.id === player.id) {
-					(targetComp as any).clearTarget();
-				}
+				// const targetComp = creeper.getComponent('target') as TargetComponent | undefined;
+				// if (targetComp?.target?.id === player.id) {
+				// 	targetComp.clearTarget();
+				// }
 
 				const dx = creeper.location.x - player.location.x;
 				const dz = creeper.location.z - player.location.z;
