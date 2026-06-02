@@ -16,3 +16,5 @@ packs/data/gametests/src/Meta.ts
 *.mcworld
 *.mcpack
 *.DS_Store
+
+!packs/data/gametests/uuid.txt
