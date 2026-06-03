@@ -1,4 +1,3 @@
-import { Player } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 
@@ -8,15 +7,14 @@ import { Power } from '../Ability';
  */
 @RegisterPower
 export class NaturalArmor implements Power {
-    readonly id = 'natural_armor';
+	readonly id = 'natural_armor';
 
-    onTick(player: Player): void {
-        if (!player.hasTag('power_natural_armor')) {
-            player.addTag('power_natural_armor');
-        }
-    }
-
-    onRelease(player: Player): void {
-        player.removeTag('power_natural_armor');
-    }
+	readonly attributes = {
+		damageOverrides: [
+			{
+				id: 'natural_armor',
+				multiplier: 0.8,
+			},
+		],
+	};
 }
