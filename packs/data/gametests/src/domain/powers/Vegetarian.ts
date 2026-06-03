@@ -1,6 +1,7 @@
-import { ItemUseAfterEvent, Player } from '@minecraft/server';
+import { ItemUseBeforeEvent, Player } from '@minecraft/server';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
+import { PlayerState } from '../../core/PlayerState';
 
 /**
  * vegetable diet: meat-based food gives no nutrition. We block use-time
@@ -23,15 +24,21 @@ export class Vegetarian implements Power {
 		'minecraft:cooked_porkchop',
 		'minecraft:cooked_cod',
 		'minecraft:cooked_salmon',
-		'minecraft:cooked_rabbit',
+		'minecraft:cooked_rabbit'
 	]);
 
-	onItemUse(player: Player, ev: ItemUseAfterEvent): void {
+	onBeforeItemUse(player: Player, ev: ItemUseBeforeEvent): void {
+		if (!player || !player.isValid) return;
+
+		const state = PlayerState.for(player);
+		const origin = state.getOrigin();
+
+		if (origin !== 'avian') {
+			return;
+		}
+
 		if (Vegetarian.BLOCKED.has(ev.itemStack.typeId)) {
-			player.onScreenDisplay.setActionBar(
-				'origins.hud.overhead_text:origins.vegetarian.blocked'
-			);
-			player.playSound('note.bass');
+			ev.cancel = true;
 		}
 	}
 }
