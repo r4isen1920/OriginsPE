@@ -29,8 +29,6 @@ export class Stingers implements Power {
 		if (player.isOnGround) return;
 
 		const state = PlayerState.for(player);
-		Stingers.log.info(`Valid mid-air sting attack executed by player: ${player.name}`);
-
 		hurtEntity.addEffect('fatal_poison', TicksPerSecond * 7, { amplifier: 0 });
 
 		let stingers = state.getFlag<number>('bee_stingers_left');
@@ -41,21 +39,13 @@ export class Stingers implements Power {
 
 		stingers--;
 		state.setFlag('bee_stingers_left', stingers);
-		Stingers.log.info(`Stinger consumed. Remaining for ${player.name}: ${stingers}`);
-
 		player.sendMessage(`§eYou used a stinger! ${stingers} remaining.§r`);
 
-		try {
-			hurtEntity.dimension.spawnParticle(
-				'r4isen1920_originspe:bee_poison_sting',
-				hurtEntity.location
-			);
-			hurtEntity.dimension.playSound('enchant.thorns.hit', hurtEntity.location);
-		} catch (visualError: any) {
-			Stingers.log.error(
-				`Failed to play particle or sound asset: ${visualError?.message ?? visualError}`
-			);
-		}
+		hurtEntity.dimension.spawnParticle(
+			'r4isen1920_originspe:bee_poison_sting',
+			hurtEntity.location
+		);
+		hurtEntity.dimension.playSound('enchant.thorns.hit', hurtEntity.location);
 
 		if (stingers <= 0) {
 			Stingers.log.warn(`Player ${player.name} hit 0 stingers. Executing kill script.`);
