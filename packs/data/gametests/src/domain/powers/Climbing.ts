@@ -2,7 +2,6 @@ import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 import { EntityDamageCause, Player } from '@minecraft/server';
 import { PlayerState } from '../../core/PlayerState';
-import { Ticker } from '../../core/Ticker';
 import { Log } from '../../utils/Log';
 /**
  * Wall-climb passive. The actual physics is driven by an attached entity
@@ -31,68 +30,45 @@ export class Climbing implements Power {
 		'minecraft:weeping_vines'
 	];
 
-	constructor() {
-		try {
-			Ticker.everyPlayer(this.tickInterval, (player) => this.onTick(player), {
-				id: `power.${this.id}`
-			});
-		} catch (error: any) {
-			Climbing.log.error(
-				`Failed to register Ticker hook for Climbing: ${error?.stack ?? error}`
-			);
-		}
-	}
-
 	onTick(player: Player): void {
-		try {
-			if (!player.isValid) return;
+		if (!player.isValid) return;
 
-			const state = PlayerState.for(player);
-			if (state.getOrigin() !== 'arachnid') return;
+		const state = PlayerState.for(player);
+		if (state.getOrigin() !== 'arachnid') return;
 
-			if (!player.isJumping) return;
+		if (!player.isJumping) return;
 
-			const ray = player.getBlockFromViewDirection({ maxDistance: 2.5 });
-			const block = ray?.block;
+		const ray = player.getBlockFromViewDirection({ maxDistance: 2.5 });
+		const block = ray?.block;
 
-			if (block && !block.isAir && !Climbing.IGNORED_BLOCKS.includes(block.typeId)) {
-				const currentY = player.getVelocity().y;
-				const targetSpeed = 0.15;
+		if (block && !block.isAir && !Climbing.IGNORED_BLOCKS.includes(block.typeId)) {
+			const currentY = player.getVelocity().y;
+			const targetSpeed = 0.2;
 
-				let upwardForce = 0;
+			let upwardForce = 0;
 
-				if (currentY < 0) {
-					upwardForce = targetSpeed;
-					player.clearVelocity();
-				} else {
-					upwardForce = Math.max(0, targetSpeed - currentY);
-				}
-
-				if (upwardForce > 0) {
-					player.applyImpulse({ x: 0, y: upwardForce + 0.001, z: 0 });
-				}
+			if (currentY < 0) {
+				upwardForce = targetSpeed;
+				player.clearVelocity();
+			} else {
+				upwardForce = Math.max(0, targetSpeed - currentY);
 			}
-		} catch (error: any) {
-			Climbing.log.error(
-				`[${player.name ?? 'Unknown Player'}] Error in onTick loop: ${error?.stack ?? error}`
-			);
+
+			if (upwardForce > 0) {
+				player.applyImpulse({ x: 0, y: upwardForce + 0.01, z: 0 });
+			}
 		}
 	}
 
 	onDamageTaken(player: Player, cause: EntityDamageCause, damage: number): number {
-		try {
-			if (!player.isValid) return damage;
+		if (!player.isValid) return damage;
 
-			const state = PlayerState.for(player);
+		const state = PlayerState.for(player);
 
-			if (state.getOrigin() === 'arachnid' && cause === EntityDamageCause.fall) {
-				return damage * 0.01;
-			}
-		} catch (error: any) {
-			Climbing.log.error(
-				`[${player.name ?? 'Unknown Player'}] Error in onDamageTaken: ${error?.stack ?? error}`
-			);
+		if (state.getOrigin() === 'arachnid' && cause === EntityDamageCause.fall) {
+			return damage * 0.01;
 		}
+
 		return damage;
 	}
 }

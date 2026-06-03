@@ -1,9 +1,8 @@
-import { ItemUseBeforeEvent, Player, world } from '@minecraft/server';
+import { Player, ItemUseBeforeEvent } from '@minecraft/server';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
-
+import { PlayerState } from '../../core/PlayerState';
 /**
  * Carnivorous diet: vegetable-based food gives no nutrition. We block use-time
  * via item events and let the player consume meat normally.
@@ -33,30 +32,21 @@ export class Carnivore implements Power {
 		'minecraft:dried_kelp',
 		'minecraft:golden_carrot',
 		'minecraft:poisonous_potato',
-		'minecraft:glistering_melon_slice',
-		'minecraft:cooked_salmon',
-		'minecraft:cooked_cod'
+		'minecraft:glistering_melon_slice'
 	]);
 
-	constructor() {
-		try {
-			world.beforeEvents.itemUse.subscribe((ev: ItemUseBeforeEvent) => {
-				const player = ev.source;
-				if (!player || !player.isValid) return;
+	onBeforeItemUse(player: Player, ev: ItemUseBeforeEvent): void {
+		if (!player || !player.isValid) return;
 
-				const state = PlayerState.for(player);
-				const origin = state.getOrigin();
+		const state = PlayerState.for(player);
+		const origin = state.getOrigin();
 
-				if (origin !== 'arachnid' && origin !== 'feline') {
-					return;
-				}
+		if (origin !== 'arachnid' && origin !== 'feline') {
+			return;
+		}
 
-				if (Carnivore.BLOCKED.has(ev.itemStack.typeId)) {
-					ev.cancel = true;
-				}
-			});
-		} catch (error: any) {
-			Carnivore.log.error(`Initialization structural crash: ${error?.stack ?? error}`);
+		if (Carnivore.BLOCKED.has(ev.itemStack.typeId)) {
+			ev.cancel = true;
 		}
 	}
 }

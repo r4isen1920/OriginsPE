@@ -17,7 +17,6 @@ export class Webbing implements Power {
 
 	private static readonly log = Log.get('Webbing');
 
-
 	private static readonly COOLDOWN_BAR_ID = 24;
 	private static readonly COOLDOWN_KEY = 'webbing';
 	private static readonly COOLDOWN_TICKS = TicksPerSecond * 13;
@@ -33,23 +32,17 @@ export class Webbing implements Power {
 			durationSeconds: 13
 		});
 
-		try {
-			player.dimension
-				.spawnEntity('r4isen1920_originspe:webbing_attack', event.hitEntity.location)
-				.triggerEvent('r4isen1920_originspe:start_webbing_control');
+		player.dimension
+			.spawnEntity('r4isen1920_originspe:webbing_attack', event.hitEntity.location)
+			.triggerEvent('r4isen1920_originspe:start_webbing_control');
 
-			const loc = event.hitEntity.location;
-			const block1 = player.dimension.getBlock({
-				x: Math.floor(loc.x),
-				y: Math.floor(loc.y),
-				z: Math.floor(loc.z)
-			});
+		const loc = event.hitEntity.location;
+		const block1 = player.dimension.getBlock({
+			x: Math.floor(loc.x),
+			y: Math.floor(loc.y),
+			z: Math.floor(loc.z)
+		});
 
-			if (block1?.isAir) block1.setType('minecraft:web');
-		} catch (error: any) {
-			Webbing.log.error(
-				`[${player.name ?? 'Unknown Player'}] Error in onAttack: ${error?.stack ?? error}`
-			);
-		}
+		if (block1?.isAir) block1.setType('minecraft:web');
 	}
 }
