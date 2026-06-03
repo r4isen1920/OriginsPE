@@ -1,84 +1,57 @@
-import { Player, world, system } from '@minecraft/server';
+import { Player, system, EntityHurtAfterEvent } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
-import { Log } from '../../utils/Log';
-
-type TargetComponent = {
-	target?: { id: string };
-	clearTarget(): void;
-};
+import { AfterEntityHurt } from '../../core/DecoratedEvents';
 
 @RegisterPower
 export class FamiliarFace implements Power {
 	readonly id = 'familiar_face';
-	private static readonly log = Log.get('Familiar_face');
+	readonly tickInterval = 3;
 
-	constructor() {
-		world.afterEvents.entityHurt.subscribe((event) => {
-			try {
-				const { damageSource, hurtEntity } = event;
-				if (
-					!damageSource.damagingEntity ||
-					!(damageSource.damagingEntity instanceof Player)
-				)
-					return;
+	@AfterEntityHurt
+	static onEntityHurt(event: EntityHurtAfterEvent): void {
+		const { damageSource, hurtEntity } = event;
+		if (!damageSource.damagingEntity || !(damageSource.damagingEntity instanceof Player))
+			return;
 
-				const player = damageSource.damagingEntity;
-				const state = PlayerState.for(player);
-				if (state.getOrigin() !== 'enderian') return;
+		const player = damageSource.damagingEntity;
+		const state = PlayerState.for(player);
+		if (state.getOrigin() !== 'enderian') return;
 
-				const targetUid = hurtEntity.id;
-				state.setFlag(`combat_retaliation_${targetUid}`, system.currentTick + 200);
-			} catch (error: any) {
-				FamiliarFace.log.error(
-					`Error inside Familiar_face combat tracker: ${error?.stack ?? error}`
-				);
-			}
-		});
+		const targetUid = hurtEntity.id;
+		state.setFlag(`combat_retaliation_${targetUid}`, system.currentTick + 200);
 	}
 
-	@PlayerTick(3)
-	static onPlayerTick(player: Player): void {
-		try {
-			const state = PlayerState.for(player);
+	onTick(player: Player): void {
+		if (!player.isValid) return;
 
-			if (state.getOrigin() !== 'enderian') {
-				AttributeService.apply(player, { familyType: 'player' });
-				return;
-			}
+		const state = PlayerState.for(player);
 
-			AttributeService.apply(player, { familyType: 'enderman' });
+		if (state.getOrigin() !== 'enderian') {
+			AttributeService.apply(player, { familyType: 'player' });
+			return;
+		}
 
-			const currentTick = system.currentTick;
-			const nearbyHostiles = player.dimension.getEntities({
-				location: player.location,
-				maxDistance: 16,
-				excludeFamilies: ['player', 'inanimate']
-			});
+		AttributeService.apply(player, { familyType: 'enderman' });
 
-			for (const entity of nearbyHostiles) {
-				try {
-					// const targetComp = entity.getComponent('target') as TargetComponent | undefined;
-					// if (!targetComp) continue;
+		const currentTick = system.currentTick;
+		const nearbyHostiles = player.dimension.getEntities({
+			location: player.location,
+			maxDistance: 16,
+			excludeFamilies: ['player', 'inanimate']
+		});
 
-					// const currentTarget = targetComp.target;
-					// if (!currentTarget || currentTarget.id !== player.id) continue;
-
-					// const retaliationExpiry =
-					// 	state.getFlag<number>(`combat_retaliation_${entity.id}`) ?? 0;
-					// if (currentTick < retaliationExpiry) continue;
-
-					// entity.clearVelocity();
-					// targetComp.clearTarget();
-				} catch {}
-			}
-		} catch (error: any) {
-			FamiliarFace.log.error(
-				`Error inside Familiar_face tick handler: ${error?.stack ?? error}`
-			);
+		for (const entity of nearbyHostiles) {
+			const targetComp = entity.getComponent('target') as any;
+			if (!targetComp) continue;
+			const currentTarget = targetComp.target;
+			if (!currentTarget || currentTarget.id !== player.id) continue;
+			const retaliationExpiry = state.getFlag<number>(`combat_retaliation_${entity.id}`) ?? 0;
+			if (currentTick < retaliationExpiry) continue;
+			entity.clearVelocity();
+			targetComp.clearTarget();
 		}
 	}
 }

@@ -5,32 +5,32 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class ScaredOfGourds implements Power {
-    readonly id = 'scared_of_grounds';
-    readonly tickInterval = 3;
+	readonly id = 'scared_of_gourds';
+	readonly tickInterval = 3;
 
-    onRelease(player: Player): void {
-        AttributeService.apply(player, { isShaking: false });
-    }
+	onRelease(player: Player): void {
+		AttributeService.apply(player, { isShaking: false });
+	}
 
-    onTick(player: Player): void {
-        const inventoryComp = player.getComponent('inventory');
-        if (!inventoryComp?.container) return;
+	onTick(player: Player): void {
+		const inventoryComp = player.getComponent('inventory');
+		if (!inventoryComp?.container) return;
 
-        let hasPumpkin = false;
+		let hasPumpkin = false;
 
-        for (let i = 0; i < inventoryComp.container.size; i++) {
-            const item = inventoryComp.container.getItem(i);
-            if (item && item.typeId.includes('pumpkin')) {
-                hasPumpkin = true;
-                break;
-            }
-        }
+		for (let i = 0; i < inventoryComp.container.size; i++) {
+			const item = inventoryComp.container.getItem(i);
+			if (item && item.typeId.includes('pumpkin')) {
+				hasPumpkin = true;
+				break;
+			}
+		}
 
-        if (hasPumpkin) {
-            AttributeService.apply(player, { isShaking: true });
-            player.addEffect('weakness', TicksPerSecond * 12, { amplifier: 1 });
-        } else {
-            AttributeService.apply(player, { isShaking: false });
-        }
-    }
+		if (hasPumpkin) {
+			AttributeService.apply(player, { isShaking: true });
+			player.addEffect('weakness', TicksPerSecond * 12, { amplifier: 1 });
+		} else {
+			AttributeService.apply(player, { isShaking: false });
+		}
+	}
 }
