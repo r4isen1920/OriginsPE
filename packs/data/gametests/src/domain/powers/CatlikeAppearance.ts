@@ -37,30 +37,28 @@ export class CatlikeAppearance implements Power {
 		});
 
 		for (const creeper of nearbyCreepers) {
-			try {
-				const retaliationExpiry =
-					state.getFlag<number>(`creeper_retaliation_${creeper.id}`) ?? 0;
-				if (currentTick < retaliationExpiry) continue;
+			const retaliationExpiry =
+				state.getFlag<number>(`creeper_retaliation_${creeper.id}`) ?? 0;
+			if (currentTick < retaliationExpiry) continue;
 
-				creeper.triggerEvent('minecraft:stop_exploding');
+			creeper.triggerEvent('minecraft:stop_exploding');
 
-				// const targetComp = creeper.getComponent('target') as TargetComponent | undefined;
-				// if (targetComp?.target?.id === player.id) {
-				// 	targetComp.clearTarget();
-				// }
+			const targetComp = creeper.getComponent('target') as TargetComponent | undefined;
+			if (targetComp?.target?.id === player.id) {
+				targetComp.clearTarget();
+			}
 
-				const dx = creeper.location.x - player.location.x;
-				const dz = creeper.location.z - player.location.z;
-				const distance = Math.sqrt(dx * dx + dz * dz);
+			const dx = creeper.location.x - player.location.x;
+			const dz = creeper.location.z - player.location.z;
+			const distance = Math.sqrt(dx * dx + dz * dz);
 
-				if (distance < 10 && distance > 0.1) {
-					creeper.applyImpulse({
-						x: (dx / distance) * 0.4,
-						y: 0.1,
-						z: (dz / distance) * 0.4
-					});
-				}
-			} catch {}
+			if (distance < 10 && distance > 0.1) {
+				creeper.applyImpulse({
+					x: (dx / distance) * 0.4,
+					y: 0.1,
+					z: (dz / distance) * 0.4
+				});
+			}
 		}
 	}
 }

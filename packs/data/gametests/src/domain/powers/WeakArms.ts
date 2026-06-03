@@ -38,14 +38,10 @@ export class WeakArms implements Power {
 	}
 
 	private static hasEfficiency(item: ItemStack): boolean {
-		try {
-			const enchants: any = item.getComponent('enchantments');
-			if (!enchants) return false;
-			const efficiency = enchants.enchantments.getEnchantment('minecraft:efficiency');
-			return efficiency && efficiency.level > 0;
-		} catch {
-			return false;
-		}
+		const enchants: any = item.getComponent('enchantments');
+		if (!enchants) return false;
+		const efficiency = enchants.enchantments.getEnchantment('minecraft:efficiency');
+		return efficiency && efficiency.level > 0;
 	}
 
 	private static isTool(item: ItemStack): boolean {
