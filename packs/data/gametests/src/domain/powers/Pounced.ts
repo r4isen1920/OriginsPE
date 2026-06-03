@@ -46,12 +46,10 @@ export class Pounced implements Power {
 					player.applyKnockback({ x: viewDir.x, z: viewDir.z }, launchForce);
 					player.applyImpulse({ x: 0, y: launchForce * 0.4, z: 0 });
 
-					try {
-						player.dimension.playSound('firework.launch', player.location, {
-							volume: 1.0,
-							pitch: 1.0
-						});
-					} catch {}
+					player.dimension.playSound('firework.launch', player.location, {
+						volume: 1.0,
+						pitch: 1.0
+					});
 
 					state.setFlag('pounce_launched', true);
 				}
@@ -68,17 +66,15 @@ export class Pounced implements Power {
 				durationSeconds: 5
 			});
 
-			try {
-				player.dimension.playSound('random.explode', player.location, {
-					volume: 0.6,
-					pitch: 1.5
-				});
-				player.dimension.spawnParticle('r4isen1920_originspe:air_burst', {
-					x: player.location.x,
-					y: player.location.y + 0.5,
-					z: player.location.z
-				});
-			} catch {}
+			player.dimension.playSound('random.explode', player.location, {
+				volume: 0.6,
+				pitch: 1.5
+			});
+			player.dimension.spawnParticle('r4isen1920_originspe:air_burst', {
+				x: player.location.x,
+				y: player.location.y + 0.5,
+				z: player.location.z
+			});
 
 			const targets = player.dimension.getEntities({
 				location: player.location,
@@ -88,9 +84,8 @@ export class Pounced implements Power {
 
 			for (const entity of targets) {
 				if (entity.id === player.id) continue;
-				try {
-					entity.runCommand(`damage @s 6 entity_attack attack @p`);
-				} catch {}
+
+				entity.runCommand(`damage @s 6 entity_attack attack @p`);
 			}
 		}
 	}

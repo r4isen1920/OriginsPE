@@ -19,13 +19,11 @@ export class FastMetabolism implements Power {
 	}
 
 	onTick(player: Player): void {
-		try {
-			const state = PlayerState.for(player);
+		const state = PlayerState.for(player);
 
-			if (state.getFlag<boolean>('exhaustion_applied') === true) return;
+		if (state.getFlag<boolean>('exhaustion_applied') === true) return;
 
-			AttributeService.apply(player, { exhaustion: 'shulk' });
-			state.setFlag('exhaustion_applied', true);
-		} catch {}
+		AttributeService.apply(player, { exhaustion: 'shulk' });
+		state.setFlag('exhaustion_applied', true);
 	}
 }

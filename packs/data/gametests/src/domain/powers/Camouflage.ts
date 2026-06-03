@@ -37,20 +37,18 @@ export class Camouflage implements Power {
 			});
 
 			for (const entity of nearbyHostiles) {
-				try {
-					// const targetComp = entity.getComponent('target') as TargetComponent | undefined;
-					// if (!targetComp) continue;
+				const targetComp = entity.getComponent('target') as TargetComponent | undefined;
+				if (!targetComp) continue;
 
-					// const currentTarget = targetComp.target;
-					// if (!currentTarget || currentTarget.id !== player.id) continue;
+				const currentTarget = targetComp.target;
+				if (!currentTarget || currentTarget.id !== player.id) continue;
 
-					// const retaliationExpiry =
-					// 	state.getFlag<number>(`camo_retaliation_${entity.id}`) ?? 0;
-					// if (currentTick < retaliationExpiry) continue;
+				const retaliationExpiry =
+					state.getFlag<number>(`camo_retaliation_${entity.id}`) ?? 0;
+				if (currentTick < retaliationExpiry) continue;
 
-					// entity.clearVelocity();
-					// targetComp.clearTarget();
-				} catch {}
+				entity.clearVelocity();
+				targetComp.clearTarget();
 			}
 		} else {
 			AttributeService.apply(player, { familyType: 'player' });
