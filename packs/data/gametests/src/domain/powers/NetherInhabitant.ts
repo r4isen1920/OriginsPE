@@ -2,19 +2,20 @@ import {
 	Player,
 	world,
 	TicksPerSecond,
+	system,
 	Dimension,
 	Vector3,
 	PlayerDimensionChangeAfterEvent
 } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
+import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { AfterPlayerDimensionChange } from '../../core/DecoratedEvents';
 
 @RegisterPower
 export class NetherInhabitant implements Power {
 	readonly id = 'nether_inhabitant';
-	readonly tickInterval = 3;
 
 	@AfterPlayerDimensionChange
 	static onDimensionChange(event: PlayerDimensionChangeAfterEvent): void {
@@ -22,37 +23,41 @@ export class NetherInhabitant implements Power {
 		const state = PlayerState.for(player);
 
 		if (!state.hasPower('nether_inhabitant')) return;
+
 		if (
 			state.getFlag<boolean>('nether_spawn_check') !== true ||
 			toDimension.id !== 'minecraft:nether'
 		)
 			return;
 
-		let dummyEntity = player.dimension.getEntities({
-			location: player.location,
-			minDistance: 3,
-			maxDistance: 64,
-			closest: 1,
-			excludeFamilies: ['player', 'inanimate']
-		})[0];
+		system.run(() => {
+			let dummyEntity = player.dimension.getEntities({
+				location: player.location,
+				minDistance: 3,
+				maxDistance: 64,
+				closest: 1,
+				excludeFamilies: ['player', 'inanimate']
+			})[0];
 
-		if (!dummyEntity) {
-			dummyEntity = player.dimension.spawnEntity(
-				'r4isen1920_originspe:safe_teleporter',
-				player.location
-			);
-		}
+			if (!dummyEntity) {
+				dummyEntity = player.dimension.spawnEntity(
+					'r4isen1920_originspe:safe_teleporter',
+					player.location
+				);
+			}
 
-		NetherInhabitant.createObsidianPlatform(player.dimension, dummyEntity.location);
+			NetherInhabitant.createObsidianPlatform(player.dimension, dummyEntity.location);
 
-		player.teleport(dummyEntity.location);
-		player.removeEffect('resistance');
-		state.setFlag('nether_spawn_check', false);
-		state.setFlag('nether_spawned', true);
+			player.teleport(dummyEntity.location);
+			player.removeEffect('resistance');
+
+			state.setFlag('nether_spawn_check', false);
+			state.setFlag('nether_spawned', true);
+		});
 	}
 
-	onTick(player: Player): void {
-		if (!player.isValid) return;
+	@PlayerTick(3)
+	static onPlayerTick(player: Player): void {
 		const state = PlayerState.for(player);
 
 		if (!state.hasPower('nether_inhabitant')) {
@@ -72,14 +77,14 @@ export class NetherInhabitant implements Power {
 		)
 			return;
 
+		const netherDimension = world.getDimension('minecraft:nether');
+
 		player.addEffect('resistance', TicksPerSecond * 10, {
 			amplifier: 255,
 			showParticles: false
 		});
 
-		player.teleport(player.location, {
-			dimension: world.getDimension('minecraft:nether')
-		});
+		player.teleport(player.location, { dimension: netherDimension });
 
 		state.setFlag('nether_spawn_check', true);
 	}
