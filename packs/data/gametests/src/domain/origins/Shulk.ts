@@ -8,8 +8,7 @@ export class Shulk implements Origin {
 	readonly id = 'shulk';
 	readonly powers: readonly string[] = [
 		'shulk_inventory',
-		'hoarder',
-		'sturdy_skin',
+		'natural_armor',
 		'large_appetite',
 		'unwieldy',
 		'strong_arms',
