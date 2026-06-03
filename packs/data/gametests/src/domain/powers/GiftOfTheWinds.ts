@@ -32,35 +32,31 @@ export class GiftOfTheWinds implements Power {
 				showParticles: false
 			});
 
-			try {
-				player.dimension.playSound('firework.launch', player.location, {
-					volume: 1.0,
-					pitch: 1.25
-				});
-				player.dimension.spawnParticle('r4isen1920_originspe:air_burst', {
-					x: player.location.x,
-					y: player.location.y + 1,
-					z: player.location.z
-				});
-			} catch {}
+			player.dimension.playSound('firework.launch', player.location, {
+				volume: 1.0,
+				pitch: 1.25
+			});
+			player.dimension.spawnParticle('r4isen1920_originspe:air_burst', {
+				x: player.location.x,
+				y: player.location.y + 1,
+				z: player.location.z
+			});
 
 			state.setCooldown('gift_of_the_winds_cooldown', currentTick, 600);
 			state.setFlag('gift_of_the_winds_expiry', currentTick + 600);
 		} else {
-			try {
-				player.playSound('note.bass', { volume: 1.0, pitch: 1.5 });
+			player.playSound('note.bass', { volume: 1.0, pitch: 1.5 });
 
-				const expiryTick =
-					state.getFlag<number>('gift_of_the_winds_expiry') ?? currentTick + 600;
-				const ticksLeft = expiryTick - currentTick;
+			const expiryTick =
+				state.getFlag<number>('gift_of_the_winds_expiry') ?? currentTick + 600;
+			const ticksLeft = expiryTick - currentTick;
 
-				if (ticksLeft > 0) {
-					const secondsLeft = (ticksLeft / 20).toFixed(1);
-					player.sendMessage(
-						`§c[Debug] Gift of the Winds is on cooldown! §e${secondsLeft}s §cleft.`
-					);
-				}
-			} catch {}
+			if (ticksLeft > 0) {
+				const secondsLeft = (ticksLeft / 20).toFixed(1);
+				player.sendMessage(
+					`§c[Debug] Gift of the Winds is on cooldown! §e${secondsLeft}s §cleft.`
+				);
+			}
 		}
 	}
 }

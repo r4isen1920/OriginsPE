@@ -11,7 +11,7 @@ import { Power } from '../Ability';
 export class BrittleBones implements Power {
 	readonly id = 'brittle_bones';
 
-	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
+	onHurtBefore(_player: Player, ev: EntityHurtBeforeEvent): void {
 		if (
 			ev.damageSource.cause === EntityDamageCause.fall ||
 			ev.damageSource.cause === EntityDamageCause.flyIntoWall
