@@ -45,8 +45,9 @@ export interface Ability {
 
 	/**
 	 * Attribute overrides layered on top of the default attribute profile when
-	 * this ability is active. Multiple active abilities are merged in
-	 * registration order; later entries win for conflicting keys.
+	 * this ability is active. Damage overrides can live here too and are merged
+	 * from every active ability in registration order; later entries win for
+	 * conflicting stat keys.
 	 */
 	readonly attributes?: AttributeOverrides;
 

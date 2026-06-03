@@ -15,33 +15,31 @@ import {
 } from '../core/DecoratedEvents';
 import { EntityUtils } from '../utils/EntityUtils';
 import { AbilityDispatch } from '../domain/AbilityDispatch';
+import { DamageOverride } from './Attributes';
 
 
 //#region DAMAGE OVERRIDES
 
-/**
- * Script-side replacement for the `minecraft:damage_sensor` component. An
- * override conditionally rescales the incoming damage of a hurt player before
- * it is applied. Multiplier is applied first, then the flat modifier.
- */
-export interface DamageOverride {
-	/** Stable id, used for logging/de-duplication. */
-	readonly id: string;
-	/** Optional damage-cause filter. When set, only matches this cause. */
-	readonly cause?: EntityDamageCause;
-	/** Optional predicate gating the override (e.g. on granted powers). */
-	when?(player: Player, ev: EntityHurtBeforeEvent): boolean;
-	/** Damage multiplier (applied before {@link DamageOverride.modifier}). */
-	readonly multiplier?: number;
-	/** Flat damage modifier added after the multiplier. */
-	readonly modifier?: number;
-}
-
 const damageOverrides: DamageOverride[] = [];
+const playerDamageOverrides = new Map<string, readonly DamageOverride[]>();
 
 /** Registers a {@link DamageOverride} evaluated on every player `entityHurt` before-event. */
 export function registerDamageOverride(override: DamageOverride): void {
 	damageOverrides.push(override);
+}
+
+/** Replaces the active per-player damage overrides used by the hurt handler. */
+export function setDamageOverrides(player: Player, overrides: readonly DamageOverride[]): void {
+	if (overrides.length === 0) {
+		playerDamageOverrides.delete(player.id);
+		return;
+	}
+	playerDamageOverrides.set(player.id, [...overrides]);
+}
+
+/** Drops any cached per-player damage overrides. Call on leave. */
+export function forgetDamageOverrides(playerId: string): void {
+	playerDamageOverrides.delete(playerId);
 }
 
 
@@ -61,9 +59,10 @@ export class DamageService {
 		const player = ev.hurtEntity;
 
 		// Declarative overrides first.
-		if (damageOverrides.length > 0) {
+		const activeOverrides = [...damageOverrides, ...(playerDamageOverrides.get(player.id) ?? [])];
+		if (activeOverrides.length > 0) {
 			let damage = ev.damage;
-			for (const override of damageOverrides) {
+			for (const override of activeOverrides) {
 				if (override.cause && override.cause !== ev.damageSource.cause) continue;
 				if (override.when && !override.when(player, ev)) continue;
 				if (override.multiplier !== undefined) damage *= override.multiplier;

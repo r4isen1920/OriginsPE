@@ -1,3 +1,5 @@
+import type { EntityDamageCause, EntityHurtBeforeEvent, Player } from '@minecraft/server';
+
 //#region VALUE TYPES
 
 /**
@@ -28,6 +30,20 @@ export type BreathableMode = 'land' | 'underwater';
 
 /** Buoyancy behaviour in water. Maps to the `buoyant.*` events. */
 export type BuoyancyMode = 'normal' | 'float_on_water';
+
+/** Damage scaling rule evaluated while the player is hurt. */
+export interface DamageOverride {
+	/** Stable id, used for logging/de-duplication. */
+	readonly id: string;
+	/** Optional damage-cause filter. When set, only matches this cause. */
+	readonly cause?: EntityDamageCause;
+	/** Optional predicate gating the override (e.g. on granted powers). */
+	when?(player: Player, ev: EntityHurtBeforeEvent): boolean;
+	/** Damage multiplier (applied before {@link DamageOverride.modifier}). */
+	readonly multiplier?: number;
+	/** Flat damage modifier added after the multiplier. */
+	readonly modifier?: number;
+}
 
 
 //#region PROFILE
@@ -72,8 +88,13 @@ export interface PlayerAttributes {
 /** Any key of {@link PlayerAttributes}. */
 export type AttributeKey = keyof PlayerAttributes;
 
-/** A partial set of attribute values to apply on top of the current profile. */
-export type AttributeOverrides = Partial<PlayerAttributes>;
+/**
+ * A partial set of attribute values to apply on top of the current profile.
+ * Damage overrides are collected alongside the normal stat overlay.
+ */
+export type AttributeOverrides = Partial<PlayerAttributes> & {
+	readonly damageOverrides?: readonly DamageOverride[];
+};
 
 
 //#region DEFAULTS

@@ -9,7 +9,8 @@ import { PlayerState } from '../core/PlayerState';
 import { PlayerTick, Ticker } from '../core/Ticker';
 import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 import { AttributeService } from '../services/AttributeService';
-import { AttributeOverrides, DEFAULT_ATTRIBUTES } from '../services/Attributes';
+import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../services/Attributes';
+import { forgetDamageOverrides, setDamageOverrides } from '../services/DamageService';
 import { ResourceBarService } from '../services/ResourceBarService';
 import Version from '../utils/Version';
 import { Perk, Power } from './Ability';
@@ -94,6 +95,8 @@ export class PlayerLifecycle {
 		PlayerState.release(ev.playerId);
 		ResourceBarService.forget(ev.playerId);
 		AttributeService.forget(ev.playerId);
+		forgetDamageOverrides(ev.playerId);
+	}
 	}
 
 
@@ -144,14 +147,20 @@ export class PlayerLifecycle {
 
 		// Apply attributes: defaults overlaid by every active power/perk.
 		const merged: AttributeOverrides = { ...DEFAULT_ATTRIBUTES };
+		const damageOverrides: DamageOverride[] = [];
 		for (const id of nextPowers) {
 			const attrs = PowerRegistry.get(id)?.attributes;
-			if (attrs) Object.assign(merged, attrs);
+			if (!attrs) continue;
+			Object.assign(merged, attrs);
+			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
 		}
 		for (const id of nextPerks) {
 			const attrs = PerkRegistry.get(id)?.attributes;
-			if (attrs) Object.assign(merged, attrs);
+			if (!attrs) continue;
+			Object.assign(merged, attrs);
+			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
 		}
+		setDamageOverrides(player, damageOverrides);
 		AttributeService.apply(player, merged);
 
 		// Apply origin render effects via data-driven events.

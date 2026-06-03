@@ -18,7 +18,7 @@ import {
  */
 export class AttributeService {
 	private static readonly log = Log.get('AttributeService');
-	private static readonly applied = new Map<string, AttributeOverrides>();
+	private static readonly applied = new Map<string, Partial<PlayerAttributes>>();
 
 
 	//#region APPLY
@@ -26,13 +26,13 @@ export class AttributeService {
 	/** Applies the given attributes. Only acts on keys that changed. */
 	static apply(player: Player, attrs: AttributeOverrides): void {
 		const last = this.applied.get(player.id) ?? {};
-		const next: AttributeOverrides = { ...last };
+		const next: Partial<PlayerAttributes> = { ...last };
 
-		for (const key of Object.keys(attrs) as AttributeKey[]) {
+		for (const key of Object.keys(DEFAULT_ATTRIBUTES) as AttributeKey[]) {
 			const value = attrs[key];
 			if (value === undefined) continue;
 			if (last[key] === value) continue;
-			(next as Record<string, unknown>)[key] = value;
+			next[key] = value;
 			this.trigger(player, key, value);
 		}
 		this.applied.set(player.id, next);
