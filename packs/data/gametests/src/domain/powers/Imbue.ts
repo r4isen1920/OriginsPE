@@ -6,7 +6,6 @@ import { Power } from '../Ability';
  * Imbue: the holder's arrows deal bonus magic damage, increased against undead.
  */
 
-
 @RegisterPower
 export class Imbue implements Power {
 	readonly id = 'imbue';
@@ -53,26 +52,24 @@ export class Imbue implements Power {
 			damagingEntity: player
 		});
 
-		try {
-			const viewDirection = player.getViewDirection();
-			const chargeParticleLocation = {
-				x: player.location.x + viewDirection.x * 1.25,
-				y: player.location.y + 1 + viewDirection.y * 1.25,
-				z: player.location.z + viewDirection.z * 1.25
-			};
+		const viewDirection = player.getViewDirection();
+		const chargeParticleLocation = {
+			x: player.location.x + viewDirection.x * 1.25,
+			y: player.location.y + 1 + viewDirection.y * 1.25,
+			z: player.location.z + viewDirection.z * 1.25
+		};
 
-			player.dimension.spawnParticle(
-				'r4isen1920_originspe:elven_bow_charge',
-				chargeParticleLocation
-			);
-			hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', {
-				x: hurtEntity.location.x,
-				y: hurtEntity.location.y + 1,
-				z: hurtEntity.location.z
-			});
+		player.dimension.spawnParticle(
+			'r4isen1920_originspe:elven_bow_charge',
+			chargeParticleLocation
+		);
+		hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', {
+			x: hurtEntity.location.x,
+			y: hurtEntity.location.y + 1,
+			z: hurtEntity.location.z
+		});
 
-			player.dimension.playSound('ender_eye.dead', hurtEntity.location);
-			player.dimension.playSound('ender_eye.dead', player.location);
-		} catch {}
+		player.dimension.playSound('ender_eye.dead', hurtEntity.location);
+		player.dimension.playSound('ender_eye.dead', player.location);
 	}
 }

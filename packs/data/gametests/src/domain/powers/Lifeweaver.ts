@@ -4,20 +4,16 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { Log } from '../../utils/Log';
 
-/**
- * Lifeweaver: the holder absorbs damage taken over a short window and converts
- * it into healing and absorption.
- */
-
 @RegisterPower
 export class Lifeweaver implements Power {
 	readonly id = 'lifeweaver';
+	readonly tickInterval = 1;
+
 	private static readonly log = Log.get('Lifeweaver');
 
 	onHurt(player: Player, ev: EntityHurtAfterEvent): void {
 		const { damage } = ev;
 		const state = PlayerState.for(player);
-
 		const currentTick = system.currentTick;
 
 		if (state.isOnCooldown('lifeweaver_cooldown', currentTick)) return;
@@ -29,51 +25,53 @@ export class Lifeweaver implements Power {
 		if (state.getFlag<boolean>('lifeweaver_tracking') === true) return;
 
 		state.setFlag('lifeweaver_tracking', true);
+		state.setFlag('lifeweaver_timer', currentTick + TicksPerSecond * 3);
+	}
 
-		system.runTimeout(() => {
-			try {
-				if (!player.isValid) return;
+	onTick(player: Player): void {
+		if (!player.isValid) return;
 
-				const totalDamage = state.getFlag<number>('lifeweaver_damage_window') ?? 0;
+		const state = PlayerState.for(player);
+		if (state.getFlag<boolean>('lifeweaver_tracking') !== true) return;
 
-				state.setFlag('lifeweaver_damage_window', 0);
-				state.setFlag('lifeweaver_tracking', false);
+		const currentTick = system.currentTick;
+		const targetTick = state.getFlag<number>('lifeweaver_timer') ?? 0;
 
-				if (totalDamage <= 0) return;
+		if (currentTick < targetTick) return;
 
-				const healthComp = player.getComponent('health');
-				if (healthComp) {
-					const finalHealth = Math.min(
-						healthComp.currentValue + totalDamage,
-						healthComp.effectiveMax
-					);
-					healthComp.setCurrentValue(finalHealth);
-				}
+		const totalDamage = state.getFlag<number>('lifeweaver_damage_window') ?? 0;
 
-				const amp = Math.floor(totalDamage * 0.2);
-				player.addEffect('absorption', TicksPerSecond * 12, {
-					amplifier: Math.max(0, amp),
-					showParticles: true
-				});
+		state.setFlag('lifeweaver_damage_window', 0);
+		state.setFlag('lifeweaver_tracking', false);
+		state.setFlag('lifeweaver_timer', 0);
 
-				try {
-					player.dimension.spawnParticle('r4isen1920_originspe:elven_heal', {
-						x: player.location.x,
-						y: player.location.y + 1,
-						z: player.location.z
-					});
-					player.dimension.playSound('ender_eye.dead', player.location, {
-						volume: 2.0,
-						pitch: 1.25
-					});
-				} catch {}
+		if (totalDamage <= 0) return;
 
-				state.setCooldown('lifeweaver_cooldown', system.currentTick, 600);
-			} catch (innerError: any) {
-				Lifeweaver.log.error(
-					`Error executing Lifeweaver release: ${innerError?.stack ?? innerError}`
-				);
-			}
-		}, TicksPerSecond * 3);
+		const healthComp = player.getComponent('health');
+		if (healthComp) {
+			const finalHealth = Math.min(
+				healthComp.currentValue + totalDamage,
+				healthComp.effectiveMax
+			);
+			healthComp.setCurrentValue(finalHealth);
+		}
+
+		const amp = Math.floor(totalDamage * 0.2);
+		player.addEffect('absorption', TicksPerSecond * 12, {
+			amplifier: Math.max(0, amp),
+			showParticles: true
+		});
+
+		player.dimension.spawnParticle('r4isen1920_originspe:elven_heal', {
+			x: player.location.x,
+			y: player.location.y + 1,
+			z: player.location.z
+		});
+		player.dimension.playSound('ender_eye.dead', player.location, {
+			volume: 2.0,
+			pitch: 1.25
+		});
+
+		state.setCooldown('lifeweaver_cooldown', currentTick, 600);
 	}
 }

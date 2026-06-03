@@ -42,10 +42,8 @@ export class EndlessQuiver implements Power {
 
 				inventoryComp.container.addItem(newArrow);
 
-				try {
-					player.playSound('note.pling', { volume: 0.1, pitch: 1.75 });
-					player.playSound('mob.chicken.plop', { volume: 0.75 });
-				} catch {}
+				player.playSound('note.pling', { volume: 0.1, pitch: 1.75 });
+				player.playSound('mob.chicken.plop', { volume: 0.75 });
 			} else if (totalArrowCount > 1 && customArrowSlot !== -1) {
 				const customArrow = inventoryComp.container.getItem(customArrowSlot);
 				if (customArrow) {

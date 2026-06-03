@@ -10,7 +10,7 @@ import { Power } from '../Ability';
 export class Permeable implements Power {
 	readonly id = 'permeable';
 
-	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
+	onHurtBefore(_player: Player, ev: EntityHurtBeforeEvent): void {
 		ev.damage = ev.damage * 1.1;
 	}
 }
