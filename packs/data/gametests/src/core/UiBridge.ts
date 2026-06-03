@@ -52,9 +52,7 @@ export class UiBridge {
 
 	/**
 	 * Opens the named NPC dialogue for `player`, spawning a transient handler
-	 * entity nearby if one is not already in range. Internally retries every
-	 * 4 ticks for up to ~1 second so the dialogue always lands even if the
-	 * client is mid-transition.
+	 * entity nearby if one is not already in range.
 	 */
 	static openDialogue(player: Player, dialogueId: string): void {
 		this.ensureHandler(player);

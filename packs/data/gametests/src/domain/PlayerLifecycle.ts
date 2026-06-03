@@ -49,6 +49,7 @@ const DEFAULT_PERKS: readonly string[] = [
  */
 export class PlayerLifecycle {
 	private static readonly log = Log.get('PlayerLifecycle');
+	private static readonly JOIN_UI_ACK_FLAG = 'join_ui_loaded';
 
 	@AfterPlayerSpawn()
 	static onSpawn(ev: PlayerSpawnAfterEvent): void {
@@ -63,31 +64,11 @@ export class PlayerLifecycle {
 		state.clearFlagPrefix('cooldown_');
 		state.setFlag('controls_opened', false);
 		state.setFlag('on_item_hold', true);
+		state.setFlag(this.JOIN_UI_ACK_FLAG, false);
 
-		// Delay UI prompts so the client finishes its join transition before
-		// dialogue open is attempted. The command silently does nothing if sent
-		// while the client is still loading.
-		system.runTimeout(() => {
-			if (!player.isValid) return;
-
-			// Prompt origin/class pickers if missing.
-			if (!state.getOrigin()) {
-				UiBridge.openPicker(player, PickerKind.Race, PickerMode.Pick);
-				return;
-			}
-			if (!state.getClass()) {
-				UiBridge.openPicker(player, PickerKind.Class, PickerMode.Pick);
-				return;
-			}
-
-			if (!state.isWelcomed()) {
-				UiBridge.openDialogue(player, 'gui_welcome_screen');
-			} else {
-				ResourceBarService.markGuiReady(player, true);
-			}
-
-			this.applyOriginAndClass(player);
-		}, 80);
+		// Delay the first open attempt, then keep retrying until the dialogue
+		// acknowledges that it actually loaded on the client side.
+		system.runTimeout(() => this.openJoinDialogue(player), 80);
 	}
 
 	@AfterPlayerLeave()
@@ -96,6 +77,46 @@ export class PlayerLifecycle {
 		ResourceBarService.forget(ev.playerId);
 		AttributeService.forget(ev.playerId);
 		forgetDamageOverrides(ev.playerId);
+	}
+
+	static onJoinDialogueLoaded(player: Player): void {
+		const state = PlayerState.for(player);
+		if (state.getFlag<boolean>(this.JOIN_UI_ACK_FLAG) === true) return;
+		state.setFlag(this.JOIN_UI_ACK_FLAG, true);
+		this.log.info(`join dialogue loaded: player: ${player.name}`);
+
+		if (!state.getOrigin() || !state.getClass()) return;
+		if (!state.isWelcomed()) return;
+		ResourceBarService.markGuiReady(player, true);
+		this.applyOriginAndClass(player);
+	}
+
+	private static openJoinDialogue(player: Player): void {
+		if (!player.isValid) return;
+		const state = PlayerState.for(player);
+		if (state.getFlag<boolean>(this.JOIN_UI_ACK_FLAG) === true) return;
+
+		// Prompt origin/class pickers if missing.
+		if (!state.getOrigin()) {
+			UiBridge.openPicker(player, PickerKind.Race, PickerMode.Pick);
+			system.runTimeout(() => this.openJoinDialogue(player), 20);
+			return;
+		}
+		if (!state.getClass()) {
+			UiBridge.openPicker(player, PickerKind.Class, PickerMode.Pick);
+			system.runTimeout(() => this.openJoinDialogue(player), 20);
+			return;
+		}
+
+		if (!state.isWelcomed()) {
+			UiBridge.openDialogue(player, 'gui_welcome_screen');
+			this.applyOriginAndClass(player);
+			system.runTimeout(() => this.openJoinDialogue(player), 20);
+			return;
+		}
+
+		ResourceBarService.markGuiReady(player, true);
+		this.applyOriginAndClass(player);
 	}
 
 

@@ -56,6 +56,7 @@ export class UiEventRouter {
 			return;
 		}
 		try {
+			PlayerLifecycle.onJoinDialogueLoaded(player);
 			this.dispatch(player, String(ev.message ?? ''));
 		} catch (e: any) {
 			this.log.error(`dispatch '${ev.message}': ${e?.stack ?? e}`);
