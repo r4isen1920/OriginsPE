@@ -37,7 +37,6 @@ export class Fatality implements Power {
 
 			player.onScreenDisplay.setActionBar('§6FATALITY: +50% Damage§r');
 			player.playSound('random.orb');
-			Fatality.log.info(`Applied fatality damage to ${target.typeId}`);
 		}
 	}
 }
