@@ -6,22 +6,20 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class Gills implements Power {
-    readonly id = 'gills';
-    readonly tickInterval = 3;
+	readonly id = 'gills';
+	readonly tickInterval = 3;
 
-    onTick(player: Player): void {
-        try {
-            const state = PlayerState.for(player);
+	onTick(player: Player): void {
+		const state = PlayerState.for(player);
 
-            const isInWater = player.isSwimming || player.isInWater;
+		const isInWater = player.isSwimming || player.isInWater;
 
-            if (isInWater) {
-                AttributeService.apply(player, { breathable: 'underwater' });
-                state.setFlag('gills_active', true);
-            } else {
-                player.applyDamage(1, { cause: EntityDamageCause.drowning });
-                state.setFlag('gills_active', false);
-            }
-        } catch {}
-    }
+		if (isInWater) {
+			AttributeService.apply(player, { breathable: 'underwater' });
+			state.setFlag('gills_active', true);
+		} else {
+			player.applyDamage(1, { cause: EntityDamageCause.drowning });
+			state.setFlag('gills_active', false);
+		}
+	}
 }

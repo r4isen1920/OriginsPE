@@ -7,16 +7,20 @@ export class OceansGift implements Power {
 	readonly id = 'oceans_gift';
 
 	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
-		try {
-			if (
-				ev.damageSource.cause !== EntityDamageCause.projectile ||
-				ev.damageSource.damagingProjectile?.typeId !== 'minecraft:thrown_trident'
-			)
-				return;
+		if (!player.isValid) return;
 
-			ev.damage = 0;
-			player.dimension.spawnParticle('r4isen1920_originspe:bubbles', player.location);
-			player.dimension.playSound('ui.enchant', player.location, { pitch: 1.5 });
-		} catch {}
+		const source = ev.damageSource;
+		const attacker = source.damagingEntity;
+
+		const isTridentProjectile =
+			source.cause === EntityDamageCause.projectile &&
+			source.damagingProjectile?.typeId === 'minecraft:thrown_trident';
+		const isTridentMeleeCause = attacker?.typeId === 'minecraft:thrown_trident';
+
+		if (!isTridentProjectile && !isTridentMeleeCause) {
+			return;
+		}
+
+		ev.cancel = true;
 	}
 }
