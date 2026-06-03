@@ -3,6 +3,7 @@ import { EntityDamageCause, EntityHurtAfterEvent, Player, world } from '@minecra
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
+import { AfterEntityHurt } from '../../core/DecoratedEvents';
 
 
 /**
@@ -15,24 +16,7 @@ export class BoastingFirepower implements Power {
     private static handler: ((ev: EntityHurtAfterEvent) => void) | undefined;
     private static refCount = 0;
 
-    onAcquire(_player: Player): void {
-        BoastingFirepower.refCount++;
-        if (BoastingFirepower.refCount === 1) {
-            BoastingFirepower.handler = (ev) => BoastingFirepower.onEntityHurt(ev);
-            world.afterEvents.entityHurt.subscribe(BoastingFirepower.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        BoastingFirepower.refCount = Math.max(0, BoastingFirepower.refCount - 1);
-        if (BoastingFirepower.refCount === 0 && BoastingFirepower.handler) {
-            world.afterEvents.entityHurt.unsubscribe(BoastingFirepower.handler);
-            BoastingFirepower.handler = undefined;
-        }
-    }
-
-    onTick(_player: Player): void {}
-
+    @AfterEntityHurt
     private static onEntityHurt(ev: EntityHurtAfterEvent): void {
         const { damage, damageSource, hurtEntity } = ev;
 
