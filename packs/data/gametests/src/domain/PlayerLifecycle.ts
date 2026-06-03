@@ -97,7 +97,6 @@ export class PlayerLifecycle {
 		AttributeService.forget(ev.playerId);
 		forgetDamageOverrides(ev.playerId);
 	}
-	}
 
 
 	//#region GRANT FLOW
