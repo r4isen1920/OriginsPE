@@ -7,6 +7,7 @@ import { RegisterOrigin } from '../Registries';
 export class Shulk implements Origin {
 	readonly id = 'shulk';
 	readonly powers: readonly string[] = [
+		'shulk_inventory',
 		'hoarder',
 		'sturdy_skin',
 		'large_appetite',
