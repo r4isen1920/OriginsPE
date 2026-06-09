@@ -41,9 +41,7 @@ export class Carnivore implements Power {
 		const state = PlayerState.for(player);
 		const origin = state.getOrigin();
 
-		if (origin !== 'arachnid' && origin !== 'feline') {
-			return;
-		}
+		if (!state.hasPower('carnivore')) return;
 
 		if (Carnivore.BLOCKED.has(ev.itemStack.typeId)) {
 			ev.cancel = true;

@@ -10,7 +10,7 @@ import { Power } from '../Ability';
 @RegisterPower
 export class Hydrophobia implements Power {
 	readonly id = 'hydrophobia';
-	readonly tickInterval = 20;
+	readonly tickInterval = 10;
 
 	onTick(player: Player): void {
 		if (player.isSwimming || player.isInWater) {
@@ -18,11 +18,6 @@ export class Hydrophobia implements Power {
 			player.dimension.playSound('random.fizz', player.location, {
 				pitch: 1.5,
 				volume: 0.5
-			});
-			player.dimension.spawnParticle('minecraft:lava_particle', {
-				x: player.location.x,
-				y: player.location.y + 1,
-				z: player.location.z
 			});
 		}
 	}

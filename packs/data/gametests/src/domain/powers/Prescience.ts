@@ -4,14 +4,11 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { FlagService } from '../../services/FlagService';
 import { AfterEntityHitEntity, AfterEntityDie } from '../../core/DecoratedEvents';
-/**
- * Prescience: Players with this power can sense the presence of other players and gain temporary
- * health boosts when they hit them.
- */
+
 @RegisterPower
 export class Prescience implements Power {
 	readonly id = 'prescience';
-	readonly tickInterval = 10;
+	readonly tickInterval = 20;
 
 	@AfterEntityHitEntity
 	static onEntityHitEntity(event: any): void {
@@ -47,7 +44,8 @@ export class Prescience implements Power {
 		const targetMax = targetHpComp ? targetHpComp.effectiveMax : 20;
 
 		const totalMaxHP = casterMax + targetMax;
-		const amplifierValue = Math.max(0, Math.floor((totalMaxHP * 0.5) / 4));
+		const boostAmount = Math.floor(totalMaxHP * 0.5);
+		const amplifierValue = Math.max(0, Math.floor(boostAmount / 4) - 1);
 
 		damagingEntity.addEffect('health_boost', TicksPerSecond * 12, {
 			amplifier: amplifierValue,
@@ -58,6 +56,23 @@ export class Prescience implements Power {
 			amplifier: amplifierValue,
 			showParticles: false
 		});
+
+		if (casterHpComp) {
+			casterHpComp.setCurrentValue(
+				Math.min(
+					casterHpComp.currentValue + boostAmount,
+					casterHpComp.effectiveMax + boostAmount
+				)
+			);
+		}
+		if (targetHpComp) {
+			targetHpComp.setCurrentValue(
+				Math.min(
+					targetHpComp.currentValue + boostAmount,
+					targetHpComp.effectiveMax + boostAmount
+				)
+			);
+		}
 
 		FlagService.set(hitEntity, 'flag_a', true);
 
@@ -80,6 +95,8 @@ export class Prescience implements Power {
 	}
 
 	onTick(player: Player): void {
+		if (!player.isValid) return;
+
 		const state = PlayerState.for(player);
 		const linkedId = state.getFlag<string>('prescience_linked_id');
 		if (!linkedId) return;

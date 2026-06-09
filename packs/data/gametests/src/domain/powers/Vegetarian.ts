@@ -33,9 +33,7 @@ export class Vegetarian implements Power {
 		const state = PlayerState.for(player);
 		const origin = state.getOrigin();
 
-		if (origin !== 'avian') {
-			return;
-		}
+		if (!state.hasPower('vegetarian')) return;
 
 		if (Vegetarian.BLOCKED.has(ev.itemStack.typeId)) {
 			ev.cancel = true;
