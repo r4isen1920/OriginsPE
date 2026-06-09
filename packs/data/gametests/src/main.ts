@@ -22,6 +22,7 @@ import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 
 //* Powers
+import './domain/powers/BurrowSense'
 import './domain/powers/NaturalArmor';
 import './domain/powers/ShulkInventory';
 import './domain/powers/BoastingFirepower';
