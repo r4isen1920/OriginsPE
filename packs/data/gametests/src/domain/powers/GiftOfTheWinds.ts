@@ -2,6 +2,7 @@ import { Player, system, TicksPerSecond } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
+import { ResourceBarService } from '../../services/ResourceBarService';
 
 /**
  * Gift of the Winds is an active power that allows the holder to launch themselves
@@ -14,16 +15,24 @@ export class GiftOfTheWinds implements Power {
 	readonly id = 'gift_of_the_winds';
 	readonly tickInterval = 2;
 
-	onTick(player: Player): void {
+	readonly active = {
+		icon: '02',
+		name: 'origins.trait.launch_into_air.name',
+		cooldownKey: 'gift_of_the_winds_cooldown'
+	};
+
+	onActivate(player: Player): void {
 		const state = PlayerState.for(player);
-
-		if (!player.isSneaking || !player.isJumping) return;
-
 		const currentTick = system.currentTick;
 
 		if (!state.isOnCooldown('gift_of_the_winds_cooldown', currentTick)) {
 			const isHeavy = state.getFlag<boolean>('is_heavy') === true;
 			const launchForce = isHeavy ? 1.5 : 3.0;
+
+			ResourceBarService.push(player, {
+				id: 2,
+				durationSeconds: 30,
+			});
 
 			player.applyImpulse({ x: 0, y: launchForce, z: 0 });
 
