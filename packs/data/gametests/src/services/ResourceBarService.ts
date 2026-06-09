@@ -1,8 +1,9 @@
-import { Player, ScoreboardObjective, world } from '@minecraft/server';
+import { Player, PlayerLeaveAfterEvent, system } from '@minecraft/server';
 
-import { RENDER_SB } from '../Constants';
-import { Log } from '../utils/Log';
-import { PlayerState } from '../core/PlayerState';
+import { DPK } from '../Constants';
+import { AfterPlayerLeave } from '../core/DecoratedEvents';
+import { PlayerTick } from '../core/Ticker';
+import { Logger } from '@bedrock-oss/bedrock-boost';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 
 
@@ -12,12 +13,13 @@ import { OnWorldLoad } from '@bedrock-oss/stylish';
 export type ResourceBarSlot = 1 | 2 | 3;
 
 /**
- * One push request. Mirrors the legacy `ResourceBar(id, from, to, duration, persist)`
- * constructor and the `cd*` scoreboard fields it wrote.
+ * Represents a the configuration of a resource bar to be rendered on the player's HUD.
  */
-export interface ResourceBarPush {
+export interface ResourceBarPushConfig {
 	/** Numerical bar id from `textures/origins/hud/cooldown/`. */
 	id: number;
+	/** Preferred target slot. If omitted, slot is auto-selected. */
+	slot?: ResourceBarSlot;
 	/** Start value 0..100. */
 	from?: number;
 	/** End value 0..100. */
@@ -28,133 +30,364 @@ export interface ResourceBarPush {
 	persist?: boolean;
 }
 
+interface ResourceBarEntry {
+	id: number;
+	from: number;
+	to: number;
+	durationSeconds: number;
+	persist: boolean;
+	startedAtTick: number;
+	expiresAtTick?: number;
+}
+
+interface CachedBars {
+	slots: Record<ResourceBarSlot, ResourceBarEntry | undefined>;
+	lastPayload: string | undefined;
+}
+
+interface PersistedBars {
+	slots?: Partial<Record<ResourceBarSlot, ResourceBarEntry>>;
+}
+
+
 
 //#region SERVICE
-
 /**
- * TS-side driver for the cooldown HUD. Replaces the entire
- * `BP/functions/r4isen1920_originspe/resource_bar/**` mcfunction tree and the
- * legacy `ResourceBar` class.
- *
- * Internally:
- * - Owns the `cd*` and `gui` scoreboard objectives required by the existing
- *   RP animation controllers (the renderer reads them via `q.scoreboard(...)`).
- * - Mirrors per-player cooldown bookkeeping onto dynamic properties via
- *   {@link PlayerState}, which is the source of truth for TS reads.
- * - Caches last-written scoreboard values per player to skip redundant writes.
+ * Handles the resource bar
  */
 export class ResourceBarService {
-	private static readonly log = Log.get('ResourceBarService');
-	private static readonly cache = new Map<string, Map<string, number>>();
-	private static initialized = false;
+	private static readonly log = Logger.getLogger('OriginsPE', 'ResourceBarService');
+	private static readonly slots: ResourceBarSlot[] = [1, 2, 3];
+	private static readonly payloadPrefix = 'origins.resource_bar';
+	private static readonly defaultSegmentBySlot: Record<ResourceBarSlot, string> = {
+		1: 'A:00,000,000,000',
+		2: 'B:00,000,000,000',
+		3: 'C:00,000,000,000',
+	};
+	private static readonly slotCode: Record<ResourceBarSlot, string> = {
+		1: 'A',
+		2: 'B',
+		3: 'C',
+	};
+	private static readonly cache = new Map<string, CachedBars>();
+	private static readonly expiryTokens = new Map<string, Record<ResourceBarSlot, number>>();
 
-
-	//#region INIT
-
-	/**
-	 * Ensures every render-bridge scoreboard objective exists. Drops any
-	 * legacy objectives we no longer use. Call once at world load.
-	 */
 	@OnWorldLoad
-	static initialize(): void {
-		if (this.initialized) return;
-		this.initialized = true;
-
-		// Ensure render objectives exist.
-		for (const id of Object.values(RENDER_SB)) {
-			this.objective(id);
-		}
-
-		// Constants table referenced by `q.scoreboard('var')` in animations.
-		const varObj = this.objective(RENDER_SB.var);
-		const constants: ReadonlyArray<[string, number]> = [
-			['#0', 0], ['#1', 1], ['#3', 3], ['#6', 6], ['#9', 9],
-			['#10', 10], ['#15', 15], ['#100', 100], ['#1000', 1000],
-		];
-		for (const [name, value] of constants) {
-			try { varObj.setScore(name, value); } catch { /* ignore */ }
-		}
-
-		this.log.info('ResourceBarService initialized');
-	}
-
-	/** Marks the GUI as ready for the player (the renderer gates on this flag). */
-	static markGuiReady(player: Player, ready: boolean): void {
-		this.write(player, RENDER_SB.gui, ready ? 1 : 0);
-	}
-
-
-	//#region API
-
-	/**
-	 * Pushes a cooldown bar to the active channel. Mirrors the legacy
-	 * `new ResourceBar(...).push(player)` flow.
-	 */
-	static push(player: Player, opts: ResourceBarPush): void {
-		const from = opts.from ?? 0;
-		const to = opts.to ?? 100;
-		const duration = opts.durationSeconds ?? 1;
-		const persist = opts.persist ?? false;
-
-		this.write(player, RENDER_SB.cd, opts.id);
-		this.write(player, RENDER_SB.cdFrom, from);
-		this.write(player, RENDER_SB.cdTo, to);
-		this.write(player, RENDER_SB.cdDuration, duration);
-		this.write(player, RENDER_SB.cdPersist, persist ? 1 : 0);
-
-		if (!persist) {
-			// Mirror to DP cooldown table so TS code can gate on it.
-			const TICKS_PER_SECOND = 20;
-			PlayerState.for(player).setCooldown(
-				`bar_${opts.id}`,
-				/* currentTick: */ 0, // expiry calculated by callers via setCooldown(..., currentTick, ...)
-				duration * TICKS_PER_SECOND,
-			);
-		}
+	private static onWorldLoad(): void {
+		this.log.info('Resource bar service initialized');
 	}
 
 	/**
-	 * Removes the bar with the given `id` from the renderer.
-	 * Equivalent to the legacy `pop(player, id)` + `cdhide` write.
+	 * Pushes/updates one bar entry. Supports both temporary cooldown bars and
+	 * persistent status bars.
 	 */
-	static pop(player: Player, id: number): void {
-		this.write(player, RENDER_SB.cdHide, id);
-		PlayerState.for(player).clearCooldown(`bar_${id}`);
+	static push(player: Player, push: ResourceBarPushConfig): ResourceBarSlot {
+		const state = this.ensureState(player);
+		const now = system.currentTick;
+		const slot = this.selectSlot(state, push);
+
+		const id = this.clampInt(push.id, 0, 99);
+		const from = this.clampInt(push.from ?? 100, 0, 100);
+		const to = this.clampInt(push.to ?? 0, 0, 100);
+		const persist = push.persist === true;
+		const durationSeconds = Math.max(1, this.clampInt(push.durationSeconds ?? 1, 0, 999));
+
+		state.slots[slot] = {
+			id,
+			from,
+			to,
+			durationSeconds,
+			persist,
+			startedAtTick: now,
+			expiresAtTick: persist ? undefined : now + durationSeconds * 20,
+		};
+
+		if (persist) {
+			this.bumpExpiryToken(player.id, slot);
+		} else {
+			this.scheduleExpiry(player, slot, durationSeconds * 20);
+		}
+
+		this.persistState(player, state);
+		this.emitPayload(player, state);
+		this.log.debug(
+			`push slot: ${slot}, id: ${id}, from: ${from}, to: ${to}, durationSeconds: ${durationSeconds}, persist: ${persist}`,
+		);
+		return slot;
 	}
 
-	/** Clears every visible bar and every DP cooldown entry. */
+	/**
+	 * Removes the first matching bar by id. Returns true if a slot was cleared.
+	 */
+	static pop(player: Player, id: number): boolean {
+		const state = this.ensureState(player);
+		const slot = this.slots.find((x) => state.slots[x]?.id === id);
+		if (!slot) return false;
+
+		this.bumpExpiryToken(player.id, slot);
+		state.slots[slot] = undefined;
+		this.persistState(player, state);
+		this.emitPayload(player, state);
+		this.log.debug(`pop id: ${id}, slot: ${slot}`);
+		return true;
+	}
+
+	/**
+	 * Removes a bar directly by slot.
+	 */
+	static popSlot(player: Player, slot: ResourceBarSlot): void {
+		const state = this.ensureState(player);
+		if (!state.slots[slot]) return;
+
+		this.bumpExpiryToken(player.id, slot);
+		state.slots[slot] = undefined;
+		this.persistState(player, state);
+		this.emitPayload(player, state);
+		this.log.debug(`pop slot: ${slot}`);
+	}
+
+	/** Clears all bars for the player. */
 	static clear(player: Player): void {
-		this.write(player, RENDER_SB.cd1Duration, 0);
-		this.write(player, RENDER_SB.cd2Duration, 0);
-		this.write(player, RENDER_SB.cd3Duration, 0);
-		PlayerState.for(player).clearAllCooldowns();
+		const state = this.ensureState(player);
+		for (const slot of this.slots) this.bumpExpiryToken(player.id, slot);
+		state.slots = this.emptySlots();
+		this.persistState(player, state);
+		this.emitPayload(player, state);
+		this.log.debug(`clear all bars for player: ${player.name}`);
 	}
 
-
-	//#region INTERNAL
-
-	private static objective(id: string): ScoreboardObjective {
-		return world.scoreboard.getObjective(id) ?? world.scoreboard.addObjective(id, id);
+	/**
+	 * Forces the resource bar title payload to be re-emitted. Used after another
+	 * system (e.g. the ability wheel) temporarily overwrites the shared title
+	 * channel, so the HUD bars are restored.
+	 */
+	static refresh(player: Player): void {
+		const state = this.ensureState(player);
+		state.lastPayload = undefined;
+		this.emitPayload(player, state);
 	}
 
-	/** Cached scoreboard write; skips API call when value unchanged. */
-	private static write(player: Player, objectiveId: string, value: number): void {
-		let perPlayer = this.cache.get(player.id);
-		if (!perPlayer) {
-			perPlayer = new Map();
-			this.cache.set(player.id, perPlayer);
+	@AfterPlayerLeave
+	private static onPlayerLeave(ev: PlayerLeaveAfterEvent): void {
+		this.cache.delete(ev.playerId);
+		this.expiryTokens.delete(ev.playerId);
+	}
+
+	@PlayerTick(2)
+	private static onTick(player: Player): void {
+		const state = this.ensureState(player);
+		const now = system.currentTick;
+		let dirty = false;
+
+		for (const slot of this.slots) {
+			const bar = state.slots[slot];
+			if (!bar || bar.persist) continue;
+
+			const expireAt = bar.expiresAtTick ?? (bar.startedAtTick + bar.durationSeconds * 20);
+			if (now >= expireAt) {
+				this.bumpExpiryToken(player.id, slot);
+				state.slots[slot] = undefined;
+				dirty = true;
+			}
 		}
-		if (perPlayer.get(objectiveId) === value) return;
-		perPlayer.set(objectiveId, value);
+
+		if (dirty) {
+			this.persistState(player, state);
+			this.emitPayload(player, state);
+			return;
+		}
+
+		if (!state.lastPayload && this.hasVisibleBars(state)) {
+			this.emitPayload(player, state);
+		}
+	}
+
+	private static selectSlot(state: CachedBars, push: ResourceBarPushConfig): ResourceBarSlot {
+		if (push.slot) return push.slot;
+
+		const existing = this.slots.find((x) => state.slots[x]?.id === push.id);
+		if (existing) return existing;
+
+		const empty = this.slots.find((x) => !state.slots[x]);
+		if (empty) return empty;
+
+		const oldest = this.slots
+			.map((slot) => ({ slot, startedAtTick: state.slots[slot]?.startedAtTick ?? Number.MAX_SAFE_INTEGER }))
+			.sort((a, b) => a.startedAtTick - b.startedAtTick)[0];
+		return oldest?.slot ?? 1;
+	}
+
+	private static hasVisibleBars(state: CachedBars): boolean {
+		return this.slots.some((slot) => !!state.slots[slot]);
+	}
+
+	private static ensureState(player: Player): CachedBars {
+		const cached = this.cache.get(player.id);
+		if (cached) return cached;
+
+		const hydrated = this.hydrate(player);
+		this.cache.set(player.id, hydrated);
+		return hydrated;
+	}
+
+	private static hydrate(player: Player): CachedBars {
+		const raw = player.getDynamicProperty(DPK.resourceBars);
+		if (typeof raw !== 'string') {
+			return { slots: this.emptySlots(), lastPayload: undefined };
+		}
+
 		try {
-			this.objective(objectiveId).setScore(player, value);
+			const parsed = JSON.parse(raw) as PersistedBars;
+			const now = system.currentTick;
+			const slots = this.emptySlots();
+
+			for (const slot of this.slots) {
+				const entry = parsed.slots?.[slot];
+				if (!entry) continue;
+
+				const id = this.clampInt(entry.id, 0, 99);
+				const to = this.clampInt(entry.to, 0, 100);
+				const from = this.clampInt(entry.from, 0, 100);
+				const persist = entry.persist === true;
+				const durationSeconds = Math.max(1, this.clampInt(entry.durationSeconds, 1, 999));
+				const startedAtTick = this.clampInt(entry.startedAtTick, 0, Number.MAX_SAFE_INTEGER);
+				const expiresAtTick = this.clampInt(
+					entry.expiresAtTick ?? (startedAtTick + durationSeconds * 20),
+					0,
+					Number.MAX_SAFE_INTEGER,
+				);
+
+				if (!persist) {
+					const totalTicks = Math.max(1, expiresAtTick - startedAtTick);
+					const elapsedTicks = Math.max(0, now - startedAtTick);
+					if (now >= expiresAtTick) continue;
+
+					const remainingTicks = expiresAtTick - now;
+					const progress = elapsedTicks / totalTicks;
+					const currentFrom = this.clampInt(
+						Math.round(from + (to - from) * progress),
+						0,
+						100,
+					);
+
+					slots[slot] = {
+						id,
+						from: currentFrom,
+						to,
+						durationSeconds: Math.max(1, Math.ceil(remainingTicks / 20)),
+						persist,
+						startedAtTick: now,
+						expiresAtTick,
+					};
+					this.scheduleExpiry(player, slot, remainingTicks);
+					continue;
+				}
+
+				slots[slot] = {
+					id,
+					from,
+					to,
+					durationSeconds,
+					persist,
+					startedAtTick,
+					expiresAtTick: undefined,
+				};
+				this.bumpExpiryToken(player.id, slot);
+			}
+
+			return { slots, lastPayload: undefined };
 		} catch (e: any) {
-			this.log.error(`write ${objectiveId}=${value}: ${e?.stack ?? e}`);
+			this.log.warn(`Failed to hydrate resource bars for player: ${player.name}, error: ${e?.stack ?? e}`);
+			return { slots: this.emptySlots(), lastPayload: undefined };
 		}
 	}
 
-	/** Drops cached values for a player (call on leave). */
-	static forget(playerId: string): void {
-		this.cache.delete(playerId);
+	private static persistState(player: Player, state: CachedBars): void {
+		const data: PersistedBars = { slots: {} };
+		for (const slot of this.slots) {
+			const entry = state.slots[slot];
+			if (!entry) continue;
+			data.slots![slot] = entry;
+		}
+
+		try {
+			player.setDynamicProperty(DPK.resourceBars, JSON.stringify(data));
+		} catch (e: any) {
+			this.log.error(`Failed to persist bars for player: ${player.name}, error: ${e?.stack ?? e}`);
+		}
 	}
+
+	private static emitPayload(player: Player, state: CachedBars): void {
+		const parts = this.slots.map((slot) => {
+			const bar = state.slots[slot];
+			return bar ? this.segment(slot, bar) : this.defaultSegmentBySlot[slot];
+		});
+		const payload = `${this.payloadPrefix} ${parts.join(' ')}`;
+		if (payload === state.lastPayload) return;
+
+		try {
+			player.onScreenDisplay.setTitle(payload, {
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			});
+			state.lastPayload = payload;
+		} catch (e: any) {
+			this.log.error(`Failed to send payload for player: ${player.name}, error: ${e?.stack ?? e}`);
+		}
+	}
+
+	private static segment(slot: ResourceBarSlot, bar: ResourceBarEntry): string {
+		const id = String(this.clampInt(bar.id, 0, 99)).padStart(2, '0');
+		const from = String(this.clampInt(bar.from, 0, 100)).padStart(3, '0');
+		const to = String(this.clampInt(bar.to, 0, 100)).padStart(3, '0');
+		const duration = String(this.clampInt(bar.durationSeconds, 0, 999)).padStart(3, '0');
+		return `${this.slotCode[slot]}:${id},${from},${to},${duration}`;
+	}
+
+	private static emptySlots(): Record<ResourceBarSlot, ResourceBarEntry | undefined> {
+		return { 1: undefined, 2: undefined, 3: undefined };
+	}
+
+	private static clampInt(value: number, min: number, max: number): number {
+		if (!Number.isFinite(value)) return min;
+		const rounded = Math.round(value);
+		if (rounded < min) return min;
+		if (rounded > max) return max;
+		return rounded;
+	}
+
+	private static bumpExpiryToken(playerId: string, slot: ResourceBarSlot): number {
+		const entry = this.expiryTokens.get(playerId) ?? { 1: 0, 2: 0, 3: 0 };
+		entry[slot] += 1;
+		this.expiryTokens.set(playerId, entry);
+		return entry[slot];
+	}
+
+	private static scheduleExpiry(player: Player, slot: ResourceBarSlot, delayTicks: number): void {
+		const delay = Math.max(1, this.clampInt(delayTicks, 1, Number.MAX_SAFE_INTEGER));
+		const token = this.bumpExpiryToken(player.id, slot);
+
+		system.runTimeout(() => {
+			if (!player.isValid) return;
+			const tokens = this.expiryTokens.get(player.id);
+			if (!tokens || tokens[slot] !== token) return;
+
+			const state = this.ensureState(player);
+			const bar = state.slots[slot];
+			if (!bar || bar.persist) return;
+
+			const now = system.currentTick;
+			const expireAt = bar.expiresAtTick ?? (bar.startedAtTick + bar.durationSeconds * 20);
+			if (now < expireAt) {
+				this.scheduleExpiry(player, slot, expireAt - now);
+				return;
+			}
+
+			state.slots[slot] = undefined;
+			this.persistState(player, state);
+			this.emitPayload(player, state);
+		}, delay);
+	}
+
 }

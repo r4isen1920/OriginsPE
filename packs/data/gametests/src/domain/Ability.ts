@@ -27,6 +27,27 @@ export interface OriginEffects {
 }
 
 
+/**
+ * Marks an {@link Ability} as an active (player-triggered) skill that appears in
+ * the ability wheel. Abilities that declare this -- and implement
+ * {@link Ability.onActivate} -- become selectable entries in the wheel.
+ */
+export interface ActiveAbility {
+	/**
+	 * Two-character icon id from the `textures/origins/hud/cooldown/` atlas used
+	 * to render the wheel slot (e.g. "24").
+	 */
+	readonly icon: string;
+	/** Localization key for the ability's display name shown in the wheel. */
+	readonly name: string;
+	/**
+	 * Cooldown key consulted when prioritizing wheel slots. Abilities that are
+	 * not on cooldown are listed first. Defaults to the ability {@link Ability.id}.
+	 */
+	readonly cooldownKey?: string;
+}
+
+
 //#region ABILITY
 
 /**
@@ -51,10 +72,23 @@ export interface Ability {
 	 */
 	readonly attributes?: AttributeOverrides;
 
+	/**
+	 * When specified, this ability is an active (player-triggered) skill: it is
+	 * listed in the player's ability wheel and {@link onActivate} is invoked when
+	 * the player confirms it from the wheel.
+	 */
+	readonly active?: ActiveAbility;
+
 	/** Called once when the ability is granted to the player. */
 	onAcquire?(player: Player): void;
 	/** Called once when the ability is revoked from the player. */
 	onRelease?(player: Player): void;
+
+	/**
+	 * Called when the player confirms this ability from the ability wheel. Only
+	 * meaningful for abilities that also declare {@link active}.
+	 */
+	onActivate?(player: Player): void;
 
 	/** Per-player tick callback. Only invoked when {@link tickInterval} is set. */
 	onTick?(player: Player): void;

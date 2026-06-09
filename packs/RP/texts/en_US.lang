@@ -2,8 +2,8 @@
 pack.name=§7[v6.0]§r OriginsPE [RP]
 pack.description=This Add-On adds several Origins and Classes with passive abilities to the game, in which you choose upon the start of your adventure. Created by r4isen1920.
 
-origins.welcome_message=§eWelcome back!§r The [OriginsPE] Add-On is installed and is working correctly in this world!
-origins.changelog_message=(Scroll down to see changelog)
+origins.welcome_message=§eWelcome back!§r The OriginsPE Add-On UI has loaded successfully.
+origins.changelog_message=(Scroll down for more info)
 
 
 origins.random.name=Random

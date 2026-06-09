@@ -28,7 +28,7 @@
 							"tab_icon": {
 								"type": "image",
 								"size": [16, 16],
-								"texture": "textures/origins/gui/options/tab_general",
+								"texture": "textures/origins/gui/options_screen/tab_general",
 								"layer": 45
 							}
 						}
@@ -51,7 +51,7 @@
 							"tab_icon": {
 								"type": "image",
 								"size": [16, 16],
-								"texture": "textures/origins/gui/options/tab_admin",
+								"texture": "textures/origins/gui/options_screen/tab_admin",
 								"layer": 45
 							}
 						}
@@ -356,7 +356,7 @@
 		"anchor_from": "left_middle",
 		"anchor_to": "left_middle",
 		"offset": [0, 2],
-		"texture": "('textures/origins/gui/options/icon_' + $options_button_icon)",
+		"texture": "('textures/origins/gui/options_screen/icon_' + $options_button_icon)",
 		"layer": 20
 	},
 
@@ -646,7 +646,7 @@
 								"type": "image",
 								"size": [10, 10],
 								"offset": [-4, 0],
-								"texture": "textures/origins/gui/options/toggle_on",
+								"texture": "textures/origins/gui/options_screen/toggle_on",
 								"layer": 29,
 								"bindings": [
 									{
@@ -667,7 +667,7 @@
 								"type": "image",
 								"size": [10, 10],
 								"offset": [-4, 0],
-								"texture": "textures/origins/gui/options/toggle_off",
+								"texture": "textures/origins/gui/options_screen/toggle_off",
 								"layer": 29,
 								"bindings": [
 									{
@@ -757,7 +757,7 @@
 							"button_hover_chevron_image": {
 								"type": "image",
 								"size": [16, 16],
-								"texture": "textures/origins/gui/options/hover",
+								"texture": "textures/origins/gui/options_screen/hover",
 								"anims": ["@origin_common.sway_right_anim_01"],
 								"layer": 30,
 								"bindings": [
@@ -779,7 +779,7 @@
 								"type": "image",
 								"size": [10, 10],
 								"offset": [-4, 0],
-								"texture": "textures/origins/gui/options/toggle_hover",
+								"texture": "textures/origins/gui/options_screen/toggle_hover",
 								"anims": ["@origin_common.anim_beat_alpha_01"],
 								"layer": 30,
 								"bindings": [
@@ -1076,15 +1076,15 @@
 															},
 															{
 																"requires": "($screen_directory = 'tab_general')",
-																"$set_texture": "textures/origins/gui/options/tab_general"
+																"$set_texture": "textures/origins/gui/options_screen/tab_general"
 															},
 															{
 																"requires": "($screen_directory = 'tab_admin')",
-																"$set_texture": "textures/origins/gui/options/tab_admin"
+																"$set_texture": "textures/origins/gui/options_screen/tab_admin"
 															},
 															{
 																"requires": "($screen_directory = 'tab_admin_denied')",
-																"$set_texture": "textures/origins/gui/options/tab_admin_denied"
+																"$set_texture": "textures/origins/gui/options_screen/tab_admin_denied"
 															}
 														],
 														"controls": [
@@ -1177,8 +1177,9 @@
 
 					"controls": [
 						{
-							"button_control@origin_buttons.origin_selector_button": {
+							"button_control@origin_common.origin_selector_button": {
 								"$button_type": "cancel",
+								"$button_type_panel": "origin_options_screen.close_button_label_panel",
 
 								"anchor_from": "center",
 								"anchor_to": "center",
@@ -1186,6 +1187,20 @@
 							}
 						}
 					]
+				}
+			}
+		]
+	},
+
+	"close_button_label_panel": {
+		"type": "panel",
+		"size": ["100%", "100%"],
+		"controls": [
+			{
+				"cancel_button@npc_interact.student_button_label": {
+					"text": "origins.gui.button.cancel",
+					"localize": true,
+					"$visible_binding": "(#student_button_text = 'cancel')"
 				}
 			}
 		]

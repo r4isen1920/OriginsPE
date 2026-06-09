@@ -41,8 +41,9 @@
 
 					"controls": [
 						{ "picker_screen@origin_picker_screen.root": {} },
-						{ "options@origin_options_screen.root": {} },
-						{ "welcome_screen@origin_welcome_screen.root": {} }
+						// { "options@origin_options_screen.root": {} },
+						{ "welcome_screen@origin_welcome_screen.root": {} },
+						{ "ability_selector@origin_ability_selector.root": {} }
 					]
 				}
 			},

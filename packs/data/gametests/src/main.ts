@@ -138,6 +138,7 @@ import './core/Commands';
 import './core/Ticker';
 
 import './ui/UiEventRouter';
+import './ui/AbilitySelector';
 import './utils/Version';
 
 import { installDecoratedEventSubscribers } from './core/DecoratedEvents';

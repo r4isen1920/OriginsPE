@@ -11,7 +11,6 @@ import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 import { AttributeService } from '../services/AttributeService';
 import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../services/Attributes';
 import { forgetDamageOverrides, setDamageOverrides } from '../services/DamageService';
-import { ResourceBarService } from '../services/ResourceBarService';
 import Version from '../utils/Version';
 import { Perk, Power } from './Ability';
 import { AbilityDispatch } from './AbilityDispatch';
@@ -58,8 +57,6 @@ export class PlayerLifecycle {
 		Version.resetPlayerRecordIfUpgradePending(player);
 		const state = PlayerState.for(player);
 
-		ResourceBarService.markGuiReady(player, false);
-
 		// Reset transient state.
 		state.clearFlagPrefix('cooldown_');
 		state.setFlag('controls_opened', false);
@@ -74,7 +71,6 @@ export class PlayerLifecycle {
 	@AfterPlayerLeave()
 	static onLeave(ev: PlayerLeaveAfterEvent): void {
 		PlayerState.release(ev.playerId);
-		ResourceBarService.forget(ev.playerId);
 		AttributeService.forget(ev.playerId);
 		forgetDamageOverrides(ev.playerId);
 	}
@@ -87,7 +83,6 @@ export class PlayerLifecycle {
 
 		if (!state.getOrigin() || !state.getClass()) return;
 		if (!state.isWelcomed()) return;
-		ResourceBarService.markGuiReady(player, true);
 		this.applyOriginAndClass(player);
 	}
 
@@ -115,7 +110,6 @@ export class PlayerLifecycle {
 			return;
 		}
 
-		ResourceBarService.markGuiReady(player, true);
 		this.applyOriginAndClass(player);
 	}
 

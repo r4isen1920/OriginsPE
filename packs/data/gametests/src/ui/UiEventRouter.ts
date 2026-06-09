@@ -5,7 +5,6 @@ import { SystemAfterScriptEventReceive } from '../core/DecoratedEvents';
 import { PlayerState } from '../core/PlayerState';
 import { UiBridge } from '../core/UiBridge';
 import { PlayerLifecycle } from '../domain/PlayerLifecycle';
-import { ResourceBarService } from '../services/ResourceBarService';
 import { Log } from '../utils/Log';
 import { adminToggleVector, flipToggle, isToggleOn, resetAllToggles } from './OptionsState';
 import type { ToggleKey } from './OptionsState';
@@ -13,6 +12,7 @@ import { isValidId, defaultId } from './PickerRegistry';
 import { neighborId, toggleBan, isBanned, wouldBanLimitIfBanned } from './PickerNavigation';
 import { pickerSceneTag } from './UiPayload';
 import type { PickerKind, PickerMode } from './UiPayload';
+import AbilitySelector from './AbilitySelector';
 
 
 //#region ROUTER
@@ -79,6 +79,7 @@ export class UiEventRouter {
 			case 'reset': return this.handleReset(player, parts);
 			case 'evict_unselected': return this.handleEvictUnselected(player);
 			case 'close': return; /* dialogue closes itself; no-op */
+			case 'wheel': return this.handleWheel(player, parts);
 			case 'welcome': return this.handleWelcome(player, parts);
 			default:
 				this.log.warn(`unknown verb '${verb}' in '${message}'`);
@@ -116,7 +117,6 @@ export class UiEventRouter {
 
 		PlayerLifecycle.applyOriginAndClass(player);
 
-		if (state.getOrigin() && state.getClass()) ResourceBarService.markGuiReady(player, true);
 		UiBridge.openDialogue(player, pickerSceneTag(kind, 'view', resolved));
 	}
 
@@ -134,8 +134,6 @@ export class UiEventRouter {
 			UiBridge.openDialogue(player, pickerSceneTag('class', this.resolvePickMode('class', classStart, player), classStart));
 			return;
 		}
-
-		ResourceBarService.markGuiReady(player, true);
 	}
 
 	private static handleBan(player: Player, [, kind, id]: string[]): void {
@@ -272,13 +270,34 @@ export class UiEventRouter {
 	}
 
 
+	//#region WHEEL HANDLER
+
+	private static handleWheel(player: Player, [, action, arg]: string[]): void {
+		switch (action) {
+			case 'slot': {
+				const index = Number(arg);
+				if (!Number.isInteger(index)) {
+					this.log.warn(`wheel slot with non-integer index '${arg}'`);
+					return;
+				}
+				AbilitySelector.handleSlot(player, index);
+				return;
+			}
+			case 'close':
+				AbilitySelector.close(player);
+				return;
+			default:
+				this.log.warn(`unknown wheel action '${action}'`);
+		}
+	}
+
+
 	//#region WELCOME HANDLER
 
 	private static handleWelcome(player: Player, [, action, state]: string[]): void {
 		switch (action) {
 			case 'close':
 				PlayerState.for(player).setWelcomed(state === 'ignored');
-				ResourceBarService.markGuiReady(player, true);
 				return;
 			case 'ignore':
 				UiBridge.openDialogue(player, 'gui_welcome_screen_ignore');

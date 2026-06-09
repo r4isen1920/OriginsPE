@@ -1,0 +1,291 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+
+	"namespace": "origin_ability_selector",
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Shared box pieces
+  //---------------------------------------------------------------------------
+
+
+	"wheel_box_button@origin_common.origin_selector_button": {
+		"size": ["100%", "100%"],
+		"layer": 4,
+
+		"$button_type": "wheel",
+		"$visible_binding": "(#student_button_text = #student_button_text)",
+
+		"$default_button_texture": "textures/origins/gui/ability_selector/ability_box_default",
+		"$hover_button_texture": "textures/origins/gui/ability_selector/ability_box_hover",
+		"$pressed_button_texture": "textures/origins/gui/ability_selector/ability_box_hover"
+	},
+
+	"wheel_box_highlight": {
+		"type": "image",
+		"size": ["100% + 2px", "100% + 2px"],
+		"layer": 6,
+
+		"texture": "textures/origins/gui/ability_selector/ability_box_highlight",
+
+		"$sel_expr|default": "(1 > 2)",
+
+		"bindings": [
+			{
+				"binding_name": "#title_text",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "$sel_expr",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+	"wheel_box_icon": {
+		"type": "image",
+		"size": [22, 22],
+		"layer": 5,
+
+		"uv": [1, 8],
+		"uv_size": [8, 8],
+		"keep_ratio": true,
+
+		"$icon_expr|default": "'--'",
+
+		"texture": "#texture",
+
+		"bindings": [
+			{
+				"binding_name": "#title_text",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "$icon_expr",
+				"target_property_name": "#wheel_icon"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "('textures/origins/hud/cooldown/' + #wheel_icon)",
+				"target_property_name": "#texture"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not (#wheel_icon = '--'))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Slot boxes
+  //---------------------------------------------------------------------------
+
+
+	"ability_box@origin_common.hori_stack": {
+		"size": [42, 42],
+		"collection_name": "student_buttons_collection",
+
+		"$collection_index|default": 2,
+		"$drop|default": "'%.11s'",
+		"$sel_char|default": "'1'",
+
+		"controls": [
+			{
+				"content@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"collection_index": "$collection_index",
+
+					"$icon_expr": "('%.2s' * (#title_text - ($drop * #title_text)))",
+					"$sel_expr": "(('%.1s' * (#title_text - ('%.8s' * #title_text))) = $sel_char)",
+					"$present_expr": "((('%.8s' * #title_text) = '_op:abw.') * (not (('%.2s' * (#title_text - ($drop * #title_text))) = '--')))",
+
+					"controls": [
+						{ "click@origin_ability_selector.wheel_box_button": {} },
+						{
+							"icon@origin_ability_selector.wheel_box_icon": {
+								"$icon_expr": "('%.2s' * (#title_text - ($drop * #title_text)))"
+							}
+						},
+						{
+							"highlight@origin_ability_selector.wheel_box_highlight": {
+								"$sel_expr": "(('%.1s' * (#title_text - ('%.8s' * #title_text))) = $sel_char)"
+							}
+						}
+					],
+
+					"bindings": [
+						{
+							"binding_name": "#title_text",
+							"binding_type": "global"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "$present_expr",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			}
+		]
+	},
+
+	"options_box@origin_common.hori_stack": {
+		"size": [42, 42],
+		"collection_name": "student_buttons_collection",
+
+		"controls": [
+			{
+				"content@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"collection_index": 1,
+
+					"controls": [
+						{ "click@origin_ability_selector.wheel_box_button": {} },
+						{
+							"menu_icon": {
+								"type": "image",
+								"size": [22, 22],
+								"layer": 5,
+								"texture": "textures/origins/gui/ability_selector/menu"
+							}
+						},
+						{
+							"highlight@origin_ability_selector.wheel_box_highlight": {
+								"$sel_expr": "(('%.1s' * (#title_text - ('%.8s' * #title_text))) = '0')"
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Close button
+  //---------------------------------------------------------------------------
+
+
+	"close_box@origin_common.hori_stack": {
+		"size": [80, 24],
+		"collection_name": "student_buttons_collection",
+
+		"controls": [
+			{
+				"content@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"collection_index": 0,
+
+					"controls": [
+						{
+							"btn@origin_common.origin_selector_button": {
+								"size": ["100%", "100%"],
+
+								"$button_type": "cancel",
+								"$visible_binding": "(#student_button_text = #student_button_text)",
+								"$button_text_label": "origins.gui.button.cancel",
+
+								"$default_button_texture": "textures/ui/button_borderless_light",
+								"$hover_button_texture": "textures/ui/button_borderless_lighthover",
+								"$pressed_button_texture": "textures/ui/button_borderless_lightpressed"
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Ability Wheel
+  //---------------------------------------------------------------------------
+
+
+	"ability_wheel@common.empty_panel": {
+		"size": [ "66.67%y", "75%" ],
+
+		"controls": [
+			{
+				"box_1@origin_ability_selector.options_box": {
+					"offset": [0, "-25%"]
+				}
+			},
+			{
+				"box_2@origin_ability_selector.ability_box": {
+					"$collection_index": 2,
+					"$drop": "'%.11s'",
+					"$sel_char": "'1'",	
+					"offset": ["-25%", "-12.5%"]
+				}
+			},
+			{
+				"box_3@origin_ability_selector.ability_box": {
+					"$collection_index": 3,
+					"$drop": "'%.13s'",
+					"$sel_char": "'2'",
+					"offset": ["25%", "-12.5%"]
+				}
+			},
+			{
+				"box_4@origin_ability_selector.ability_box": {
+					"$collection_index": 4,
+					"$drop": "'%.15s'",
+					"$sel_char": "'3'",
+					"offset": ["-18.75%", "9.375%"]
+				}
+			},
+			{
+				"box_5@origin_ability_selector.ability_box": {
+					"$collection_index": 5,
+					"$drop": "'%.17s'",
+					"$sel_char": "'4'",
+					"offset": ["18.75%", "9.375%"]
+				}
+			}
+		]
+	},
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Main
+  //---------------------------------------------------------------------------
+
+
+	"ability_selector_root_content@common.empty_panel": {
+		"controls": [
+			{ "ability_wheel@origin_ability_selector.ability_wheel": {} },
+			{
+				"close_button_holder@origin_ability_selector.close_box": {
+					"anchor_from": "center",
+					"anchor_to": "center",
+					"offset": [0, "9% + 90px"]
+				}
+			}
+		]
+	},
+
+	"root@origin_common.factory_condition": {
+		"size": ["100%", "100%"],
+
+		"$target_name": "ability_selector_root",
+		"$target_control": "origin_ability_selector.ability_selector_root_content",
+
+		"$condition": "((('%.21s' * #dialogtext) = '_op:ability_selector.') * 1)"
+	}
+
+}

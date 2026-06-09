@@ -4,6 +4,8 @@
 	"namespace": "origin_common",
 
 
+
+
   //---------------------------------------------------------------------------
   // Anims
   //---------------------------------------------------------------------------
@@ -175,6 +177,7 @@
 
 
 
+
   //---------------------------------------------------------------------------
   // Images
   //---------------------------------------------------------------------------
@@ -234,7 +237,7 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [20, 16],
-					"size": ["85%", "default"],
+					"size": ["100% - 32px", "default"],
 					"text": "$text_body",
 					"color": "$7_color_format",
 					"localize": true
@@ -366,7 +369,7 @@
 						{
 							"scroll_box_grip": {
 								"type": "image",
-								"texture": "textures/origins/gui/scroll_box_grip",
+								"texture": "textures/origins/gui/picker_screen/scroll_box_grip",
 								"size": ["90%", "90%"],
 								"offset": [-0.1, 0],
 
@@ -483,9 +486,149 @@
   // Buttons
   //---------------------------------------------------------------------------
 
+
 	"empty_button@common.button": {
 		"sound_volume": 0.0,
 		"$pressed_button_name": "unset"
+	},
+
+	"origin_selector_button_label": {
+		"type": "label",
+		
+		"$button_text_offset|default": [0, 0],
+		"offset": "$button_text_offset",
+
+		"$button_text_label|default": "",
+		"text": "$button_text_label",
+		"color": "$text_color", // inherit from button state
+
+		"layer": 20
+	},
+
+	"origin_selector_button@common.empty_panel": {
+		"$custom_locked_button|default": false,
+		"$custom_hidden_button|default": false,
+
+		"variables": [
+			{
+				"requires": "$custom_locked_button",
+
+				"$border_alpha": 0,
+				"$default_button_texture": "textures/ui/disabledButton",
+				"$hover_button_texture": "textures/ui/disabledButton",
+				"$pressed_button_texture": "textures/ui/disabledButton",
+
+				"$default_text_color": "$light_button_locked_text_color",
+				"$hover_text_color": "$light_button_locked_text_color",
+				"$pressed_text_color": "$light_button_locked_text_color",
+
+				"$button_sound_effect_volume": 0.0
+			},
+			{
+				"requires": "$custom_hidden_button",
+
+				"$border_alpha": 0,
+				"$default_button_texture": "textures/none",
+				"$hover_button_texture": "textures/none",
+				"$pressed_button_texture": "textures/none"
+			}
+		],
+
+		"controls": [
+			{
+				"button@common_buttons.light_text_button": {
+					"size": ["100% - 2px", "100% - 2px"],
+
+					"$button_type_panel": "origin_common.origin_selector_button_label",
+					"$pressed_button_name": "button.student_button",
+
+					"$button_sound_effect_name|default": "random.click",
+					"$button_sound_effect_volume|default": 1.0,
+					"$button_sound_effect_pitch|default": 1.0,
+					"sound_name": "$button_sound_effect_name",
+					"sound_volume": "$button_sound_effect_volume",
+					"sound_pitch": "$button_sound_effect_pitch",
+
+					"layer": 4,
+
+					"bindings": [
+						{
+							"binding_type": "collection_details",
+							"binding_collection_name": "student_buttons_collection",
+							"binding_collection_prefix": "student_buttons"
+						}
+					],
+
+					"$button_mappings": [
+						{
+							"ignored": "$custom_locked_button",
+							"to_button_id": "$pressed_button_name",
+							"mapping_type": "pressed"
+						},
+						{
+							"ignored": "$custom_locked_button",
+							"from_button_id": "button.menu_select",
+							"to_button_id": "$pressed_button_name",
+							"mapping_type": "pressed"
+						},
+						{
+							"ignored": "$custom_locked_button",
+							"from_button_id": "button.menu_ok",
+							"to_button_id": "$pressed_button_name",
+							"mapping_type": "focused"
+						},
+
+						{
+							"ignored": "(not ($button_type = 'left_cycle'))",
+							"from_button_id": "button.menu_tab_left",
+							"to_button_id": "$pressed_button_name",
+							"mapping_type": "global"
+						},
+						{
+							"ignored": "(not ($button_type = 'right_cycle'))",
+							"from_button_id": "button.menu_tab_right",
+							"to_button_id": "$pressed_button_name",
+							"mapping_type": "global"
+						},
+
+						{
+							"ignored": "(not (($button_type = 'start') or ($button_type = 'cancel') or ($button_type = 'close_welcome_screen')))",
+							"from_button_id": "button.menu_cancel",
+							"to_button_id": "$pressed_button_name",
+							"mapping_type": "global"
+						}
+					],
+					"button_mappings": "$button_mappings"
+				}
+			}
+		],
+
+		"bindings": [
+			{
+				"binding_name": "#student_button_text",
+				"binding_type": "collection",
+				"binding_collection_name": "student_buttons_collection"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "$visible_binding",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+	"origin_selector_button_panel@common.empty_panel": {
+		"controls": "$button_control",
+		"allow_clipping": false,
+
+		"bindings": [
+			{
+				"binding_name": "#student_button_visible",
+				"binding_type": "collection",
+				"binding_name_override": "#visible",
+				"binding_collection_name": "student_buttons_collection"
+			}
+		]
 	},
 
 

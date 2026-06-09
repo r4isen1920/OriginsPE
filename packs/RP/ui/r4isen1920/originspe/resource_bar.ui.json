@@ -3,6 +3,14 @@
 
 	"namespace": "origin_resource_bar",
 
+
+
+
+	//---------------------------------------------------------------------------
+	// Image Templates
+	//---------------------------------------------------------------------------
+
+
 	"img": {
 		"type": "image",
 		"texture": "(('textures/origins/hud/cooldown/' + $texture + '') - ',' - 'A:' - 'B:' - 'C:')",
@@ -26,6 +34,14 @@
 		"uv_size": [8, 8],
 		"keep_ratio": true
 	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Anims
+	//---------------------------------------------------------------------------
+
 
 	"bar_progress_anim": {
 		"anim_type": "clip",
@@ -78,13 +94,18 @@
 		"next": ""
 	},
 
+
+
+
+	//---------------------------------------------------------------------------
+	// Resource Bar Item
+	//---------------------------------------------------------------------------
+
+
 	//* origins.resource_bar A:<id>,<from>,<to>,<duration> ... 2+
 	//* origins.resource_bar A:00,000,000,000 B:00,000,000,000 C:00,000,000,000
 
-	"resource_bar": {
-		"type": "stack_panel",
-		"orientation": "horizontal",
-		"size": ["100%c", "100%cm"],
+	"resource_bar@origin_common.hori_stack": {
 		"use_child_anchors": true,
 
 		"controls": [
@@ -110,7 +131,7 @@
 							"bar_fill@origin_resource_bar.bar_fill": {
 								"$texture": "('%.4s' * $bar_data)",
 
-								"$bar_clip_ratio": 100.0,
+								"$bar_clip_ratio": 100.0, //? convert into float
 								"$bar_progress_from": "((('%.4s' * ($bar_data - ('%.4s' * $bar_data))) - ',') / $bar_clip_ratio)",
 								"$bar_progress_to": "((('%.4s' * ($bar_data - ('%.8s' * $bar_data))) - ',') / $bar_clip_ratio)",
 								"$bar_progress_duration": "(('%.4s' * ($bar_data - ('%.12s' * $bar_data))) - ',')",
@@ -132,7 +153,10 @@
 		"offset": [0, 0],
 		"propagate_alpha": true,
 
-		"anims": ["@origin_resource_bar.bar_size", "@origin_resource_bar.bar_alpha"],
+		"anims": [
+			"@origin_resource_bar.bar_size",
+			"@origin_resource_bar.bar_alpha"
+		],
 
 		"$bar_size|default": "@origin_resource_bar.bar_size_stay",
 		"$bar_alpha|default": 1.0,
@@ -163,18 +187,25 @@
 			}
 		],
 
-		"controls": [{ "resource_bar@origin_resource_bar.resource_bar": {} }]
+		"controls": [
+			{ "resource_bar@origin_resource_bar.resource_bar": {} }
+		]
 	},
 
-	"resource_bar_stack": {
-		"type": "stack_panel",
-		"orientation": "vertical",
+
+
+
+	//---------------------------------------------------------------------------
+	// Main
+	//---------------------------------------------------------------------------
+
+
+	"resource_bar_stack@origin_common.verti_stack": {
 		"anchor_from": "bottom_middle",
 		"anchor_to": "bottom_middle",
-		"size": ["100%cm", "100%c"],
-		"offset": "$set_offset",
 
 		"$set_offset|default": [50, -52],
+		"offset": "$set_offset",
 		"variables": {
 			"requires": "(not $desktop_screen)",
 			"$set_offset": [50, -42]
@@ -199,4 +230,5 @@
 		],
 		"ignored": "(($var_title_text - 'resource_bar') = $var_title_text)"
 	}
+
 }

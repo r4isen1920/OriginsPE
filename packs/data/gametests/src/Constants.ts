@@ -45,6 +45,8 @@ export const DPK = {
 	welcomed: `${DP_NS}:welcomed`,
 	/** Add-on version this player's OriginsPE record was last initialized for. */
 	recordVersion: `${DP_NS}:record_version`,
+	/** JSON record backing up to 3 HUD resource bars for reconnect-safe rendering. */
+	resourceBars: `${DP_NS}:resource_bars`,
 	/** Whether the player has admin permissions for the options menu. */
 	admin: `${DP_NS}:admin`,
 } as const;
@@ -100,6 +102,42 @@ export const UI_PAYLOAD = {
 		ban: 'b', // legacy virtual entry-point token
 	},
 	kind: { race: 'r', class: 'c' },
+} as const;
+
+
+//#region ABILITY WHEEL
+
+/**
+ * Magic prefix + fixed layout for the ability wheel payload pushed via
+ * `player.onScreenDisplay.setTitle(...)` and read in JSON UI as `#title_text`.
+ *
+ * Layout (total length {@link ABILITY_WHEEL.length}):
+ *
+ * - chars 0..7  -- magic prefix `'_op:abw.'`
+ * - char  8     -- selected slot digit `'0'..'4'`, or `'n'` when nothing is
+ *                  highlighted.
+ * - chars 9..18 -- five 2-char icon fields, one per slot. Slot 0 is the options
+ *                  slot (`'op'`); slots 1..4 hold a cooldown-atlas icon id, or
+ *                  `'--'` when the slot is empty.
+ */
+export const ABILITY_WHEEL = {
+	prefix: '_op:abw.',
+	/** Slot count (slot 0 = options, slots 1..4 = active abilities). */
+	slots: 5,
+	/** Width in chars of each icon field. */
+	iconWidth: 2,
+	/** Absolute index of the selected-slot digit. */
+	selectedOffset: 8,
+	/** Absolute index where the first icon field begins. */
+	iconsOffset: 9,
+	/** Total payload length. */
+	length: 19,
+	/** Icon id for the always-present options slot. */
+	optionsIcon: 'op',
+	/** Icon id for an empty ability slot. */
+	emptyIcon: '--',
+	/** Selected-slot value meaning "nothing highlighted". */
+	noneSelected: 'n',
 } as const;
 
 
