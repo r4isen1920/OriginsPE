@@ -104,6 +104,11 @@ import './domain/powers/Beelzebub';
 import './domain/powers/TunnelLeap';
 import './domain/powers/Wrathroot';
 import './domain/powers/VineBind';
+import './domain/powers/ShulkInventory';
+import './domain/powers/NaturalArmor';
+import './domain/powers/MoreExhaustion';
+import './domain/powers/NoShield';
+import './domain/powers/StrongArms';
 
 //-------------------------------------------
 

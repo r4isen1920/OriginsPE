@@ -1,20 +1,17 @@
-import { Player, system, world } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
-import { PlayerTick } from '../../core/Ticker';
-
 
 function openShulkInv(player: Player): void {
 	const existing = player.dimension.getEntities({
 		type: 'r4isen1920_originspe:inventory_keep',
-		tags: [`_inventory_keep_${player.id}`, '_inventory_keep_shulk'],
+		tags: [`_inventory_keep_${player.id}`, '_inventory_keep_shulk']
 	})[0];
 
-	const dummyEntity = existing ?? player.dimension.spawnEntity(
-		'r4isen1920_originspe:inventory_keep',
-		player.location,
-	);
+	const dummyEntity =
+		existing ??
+		player.dimension.spawnEntity('r4isen1920_originspe:inventory_keep', player.location);
 
 	dummyEntity.nameTag = 'origins.shulk_inventory';
 	dummyEntity.addTag(`_inventory_keep_${player.id}`);
@@ -28,7 +25,7 @@ function openShulkInv(player: Player): void {
 	player.dimension.spawnParticle('r4isen1920_originspe:shulk_inventory', {
 		x: player.location.x,
 		y: player.location.y + 1.5,
-		z: player.location.z,
+		z: player.location.z
 	});
 	player.addTag('_shulk_inventory_open');
 }
@@ -40,7 +37,7 @@ function closeShulkInv(player: Player): void {
 	player.dimension.spawnParticle('r4isen1920_originspe:player_inventory', {
 		x: player.location.x,
 		y: player.location.y + 1.5,
-		z: player.location.z,
+		z: player.location.z
 	});
 
 	for (const tag of player.getTags()) {
@@ -48,55 +45,53 @@ function closeShulkInv(player: Player): void {
 	}
 }
 
-
-/**
- * Trigger the ability to switch to a different inventory space.
- * Allowing you to store more items with 9 additional slots which are kept even upon death.
- */
 @RegisterPower
 export class ShulkInventory implements Power {
-    readonly id = 'shulk_inventory';
+	readonly id = 'shulk_inventory';
+	readonly tickInterval = 1;
 
-    onRelease(player: Player): void {
-        if (player.hasTag('_shulk_inventory_open')) {
-            closeShulkInv(player);
-        }
-    }
+	readonly active = {
+		icon: '',
+		name: 'origins.trait.shulk_inventory.label'
+	};
 
-    @PlayerTick(3)
-	static onPlayerTick(player: Player): void {
-		if (!PlayerState.for(player).hasPower('shulk_inventory')) return;
-
-		// Keep inventory entity teleported to player
-		if (!player.hasTag('_shulk_inventory_open')) {
-			player.dimension.getEntities({
-				type: 'r4isen1920_originspe:inventory_keep',
-				tags: [`_inventory_keep_${player.id}`, '_inventory_keep_shulk'],
-			})[0]?.teleport(player.location, { dimension: player.dimension });
+	onRelease(player: Player): void {
+		if (player.hasTag('_shulk_inventory_open')) {
+			closeShulkInv(player);
 		}
+	}
 
-		// Handle control trigger — remove tag FIRST to prevent re-triggering
-		if (!player.hasTag('_control_use_shulk_inventory')) return;
-		player.removeTag('_control_use_shulk_inventory');
-
+	onActivate(player: Player): void {
 		if (player.hasTag('_shulk_inventory_open')) {
 			closeShulkInv(player);
 		} else {
 			openShulkInv(player);
 		}
-}
+	}
 
-    // Close inventory if player moves or jumps while it's open
-    @PlayerTick(1)
-    static onMovementTick(player: Player): void {
-        if (!player.hasTag('_shulk_inventory_open')) return;
+	onTick(player: Player): void {
+		if (!player?.isValid) return;
 
-        const velocity = player.getVelocity();
-        const isMoving = Math.abs(velocity.x) > 0.01 || Math.abs(velocity.z) > 0.01;
-        const isJumping = velocity.y > 0.1;
+		const state = PlayerState.for(player);
+		if (!state || !state.hasPower('shulk_inventory')) return;
 
-        if (isMoving || isJumping) {
-            closeShulkInv(player);
-        }
-    }
+		if (!player.hasTag('_shulk_inventory_open')) {
+			player.dimension
+				.getEntities({
+					type: 'r4isen1920_originspe:inventory_keep',
+					tags: [`_inventory_keep_${player.id}`, '_inventory_keep_shulk']
+				})[0]
+				?.teleport(player.location, { dimension: player.dimension });
+		}
+
+		if (player.hasTag('_shulk_inventory_open')) {
+			const velocity = player.getVelocity();
+			const isMoving = Math.abs(velocity.x) > 0.01 || Math.abs(velocity.z) > 0.01;
+			const isJumping = velocity.y > 0.1;
+
+			if (isMoving || isJumping) {
+				closeShulkInv(player);
+			}
+		}
+	}
 }

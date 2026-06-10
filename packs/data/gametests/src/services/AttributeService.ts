@@ -67,13 +67,21 @@ export class AttributeService {
 	}
 
 	/** Fires a namespaced entity event, logging any failure. */
-	private static fireEvent(player: Player, suffix: string): void {
+	private static fireEvent(player: Player, suffix: any): void {
+		if (!suffix || typeof suffix === 'object' || Array.isArray(suffix) || String(suffix).trim() === '') {
+        return;
+    }
 		const eventName = `${NS}:${suffix}`;
+
+		if (eventName.includes('[object Object]') || eventName.endsWith('.')) {
+        return;
+    }
+
 		try {
-			player.triggerEvent(eventName);
-		} catch (e: any) {
-			this.log.error(`triggerEvent '${eventName}' failed: ${e?.stack ?? e}`);
-		}
+        	player.triggerEvent(eventName);
+    	} catch (e: any) {
+        	this.log.error(`triggerEvent '${eventName}' failed: ${e?.stack ?? e}`);
+    	}
 	}
 
 	/** Returns the entry of `steps` closest to `value`. */
