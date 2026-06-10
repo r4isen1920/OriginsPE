@@ -12,10 +12,6 @@ import { PlayerTick } from '../../core/Ticker';
 export class ClawDigging implements Power {
     readonly id = 'claw_digging';
 
-    onRelease(player: Player): void {
-        player.removeEffect('night_vision');
-    }
-
     @PlayerTick(10)
     static onPlayerTick(player: Player): void {
         if (!PlayerState.for(player).hasPower('darkvision')) return;
