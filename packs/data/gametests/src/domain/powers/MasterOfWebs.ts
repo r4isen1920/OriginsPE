@@ -30,8 +30,8 @@ export class MasterOfWebs implements Power {
 					torsoBlock.typeId === 'r4isen1920_originspe:fake_web'));
 
 		if (standsInWeb) {
-			player.addEffect('resistance', 20, {
-				amplifier: 4,
+			player.addEffect('resistance', 10, {
+				amplifier: 2,
 				showParticles: false
 			});
 		}

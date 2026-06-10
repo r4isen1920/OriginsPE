@@ -14,8 +14,6 @@ export class Climbing implements Power {
 	readonly id = 'climbing';
 	readonly tickInterval = 1;
 
-	private static readonly log = Log.get('Climbing');
-
 	private static readonly IGNORED_BLOCKS: string[] = [
 		'minecraft:cave_vines',
 		'minecraft:cave_vines_body_with_berries',
@@ -38,10 +36,33 @@ export class Climbing implements Power {
 
 		if (!player.isJumping) return;
 
+		const viewDir = player.getViewDirection();
+		if (viewDir.y > 0.3) return;
+
 		const ray = player.getBlockFromViewDirection({ maxDistance: 2.5 });
 		const block = ray?.block;
 
 		if (block && !block.isAir && !Climbing.IGNORED_BLOCKS.includes(block.typeId)) {
+			const playerFloorY = Math.floor(player.location.y);
+
+			if (block.location.y < playerFloorY) return;
+
+			if (block.location.y === playerFloorY) {
+				const blockAbove = block.above();
+				if (!blockAbove || blockAbove.isAir) {
+					player.applyImpulse({
+						x: viewDir.x * 0.15,
+						y: 0.25,
+						z: viewDir.z * 0.15
+					});
+					return;
+				}
+			}
+
+			const horizontalDistX = Math.abs(block.location.x + 0.5 - player.location.x);
+			const horizontalDistZ = Math.abs(block.location.z + 0.5 - player.location.z);
+			if (horizontalDistX < 0.8 && horizontalDistZ < 0.8) return;
+
 			const currentY = player.getVelocity().y;
 			const targetSpeed = 0.2;
 

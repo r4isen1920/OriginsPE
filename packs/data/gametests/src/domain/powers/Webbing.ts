@@ -13,24 +13,24 @@ import { Log } from '../../utils/Log';
  */
 @RegisterPower
 export class Webbing implements Power {
-	readonly id = 'webbing';
-
+    readonly id = 'webbing';
+    readonly tickInterval = 1;
 	private static readonly log = Log.get('Webbing');
 
-	private static readonly COOLDOWN_BAR_ID = 24;
-	private static readonly COOLDOWN_KEY = 'webbing';
-	private static readonly COOLDOWN_TICKS = TicksPerSecond * 13;
+    private static readonly COOLDOWN_BAR_ID = 1;
+    private static readonly COOLDOWN_KEY = 'webbing';
+    private static readonly COOLDOWN_TICKS = TicksPerSecond * 13;
 
-	onAttack(player: Player, event: EntityHitEntityAfterEvent): void {
-		const state = PlayerState.for(player);
-		const now = system.currentTick;
-		if (state.isOnCooldown(Webbing.COOLDOWN_KEY, now)) return;
+    onAttack(player: Player, event: EntityHitEntityAfterEvent): void {
+        const state = PlayerState.for(player);
+        const now = system.currentTick;
+        if (state.isOnCooldown(Webbing.COOLDOWN_KEY, now)) return;
 
-		state.setCooldown(Webbing.COOLDOWN_KEY, now, Webbing.COOLDOWN_TICKS);
-		ResourceBarService.push(player, {
-			id: Webbing.COOLDOWN_BAR_ID,
-			durationSeconds: 13
-		});
+        state.setCooldown(Webbing.COOLDOWN_KEY, now, Webbing.COOLDOWN_TICKS);
+        ResourceBarService.push(player, {
+            id: Webbing.COOLDOWN_BAR_ID,
+            durationSeconds: 13
+        });
 
 		player.dimension
 			.spawnEntity('r4isen1920_originspe:webbing_attack', event.hitEntity.location)
