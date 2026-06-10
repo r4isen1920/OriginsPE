@@ -54,8 +54,8 @@ export class UiBridge {
 	 * Opens the named NPC dialogue for `player`, spawning a transient handler
 	 * entity nearby if one is not already in range.
 	 */
-	static openDialogue(player: Player, dialogueId: string): void {
-		this.ensureHandler(player);
+	static async openDialogue(player: Player, dialogueId: string): Promise<void> {
+		await this.ensureHandler(player);
 
 		try {
 			player.runCommand(
@@ -64,16 +64,18 @@ export class UiBridge {
 		} catch (e: any) {
 			this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
 		}
+
+		return await system.waitTicks(1);
 	}
 
 	/** Opens the origin/class picker dialogue for the given player. */
-	static openPicker(player: Player, kind: PickerKind, mode: PickerMode = PickerMode.Pick): void {
+	static async openPicker(player: Player, kind: PickerKind, mode: PickerMode = PickerMode.Pick): Promise<void> {
 		const state = PlayerState.for(player);
 		const current = kind === PickerKind.Race ? state.getOrigin() : state.getClass();
 		const fallback = kind === PickerKind.Race ? 'human' : 'nitwit';
 		const id = `gui_${kind}_${mode}_${current ?? fallback}`;
 
-		this.openDialogue(player, id);
+		await this.openDialogue(player, id);
 
 		switch (mode) {
 			case PickerMode.Pick:
@@ -113,14 +115,14 @@ export class UiBridge {
 
 
 	//#region INTERNAL
-
-	private static ensureHandler(player: Player): void {
+	private static async ensureHandler(player: Player): Promise<void> {
 		const nearby = player.dimension.getEntities({
 			type: Entities.DialogueHandler,
 			location: player.location,
 			maxDistance: 32,
 		});
 		if (nearby.length > 0) return;
+
 		try {
 			player.dimension.spawnEntity(Entities.DialogueHandler, {
 				x: player.location.x,
@@ -130,5 +132,7 @@ export class UiBridge {
 		} catch (e: any) {
 			this.log.error(`spawn dialogue_handler: ${e?.stack ?? e}`);
 		}
+
+		return await system.waitTicks(1);
 	}
 }
