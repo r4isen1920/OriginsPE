@@ -1,16 +1,17 @@
 import { Player, EquipmentSlot, ItemStack } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-
+import { ResourceBarService } from '../../services/ResourceBarService';
 /**
  * EndlessQuiver: Players with this power have an endless supply of arrows.
  * Loose: dispatched to whoever is granted the power, with no origin coupling.
  */
-
 @RegisterPower
 export class EndlessQuiver implements Power {
 	readonly id = 'endless_quiver';
 	readonly tickInterval = 3;
+
+	private static readonly RESOURCE_BAR_ID = 17;
 	private static readonly ARROW_LORE = '§r§6Endless Quiver§r';
 
 	onTick(player: Player): void {
@@ -44,6 +45,11 @@ export class EndlessQuiver implements Power {
 
 				player.playSound('note.pling', { volume: 0.1, pitch: 1.75 });
 				player.playSound('mob.chicken.plop', { volume: 0.75 });
+
+				ResourceBarService.push(player, {
+					id: EndlessQuiver.RESOURCE_BAR_ID,
+					durationSeconds: 1
+				});
 			} else if (totalArrowCount > 1 && customArrowSlot !== -1) {
 				const customArrow = inventoryComp.container.getItem(customArrowSlot);
 				if (customArrow) {
