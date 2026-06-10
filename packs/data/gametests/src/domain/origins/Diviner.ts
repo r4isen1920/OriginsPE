@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,6 +6,7 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Diviner implements Origin {
 	readonly id = 'diviner';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'prescience',
 		'oracle',

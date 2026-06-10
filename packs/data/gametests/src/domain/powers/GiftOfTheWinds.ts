@@ -12,7 +12,7 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 
 @RegisterPower
 export class GiftOfTheWinds implements Power {
-	readonly id = 'gift_of_the_winds';
+	readonly id = 'launch_into_air';
 	readonly tickInterval = 2;
 
 	readonly active = {

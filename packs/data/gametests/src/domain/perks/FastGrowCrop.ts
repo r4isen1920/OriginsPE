@@ -33,7 +33,7 @@ const CROP_TYPES: CropType[] = [
  */
 @RegisterPerk
 export class FastGrowCrop implements Perk {
-    readonly id = 'fast_grow_crop';
+    readonly id = 'fast_crop_growth';
 
     private static handler: ((ev: PlayerPlaceBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
@@ -59,7 +59,7 @@ export class FastGrowCrop implements Perk {
     private static onPlaceBlock(ev: PlayerPlaceBlockAfterEvent): void {
         const { block, player } = ev;
 
-        if (!PlayerState.for(player).hasPerk('fast_grow_crop')) return;
+        if (!PlayerState.for(player).hasPerk('fast_crop_growth')) return;
 
         const crop = CROP_TYPES.find(c => block.permutation.matches(`minecraft:${c.typeId}`));
         if (!crop) return;

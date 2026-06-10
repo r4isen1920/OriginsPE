@@ -29,7 +29,7 @@ const SAPLING_MAP: Record<string, string> = {
  */
 @RegisterPerk
 export class GreenThumb implements Perk {
-    readonly id = 'green_thumb';
+    readonly id = 'sapling_setblock';
 
     private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
@@ -55,7 +55,7 @@ export class GreenThumb implements Perk {
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
         const { block, brokenBlockPermutation, player } = ev;
 
-        if (!PlayerState.for(player).hasPerk('green_thumb')) return;
+        if (!PlayerState.for(player).hasPerk('sapling_setblock')) return;
 
         const logBlock = LOG_BLOCKS.find(log => brokenBlockPermutation.matches(`minecraft:${log}`));
         const saplingBlock = logBlock ? SAPLING_MAP[logBlock] : undefined;

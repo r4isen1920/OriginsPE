@@ -5,7 +5,7 @@ import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Noctural implements Power {
-	readonly id = 'noctural';
+	readonly id = 'cat_vision';
 	readonly tickInterval = 3;
 
 	onRelease(player: Player): void {

@@ -73,7 +73,7 @@ export class MoreSaturatedFood implements Perk {
         const inventory = player.getComponent('inventory')?.container;
         if (!inventory) return;
 
-        const hasPerk = PlayerState.for(player).hasPerk('good_meals');
+        const hasPerk = PlayerState.for(player).hasPerk('more_saturated_food');
         let converted = false;
 
         for (let slot = 0; slot < inventory.size; slot++) {

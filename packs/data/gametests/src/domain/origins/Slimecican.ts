@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,11 +6,12 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Slimecican implements Origin {
 	readonly id = 'slimecican';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'bouncy_body',
-		'super_jump',
+		'high_jump',
 		'sticky',
 		'fragmentation',
-		'recovery',
+		'slime_ball_consume',
 	];
 }

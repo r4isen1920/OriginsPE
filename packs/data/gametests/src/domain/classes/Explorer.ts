@@ -1,4 +1,4 @@
-import { CharacterClass } from '../Ability';
+import { CharacterClass, ClassDifficulty } from '../Ability';
 import { RegisterClass } from '../Registries';
 
 
@@ -6,8 +6,9 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Explorer implements CharacterClass {
 	readonly id = 'explorer';
+	readonly difficulty = ClassDifficulty.Decent;
 	readonly perks: readonly string[] = [
 		'explorer_kit',
-		'fit',
+		'no_sprint_exhaustion',
 	];
 }

@@ -130,14 +130,20 @@ export class PlayerLifecycle {
 		if (!origin) this.log.error(`Unknown origin '${originId}' on ${player.name}`);
 		if (!klass) this.log.error(`Unknown class '${classId}' on ${player.name}`);
 
-		const nextPowers = Array.from(new Set([
-			...DEFAULT_POWERS,
-			...(origin?.powers ?? []),
-		]));
-		const nextPerks = Array.from(new Set([
-			...DEFAULT_PERKS,
-			...(klass?.perks ?? []),
-		]));
+		const nextPowers = this.filterRegistered('Power',
+			Array.from(new Set([
+				...DEFAULT_POWERS,
+				...(origin?.powers ?? []),
+			])),
+			(id) => PowerRegistry.has(id), player,
+		);
+		const nextPerks = this.filterRegistered('Perk',
+			Array.from(new Set([
+				...DEFAULT_PERKS,
+				...(klass?.perks ?? []),
+			])),
+			(id) => PerkRegistry.has(id), player,
+		);
 		const nextControls = Array.from(new Set([
 			...(origin?.controls ?? []),
 			...(klass?.controls ?? []),
@@ -195,6 +201,28 @@ export class PlayerLifecycle {
 		const nextSet = new Set(next);
 		for (const id of prevSet) if (!nextSet.has(id)) onRemoved(id);
 		for (const id of nextSet) if (!prevSet.has(id)) onAdded(id);
+	}
+
+	/**
+	 * Keeps only ids with a registered implementation; warns once per skipped id.
+	 * A trait referenced by an origin/class but never registered is ignored rather
+	 * than granted, so dispatch never touches a phantom ability.
+	 */
+	private static filterRegistered(
+		kind: string,
+		ids: readonly string[],
+		has: (id: string) => boolean,
+		player: Player,
+	): string[] {
+		const kept: string[] = [];
+		for (const id of ids) {
+			if (has(id)) {
+				kept.push(id);
+				continue;
+			}
+			this.log.warn(`${kind} '${id}' has no registered implementation, skipping for player: ${player.name}`);
+		}
+		return kept;
 	}
 
 	private static applyEffects(player: Player, value: string | undefined, suffix: string): void {

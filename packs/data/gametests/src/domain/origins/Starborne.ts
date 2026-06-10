@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,13 +6,14 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Starborne implements Origin {
 	readonly id = 'starborne';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'stress',
 		'meditate',
 		'cosmic_gift',
 		'hyper_leap',
 		'shooting_star',
-		'nonviolent',
-		'cold_vacuum',
+		'no_hitting',
+		'burning',
 	];
 }

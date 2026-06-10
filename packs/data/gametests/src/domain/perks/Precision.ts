@@ -10,7 +10,7 @@ import { checkBow } from './Agility';
  */
 @RegisterPerk
 export class Precision implements Perk {
-    readonly id = 'precision';
+    readonly id = 'no_projectile_divergence';
 
     onAcquire(_player: Player): void {}
 

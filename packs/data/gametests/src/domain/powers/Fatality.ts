@@ -8,7 +8,7 @@ import { Logger as BoostLogger } from '@bedrock-oss/bedrock-boost';
  */
 @RegisterPower
 export class Fatality implements Power {
-	readonly id = 'fatality';
+	readonly id = 'poison_bonus_damage';
 	readonly tickInterval = 1;
 
 	private static readonly log = BoostLogger.getLogger('OriginsPE', 'Fatality');

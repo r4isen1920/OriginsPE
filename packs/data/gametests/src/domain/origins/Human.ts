@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,5 +6,6 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Human implements Origin {
 	readonly id = 'human';
+	readonly difficulty = OriginDifficulty.Human;
 	readonly powers: readonly string[] = [];
 }

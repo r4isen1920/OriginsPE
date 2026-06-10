@@ -30,7 +30,7 @@ type NeighborDirection = typeof DIRECTIONS[number];
 
 @RegisterPerk
 export class TreeCapitator implements Perk {
-    readonly id = 'tree_capitator';
+    readonly id = 'tree_felling';
     readonly tickInterval = 2;
 
     private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
@@ -106,7 +106,7 @@ export class TreeCapitator implements Perk {
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
         const { block, brokenBlockPermutation, player } = ev;
 
-        if (!PlayerState.for(player).hasPerk('tree_capitator')) return;
+        if (!PlayerState.for(player).hasPerk('tree_felling')) return;
         if (player.matches({ gameMode: GameMode.Creative })) return;
 
         const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);

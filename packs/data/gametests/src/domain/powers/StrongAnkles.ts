@@ -6,7 +6,7 @@ import { BeforeEntityHurt } from '../../core/DecoratedEvents';
 
 @RegisterPower
 export class StrongAnkles implements Power {
-	readonly id = 'strong_ankles';
+	readonly id = 'fall_immunity';
 
 	@BeforeEntityHurt
 	static onEntityHurt(event: EntityHurtBeforeEvent): void {

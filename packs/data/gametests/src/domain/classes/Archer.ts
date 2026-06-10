@@ -1,4 +1,4 @@
-import { CharacterClass } from '../Ability';
+import { CharacterClass, ClassDifficulty } from '../Ability';
 import { RegisterClass } from '../Registries';
 
 
@@ -6,8 +6,9 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Archer implements CharacterClass {
 	readonly id = 'archer';
+	readonly difficulty = ClassDifficulty.Decent;
 	readonly perks: readonly string[] = [
-		'agility',
-		'precision',
+		'less_bow_slowdown',
+		'no_projectile_divergence',
 	];
 }

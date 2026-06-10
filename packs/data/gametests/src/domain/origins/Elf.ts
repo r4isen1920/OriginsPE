@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -7,11 +7,12 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Elf implements Origin {
 	readonly id = 'elf';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'lifeweaver',
 		'endless_quiver',
 		'imbue',
-		'swift',
+		'agility',
 		'permeable',
 	];
 }

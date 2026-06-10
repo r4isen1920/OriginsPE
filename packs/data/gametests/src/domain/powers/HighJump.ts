@@ -13,6 +13,7 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 @RegisterPower
 export class HighJump implements Power {
 	readonly id = 'high_jump';
+	readonly icon = '07';
 
 	private static readonly COOLDOWN_BAR_ID = 7;
 	private static readonly COOLDOWN_KEY = 'high_jump';

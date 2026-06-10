@@ -36,7 +36,7 @@ const CROP_TYPES = [
  */
 @RegisterPerk
 export class GreatCraftsmanship implements Perk {
-    readonly id = 'great_craftsmanship';
+    readonly id = 'quality_equipment';
 
     private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
@@ -61,7 +61,7 @@ export class GreatCraftsmanship implements Perk {
         const inventory = player.getComponent('inventory')?.container;
         if (!inventory) return;
 
-        const hasPerk = PlayerState.for(player).hasPerk('great_craftsmanship');
+        const hasPerk = PlayerState.for(player).hasPerk('quality_equipment');
         let converted = false;
 
         for (let slot = 0; slot < inventory.size; slot++) {

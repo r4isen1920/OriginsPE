@@ -9,7 +9,7 @@ import { Power } from '../Ability';
  */
 @RegisterPower
 export class Acrobatics implements Power {
-	readonly id = 'acrobatics';
+	readonly id = 'sprint_jump';
 	readonly tickInterval = 2;
 
 	onTick(player: Player): void {

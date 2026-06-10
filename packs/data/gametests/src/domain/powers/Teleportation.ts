@@ -6,7 +6,8 @@ import { BeforeItemUse } from '../../core/DecoratedEvents';
 
 @RegisterPower
 export class Teleportation implements Power {
-	readonly id = 'teleportation';
+	readonly id = 'throw_ender_pearl';
+	readonly icon = '03';
 	readonly tickInterval = 3;
 
 	private static readonly PEARL_LORE = '§r§5Enderian Rift Pearl§r';

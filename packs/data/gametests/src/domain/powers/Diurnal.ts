@@ -15,7 +15,7 @@ import { AfterWeatherChange } from '../../core/DecoratedEvents';
  */
 @RegisterPower
 export class Diurnal implements Power {
-	readonly id = 'diurnal';
+	readonly id = 'nighttime';
 	readonly tickInterval = 4;
 
 	@AfterWeatherChange

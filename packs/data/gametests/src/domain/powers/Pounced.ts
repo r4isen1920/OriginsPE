@@ -6,7 +6,8 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 
 @RegisterPower
 export class Pounced implements Power {
-	readonly id = 'pounced';
+	readonly id = 'pounce';
+	readonly icon = '06';
 
 	private static readonly COOLDOWN_BAR_ID = 6;
 	private static readonly COOLDOWN_KEY = 'pounce';

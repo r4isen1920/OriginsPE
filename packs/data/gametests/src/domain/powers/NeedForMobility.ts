@@ -12,7 +12,7 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class NeedForMobility implements Power {
-	readonly id = 'need_for_mobility';
+	readonly id = 'light_armor';
 	readonly tickInterval = 4;
 	private static readonly HEAVY_ARMOR_PREFIXES = ['netherite_', 'diamond_', 'iron_'];
 

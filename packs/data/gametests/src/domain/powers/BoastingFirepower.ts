@@ -11,7 +11,7 @@ import { AfterEntityHurt } from '../../core/DecoratedEvents';
  */
 @RegisterPower
 export class BoastingFirepower implements Power {
-    readonly id = 'boasting_firepower';
+    readonly id = 'increased_attack_per_entity';
 
     private static handler: ((ev: EntityHurtAfterEvent) => void) | undefined;
     private static refCount = 0;

@@ -11,7 +11,7 @@ import { ItemUtils } from '../../utils/ItemUtils';
  */
 @RegisterPerk
 export class Agility implements Perk {
-	readonly id = 'agility';
+	readonly id = 'less_bow_slowdown';
 
 	onTick(player: Player): void {
 		

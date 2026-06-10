@@ -9,7 +9,7 @@ import { Power } from '../Ability';
 
 @RegisterPower
 export class Hydrophobia implements Power {
-	readonly id = 'hydrophobia';
+	readonly id = 'water_vulnerability';
 	readonly tickInterval = 10;
 
 	onTick(player: Player): void {

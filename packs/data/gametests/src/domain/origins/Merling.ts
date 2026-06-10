@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,11 +6,12 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Merling implements Origin {
 	readonly id = 'merling';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
-		'gills',
+		'water_breathing',
 		'aqua_affinity',
-		'sea_inhabitant',
+		'sea_creature',
 		'like_water',
-		'oceans_gift',
+		'no_trident_damage',
 	];
 }

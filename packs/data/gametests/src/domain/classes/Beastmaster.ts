@@ -1,4 +1,4 @@
-import { CharacterClass } from '../Ability';
+import { CharacterClass, ClassDifficulty } from '../Ability';
 import { RegisterClass } from '../Registries';
 
 
@@ -6,8 +6,9 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Beastmaster implements CharacterClass {
 	readonly id = 'beastmaster';
+	readonly difficulty = ClassDifficulty.Decent;
 	readonly perks: readonly string[] = [
-		'fauna_friends',
-		'Effective_empathy',
+		'tamed_animal_boost',
+		'effective_empathy',
 	];
 }

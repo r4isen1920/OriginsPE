@@ -1,4 +1,4 @@
-import { CharacterClass } from '../Ability';
+import { CharacterClass, ClassDifficulty } from '../Ability';
 import { RegisterClass } from '../Registries';
 
 
@@ -6,8 +6,9 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Farmer implements CharacterClass {
 	readonly id = 'farmer';
+	readonly difficulty = ClassDifficulty.Decent;
 	readonly perks: readonly string[] = [
-		'fast_grow_crop',
-		'more_crops_drop',
+		'fast_crop_growth',
+		'more_crop_drops',
 	];
 }

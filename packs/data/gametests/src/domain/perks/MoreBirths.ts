@@ -18,7 +18,7 @@ const TWIN_BIRTH_CHANCE = 100;
  */
 @RegisterPerk
 export class MoreBirths implements Perk {
-    readonly id = 'more_births';
+    readonly id = 'twin_breeding';
 
     private static handler: ((ev: EntitySpawnAfterEvent) => void) | undefined;
     private static refCount = 0;
@@ -53,7 +53,7 @@ export class MoreBirths implements Perk {
                 location: entity.location,
                 maxDistance: 12,
                 type: 'minecraft:player',
-            }).some(e => PlayerState.for(e as Player).hasPerk('more_births'));
+            }).some(e => PlayerState.for(e as Player).hasPerk('twin_breeding'));
 
             if (!hasRancherNearby) return;
             if (Math.random() * 100 >= TWIN_BIRTH_CHANCE) return;

@@ -10,6 +10,7 @@ import { Power } from '../Ability';
 @RegisterPower
 export class EndlessQuiver implements Power {
 	readonly id = 'endless_quiver';
+	readonly icon = '17';
 	readonly tickInterval = 3;
 	private static readonly ARROW_LORE = '§r§6Endless Quiver§r';
 

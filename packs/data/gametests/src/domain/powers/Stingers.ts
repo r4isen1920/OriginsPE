@@ -11,7 +11,8 @@ import { Log } from '../../utils/Log';
 
 @RegisterPower
 export class Stingers implements Power {
-	readonly id = 'stingers';
+	readonly id = 'sacrifice_stinger';
+	readonly icon = '13';
 	readonly tickInterval = 2;
 	private static readonly log = Log.get('Stingers');
 

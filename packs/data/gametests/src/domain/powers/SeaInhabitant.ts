@@ -5,7 +5,7 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class SeaInhabitant implements Power {
-    readonly id = 'sea_inhabitant';
+    readonly id = 'sea_creature';
     readonly tickInterval = 3;
 
     onRelease(player: Player): void {

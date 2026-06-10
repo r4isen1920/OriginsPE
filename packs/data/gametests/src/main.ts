@@ -87,23 +87,36 @@ import './domain/powers/AquaAffinity';
 import './domain/powers/SeaInhabitant';
 import './domain/powers/LikeWater';
 import './domain/powers/OceansGift';
+import './domain/powers/Phantomize';
+import './domain/powers/Fragmentation';
+import './domain/powers/SlimeBallConsume';
+import './domain/powers/Stress';
+import './domain/powers/Meditate';
+import './domain/powers/HyperLeap';
+import './domain/powers/ShootingStar';
+import './domain/powers/HyperActive';
+import './domain/powers/Beelzebub';
+import './domain/powers/TunnelLeap';
+import './domain/powers/Wrathroot';
+import './domain/powers/VineBind';
+
 //-------------------------------------------
 
 //* Classes
 import './domain/classes/Nitwit';
 import './domain/classes/Archer';
 import './domain/classes/Beastmaster';
-import './domain/classes/Warrior';
+import './domain/classes/Blacksmith';
+import './domain/classes/Cleric';
+import './domain/classes/Cook';
 import './domain/classes/Explorer';
 import './domain/classes/Farmer';
 import './domain/classes/Lumberjack';
-import './domain/classes/Cook';
 import './domain/classes/Merchant';
 import './domain/classes/Miner';
 import './domain/classes/Rancher';
 import './domain/classes/Rogue';
-import './domain/classes/Cleric';
-import './domain/classes/Blacksmith';
+import './domain/classes/Warrior';
 
 //* Perks
 import './domain/perks/Agility';

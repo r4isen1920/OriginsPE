@@ -15,7 +15,7 @@ import { Power } from '../Ability';
 
 @RegisterPower
 export class Winged implements Power {
-	readonly id = 'winged';
+	readonly id = 'elytra';
 	readonly tickInterval = 100;
 	private static readonly ELYTRA_LORE = '§r§6Elytrian§r';
 
