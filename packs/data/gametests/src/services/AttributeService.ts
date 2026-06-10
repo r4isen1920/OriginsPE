@@ -33,6 +33,7 @@ export class AttributeService {
 			const value = attrs[key];
 			if (value === undefined) continue;
 			if (last[key] === value) continue;
+			if (typeof value === 'object' || Array.isArray(value)) continue; // not primitive, skip
 			const mutableNext = next as Partial<Record<AttributeKey, PlayerAttributes[AttributeKey]>>;
 			mutableNext[key] = value;
 			this.trigger(player, key, value);
