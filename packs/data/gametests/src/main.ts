@@ -109,6 +109,8 @@ import './domain/powers/NaturalArmor';
 import './domain/powers/MoreExhaustion';
 import './domain/powers/NoShield';
 import './domain/powers/StrongArms';
+import './domain/powers/Phantomize';
+import './domain/powers/BurnsInDaylight';
 
 //-------------------------------------------
 
