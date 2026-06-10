@@ -152,13 +152,13 @@ export class PlayerLifecycle {
 		// Diff and dispatch.
 		const prevPowers = state.getPowers();
 		this.diff(prevPowers, nextPowers,
-			(id) => PowerRegistry.get(id)?.onRelease?.(player),
-			(id) => PowerRegistry.get(id)?.onAcquire?.(player),
+			(id) => AbilityDispatch.invoke('Power', id, PowerRegistry.get(id), 'onRelease', (power) => power.onRelease?.(player)),
+			(id) => AbilityDispatch.invoke('Power', id, PowerRegistry.get(id), 'onAcquire', (power) => power.onAcquire?.(player)),
 		);
 		const prevPerks = state.getPerks();
 		this.diff(prevPerks, nextPerks,
-			(id) => PerkRegistry.get(id)?.onRelease?.(player),
-			(id) => PerkRegistry.get(id)?.onAcquire?.(player),
+			(id) => AbilityDispatch.invoke('Perk', id, PerkRegistry.get(id), 'onRelease', (perk) => perk.onRelease?.(player)),
+			(id) => AbilityDispatch.invoke('Perk', id, PerkRegistry.get(id), 'onAcquire', (perk) => perk.onAcquire?.(player)),
 		);
 
 		state.setPowers(nextPowers);
