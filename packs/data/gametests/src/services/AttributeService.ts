@@ -66,22 +66,30 @@ export class AttributeService {
 		this.fireEvent(player, `${this.eventNameFor(key)}.${value}`);
 	}
 
-	/** Fires a namespaced entity event, logging any failure. */
-	private static fireEvent(player: Player, suffix: any): void {
-		if (!suffix || typeof suffix === 'object' || Array.isArray(suffix) || String(suffix).trim() === '') {
-        return;
-    }
-		const eventName = `${NS}:${suffix}`;
+	/**
+	 * Fires a namespaced entity event, ensures a valid event ran, with error handling wrapping.
+	 * @player Who to trigger the event for.
+	 * @event The event to trigger. When passed without the namespace prefix, it will be added automatically. Must be a non-empty string.
+	 * @returns Whether the event was successfully triggered.
+	 */
+	public static fireEvent(player: Player, event: string): boolean {
+		if (!event || typeof event === 'object' || Array.isArray(event) || String(event).trim() === '') {
+			this.log.error(`Invalid event passed: ${event}. Aborting event invocation...`);
+			return false;
+		}
 
-		if (eventName.includes('[object Object]') || eventName.endsWith('.')) {
-        return;
-    }
+		let eventName = event;
+		if (!event.startsWith(NS)) {
+			eventName = `${NS}:${event}`;
+		}
 
 		try {
         	player.triggerEvent(eventName);
-    	} catch (e: any) {
-        	this.log.error(`triggerEvent '${eventName}' failed: ${e?.stack ?? e}`);
+			return true;
+    	} catch (e) {
+        	this.log.error(`triggerEvent '${eventName}' failed: ${e}`);
     	}
+		return false;
 	}
 
 	/** Returns the entry of `steps` closest to `value`. */
