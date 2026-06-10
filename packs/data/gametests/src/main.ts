@@ -22,6 +22,7 @@ import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 
 //* Powers
+import './domain/powers/ClawDigging'
 import './domain/powers/DarkVision'
 import './domain/powers/TunnelLeap'
 import './domain/powers/BurrowSense'
