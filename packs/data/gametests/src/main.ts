@@ -22,11 +22,12 @@ import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 
 //* Powers
-import './domain/powers/HeavyBones'
-import './domain/powers/ClawDigging'
-import './domain/powers/DarkVision'
-import './domain/powers/TunnelLeap'
-import './domain/powers/BurrowSense'
+import './domain/powers/Photosensitive';
+import './domain/powers/HeavyBones';
+import './domain/powers/ClawDigging';
+import './domain/powers/DarkVision';
+import './domain/powers/TunnelLeap';
+import './domain/powers/BurrowSense';
 import './domain/powers/NaturalArmor';
 import './domain/powers/ShulkInventory';
 import './domain/powers/BoastingFirepower';
