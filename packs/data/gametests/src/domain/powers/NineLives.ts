@@ -1,3 +1,4 @@
+import { AttributeOverrides } from '../../services/Attributes';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
@@ -8,7 +9,7 @@ import { RegisterPower } from '../Registries';
 @RegisterPower
 export class NineLives implements Power {
 	readonly id = 'nine_lives';
-	readonly attributes = {
+	readonly attributes: AttributeOverrides = {
 		health: 18,
-	} satisfies NonNullable<Power['attributes']>;
+	}
 }

@@ -1,3 +1,4 @@
+import { AttributeOverrides } from '../../services/Attributes';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
@@ -9,7 +10,7 @@ import { RegisterPower } from '../Registries';
 @RegisterPower
 export class Fragile implements Power {
 	readonly id = 'fragile';
-	readonly attributes = {
+	readonly attributes: AttributeOverrides	 = {
 		health: 14,
-	} satisfies NonNullable<Power['attributes']>;
+	}
 }

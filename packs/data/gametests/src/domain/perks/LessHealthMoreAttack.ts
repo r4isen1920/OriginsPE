@@ -1,3 +1,4 @@
+import { AttributeOverrides } from '../../services/Attributes';
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
 
@@ -9,8 +10,8 @@ import { RegisterPerk } from '../Registries';
 @RegisterPerk
 export class LessHealthMoreAttack implements Perk {
 	readonly id = 'less_health_more_attack';
-	readonly attributes = {
+	readonly attributes: AttributeOverrides = {
 		health: 16,
 		attack: 2,
-	} satisfies NonNullable<Perk['attributes']>;
+	}
 }

@@ -1,3 +1,4 @@
+import { AttributeOverrides } from '../../services/Attributes';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
@@ -8,7 +9,7 @@ import { RegisterPower } from '../Registries';
 @RegisterPower
 export class Tailwind implements Power {
 	readonly id = 'tailwind';
-	readonly attributes = {
+	readonly attributes: AttributeOverrides = {
 		movement: 0.15,
-	} satisfies NonNullable<Power['attributes']>;
+	}
 }
