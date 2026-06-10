@@ -11,7 +11,7 @@ import { Power } from '../Ability';
  */
 @RegisterPower
 export class Impervious implements Power {
-	readonly id = 'impervious';
+	readonly id = 'fire_immunity';
 	readonly tickInterval = 1;
 
 	private static pendingEffects = new Set<string>();

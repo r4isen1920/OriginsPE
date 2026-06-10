@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,11 +6,12 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Blazeborn implements Origin {
 	readonly id = 'blazeborn';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
-		'impervious',
-		'nether_inhabitant',
-		'ember',
+		'fire_immunity',
+		'nether_spawn',
+		'burning_wrath',
 		'hotblooded',
-		'hydrophobia',
+		'water_vulnerability',
 	];
 }

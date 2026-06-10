@@ -11,7 +11,8 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 
 @RegisterPower
 export class Pollenate implements Power {
-	readonly id = 'pollenate';
+	readonly id = 'bloom';
+	readonly icon = '18';
 	readonly tickInterval = 10;
 
 	private static readonly log = Log.get('Pollenate');

@@ -8,7 +8,7 @@ import { RegisterPower } from '../Registries';
  */
 @RegisterPower
 export class ShortLifespan implements Power {
-	readonly id = 'short_lifespan';
+	readonly id = 'lifespan';
 	readonly attributes = {
 		health: 14,
 	} satisfies NonNullable<Power['attributes']>;

@@ -1,49 +1,38 @@
+import { ClassRegistry, OriginRegistry } from '../domain/Registries';
 import type { PickerKind } from './UiPayload';
-
-
-//#region REGISTRY
-
-/**
- * Mirror of the navigable id ordering in `packs/data/jsonte/data.json`. Kept
- * hand-synced rather than imported because the runtime only ever needs the id
- * sequence (icons/difficulty/traits all live in the JSON UI binding layer).
- *
- * Convention: index 0 is the special `random` slot and is excluded from
- * sequential navigation. {@link nextId} / {@link prevId} cycle through the
- * remaining entries (the navigable set).
- */
-const ORIGINS: readonly string[] = [
-	'random',
-	'human', 'avian', 'arachnid', 'elytrian', 'shulk', 'feline', 'enderian',
-	'merling', 'blazeborn', 'phantom', 'kitsune', 'slimecican', 'inchling',
-	'bee', 'piglin', 'starborne', 'elf', 'voidwalker', 'diviner', 'mole', 'rootkin',
-];
-
-const CLASSES: readonly string[] = [
-	'random',
-	'nitwit', 'archer', 'beastmaster', 'blacksmith', 'cleric', 'cook', 'explorer',
-	'farmer', 'lumberjack', 'merchant', 'miner', 'rancher', 'rogue', 'warrior',
-];
 
 
 //#region API
 
+/**
+ * Registered being ids for `kind`, in registration order. This mirrors the
+ * domain registries (the single source of truth) rather than a hand-synced list,
+ * so adding an origin/class in `domain/` automatically flows through here, the
+ * emitted `jsonte` data, and the picker UI.
+ *
+ * The special `random` slot is not a registered being; {@link allIds} prepends it.
+ */
+function registeredIds(kind: PickerKind): readonly string[] {
+	return kind === 'race' ? OriginRegistry.ids() : ClassRegistry.ids();
+}
+
 /** All ids for `kind`, including the `random` sentinel at index 0. */
 export function allIds(kind: PickerKind): readonly string[] {
-	return kind === 'race' ? ORIGINS : CLASSES;
+	return ['random', ...registeredIds(kind)];
 }
 
 /** Sequentially navigable ids only (excludes `random`). */
 export function navigableIds(kind: PickerKind): readonly string[] {
-	return allIds(kind).slice(1);
+	return registeredIds(kind);
 }
 
-/** True if `id` is a registered being for `kind`. */
+/** True if `id` is a registered being for `kind`, or the `random` sentinel. */
 export function isValidId(kind: PickerKind, id: string): boolean {
-	return allIds(kind).includes(id);
+	if (id === 'random') return true;
+	return kind === 'race' ? OriginRegistry.has(id) : ClassRegistry.has(id);
 }
 
-/** Default id for `kind` (used when a player has no current selection). */
+/** Default id for `kind` (the first registered being). */
 export function defaultId(kind: PickerKind): string {
-	return kind === 'race' ? 'human' : 'nitwit';
+	return registeredIds(kind)[0] ?? (kind === 'race' ? 'human' : 'nitwit');
 }

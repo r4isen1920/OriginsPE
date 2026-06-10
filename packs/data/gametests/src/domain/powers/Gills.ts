@@ -6,7 +6,7 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class Gills implements Power {
-	readonly id = 'gills';
+	readonly id = 'water_breathing';
 	readonly tickInterval = 3;
 
 	onTick(player: Player): void {

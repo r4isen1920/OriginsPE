@@ -38,7 +38,8 @@ const BREAKABLE_BLOCKS: Record<string, string> = {
  */
 @RegisterPower
 export class TunnelLeap implements Power {
-    readonly id = 'tunnel_leap';
+	readonly id = 'tunnel_leap';
+	readonly icon = '23';
 
     readonly active = {
         icon: '23',

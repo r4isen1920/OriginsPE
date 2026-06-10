@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,9 +6,10 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Phantom implements Origin {
 	readonly id = 'phantom';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'phantomize',
-		'spiritual_body',
-		'undead',
+		'invisibility',
+		'burns_in_daylight',
 	];
 }

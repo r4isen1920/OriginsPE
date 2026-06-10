@@ -15,14 +15,14 @@ import { AfterPlayerDimensionChange } from '../../core/DecoratedEvents';
 
 @RegisterPower
 export class NetherInhabitant implements Power {
-	readonly id = 'nether_inhabitant';
+	readonly id = 'nether_spawn';
 
 	@AfterPlayerDimensionChange
 	static onDimensionChange(event: PlayerDimensionChangeAfterEvent): void {
 		const { toDimension, player } = event;
 		const state = PlayerState.for(player);
 
-		if (!state.hasPower('nether_inhabitant')) return;
+		if (!state.hasPower('nether_spawn')) return;
 
 		if (
 			state.getFlag<boolean>('nether_spawn_check') !== true ||
@@ -60,7 +60,7 @@ export class NetherInhabitant implements Power {
 	static onPlayerTick(player: Player): void {
 		const state = PlayerState.for(player);
 
-		if (!state.hasPower('nether_inhabitant')) {
+		if (!state.hasPower('nether_spawn')) {
 			if (
 				state.getFlag<boolean>('nether_spawned') === true ||
 				state.getFlag<boolean>('nether_spawn_check') === true

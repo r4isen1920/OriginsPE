@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,10 +6,11 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Enderian implements Origin {
 	readonly id = 'enderian';
+	readonly difficulty = OriginDifficulty.Medium;
 	readonly powers: readonly string[] = [
-		'teleportation',
-		'scared_of_gourds',
+		'throw_ender_pearl',
+		'pumpkin_hate',
 		'familiar_face',
-		'hydrophobia',
+		'water_vulnerability',
 	];
 }

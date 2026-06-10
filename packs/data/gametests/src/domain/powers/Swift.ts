@@ -9,7 +9,7 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class Swift implements Power {
-	readonly id = 'swift';
+	readonly id = 'agility';
 	readonly tickInterval = 5;
 
 	onRelease(player: Player): void {

@@ -10,14 +10,14 @@ import { PlayerState } from '../../core/PlayerState';
  */
 @RegisterPerk
 export class ShieldWield implements Perk {
-    readonly id = 'shield_wield';
+    readonly id = 'less_shield_slowdown';
 
     onRelease(player: Player): void {
         player.removeEffect('resistance');
     }
 
     onTick(player: Player): void {
-        if (!PlayerState.for(player).hasPerk('shield_wield')) return;
+        if (!PlayerState.for(player).hasPerk('less_shield_slowdown')) return;
 
         const offhand = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Offhand);
         const hasShield = offhand?.typeId === 'minecraft:shield';

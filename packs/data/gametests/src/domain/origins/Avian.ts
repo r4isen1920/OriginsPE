@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,8 +6,9 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Avian implements Origin {
 	readonly id = 'avian';
+	readonly difficulty = OriginDifficulty.Easy;
 	readonly powers: readonly string[] = [
-		'tail_wind',
+		'tailwind',
 		'slow_falling',
 		'vegetarian',
 		'fresh_air',

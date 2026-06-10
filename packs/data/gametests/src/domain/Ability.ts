@@ -17,8 +17,6 @@ import {
 import type { AttributeOverrides } from '../services/Attributes';
 
 
-//#region SHARED TYPES
-
 /** Optional model/skin/emitter overrides applied via data-driven entity events. */
 export interface OriginEffects {
 	model?: string;
@@ -60,6 +58,12 @@ export interface ActiveAbility {
 export interface Ability {
 	/** Stable id (matches the legacy folder filename, e.g. "high_jump"). */
 	readonly id: string;
+
+	/**
+	 * Two-character icon id from the `textures/origins/hud/cooldown/` atlas shown
+	 * beside this trait in the powers list (e.g. "01"). Omit for traits with no icon.
+	 */
+	readonly icon?: string;
 
 	/** If set, the player tick loop calls {@link onTick} every N ticks. */
 	readonly tickInterval?: number;
@@ -128,24 +132,35 @@ export interface Ability {
 }
 
 
-//#region POWER
-
 /** A power granted by the player's chosen origin. Use `implements Power`. */
 export interface Power extends Ability {}
-
-
-//#region PERK
 
 /** A perk granted by the player's chosen class. Use `implements Perk`. */
 export interface Perk extends Ability {}
 
 
-//#region ORIGIN
+/** Difficulty tier shown by the picker UI for an origin. */
+export enum OriginDifficulty {
+	Human = 'human',
+	Easy = 'easy',
+	Medium = 'medium',
+	Hard = 'hard',
+}
+
+/** Difficulty tier shown by the picker UI for a class. */
+export enum ClassDifficulty {
+	Nitwit = 'nitwit',
+	Decent = 'decent',
+	Very = 'very',
+}
+
 
 /** A selectable origin (race) granting a fixed list of powers. Use `implements Origin`. */
 export interface Origin {
 	readonly id: string;
-	/** Power ids (must exist in `PowerRegistry`). */
+	/** Otherwise known as the **impact** of this Origin to the gameplay. */
+	readonly difficulty: OriginDifficulty;
+	/** Power ids (lang-token spelling, e.g. "webbing"). Order drives the powers UI. */
 	readonly powers: readonly string[];
 	/** Optional control bindings. */
 	readonly controls?: readonly string[];
@@ -154,12 +169,12 @@ export interface Origin {
 }
 
 
-//#region CLASS
-
 /** A selectable class granting a fixed list of perks. Use `implements CharacterClass`. */
 export interface CharacterClass {
 	readonly id: string;
-	/** Perk ids (must exist in `PerkRegistry`). */
+	/** Otherwise known as how **game-changing** this Class is to the gameplay. */
+	readonly difficulty: ClassDifficulty;
+	/** Perk ids (lang-token spelling). Order drives the powers UI. */
 	readonly perks: readonly string[];
 	/** Optional control bindings. */
 	readonly controls?: readonly string[];

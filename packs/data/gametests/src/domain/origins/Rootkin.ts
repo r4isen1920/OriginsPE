@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,12 +6,13 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Rootkin implements Origin {
 	readonly id = 'rootkin';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'wrathroot',
 		'vine_bind',
-		'chain_break',
+		'vine_bind_power',
 		'leech_life',
 		'flammable',
-		'barehanded',
+		'no_weapon',
 	];
 }

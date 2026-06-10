@@ -88,6 +88,7 @@ function createOreHighlights(player: Player, oreLocations: { x: number; y: numbe
 @RegisterPower
 export class BurrowSense implements Power {
     readonly id = 'burrow_sense';
+    readonly icon = '22';
 
     private static breakHandler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;

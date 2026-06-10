@@ -4,7 +4,7 @@ import { RegisterPower } from '../Registries';
 
 @RegisterPower
 export class OceansGift implements Power {
-	readonly id = 'oceans_gift';
+	readonly id = 'no_trident_damage';
 
 	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
 		if (!player.isValid) return;

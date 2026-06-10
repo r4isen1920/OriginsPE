@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,11 +6,12 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Shulk implements Origin {
 	readonly id = 'shulk';
+	readonly difficulty = OriginDifficulty.Medium;
 	readonly powers: readonly string[] = [
 		'shulk_inventory',
 		'natural_armor',
-		'large_appetite',
-		'unwieldy',
+		'more_exhaustion',
+		'no_shield',
 		'strong_arms',
 	];
 }

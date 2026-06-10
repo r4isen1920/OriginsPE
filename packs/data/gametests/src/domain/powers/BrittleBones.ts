@@ -9,7 +9,7 @@ import { Power } from '../Ability';
 
 @RegisterPower
 export class BrittleBones implements Power {
-	readonly id = 'brittle_bones';
+	readonly id = 'more_kinetic_damage';
 
 	onHurtBefore(_player: Player, ev: EntityHurtBeforeEvent): void {
 		if (

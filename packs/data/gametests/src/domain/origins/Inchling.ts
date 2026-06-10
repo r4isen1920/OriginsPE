@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,10 +6,11 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Inchling implements Origin {
 	readonly id = 'inchling';
+	readonly difficulty = OriginDifficulty.Medium;
 	readonly powers: readonly string[] = [
 		'nimble',
-		'hyperactive',
-		'small_appetite',
+		'hyper_active',
+		'small_apetite',
 		'bite_sized',
 		'poisonous',
 	];

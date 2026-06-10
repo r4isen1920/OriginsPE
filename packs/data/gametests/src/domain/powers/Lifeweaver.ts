@@ -8,6 +8,7 @@ import { Log } from '../../utils/Log';
 @RegisterPower
 export class Lifeweaver implements Power {
 	readonly id = 'lifeweaver';
+	readonly icon = '16';
 	readonly tickInterval = 1;
 
 	private static readonly COOLDOWN_BAR_ID = 16;

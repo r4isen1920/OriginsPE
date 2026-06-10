@@ -10,5 +10,5 @@ import { RegisterPerk } from '../Registries';
  */
 @RegisterPerk
 export class QualityEquipment implements Perk {
-	readonly id = 'quality_equipment';
+	readonly id = 'efficient_repairs';
 }

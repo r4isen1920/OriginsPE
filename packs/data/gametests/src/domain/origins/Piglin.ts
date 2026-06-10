@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,12 +6,13 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Piglin implements Origin {
 	readonly id = 'piglin';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
 		'pride',
-		'boasting_firepower',
+		'increased_attack_per_entity',
 		'gluttony',
 		'courage',
-		'nether_inhabitant',
+		'nether_spawn',
 		'heavy_pockets',
 	];
 }

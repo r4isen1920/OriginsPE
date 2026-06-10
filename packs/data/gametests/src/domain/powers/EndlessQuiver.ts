@@ -9,6 +9,7 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 @RegisterPower
 export class EndlessQuiver implements Power {
 	readonly id = 'endless_quiver';
+	readonly icon = '17';
 	readonly tickInterval = 3;
 
 	private static readonly RESOURCE_BAR_ID = 17;

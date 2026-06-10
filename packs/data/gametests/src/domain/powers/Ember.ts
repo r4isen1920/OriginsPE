@@ -10,7 +10,8 @@ import { PlayerState } from '../../core/PlayerState';
 
 @RegisterPower
 export class Ember implements Power {
-	readonly id = 'ember';
+	readonly id = 'burning_wrath';
+	readonly icon = '04';
 
 	onAttack(player: Player, ev: EntityHitEntityAfterEvent): void {
 		const hitEntity = ev.hitEntity;

@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,6 +6,7 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Arachnid implements Origin {
 	readonly id = 'arachnid';
+	readonly difficulty = OriginDifficulty.Easy;
 	readonly powers: readonly string[] = [
 		'webbing',
 		'master_of_webs',

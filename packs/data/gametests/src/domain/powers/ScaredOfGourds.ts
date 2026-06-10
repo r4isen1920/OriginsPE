@@ -5,7 +5,7 @@ import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class ScaredOfGourds implements Power {
-	readonly id = 'scared_of_gourds';
+	readonly id = 'pumpkin_hate';
 	readonly tickInterval = 3;
 
 	onRelease(player: Player): void {

@@ -17,7 +17,7 @@ const CROP_TYPES = ['wheat', 'beetroot', 'carrots', 'potatoes'];
  */
 @RegisterPerk
 export class MoreCropsDrop implements Perk {
-    readonly id = 'more_crops_drop';
+    readonly id = 'more_crop_drops';
 
     private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
@@ -43,7 +43,7 @@ export class MoreCropsDrop implements Perk {
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
         const { block, brokenBlockPermutation, player } = ev;
 
-        if (!PlayerState.for(player).hasPerk('more_crops_drop')) return;
+        if (!PlayerState.for(player).hasPerk('more_crop_drops')) return;
 
         const crop = CROP_TYPES.find(c => brokenBlockPermutation.matches(`minecraft:${c}`));
         if (!crop) return;

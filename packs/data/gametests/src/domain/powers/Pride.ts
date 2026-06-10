@@ -52,6 +52,7 @@ function normalize(value: number, max: number = MAX_GOLD_SCORE): number {
 @RegisterPower
 export class Pride implements Power {
     readonly id = 'pride';
+    readonly icon = '15';
 
     onTick(player: Player): void {
         const inventorySlots = ItemUtils.findAll(player);

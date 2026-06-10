@@ -7,7 +7,8 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 
 @RegisterPower
 export class Teleportation implements Power {
-	readonly id = 'teleportation';
+	readonly id = 'throw_ender_pearl';
+	readonly icon = '03';
 	readonly tickInterval = 3;
 
 	private static readonly COOLDOWN_BAR_ID = 3;

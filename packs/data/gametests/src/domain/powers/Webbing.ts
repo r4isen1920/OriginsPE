@@ -14,6 +14,7 @@ import { Log } from '../../utils/Log';
 @RegisterPower
 export class Webbing implements Power {
     readonly id = 'webbing';
+    readonly icon = '01';
     readonly tickInterval = 1;
 	private static readonly log = Log.get('Webbing');
 

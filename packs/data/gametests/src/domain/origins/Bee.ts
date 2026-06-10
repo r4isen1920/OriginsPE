@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,11 +6,12 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Bee implements Origin {
 	readonly id = 'bee';
+	readonly difficulty = OriginDifficulty.Hard;
 	readonly powers: readonly string[] = [
-		'fatality',
-		'stingers',
-		'pollenate',
-		'diurnal',
-		'short_lifespan',
+		'poison_bonus_damage',
+		'sacrifice_stinger',
+		'bloom',
+		'nighttime',
+		'lifespan',
 	];
 }

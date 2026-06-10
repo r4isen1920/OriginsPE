@@ -1,4 +1,4 @@
-import { Origin } from '../Ability';
+import { Origin, OriginDifficulty } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -6,12 +6,13 @@ import { RegisterOrigin } from '../Registries';
 @RegisterOrigin
 export class Elytrian implements Origin {
 	readonly id = 'elytrian';
+	readonly difficulty = OriginDifficulty.Easy;
 	readonly powers: readonly string[] = [
-		'gift_of_the_winds',
-		'winged',
-		'need_for_mobility',
+		'launch_into_air',
+		'elytra',
+		'light_armor',
 		'claustrophobia',
-		'brittle_bones',
-		'aerial_combatant'
+		'more_kinetic_damage',
+		'aerial_combatant',
 	];
 }

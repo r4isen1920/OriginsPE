@@ -7,7 +7,7 @@ import { RegisterPower } from '../Registries';
  */
 @RegisterPower
 export class Tailwind implements Power {
-	readonly id = 'tail_wind';
+	readonly id = 'tailwind';
 	readonly attributes = {
 		movement: 0.15,
 	} satisfies NonNullable<Power['attributes']>;

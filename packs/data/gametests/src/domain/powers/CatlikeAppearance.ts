@@ -11,7 +11,7 @@ type TargetComponent = {
 
 @RegisterPower
 export class CatlikeAppearance implements Power {
-	readonly id = 'catlike_appearance';
+	readonly id = 'scare_creepers';
 	readonly tickInterval = 3;
 
 	onRelease(player: Player): void {

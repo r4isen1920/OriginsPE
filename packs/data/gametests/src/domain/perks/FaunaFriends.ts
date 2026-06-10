@@ -9,7 +9,7 @@ import { RegisterPerk } from '../Registries';
  */
 @RegisterPerk
 export class FaunaFriends implements Perk {
-	readonly id = 'fauna_friends';
+	readonly id = 'tamed_animal_boost';
 
 	onTick(player: Player): void {
 		if (player.hasTag('perk_tamed_animal_boost')) return;

@@ -1,4 +1,4 @@
-import { CharacterClass } from '../Ability';
+import { CharacterClass, ClassDifficulty } from '../Ability';
 import { RegisterClass } from '../Registries';
 
 
@@ -6,8 +6,9 @@ import { RegisterClass } from '../Registries';
 @RegisterClass
 export class Warrior implements CharacterClass {
 	readonly id = 'warrior';
+	readonly difficulty = ClassDifficulty.Very;
 	readonly perks: readonly string[] = [
 		'less_health_more_attack',
-		'shield_wield',
+		'less_shield_slowdown',
 	];
 }
