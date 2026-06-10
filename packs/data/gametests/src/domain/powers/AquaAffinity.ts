@@ -8,6 +8,8 @@ export class AquaAffinity implements Power {
 	readonly tickInterval = 3;
 
 	onTick(player: Player): void {
+		if (!player.isInWater) return;
+
 		player.addEffect('night_vision', TicksPerSecond * 12, {
 			amplifier: 4,
 			showParticles: false
