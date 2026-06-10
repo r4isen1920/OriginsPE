@@ -1,5 +1,6 @@
 import {
 	Player,
+	EntityComponentTypes,
 	EquipmentSlot,
 	ItemStack,
 	ItemLockMode,
@@ -19,8 +20,12 @@ export class Winged implements Power {
 	readonly tickInterval = 100;
 	private static readonly ELYTRA_LORE = '§r§6Elytrian§r';
 
+	onAcquire(player: Player): void {
+		this.ensureElytra(player);
+	}
+
 	onRelease(player: Player): void {
-		const equippableComp = player.getComponent('equippable');
+		const equippableComp = player.getComponent(EntityComponentTypes.Equippable);
 		if (!equippableComp) return;
 
 		const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);
@@ -35,7 +40,11 @@ export class Winged implements Power {
 	}
 
 	onTick(player: Player): void {
-		const equippableComp = player.getComponent('equippable');
+		this.ensureElytra(player);
+	}
+
+	private ensureElytra(player: Player): void {
+		const equippableComp = player.getComponent(EntityComponentTypes.Equippable);
 		if (!equippableComp) return;
 
 		const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);
