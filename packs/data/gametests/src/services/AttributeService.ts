@@ -3,10 +3,10 @@ import { Player } from '@minecraft/server';
 import { NS } from '../Constants';
 import { Log } from '../utils/Log';
 import {
-	AttributeKey,
-	AttributeOverrides,
+	type AttributeKey,
+	type AttributeOverrides,
+	type PlayerAttributes,
 	DEFAULT_ATTRIBUTES,
-	PlayerAttributes,
 	STEPPED_ATTRIBUTES,
 } from './Attributes';
 
@@ -28,11 +28,13 @@ export class AttributeService {
 		const last = this.applied.get(player.id) ?? {};
 		const next: Partial<PlayerAttributes> = { ...last };
 
-		for (const key of Object.keys(DEFAULT_ATTRIBUTES) as AttributeKey[]) {
+		const keys = Object.keys(DEFAULT_ATTRIBUTES) as AttributeKey[];
+		for (const key of keys) {
 			const value = attrs[key];
 			if (value === undefined) continue;
 			if (last[key] === value) continue;
-			next[key] = value;
+			const mutableNext = next as Partial<Record<AttributeKey, PlayerAttributes[AttributeKey]>>;
+			mutableNext[key] = value;
 			this.trigger(player, key, value);
 		}
 		this.applied.set(player.id, next);
@@ -53,7 +55,7 @@ export class AttributeService {
 
 	//#region INTERNAL
 
-	private static trigger(player: Player, key: AttributeKey, value: PlayerAttributes[AttributeKey]): void {
+	private static trigger<K extends AttributeKey>(player: Player, key: K, value: PlayerAttributes[K]): void {
 		const stepped = STEPPED_ATTRIBUTES[key];
 		if (stepped) {
 			const snapped = this.snap(value as number, stepped.steps);

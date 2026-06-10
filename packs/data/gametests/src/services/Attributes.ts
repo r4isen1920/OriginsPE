@@ -83,6 +83,8 @@ export interface PlayerAttributes {
 	burnsInDaylight: boolean;
 	/** Whether the player's nametag/display name is shown. */
 	displayName: boolean;
+	/** Damage overrides applied to the player. */
+	damageOverrides?: DamageOverride[];
 }
 
 /** Any key of {@link PlayerAttributes}. */
@@ -92,9 +94,7 @@ export type AttributeKey = keyof PlayerAttributes;
  * A partial set of attribute values to apply on top of the current profile.
  * Damage overrides are collected alongside the normal stat overlay.
  */
-export type AttributeOverrides = Partial<PlayerAttributes> & {
-	readonly damageOverrides?: readonly DamageOverride[];
-};
+export type AttributeOverrides = Partial<PlayerAttributes>;
 
 
 //#region DEFAULTS
@@ -116,6 +116,7 @@ export const DEFAULT_ATTRIBUTES: Readonly<PlayerAttributes> = Object.freeze({
 	isShaking: false,
 	burnsInDaylight: false,
 	displayName: true,
+	damageOverrides: [],
 });
 
 
