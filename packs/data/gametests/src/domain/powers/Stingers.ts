@@ -1,7 +1,8 @@
-import { Player, TicksPerSecond, EntityHitEntityAfterEvent } from '@minecraft/server';
+import { Player, TicksPerSecond, EntityHitEntityAfterEvent, system } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
+import { ResourceBarService } from '../../services/ResourceBarService';
 import { Log } from '../../utils/Log';
 
 /**
@@ -16,9 +17,19 @@ export class Stingers implements Power {
 	readonly tickInterval = 2;
 	private static readonly log = Log.get('Stingers');
 
+	private static readonly COOLDOWN_BAR_ID = 13;
+	private static readonly COOLDOWN_KEY = 'stingers_cooldown';
+	private static readonly COOLDOWN_TICKS = TicksPerSecond * 5;
+
 	onAttack(player: Player, ev: EntityHitEntityAfterEvent): void {
 		const hurtEntity = ev.hitEntity;
 		if (!hurtEntity) return;
+
+		if (player.isOnGround) return;
+
+		const state = PlayerState.for(player);
+		const now = system.currentTick;
+		if (state.isOnCooldown(Stingers.COOLDOWN_KEY, now)) return;
 
 		if (hurtEntity.getEffect('fatal_poison')?.duration ?? 0) {
 			Stingers.log.debug(
@@ -27,9 +38,12 @@ export class Stingers implements Power {
 			return;
 		}
 
-		if (player.isOnGround) return;
+		state.setCooldown(Stingers.COOLDOWN_KEY, now, Stingers.COOLDOWN_TICKS);
+		ResourceBarService.push(player, {
+			id: Stingers.COOLDOWN_BAR_ID,
+			durationSeconds: 5
+		});
 
-		const state = PlayerState.for(player);
 		hurtEntity.addEffect('fatal_poison', TicksPerSecond * 7, { amplifier: 0 });
 
 		let stingers = state.getFlag<number>('bee_stingers_left');
@@ -40,7 +54,6 @@ export class Stingers implements Power {
 
 		stingers--;
 		state.setFlag('bee_stingers_left', stingers);
-		player.sendMessage(`§eYou used a stinger! ${stingers} remaining.§r`);
 
 		hurtEntity.dimension.spawnParticle(
 			'r4isen1920_originspe:bee_poison_sting',

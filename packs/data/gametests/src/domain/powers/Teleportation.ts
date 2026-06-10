@@ -1,14 +1,19 @@
-import { Player, system, ItemStack, world } from '@minecraft/server';
+import { Player, system, ItemStack } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { BeforeItemUse } from '../../core/DecoratedEvents';
+import { ResourceBarService } from '../../services/ResourceBarService';
 
 @RegisterPower
 export class Teleportation implements Power {
 	readonly id = 'throw_ender_pearl';
 	readonly icon = '03';
 	readonly tickInterval = 3;
+
+	private static readonly COOLDOWN_BAR_ID = 3;
+	private static readonly COOLDOWN_KEY = 'teleportation_cooldown';
+	private static readonly COOLDOWN_TICKS = 100;
 
 	private static readonly PEARL_LORE = '§r§5Enderian Rift Pearl§r';
 
@@ -24,16 +29,10 @@ export class Teleportation implements Power {
 
 		system.run(() => {
 			const currentTick = system.currentTick;
-			const onCooldown = state.isOnCooldown('teleportation_cooldown', currentTick);
+			const onCooldown = state.isOnCooldown(Teleportation.COOLDOWN_KEY, currentTick);
 
 			if (onCooldown) {
 				player.playSound('note.bass', { volume: 1.0, pitch: 1.5 });
-				const expiryTick = state.getFlag<number>('teleportation_expiry') ?? currentTick;
-				const ticksLeft = expiryTick - currentTick;
-				if (ticksLeft > 0) {
-					const secondsLeft = (ticksLeft / 20).toFixed(1);
-					player.sendMessage(`§cTeleportation is on cooldown! §e${secondsLeft}s §cleft.`);
-				}
 				return;
 			}
 
@@ -76,8 +75,15 @@ export class Teleportation implements Power {
 
 			player.teleport(targetLocation, { dimension: block.dimension });
 
-			state.setCooldown('teleportation_cooldown', currentTick, 100);
-			state.setFlag('teleportation_expiry', currentTick + 100);
+			state.setCooldown(
+				Teleportation.COOLDOWN_KEY,
+				currentTick,
+				Teleportation.COOLDOWN_TICKS
+			);
+			ResourceBarService.push(player, {
+				id: Teleportation.COOLDOWN_BAR_ID,
+				durationSeconds: 5
+			});
 		});
 	}
 

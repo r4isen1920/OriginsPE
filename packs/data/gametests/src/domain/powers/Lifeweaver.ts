@@ -2,6 +2,7 @@ import { Player, system, TicksPerSecond, EntityHurtAfterEvent } from '@minecraft
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
+import { ResourceBarService } from '../../services/ResourceBarService';
 import { Log } from '../../utils/Log';
 
 @RegisterPower
@@ -10,6 +11,9 @@ export class Lifeweaver implements Power {
 	readonly icon = '16';
 	readonly tickInterval = 1;
 
+	private static readonly COOLDOWN_BAR_ID = 16;
+	private static readonly COOLDOWN_KEY = 'lifeweaver_cooldown';
+	private static readonly COOLDOWN_TICKS = 600;
 	private static readonly log = Log.get('Lifeweaver');
 
 	onHurt(player: Player, ev: EntityHurtAfterEvent): void {
@@ -17,7 +21,7 @@ export class Lifeweaver implements Power {
 		const state = PlayerState.for(player);
 		const currentTick = system.currentTick;
 
-		if (state.isOnCooldown('lifeweaver_cooldown', currentTick)) return;
+		if (state.isOnCooldown(Lifeweaver.COOLDOWN_KEY, currentTick)) return;
 
 		let currentDamageWindow = state.getFlag<number>('lifeweaver_damage_window') ?? 0;
 		currentDamageWindow += damage;
@@ -73,6 +77,10 @@ export class Lifeweaver implements Power {
 			pitch: 1.25
 		});
 
-		state.setCooldown('lifeweaver_cooldown', currentTick, 600);
+		state.setCooldown(Lifeweaver.COOLDOWN_KEY, currentTick, Lifeweaver.COOLDOWN_TICKS);
+		ResourceBarService.push(player, {
+			id: Lifeweaver.COOLDOWN_BAR_ID,
+			durationSeconds: 30
+		});
 	}
 }
