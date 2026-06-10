@@ -111,6 +111,12 @@ import './domain/powers/NoShield';
 import './domain/powers/StrongArms';
 import './domain/powers/Phantomize';
 import './domain/powers/BurnsInDaylight';
+import './domain/powers/BouncyBody';
+import './domain/powers/HighJump';
+import './domain/powers/Sticky';
+import './domain/powers/Fragmentation';
+import './domain/powers/SlimeBallConsume';
+import './domain/powers/Invisibility';
 
 //-------------------------------------------
 
