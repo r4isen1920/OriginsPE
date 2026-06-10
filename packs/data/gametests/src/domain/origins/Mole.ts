@@ -16,5 +16,6 @@ export class Mole implements Origin {
 		'claustrophile',
 		'photosensitive',
 		'poor_swimmer',
+		'vegetarian'
 	];
 }
