@@ -38,10 +38,10 @@ const ORE_BLOCKS = [
 const DIRECTIONS = ['north', 'south', 'west', 'east', 'above', 'below'] as const;
 type NeighborDirection = typeof DIRECTIONS[number];
 
+
 @RegisterPerk
 export class OreVeinMiner implements Perk {
     readonly id = 'ore_vein_miner';
-    readonly tickInterval = 2;
 
     private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
@@ -63,19 +63,29 @@ export class OreVeinMiner implements Perk {
     }
 
     onTick(player: Player): void {
-        player.dimension.getEntities({
+        if (!PlayerState.for(player).hasPerk('ore_vein_miner')) return;
+
+        const entities = player.dimension.getEntities({
             location: player.location,
             maxDistance: 48,
             type: 'r4isen1920_originspe:vein_miner',
-        })?.forEach(veinMinerEntity => {
+        });
+
+        for (const veinMinerEntity of entities) {
+            // Only process entities belonging to this player
+            const originatorId = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:originator') as string;
+            if (originatorId !== player.id) continue;
+
+            const iteration = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:iteration') as number;
             const currentBlock = veinMinerEntity.dimension.getBlock(veinMinerEntity.location);
 
-            if ((veinMinerEntity.getDynamicProperty('r4isen1920_originspe:iteration') as number) > 27) {
+            if (iteration > 27) {
                 veinMinerEntity.remove();
-                return;
+                continue;
             }
 
             const targetBlock = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:targetBlock') as string;
+
             if (currentBlock?.permutation.matches(`minecraft:${targetBlock}`)) {
                 DIRECTIONS.forEach(direction => {
                     const neighbor = OreVeinMiner.getNeighborBlock(currentBlock, direction);
@@ -86,15 +96,13 @@ export class OreVeinMiner implements Perk {
                         neighbor.center(),
                     );
                     newEntity.setDynamicProperty('r4isen1920_originspe:targetBlock', targetBlock);
-                    newEntity.setDynamicProperty('r4isen1920_originspe:originator', veinMinerEntity.getDynamicProperty('r4isen1920_originspe:originator'));
-                    newEntity.setDynamicProperty('r4isen1920_originspe:iteration', (veinMinerEntity.getDynamicProperty('r4isen1920_originspe:iteration') as number) + 1);
+                    newEntity.setDynamicProperty('r4isen1920_originspe:originator', originatorId);
+                    newEntity.setDynamicProperty('r4isen1920_originspe:iteration', iteration + 1);
                 });
 
                 veinMinerEntity.runCommand('setblock ~~~ air [] destroy');
                 player.dimension.spawnParticle('r4isen1920_originspe:vein_mine', currentBlock.center());
 
-                // Teleport dropped items to the originator
-                const originatorId = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:originator') as string;
                 const originator = world.getEntity(originatorId);
                 if (originator) {
                     currentBlock.dimension.getEntities({
@@ -110,7 +118,7 @@ export class OreVeinMiner implements Perk {
             }
 
             veinMinerEntity.remove();
-        });
+        }
     }
 
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
