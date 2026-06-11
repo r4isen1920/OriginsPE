@@ -117,6 +117,12 @@ import './domain/powers/Sticky';
 import './domain/powers/Fragmentation';
 import './domain/powers/SlimeBallConsume';
 import './domain/powers/Invisibility';
+import './domain/powers/Wrathroot';
+import './domain/powers/VineBind';
+import './domain/powers/VineBindPower';
+import './domain/powers/LeechLife';
+import './domain/powers/Flammable';
+import './domain/powers/NoWeapon';
 
 //-------------------------------------------
 
