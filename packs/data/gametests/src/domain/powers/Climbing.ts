@@ -2,7 +2,6 @@ import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 import { EntityDamageCause, Player } from '@minecraft/server';
 import { PlayerState } from '../../core/PlayerState';
-import { Log } from '../../utils/Log';
 /**
  * Wall-climb passive. The actual physics is driven by an attached entity
  * component / animation controller bound by the data-driven event triggered
@@ -39,8 +38,24 @@ export class Climbing implements Power {
 		const viewDir = player.getViewDirection();
 		if (viewDir.y > 0.3) return;
 
-		const ray = player.getBlockFromViewDirection({ maxDistance: 2.5 });
-		const block = ray?.block;
+		const ray = player.getBlockFromViewDirection({ maxDistance: 1.5 });
+		let block = ray?.block;
+
+		if (!block || block.isAir) {
+			const blockAtFeet = player.dimension.getBlock({
+				x: Math.floor(player.location.x + viewDir.x * 0.5),
+				y: Math.floor(player.location.y),
+				z: Math.floor(player.location.z + viewDir.z * 0.5)
+			});
+
+			if (
+				blockAtFeet &&
+				!blockAtFeet.isAir &&
+				!Climbing.IGNORED_BLOCKS.includes(blockAtFeet.typeId)
+			) {
+				block = blockAtFeet;
+			}
+		}
 
 		if (block && !block.isAir && !Climbing.IGNORED_BLOCKS.includes(block.typeId)) {
 			const playerFloorY = Math.floor(player.location.y);
@@ -51,28 +66,23 @@ export class Climbing implements Power {
 				const blockAbove = block.above();
 				if (!blockAbove || blockAbove.isAir) {
 					player.applyImpulse({
-						x: viewDir.x * 0.15,
-						y: 0.25,
-						z: viewDir.z * 0.15
+						x: viewDir.x * 0.1,
+						y: 0.1,
+						z: viewDir.z * 0.1
 					});
 					return;
 				}
 			}
 
-			const horizontalDistX = Math.abs(block.location.x + 0.5 - player.location.x);
-			const horizontalDistZ = Math.abs(block.location.z + 0.5 - player.location.z);
-			if (horizontalDistX < 0.8 && horizontalDistZ < 0.8) return;
-
-			const currentY = player.getVelocity().y;
+			const velocity = player.getVelocity();
 			const targetSpeed = 0.2;
-
 			let upwardForce = 0;
 
-			if (currentY < 0) {
+			if (velocity.y < 0) {
 				upwardForce = targetSpeed;
 				player.clearVelocity();
 			} else {
-				upwardForce = Math.max(0, targetSpeed - currentY);
+				upwardForce = Math.max(0, targetSpeed - velocity.y);
 			}
 
 			if (upwardForce > 0) {
