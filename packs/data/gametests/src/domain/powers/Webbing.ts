@@ -1,14 +1,51 @@
-import { EntityHitEntityAfterEvent, Player, system, TicksPerSecond } from '@minecraft/server';
+import { BlockComponent } from '@bedrock-oss/stylish';
+import {
+	EntityHitEntityAfterEvent,
+	Block,
+	system,
+	TicksPerSecond,
+	BlockCustomComponent,
+	BlockComponentTickEvent,
+	Player
+} from '@minecraft/server';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { RegisterPower } from '../Registries';
 import { ResourceBarService } from '../../services/ResourceBarService';
-/**
- * Web-shooter / web-trap power for the Arachnid origin. The owner can place
- * cobwebs at a target location to slow nearby entities.
- *
- * Implementation deferred.
- */
+
+@BlockComponent
+export class FakeCobweb implements BlockCustomComponent {
+	public static readonly componentId = 'r4isen1920_originspe:fake_cobweb';
+
+	onTick(events: BlockComponentTickEvent): void {
+		const block = events.block;
+		const dimension = events.dimension;
+		const loc = block.location;
+		const currentBlock = block.dimension.getBlock({
+			x: Math.floor(loc.x),
+			y: Math.floor(loc.y),
+			z: Math.floor(loc.z)
+		});
+		dimension.getEntitiesAtBlockLocation(block.location).forEach((entity) => {
+			if (currentBlock?.typeId === 'r4isen1920_originspe:fake_cobweb') {
+				if (entity instanceof Player) {
+					const state = PlayerState.for(entity);
+					if (state.hasPower('webbing')) return;
+				}
+				entity.addEffect('slowness', 5, { amplifier: 4, showParticles: false });
+				entity.addEffect('slow_falling', 5, { amplifier: 4, showParticles: false });
+				entity.addEffect('poison', 5, { amplifier: 0, showParticles: false });
+			} else {
+				entity.removeEffect('slowness');
+				entity.removeEffect('slow_falling');
+				entity.removeEffect('poison');
+			}
+		});
+
+		if (!block || !block.isValid) return;
+	}
+}
+
 @RegisterPower
 export class Webbing implements Power {
 	readonly id = 'webbing';
@@ -24,6 +61,7 @@ export class Webbing implements Power {
 		if (!target || !target.isValid) return;
 
 		const state = PlayerState.for(player);
+		if (!state.hasPower('webbing')) return;
 		const now = system.currentTick;
 		if (state.isOnCooldown(Webbing.COOLDOWN_KEY, now)) return;
 
