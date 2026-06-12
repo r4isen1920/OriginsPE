@@ -49,7 +49,7 @@ export class Webbing implements Power {
 			z: Math.floor(loc.z)
 		});
 
-		if (block1 && (block1.isAir || block1.typeId === 'minecraft:tallgrass')) {
+		if (block1?.isAir) {
 			block1.setType('r4isen1920_originspe:fake_cobweb');
 		}
 	}

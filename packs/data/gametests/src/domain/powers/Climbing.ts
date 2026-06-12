@@ -24,7 +24,9 @@ export class Climbing implements Power {
 		'minecraft:tallgrass',
 		'minecraft:vine',
 		'minecraft:yellow_flower',
-		'minecraft:weeping_vines'
+		'minecraft:weeping_vines',
+		'minecraft:tall_grass',
+		'minecraft:water'
 	];
 
 	onTick(player: Player): void {
