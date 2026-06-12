@@ -228,7 +228,7 @@
 		],
 
 		//* Only render when the wheel payload owns the title channel.
-		"ignored": "(not ('%.7s' * '_op:abw'))"
+		"ignored": "(not ('%.7s' * $var_title_text = '_op:abw'))"
 	}
 
 }
