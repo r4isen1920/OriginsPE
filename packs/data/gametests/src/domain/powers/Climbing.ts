@@ -21,11 +21,11 @@ export class Climbing implements Power {
 		'minecraft:red_flower',
 		'minecraft:seagrass',
 		'minecraft:scaffolding',
-		'minecraft:tallgrass',
 		'minecraft:vine',
 		'minecraft:yellow_flower',
 		'minecraft:weeping_vines',
 		'minecraft:tall_grass',
+		'minecraft:short_grass',
 		'minecraft:water'
 	];
 
