@@ -298,10 +298,11 @@ export default class AbilitySelector {
 
 	/** Returns the name for a slot value. */
 	private static nameFor(value: string | null): string {
-		if (value === OPTIONS_SLOT) return 'origins.item.origins_submenu.name';
-		if (value === null) return ' ';
+		if (value === OPTIONS_SLOT) return 'origins.wheel.options';
+		if (value === null) return 'origins.wheel.empty';
 
 		const ability = PowerRegistry.get(value) ?? PerkRegistry.get(value);
+		if (!ability) return 'origins.wheel.empty';
 		return ability?.displayName ?? `origins.trait.${value}.name`;
 	}
 }

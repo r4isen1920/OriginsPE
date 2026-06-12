@@ -354,9 +354,6 @@ origins.trait.sapling_setblock.description=There's a chance logs you break may b
 
 origins.item.orb_of_origins.name=Orb of Origins
 origins.item.resignation_paper.name=Resignation Paper
-origins.item.origins_menu.name=§7[Toggle Menu]§r
-origins.item.origins_submenu.name=§7[More Options]§r
-origins.item.origins_menu_padding.name=§z
 
 
 origins.gui.title.pr=Choose your Origin.
@@ -439,9 +436,8 @@ origins.change.announce.class=%1 has changed their class to [%2]
 origins.change.fail.race=The Orb of Origins has been disabled
 origins.change.fail.class=The Resignation Paper has been disabled
 
-origins.ability_controls.info.usage=You have active abilities
-origins.ability_controls.info.usage_tip=(Use them like an item)
-origins.ability_controls.info.none=No active abilities
+origins.wheel.empty=§z
+origins.wheel.options=Options
 
 entity.r4isen1920_originspe:cleric_area_effect_cloud.name=§z
 entity.r4isen1920_originspe:cleric_lingering_potion.name=§z

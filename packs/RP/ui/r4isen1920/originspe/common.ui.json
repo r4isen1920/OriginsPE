@@ -81,19 +81,22 @@
 	},
 
 	"anim_beat_alpha_01": {
+		"$lowest_alpha|default": 0.0,
+		"$highest_alpha|default": 1.0,
+
 		"anim_type": "alpha",
 		"easing": "linear",
 		"duration": 0.8,
-		"from": 1.0,
-		"to": 0.0,
+		"from": "$highest_alpha",
+		"to": "$lowest_alpha",
 		"next": "@origin_common.anim_beat_alpha_02"
 	},
 	"anim_beat_alpha_02": {
 		"anim_type": "alpha",
 		"easing": "linear",
 		"duration": 0.2,
-		"from": 0.0,
-		"to": 1.0,
+		"from": "$lowest_alpha",
+		"to": "$highest_alpha",
 		"next": "@origin_common.anim_beat_alpha_01"
 	},
 

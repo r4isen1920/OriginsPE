@@ -21,22 +21,6 @@
 		"allow_debug_missing_texture": false
 	},
 
-	"box_offset_anim": {
-		"anim_type": "offset",
-		"easing": "out_cubic",
-		"from": "$from_offset",
-		"to": "$to_offset",
-		"duration": "$duration_offset"
-	},
-
-	"box_alpha_anim": {
-		"anim_type": "alpha",
-		"easing": "linear",
-		"from": "$from_alpha",
-		"to": "$to_alpha",
-		"duration": "$duration_alpha"
-	},
-
 
 
 
@@ -45,15 +29,36 @@
 	//---------------------------------------------------------------------------
 
 
-	"box_bg@origin_ability_wheel.img": {
+	"box_bg_default@origin_ability_wheel.img": {
 		"size": ["100%", "100%"],
-		"layer": 4,
+		"layer": 5,
 		"texture": "textures/origins/gui/ability_selector/ability_box_default"
+	},
+	"box_bg_hover@origin_ability_wheel.img": {
+		"size": ["100%", "100%"],
+		"layer": 5,
+		"texture": "textures/origins/gui/ability_selector/ability_box_hover"
+	},
+	"box_bg@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{
+				"default@box_bg_default": {
+					"ignored": "$slot_highlighted"
+				}
+			},
+			{
+				"hover@box_bg_hover": {
+					"ignored": "(not $slot_highlighted)"
+				}
+			}
+		]
 	},
 
 	"box_icon@origin_ability_wheel.img": {
 		"size": [22, 22],
-		"layer": 5,
+		"layer": 6,
 
 		"uv": [1, 8],
 		"uv_size": [8, 8],
@@ -65,16 +70,56 @@
 
 	"box_menu_icon@origin_ability_wheel.img": {
 		"size": [22, 22],
-		"layer": 5,
+		"layer": 7,
 		"texture": "textures/origins/gui/ability_selector/menu",
 		"ignored": "(not ($slot_icon_code = ';op'))"
 	},
 
 	"box_highlight@origin_ability_wheel.img": {
-		"size": ["100% + 2px", "100% + 2px"],
-		"layer": 6,
+		"$final_size": ["100% + 4px", "100% + 4px"],
+		"size": "$final_size",
+		"layer": 4,
 		"texture": "textures/origins/gui/ability_selector/ability_box_highlight",
-		"ignored": "(not $slot_highlighted)"
+		"ignored": "(not $slot_highlighted)",
+
+		"anims": [
+			"@origin_common.anim_size",
+			"@origin_common.anim_beat_alpha_01"
+		],
+
+		"$easing_size": "out_cubic",
+		"$from_size": ["100% + 8px", "100% + 8px"],
+		"$to_size": "$final_size",
+		"$duration_size": 1.0,
+
+		"$lowest_alpha": 0.8,
+
+		"variables": [
+			{
+				//* Open
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
+
+				"$from_size": "$final_size",
+				"$to_size": "$final_size"
+			},
+			{
+				//* Close
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'd')",
+
+				"$from_size": "$final_size",
+				"$to_size": "$final_size"
+			},
+			{
+				//* Select
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b')",
+
+				"$from_size": "$final_size",
+				"$to_size": "$final_size",
+				"$duration_size": 1.0,
+
+				"$lowest_alpha": 0.4
+			}
+		]
 	},
 
 
@@ -99,13 +144,15 @@
 					"propagate_alpha": true,
 
 					"anims": [
-						"@origin_ability_wheel.box_offset_anim",
-						"@origin_ability_wheel.box_alpha_anim"
+						"@origin_common.anim_offset",
+						"@origin_common.anim_alpha"
 					],
 
+					"$easing_offset": "out_cubic",
 					"$from_offset": "$slot_offset",
 					"$to_offset": "$slot_offset",
 					"$duration_offset": 0.05,
+
 					"$from_alpha": 1.0,
 					"$to_alpha": 1.0,
 					"$duration_alpha": 0.05,
@@ -206,15 +253,47 @@
 
 	"selected_slot_label": {
 		"type": "label",
-		"offset": [0, -62],
+		"offset": [0, -92],
 
 		"text": "($var_title_text - ('%.27s' * $var_title_text))",
-		"shadow": true
+		"localize": true,
+		"shadow": true,
+
+		"anims": [
+			"@origin_common.anim_alpha"
+		],
+
+		"$from_alpha": 0.0,
+		"$to_alpha": 1.0,
+		"$duration_alpha": 0.1
 	},
 
 
 	"bg@img": {
-		"texture": "textures/origins/gui/ability_selector/bg"
+		"texture": "textures/origins/gui/ability_selector/bg",
+
+		"anims": [
+			"@origin_common.anim_alpha"
+		],
+
+		"$from_alpha": 1.0,
+		"$to_alpha": 1.0,
+		"$duration_alpha": 0.1,
+
+		"variables": [
+			{
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
+				"$from_alpha": 0.0,
+				"$to_alpha": 1.0,
+				"$duration_alpha": 0.25
+			},
+			{
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'd')",
+				"$from_alpha": 1.0,
+				"$to_alpha": 0.0,
+				"$duration_alpha": 0.25
+			}
+		]
 	},
 
 
