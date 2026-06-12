@@ -75,11 +75,20 @@
 
 		"controls": [
 			{
-				"resource_bar_stack@origin_resource_bar.resource_bar_stack": {}
+				"resource_bar_stack@origin_resource_bar.resource_bar_stack": {
+					//* Preserve hide-during-screens now that this lives in the
+					//* always-drawn bg panel.
+					"bindings": [
+						{
+							"binding_name": "#hud_visible",
+							"binding_name_override": "#visible"
+						}
+					]
+				}
+			},
+			{
+				"ability_wheel_stack@origin_ability_wheel.ability_wheel_stack": {}
 			}
-			// {
-			// 	"shulk_inventory_icon@origin_shulk_inventory.shulk_inventory_display_access_icon": {}
-			// }
 		]
 	},
 	"custom_hud_actionbar_factory@common.empty_panel": {
@@ -100,17 +109,6 @@
 				"operation": "insert_front",
 				"value": [
 					{
-						"custom_hud_title_factory": {
-							"type": "panel",
-							"factory": {
-								"name": "hud_title_text_factory",
-								"control_ids": {
-									"hud_title_text": "controlled_element@hud.custom_hud_title_factory"
-								}
-							}
-						}
-					},
-					{
 						"custom_hud_actionbar_factory": {
 							"type": "panel",
 							"factory": {
@@ -124,5 +122,36 @@
 				]
 			}
 		]
+	},
+
+	/*
+		Bypasses safezone/visibility changes and draws above other screens (incl.
+		the NPC input screen) so the ability wheel can float over the HUD. The
+		title-controlled element lives here; the resource bar inside is gated by
+		#hud_visible to keep its normal hide-during-screens behavior.
+	*/
+	"root_panel_bg@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{
+				"custom_hud_title_factory": {
+					"type": "panel",
+					"factory": {
+						"name": "hud_title_text_factory",
+						"control_ids": {
+							"hud_title_text": "controlled_element@hud.custom_hud_title_factory"
+						}
+					}
+				}
+			}
+		]
+	},
+
+	"hud_screen@common.base_screen": {
+		"$screen_content": "hud.hud_content",
+		"$screen_bg_content": "hud.root_panel_bg",
+
+		"screen_draws_last": true
 	}
 }

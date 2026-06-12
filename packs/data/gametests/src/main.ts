@@ -192,3 +192,6 @@ import './services/ResourceBarService';
 
 import { init } from '@bedrock-oss/stylish';
 init();
+
+import { Logger, LogLevel } from '@bedrock-oss/bedrock-boost';
+Logger.setLevel(LogLevel.Debug);

@@ -71,6 +71,7 @@ export class ResourceBarService {
 	};
 	private static readonly cache = new Map<string, CachedBars>();
 	private static readonly expiryTokens = new Map<string, Record<ResourceBarSlot, number>>();
+	private static readonly suspended = new Set<string>();
 
 	@OnWorldLoad
 	private static onWorldLoad(): void {
@@ -167,10 +168,25 @@ export class ResourceBarService {
 		this.emitPayload(player, state);
 	}
 
+	/**
+	 * Suspends title emission so another system (the ability wheel) can own the
+	 * shared title channel without being clobbered by bar updates.
+	 */
+	static suspend(player: Player): void {
+		this.suspended.add(player.id);
+	}
+
+	/** Resumes title emission and immediately restores the HUD bars. */
+	static resume(player: Player): void {
+		this.suspended.delete(player.id);
+		this.refresh(player);
+	}
+
 	@AfterPlayerLeave
 	private static onPlayerLeave(ev: PlayerLeaveAfterEvent): void {
 		this.cache.delete(ev.playerId);
 		this.expiryTokens.delete(ev.playerId);
+		this.suspended.delete(ev.playerId);
 	}
 
 	@PlayerTick(2)
@@ -318,6 +334,8 @@ export class ResourceBarService {
 	}
 
 	private static emitPayload(player: Player, state: CachedBars): void {
+		if (this.suspended.has(player.id)) return;
+
 		const parts = this.slots.map((slot) => {
 			const bar = state.slots[slot];
 			return bar ? this.segment(slot, bar) : this.defaultSegmentBySlot[slot];

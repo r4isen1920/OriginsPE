@@ -78,7 +78,7 @@ export class UiEventRouter {
 			case 'toggle': return this.handleToggle(player, parts);
 			case 'reset': return this.handleReset(player, parts);
 			case 'evict_unselected': return this.handleEvictUnselected(player);
-			case 'close': return; /* dialogue closes itself; no-op */
+			case 'close': return this.handleClose(player);
 			case 'wheel': return this.handleWheel(player, parts);
 			case 'welcome': return this.handleWelcome(player, parts);
 			default:
@@ -88,6 +88,10 @@ export class UiEventRouter {
 
 
 	//#region HANDLERS
+
+	public static handleClose(player: Player): void {
+		player.onScreenDisplay.resetHudElementsVisibility();
+	}
 
 	private static handleNav(player: Player, [, kind, dir, id, mode]: string[]): void {
 		if (!this.isKind(kind) || !this.isMode(mode)) return;
@@ -285,6 +289,7 @@ export class UiEventRouter {
 			}
 			case 'close':
 				AbilitySelector.close(player);
+				this.handleClose(player);
 				return;
 			default:
 				this.log.warn(`unknown wheel action '${action}'`);
@@ -298,6 +303,7 @@ export class UiEventRouter {
 		switch (action) {
 			case 'close':
 				PlayerState.for(player).setWelcomed(state === 'ignored');
+				this.handleClose(player);
 				return;
 			case 'ignore':
 				UiBridge.openDialogue(player, 'gui_welcome_screen_ignore');

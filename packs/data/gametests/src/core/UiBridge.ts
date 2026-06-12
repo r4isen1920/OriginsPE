@@ -1,4 +1,4 @@
-import { Player, system, world } from '@minecraft/server';
+import { HudElement, Player, system, world } from '@minecraft/server';
 import {
 	ActionFormData,
 	ActionFormResponse,
@@ -57,6 +57,7 @@ export class UiBridge {
 	static async openDialogue(player: Player, dialogueId: string): Promise<void> {
 		await this.ensureHandler(player);
 
+		player.onScreenDisplay.hideAllExcept();
 		try {
 			player.runCommand(
 				`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,

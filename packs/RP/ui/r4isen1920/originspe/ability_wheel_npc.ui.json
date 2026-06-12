@@ -1,0 +1,132 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+
+	/*
+		Input-only layer. The wheel VISUALS render on the HUD title.
+	*/
+
+	"namespace": "origin_ability_wheel_npc",
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Hitbox
+	//---------------------------------------------------------------------------
+
+
+	"hitbox@origin_common.hori_stack": {
+		"$slot_index|default": 1,
+		"$slot_offset|default": [0, 0],
+		"$hit_size|default": [42, 42],
+
+		"size": "$hit_size",
+		"anchor_from": "center",
+		"anchor_to": "center",
+		"offset": "$slot_offset",
+		"collection_name": "student_buttons_collection",
+
+		"controls": [
+			{
+				"content@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"collection_index": "$slot_index",
+
+					"controls": [
+						{
+							"click@origin_common.origin_selector_button": {
+								"size": ["100%", "100%"],
+								"alpha": 0.0,
+								"propagate_alpha": true,
+
+								"$button_type": "wheel",
+								"$visible_binding": "(#student_button_text = #student_button_text)", // required
+
+								"$button_sound_effect_name": "none",
+								"$button_sound_effect_volume": 0.0,
+
+								"$default_button_texture": "textures/none",
+								"$hover_button_texture": "textures/none",
+								"$pressed_button_texture": "textures/none"
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Close button
+  //---------------------------------------------------------------------------
+
+
+	"close_button@origin_common.hori_stack": {
+		"size": [80, 24],
+		"collection_name": "student_buttons_collection",
+
+		"controls": [
+			{
+				"content@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"collection_index": 0,
+
+					"controls": [
+						{
+							"btn@origin_common.origin_selector_button": {
+								"size": ["100%", "100%"],
+
+								"$button_type": "cancel",
+								"$visible_binding": "(#student_button_text = #student_button_text)",
+								"$button_text_label": "origins.gui.button.cancel",
+
+								"$default_button_texture": "textures/ui/button_borderless_light",
+								"$hover_button_texture": "textures/ui/button_borderless_lighthover",
+								"$pressed_button_texture": "textures/ui/button_borderless_lightpressed"
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Main
+	//---------------------------------------------------------------------------
+
+
+	"ability_selector_root_content@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{ "h_options@origin_ability_wheel_npc.hitbox": { "$slot_index": 1, "$slot_offset": [0, -52] } },
+			{ "h_slot1@origin_ability_wheel_npc.hitbox": { "$slot_index": 2, "$slot_offset": [50, -10] } },
+			{ "h_slot2@origin_ability_wheel_npc.hitbox": { "$slot_index": 3, "$slot_offset": [31, 46] } },
+			{ "h_slot3@origin_ability_wheel_npc.hitbox": { "$slot_index": 4, "$slot_offset": [-31, 46] } },
+			{ "h_slot4@origin_ability_wheel_npc.hitbox": { "$slot_index": 5, "$slot_offset": [-50, -10] } },
+
+			{
+				"close_button_holder@origin_ability_wheel_npc.close_button": {
+					"offset": [0, 92]
+				}
+			}
+		]
+	},
+
+	"root@origin_common.factory_condition": {
+		"size": ["100%", "100%"],
+
+		"$target_name": "ability_selector_root",
+		"$target_control": "origin_ability_wheel_npc.ability_selector_root_content",
+
+		"$condition": "((('%.7s' * #dialogtext) = '_op:abw') * 1)"
+	}
+
+}

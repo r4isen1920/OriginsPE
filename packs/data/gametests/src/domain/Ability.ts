@@ -59,6 +59,9 @@ export interface Ability {
 	/** Stable id (matches the legacy folder filename, e.g. "high_jump"). */
 	readonly id: string;
 
+	/** Optional display name used in the UI. Falls back to the id if not set. */
+	readonly displayName?: string;
+
 	/**
 	 * Two-character icon id from the `textures/origins/hud/cooldown/` atlas shown
 	 * beside this trait in the powers list (e.g. "01"). Omit for traits with no icon.

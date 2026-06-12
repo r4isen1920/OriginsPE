@@ -4,9 +4,9 @@
 		"scenes": [
 			{
 				"scene_tag": "gui_ability_selector",
-				"npc_name": "_op:ability_selector",
+				"npc_name": "_op:ability_wheel",
 
-				"text": "_op:ability_selector.",
+				"text": "_op:abw",
 
 				"buttons": [
 					{
@@ -45,9 +45,6 @@
 							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:slot:4"
 						]
 					}
-				],
-				"on_open_commands": [
-					"/execute as @initiator at @s run playsound random.wood_click @s ~~~ 0.5 1"
 				]
 			}
 		]

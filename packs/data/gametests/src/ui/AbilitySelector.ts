@@ -1,13 +1,13 @@
 import {
 	ButtonState,
 	InputButton,
+	InputMode,
 	Player,
 	PlayerButtonInputAfterEvent,
 	PlayerLeaveAfterEvent,
 	system,
 } from '@minecraft/server';
 
-import { ABILITY_WHEEL } from '../Constants';
 import { AfterPlayerButtonInput, AfterPlayerLeave } from '../core/DecoratedEvents';
 import { PlayerState } from '../core/PlayerState';
 import { UiBridge } from '../core/UiBridge';
@@ -17,11 +17,39 @@ import { PerkRegistry, PowerRegistry } from '../domain/Registries';
 import { ResourceBarService } from '../services/ResourceBarService';
 import { Log } from '../utils/Log';
 import { isToggleOn } from './OptionsState';
+import { UiEventRouter } from './UiEventRouter';
 
 
 //#region CONSTANTS
 
-/** Dialogue scene tag for the ability wheel (see ability_selector.dialogue.json). */
+export const ABILITY_WHEEL = {
+	prefix: '_op:abw;',
+	/** Slot count (slot 0 = options, slots 1..4 = active abilities). */
+	slots: 5,
+	/** Width in chars of each icon field. */
+	iconWidth: 2,
+	/** Absolute index of the selected-slot digit. */
+	selectedOffset: 8,
+	/** Absolute index where the first icon field begins. */
+	iconsOffset: 9,
+	/** Separator between the icon block and the animation state word. */
+	separator: ';',
+	/** Icon id for the always-present options slot. */
+	optionsIcon: 'op',
+	/** Icon id for an empty ability slot. */
+	emptyIcon: '--',
+	/** Selected-slot value meaning "nothing highlighted". */
+	noneSelected: 'n',
+	/** Animation state words appended after the icon block. */
+	state: {
+		open: 'a',
+		retain: 'b',
+		select: 'c',
+		close: 'd',
+	},
+} as const;
+
+/** Dialogue scene tag for the ability wheel (input-only NPC scene). */
 const WHEEL_SCENE = 'gui_ability_selector';
 /** Sentinel slot value for the always-present options slot (slot 0). */
 const OPTIONS_SLOT = '__options__';
@@ -31,6 +59,8 @@ const MAX_ABILITIES = ABILITY_WHEEL.slots - 1;
 const TAP_WINDOW_TICKS = 8;
 /** Number of rapid JUMP presses required to open the wheel. */
 const TAP_COUNT = 3;
+/** Ticks the close/confirm exit animation is allowed to play before the HUD title is released. */
+const CLOSE_ANIM_TICKS = 10;
 
 
 //#region TYPES
@@ -47,24 +77,15 @@ interface WheelSession {
 //#region ABILITY WHEEL
 
 /**
- * Drives the ability selector wheel. Triple-tapping JUMP opens the wheel, which
- * lists the player's active abilities (plus the always-present options slot).
- * Pressing a slot highlights it; pressing the highlighted slot again confirms
- * it; the close button cancels.
- *
- * Per-player visual state (which slots are filled, which icon, what is
- * highlighted) is pushed through the shared title channel via
- * `player.onScreenDisplay.setTitle(...)` and read in JSON UI as `#title_text`,
- * mirroring the resource-bar technique. Slot presses are routed through the NPC
- * dialogue buttons defined in the wheel scene (see {@link WHEEL_SCENE}).
+ * Handles the ability selector wheel.
  */
 export default class AbilitySelector {
 	private static readonly log = Log.get('AbilityWheel');
 
-	/** Tick of each player's most recent JUMP press, for tap-run detection. */
-	private static readonly lastJump = new Map<string, number>();
+	/** Tick of each player's most recent press, for tap-run detection. */
+	private static readonly lastPressed = new Map<string, number>();
 	/** Consecutive JUMP presses within the tap window, per player id. */
-	private static readonly jumpCount = new Map<string, number>();
+	private static readonly pressCount = new Map<string, number>();
 	/** Active wheel session per player id. */
 	private static readonly sessions = new Map<string, WheelSession>();
 
@@ -74,28 +95,31 @@ export default class AbilitySelector {
 	@AfterPlayerButtonInput
 	static onBtnInput(event: PlayerButtonInputAfterEvent): void {
 		const { button, newButtonState, player } = event;
-		if (button !== InputButton.Jump || newButtonState !== ButtonState.Pressed) return;
+
+		const playerInput = player.inputInfo.lastInputModeUsed;
+		const btnToPress = playerInput === InputMode.Touch ? InputButton.Jump : InputButton.Sneak;
+		if (button !== btnToPress || newButtonState !== ButtonState.Pressed) return;
 
 		const now = system.currentTick;
-		const last = this.lastJump.get(player.id);
+		const last = this.lastPressed.get(player.id);
 		const withinWindow = last !== undefined && now > last && now - last <= TAP_WINDOW_TICKS;
-		const count = withinWindow ? (this.jumpCount.get(player.id) ?? 1) + 1 : 1;
+		const count = withinWindow ? (this.pressCount.get(player.id) ?? 1) + 1 : 1;
 
 		if (count >= TAP_COUNT) {
-			this.lastJump.delete(player.id);
-			this.jumpCount.delete(player.id);
+			this.lastPressed.delete(player.id);
+			this.pressCount.delete(player.id);
 			this.open(player);
 			return;
 		}
 
-		this.lastJump.set(player.id, now);
-		this.jumpCount.set(player.id, count);
+		this.lastPressed.set(player.id, now);
+		this.pressCount.set(player.id, count);
 	}
 
 	@AfterPlayerLeave
 	static onLeave(event: PlayerLeaveAfterEvent): void {
-		this.lastJump.delete(event.playerId);
-		this.jumpCount.delete(event.playerId);
+		this.lastPressed.delete(event.playerId);
+		this.pressCount.delete(event.playerId);
 		this.sessions.delete(event.playerId);
 	}
 
@@ -111,15 +135,18 @@ export default class AbilitySelector {
 		const session: WheelSession = { slots, selected: -1 };
 		this.sessions.set(player.id, session);
 
-		this.pushPayload(player, session);
+		ResourceBarService.suspend(player);
+		this.pushPayload(player, session, ABILITY_WHEEL.state.open);
 		UiBridge.openDialogue(player, WHEEL_SCENE);
 		player.playSound('random.wood_click', { volume: 0.5, pitch: 1 });
 	}
 
-	/** Cancels the wheel and restores the HUD resource bars. */
+	/** Cancels the wheel, plays the exit animation, and restores the HUD bars. */
 	static close(player: Player): void {
+		const session = this.sessions.get(player.id);
 		this.sessions.delete(player.id);
-		ResourceBarService.refresh(player);
+		if (session) this.pushPayload(player, session, ABILITY_WHEEL.state.close);
+		this.releaseAfterExit(player);
 	}
 
 
@@ -132,38 +159,40 @@ export default class AbilitySelector {
 	static handleSlot(player: Player, index: number): void {
 		const session = this.sessions.get(player.id);
 		if (!session) return;
-		if (index < 0 || index >= session.slots.length) return;
 
 		const value = session.slots[index];
-		if (value === null) {
-			// Empty ability slot -- reopen so the wheel stays visible.
-			this.pushPayload(player, session);
-			UiBridge.openDialogue(player, WHEEL_SCENE);
-			return;
-		}
-
 		if (session.selected === index) {
 			this.confirm(player, value);
 			return;
 		}
 
 		session.selected = index;
-		this.pushPayload(player, session);
+		this.pushPayload(player, session, ABILITY_WHEEL.state.select);
 		UiBridge.openDialogue(player, WHEEL_SCENE);
 		player.playSound('random.click', { volume: 0.4, pitch: 1.2 });
 	}
 
 	/** Confirms the highlighted slot, triggering its ability or opening options. */
-	private static confirm(player: Player, value: string): void {
-		this.close(player);
+	private static confirm(player: Player, value: string | null): void {
+		if (value === null) {
+			this.close(player);
+			return;
+		}
+
+		const session = this.sessions.get(player.id);
+		this.sessions.delete(player.id);
+		if (session) this.pushPayload(player, session, ABILITY_WHEEL.state.select);
 
 		if (value === OPTIONS_SLOT) {
+			ResourceBarService.resume(player);
 			const tag = isToggleOn('particle')
 				? 'gui_options_general_root_particleon'
 				: 'gui_options_general_root_particleoff';
 			UiBridge.openDialogue(player, tag);
 			return;
 		}
+
+		this.releaseAfterExit(player);
 
 		const power = PowerRegistry.get(value);
 		const ability: Ability | undefined = power ?? PerkRegistry.get(value);
@@ -215,22 +244,43 @@ export default class AbilitySelector {
 
 	//#region PAYLOAD
 
-	/** Pushes the wheel's visual state to the shared title channel. */
-	private static pushPayload(player: Player, session: WheelSession): void {
+	/**
+	 * Lets the close/confirm exit animation play, then releases the HUD title
+	 * channel back to the resource bar.
+	 */
+	private static releaseAfterExit(player: Player): void {
+		system.runTimeout(() => {
+			if (!player.isValid) return;
+			ResourceBarService.resume(player);
+			UiEventRouter.handleClose(player);
+		}, CLOSE_ANIM_TICKS);
+	}
+
+	/** Pushes the wheel's selection + icons + animation state to the title text. */
+	private static pushPayload(player: Player, session: WheelSession, state: string): void {
 		const selected = session.selected >= 0 ? String(session.selected) : ABILITY_WHEEL.noneSelected;
 
 		let icons = '';
 		for (let i = 0; i < ABILITY_WHEEL.slots; i++) {
-			icons += this.iconFor(session.slots[i]);
+			icons += this.iconFor(session.slots[i]) + ABILITY_WHEEL.separator;
 		}
 
-		const payload = `${ABILITY_WHEEL.prefix}${selected}${icons}`;
+		const payload =
+			ABILITY_WHEEL.prefix +
+			selected +
+			ABILITY_WHEEL.separator +
+			icons +
+			state +
+			ABILITY_WHEEL.separator +
+			this.nameFor(session.slots[session.selected]);
+
 		try {
 			player.onScreenDisplay.setTitle(payload, {
 				fadeInDuration: 0,
 				stayDuration: 0,
 				fadeOutDuration: 0,
 			});
+			this.log.debug(`payload: ${payload}`);
 		} catch (e: any) {
 			this.log.error(`pushPayload for ${player.name}: ${e?.stack ?? e}`);
 		}
@@ -244,6 +294,15 @@ export default class AbilitySelector {
 		const ability = PowerRegistry.get(value) ?? PerkRegistry.get(value);
 		const icon = ability?.active?.icon ?? ABILITY_WHEEL.emptyIcon;
 		return icon.slice(0, ABILITY_WHEEL.iconWidth).padEnd(ABILITY_WHEEL.iconWidth, '0');
+	}
+
+	/** Returns the name for a slot value. */
+	private static nameFor(value: string | null): string {
+		if (value === OPTIONS_SLOT) return 'origins.item.origins_submenu.name';
+		if (value === null) return ' ';
+
+		const ability = PowerRegistry.get(value) ?? PerkRegistry.get(value);
+		return ability?.displayName ?? `origins.trait.${value}.name`;
 	}
 }
 
