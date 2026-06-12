@@ -122,6 +122,61 @@
 		]
 	},
 
+"box_tooltip_key@common.empty_panel": {
+		"$slot_tooltip_anchor|default": "center",
+		"$slot_tooltip_offset|default": [0, 0],
+
+		"anchor_from": "$slot_tooltip_anchor",
+		"anchor_to": "$slot_tooltip_anchor",
+		"size": [17, 17],
+		"offset": "$slot_tooltip_offset",
+
+		"controls": [
+			{
+				"non_bind_bg": {
+					"type": "image",
+					"texture": "textures/ui/keyboard_tooltip_icon",
+					"size": ["100%", "100%"],
+
+					"$layer|default": 7,
+					"layer": "$layer",
+
+					"controls": [
+						{
+							"text_icon": {
+								"type": "label",
+								"max_size": ["100%", "100%"],
+								"offset": [0.1, -1.5],
+								"text": "(('§z' + (1 + ($button_type - 'slot_'))))",
+								"shadow": false,
+								"layer": "$layer"
+							}
+						}
+					],
+					"bindings": [
+						{
+							"binding_type": "global",
+							"binding_name": "(not #gamepad_helper_visible)",
+							"binding_name_override": "#visible"
+						}
+					]
+				}
+			},
+			{
+				"bind_icon@common.gamepad_icon_button": {
+					"$gamepad_icon_size": ["100% + 7.5px", "100% + 7.5px"],
+
+					"variables": [
+						{ "requires": "($button_type = 'slot_0')", "$icon_texture": "#controller_dpad_up_icon" },
+						{ "requires": "($button_type = 'slot_1')", "$icon_texture": "#controller_dpad_right_icon" },
+						{ "requires": "($button_type = 'slot_2')", "$icon_texture": "#controller_face_up_icon" },
+						{ "requires": "($button_type = 'slot_3')", "$icon_texture": "#controller_dpad_down_icon" },
+						{ "requires": "($button_type = 'slot_4')", "$icon_texture": "#controller_face_left_icon" }
+					]
+				}
+			}
+		]
+	},
 
 
 
@@ -187,6 +242,7 @@
 			{ "bg@origin_ability_wheel.box_bg": {} },
 			{ "icon@origin_ability_wheel.box_icon": {} },
 			{ "menu_icon@origin_ability_wheel.box_menu_icon": {} },
+			{ "tooltip@origin_ability_wheel.box_tooltip_key": {} },
 			{ "highlight@origin_ability_wheel.box_highlight": {} }
 		]
 	},
@@ -209,35 +265,55 @@
 				"box_0@origin_ability_wheel.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.9s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';0')",
-					"$slot_offset": [0, -52]
+					"$slot_offset": [0, -52],
+
+					"$slot_tooltip_anchor": "bottom_middle",
+					"$slot_tooltip_offset": [0, 8.5],
+					"$button_type": "slot_0"
 				}
 			},
 			{
 				"box_1@origin_ability_wheel.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.12s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';1')",
-					"$slot_offset": [50, -10]
+					"$slot_offset": [50, -10],
+
+					"$slot_tooltip_anchor": "left_middle",
+					"$slot_tooltip_offset": [-8.5, 0],
+					"$button_type": "slot_1"
 				}
 			},
 			{
 				"box_2@origin_ability_wheel.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.15s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';2')",
-					"$slot_offset": [31, 46]
+					"$slot_offset": [31, 46],
+
+					"$slot_tooltip_anchor": "top_left",
+					"$slot_tooltip_offset": [-4.25, -8.5],
+					"$button_type": "slot_2"
 				}
 			},
 			{
 				"box_3@origin_ability_wheel.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.18s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';3')",
-					"$slot_offset": [-31, 46]
+					"$slot_offset": [-31, 46],
+
+					"$slot_tooltip_anchor": "top_right",
+					"$slot_tooltip_offset": [4.25, -8.5],
+					"$button_type": "slot_3"
 				}
 			},
 			{
 				"box_4@origin_ability_wheel.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.21s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';4')",
-					"$slot_offset": [-50, -10]
+					"$slot_offset": [-50, -10],
+
+					"$slot_tooltip_anchor": "right_middle",
+					"$slot_tooltip_offset": [8.5, 0],
+					"$button_type": "slot_4"
 				}
 			}
 		]
