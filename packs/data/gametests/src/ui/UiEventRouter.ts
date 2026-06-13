@@ -138,6 +138,8 @@ export class UiEventRouter {
 			UiBridge.openDialogue(player, pickerSceneTag('class', this.resolvePickMode('class', classStart, player), classStart));
 			return;
 		}
+
+		this.handleClose(player);
 	}
 
 	private static handleBan(player: Player, [, kind, id]: string[]): void {
