@@ -122,6 +122,7 @@ export class UiEventRouter {
 		PlayerLifecycle.applyOriginAndClass(player);
 
 		UiBridge.openDialogue(player, pickerSceneTag(kind, 'view', resolved));
+		player.playSound('ui.enchant', { volume: 1, pitch: 1.25 });
 	}
 
 	private static handleViewed(player: Player, [, kind, id]: string[]): void {

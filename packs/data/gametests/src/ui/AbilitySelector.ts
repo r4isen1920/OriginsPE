@@ -189,6 +189,7 @@ export default class AbilitySelector {
 				? 'gui_options_general_root_particleon'
 				: 'gui_options_general_root_particleoff';
 			UiBridge.openDialogue(player, tag);
+			player.playSound('random.orb', { volume: 1, pitch: 0.2 });
 			return;
 		}
 
