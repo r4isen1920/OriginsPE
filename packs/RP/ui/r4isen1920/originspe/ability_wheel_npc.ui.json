@@ -21,8 +21,6 @@
 		"$hit_size|default": [42, 42],
 
 		"size": "$hit_size",
-		"anchor_from": "center",
-		"anchor_to": "center",
 		"offset": "$slot_offset",
 
 		"collection_name": "student_buttons_collection",
@@ -36,7 +34,6 @@
 					"alpha": 0.0,
 					"propagate_alpha": true,
 
-					"$button_type": "wheel",
 					"$visible_binding": "(#student_button_text = #student_button_text)", // required
 
 					"$button_sound_effect_name": "none",
