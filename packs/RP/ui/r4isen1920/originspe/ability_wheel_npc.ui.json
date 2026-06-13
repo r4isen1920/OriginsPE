@@ -111,13 +111,12 @@
 		]
 	},
 
-	"root@origin_common.factory_condition": {
-		"size": ["100%", "100%"],
+	"root@origin_common.binding_condition": {
+		"controls": [
+			{ "base@origin_ability_wheel_npc.ability_selector_root_content": {} }
+		],
 
-		"$target_name": "ability_selector_root",
-		"$target_control": "origin_ability_wheel_npc.ability_selector_root_content",
-
-		"$condition": "((('%.7s' * #dialogtext) = '_op:abw') * 1)"
+		"$condition": "(('%.7s' * #dialogtext) = '_op:abw')"
 	}
 
 }

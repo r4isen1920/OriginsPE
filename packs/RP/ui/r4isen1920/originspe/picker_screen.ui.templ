@@ -1261,13 +1261,12 @@
 			]
 		},
 
-		"root@origin_common.factory_condition": {
-			"size": ["100%", "100%"],
+		"root@origin_common.binding_condition": {
+			"controls": [
+				{ "base@origin_picker_screen.picker_root_content": {} }
+			],
 
-			"$$target_name": "picker_root",
-			"$$target_control": "origin_picker_screen.picker_root_content",
-
-			"$$condition": "((('%.11s' * #dialogtext) = '_op:picker.') * 1)"
+			"$$condition": "(('%.11s' * #dialogtext) = '_op:picker.')"
 		}
 
 	}

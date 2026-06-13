@@ -315,13 +315,12 @@
 		]
 	},
 
-	"root@origin_common.factory_condition": {
-		"size": ["100%", "100%"],
+	"root@origin_common.binding_condition": {
+		"controls": [
+			{ "base@origin_welcome_screen.welcome_root_content": {} }
+		],
 
-		"$target_name": "welcome_root",
-		"$target_control": "origin_welcome_screen.welcome_root_content",
-
-		"$condition": "((('%.12s' * #dialogtext) = '_op:welcome.') * 1)"
+		"$condition": "(('%.12s' * #dialogtext) = '_op:welcome.')"
 	}
 
 }

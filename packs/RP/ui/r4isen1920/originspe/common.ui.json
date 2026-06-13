@@ -719,9 +719,29 @@
 		"size": ["100%cm", "100%c"]
 	},
 
+	"binding_condition@common.empty_panel": {
+		"size": ["100%", "100%"],
+		"layer": 3,
+
+		"bindings": [
+			{
+				"binding_name": "#title_text",
+				"binding_type": "global"
+			},
+			{
+				"binding_name": "#dialogtext",
+				"binding_type": "global"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "$condition",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
 	"factory_condition@hori_stack": {
 		"size": ["100%", "100%"],
-
 		"layer": 3,
 
 		"collection_name": "($target_name + '_collection')",
