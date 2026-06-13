@@ -58,6 +58,7 @@ export class UiBridge {
 		await this.ensureHandler(player);
 
 		player.onScreenDisplay.hideAllExcept();
+		this.log.debug(`Open: '${dialogueId}', for: ${player.name}`);
 		try {
 			player.runCommand(
 				`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
