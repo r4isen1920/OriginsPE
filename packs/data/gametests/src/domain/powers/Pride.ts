@@ -2,8 +2,7 @@ import { Player, EquipmentSlot, world } from '@minecraft/server';
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
 
-// Service & utility imports from your codebase
-import { ResourceBarService } from '../../services/ResourceBarService'; 
+import { ResourceBarService } from '../../services/ResourceBarService';
 import { ItemUtils } from '../../utils/ItemUtils';
 import { PlayerState } from '../../core/PlayerState';
 
@@ -37,16 +36,13 @@ const GOLD_WEARABLES: GoldValue[] = [
 const MAX_GOLD_SCORE = 70;
 const BAR_ID = 15;
 
-/**
- * Normalizes values to a 0..100 scale for the HUD renderer.
- */
 function normalize(value: number, max: number = MAX_GOLD_SCORE): number {
     return Math.min(Math.max((value / max) * 100, 0), 100);
 }
 
 /**
- * The more gold items you carry in your inventory, worn, or held, 
- * the less damage you'll receive from any source. 
+ * The more gold items you carry in your inventory, worn, or held,
+ * the less damage you'll receive from any source.
  * You can mitigate up to 90% of damage received this way.
  */
 @RegisterPower
@@ -96,7 +92,7 @@ export class Pride implements Power {
         if (prevDisplayValue === undefined || !isBarInitialized) {
             state.setFlag('pride_gold_value', currentDisplayValue);
             state.setFlag('pride_bar_init', true);
-            
+
             if (currentDisplayValue > 0) {
                 ResourceBarService.push(player, {
                     id: BAR_ID,
@@ -127,10 +123,10 @@ export class Pride implements Power {
     }
 
     /**
-     * Cleans up custom player flags and hides the visual bar 
+     * Cleans up custom player flags and hides the visual bar
      * immediately when an Origin change/removal event occurs.
      */
-    onLose(player: Player): void {
+    onRelease(player: Player): void {
         const state = PlayerState.for(player);
         ResourceBarService.pop(player, BAR_ID);
         state.setFlag('pride_gold_value', undefined);
@@ -144,16 +140,14 @@ world.beforeEvents.entityHurt.subscribe((event) => {
     if (!(player instanceof Player)) return;
 
     const state = PlayerState.for(player);
-    
+
     if (!state.getPowers().includes('pride')) return;
 
     const goldValue = state.getFlag<number>('pride_gold_value') ?? 0;
     if (goldValue <= 0) return;
 
     const mitigationPercent = (goldValue / MAX_GOLD_SCORE) * 0.90;
-    const finalMitigation = Math.min(mitigationPercent, 0.90); 
+    const finalMitigation = Math.min(mitigationPercent, 0.90);
 
     event.damage = event.damage * (1 - finalMitigation);
 });
-
-// WIP Bar and Cap todo
