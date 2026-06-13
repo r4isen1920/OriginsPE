@@ -19,6 +19,10 @@ export class BurnsInDaylight implements Power {
 		const equippableComp = player.getComponent('equippable');
 		const hasHelmet = !!equippableComp?.getEquipment(EquipmentSlot.Head);
 
-		AttributeService.apply(player, { burnsInDaylight: !(isPhantom || hasHelmet) });
+		if (isPhantom || hasHelmet) {
+			AttributeService.apply(player, { burnsInDaylight: false });
+		} else {
+			AttributeService.apply(player, { burnsInDaylight: true });
+		}
 	}
 }
