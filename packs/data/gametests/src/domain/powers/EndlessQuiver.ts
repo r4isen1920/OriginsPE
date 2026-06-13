@@ -1,7 +1,8 @@
-import { Player, EquipmentSlot, ItemStack } from '@minecraft/server';
+import { Player, EquipmentSlot, ItemStack, TicksPerSecond, system } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { PlayerState } from '../../core/PlayerState';
 /**
  * EndlessQuiver: Players with this power have an endless supply of arrows.
  * Loose: dispatched to whoever is granted the power, with no origin coupling.
@@ -14,6 +15,7 @@ export class EndlessQuiver implements Power {
 
 	private static readonly RESOURCE_BAR_ID = 17;
 	private static readonly ARROW_LORE = '§r§6Endless Quiver§r';
+	private static readonly COOLDOWN_LORE = TicksPerSecond * 2;
 
 	onTick(player: Player): void {
 		const inventoryComp = player.getComponent('inventory');
@@ -39,18 +41,24 @@ export class EndlessQuiver implements Power {
 
 		if (hasBowInHand) {
 			if (totalArrowCount === 0) {
+				const state = PlayerState.for(player);
+				if (!state.hasPower('endless_quiver')) return;
+
+				const now = system.currentTick;
+				if (state.isOnCooldown(EndlessQuiver.ARROW_LORE, now)) return;
+
+				state.setCooldown(EndlessQuiver.ARROW_LORE, now, EndlessQuiver.COOLDOWN_LORE);
+				ResourceBarService.push(player, {
+					id: EndlessQuiver.RESOURCE_BAR_ID,
+					durationSeconds: 2
+				});
+
 				const newArrow = new ItemStack('minecraft:arrow', 1);
 				newArrow.setLore([EndlessQuiver.ARROW_LORE]);
-
 				inventoryComp.container.addItem(newArrow);
 
 				player.playSound('note.pling', { volume: 0.1, pitch: 1.75 });
 				player.playSound('mob.chicken.plop', { volume: 0.75 });
-
-				ResourceBarService.push(player, {
-					id: EndlessQuiver.RESOURCE_BAR_ID,
-					durationSeconds: 1
-				});
 			} else if (totalArrowCount > 1 && customArrowSlot !== -1) {
 				const customArrow = inventoryComp.container.getItem(customArrowSlot);
 				if (customArrow) {
