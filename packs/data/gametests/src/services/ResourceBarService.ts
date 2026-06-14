@@ -169,7 +169,7 @@ export class ResourceBarService {
 	}
 
 	/**
-	 * Suspends title emission so another system (the ability wheel) can own the
+	 * Suspends title emission so another system can own the
 	 * shared title channel without being clobbered by bar updates.
 	 */
 	static suspend(player: Player): void {

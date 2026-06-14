@@ -1,5 +1,6 @@
+import { ClassDifficulty, OriginDifficulty } from '../domain/Ability';
 import { ClassRegistry, OriginRegistry } from '../domain/Registries';
-import type { PickerKind } from './UiPayload';
+import { PickerKind } from './UiPayload';
 
 
 //#region API
@@ -13,7 +14,7 @@ import type { PickerKind } from './UiPayload';
  * The special `random` slot is not a registered being; {@link allIds} prepends it.
  */
 function registeredIds(kind: PickerKind): readonly string[] {
-	return kind === 'race' ? OriginRegistry.ids() : ClassRegistry.ids();
+	return kind === PickerKind.Race ? OriginRegistry.ids() : ClassRegistry.ids();
 }
 
 /** All ids for `kind`, including the `random` sentinel at index 0. */
@@ -29,10 +30,17 @@ export function navigableIds(kind: PickerKind): readonly string[] {
 /** True if `id` is a registered being for `kind`, or the `random` sentinel. */
 export function isValidId(kind: PickerKind, id: string): boolean {
 	if (id === 'random') return true;
-	return kind === 'race' ? OriginRegistry.has(id) : ClassRegistry.has(id);
+	return kind === PickerKind.Race ? OriginRegistry.has(id) : ClassRegistry.has(id);
+}
+
+/** Parses and returns the difficulty for the given `id` and `kind`. */
+export function getDifficulty(kind: PickerKind, id: string): OriginDifficulty | ClassDifficulty {
+	return kind === PickerKind.Race
+		? (OriginRegistry.get(id)?.difficulty ?? OriginDifficulty.Human)
+		: (ClassRegistry.get(id)?.difficulty ?? ClassDifficulty.Nitwit);
 }
 
 /** Default id for `kind` (the first registered being). */
 export function defaultId(kind: PickerKind): string {
-	return registeredIds(kind)[0] ?? (kind === 'race' ? 'human' : 'nitwit');
+	return registeredIds(kind)[0] ?? (kind === PickerKind.Race ? 'human' : 'nitwit');
 }

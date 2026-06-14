@@ -1,43 +1,68 @@
-import { UI_PAYLOAD } from '../Constants';
+import { Logger } from '@bedrock-oss/bedrock-boost';
+import { ClassDifficulty, OriginDifficulty } from '../domain/Ability';
+
+
+
+//#region CONSTANTS
+
+const log = Logger.getLogger('UiPayload');
+
+export const DEFINITIONS = {
+	prefix: '_op:picker.',
+	difficulty: {
+		[OriginDifficulty.Human]: 'a',
+		[OriginDifficulty.Easy]: 'b',
+		[OriginDifficulty.Medium]: 'c',
+		[OriginDifficulty.Hard]: 'd',
+		[ClassDifficulty.Nitwit]: 'f',
+		[ClassDifficulty.Niche]: 'g',
+		[ClassDifficulty.Decent]: 'h',
+		[ClassDifficulty.Very]: 'i',
+	},
+} as const;
 
 
 //#region TYPES
 
-export type PickerKind = 'race' | 'class';
-export type PickerMode =
-	| 'pick' | 'pick_ban' | 'pick_lock'
-	| 'change'
-	| 'view'
-	| 'banned' | 'unbanned'
-	| 'ban_limit' | 'ban_locked';
+export enum PickerKind {
+	Race = 'race',
+	Class = 'class',
+}
+
+export enum PickerMode {
+	Pick = 'pick',
+	PickBan = 'pick_ban',
+	PickLock = 'pick_lock',
+	Change = 'change',
+	View = 'view',
+	Banned = 'banned',
+	Unbanned = 'unbanned',
+	BanLimit = 'ban_limit',
+	BanLocked = 'ban_locked',
+}
 
 
 //#region BUILDER
 
 /**
- * Builds the payload string consumed by the picker JSON UI through the
- * `#dialogtext` binding. Format: `_op:picker.<mode><kind><diff><id>`
- * (see {@link UI_PAYLOAD}). `diff` defaults to `'j'` (the fallback bucket
- * used by the dialogue template).
+ * Creates a comparable output string encoding the given picker selection, matching the convention
+ * baked into the jsonte template `picker_screen.templ`.
  */
-export function buildPayload(mode: PickerMode, kind: PickerKind, id: string, diff: string = 'j'): string {
-	return `${UI_PAYLOAD.prefix}${UI_PAYLOAD.mode[mode]}${UI_PAYLOAD.kind[kind]}${diff}${id}`;
+export function buildPayload(
+	mode: PickerMode,
+	kind: PickerKind,
+	difficulty: OriginDifficulty | ClassDifficulty,
+	id: string,
+): string {
+	const payload = DEFINITIONS.prefix +	
+		mode.toLowerCase().charAt(0) +
+		kind.toLowerCase().charAt(0) +
+		DEFINITIONS.difficulty[difficulty] +
+		id;
+	log.debug(`buildPayload: '${payload}'`);
+	return payload;
 }
 
-/** Reverse of {@link buildPayload}; returns null on any format mismatch. */
-export function parsePayload(text: string): { mode: PickerMode; kind: PickerKind; diff: string; id: string } | null {
-	if (!text.startsWith(UI_PAYLOAD.prefix)) return null;
-	const modeChar = text[UI_PAYLOAD.modeOffset];
-	const kindChar = text[UI_PAYLOAD.kindOffset];
-	const diff = text[UI_PAYLOAD.diffOffset];
-	const id = text.slice(UI_PAYLOAD.idOffset);
-	const mode = (Object.entries(UI_PAYLOAD.mode) as Array<[PickerMode, string]>)
-		.find(([, c]) => c === modeChar)?.[0];
-	const kind = (Object.entries(UI_PAYLOAD.kind) as Array<[PickerKind, string]>)
-		.find(([, c]) => c === kindChar)?.[0];
-	if (!mode || !kind || !diff || !id) return null;
-	return { mode, kind, diff, id };
-}
 
 
 //#region SCENE TAGS

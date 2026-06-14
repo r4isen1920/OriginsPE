@@ -163,7 +163,7 @@ function buildEntry(kind, klass, iconMap, enumMap) {
 function traitsRef(kind, id, abilityCount) {
 	if (abilityCount === 0) return 'origin_powers.none';
 	if (kind === 'race') return `origin_powers.${id}`;
-	return `origin_powers.class_${id}`;
+	return `origin_powers.${id}`;
 }
 
 /** Builds the `random` sentinel prepended to each list (not navigable). */

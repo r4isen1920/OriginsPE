@@ -1,6 +1,14 @@
 {
 	/* UI developed by r4isen1920 | Under MIT LICENSE */
 
+
+
+
+	//---------------------------------------------------------------------------
+	// Vanilla Modifications
+	//---------------------------------------------------------------------------
+
+
 	"hud_title_text": {
 		"modifications": [
 			{
@@ -28,6 +36,7 @@
 		]
 	},
 
+
 	"armor_renderer@common.empty_panel": {
 		"size": [1, 1],
 
@@ -49,6 +58,7 @@
 		]
 	},
 
+
 	"centered_gui_elements_at_bottom_middle/horse_heart_rend_1": {
 		"offset": [80, -51]
 	},
@@ -64,6 +74,7 @@
 		"offset": [180, -50]
 	},
 
+
 	"custom_hud_title_factory@common.empty_panel": {
 		"size": ["100%", "100%"],
 
@@ -75,9 +86,7 @@
 
 		"controls": [
 			{
-				"resource_bar_stack@origin_resource_bar.resource_bar_stack": {
-					//* Preserve hide-during-screens now that this lives in the
-					//* always-drawn bg panel.
+				"resource_bar@origin_resource_bar.root": {
 					"bindings": [
 						{
 							"binding_name": "#hud_visible",
@@ -86,9 +95,8 @@
 					]
 				}
 			},
-			{
-				"ability_wheel_stack@origin_ability_wheel.ability_wheel_stack": {}
-			}
+			{ "ability_wheel@origin_ability_wheel_hud.root": {} },
+			{ "picker_screen@origin_picker_screen_hud.root": {} }
 		]
 	},
 	"custom_hud_actionbar_factory@common.empty_panel": {
@@ -102,15 +110,23 @@
 		]
 	},
 
+
+
+
+	//---------------------------------------------------------------------------
+	// Main
+	//---------------------------------------------------------------------------
+
+
 	"root_panel": {
 		"modifications": [
 			{
 				"array_name": "controls",
 				"operation": "insert_front",
+
 				"value": [
 					{
-						"custom_hud_actionbar_factory": {
-							"type": "panel",
+						"custom_hud_actionbar_factory@common.empty_panel": {
 							"factory": {
 								"name": "hud_actionbar_text_factory",
 								"control_ids": {
@@ -124,19 +140,12 @@
 		]
 	},
 
-	/*
-		Bypasses safezone/visibility changes and draws above other screens (incl.
-		the NPC input screen) so the ability wheel can float over the HUD. The
-		title-controlled element lives here; the resource bar inside is gated by
-		#hud_visible to keep its normal hide-during-screens behavior.
-	*/
 	"root_panel_bg@common.empty_panel": {
 		"size": ["100%", "100%"],
 
 		"controls": [
 			{
-				"custom_hud_title_factory": {
-					"type": "panel",
+				"custom_hud_title_factory@common.empty_panel": {
 					"factory": {
 						"name": "hud_title_text_factory",
 						"control_ids": {
@@ -148,10 +157,13 @@
 		]
 	},
 
+
 	"hud_screen@common.base_screen": {
 		"$screen_content": "hud.hud_content",
 		"$screen_bg_content": "hud.root_panel_bg",
 
-		"screen_draws_last": true
+		"cache_screen": true,
+		"screen_draws_last": true,
+		"always_accepts_input": true
 	}
 }

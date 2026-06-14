@@ -184,11 +184,11 @@ export default class AbilitySelector {
 		if (session) this.pushPayload(player, session, ABILITY_WHEEL.state.select);
 
 		if (value === OPTIONS_SLOT) {
-			ResourceBarService.resume(player);
 			const tag = isToggleOn('particle')
 				? 'gui_options_general_root_particleon'
 				: 'gui_options_general_root_particleoff';
 			UiBridge.openDialogue(player, tag);
+			player.onScreenDisplay.setTitle('_op:');
 			player.playSound('random.orb', { volume: 1, pitch: 0.2 });
 			return;
 		}
@@ -252,7 +252,6 @@ export default class AbilitySelector {
 	private static releaseAfterExit(player: Player): void {
 		system.runTimeout(() => {
 			if (!player.isValid) return;
-			ResourceBarService.resume(player);
 			UiEventRouter.handleClose(player);
 		}, CLOSE_ANIM_TICKS);
 	}

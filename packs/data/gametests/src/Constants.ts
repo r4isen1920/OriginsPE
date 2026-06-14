@@ -75,34 +75,6 @@ export const WORLD_DPK = {
  */
 export const UI_EVENT = `${NS}:ui` as const;
 
-/**
- * Magic prefix on the picker dialogue `text` field (exposed in JSON UI as
- * `#dialogtext`). Layout: `_op:picker.<mode><kind><difficulty><id>`.
- *
- * - chars 0..10 -- magic `'_op:picker.'`
- * - char  11    -- mode: `p` pick, `c` change, `v` view, `b` ban
- * - char  12    -- kind: `r` race, `c` class
- * - char  13    -- difficulty: `a` human, `b` easy, `c` medium, `d` hard,
- *                 `e` random_race, `f` nitwit, `g` fair, `h` decent,
- *                 `i` very, `j` (fallback)
- * - chars 14..  -- being id (variable-length, no padding)
- */
-export const UI_PAYLOAD = {
-	prefix: '_op:picker.',
-	prefixLen: 11,
-	modeOffset: 11,
-	kindOffset: 12,
-	diffOffset: 13,
-	idOffset: 14,
-	mode: {
-		pick: 'p', pick_ban: 'p', pick_lock: 'p',
-		change: 'c',
-		view: 'v',
-		banned: 'b', unbanned: 'u', ban_limit: 'b', ban_locked: 'b',
-		ban: 'b', // legacy virtual entry-point token
-	},
-	kind: { race: 'r', class: 'c' },
-} as const;
 
 
 //#region RENDER BRIDGE

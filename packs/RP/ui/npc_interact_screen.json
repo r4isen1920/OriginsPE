@@ -1,6 +1,14 @@
 {
 	/* UI developed by r4isen1920 | Under MIT LICENSE */
 
+
+
+
+	//---------------------------------------------------------------------------
+	// Vanilla Modifications
+	//---------------------------------------------------------------------------
+
+
 	"npc_screen_render_index@common.empty_panel": {
 		"controls": [
 			{
@@ -40,7 +48,7 @@
 					"layer": 2,
 
 					"controls": [
-						{ "picker_screen@origin_picker_screen.root": {} },
+						{ "picker_screen@origin_picker_screen_npc.root": {} },
 						{ "options@origin_options_screen.root": {} },
 						{ "welcome_screen@origin_welcome_screen.root": {} },
 						{ "ability_selector@origin_ability_wheel_npc.root": {} }
@@ -72,6 +80,14 @@
 			}
 		]
 	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Main
+	//---------------------------------------------------------------------------
+
 
 	"npc_screen@common.base_screen": {
 		"$screen_content": "npc_interact.npc_screen_render_index",

@@ -8,11 +8,12 @@ import { PlayerLifecycle } from '../domain/PlayerLifecycle';
 import { Log } from '../utils/Log';
 import { adminToggleVector, flipToggle, isToggleOn, resetAllToggles } from './OptionsState';
 import type { ToggleKey } from './OptionsState';
-import { isValidId, defaultId } from './PickerRegistry';
+import { isValidId, defaultId, navigableIds, getDifficulty } from './PickerRegistry';
 import { neighborId, toggleBan, isBanned, wouldBanLimitIfBanned } from './PickerNavigation';
-import { pickerSceneTag } from './UiPayload';
-import type { PickerKind, PickerMode } from './UiPayload';
+import { buildPayload, pickerSceneTag } from './UiPayload';
+import { PickerKind, PickerMode } from './UiPayload';
 import AbilitySelector from './AbilitySelector';
+import { ResourceBarService } from '../services/ResourceBarService';
 
 
 //#region ROUTER
@@ -88,9 +89,12 @@ export class UiEventRouter {
 
 
 	//#region HANDLERS
-
+	/**
+	 * Invoked when any form of NPC GUI is closed.
+	 */
 	public static handleClose(player: Player): void {
 		player.onScreenDisplay.resetHudElementsVisibility();
+		ResourceBarService.resume(player);
 	}
 
 	private static handleNav(player: Player, [, kind, dir, id, mode]: string[]): void {
@@ -108,6 +112,14 @@ export class UiEventRouter {
 				: mode; // change / view: stay in same mode.
 
 		UiBridge.openDialogue(player, pickerSceneTag(kind, targetMode, next));
+		player.onScreenDisplay.setTitle(
+			buildPayload(targetMode, kind, getDifficulty(kind, next), next),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
 	}
 
 	private static handlePick(player: Player, [, kind, id]: string[]): void {
@@ -116,12 +128,21 @@ export class UiEventRouter {
 
 		const state = PlayerState.for(player);
 		const resolved = id === 'random' ? this.rollRandom(kind) : id;
-		if (kind === 'race') state.setOrigin(resolved);
+		if (kind === PickerKind.Race) state.setOrigin(resolved);
 		else state.setClass(resolved);
 
 		PlayerLifecycle.applyOriginAndClass(player);
 
-		UiBridge.openDialogue(player, pickerSceneTag(kind, 'view', resolved));
+		UiBridge.openDialogue(player, pickerSceneTag(kind, PickerMode.View, resolved));
+		player.onScreenDisplay.setTitle(
+			buildPayload(PickerMode.View, kind, getDifficulty(kind, resolved), resolved),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
+
 		player.playSound('ui.enchant', { volume: 1, pitch: 1.25 });
 	}
 
@@ -130,13 +151,31 @@ export class UiEventRouter {
 
 		const state = PlayerState.for(player);
 		if (!state.getOrigin()) {
-			const raceStart = defaultId('race');
-			UiBridge.openDialogue(player, pickerSceneTag('race', this.resolvePickMode('race', raceStart, player), raceStart));
+			const raceStart = defaultId(PickerKind.Race);
+			const mode = this.resolvePickMode(PickerKind.Race, raceStart, player);
+			UiBridge.openDialogue(player, pickerSceneTag(PickerKind.Race, mode, raceStart));
+			player.onScreenDisplay.setTitle(
+				buildPayload(mode, PickerKind.Race, getDifficulty(PickerKind.Race, raceStart), raceStart),
+				{
+					fadeInDuration: 0,
+					stayDuration: 0,
+					fadeOutDuration: 0,
+				}
+			);
 			return;
 		}
 		if (!state.getClass()) {
-			const classStart = defaultId('class');
-			UiBridge.openDialogue(player, pickerSceneTag('class', this.resolvePickMode('class', classStart, player), classStart));
+			const classStart = defaultId(PickerKind.Class);
+			const mode = this.resolvePickMode(PickerKind.Class, classStart, player);
+			UiBridge.openDialogue(player, pickerSceneTag(PickerKind.Class, mode, classStart));
+			player.onScreenDisplay.setTitle(
+				buildPayload(mode, PickerKind.Class, getDifficulty(PickerKind.Class, classStart), classStart),
+				{
+					fadeInDuration: 0,
+					stayDuration: 0,
+					fadeOutDuration: 0,
+				}
+			);
 			return;
 		}
 
@@ -150,41 +189,105 @@ export class UiEventRouter {
 			// Safety guard: blocked states should be non-interactive in the UI,
 			// but defend against any edge-case script path reaching here.
 			UiBridge.openDialogue(player, pickerSceneTag(kind, currentMode, id));
+			player.onScreenDisplay.setTitle(
+				buildPayload(currentMode, kind, getDifficulty(kind, id), id),
+				{
+					fadeInDuration: 0,
+					stayDuration: 0,
+					fadeOutDuration: 0,
+				}
+			);
 			return;
 		}
 		toggleBan(kind, id);
+
 		// After banning, the mode for this id is now 'banned'.
-		UiBridge.openDialogue(player, pickerSceneTag(kind, 'banned', id));
+		UiBridge.openDialogue(player, pickerSceneTag(kind, PickerMode.Banned, id));
+		player.onScreenDisplay.setTitle(
+			buildPayload(PickerMode.Banned, kind, getDifficulty(kind, id), id),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
 	}
 
 	private static handleUnban(player: Player, [, kind, id]: string[]): void {
 		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
 		toggleBan(kind, id); // removes ban
 		// Re-resolve mode now that the ban has been lifted.
-		UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolveBanMode(kind, id), id));
+		const mode = this.resolveBanMode(kind, id);
+		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, id));
+		player.onScreenDisplay.setTitle(
+			buildPayload(mode, kind, getDifficulty(kind, id), id),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
 	}
 
 	private static handleChange(player: Player, [, kind, id]: string[]): void {
 		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
 		// Open the pick picker at the current origin/class id. Does NOT commit or
 		// clear state -- the player will do that via the select button in pick mode.
-		UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolvePickMode(kind, id, player), id));
+		const mode = this.resolvePickMode(kind, id, player);
+		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, id));
+		player.onScreenDisplay.setTitle(
+			buildPayload(mode, kind, getDifficulty(kind, id), id),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
 	}
 
 	private static handleOpen(player: Player, [, kind, mode, id]: string[]): void {
 		if (!this.isKind(kind)) return;
+
 		const target = id && isValidId(kind, id) ? id : defaultId(kind);
 		// 'ban' is a virtual entry-point token -- resolve to the actual ban sub-mode.
 		if (mode === 'ban') {
-			UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolveBanMode(kind, target), target));
+			const banMode = this.resolveBanMode(kind, target);
+			UiBridge.openDialogue(player, pickerSceneTag(kind, banMode, target));
+			player.onScreenDisplay.setTitle(
+				buildPayload(banMode, kind, getDifficulty(kind, target), target),
+				{
+					fadeInDuration: 0,
+					stayDuration: 0,
+					fadeOutDuration: 0,
+				}
+			);
 			return;
 		}
+
 		if (!this.isMode(mode)) return;
 		if (mode === 'pick') {
-			UiBridge.openDialogue(player, pickerSceneTag(kind, this.resolvePickMode(kind, target, player), target));
+			const pickMode = this.resolvePickMode(kind, target, player);
+			UiBridge.openDialogue(player, pickerSceneTag(kind, pickMode, target));
+			player.onScreenDisplay.setTitle(
+				buildPayload(pickMode, kind, getDifficulty(kind, target), target),
+				{
+					fadeInDuration: 0,
+					stayDuration: 0,
+					fadeOutDuration: 0,
+				}
+			);
 			return;
 		}
+
 		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, target));
+		player.onScreenDisplay.setTitle(
+			buildPayload(mode, kind, getDifficulty(kind, target), target),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
 	}
 
 
@@ -244,8 +347,17 @@ export class UiEventRouter {
 			case 'player': {
 				PlayerState.for(player).reset();
 				PlayerLifecycle.applyOriginAndClass(player);
-				const raceStart = defaultId('race');
-				UiBridge.openDialogue(player, pickerSceneTag('race', this.resolvePickMode('race', raceStart, player), raceStart));
+				const raceStart = defaultId(PickerKind.Race);
+				const mode = this.resolvePickMode(PickerKind.Race, raceStart, player);
+				UiBridge.openDialogue(player, pickerSceneTag(PickerKind.Race, mode, raceStart));
+				player.onScreenDisplay.setTitle(
+					buildPayload(mode, PickerKind.Race, getDifficulty(PickerKind.Race, raceStart), raceStart),
+					{
+						fadeInDuration: 0,
+						stayDuration: 0,
+						fadeOutDuration: 0,
+					}
+				);
 				return;
 			}
 			case 'all':
@@ -256,8 +368,17 @@ export class UiEventRouter {
 				for (const p of world.getAllPlayers()) {
 					PlayerState.for(p).reset();
 					PlayerLifecycle.applyOriginAndClass(p);
-					const raceStart = defaultId('race');
-					UiBridge.openDialogue(p, pickerSceneTag('race', this.resolvePickMode('race', raceStart, p), raceStart));
+					const raceStart = defaultId(PickerKind.Race);
+					const mode = this.resolvePickMode(PickerKind.Race, raceStart, p);
+					UiBridge.openDialogue(p, pickerSceneTag(PickerKind.Race, mode, raceStart));
+					p.onScreenDisplay.setTitle(
+						buildPayload(mode, PickerKind.Race, getDifficulty(PickerKind.Race, raceStart), raceStart),
+						{
+							fadeInDuration: 0,
+							stayDuration: 0,
+							fadeOutDuration: 0,
+						}
+					);
 				}
 				return;
 			default:
@@ -270,8 +391,17 @@ export class UiEventRouter {
 		for (const p of world.getAllPlayers()) {
 			const st = PlayerState.for(p);
 			if (!st.getOrigin() || !st.getClass()) {
-				const raceStart = defaultId('race');
-				UiBridge.openDialogue(p, pickerSceneTag('race', this.resolvePickMode('race', raceStart, p), raceStart));
+				const raceStart = defaultId(PickerKind.Race);
+				const mode = this.resolvePickMode(PickerKind.Race, raceStart, p);
+				UiBridge.openDialogue(p, pickerSceneTag(PickerKind.Race, mode, raceStart));
+				p.onScreenDisplay.setTitle(
+					buildPayload(mode, PickerKind.Race, getDifficulty(PickerKind.Race, raceStart), raceStart),
+					{
+						fadeInDuration: 0,
+						stayDuration: 0,
+						fadeOutDuration: 0,
+					}
+				);
 			}
 		}
 	}
@@ -323,23 +453,23 @@ export class UiEventRouter {
 	//#region HELPERS
 
 	private static isKind(v: string | undefined): v is PickerKind {
-		return v === 'race' || v === 'class';
+		return v === PickerKind.Race || v === PickerKind.Class;
 	}
 
 	private static isMode(v: string | undefined): v is PickerMode {
-		return v === 'pick' || v === 'pick_ban' || v === 'pick_lock'
-			|| v === 'change'
-			|| v === 'view'
-			|| v === 'banned' || v === 'unbanned'
-			|| v === 'ban_limit' || v === 'ban_locked';
+		return v === PickerMode.Pick || v === PickerMode.PickBan || v === PickerMode.PickLock
+			|| v === PickerMode.Change
+			|| v === PickerMode.View
+			|| v === PickerMode.Banned || v === PickerMode.Unbanned
+			|| v === PickerMode.BanLimit || v === PickerMode.BanLocked;
 	}
 
 	private static isBanContextMode(mode: PickerMode): boolean {
-		return mode === 'banned' || mode === 'unbanned' || mode === 'ban_limit' || mode === 'ban_locked';
+		return mode === PickerMode.Banned || mode === PickerMode.Unbanned || mode === PickerMode.BanLimit || mode === PickerMode.BanLocked;
 	}
 
 	private static isPickContextMode(mode: PickerMode): boolean {
-		return mode === 'pick' || mode === 'pick_ban' || mode === 'pick_lock';
+		return mode === PickerMode.Pick || mode === PickerMode.PickBan || mode === PickerMode.PickLock;
 	}
 
 	/**
@@ -347,10 +477,10 @@ export class UiEventRouter {
 	 * Priority: already-banned > ban_locked (human + unique ON) > ban_limit > unbanned.
 	 */
 	private static resolveBanMode(kind: PickerKind, id: string): PickerMode {
-		if (isBanned(kind, id)) return 'banned';
-		if (kind === 'race' && id === 'human' && isToggleOn('unique')) return 'ban_locked';
-		if (wouldBanLimitIfBanned(kind, id)) return 'ban_limit';
-		return 'unbanned';
+		if (isBanned(kind, id)) return PickerMode.Banned;
+		if (kind === PickerKind.Race && id === 'human' && isToggleOn('unique')) return PickerMode.BanLocked;
+		if (wouldBanLimitIfBanned(kind, id)) return PickerMode.BanLimit;
+		return PickerMode.Unbanned;
 	}
 
 	/**
@@ -358,17 +488,17 @@ export class UiEventRouter {
 	 * Priority: random sentinel > banned > unique-locked > normal pick.
 	 */
 	private static resolvePickMode(kind: PickerKind, id: string, player: Player): PickerMode {
-		if (id === 'random') return 'pick';
-		if (isBanned(kind, id)) return 'pick_ban';
+		if (id === 'random') return PickerMode.Pick;
+		if (isBanned(kind, id)) return PickerMode.PickBan;
 		if (isToggleOn('unique')) {
 			const alreadyTaken = world.getAllPlayers().some((p) => {
 				if (p.id === player.id) return false;
 				const st = PlayerState.for(p);
-				return kind === 'race' ? st.getOrigin() === id : st.getClass() === id;
+				return kind === PickerKind.Race ? st.getOrigin() === id : st.getClass() === id;
 			});
-			if (alreadyTaken) return 'pick_lock';
+			if (alreadyTaken) return PickerMode.PickLock;
 		}
-		return 'pick';
+		return PickerMode.Pick;
 	}
 
 	private static isToggleKey(v: string | undefined): v is ToggleKey {
@@ -376,22 +506,7 @@ export class UiEventRouter {
 	}
 
 	private static rollRandom(kind: PickerKind): string {
-		const ids = (kind === 'race' ? ORIGIN_POOL : CLASS_POOL);
+		const ids = navigableIds(kind);
 		return ids[Math.floor(Math.random() * ids.length)] ?? defaultId(kind);
 	}
 }
-
-
-//#region RANDOM POOLS
-
-// Hard-coded mirrors of the navigable ids; kept here (instead of importing from
-// PickerRegistry) so a future random-eligibility flag can diverge from the nav set.
-const ORIGIN_POOL: readonly string[] = [
-	'human', 'avian', 'arachnid', 'elytrian', 'shulk', 'feline', 'enderian',
-	'merling', 'blazeborn', 'phantom', 'kitsune', 'slimecican', 'inchling',
-	'bee', 'piglin', 'starborne', 'elf', 'voidwalker', 'diviner', 'mole', 'rootkin',
-];
-const CLASS_POOL: readonly string[] = [
-	'nitwit', 'archer', 'beastmaster', 'blacksmith', 'cleric', 'cook', 'explorer',
-	'farmer', 'lumberjack', 'merchant', 'miner', 'rancher', 'rogue', 'warrior',
-];

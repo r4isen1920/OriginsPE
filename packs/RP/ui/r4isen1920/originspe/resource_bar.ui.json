@@ -200,7 +200,7 @@
 	//---------------------------------------------------------------------------
 
 
-	"resource_bar_stack@origin_common.verti_stack": {
+	"root@origin_common.verti_stack": {
 		"anchor_from": "bottom_middle",
 		"anchor_to": "bottom_middle",
 

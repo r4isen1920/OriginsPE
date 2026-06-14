@@ -1,0 +1,301 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+	"$scope": {
+		"list": "{{[origins, classes].flatMap().filter(o => !endsWith(o.traits, 'random') && !endsWith(o.traits, 'none'))}}"
+	},
+
+	/*
+		Rendered on the HUD title channel. This includes the main window that displays
+		the current selected origin, its short description, and traits
+	*/
+
+	//? $vars are to be delimited by another '$' prefix because otherwise jsonte will translate that into a field literal
+	"$template": {
+		"namespace": "origin_picker_screen_hud",
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Description & Scroll Panel Section
+		//---------------------------------------------------------------------------
+
+
+		//* _op:picker.<mode><kind><difficulty><id>
+		//* _op:picker.creelytrian
+
+		"description_scroll_content@origin_common.verti_stack": {
+			"size": ["100%", "100%c"],
+			"layer": 2,
+
+			"$$traits_control": "('origin_powers.' + $being_name)",
+
+			"controls": [
+				{
+					"scroll_top@origin_common.empty_button": {
+						"size": [1, 1] // width does not matter
+					}
+				},
+				{
+					"being_description@origin_common.text_label": {
+						"size": ["default", "default"],
+						"max_size": [120, "default"],
+
+						"text": "('origins.' + $being_name + '.description')",
+						"localize": true
+					}
+				},
+				{
+					"traits_list_padding@common.empty_panel": {
+						"size": [1, 6] // width does not matter
+					}
+				},
+				// {
+				// 	"{{#list as tt}}": {
+				// 		"trait_{{tt.id}}@{{tt.traits}}": {
+				// 			"ignored": "(not ($origin_name = '{{tt.id}}'))"
+				// 		}
+				// 	}
+				// }
+				{ "traits_list@$traits_control": {} }
+			]
+		},
+
+		"description_scroll@origin_common.scrolling_panel": {
+			"anchor_from": "top_left",
+			"anchor_to": "top_left",
+			"size": ["100%", "100%"],
+
+			"$$scrolling_pane_size": ["100%", "100%"],
+			"$$scrolling_pane_offset": [-0.5, 0],
+
+			"$$scroll_bar_and_track_size": [10, "100%"],
+			"$$scroll_box_image_control": "origin_common.scroll_box_active",
+			"$$scroll_track_image_control": "common.container_scrollbar_track",
+
+			"$$scroll_view_port_size": ["100% - 10px", "100%"], // clip excess; account for scroll bar and track
+			"$$scrolling_content": "origin_picker_screen_hud.description_scroll_content"
+		},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Header Section
+		//---------------------------------------------------------------------------
+
+
+		"being_icon_holder": {
+			"type": "image",
+			"texture": "('textures/origins/gui/picker_screen/icon_holder_' + $being_type)",
+			"size": [31, 31],
+			"layer": "$panel_base_layer",
+
+			"controls": [
+				{
+					"being_icon": {
+						"type": "image",
+						"texture": "('textures/origins/gui/picker_screen/icons/' + $being_type + '/' + $being_name)",
+						"size": [18, 18],
+						"layer": "($panel_base_layer - 1)"
+					}
+				}
+			]
+		},
+
+
+		"being_nameplate": {
+			"type": "image",
+			"texture": "('textures/origins/gui/picker_screen/nameplate_' + $being_type)",
+			"size": [121, 17],
+
+			"layer": "($panel_base_layer - 1)",
+			"clips_children": true,
+
+			"controls": [
+				{
+					"nameplate_contents@origin_common.hori_stack": {
+						"size": ["90%", "100%cm"],
+
+						"controls": [
+							{
+								"being_name": {
+									"type": "label",
+
+									"size": ["default", "default"],
+									"max_size": [74, 16],
+
+									"text": "('origins.' + $being_name + '.name')",
+									"shadow": true,
+									"localize": true,
+
+									"layer": "($panel_base_layer - 1)"
+								}
+							},
+							{
+								"padding@common.empty_panel": {
+									"size": ["fill", "100%sm"]
+								}
+							},
+							{ "picker_difficulty@origin_picker_screen_hud.picker_difficulty": {} }
+						]
+					}
+				}
+			]
+		},
+
+		"picker_difficulty": {
+			"type": "image",
+			"texture": "('textures/origins/gui/picker_screen/impact_' + $being_difficulty)",
+			"size": [33, 11],
+
+			"layer": "($panel_base_layer - 1)",
+
+			"controls": [
+				{
+					"hover_panel@origin_common.empty_button": {
+						"size": ["100%", "100%"],
+
+						"$$panel_base_layer|default": 150,
+						"layer": "$panel_base_layer",
+
+						"controls": [
+							{
+								"hover@common.empty_panel": {
+									"size": ["100%", "100%"],
+									"layer": "$panel_base_layer",
+
+									"controls": [
+										{
+											"label_bg": {
+												"type": "image",
+												"texture": "textures/ui/purpleBorder",
+
+												"anchor_from": "left_middle",
+												"anchor_to": "left_middle",
+												"size": ["100%c + 9px", "100%c + 8px"],
+												"offset": [8, -20],
+
+												"layer": "($panel_base_layer + 1)",
+												"allow_clipping": false,
+
+												"controls": [
+													{
+														"label": {
+															"type": "label",
+
+															"anchor_from": "top_left",
+															"anchor_to": "top_left",
+															"size": ["default", "default"],
+															"max_size": ["145px", "default"],
+															"offset": [4, 3],
+
+															"text": "('origins.gui.impact.' + $being_difficulty)",
+															"localize": true,
+
+															"layer": "($panel_base_layer + 2)",
+															"allow_clipping": false
+														}
+													}
+												]
+											}
+										},
+
+										{
+											"hover_image": {
+												"type": "image",
+												"texture": "('textures/origins/gui/picker_screen/impact_hover_' + $being_difficulty)",
+
+												"layer": "($panel_base_layer + 1)"
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Main
+		//---------------------------------------------------------------------------
+
+
+		"picker_window_content@origin_common.verti_stack": {
+			"size": ["100%cm", "100% - 8px"],
+
+			"controls": [
+				{
+					"header@origin_common.hori_stack": {
+						"$$panel_base_layer": 20,
+
+						"$$being_name": "($var_title_text - ('%.14s' * $var_title_text))",
+						"$$being_type": "(('%.13s' * $var_title_text) - ('%.12s' * $var_title_text))",
+						"$$being_difficulty": "(('%.14s' * $var_title_text) - ('%.13s' * $var_title_text))",
+
+						"controls": [
+							{ "icon@origin_picker_screen_hud.being_icon_holder": {} },
+							{
+								"name_centerer@common.empty_panel": {
+									"size": ["100%c", "100%sm"],
+
+									"controls": [
+										{
+											"name@origin_picker_screen_hud.being_nameplate": {
+												"offset": [-3, 0]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+
+				{
+					"padding@common.empty_panel": {
+						"size": [1, 4] // ignore width
+					}
+				},
+
+				{
+					"body_centerer@common.empty_panel": {
+						"size": ["100%sm - 1px", "fill"],
+
+						"$$being_name": "($var_title_text - ('%.14s' * $var_title_text))",
+
+						"controls": [
+							{ "scrollable_panel@origin_picker_screen_hud.description_scroll": {} }
+						]
+					}
+				}
+			]
+		},
+
+		"picker_root_content@common.empty_panel": {
+			"size": ["100%", "100%"],
+
+			"controls": [
+				{
+					"picker_main_window@origin_common.origin_picker_window_template": {
+						"$$child_control": "origin_picker_screen_hud.picker_window_content"
+					}
+				}
+			]
+		},
+
+		"root@common.empty_panel": {
+			"controls": [
+				{ "base@origin_picker_screen_hud.picker_root_content": {} }
+			],
+
+			"ignored": "(not (('%.11s' * $var_title_text) = '_op:picker.'))"
+		}
+
+	}
+}

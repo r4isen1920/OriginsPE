@@ -11,6 +11,10 @@ import {
 import { Entities } from '../Files';
 import { Log } from '../utils/Log';
 import { PlayerState } from './PlayerState';
+import { buildPayload, pickerSceneTag } from '../ui/UiPayload';
+import { ResourceBarService } from '../services/ResourceBarService';
+import { Registry } from './Registry';
+import { getDifficulty } from '../ui/PickerRegistry';
 
 
 //#region TYPES
@@ -57,8 +61,11 @@ export class UiBridge {
 	static async openDialogue(player: Player, dialogueId: string): Promise<void> {
 		await this.ensureHandler(player);
 
+		ResourceBarService.suspend(player);
 		player.onScreenDisplay.hideAllExcept();
+
 		this.log.debug(`Open: '${dialogueId}', for: ${player.name}`);
+
 		try {
 			player.runCommand(
 				`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
@@ -75,7 +82,16 @@ export class UiBridge {
 		const state = PlayerState.for(player);
 		const current = kind === PickerKind.Race ? state.getOrigin() : state.getClass();
 		const fallback = kind === PickerKind.Race ? 'human' : 'nitwit';
-		const id = `gui_${kind}_${mode}_${current ?? fallback}`;
+		const id = pickerSceneTag(kind, mode, current ?? fallback);
+
+		player.onScreenDisplay.setTitle(
+			buildPayload(mode, kind, getDifficulty(kind, current ?? fallback), current ?? fallback),
+			{
+				fadeInDuration: 0,
+				stayDuration: 0,
+				fadeOutDuration: 0,
+			}
+		);
 
 		await this.openDialogue(player, id);
 
@@ -91,32 +107,6 @@ export class UiBridge {
 		}
 	}
 
-
-	//#region FORMS
-
-	/** Awaitable wrapper around `ActionFormData.show`. */
-	static async showAction(player: Player, build: (form: ActionFormData) => void): Promise<ActionFormResponse> {
-		const form = new ActionFormData();
-		build(form);
-		return form.show(player);
-	}
-
-	/** Awaitable wrapper around `MessageFormData.show`. */
-	static async showMessage(player: Player, build: (form: MessageFormData) => void): Promise<MessageFormResponse> {
-		const form = new MessageFormData();
-		build(form);
-		return form.show(player);
-	}
-
-	/** Awaitable wrapper around `ModalFormData.show`. */
-	static async showModal(player: Player, build: (form: ModalFormData) => void): Promise<ModalFormResponse> {
-		const form = new ModalFormData();
-		build(form);
-		return form.show(player);
-	}
-
-
-	//#region INTERNAL
 	private static async ensureHandler(player: Player): Promise<void> {
 		const nearby = player.dimension.getEntities({
 			type: Entities.DialogueHandler,

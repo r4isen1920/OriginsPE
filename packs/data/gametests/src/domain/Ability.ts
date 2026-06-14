@@ -153,6 +153,7 @@ export enum OriginDifficulty {
 /** Difficulty tier shown by the picker UI for a class. */
 export enum ClassDifficulty {
 	Nitwit = 'nitwit',
+	Niche = 'niche',
 	Decent = 'decent',
 	Very = 'very',
 }

@@ -72,33 +72,9 @@ const RESIGNATION_PAPER: ItemHandler = {
 	},
 };
 
-const ORIGINS_MENU: ItemHandler = {
-	id: Items.OriginsMenu,
-	onStartUse(player) {
-		if (InventoryService.isOpen(player)) InventoryService.close(player);
-		else InventoryService.open(player);
-		player.playSound('ui.wood_click');
-	},
-};
-
-const ORIGINS_SUBMENU: ItemHandler = {
-	id: Items.OriginsSubmenu,
-	onStartUse(player) {
-		InventoryService.close(player);
-		const tag = isToggleOn('particle')
-			? 'gui_options_general_root_particleon'
-			: 'gui_options_general_root_particleoff';
-		UiBridge.openDialogue(player, tag);
-		player.playSound('ui.wood_click');
-		player.playSound('random.orb', { volume: 1, pitch: 0.5 });
-	},
-};
-
 const HANDLERS = new Map<string, ItemHandler>([
 	[ORB_OF_ORIGINS.id, ORB_OF_ORIGINS],
 	[RESIGNATION_PAPER.id, RESIGNATION_PAPER],
-	[ORIGINS_MENU.id, ORIGINS_MENU],
-	[ORIGINS_SUBMENU.id, ORIGINS_SUBMENU],
 ]);
 
 

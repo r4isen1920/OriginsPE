@@ -4,365 +4,13 @@
 		"list": "{{[origins, classes].flatMap().filter(o => !endsWith(o.traits, 'random') && !endsWith(o.traits, 'none'))}}"
 	},
 
+	/*
+		Input-only layer. This shows the picker buttons, and title.
+	*/
+
 	//? $vars are to be delimited by another '$' prefix because otherwise jsonte will translate that into a field literal
 	"$template": {
-		"namespace": "origin_picker_screen",
-
-
-
-
-		//---------------------------------------------------------------------------
-		// Description & Scroll Panel Section
-		//---------------------------------------------------------------------------
-
-
-		//* _op:picker.<mode><kind><difficulty><id>
-		//* _op:picker.creelytrian
-
-		"{{#list as tt}}": {
-			"description_trait_{{tt.id}}_item_factory@origin_common.factory_condition": {
-				"size": ["100%", "100%c"],
-
-				"$$target_name": "{{tt.id}}_desc",
-				"$$target_control": "{{tt.traits}}",
-
-				"$$condition": "(((#dialogtext - ('%.14s' * #dialogtext)) = '{{tt.id}}') * 1)"
-			}
-		},
-
-
-		"description_scroll_content@origin_common.verti_stack": {
-			"size": ["100%", "100%c"],
-
-			"layer": 2,
-
-			"controls": [
-				{
-					"scroll_top@origin_common.empty_button": {
-						"size": [1, 1] // width does not matter
-					}
-				},
-				{
-					"being_description@origin_common.text_label": {
-						"size": ["default", "default"],
-						"max_size": [120, "default"],
-
-						"text": "#being_description",
-						"localize": true,
-
-						"bindings": [
-							{
-								"binding_type": "global",
-								"binding_name": "#dialogtext"
-							},
-							{
-								"binding_type": "view",
-								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
-								"target_property_name": "#being_id"
-							},
-							{
-								"binding_type": "view",
-								"source_property_name": "('origins.' + #being_id + '.description')",
-								"target_property_name": "#being_description"
-							}
-						]
-					}
-				},
-				{
-					"traits_list_padding@common.empty_panel": {
-						"size": [1, 6] // width does not matter
-					}
-				},
-				{
-					"{{#list as tt}}": {
-						"trait_{{tt.id}}_factory@origin_picker_screen.description_trait_{{tt.id}}_item_factory": {}
-					}
-				}
-			]
-		},
-
-		"description_scroll@origin_common.scrolling_panel": {
-			"anchor_from": "top_left",
-			"anchor_to": "top_left",
-			"size": ["100%", "100%"],
-
-			"$$scrolling_pane_size": ["100%", "100%"],
-			"$$scrolling_pane_offset": [-0.5, 0],
-
-			"$$scroll_bar_and_track_size": [10, "100%"],
-			"$$scroll_box_image_control": "origin_common.scroll_box_active",
-			"$$scroll_track_image_control": "common.container_scrollbar_track",
-
-			"$$scroll_view_port_size": ["100% - 10px", "100%"], // clip excess; account for scroll bar and track
-			"$$scrolling_content": "origin_picker_screen.description_scroll_content"
-		},
-
-
-
-
-		//---------------------------------------------------------------------------
-		// Header Section
-		//---------------------------------------------------------------------------
-
-
-		"being_icon_holder": {
-			"type": "image",
-			"texture": "#texture",
-			"size": [31, 31],
-
-			"layer": "$panel_base_layer",
-
-			"controls": [
-				{
-					"being_icon": {
-						"type": "image",
-						"texture": "#texture",
-						"size": [18, 18],
-						"layer": "($panel_base_layer - 1)",
-
-						"bindings": [
-							{
-								"binding_name": "#dialogtext",
-								"binding_type": "global"
-							},
-
-							{
-								"binding_type": "view",
-								"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
-								"target_property_name": "#being_id"
-							},
-							{
-								"binding_type": "view",
-								"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
-								"target_property_name": "#being_nameplate_type"
-							},
-
-							{
-								"binding_type": "view",
-								"source_property_name": "('textures/origins/gui/picker_screen/icons/' + #being_nameplate_type + '/' + #being_id)",
-								"target_property_name": "#texture"
-							}
-						]
-					}
-				}
-			],
-
-			"bindings": [
-				{
-					"binding_name": "#dialogtext",
-					"binding_type": "global"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
-					"target_property_name": "#being_icon_type"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "('textures/origins/gui/picker_screen/icon_holder_' + #being_icon_type)",
-					"target_property_name": "#texture"
-				}
-			]
-		},
-
-
-		"being_nameplate": {
-			"type": "image",
-			"texture": "#texture",
-			"size": [121, 17],
-
-			"layer": "($panel_base_layer - 1)",
-			"clips_children": true,
-
-			"controls": [
-				{
-					"nameplate_contents@origin_common.hori_stack": {
-						"size": ["90%", "100%cm"],
-
-						"controls": [
-							{
-								"being_name": {
-									"type": "label",
-
-									"size": ["default", "default"],
-									"max_size": [74, 16],
-
-									"text": "#text",
-									"shadow": true,
-									"localize": true,
-
-									"layer": "($panel_base_layer - 1)",
-
-									"bindings": [
-										{
-											"binding_name": "#dialogtext",
-											"binding_type": "global"
-										},
-										{
-											"binding_type": "view",
-											"source_property_name": "(#dialogtext - ('%.14s' * #dialogtext))",
-											"target_property_name": "#being_name"
-										},
-										{
-											"binding_type": "view",
-											"source_property_name": "('origins.' + #being_name + '.name')",
-											"target_property_name": "#text"
-										}
-									]
-								}
-							},
-							{
-								"padding@common.empty_panel": {
-									"size": ["fill", "100%sm"]
-								}
-							},
-							{ "picker_difficulty@origin_picker_screen.picker_difficulty": {} }
-						]
-					}
-				}
-			],
-			"bindings": [
-				{
-					"binding_name": "#dialogtext",
-					"binding_type": "global"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
-					"target_property_name": "#being_nameplate_type"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "('textures/origins/gui/picker_screen/nameplate_' + #being_nameplate_type)",
-					"target_property_name": "#texture"
-				}
-			]
-		},
-
-		"picker_difficulty": {
-			"type": "image",
-			"texture": "#texture",
-			"size": [33, 11],
-
-			"layer": "($panel_base_layer - 1)",
-
-			"controls": [
-				{
-					"hover_panel@origin_common.empty_button": {
-						"size": ["100%", "100%"],
-
-						"$$panel_base_layer|default": 150,
-						"layer": "$panel_base_layer",
-
-						"controls": [
-							{
-								"hover@common.empty_panel": {
-									"size": ["100%", "100%"],
-									"layer": "$panel_base_layer",
-
-									"controls": [
-										{
-											"label_bg": {
-												"type": "image",
-												"texture": "textures/ui/purpleBorder",
-
-												"anchor_from": "left_middle",
-												"anchor_to": "left_middle",
-												"size": ["100%c + 9px", "100%c + 8px"],
-												"offset": [8, -20],
-
-												"layer": "($panel_base_layer + 1)",
-												"allow_clipping": false,
-
-												"controls": [
-													{
-														"label": {
-															"type": "label",
-
-															"anchor_from": "top_left",
-															"anchor_to": "top_left",
-															"size": ["default", "default"],
-															"max_size": ["145px", "default"],
-															"offset": [4, 3],
-
-															"text": "#text",
-															"localize": true,
-
-															"layer": "($panel_base_layer + 2)",
-															"allow_clipping": false,
-
-															"bindings": [
-																{
-																	"binding_name": "#dialogtext",
-																	"binding_type": "global"
-																},
-																{
-																	"binding_type": "view",
-																	"source_property_name": "(('%.14s' * #dialogtext) - ('%.13s' * #dialogtext))",
-																	"target_property_name": "#being_diff_type"
-																},
-																{
-																	"binding_type": "view",
-																	"source_property_name": "('origins.gui.impact.' + #being_diff_type)",
-																	"target_property_name": "#text"
-																}
-															]
-														}
-													}
-												]
-											}
-										},
-
-										{
-											"hover_image": {
-												"type": "image",
-												"texture": "#texture",
-
-												"layer": "($panel_base_layer + 1)",
-
-												"bindings": [
-													{
-														"binding_name": "#dialogtext",
-														"binding_type": "global"
-													},
-													{
-														"binding_type": "view",
-														"source_property_name": "(('%.13s' * #dialogtext) - ('%.12s' * #dialogtext))",
-														"target_property_name": "#being_diff_type"
-													},
-													{
-														"binding_type": "view",
-														"source_property_name": "('textures/origins/gui/picker_screen/impact_hover_' + #being_diff_type)",
-														"target_property_name": "#texture"
-													}
-												]
-											}
-										}
-									]
-								}
-							}
-						]
-					}
-				}
-			],
-
-			"bindings": [
-				{
-					"binding_name": "#dialogtext",
-					"binding_type": "global"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "(('%.14s' * #dialogtext) - ('%.13s' * #dialogtext))",
-					"target_property_name": "#being_diff_type"
-				},
-				{
-					"binding_type": "view",
-					"source_property_name": "('textures/origins/gui/picker_screen/impact_' + #being_diff_type)",
-					"target_property_name": "#texture"
-				}
-			]
-		},
+		"namespace": "origin_picker_screen_npc",
 
 
 
@@ -480,7 +128,7 @@
 					}
 				},
 				{
-					"left_tooltip_helper@origin_picker_screen.tooltip_helpers": {
+					"left_tooltip_helper@origin_picker_screen_npc.tooltip_helpers": {
 						"$$tooltip_helper_side": "left"
 					}
 				}
@@ -511,7 +159,7 @@
 						"$$button_text_label": "origins.gui.button.select",
 						"$$custom_locked_button": true,
 						"$$show_hover_content": true,
-						"$$hover_content": "origin_picker_screen.unallowed_button_hover",
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
 						"$$hover_text": "origins.gui.subtitle.banned",
 						"$$visible_binding": "(#student_button_text = 'select_ban')"
 					}
@@ -523,7 +171,7 @@
 						"$$button_text_label": "origins.gui.button.select",
 						"$$custom_locked_button": true,
 						"$$show_hover_content": true,
-						"$$hover_content": "origin_picker_screen.unallowed_button_hover",
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
 						"$$hover_text": "origins.gui.subtitle.locked",
 						"$$visible_binding": "(#student_button_text = 'select_lock')"
 					}
@@ -631,7 +279,7 @@
 						"$$button_text_label": "origins.gui.button.manage.ban",
 						"$$custom_locked_button": true,
 						"$$show_hover_content": true,
-						"$$hover_content": "origin_picker_screen.unallowed_button_hover",
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
 						"$$hover_text": "origins.gui.manage.ban_limit",
 						"$$visible_binding": "(#student_button_text = 'ban_limit')"
 					}
@@ -644,7 +292,7 @@
 						"$$button_text_label": "origins.gui.button.manage.ban",
 						"$$custom_locked_button": true,
 						"$$show_hover_content": true,
-						"$$hover_content": "origin_picker_screen.unallowed_button_hover",
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
 						"$$hover_text": "origins.gui.manage.ban_locked",
 						"$$visible_binding": "(#student_button_text = 'ban_locked')"
 					}
@@ -686,7 +334,7 @@
 					}
 				},
 				{
-					"right_tooltip_helper@origin_picker_screen.tooltip_helpers": {
+					"right_tooltip_helper@origin_picker_screen_npc.tooltip_helpers": {
 						"$$tooltip_helper_side": "right"
 					}
 				}
@@ -703,7 +351,7 @@
 						"collection_index": "$collection_index",
 						"size": ["100%", "100%"],
 
-						"$$button_contents": "('origin_picker_screen.' + $button_type + '_dialog_button')",
+						"$$button_contents": "('origin_picker_screen_npc.' + $button_type + '_dialog_button')",
 						"controls": [
 							{ "button_contents@$button_contents": {} }
 						]
@@ -991,7 +639,7 @@
 
 			"controls": [
 				{
-					"cycle_left_button@origin_picker_screen.dialog_button": {
+					"cycle_left_button@origin_picker_screen_npc.dialog_button": {
 						"$$collection_index": 0,
 						"$$button_type": "left_cycle",
 
@@ -1013,7 +661,7 @@
 
 									"controls": [
 										{
-											"select_button@origin_picker_screen.dialog_button": {
+											"select_button@origin_picker_screen_npc.dialog_button": {
 												"$$collection_index": 1,
 												"$$button_type": "select",
 
@@ -1021,7 +669,7 @@
 											}
 										},
 										{
-											"select_button_blocked@origin_picker_screen.dialog_button": {
+											"select_button_blocked@origin_picker_screen_npc.dialog_button": {
 												"$$collection_index": 1,
 												"$$button_type": "select_blocked",
 
@@ -1033,7 +681,7 @@
 							},
 
 							{
-								"start_button@origin_picker_screen.dialog_button": {
+								"start_button@origin_picker_screen_npc.dialog_button": {
 									"$$collection_index": 0,
 									"$$button_type": "start",
 
@@ -1052,7 +700,7 @@
 
 												"controls": [
 													{
-														"changing_cost_display_panel@origin_picker_screen.continue_button_cost_display": {
+														"changing_cost_display_panel@origin_picker_screen_npc.continue_button_cost_display": {
 															"size": [31, 22],
 															"offset": [-27.5, 1.0]
 														}
@@ -1063,19 +711,19 @@
 
 															"controls": [
 																{
-																	"continue_button_race@origin_picker_screen.dialog_button": {
+																	"continue_button_race@origin_picker_screen_npc.dialog_button": {
 																		"$$collection_index": 1,
 																		"$$button_type": "continue_race"
 																	}
 																},
 																{
-																	"continue_button_class@origin_picker_screen.dialog_button": {
+																	"continue_button_class@origin_picker_screen_npc.dialog_button": {
 																		"$$collection_index": 1,
 																		"$$button_type": "continue_class"
 																	}
 																},
 																{
-																	"continue_button_blocked@origin_picker_screen.dialog_button": {
+																	"continue_button_blocked@origin_picker_screen_npc.dialog_button": {
 																		"$$collection_index": 1,
 																		"$$button_type": "continue_blocked"
 																	}
@@ -1140,7 +788,7 @@
 												"size": [83, "100%"],
 												"controls": [
 													{
-														"cancel_button_0@origin_picker_screen.dialog_button": {
+														"cancel_button_0@origin_picker_screen_npc.dialog_button": {
 															"$$collection_index": 0,
 															"$$button_type": "cancel",
 
@@ -1148,7 +796,7 @@
 														}
 													},
 													{
-														"cancel_button_1@origin_picker_screen.dialog_button": {
+														"cancel_button_1@origin_picker_screen_npc.dialog_button": {
 															"$$collection_index": 2,
 															"$$button_type": "cancel",
 
@@ -1170,7 +818,7 @@
 						"offset": [110, 0],
 						"controls": [
 							{
-								"cycle_right_button_0@origin_picker_screen.dialog_button": {
+								"cycle_right_button_0@origin_picker_screen_npc.dialog_button": {
 									"$$collection_index": 2,
 									"$$button_type": "right_cycle",
 
@@ -1180,7 +828,7 @@
 								}
 							},
 							{
-								"cycle_right_button_1@origin_picker_screen.dialog_button": {
+								"cycle_right_button_1@origin_picker_screen_npc.dialog_button": {
 									"$$collection_index": 3,
 									"$$button_type": "right_cycle",
 
@@ -1203,60 +851,10 @@
 		//---------------------------------------------------------------------------
 
 
-		"picker_screen_content@origin_common.verti_stack": {
-			"size": ["100%cm", "100% - 8px"],
-
-			"controls": [
-				{
-					"header@origin_common.hori_stack": {
-						"$$panel_base_layer": 20,
-
-						"controls": [
-							{ "icon@origin_picker_screen.being_icon_holder": {} },
-							{
-								"name_centerer@common.empty_panel": {
-									"size": ["100%c", "100%sm"],
-
-									"controls": [
-										{
-											"name@origin_picker_screen.being_nameplate": {
-												"offset": [-3, 0]
-											}
-										}
-									]
-								}
-							}
-						]
-					}
-				},
-
-				{
-					"padding@common.empty_panel": {
-						"size": [1, 4] // ignore width
-					}
-				},
-
-				{
-					"body_centerer@common.empty_panel": {
-						"size": ["100%sm - 1px", "fill"],
-
-						"controls": [
-							{ "scrollable_panel@origin_picker_screen.description_scroll": {} }
-						]
-					}
-				}
-			]
-		},
-
 		"picker_root_content@common.empty_panel": {
 			"size": ["100%", "100%"],
 
 			"controls": [
-				{
-					"picker_main_window@origin_common.origin_picker_window_template": {
-						"$$child_control": "origin_picker_screen.picker_screen_content"
-					}
-				},
 				{ "picker_buttons@picker_buttons": {} },
 				{ "picker_title_text@picker_title_text": {} },
 				{ "picker_shine@picker_shine": {} }
@@ -1265,7 +863,7 @@
 
 		"root@origin_common.binding_condition": {
 			"controls": [
-				{ "base@origin_picker_screen.picker_root_content": {} }
+				{ "base@origin_picker_screen_npc.picker_root_content": {} }
 			],
 
 			"$$condition": "(('%.11s' * #dialogtext) = '_op:picker.')"

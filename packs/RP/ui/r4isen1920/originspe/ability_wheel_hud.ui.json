@@ -6,7 +6,7 @@
 		dynamically while the (input-only) NPC screen is open.
 	*/
 
-	"namespace": "origin_ability_wheel",
+	"namespace": "origin_ability_wheel_hud",
 
 
 
@@ -29,12 +29,12 @@
 	//---------------------------------------------------------------------------
 
 
-	"box_bg_default@origin_ability_wheel.img": {
+	"box_bg_default@origin_ability_wheel_hud.img": {
 		"size": ["100%", "100%"],
 		"layer": 5,
 		"texture": "textures/origins/gui/ability_selector/ability_box_default"
 	},
-	"box_bg_hover@origin_ability_wheel.img": {
+	"box_bg_hover@origin_ability_wheel_hud.img": {
 		"size": ["100%", "100%"],
 		"layer": 5,
 		"texture": "textures/origins/gui/ability_selector/ability_box_hover"
@@ -56,7 +56,7 @@
 		]
 	},
 
-	"box_icon@origin_ability_wheel.img": {
+	"box_icon@origin_ability_wheel_hud.img": {
 		"size": [22, 22],
 		"layer": 6,
 
@@ -68,14 +68,14 @@
 		"ignored": "(($slot_icon_code = ';--') or ($slot_icon_code = ';op'))"
 	},
 
-	"box_menu_icon@origin_ability_wheel.img": {
+	"box_menu_icon@origin_ability_wheel_hud.img": {
 		"size": [22, 22],
 		"layer": 7,
 		"texture": "textures/origins/gui/ability_selector/menu",
 		"ignored": "(not ($slot_icon_code = ';op'))"
 	},
 
-	"box_highlight@origin_ability_wheel.img": {
+	"box_highlight@origin_ability_wheel_hud.img": {
 		"$final_size": ["100% + 4px", "100% + 4px"],
 		"size": "$final_size",
 		"layer": 4,
@@ -239,11 +239,11 @@
 
 	"box@common.empty_panel": {
 		"controls": [
-			{ "bg@origin_ability_wheel.box_bg": {} },
-			{ "icon@origin_ability_wheel.box_icon": {} },
-			{ "menu_icon@origin_ability_wheel.box_menu_icon": {} },
-			{ "tooltip@origin_ability_wheel.box_tooltip_key": {} },
-			{ "highlight@origin_ability_wheel.box_highlight": {} }
+			{ "bg@origin_ability_wheel_hud.box_bg": {} },
+			{ "icon@origin_ability_wheel_hud.box_icon": {} },
+			{ "menu_icon@origin_ability_wheel_hud.box_menu_icon": {} },
+			{ "tooltip@origin_ability_wheel_hud.box_tooltip_key": {} },
+			{ "highlight@origin_ability_wheel_hud.box_highlight": {} }
 		]
 	},
 
@@ -262,7 +262,7 @@
 
 		"controls": [
 			{
-				"box_0@origin_ability_wheel.box_holder": {
+				"box_0@origin_ability_wheel_hud.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.9s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';0')",
 					"$slot_offset": [0, -52],
@@ -273,7 +273,7 @@
 				}
 			},
 			{
-				"box_1@origin_ability_wheel.box_holder": {
+				"box_1@origin_ability_wheel_hud.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.12s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';1')",
 					"$slot_offset": [50, -10],
@@ -284,7 +284,7 @@
 				}
 			},
 			{
-				"box_2@origin_ability_wheel.box_holder": {
+				"box_2@origin_ability_wheel_hud.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.15s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';2')",
 					"$slot_offset": [31, 46],
@@ -295,7 +295,7 @@
 				}
 			},
 			{
-				"box_3@origin_ability_wheel.box_holder": {
+				"box_3@origin_ability_wheel_hud.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.18s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';3')",
 					"$slot_offset": [-31, 46],
@@ -306,7 +306,7 @@
 				}
 			},
 			{
-				"box_4@origin_ability_wheel.box_holder": {
+				"box_4@origin_ability_wheel_hud.box_holder": {
 					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.21s' * $var_title_text)))",
 					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';4')",
 					"$slot_offset": [-50, -10],
@@ -373,7 +373,7 @@
 	},
 
 
-	"ability_wheel_stack@common.empty_panel": {
+	"root@common.empty_panel": {
 		"size": ["100%", "100%"],
 
 		"controls": [
@@ -385,5 +385,4 @@
 		//* Only render when the wheel payload owns the title channel.
 		"ignored": "(not ('%.7s' * $var_title_text = '_op:abw'))"
 	}
-
 }
