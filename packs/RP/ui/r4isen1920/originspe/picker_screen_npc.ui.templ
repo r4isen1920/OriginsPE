@@ -454,10 +454,13 @@
 						"controls": [
 							{
 								"orb_of_origins_item_render@origin_common.hoverable_image": {
-									"$$hover_size": [15.5, 15.5],
 									"offset": [0.5, -1.1],
+
+									"$$hover_size": [15.5, 15.5],
+									"$$hover_offset": [8, -8],
 									"$$image_texture": "textures/origins/items/orb",
 									"$$hover_text": "origins.gui.change.race",
+
 									"bindings": [
 										{
 											"binding_name": "#dialogtext",
@@ -473,10 +476,13 @@
 							},
 							{
 								"ban_origin_image_render@origin_common.hoverable_image": {
-									"$$hover_size": [14, 14],
 									"offset": [1, -1.1],
+
+									"$$hover_size": [14, 14],
+									"$$hover_offset": [8, 0],
 									"$$image_texture": "textures/origins/gui/options_screen/icon_ban_origins",
 									"$$hover_text": "origins.gui.manage.ban_race",
+
 									"bindings": [
 										{
 											"binding_name": "#dialogtext",
@@ -484,7 +490,12 @@
 										},
 										{
 											"binding_type": "view",
-											"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
+											"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+											"target_property_name": "#screen_type"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "((#screen_type = 'br') or (#screen_type = 'ur'))",
 											"target_property_name": "#visible"
 										}
 									]
@@ -499,17 +510,12 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
-								"target_property_name": "#is_changing_origin"
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+								"target_property_name": "#screen_type"
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
-								"target_property_name": "#is_banning_origin"
-							},
-							{
-								"binding_type": "view",
-								"source_property_name": "(#is_changing_origin or #is_banning_origin)",
+								"source_property_name": "((#screen_type = 'cr') or (#screen_type = 'br') or (#screen_type = 'ur'))",
 								"target_property_name": "#visible"
 							}
 						]
@@ -525,10 +531,13 @@
 						"controls": [
 							{
 								"resignation_paper_item_render@origin_common.hoverable_image": {
-									"$$hover_size": [15, 15],
 									"offset": [1, -1.1],
+
+									"$$hover_size": [15, 15],
+									"$$hover_offset": [8, -8],
 									"$$image_texture": "textures/origins/items/resignation_paper",
 									"$$hover_text": "origins.gui.change.class",
+
 									"bindings": [
 										{
 											"binding_name": "#dialogtext",
@@ -544,10 +553,13 @@
 							},
 							{
 								"ban_class_image_render@origin_common.hoverable_image": {
-									"$$hover_size": [14, 14],
 									"offset": [1, -1.1],
+
+									"$$hover_size": [14, 14],
+									"$$hover_offset": [8, 0],
 									"$$image_texture": "textures/origins/gui/options_screen/icon_ban_classes",
 									"$$hover_text": "origins.gui.manage.ban_class",
+
 									"bindings": [
 										{
 											"binding_name": "#dialogtext",
@@ -555,7 +567,12 @@
 										},
 										{
 											"binding_type": "view",
-											"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
+											"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+											"target_property_name": "#screen_type"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "((#screen_type = 'bc') or (#screen_type = 'uc'))",
 											"target_property_name": "#visible"
 										}
 									]
@@ -570,17 +587,12 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
-								"target_property_name": "#is_changing_class"
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+								"target_property_name": "#screen_type"
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
-								"target_property_name": "#is_banning_class"
-							},
-							{
-								"binding_type": "view",
-								"source_property_name": "(#is_changing_class or #is_banning_class)",
+								"source_property_name": "((#screen_type = 'cc') or (#screen_type = 'bc') or (#screen_type = 'uc'))",
 								"target_property_name": "#visible"
 							}
 						]
@@ -592,7 +604,7 @@
 		"unallowed_button_hover@common.empty_panel": {
 			"$$hover_text|default": "button_hover",
 			"$$hover_size|default": ["100%", "100%"],
-			"$$hover_offset|default": [0, -20],
+			"$$hover_offset|default": [0, 10],
 
 			"$$panel_base_layer|default": 150,
 
@@ -603,13 +615,12 @@
 				{
 					"hover_text_image": {
 						"type": "image",
-						"allow_clipping": false,
 						"texture": "textures/ui/purpleBorder",
 						"size": ["100%c + 9px", "100%c + 8px"],
-						"anchor_from": "center",
-						"anchor_to": "center",
 						"offset": "$hover_offset",
 						"layer": "($panel_base_layer + 1)",
+						"allow_clipping": false,
+
 						"controls": [
 							{
 								"hover_text_label": {
@@ -619,11 +630,13 @@
 									"size": ["default", "default"],
 									"max_size": ["145px", "default"],
 									"offset": [4, 3],
+
 									"text": "$hover_text",
 									"text_alignment": "center",
 									"color": "$f_color_format",
 									"locked_color": "$f_color_format",
 									"localize": true,
+
 									"layer": "($panel_base_layer + 2)"
 								}
 							}
@@ -750,6 +763,7 @@
 														}
 													}
 												],
+
 												"bindings": [
 													{
 														"binding_name": "#dialogtext",
@@ -757,27 +771,22 @@
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
-														"target_property_name": "#is_changing_origin"
+														"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+														"target_property_name": "#screen_type"
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'br')",
-														"target_property_name": "#is_banning_origin"
+														"source_property_name": "((#screen_type = 'cr') or (#screen_type = 'br') or (#screen_type = 'ur'))",
+														"target_property_name": "#is_changing_or_banning_origin"
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
-														"target_property_name": "#is_changing_class"
+														"source_property_name": "((#screen_type = 'cc') or (#screen_type = 'bc') or (#screen_type = 'uc'))",
+														"target_property_name": "#is_changing_or_banning_class"
 													},
 													{
 														"binding_type": "view",
-														"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'bc')",
-														"target_property_name": "#is_banning_class"
-													},
-													{
-														"binding_type": "view",
-														"source_property_name": "(#is_changing_origin or #is_banning_origin or #is_changing_class or #is_banning_class)",
+														"source_property_name": "(#is_changing_or_banning_origin or #is_changing_or_banning_class)",
 														"target_property_name": "#visible"
 													}
 												]
