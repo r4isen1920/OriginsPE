@@ -49,7 +49,7 @@ export enum PickerMode {
  * call from the old `gui.ts`.
  */
 export class UiBridge {
-	private static readonly log = Log.get('UiBridge');
+	private static readonly log = Log.get('UiBridge', 'ui');
 
 
 	//#region DIALOGUE
@@ -64,7 +64,9 @@ export class UiBridge {
 		ResourceBarService.suspend(player);
 		player.onScreenDisplay.hideAllExcept();
 
-		this.log.debug(`Open: '${dialogueId}', for: ${player.name}`);
+		UI_DEBUG: {
+			this.log.debug(`Open: '${dialogueId}', for: ${player.name}`);
+		}
 
 		try {
 			player.runCommand(

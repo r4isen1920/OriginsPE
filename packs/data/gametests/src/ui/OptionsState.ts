@@ -27,7 +27,7 @@ const DEFAULTS: Record<ToggleKey, 0 | 1> = {
 
 //#region STATE ACCESS
 
-const log = Log.get('OptionsState');
+const log = Log.get('OptionsState', 'ui');
 
 function readToggles(): Record<string, 0 | 1> {
 	const raw = world.getDynamicProperty(WORLD_DPK.toggles);

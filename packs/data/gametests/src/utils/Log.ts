@@ -11,7 +11,7 @@ export class Log {
 	 * @param whatFor
 	 * What subsystem the logger is for. Used as part of the logger's name, and to group log messages in the console.
 	 */
-	static get(whatFor: string) {
-		return BoostLogger.getLogger('OriginsPE', whatFor);
+	static get(whatFor: string, ...tags: string[]): BoostLogger {
+		return BoostLogger.getLogger('OriginsPE', whatFor, ...tags);
 	}
 }

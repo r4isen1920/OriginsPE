@@ -80,7 +80,7 @@ interface WheelSession {
  * Handles the ability selector wheel.
  */
 export default class AbilitySelector {
-	private static readonly log = Log.get('AbilityWheel');
+	private static readonly log = Log.get('AbilityWheel', 'ui');
 
 	/** Tick of each player's most recent press, for tap-run detection. */
 	private static readonly lastPressed = new Map<string, number>();
@@ -280,7 +280,9 @@ export default class AbilitySelector {
 				stayDuration: 0,
 				fadeOutDuration: 0,
 			});
-			this.log.debug(`payload: ${payload}`);
+			UI_DEBUG: {
+				this.log.debug(`payload: ${payload}`);
+			}
 		} catch (e: any) {
 			this.log.error(`pushPayload for ${player.name}: ${e?.stack ?? e}`);
 		}

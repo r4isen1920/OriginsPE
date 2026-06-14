@@ -44,7 +44,7 @@ import { ResourceBarService } from '../services/ResourceBarService';
  * `<dir>` -- `prev` | `next`.
  */
 export class UiEventRouter {
-	private static readonly log = Log.get('UiEventRouter');
+	private static readonly log = Log.get('UiEventRouter', 'ui');
 
 	@SystemAfterScriptEventReceive()
 	static onEvent(ev: ScriptEventCommandMessageAfterEvent): void {

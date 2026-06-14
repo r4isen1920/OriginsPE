@@ -8,7 +8,7 @@ import type { PickerKind, PickerMode } from './UiPayload';
 
 //#region BANS
 
-const log = Log.get('PickerNavigation');
+const log = Log.get('PickerNavigation', 'ui');
 
 /** Composes the per-id ban-set key for a given kind. */
 function banKey(kind: PickerKind, id: string): string {

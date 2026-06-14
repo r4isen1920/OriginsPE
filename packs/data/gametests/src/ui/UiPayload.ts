@@ -5,7 +5,7 @@ import { ClassDifficulty, OriginDifficulty } from '../domain/Ability';
 
 //#region CONSTANTS
 
-const log = Logger.getLogger('UiPayload');
+const log = Logger.getLogger('UiPayload', 'ui');
 
 export const DEFINITIONS = {
 	prefix: '_op:picker.',
@@ -59,7 +59,9 @@ export function buildPayload(
 		kind.toLowerCase().charAt(0) +
 		DEFINITIONS.difficulty[difficulty] +
 		id;
-	log.debug(`buildPayload: '${payload}'`);
+	UI_DEBUG: {
+		log.debug(`buildPayload: '${payload}'`);
+	}
 	return payload;
 }
 
