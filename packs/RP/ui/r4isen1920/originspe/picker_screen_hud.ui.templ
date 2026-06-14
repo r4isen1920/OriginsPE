@@ -28,7 +28,7 @@
 			"size": ["100%", "100%c"],
 			"layer": 2,
 
-			"$$traits_control": "('origin_powers.' + $being_name)",
+			"$$traits_control": "('origin_traits.' + $being_type + '_' + $being_name)",
 
 			"controls": [
 				{
@@ -50,13 +50,6 @@
 						"size": [1, 6] // width does not matter
 					}
 				},
-				// {
-				// 	"{{#list as tt}}": {
-				// 		"trait_{{tt.id}}@{{tt.traits}}": {
-				// 			"ignored": "(not ($origin_name = '{{tt.id}}'))"
-				// 		}
-				// 	}
-				// }
 				{ "traits_list@$traits_control": {} }
 			]
 		},
@@ -229,14 +222,14 @@
 		"picker_window_content@origin_common.verti_stack": {
 			"size": ["100%cm", "100% - 8px"],
 
+			"$$being_name": "($var_title_text - ('%.14s' * $var_title_text))",
+			"$$being_type": "(('%.13s' * $var_title_text) - ('%.12s' * $var_title_text))",
+			"$$being_difficulty": "(('%.14s' * $var_title_text) - ('%.13s' * $var_title_text))",
+
 			"controls": [
 				{
 					"header@origin_common.hori_stack": {
 						"$$panel_base_layer": 20,
-
-						"$$being_name": "($var_title_text - ('%.14s' * $var_title_text))",
-						"$$being_type": "(('%.13s' * $var_title_text) - ('%.12s' * $var_title_text))",
-						"$$being_difficulty": "(('%.14s' * $var_title_text) - ('%.13s' * $var_title_text))",
 
 						"controls": [
 							{ "icon@origin_picker_screen_hud.being_icon_holder": {} },
@@ -266,8 +259,6 @@
 				{
 					"body_centerer@common.empty_panel": {
 						"size": ["100%sm - 1px", "fill"],
-
-						"$$being_name": "($var_title_text - ('%.14s' * $var_title_text))",
 
 						"controls": [
 							{ "scrollable_panel@origin_picker_screen_hud.description_scroll": {} }

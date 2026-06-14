@@ -163,14 +163,14 @@ function buildEntry(kind, klass, iconMap, enumMap) {
 function traitsRef(kind, id, abilityCount) {
 	if (abilityCount === 0) return 'origin_powers.none';
 	if (kind === 'race') return `origin_powers.${id}`;
-	return `origin_powers.${id}`;
+	return `origin_powers.c_${id}`;
 }
 
 /** Builds the `random` sentinel prepended to each list (not navigable). */
 function randomEntry(kind) {
 	return kind === 'race'
-		? { id: 'random', difficulty: 'random_race', navigable: false, traits: 'origin_powers.random', abilities: [] }
-		: { id: 'random', difficulty: 'random_class', navigable: false, traits: 'origin_powers.class_random', abilities: [] };
+		? { id: 'random', difficulty: 'random_race', navigable: false, traits: 'origin_powers.r_random', abilities: [] }
+		: { id: 'random', difficulty: 'random_class', navigable: false, traits: 'origin_powers.c_random', abilities: [] };
 }
 
 /** Parses every domain class of a kind, in main.ts import order. */

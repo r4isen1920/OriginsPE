@@ -3,7 +3,7 @@
 
 	//? $vars are to be delimited by another '$' prefix because otherwise jsonte will translate that into a field literal
 	"$template": {
-		"namespace": "origin_powers",
+		"namespace": "origin_traits",
 
 		"none@common.empty_panel": {},
 
@@ -14,7 +14,7 @@
 		// Origins
 		//---------------------------------------------------------------------------
 
-		"random@common.empty_panel": {
+		"r_random@common.empty_panel": {
 			"controls": [
 				{
 					"list@origin_common.verti_stack": {
@@ -27,7 +27,7 @@
 						"controls": [
 							{
 								"{{#origins as origin}}": {
-									"{{origin.id}}@origin_powers.label": {
+									"{{origin.id}}@origin_traits.label": {
 										"text": "origins.{{origin.id}}.name",
 										"color": "$7_color_format"
 									}
@@ -47,14 +47,14 @@
 			]
 		},
 
-		"human@common.empty_panel": {},
+		"r_human@common.empty_panel": {},
 
 		"{{#origins.filter(e => count(e.abilities) > 0) as o}}": {
-			"{{o.id}}@origin_common.verti_stack": {
+			"r_{{o.id}}@origin_common.verti_stack": {
 				"controls": [
 					{
 						"{{#o.abilities as a}}": {
-							"{{a.id}}@origin_powers.origin_powers_container_template": {
+							"{{a.id}}@origin_traits.origin_traits_container_template": {
 								"$$power_name": "origins.trait.{{a.id}}.name",
 								"$$power_description": "origins.trait.{{a.id}}.description",
 								"$$power_icon_index": "{{a.icon}}"
@@ -72,7 +72,7 @@
 		// Classes
 		//---------------------------------------------------------------------------
 
-		"class_random@common.empty_panel": {
+		"c_random@common.empty_panel": {
 			"controls": [
 				{
 					"list@origin_common.verti_stack": {
@@ -85,7 +85,7 @@
 						"controls": [
 							{
 								"{{#classes as class}}": {
-									"{{class.id}}@origin_powers.label": {
+									"{{class.id}}@origin_traits.label": {
 										"text": "class.{{class.id}}.name",
 										"color": "$7_color_format"
 									}
@@ -105,14 +105,14 @@
 			]
 		},
 
-		"nitwit@common.empty_panel": {},
+		"c_nitwit@common.empty_panel": {},
 
 		"{{#classes.filter(e => count(e.abilities) > 0) as c}}": {
-			"class_{{c.id}}@origin_common.verti_stack": {
+			"c_{{c.id}}@origin_common.verti_stack": {
 				"controls": [
 					{
 						"{{#c.abilities as a}}": {
-							"{{a.id}}@origin_powers.origin_powers_container_template": {
+							"{{a.id}}@origin_traits.origin_traits_container_template": {
 								"$$power_name": "origins.trait.{{a.id}}.name",
 								"$$power_description": "origins.trait.{{a.id}}.description",
 								"$$power_icon_index": "{{a.icon}}"
@@ -136,7 +136,7 @@
 			"max_size": [120, "default"]
 		},
 
-		"origin_powers_container_template@common.empty_panel": {
+		"origin_traits_container_template@common.empty_panel": {
 			"size": ["100%c", "50%c"],
 			"layer": 3,
 
@@ -169,7 +169,7 @@
 
 									"controls": [
 										{
-											"power_name@origin_powers.label": {
+											"power_name@origin_traits.label": {
 												"max_size": [120, 16],
 
 												"text": "$power_name",
@@ -251,7 +251,7 @@
 							},
 
 							{
-								"power_description@origin_powers.label": {
+								"power_description@origin_traits.label": {
 									"anchor_from": "top_left",
 									"anchor_to": "top_left",
 									"size": [120, "default"],
