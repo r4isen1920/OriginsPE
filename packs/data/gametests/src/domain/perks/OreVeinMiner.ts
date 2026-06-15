@@ -42,6 +42,7 @@ type NeighborDirection = typeof DIRECTIONS[number];
 @RegisterPerk
 export class OreVeinMiner implements Perk {
     readonly id = 'ore_vein_miner';
+    readonly tickInterval = 2;
 
     private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
