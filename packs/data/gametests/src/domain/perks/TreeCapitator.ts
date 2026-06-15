@@ -53,6 +53,8 @@ export class TreeCapitator implements Perk {
     }
 
     onTick(player: Player): void {
+        if (player.isSneaking) return;
+
         player.dimension.getEntities({
             location: player.location,
             maxDistance: 48,
@@ -107,7 +109,6 @@ export class TreeCapitator implements Perk {
         const { block, brokenBlockPermutation, player } = ev;
 
         if (!PlayerState.for(player).hasPerk('tree_felling')) return;
-        if (player.isSneaking) return;
         if (player.matches({ gameMode: GameMode.Creative })) return;
 
         const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);
