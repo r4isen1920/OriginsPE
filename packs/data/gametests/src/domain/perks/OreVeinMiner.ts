@@ -65,6 +65,7 @@ export class OreVeinMiner implements Perk {
 
     onTick(player: Player): void {
         if (!PlayerState.for(player).hasPerk('ore_vein_miner')) return;
+        if (player.isSneaking) return;
 
         const entities = player.dimension.getEntities({
             location: player.location,
