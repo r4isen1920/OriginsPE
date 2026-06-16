@@ -46,6 +46,9 @@ import { ResourceBarService } from '../services/ResourceBarService';
 export class UiEventRouter {
 	private static readonly log = Log.get('UiEventRouter', 'ui');
 
+	/** Set while a view scene was opened from the options menu, so its close button returns there. */
+	private static readonly VIEW_FROM_OPTIONS_FLAG = 'view_from_options';
+
 	@SystemAfterScriptEventReceive()
 	static onEvent(ev: ScriptEventCommandMessageAfterEvent): void {
 		if (ev.id !== 'r4isen1920_originspe:ui') return;
@@ -97,6 +100,14 @@ export class UiEventRouter {
 		ResourceBarService.resume(player);
 	}
 
+	/**
+	 * Clears the picker HUD title channel so its window stops rendering. Used when
+	 * leaving a picker scene for a screen that does not own the picker HUD layer.
+	 */
+	private static dismissPickerHud(player: Player): void {
+		player.onScreenDisplay.setTitle('_op:');
+	}
+
 	private static handleNav(player: Player, [, kind, dir, id, mode]: string[]): void {
 		if (!this.isKind(kind) || !this.isMode(mode)) return;
 		if (dir !== 'prev' && dir !== 'next') return;
@@ -127,6 +138,9 @@ export class UiEventRouter {
 		if (id !== 'random' && !isValidId(kind, id)) return;
 
 		const state = PlayerState.for(player);
+		// Leaving the options-menu view context: the upcoming view scene belongs to
+		// the onboarding/change flow, not the options menu.
+		state.setFlag(this.VIEW_FROM_OPTIONS_FLAG, undefined);
 		const resolved = id === 'random' ? this.rollRandom(kind) : id;
 		if (kind === PickerKind.Race) state.setOrigin(resolved);
 		else state.setClass(resolved);
@@ -150,6 +164,13 @@ export class UiEventRouter {
 		if (!this.isKind(kind) || !id || !isValidId(kind, id)) return;
 
 		const state = PlayerState.for(player);
+		// Opened from the options menu (View my Origin/Class): the close button acts
+		// as a back button, returning to the General options screen.
+		if (state.getFlag<boolean>(this.VIEW_FROM_OPTIONS_FLAG) === true) {
+			state.setFlag(this.VIEW_FROM_OPTIONS_FLAG, undefined);
+			this.handleOpenOptions(player, ['open_options', 'general']);
+			return;
+		}
 		if (!state.getOrigin()) {
 			const raceStart = defaultId(PickerKind.Race);
 			const mode = this.resolvePickMode(PickerKind.Race, raceStart, player);
@@ -279,6 +300,10 @@ export class UiEventRouter {
 			return;
 		}
 
+		// View is only reached here via the options menu (View my Origin/Class), so
+		// flag it to make its close button return to the options menu.
+		if (mode === 'view') PlayerState.for(player).setFlag(this.VIEW_FROM_OPTIONS_FLAG, true);
+
 		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, target));
 		player.onScreenDisplay.setTitle(
 			buildPayload(mode, kind, getDifficulty(kind, target), target),
@@ -298,6 +323,10 @@ export class UiEventRouter {
 	}
 
 	private static handleOpenOptions(player: Player, [, which]: string[]): void {
+		// The Options menu does not use the picker HUD layer. Dismiss any lingering
+		// picker title so its window stops rendering over the dialogue -- e.g. when
+		// returning to the ban menu from a ban-management picker scene.
+		this.dismissPickerHud(player);
 		switch (which) {
 			case 'general': {
 				const tag = isToggleOn('particle')
@@ -422,7 +451,6 @@ export class UiEventRouter {
 			}
 			case 'close':
 				AbilitySelector.close(player);
-				this.handleClose(player);
 				return;
 			default:
 				this.log.warn(`unknown wheel action '${action}'`);
