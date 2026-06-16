@@ -1,6 +1,5 @@
 import { Player } from '@minecraft/server';
 
-import { NS } from '../Constants';
 import { Log } from '../utils/Log';
 
 
@@ -27,7 +26,7 @@ export class FlagService {
 	/** Sets a generic boolean flag on the player. */
 	static set(player: Player, flag: PlayerFlag, value: boolean): void {
 		try {
-			player.setProperty(`${NS}:${flag}`, value);
+			player.setProperty(`r4isen1920_originspe:${flag}`, value);
 		} catch (e: any) {
 			this.log.error(`setProperty '${flag}' = ${value} failed: ${e?.stack ?? e}`);
 		}
@@ -36,7 +35,7 @@ export class FlagService {
 	/** Reads a generic boolean flag from the player. Defaults to false. */
 	static get(player: Player, flag: PlayerFlag): boolean {
 		try {
-			return player.getProperty(`${NS}:${flag}`) === true;
+			return player.getProperty(`r4isen1920_originspe:${flag}`) === true;
 		} catch {
 			return false;
 		}

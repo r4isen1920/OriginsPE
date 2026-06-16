@@ -10,7 +10,7 @@ import {
 import Meta from '../Meta';
 import { BindThis, CustomCmd, OnWorldLoad } from '@bedrock-oss/stylish';
 import { Logger } from '@bedrock-oss/bedrock-boost';
-import { NS, WORLD_DPK } from '../Constants';
+import { WORLD_DYNAMIC_PROPERTIES } from '../Constants';
 import { PlayerState } from '../core/PlayerState';
 import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
 
@@ -46,21 +46,21 @@ export default class Version {
 	//#region Tracker
 
 	private saveToWorld(): void {
-		world.setDynamicProperty(`${NS}:version`, this.version);
+		world.setDynamicProperty('r4isen1920_originspe:version', this.version);
 	}
 
 	private static setPlayerRecordResetVersion(version: string | undefined): void {
-		world.setDynamicProperty(WORLD_DPK.recordResetVersion, version);
+		world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.recordResetVersion, version);
 	}
 
 	private static getPlayerRecordResetVersion(): string | undefined {
-		const version = world.getDynamicProperty(WORLD_DPK.recordResetVersion);
+		const version = world.getDynamicProperty(WORLD_DYNAMIC_PROPERTIES.recordResetVersion);
 		return typeof version === 'string' ? version : undefined;
 	}
 
 	@OnWorldLoad
 	private static onWorldLoad(): void {
-		const version = world.getDynamicProperty(`${NS}:version`);
+		const version = world.getDynamicProperty('r4isen1920_originspe:version');
 		const savedVersion = typeof version === 'string' ? version : undefined;
 		const currentVersion = Version.get();
 		const comparison = savedVersion ? Version.compareTo(savedVersion) : -1;
@@ -231,7 +231,7 @@ export default class Version {
  */
 @CustomCmd
 export class VersionCommand implements CustomCommand {
-	readonly name = `${NS}:version`;
+	readonly name = 'r4isen1920_originspe:version';
 	readonly description =
 		'Displays the current version of the OriginsPE Add-On.';
 	readonly permissionLevel = CommandPermissionLevel.Any;

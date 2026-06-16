@@ -1,6 +1,6 @@
 import { Player } from '@minecraft/server';
 
-import { DPK } from '../Constants';
+import { PLAYER_DYNAMIC_PROPERTIES } from '../Constants';
 import { Log } from '../utils/Log';
 
 
@@ -53,15 +53,15 @@ export class PlayerState {
 		if (existing && existing.player.isValid) return existing;
 
 		const state: CachedState = {
-			origin: this.readString(player, DPK.origin),
-			class: this.readString(player, DPK.class),
-			powers: this.readJsonArray(player, DPK.powers),
-			perks: this.readJsonArray(player, DPK.perks),
-			controls: this.readJsonArray(player, DPK.controls),
-			cooldowns: this.readJsonObject(player, DPK.cooldowns),
-			flags: this.readJsonObject(player, DPK.flags),
-			welcomed: this.readBoolean(player, DPK.welcomed),
-			recordVersion: this.readString(player, DPK.recordVersion),
+			origin: this.readString(player, PLAYER_DYNAMIC_PROPERTIES.origin),
+			class: this.readString(player, PLAYER_DYNAMIC_PROPERTIES.class),
+			powers: this.readJsonArray(player, PLAYER_DYNAMIC_PROPERTIES.powers),
+			perks: this.readJsonArray(player, PLAYER_DYNAMIC_PROPERTIES.perks),
+			controls: this.readJsonArray(player, PLAYER_DYNAMIC_PROPERTIES.controls),
+			cooldowns: this.readJsonObject(player, PLAYER_DYNAMIC_PROPERTIES.cooldowns),
+			flags: this.readJsonObject(player, PLAYER_DYNAMIC_PROPERTIES.flags),
+			welcomed: this.readBoolean(player, PLAYER_DYNAMIC_PROPERTIES.welcomed),
+			recordVersion: this.readString(player, PLAYER_DYNAMIC_PROPERTIES.recordVersion),
 		};
 		const inst = new PlayerState(player, state);
 		this.registry.set(player.id, inst);
@@ -80,14 +80,14 @@ export class PlayerState {
 
 	setOrigin(originId: string | undefined): void {
 		this.state.origin = originId;
-		this.writeString(DPK.origin, originId);
+		this.writeString(PLAYER_DYNAMIC_PROPERTIES.origin, originId);
 	}
 
 	getClass(): string | undefined { return this.state.class; }
 
 	setClass(classId: string | undefined): void {
 		this.state.class = classId;
-		this.writeString(DPK.class, classId);
+		this.writeString(PLAYER_DYNAMIC_PROPERTIES.class, classId);
 	}
 
 
@@ -96,19 +96,19 @@ export class PlayerState {
 	getPowers(): readonly string[] { return this.state.powers; }
 	setPowers(ids: readonly string[]): void {
 		this.state.powers = [...ids];
-		this.writeJson(DPK.powers, this.state.powers);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.powers, this.state.powers);
 	}
 
 	getPerks(): readonly string[] { return this.state.perks; }
 	setPerks(ids: readonly string[]): void {
 		this.state.perks = [...ids];
-		this.writeJson(DPK.perks, this.state.perks);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.perks, this.state.perks);
 	}
 
 	getControls(): readonly string[] { return this.state.controls; }
 	setControls(ids: readonly string[]): void {
 		this.state.controls = [...ids];
-		this.writeJson(DPK.controls, this.state.controls);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.controls, this.state.controls);
 	}
 
 	hasPower(id: string): boolean { return this.state.powers.includes(id); }
@@ -132,20 +132,20 @@ export class PlayerState {
 	/** Sets a cooldown to expire `durationTicks` from `currentTick`. */
 	setCooldown(id: string, currentTick: number, durationTicks: number): void {
 		this.state.cooldowns[id] = currentTick + durationTicks;
-		this.writeJson(DPK.cooldowns, this.state.cooldowns);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.cooldowns, this.state.cooldowns);
 	}
 
 	/** Removes a cooldown entry. */
 	clearCooldown(id: string): void {
 		if (this.state.cooldowns[id] === undefined) return;
 		delete this.state.cooldowns[id];
-		this.writeJson(DPK.cooldowns, this.state.cooldowns);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.cooldowns, this.state.cooldowns);
 	}
 
 	/** Drops every cooldown entry (e.g. on origin change). */
 	clearAllCooldowns(): void {
 		this.state.cooldowns = {};
-		this.writeJson(DPK.cooldowns, this.state.cooldowns);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.cooldowns, this.state.cooldowns);
 	}
 
 
@@ -162,7 +162,7 @@ export class PlayerState {
 		} else {
 			this.state.flags[name] = value;
 		}
-		this.writeJson(DPK.flags, this.state.flags);
+		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.flags, this.state.flags);
 	}
 
 	/** Removes every flag whose name starts with `prefix`. */
@@ -174,7 +174,7 @@ export class PlayerState {
 				mutated = true;
 			}
 		}
-		if (mutated) this.writeJson(DPK.flags, this.state.flags);
+		if (mutated) this.writeJson(PLAYER_DYNAMIC_PROPERTIES.flags, this.state.flags);
 	}
 
 
@@ -183,13 +183,13 @@ export class PlayerState {
 	isWelcomed(): boolean { return this.state.welcomed; }
 	setWelcomed(value: boolean): void {
 		this.state.welcomed = value;
-		this.player.setDynamicProperty(DPK.welcomed, value);
+		this.player.setDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.welcomed, value);
 	}
 
 	getRecordVersion(): string | undefined { return this.state.recordVersion; }
 	setRecordVersion(version: string | undefined): void {
 		this.state.recordVersion = version;
-		this.writeString(DPK.recordVersion, version);
+		this.writeString(PLAYER_DYNAMIC_PROPERTIES.recordVersion, version);
 	}
 
 	/** Wipes all OriginsPE-managed dynamic properties for this player. */
@@ -203,7 +203,7 @@ export class PlayerState {
 		this.state.flags = {};
 		this.state.welcomed = false;
 		this.state.recordVersion = undefined;
-		for (const key of Object.values(DPK)) {
+		for (const key of Object.values(PLAYER_DYNAMIC_PROPERTIES)) {
 			this.player.setDynamicProperty(key, undefined);
 		}
 	}

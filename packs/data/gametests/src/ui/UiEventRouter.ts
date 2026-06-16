@@ -1,6 +1,6 @@
 import { CommandPermissionLevel, Player, ScriptEventCommandMessageAfterEvent, ScriptEventSource, world } from '@minecraft/server';
 
-import { UI_EVENT, WORLD_DPK } from '../Constants';
+import { WORLD_DYNAMIC_PROPERTIES } from '../Constants';
 import { SystemAfterScriptEventReceive } from '../core/DecoratedEvents';
 import { PlayerState } from '../core/PlayerState';
 import { UiBridge } from '../core/UiBridge';
@@ -48,12 +48,12 @@ export class UiEventRouter {
 
 	@SystemAfterScriptEventReceive()
 	static onEvent(ev: ScriptEventCommandMessageAfterEvent): void {
-		if (ev.id !== UI_EVENT) return;
+		if (ev.id !== 'r4isen1920_originspe:ui') return;
 		const player = ev.sourceType === ScriptEventSource.Entity && ev.sourceEntity instanceof Player
 			? ev.sourceEntity
 			: undefined;
 		if (!player) {
-			this.log.warn(`${UI_EVENT} fired without a player source; ignoring`);
+			this.log.warn('r4isen1920_originspe:ui fired without a player source; ignoring');
 			return;
 		}
 		try {
@@ -362,8 +362,8 @@ export class UiEventRouter {
 			}
 			case 'all':
 				if (!this.isAdmin(player)) { UiBridge.openDialogue(player, 'gui_options_admin_denied'); return; }
-				world.setDynamicProperty(WORLD_DPK.toggles, undefined);
-				world.setDynamicProperty(WORLD_DPK.bans, undefined);
+				world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.toggles, undefined);
+				world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.bans, undefined);
 				resetAllToggles();
 				for (const p of world.getAllPlayers()) {
 					PlayerState.for(p).reset();

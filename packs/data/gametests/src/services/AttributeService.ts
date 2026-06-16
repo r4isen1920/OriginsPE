@@ -1,6 +1,5 @@
 import { Player } from '@minecraft/server';
 
-import { NS } from '../Constants';
 import { Log } from '../utils/Log';
 import {
 	type AttributeKey,
@@ -80,8 +79,8 @@ export class AttributeService {
 		}
 
 		let eventName = event;
-		if (!event.startsWith(NS)) {
-			eventName = `${NS}:${event}`;
+		if (!event.startsWith('r4isen1920_originspe')) {
+			eventName = `r4isen1920_originspe:${event}`;
 		}
 
 		try {

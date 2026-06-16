@@ -1,6 +1,6 @@
 import { Player, PlayerLeaveAfterEvent, system } from '@minecraft/server';
 
-import { DPK } from '../Constants';
+import { PLAYER_DYNAMIC_PROPERTIES } from '../Constants';
 import { AfterPlayerLeave } from '../core/DecoratedEvents';
 import { PlayerTick } from '../core/Ticker';
 import { Logger } from '@bedrock-oss/bedrock-boost';
@@ -247,7 +247,7 @@ export class ResourceBarService {
 	}
 
 	private static hydrate(player: Player): CachedBars {
-		const raw = player.getDynamicProperty(DPK.resourceBars);
+		const raw = player.getDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.resourceBars);
 		if (typeof raw !== 'string') {
 			return { slots: this.emptySlots(), lastPayload: undefined };
 		}
@@ -327,7 +327,7 @@ export class ResourceBarService {
 		}
 
 		try {
-			player.setDynamicProperty(DPK.resourceBars, JSON.stringify(data));
+			player.setDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.resourceBars, JSON.stringify(data));
 		} catch (e: any) {
 			this.log.error(`Failed to persist bars for player: ${player.name}, error: ${e?.stack ?? e}`);
 		}
