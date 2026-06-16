@@ -75,10 +75,13 @@ export function neighborId(
 	// Only change mode skips banned -- all pick variants show banned origins with the
 	// appropriate blocked-button state so the player understands why they can't select.
 	const skipBanned = mode === 'change';
+	// Ban-management modes must not land on the random--it has no ban state.
+	const skipRandom = mode === 'banned' || mode === 'unbanned' || mode === 'ban_limit' || mode === 'ban_locked';
 
 	for (let safety = 0; safety < len; safety++) {
 		i = (i + step + len) % len;
 		const candidate = ids[i]!;
+		if (skipRandom && candidate === 'random') continue;
 		if (skipBanned && candidate !== 'random' && isBanned(kind, candidate)) continue;
 		return candidate;
 	}
