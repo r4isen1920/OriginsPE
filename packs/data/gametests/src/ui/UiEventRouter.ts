@@ -269,7 +269,14 @@ export class UiEventRouter {
 	private static handleOpen(player: Player, [, kind, mode, id]: string[]): void {
 		if (!this.isKind(kind)) return;
 
-		const target = id && isValidId(kind, id) ? id : defaultId(kind);
+		//* fallback to the player's current selection (e.g. "View my Origin/Class"
+		//* from the options menu) before the kind default, so the scene reflects what
+		//* they actually have rather than human/nitwit.
+		const current = kind === PickerKind.Race
+			? PlayerState.for(player).getOrigin()
+			: PlayerState.for(player).getClass();
+		const fallback = current && isValidId(kind, current) ? current : defaultId(kind);
+		const target = id && isValidId(kind, id) ? id : fallback;
 		// 'ban' is a virtual entry-point token -- resolve to the actual ban sub-mode.
 		if (mode === 'ban') {
 			const banMode = this.resolveBanMode(kind, target);
