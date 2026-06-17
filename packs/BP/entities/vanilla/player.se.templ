@@ -4,9 +4,9 @@
 			"health": {
 				"range": [ 0, 100 ],
 				"default": 20,
-				//* Discrete max-health steps. minecraft:health max can only be raised via
-				//* component groups (not the Scripts API), so each step gets a group + event.
-				"steps": [ { "{{#1..150}}": "{{=value}}" } ]
+				"steps": [
+					{ "{{#1..150}}": "{{=value}}" }
+				]
 			},
 
 			"movement": {
@@ -41,7 +41,7 @@
 
 	},
 
-	"$copy": "{{getLatestBPFile('entities/player.json')}}",
+	"$copy": "{{getBPFile('entities/player.json', semver('1.26.20'))}}",
 
 	"$template": {
 		"minecraft:entity": {
@@ -87,7 +87,7 @@
 					},
 
 					"r4isen1920_originspe:flag_a": {
-						//* Generic boolean flag for script-driven state (e.g. divine aura highlight)
+						//* Generic boolean flag for script-driven state
 						"client_sync": true,
 						"type": "bool",
 						"default": false
