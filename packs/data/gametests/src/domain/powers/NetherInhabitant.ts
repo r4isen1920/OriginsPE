@@ -1,11 +1,9 @@
 import {
-	Player,
-	world,
-	TicksPerSecond,
-	system,
-	Dimension,
-	Vector3,
-	PlayerDimensionChangeAfterEvent
+    Player,
+    world,
+    TicksPerSecond,
+    system,
+    PlayerDimensionChangeAfterEvent
 } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
@@ -13,103 +11,102 @@ import { PlayerTick } from '../../core/Ticker';
 import { PlayerState } from '../../core/PlayerState';
 import { AfterPlayerDimensionChange } from '../../core/DecoratedEvents';
 
+
+const NETHER_MIN_Y = 0;
+const NETHER_MAX_Y = 120;
+const SCAN_RADIUS = 16;
+
+
 @RegisterPower
 export class NetherInhabitant implements Power {
-	readonly id = 'nether_spawn';
+    readonly id = 'nether_spawn';
 
-	@AfterPlayerDimensionChange
-	static onDimensionChange(event: PlayerDimensionChangeAfterEvent): void {
-		const { toDimension, player } = event;
-		const state = PlayerState.for(player);
+    @AfterPlayerDimensionChange
+    static onDimensionChange(event: PlayerDimensionChangeAfterEvent): void {
+        const { toDimension, player } = event;
+        const state = PlayerState.for(player);
 
-		if (!state.hasPower('nether_spawn')) return;
+        if (!state.hasPower('nether_spawn')) return;
+        if (state.getFlag<boolean>('nether_spawn_check') !== true) return;
+        if (toDimension.id !== 'minecraft:nether') return;
 
-		if (
-			state.getFlag<boolean>('nether_spawn_check') !== true ||
-			toDimension.id !== 'minecraft:nether'
-		)
-			return;
+        system.run(() => {
+            const spawnLocation = NetherInhabitant.findSafeNetherSpot(player);
+            if (!spawnLocation) return;
 
-		system.run(() => {
-			let dummyEntity = player.dimension.getEntities({
-				location: player.location,
-				minDistance: 3,
-				maxDistance: 64,
-				closest: 1,
-				excludeFamilies: ['player', 'inanimate']
-			})[0];
+            player.teleport(spawnLocation);
+            player.removeEffect('resistance');
 
-			if (!dummyEntity) {
-				dummyEntity = player.dimension.spawnEntity(
-					'r4isen1920_originspe:safe_teleporter',
-					player.location
-				);
-			}
+            // Set spawnpoint at the safe location in the nether
+            player.runCommand(
+                `spawnpoint @s ${Math.floor(spawnLocation.x)} ${Math.floor(spawnLocation.y)} ${Math.floor(spawnLocation.z)}`
+            );
 
-			NetherInhabitant.createObsidianPlatform(player.dimension, dummyEntity.location);
+            state.setFlag('nether_spawn_check', false);
+            state.setFlag('nether_spawned', true);
+        });
+    }
 
-			player.teleport(dummyEntity.location);
-			player.removeEffect('resistance');
+    @PlayerTick(3)
+    static onPlayerTick(player: Player): void {
+        const state = PlayerState.for(player);
 
-			state.setFlag('nether_spawn_check', false);
-			state.setFlag('nether_spawned', true);
-		});
-	}
+        if (!state.hasPower('nether_spawn')) {
+            if (
+                state.getFlag<boolean>('nether_spawned') === true ||
+                state.getFlag<boolean>('nether_spawn_check') === true
+            ) {
+                state.setFlag('nether_spawned', false);
+                state.setFlag('nether_spawn_check', false);
+            }
+            return;
+        }
 
-	@PlayerTick(3)
-	static onPlayerTick(player: Player): void {
-		const state = PlayerState.for(player);
+        if (
+            state.getFlag<boolean>('nether_spawn_check') === true ||
+            state.getFlag<boolean>('nether_spawned') === true
+        ) return;
 
-		if (!state.hasPower('nether_spawn')) {
-			if (
-				state.getFlag<boolean>('nether_spawned') === true ||
-				state.getFlag<boolean>('nether_spawn_check') === true
-			) {
-				state.setFlag('nether_spawned', false);
-				state.setFlag('nether_spawn_check', false);
-			}
-			return;
-		}
+        player.addEffect('resistance', TicksPerSecond * 10, {
+            amplifier: 255,
+            showParticles: false,
+        });
 
-		if (
-			state.getFlag<boolean>('nether_spawn_check') === true ||
-			state.getFlag<boolean>('nether_spawned') === true
-		)
-			return;
+        player.teleport(player.location, {
+            dimension: world.getDimension('minecraft:nether'),
+        });
 
-		const netherDimension = world.getDimension('minecraft:nether');
+        state.setFlag('nether_spawn_check', true);
+    }
 
-		player.addEffect('resistance', TicksPerSecond * 10, {
-			amplifier: 255,
-			showParticles: false
-		});
+    private static findSafeNetherSpot(player: Player): { x: number; y: number; z: number } | undefined {
+        const dim = player.dimension;
+        const baseX = Math.floor(player.location.x);
+        const baseZ = Math.floor(player.location.z);
 
-		player.teleport(player.location, { dimension: netherDimension });
+        for (let dx = 0; dx <= SCAN_RADIUS; dx++) {
+            for (let dz = 0; dz <= SCAN_RADIUS; dz++) {
+                for (const [sx, sz] of [[dx, dz], [-dx, dz], [dx, -dz], [-dx, -dz]]) {
+                    const x = baseX + sx;
+                    const z = baseZ + sz;
 
-		state.setFlag('nether_spawn_check', true);
-	}
+                    for (let y = NETHER_MAX_Y; y >= NETHER_MIN_Y + 2; y--) {
+                        try {
+                            const floor = dim.getBlock({ x, y: y - 1, z });
+                            const feet  = dim.getBlock({ x, y, z });
+                            const head  = dim.getBlock({ x, y: y + 1, z });
 
-	private static createObsidianPlatform(dimension: Dimension, location: Vector3): void {
-		const base = {
-			x: Math.floor(location.x),
-			y: Math.floor(location.y),
-			z: Math.floor(location.z)
-		};
+                            if (!floor || floor.isAir || floor.isLiquid) continue;
+                            if (!feet  || !feet.isAir)  continue;
+                            if (!head  || !head.isAir)  continue;
 
-		dimension.runCommand(
-			`fill ${base.x - 2} ${base.y - 1} ${base.z - 2} ${base.x + 2} ${base.y - 1} ${base.z + 2} obsidian`
-		);
-		dimension.runCommand(
-			`fill ${base.x - 1} ${base.y} ${base.z - 1} ${base.x + 1} ${base.y + 2} ${base.z + 1} air`
-		);
+                            return { x: x + 0.5, y, z: z + 0.5 };
+                        } catch {}
+                    }
+                }
+            }
+        }
 
-		const chestZ = base.z + 2;
-		dimension.runCommand(`setblock ${base.x} ${base.y} ${chestZ} chest`);
-		dimension.runCommand(
-			`replaceitem block ${base.x} ${base.y} ${chestZ} slot.container 0 netherrack 32`
-		);
-		dimension.runCommand(
-			`replaceitem block ${base.x} ${base.y} ${chestZ} slot.container 1 stone_pickaxe 1`
-		);
-	}
+        return { x: baseX + 0.5, y: 64, z: baseZ + 0.5 };
+    }
 }
