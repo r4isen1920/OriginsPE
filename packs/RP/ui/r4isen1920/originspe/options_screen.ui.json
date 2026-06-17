@@ -735,12 +735,6 @@
 											"$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))"
 										}
 									},
-									{
-										"reset_player@origin_options_screen.options_button_icon": {
-											"$options_button_icon": "reset_player",
-											"$visible_binding": "(#student_button_text = 'reset_player')"
-										}
-									},
 
 									{
 										"ban_root@origin_options_screen.options_button_icon": {
@@ -827,12 +821,6 @@
 										"toggle_particle@origin_options_screen.options_button_label": {
 											"text": "origins.gui.options.toggle_particle.name",
 											"$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))"
-										}
-									},
-									{
-										"reset_player@origin_options_screen.options_button_label": {
-											"text": "origins.gui.options.reset_player.name",
-											"$visible_binding": "(#student_button_text = 'reset_player')"
 										}
 									},
 
@@ -1073,12 +1061,6 @@
 				"toggle_particle@origin_options_screen.options_button_description": {
 					"$hover_text": "origins.gui.options.toggle_particle.description",
 					"$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))"
-				}
-			},
-			{
-				"reset_player@origin_options_screen.options_button_description": {
-					"$hover_text": "origins.gui.options.reset_player.description",
-					"$visible_binding": "(#student_button_text = 'reset_player')"
 				}
 			},
 
