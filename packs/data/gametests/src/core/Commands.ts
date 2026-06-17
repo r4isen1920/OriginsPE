@@ -8,7 +8,6 @@ import {
 } from '@minecraft/server';
 import { CustomCmd } from '@bedrock-oss/stylish';
 
-import { NS } from '../Constants';
 import { Log } from '../utils/Log';
 import { PlayerState } from './PlayerState';
 import { ClassRegistry, OriginRegistry } from '../domain/Registries';
@@ -25,7 +24,7 @@ const log = Log.get('Commands');
  */
 @CustomCmd
 export class SetOriginCommand implements CustomCommand {
-	readonly name = `${NS}:setorigin`;
+	readonly name = 'r4isen1920_originspe:setorigin';
 	readonly description = 'Sets the executing player\'s origin.';
 	readonly permissionLevel = CommandPermissionLevel.GameDirectors;
 	readonly mandatoryParameters = [
@@ -55,7 +54,7 @@ export class SetOriginCommand implements CustomCommand {
  */
 @CustomCmd
 export class SetClassCommand implements CustomCommand {
-	readonly name = `${NS}:setclass`;
+	readonly name = 'r4isen1920_originspe:setclass';
 	readonly description = 'Sets the executing player\'s class.';
 	readonly permissionLevel = CommandPermissionLevel.GameDirectors;
 	readonly mandatoryParameters = [
@@ -85,7 +84,7 @@ export class SetClassCommand implements CustomCommand {
  */
 @CustomCmd
 export class DebugCommand implements CustomCommand {
-	readonly name = `${NS}:debug`;
+	readonly name = 'r4isen1920_originspe:debug';
 	readonly description = 'Logs OriginsPE state for the executing player.';
 	readonly permissionLevel = CommandPermissionLevel.GameDirectors;
 

@@ -1,6 +1,6 @@
 import { world } from '@minecraft/server';
 
-import { WORLD_DPK } from '../Constants';
+import { WORLD_DYNAMIC_PROPERTIES } from '../Constants';
 import { Log } from '../utils/Log';
 import { allIds, navigableIds } from './PickerRegistry';
 import type { PickerKind, PickerMode } from './UiPayload';
@@ -16,7 +16,7 @@ function banKey(kind: PickerKind, id: string): string {
 }
 
 function readBans(): Record<string, 1> {
-	const raw = world.getDynamicProperty(WORLD_DPK.bans);
+	const raw = world.getDynamicProperty(WORLD_DYNAMIC_PROPERTIES.bans);
 	if (typeof raw !== 'string' || !raw) return {};
 	try {
 		const parsed = JSON.parse(raw);
@@ -28,7 +28,7 @@ function readBans(): Record<string, 1> {
 }
 
 function writeBans(bans: Record<string, 1>): void {
-	world.setDynamicProperty(WORLD_DPK.bans, JSON.stringify(bans));
+	world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.bans, JSON.stringify(bans));
 }
 
 /** True if the given being is currently banned. */
@@ -75,10 +75,13 @@ export function neighborId(
 	// Only change mode skips banned -- all pick variants show banned origins with the
 	// appropriate blocked-button state so the player understands why they can't select.
 	const skipBanned = mode === 'change';
+	// Ban-management modes must not land on the random--it has no ban state.
+	const skipRandom = mode === 'banned' || mode === 'unbanned' || mode === 'ban_limit' || mode === 'ban_locked';
 
 	for (let safety = 0; safety < len; safety++) {
 		i = (i + step + len) % len;
 		const candidate = ids[i]!;
+		if (skipRandom && candidate === 'random') continue;
 		if (skipBanned && candidate !== 'random' && isBanned(kind, candidate)) continue;
 		return candidate;
 	}

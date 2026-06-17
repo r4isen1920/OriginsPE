@@ -1,7 +1,7 @@
-import { Player, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, system, world } from '@minecraft/server';
+import { Player, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, system, world } from '@minecraft/server';
 
 import { Log } from '../utils/Log';
-import { AfterPlayerJoin, AfterPlayerLeave } from './DecoratedEvents';
+import { AfterPlayerJoin, AfterPlayerLeave, AfterPlayerSpawn } from './DecoratedEvents';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 
 
@@ -71,9 +71,10 @@ export class Ticker {
 	}
 
 	/** Force the cached player list to refresh next tick. */
+	@AfterPlayerSpawn
 	@AfterPlayerJoin
 	@AfterPlayerLeave
-	static invalidatePlayers(_: PlayerJoinAfterEvent | PlayerLeaveAfterEvent): void {
+	static invalidatePlayers(_: PlayerJoinAfterEvent | PlayerLeaveAfterEvent | PlayerSpawnAfterEvent): void {
 		this.playersDirty = true;
 	}
 

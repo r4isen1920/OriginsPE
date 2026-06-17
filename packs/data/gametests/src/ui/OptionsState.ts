@@ -1,6 +1,6 @@
 import { world } from '@minecraft/server';
 
-import { WORLD_DPK } from '../Constants';
+import { WORLD_DYNAMIC_PROPERTIES } from '../Constants';
 import { Log } from '../utils/Log';
 
 
@@ -9,7 +9,7 @@ import { Log } from '../utils/Log';
 /**
  * The set of admin-controlled toggle keys driven by the options menu. Each
  * entry is persisted as `0` (off) or `1` (on) inside the world dynamic
- * property {@link WORLD_DPK.toggles} (a single JSON record).
+ * property {@link WORLD_DYNAMIC_PROPERTIES.toggles} (a single JSON record).
  */
 export type ToggleKey = 'orb' | 'paper' | 'unique' | 'announce' | 'particle';
 
@@ -30,7 +30,7 @@ const DEFAULTS: Record<ToggleKey, 0 | 1> = {
 const log = Log.get('OptionsState', 'ui');
 
 function readToggles(): Record<string, 0 | 1> {
-	const raw = world.getDynamicProperty(WORLD_DPK.toggles);
+	const raw = world.getDynamicProperty(WORLD_DYNAMIC_PROPERTIES.toggles);
 	if (typeof raw !== 'string' || !raw) return {};
 	try {
 		const parsed = JSON.parse(raw);
@@ -42,7 +42,7 @@ function readToggles(): Record<string, 0 | 1> {
 }
 
 function writeToggles(t: Record<string, 0 | 1>): void {
-	world.setDynamicProperty(WORLD_DPK.toggles, JSON.stringify(t));
+	world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.toggles, JSON.stringify(t));
 }
 
 
