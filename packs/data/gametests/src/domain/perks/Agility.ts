@@ -1,9 +1,8 @@
-import { Player, world, system, EquipmentSlot } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 
 import { Perk } from '../Ability';
 import { RegisterPerk } from '../Registries';
 import { ItemUtils } from '../../utils/ItemUtils';
-
 
 /**
  * When wielding a bow, increases movement speed by 10%
@@ -14,10 +13,8 @@ export class Agility implements Perk {
 	readonly id = 'less_bow_slowdown';
 
 	onTick(player: Player): void {
-		
-		//check if player is holding a bow, if not, return
 		if (!checkBow(player)) return;
-		
+
 		player.addEffect('speed', 10, { amplifier: 1, showParticles: false });
 		player.addEffect('jump_boost', 10, { amplifier: 1, showParticles: false });
 	}
@@ -37,13 +34,4 @@ export function checkBow(player: Player): boolean {
 	if (!typeId.includes('bow') || typeId.includes('bowl')) return false;
 
 	return true;
-	
-	// world.afterEvents.itemUse.subscribe((event) => {
-	// 	const { source, itemStack } = event;
-
-	// 	if (itemStack.typeId === "minecraft:bow" && source.id === player.id) {
-	// 		player.addEffect('speed', 20, { amplifier: 1, showParticles: false });
-	// 		player.addEffect('jump_boost', 20, { amplifier: 1, showParticles: false });
-	// 	}
-	// });
 }
