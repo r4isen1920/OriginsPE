@@ -348,6 +348,7 @@ export class UiEventRouter {
 			case 'admin_reset_confirm':
 				if (!this.isAdmin(player)) { UiBridge.openDialogue(player, 'gui_options_admin_denied'); return; }
 				UiBridge.openDialogue(player, 'gui_options_admin_root_resetconfirm');
+				player.playSound('note.pling', { pitch: 0.5  });
 				return;
 			case 'admin_ban':
 				if (!this.isAdmin(player)) { UiBridge.openDialogue(player, 'gui_options_admin_denied'); return; }
@@ -416,6 +417,7 @@ export class UiEventRouter {
 						}
 					);
 				}
+				player.playSound('note.pling', { pitch: 3.0 });
 				return;
 			default:
 				this.log.warn(`unknown reset scope '${scope}'`);
@@ -440,6 +442,8 @@ export class UiEventRouter {
 				);
 			}
 		}
+		player.playSound('note.pling', { pitch: 3.0 });
+		UiBridge.openDialogue(player, 'gui_options_admin_ban_root');
 	}
 
 
