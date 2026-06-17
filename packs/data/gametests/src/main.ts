@@ -36,7 +36,6 @@ import './domain/powers/ShulkInventory';
 import './domain/powers/BoastingFirepower';
 import './domain/powers/Pride';
 import './domain/powers/Gluttony';
-import './domain/powers/HeavyPockets';
 import './domain/powers/Courage';
 import './domain/powers/MasterOfWebs';
 import './domain/powers/Webbing';
