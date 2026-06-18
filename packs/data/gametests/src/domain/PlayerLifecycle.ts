@@ -186,7 +186,8 @@ export class PlayerLifecycle {
 		// Apply origin render effects via data-driven events.
 		this.applyEffects(player, origin?.effects?.model, 'model_type');
 		this.applyEffects(player, origin?.effects?.skin, 'skin_type');
-		this.applyEffects(player, origin?.effects?.emitter, 'emitter_type');
+		this.applyProperty(player, 'none', 'emitter_type');
+		this.applyProperty(player, origin?.effects?.emitter, 'emitter_type');
 
 		Version.markPlayerRecordCurrent(player);
 	}
@@ -229,6 +230,11 @@ export class PlayerLifecycle {
 		if (!value) return;
 		try { player.triggerEvent(`r4isen1920_originspe:${suffix}.${value}`); }
 		catch (e: any) { this.log.error(`triggerEvent ${suffix}.${value}: ${e?.stack ?? e}`); }
+	}
+	private static applyProperty(player: Player, value: string | undefined, property: string): void {
+    	if (!value) return;
+    	try { player.setProperty(`r4isen1920_originspe:${property}`, value); }
+    	catch (e: any) { this.log.error(`setProperty ${property} = ${value}: ${e?.stack ?? e}`); }
 	}
 
 

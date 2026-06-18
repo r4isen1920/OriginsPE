@@ -1,5 +1,8 @@
-import { Origin, OriginDifficulty } from '../Ability';
+import { Origin, OriginDifficulty, OriginEffects } from '../Ability';
 import { RegisterOrigin } from '../Registries';
+import { AttributeOverrides } from '../../services/Attributes';
+import { PlayerLifecycle } from '../PlayerLifecycle';
+
 
 
 /** Elven origin grants the ability to weave life. */
@@ -15,4 +18,7 @@ export class Elf implements Origin {
 		'agility',
 		'permeable',
 	];
+	readonly effects: OriginEffects = {
+		emitter: 'elven',
+	};
 }
