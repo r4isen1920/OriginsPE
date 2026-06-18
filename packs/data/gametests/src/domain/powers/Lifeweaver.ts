@@ -9,61 +9,35 @@ import { Log } from '../../utils/Log';
 export class Lifeweaver implements Power {
 	readonly id = 'lifeweaver';
 	readonly icon = '16';
-	readonly tickInterval = 1;
 
 	private static readonly COOLDOWN_BAR_ID = 16;
 	private static readonly COOLDOWN_KEY = 'lifeweaver_cooldown';
-	private static readonly COOLDOWN_TICKS = 600;
+	private static readonly COOLDOWN_TICKS = TicksPerSecond * 2;
+	private static readonly ABSORPTION_DURATION = TicksPerSecond * 12;
 	private static readonly log = Log.get('Lifeweaver');
 
 	onHurt(player: Player, ev: EntityHurtAfterEvent): void {
 		const { damage } = ev;
-		const state = PlayerState.for(player);
-		const currentTick = system.currentTick;
-
-		if (state.isOnCooldown(Lifeweaver.COOLDOWN_KEY, currentTick)) return;
-
-		let currentDamageWindow = state.getFlag<number>('lifeweaver_damage_window') ?? 0;
-		currentDamageWindow += damage;
-		state.setFlag('lifeweaver_damage_window', currentDamageWindow);
-
-		if (state.getFlag<boolean>('lifeweaver_tracking') === true) return;
-
-		state.setFlag('lifeweaver_tracking', true);
-		state.setFlag('lifeweaver_timer', currentTick + TicksPerSecond * 3);
-	}
-
-	onTick(player: Player): void {
-		if (!player.isValid) return;
+		if (damage <= 0) return;
 
 		const state = PlayerState.for(player);
-		if (state.getFlag<boolean>('lifeweaver_tracking') !== true) return;
+		const now = system.currentTick;
 
-		const currentTick = system.currentTick;
-		const targetTick = state.getFlag<number>('lifeweaver_timer') ?? 0;
-
-		if (currentTick < targetTick) return;
-
-		const totalDamage = state.getFlag<number>('lifeweaver_damage_window') ?? 0;
-
-		state.setFlag('lifeweaver_damage_window', 0);
-		state.setFlag('lifeweaver_tracking', false);
-		state.setFlag('lifeweaver_timer', 0);
-
-		if (totalDamage <= 0) return;
+		if (state.isOnCooldown(Lifeweaver.COOLDOWN_KEY, now)) return;
 
 		const healthComp = player.getComponent('health');
 		if (healthComp) {
+			const restored = damage / 2;
 			const finalHealth = Math.min(
-				healthComp.currentValue + totalDamage,
+				healthComp.currentValue + restored,
 				healthComp.effectiveMax
 			);
 			healthComp.setCurrentValue(finalHealth);
 		}
 
-		const amp = Math.floor(totalDamage * 0.2);
-		player.addEffect('absorption', TicksPerSecond * 12, {
-			amplifier: Math.max(0, amp),
+		const amplifier = Math.max(0, Math.floor(damage / 4));
+		player.addEffect('absorption', Lifeweaver.ABSORPTION_DURATION, {
+			amplifier,
 			showParticles: true
 		});
 
@@ -77,10 +51,10 @@ export class Lifeweaver implements Power {
 			pitch: 1.25
 		});
 
-		state.setCooldown(Lifeweaver.COOLDOWN_KEY, currentTick, Lifeweaver.COOLDOWN_TICKS);
+		state.setCooldown(Lifeweaver.COOLDOWN_KEY, now, Lifeweaver.COOLDOWN_TICKS);
 		ResourceBarService.push(player, {
 			id: Lifeweaver.COOLDOWN_BAR_ID,
-			durationSeconds: 30
+			durationSeconds: 2
 		});
 	}
 }
