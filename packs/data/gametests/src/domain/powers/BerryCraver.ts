@@ -1,57 +1,62 @@
-import { Player, TicksPerSecond, ItemStack, ItemCompleteUseAfterEvent } from '@minecraft/server';
+import {
+    ItemCompleteUseAfterEvent,
+    Player,
+    TicksPerSecond,
+    world,
+} from '@minecraft/server';
+
 import { Power } from '../Ability';
 import { RegisterPower } from '../Registries';
+import { PlayerState } from '../../core/PlayerState';
+import { PlayerTick } from '../../core/Ticker';
 
+
+const REGEN_CHANCE = 0.10;
+
+
+/**
+ * Sweet berries restore more hunger when eaten and sometimes grant regeneration.
+ * You are also not damaged by berry bushes.
+ */
 @RegisterPower
 export class BerryCraver implements Power {
-	readonly id = 'berry_craver';
+    readonly id = 'berry_craver';
 
-	readonly tickInterval = 2;
+    static {
+        world.afterEvents.itemCompleteUse.subscribe((ev) => BerryCraver.onItemCompleteUse(ev));
+        world.beforeEvents.entityHurt.subscribe((ev) => BerryCraver.onBeforeHurt(ev));
+    }
 
-	onTick(player: Player): void {
-		const block = player.dimension.getBlock(player.location);
-		const blockAbove = player.dimension.getBlock({
-			x: player.location.x,
-			y: player.location.y + 1,
-			z: player.location.z
-		});
+    @PlayerTick(3)
+    static onPlayerTick(_player: Player): void {}
 
-		if (
-			block?.typeId === 'minecraft:sweet_berry_bush' ||
-			blockAbove?.typeId === 'minecraft:sweet_berry_bush'
-		) {
-			const healthComp = player.getComponent('health');
-			if (healthComp && healthComp.currentValue < healthComp.defaultValue) {
-				player.runCommand(`effect @s instant_health 1 0 true`);
-			}
-		}
+    private static onItemCompleteUse(ev: ItemCompleteUseAfterEvent): void {
+        const { itemStack, source } = ev;
+        if (itemStack.typeId !== 'minecraft:sweet_berries') return;
+        if (source.typeId !== 'minecraft:player') return;
+        if (!PlayerState.for(source as Player).hasPower('berry_craver')) return;
 
-		const inventory = player.getComponent('inventory');
-		if (!inventory?.container) return;
+        source.addEffect('saturation', TicksPerSecond * 2, {
+            amplifier: 1,
+            showParticles: false,
+        });
 
-		for (let i = 0; i < inventory.container.size; i++) {
-			const item = inventory.container.getItem(i);
-			if (item && item.typeId === 'minecraft:sweet_berries') {
-				inventory.container.setItem(
-					i,
-					new ItemStack('r4isen1920_originspe:kitsune_sweet_berries', item.amount)
-				);
-			}
-		}
-	}
+        if (Math.random() < REGEN_CHANCE) {
+            source.addEffect('regeneration', TicksPerSecond * 10, {
+                amplifier: 1,
+                showParticles: true,
+            });
+        }
+    }
 
-	onItemCompleteUse(player: Player, ev: ItemCompleteUseAfterEvent): void {
-		const { itemStack } = ev;
-		if (!itemStack.typeId.includes('sweet_berries')) return;
+    private static onBeforeHurt(ev: any): void {
+        const player = ev.hurtEntity;
+        if (player?.typeId !== 'minecraft:player') return;
+        if (!PlayerState.for(player as Player).hasPower('berry_craver')) return;
 
-		player.addEffect('minecraft:regeneration', TicksPerSecond * 4, {
-			amplifier: 1
-		});
-
-		if (Math.random() < 0.35) {
-			player.addEffect('minecraft:regeneration', TicksPerSecond * 12, {
-				amplifier: 2
-			});
-		}
-	}
+        // Cancel all contact damage (berry bushes and similar)
+        if (ev.damageSource?.cause === 'contact') {
+            ev.cancel = true;
+        }
+    }
 }
