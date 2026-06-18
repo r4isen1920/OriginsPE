@@ -22,6 +22,9 @@ import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 
 //* Powers
+import './domain/powers/Nimble';
+import './domain/powers/BiteSized';
+import './domain/powers/NoHitting';
 import './domain/powers/HyperLeap';
 import './domain/powers/UmbralVeil';
 import './domain/powers/SoulBurst';

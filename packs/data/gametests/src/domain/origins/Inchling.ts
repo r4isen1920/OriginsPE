@@ -8,7 +8,7 @@ export class Inchling implements Origin {
 	readonly id = 'inchling';
 	readonly difficulty = OriginDifficulty.Medium;
 	readonly powers: readonly string[] = [
-		'nimble',
+		'nimble', 
 		'hyper_active',
 		'small_apetite',
 		'bite_sized',
