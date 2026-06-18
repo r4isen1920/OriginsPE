@@ -3,7 +3,6 @@ import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
-import { Log } from '../../utils/Log';
 
 /**
  * Stingers: the holder deals poison damage when attacking mid-air, with a
@@ -15,7 +14,6 @@ export class Stingers implements Power {
 	readonly id = 'sacrifice_stinger';
 	readonly icon = '13';
 	readonly tickInterval = 2;
-	private static readonly log = Log.get('Stingers');
 
 	private static readonly BAR_ID = 13;
 	private static readonly BAR_SLOT = 1;
@@ -63,9 +61,6 @@ export class Stingers implements Power {
 		if (state.isOnCooldown(Stingers.COOLDOWN_KEY, now)) return;
 
 		if (hurtEntity.getEffect('fatal_poison')?.duration ?? 0) {
-			Stingers.log.debug(
-				'Hurt entity already has fatal_poison active. Skipping to prevent stinger consumption.'
-			);
 			return;
 		}
 
@@ -85,8 +80,6 @@ export class Stingers implements Power {
 		hurtEntity.dimension.playSound('enchant.thorns.hit', hurtEntity.location);
 
 		if (stingers <= 0) {
-			Stingers.log.warn(`Player ${player.name} hit 0 stingers. Executing kill script.`);
-			player.sendMessage('§cYou have run out of stingers and perished!§r');
 			player.kill();
 			state.setFlag('bee_stingers_left', Stingers.MAX_STINGERS);
 			Stingers.pushStingerBar(player, Stingers.MAX_STINGERS);
@@ -99,9 +92,6 @@ export class Stingers implements Power {
 		if (stingers === undefined) {
 			stingers = Stingers.MAX_STINGERS;
 			state.setFlag('bee_stingers_left', stingers);
-			Stingers.log.info(
-				`Initialized stingers count to ${Stingers.MAX_STINGERS} for player: ${player.name}`
-			);
 			Stingers.pushStingerBar(player, stingers);
 		}
 	}
