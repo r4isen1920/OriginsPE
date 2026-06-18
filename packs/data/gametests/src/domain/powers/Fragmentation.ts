@@ -19,6 +19,30 @@ export class Fragmentation implements Power {
 	readonly icon = '08';
 	readonly tickInterval = 3;
 
+	onAcquire(player: Player): void {
+		const state = PlayerState.for(player);
+		state.setFlag('fragmentation_level', undefined);
+		state.setFlag('previous_fragmentation_level', undefined);
+		state.setFlag('last_rendered_level', undefined);
+	}
+
+	onRelease(player: Player): void {
+		const state = PlayerState.for(player);
+
+		state.setFlag('fragmentation_level', undefined);
+		state.setFlag('previous_fragmentation_level', undefined);
+		state.setFlag('last_rendered_level', undefined);
+		state.setFlag('slime_ball_consumed', undefined);
+
+		player.triggerEvent('r4isen1920_originspe:scale.1');
+		player.triggerEvent('r4isen1920_originspe:health.20');
+
+		const health = player.getComponent('minecraft:health') as EntityHealthComponent;
+		if (health) health.resetToMaxValue();
+
+		ResourceBarService.pop(player, 8);
+	}
+
 	onTick(player: Player): void {
 		if (!player?.isValid) return;
 
