@@ -15,7 +15,6 @@ export class Impervious implements Power {
 	readonly tickInterval = 1;
 
 	private static pendingEffects = new Set<string>();
-	private static shouldMaximizeHealth = new Set<string>();
 
 	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
 		if (!player.isValid) return;
@@ -26,22 +25,12 @@ export class Impervious implements Power {
 			ev.damageSource.cause === EntityDamageCause.fireTick ||
 			ev.damageSource.cause === EntityDamageCause.magma
 		) {
-			Impervious.shouldMaximizeHealth.add(player.id);
-			Impervious.pendingEffects.add(player.id);
+			ev.cancel = true;
 		}
 	}
 
 	onTick(player: Player): void {
 		if (!player.isValid) return;
-
-		if (Impervious.shouldMaximizeHealth.has(player.id)) {
-			const healthComponent = player.getComponent('minecraft:health');
-			if (healthComponent) {
-				const maxHealth = healthComponent.effectiveMax;
-				healthComponent.setCurrentValue(maxHealth);
-			}
-			Impervious.shouldMaximizeHealth.delete(player.id);
-		}
 
 		const isBurning = player.getComponent('minecraft:onfire');
 		if (isBurning) {
