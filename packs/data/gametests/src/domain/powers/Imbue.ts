@@ -53,17 +53,13 @@ export class Imbue implements Power {
 		});
 
 		const viewDirection = player.getViewDirection();
-		const chargeParticleLocation = {
-			x: player.location.x + viewDirection.x * 1.25,
-			y: player.location.y + 1 + viewDirection.y * 1.25,
-			z: player.location.z + viewDirection.z * 1.25
-		};
+		player.dimension.spawnParticle('r4isen1920_originspe:pinpoint_on_shoot', {
+			x: player.location.x + viewDirection.x,
+			y: player.location.y + 1 + viewDirection.y,
+			z: player.location.z + viewDirection.z
+		});
 
-		player.dimension.spawnParticle(
-			'r4isen1920_originspe:elven_bow_charge',
-			chargeParticleLocation
-		);
-		hurtEntity.dimension.spawnParticle('r4isen1920_originspe:elven_bow_impact', {
+		hurtEntity.dimension.spawnParticle('r4isen1920_originspe:pinpoint_on_hit', {
 			x: hurtEntity.location.x,
 			y: hurtEntity.location.y + 1,
 			z: hurtEntity.location.z
