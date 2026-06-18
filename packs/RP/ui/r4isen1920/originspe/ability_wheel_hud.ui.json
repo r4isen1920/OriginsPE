@@ -278,21 +278,41 @@
 	//---------------------------------------------------------------------------
 
 
-	"selected_slot_label": {
-		"type": "label",
+	"selected_slot_label_bg": {
+		"type": "image",
+		"size": ["100%c + 4px", "100%c + 2px"],
 		"offset": [0, -112],
+		"texture": "textures/origins/gui/black",
 
-		"text": "($var_title_text - ('%.27s' * $var_title_text))",
-		"localize": true,
-		"shadow": true,
+		"ignored": "(($var_title_text - ('%.27s' * $var_title_text)) = 'origins.wheel.empty')",
 
 		"anims": [
 			"@origin_common.anim_alpha"
 		],
 
+		// bg alpha is different to that of the child
 		"$from_alpha": 0.0,
-		"$to_alpha": 1.0,
-		"$duration_alpha": 0.1
+		"$to_alpha": 0.4,
+		"$duration_alpha": 0.1,
+
+		"controls": [
+			{
+				"label": {
+					"type": "label",
+					"text": "($var_title_text - ('%.27s' * $var_title_text))",
+					"localize": true,
+					"shadow": true,
+
+					"anims": [
+						"@origin_common.anim_alpha"
+					],
+
+					"$from_alpha": 0.0,
+					"$to_alpha": 1.0,
+					"$duration_alpha": 0.1
+				}
+			}
+		]
 	},
 
 
@@ -328,7 +348,7 @@
 		"size": ["100%", "100%"],
 
 		"controls": [
-			{ "selected_slot_label@selected_slot_label": {} },
+			{ "selected_slot_label@selected_slot_label_bg": {} },
 			{ "wheel@wheel_panel": {} },
 			{ "bg@bg": { "size": ["100%", "100%" ] } }
 		],
