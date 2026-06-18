@@ -15,10 +15,6 @@ export class Hydrophobia implements Power {
 	onTick(player: Player): void {
 		if (player.isSwimming || player.isInWater) {
 			player.applyDamage(1, { cause: EntityDamageCause.drowning });
-			player.dimension.playSound('random.fizz', player.location, {
-				pitch: 1.5,
-				volume: 0.5
-			});
 		}
 	}
 }
