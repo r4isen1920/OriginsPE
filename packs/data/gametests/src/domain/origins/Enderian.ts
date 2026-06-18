@@ -1,4 +1,4 @@
-import { Origin, OriginDifficulty } from '../Ability';
+import { Origin, OriginDifficulty, OriginEffects } from '../Ability';
 import { RegisterOrigin } from '../Registries';
 
 
@@ -13,4 +13,7 @@ export class Enderian implements Origin {
 		'familiar_face',
 		'water_vulnerability',
 	];
+	readonly effects: OriginEffects = {
+			emitter: 'enderian',
+		};
 }
