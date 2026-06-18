@@ -122,61 +122,6 @@
 		]
 	},
 
-"box_tooltip_key@common.empty_panel": {
-		"$slot_tooltip_anchor|default": "center",
-		"$slot_tooltip_offset|default": [0, 0],
-
-		"anchor_from": "$slot_tooltip_anchor",
-		"anchor_to": "$slot_tooltip_anchor",
-		"size": [17, 17],
-		"offset": "$slot_tooltip_offset",
-
-		"controls": [
-			{
-				"non_bind_bg": {
-					"type": "image",
-					"texture": "textures/ui/keyboard_tooltip_icon",
-					"size": ["100%", "100%"],
-
-					"$layer|default": 7,
-					"layer": "$layer",
-
-					"controls": [
-						{
-							"text_icon": {
-								"type": "label",
-								"max_size": ["100%", "100%"],
-								"offset": [0.1, -1.5],
-								"text": "(('§z' + (1 + ($button_type - 'slot_'))))",
-								"shadow": false,
-								"layer": "$layer"
-							}
-						}
-					],
-					"bindings": [
-						{
-							"binding_type": "global",
-							"binding_name": "(not #gamepad_helper_visible)",
-							"binding_name_override": "#visible"
-						}
-					]
-				}
-			},
-			{
-				"bind_icon@common.gamepad_icon_button": {
-					"$gamepad_icon_size": ["100% + 7.5px", "100% + 7.5px"],
-
-					"variables": [
-						{ "requires": "($button_type = 'slot_0')", "$icon_texture": "#controller_dpad_up_icon" },
-						{ "requires": "($button_type = 'slot_1')", "$icon_texture": "#controller_dpad_right_icon" },
-						{ "requires": "($button_type = 'slot_2')", "$icon_texture": "#controller_face_up_icon" },
-						{ "requires": "($button_type = 'slot_3')", "$icon_texture": "#controller_dpad_down_icon" },
-						{ "requires": "($button_type = 'slot_4')", "$icon_texture": "#controller_face_left_icon" }
-					]
-				}
-			}
-		]
-	},
 
 
 
@@ -200,7 +145,7 @@
 
 					"anims": [
 						"@origin_common.anim_offset",
-						"@origin_common.anim_alpha"
+						"@origin_common.anim_alpha_delay"
 					],
 
 					"$easing_offset": "out_cubic",
@@ -211,25 +156,32 @@
 					"$from_alpha": 1.0,
 					"$to_alpha": 1.0,
 					"$duration_alpha": 0.05,
+					"$duration_delay_alpha": 0.05,
 
 					"variables": [
 						{
 							"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
+
 							"$from_offset": [0, 0],
 							"$to_offset": "$slot_offset",
 							"$duration_offset": 0.25,
+
 							"$from_alpha": 0.0,
 							"$to_alpha": 1.0,
 							"$duration_alpha": 0.15
 						},
 						{
 							"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'd')",
+
 							"$from_offset": "$slot_offset",
 							"$to_offset": "$slot_offset",
 							"$duration_offset": 0.1,
+							"$duration_delay_offset": 1.0,
+
 							"$from_alpha": 1.0,
 							"$to_alpha": 0.0,
-							"$duration_alpha": 0.2
+							"$duration_alpha": 0.2,
+							"$duration_delay_alpha": 0.25
 						}
 					]
 				}
@@ -242,7 +194,6 @@
 			{ "bg@origin_ability_wheel_hud.box_bg": {} },
 			{ "icon@origin_ability_wheel_hud.box_icon": {} },
 			{ "menu_icon@origin_ability_wheel_hud.box_menu_icon": {} },
-			{ "tooltip@origin_ability_wheel_hud.box_tooltip_key": {} },
 			{ "highlight@origin_ability_wheel_hud.box_highlight": {} }
 		]
 	},
@@ -327,21 +278,41 @@
 	//---------------------------------------------------------------------------
 
 
-	"selected_slot_label": {
-		"type": "label",
-		"offset": [0, -92],
+	"selected_slot_label_bg": {
+		"type": "image",
+		"size": ["100%c + 4px", "100%c + 2px"],
+		"offset": [0, -112],
+		"texture": "textures/origins/gui/black",
 
-		"text": "($var_title_text - ('%.27s' * $var_title_text))",
-		"localize": true,
-		"shadow": true,
+		"ignored": "(($var_title_text - ('%.27s' * $var_title_text)) = 'origins.wheel.empty')",
 
 		"anims": [
 			"@origin_common.anim_alpha"
 		],
 
+		// bg alpha is different to that of the child
 		"$from_alpha": 0.0,
-		"$to_alpha": 1.0,
-		"$duration_alpha": 0.1
+		"$to_alpha": 0.4,
+		"$duration_alpha": 0.1,
+
+		"controls": [
+			{
+				"label": {
+					"type": "label",
+					"text": "($var_title_text - ('%.27s' * $var_title_text))",
+					"localize": true,
+					"shadow": true,
+
+					"anims": [
+						"@origin_common.anim_alpha"
+					],
+
+					"$from_alpha": 0.0,
+					"$to_alpha": 1.0,
+					"$duration_alpha": 0.1
+				}
+			}
+		]
 	},
 
 
@@ -377,7 +348,7 @@
 		"size": ["100%", "100%"],
 
 		"controls": [
-			{ "selected_slot_label@selected_slot_label": {} },
+			{ "selected_slot_label@selected_slot_label_bg": {} },
 			{ "wheel@wheel_panel": {} },
 			{ "bg@bg": { "size": ["100%", "100%" ] } }
 		],

@@ -58,7 +58,7 @@ const MAX_ABILITIES = ABILITY_WHEEL.slots - 1;
 /** Window, in ticks, within which consecutive JUMP presses count as one tap run. */
 const TAP_WINDOW_TICKS = 8;
 /** Number of rapid JUMP presses required to open the wheel. */
-const TAP_COUNT = 3;
+const TAP_COUNT = 2;
 /** Ticks the close/confirm exit animation is allowed to play before the HUD title is released. */
 const CLOSE_ANIM_TICKS = 10;
 
