@@ -609,7 +609,7 @@
 						},
 						{
 							"ignored": "(not ($button_type = 'slot_0'))",
-							"from_button_id": "button.menu_up",
+							"from_button_id": "button.controller_secondary_select",
 							"to_button_id": "$pressed_button_name",
 							"mapping_type": "global"
 						},
@@ -622,7 +622,7 @@
 						},
 						{
 							"ignored": "(not ($button_type = 'slot_1'))",
-							"from_button_id": "button.menu_right",
+							"from_button_id": "button.menu_up",
 							"to_button_id": "$pressed_button_name",
 							"mapping_type": "global"
 						},
@@ -635,7 +635,7 @@
 						},
 						{
 							"ignored": "(not ($button_type = 'slot_2'))",
-							"from_button_id": "button.controller_secondary_select",
+							"from_button_id": "button.menu_right",
 							"to_button_id": "$pressed_button_name",
 							"mapping_type": "global"
 						},
@@ -648,7 +648,7 @@
 						},
 						{
 							"ignored": "(not ($button_type = 'slot_3'))",
-							"from_button_id": "button.menu_down",
+							"from_button_id": "button.menu_left",
 							"to_button_id": "$pressed_button_name",
 							"mapping_type": "global"
 						},
@@ -661,7 +661,7 @@
 						},
 						{
 							"ignored": "(not ($button_type = 'slot_4'))",
-							"from_button_id": "button.controller_select",
+							"from_button_id": "button.menu_down",
 							"to_button_id": "$pressed_button_name",
 							"mapping_type": "global"
 						}
