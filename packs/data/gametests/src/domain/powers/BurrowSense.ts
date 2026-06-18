@@ -90,6 +90,12 @@ export class BurrowSense implements Power {
     readonly id = 'burrow_sense';
     readonly icon = '22';
 
+    readonly active = {
+        icon: '22',
+        name: 'origins.trait.burrow_sense.name',
+        cooldownKey: 'burrow_sense_cooldown',
+    };
+
     private static breakHandler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
     private static refCount = 0;
 
@@ -109,17 +115,11 @@ export class BurrowSense implements Power {
         }
     }
 
-    @PlayerTick(3)
-    static onPlayerTick(player: Player): void {
-        if (!PlayerState.for(player).hasPower('burrow_sense')) return;
-        if (!player.hasTag('_control_use_burrow_sense')) return;
-
+    onActivate(player: Player): void {
         const oreLocations = findNearbyOres(player);
         if (oreLocations.length > 0) {
             createOreHighlights(player, oreLocations);
         }
-
-        player.removeTag('_control_use_burrow_sense');
     }
 
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
