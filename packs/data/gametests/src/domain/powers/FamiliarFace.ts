@@ -1,23 +1,30 @@
 import { Player } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 
 @RegisterPower
 export class FamiliarFace implements Power {
 	readonly id = 'familiar_face';
-	readonly tickInterval = 1;
+	readonly tickInterval = 3;
+
+	onRelease(player: Player): void {
+		AttributeService.apply(player, { familyType: 'player' });
+	}
 
 	onTick(player: Player): void {
-		if (!player.isValid) return;
+		AttributeService.apply(player, { familyType: 'enderman' });
 
-		const state = PlayerState.for(player);
+		const nearbyEndermen = player.dimension.getEntities({
+			type: 'minecraft:enderman',
+			location: player.location,
+			maxDistance: 64
+		});
 
-		if (state.getOrigin() !== 'enderian') {
-			player.triggerEvent('r4isen1920_originspe:family_type.player');
-			return;
+		for (const enderman of nearbyEndermen) {
+			if (!enderman?.isValid) continue;
+
+			enderman.triggerEvent('minecraft:on_calm');
 		}
-
-		player.triggerEvent('r4isen1920_originspe:family_type.enderman');
 	}
 }
