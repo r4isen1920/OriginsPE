@@ -4,11 +4,38 @@ import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { FlagService } from '../../services/FlagService';
 import { AfterEntityHitEntity, AfterEntityDie } from '../../core/DecoratedEvents';
+import { ResourceBarService } from '../../services/ResourceBarService';
+
+const LINK_DURATION_TICKS = 240;
 
 @RegisterPower
 export class Prescience implements Power {
 	readonly id = 'prescience';
 	readonly tickInterval = 6;
+
+	readonly active = {
+		icon: '26',
+		name: 'origins.trait.prescience.name'
+	};
+
+	onActivate(player: Player): void {
+		const state = PlayerState.for(player);
+		if (!state) return;
+
+		if (state.getFlag<string>('prescience_linked_id')) {
+			player.playSound('note.bass', { volume: 1.0, pitch: 1.5 });
+			return;
+		}
+
+		const alreadyArmed = state.getFlag<boolean>('prescience_armed') === true;
+		if (alreadyArmed) {
+			state.setFlag('prescience_armed', false);
+			player.playSound('note.bass', { volume: 1.0, pitch: 1.75 });
+		} else {
+			state.setFlag('prescience_armed', true);
+			player.playSound('enchant.thorns.hit', { volume: 1.0, pitch: 1.5 });
+		}
+	}
 
 	@AfterEntityHitEntity
 	static onEntityHitEntity(event: any): void {
@@ -20,21 +47,12 @@ export class Prescience implements Power {
 		const casterState = PlayerState.for(damagingEntity);
 		if (!casterState || casterState.getOrigin() !== 'diviner') return;
 
+		if (casterState.getFlag<boolean>('prescience_armed') !== true) return;
+
 		const targetState = PlayerState.for(hitEntity);
 		if (!targetState || targetState.getOrigin() === 'diviner') return;
 
-		if (casterState.getFlag<string>('prescience_target_id') === hitEntity.id) return;
-
-		const casterId = damagingEntity.id;
-
-		for (const player of world.getAllPlayers()) {
-			if (!player || !player.isValid) continue;
-			const pState = PlayerState.for(player);
-			if (!pState) continue;
-			if (pState.getFlag<string>('prescience_linked_id') === casterId) {
-				Prescience.removePrescienceEffect(player, pState);
-			}
-		}
+		casterState.setFlag('prescience_armed', false);
 
 		const casterHpComp = damagingEntity.getComponent(
 			'minecraft:health'
@@ -45,50 +63,43 @@ export class Prescience implements Power {
 		const casterMissing = casterHpComp.effectiveMax - casterHpComp.currentValue;
 		const targetMissing = targetHpComp.effectiveMax - targetHpComp.currentValue;
 
-		const casterMax = casterHpComp.effectiveMax;
-		const targetMax = targetHpComp.effectiveMax;
+		const combined = casterHpComp.effectiveMax + targetHpComp.effectiveMax;
+		const amplifier = Math.max(0, Math.floor(combined / 4) - 1);
 
-		const totalMaxHP = casterMax + targetMax;
-		const amplifierValue = Math.max(0, Math.floor((totalMaxHP * 0.5) / 4));
+		const casterId = damagingEntity.id;
+		const linkExpiryTick = system.currentTick + LINK_DURATION_TICKS;
 
-		const expiryTick = system.currentTick + 240;
+		for (const [player, set] of [
+			[damagingEntity, casterState],
+			[hitEntity, targetState]
+		] as [Player, PlayerState][]) {
+			set.setFlag('prescience_linked_id', casterId);
+			set.setFlag('prescience_target_id', hitEntity.id);
+			set.setFlag('prescience_expiry_tick', linkExpiryTick);
+			set.setFlag('prescience_static_amplifier', amplifier);
 
-		casterState.setFlag('prescience_linked_id', casterId);
-		casterState.setFlag('prescience_target_id', hitEntity.id);
-		casterState.setFlag('prescience_expiry_tick', expiryTick);
-		casterState.setFlag('prescience_static_amplifier', amplifierValue);
-
-		targetState.setFlag('prescience_linked_id', casterId);
-		targetState.setFlag('prescience_target_id', hitEntity.id);
-		targetState.setFlag('prescience_expiry_tick', expiryTick);
-		targetState.setFlag('prescience_static_amplifier', amplifierValue);
-
-		damagingEntity.addEffect('health_boost', 240, {
-			amplifier: amplifierValue,
-			showParticles: false
-		});
-		hitEntity.addEffect('health_boost', 240, {
-			amplifier: amplifierValue,
-			showParticles: false
-		});
+			player.addEffect('health_boost', LINK_DURATION_TICKS, {
+				amplifier,
+				showParticles: false
+			});
+			FlagService.set(player, 'flag_a', true);
+		}
 
 		system.runTimeout(() => {
 			if (damagingEntity.isValid) {
-				const cHealth = damagingEntity.getComponent(
-					'minecraft:health'
-				) as EntityHealthComponent;
-				if (cHealth)
-					cHealth.setCurrentValue(Math.max(1, cHealth.effectiveMax - casterMissing));
+				const c = damagingEntity.getComponent('minecraft:health') as EntityHealthComponent;
+				if (c) c.setCurrentValue(Math.max(1, c.effectiveMax - casterMissing));
 			}
 			if (hitEntity.isValid) {
-				const tHealth = hitEntity.getComponent('minecraft:health') as EntityHealthComponent;
-				if (tHealth)
-					tHealth.setCurrentValue(Math.max(1, tHealth.effectiveMax - targetMissing));
+				const t = hitEntity.getComponent('minecraft:health') as EntityHealthComponent;
+				if (t) t.setCurrentValue(Math.max(1, t.effectiveMax - targetMissing));
 			}
 		}, 1);
 
-		FlagService.set(hitEntity, 'flag_a', true);
-		FlagService.set(damagingEntity, 'flag_a', true);
+		ResourceBarService.push(damagingEntity, {
+			id: 26,
+			durationSeconds: 14
+		});
 
 		hitEntity.dimension.playSound('ender_eye.dead', hitEntity.location, {
 			volume: 1.5,
@@ -111,7 +122,7 @@ export class Prescience implements Power {
 	}
 
 	onTick(player: Player): void {
-		if (!player || !player.isValid) return;
+		if (!player?.isValid) return;
 
 		const state = PlayerState.for(player);
 		if (!state) return;
@@ -120,7 +131,6 @@ export class Prescience implements Power {
 		if (!linkedId) return;
 
 		const expiryTick = state.getFlag<number>('prescience_expiry_tick') ?? 0;
-
 		if (system.currentTick >= expiryTick) {
 			Prescience.breakLinkForEveryone(linkedId);
 			return;
@@ -138,26 +148,23 @@ export class Prescience implements Power {
 	}
 
 	private static breakLinkForEveryone(linkedId: string): void {
-		for (const p of world.getAllPlayers()) {
-			if (!p || !p.isValid) continue;
-			const pState = PlayerState.for(p);
-			if (!pState) continue;
-
-			if (pState.getFlag<string>('prescience_linked_id') === linkedId) {
-				Prescience.removePrescienceEffect(p, pState);
+		for (const player of world.getAllPlayers()) {
+			if (!player?.isValid) continue;
+			const playerState = PlayerState.for(player);
+			if (!playerState) continue;
+			if (playerState.getFlag<string>('prescience_linked_id') === linkedId) {
+				Prescience.removePrescienceEffect(player, playerState);
 			}
 		}
 	}
 
 	private static removePrescienceEffect(player: Player, state: PlayerState): void {
-		if (!state) return;
-
 		state.setFlag('prescience_linked_id', undefined);
 		state.setFlag('prescience_target_id', undefined);
 		state.setFlag('prescience_expiry_tick', undefined);
 		state.setFlag('prescience_static_amplifier', undefined);
 
-		if (player && player.isValid) {
+		if (player?.isValid) {
 			player.removeEffect('health_boost');
 			FlagService.set(player, 'flag_a', false);
 			player.playSound('respawn_anchor.deplete', { pitch: 1.75 });
