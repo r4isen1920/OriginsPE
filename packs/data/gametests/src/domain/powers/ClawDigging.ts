@@ -1,4 +1,4 @@
-import { EquipmentSlot, GameMode, Player, system, TicksPerSecond, world, PlayerBreakBlockBeforeEvent } from '@minecraft/server';
+import { EquipmentSlot, GameMode, Player, PlayerBreakBlockBeforeEvent, system, TicksPerSecond, world } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
@@ -32,6 +32,7 @@ const CLAW_DIGGABLE_BLOCKS = new Set([
     'minecraft:grass_block',
 ]);
 
+const HASTE_AMPLIFIER = 10;
 
 /**
  * Allows the player to dig with their bare hands with haste effects based on block type.
@@ -40,24 +41,8 @@ const CLAW_DIGGABLE_BLOCKS = new Set([
 export class ClawDigging implements Power {
     readonly id = 'claw_digging';
 
-    private static breakHandler: ((ev: PlayerBreakBlockBeforeEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        ClawDigging.refCount++;
-        if (ClawDigging.refCount === 1) {
-            ClawDigging.breakHandler = (ev) => ClawDigging.onBeforeBreak(ev);
-            world.beforeEvents.playerBreakBlock.subscribe(ClawDigging.breakHandler);
-        }
-    }
-
-    onRelease(player: Player): void {
-        player.removeEffect('haste');
-        ClawDigging.refCount = Math.max(0, ClawDigging.refCount - 1);
-        if (ClawDigging.refCount === 0 && ClawDigging.breakHandler) {
-            world.beforeEvents.playerBreakBlock.unsubscribe(ClawDigging.breakHandler);
-            ClawDigging.breakHandler = undefined;
-        }
+    static {
+        world.beforeEvents.playerBreakBlock.subscribe((ev) => ClawDigging.onBeforeBreak(ev));
     }
 
     @PlayerTick(1)
@@ -70,23 +55,36 @@ export class ClawDigging implements Power {
         const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);
         const isBareHanded = !heldItem || heldItem.typeId === 'minecraft:air';
 
-        let targetBlock;
-        try {
-            targetBlock = player.getBlockFromViewDirection()?.block;
-        } catch {}
-
-        if (!targetBlock?.isValid) {
-            if (!isBareHanded) player.removeEffect('haste');
+        if (!isBareHanded) {
+            player.removeEffect('haste');
             return;
         }
 
-        if (isBareHanded) {
-            const isUnderground = player.location.y < 40;
-            if (UNDERGROUND_BLOCKS.has(targetBlock.typeId) && isUnderground) {
-                player.addEffect('haste', TicksPerSecond * 2, { amplifier: 15, showParticles: false });
-            } else if (CLAW_DIGGABLE_BLOCKS.has(targetBlock.typeId)) {
-                player.addEffect('haste', TicksPerSecond * 2, { amplifier: 3, showParticles: false });
-            }
+        const loc = player.location;
+
+        const block = player.dimension.getBlock({
+            x: Math.floor(loc.x),
+            y: Math.floor(loc.y),
+            z: Math.floor(loc.z),
+        });
+        const headBlock = player.dimension.getBlock({
+            x: Math.floor(loc.x),
+            y: Math.floor(loc.y) + 2,
+            z: Math.floor(loc.z),
+        });
+        const oneBlockGap = player.dimension.getBlock({
+            x: Math.floor(loc.x),
+            y: Math.floor(loc.y) + 1,
+            z: Math.floor(loc.z),
+        });
+
+        const isUnderground = loc.y < 60;
+        const hasCeiling = headBlock !== undefined && !headBlock.isAir;
+        const hasOneBlockGap = oneBlockGap !== undefined && !oneBlockGap.isAir;
+        const inCave = isUnderground || hasCeiling || hasOneBlockGap || (block !== undefined && !block.isAir);
+
+        if (inCave) {
+            player.addEffect('haste', 250, { amplifier: HASTE_AMPLIFIER, showParticles: false });
         } else {
             player.removeEffect('haste');
         }
