@@ -22,6 +22,7 @@ import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 
 //* Powers
+import './domain/powers/Claustrophile';
 import './domain/powers/CompactSize';
 import './domain/powers/Nimble';
 import './domain/powers/BiteSized';
