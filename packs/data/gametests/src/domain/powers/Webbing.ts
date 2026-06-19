@@ -1,7 +1,6 @@
 import { BlockComponent } from '@bedrock-oss/stylish';
 import {
 	EntityHitEntityAfterEvent,
-	Block,
 	system,
 	TicksPerSecond,
 	BlockCustomComponent,
@@ -62,6 +61,7 @@ export class Webbing implements Power {
 
 		const state = PlayerState.for(player);
 		if (!state.hasPower('webbing')) return;
+
 		const now = system.currentTick;
 		if (state.isOnCooldown(Webbing.COOLDOWN_KEY, now)) return;
 
@@ -76,19 +76,30 @@ export class Webbing implements Power {
 			target.location
 		);
 
-		if (trapEntity && trapEntity.isValid) {
+		if (trapEntity?.isValid) {
 			trapEntity.triggerEvent('r4isen1920_originspe:start_webbing_control');
 		}
 
 		const loc = target.location;
-		const block1 = player.dimension.getBlock({
+		const trapped = {
 			x: Math.floor(loc.x),
 			y: Math.floor(loc.y),
 			z: Math.floor(loc.z)
-		});
+		};
+
+		const block1 = player.dimension.getBlock(trapped);
 
 		if (block1?.isAir) {
-			block1.setType('r4isen1920_originspe:fake_cobweb');
+			block1.setType('minecraft:web');
+
+			const dim = player.dimension;
+
+			system.runTimeout(() => {
+				const webBlock = dim.getBlock(trapped);
+				if (webBlock?.isValid && webBlock.typeId === 'minecraft:web') {
+					webBlock.setType('minecraft:air');
+				}
+			}, TicksPerSecond * 6);
 		}
 	}
 }
