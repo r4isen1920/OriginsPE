@@ -4,16 +4,18 @@ import { RegisterPower } from '../Registries';
 import { PlayerState } from '../../core/PlayerState';
 import { AfterEntityHurt } from '../../core/DecoratedEvents';
 
+const SPREADING_TAG = 'chain_damage_spreading';
+
 @RegisterPower
 export class LeechLife implements Power {
 	readonly id = 'leech_life';
 
 	@AfterEntityHurt()
 	static onDamageSpread(ev: EntityHurtAfterEvent): void {
-		const { hurtEntity, damage, damageSource } = ev;
+		const { hurtEntity, damage } = ev;
 		if (!hurtEntity?.isValid) return;
 
-		if (damageSource.cause === EntityDamageCause.magic) return;
+		if (hurtEntity.hasTag(SPREADING_TAG)) return;
 
 		const tag = hurtEntity.getTags().find((t) => t.startsWith('is_in_active_chain_'));
 		if (!tag) return;
@@ -34,7 +36,10 @@ export class LeechLife implements Power {
 		for (const entity of chained) {
 			if (!entity?.isValid || entity.id === hurtEntity.id) continue;
 
+			entity.addTag(SPREADING_TAG);
 			entity.applyDamage(spread, { cause: EntityDamageCause.magic });
+			entity.removeTag(SPREADING_TAG);
+
 			entity.dimension.spawnParticle(
 				'r4isen1920_originspe:rootkin_vine_dmg_spread',
 				entity.location
