@@ -14,18 +14,25 @@ export class SlimeBallConsume implements Power {
 		if (!player?.isValid) return;
 
 		const state = PlayerState.for(player);
-		if (!state || !state.hasPower('slime_ball_consume')) return;
+		if (!state.hasPower('slime_ball_consume')) return;
 
 		const inventory = player.getComponent('minecraft:inventory');
 		if (!inventory || !inventory.container) return;
 
 		const container = inventory.container;
+
+		const selectedSlot = player.selectedSlotIndex;
+		const selectedItem = container.getItem(selectedSlot);
+		const isEating = selectedItem?.typeId === 'r4isen1920_originspe:fake_slimeball';
+
 		for (let slot = 0; slot < container.size; slot++) {
+			if (isEating && slot === selectedSlot) continue;
+
 			const item = container.getItem(slot);
 			if (item?.typeId === 'minecraft:slime_ball') {
 				container.setItem(
 					slot,
-					new ItemStack('r4isen1920_originspe:slimecican_slime_ball', item.amount)
+					new ItemStack('r4isen1920_originspe:fake_slimeball', item.amount)
 				);
 			}
 		}
@@ -34,7 +41,7 @@ export class SlimeBallConsume implements Power {
 	@AfterItemCompleteUse
 	static onItemCompleteUse(event: ItemCompleteUseAfterEvent): void {
 		const { itemStack, source: player } = event;
-		if (itemStack.typeId !== 'r4isen1920_originspe:slimecican_slime_ball') return;
+		if (itemStack.typeId !== 'r4isen1920_originspe:fake_slimeball') return;
 		if (!(player instanceof Player)) return;
 
 		const state = PlayerState.for(player);
@@ -75,7 +82,7 @@ export class SlimeBallConsume implements Power {
 					const container = inventory.container;
 					for (let slot = 0; slot < container.size; slot++) {
 						const item = container.getItem(slot);
-						if (item?.typeId === 'r4isen1920_originspe:slimecican_slime_ball') {
+						if (item?.typeId === 'r4isen1920_originspe:fake_slimeball') {
 							container.setItem(
 								slot,
 								new ItemStack('minecraft:slime_ball', item.amount)

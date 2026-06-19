@@ -1,30 +1,37 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "r4isen1920_originspe:fake_slimeball",
-      "menu_category": {
-        "category": "items",
-        "is_hidden_in_commands": false
-      }
-    },
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "r4isen1920_originspe:fake_slimeball",
+			"menu_category": {
+				"category": "items",
+				"is_hidden_in_commands": false
+			}
+		},
 
-    "components": {
-      "minecraft:icon": {
-        "texture": "r4isen1920_originspe:fake_slimeball"
-      },
-      "minecraft:display_name": {
-        "value": "origins.item.fake_slimeball.name"
-      },
-      "minecraft:max_stack_size": {
-        "value": 64
-      },
-      "minecraft:food": {
-        "can_always_eat": true
-      },
-      "minecraft:use_animation": {
-        "value": "bow"
-      }
-    }
-  }
+		"components": {
+			"minecraft:icon": {
+				"texture": "r4isen1920_originspe:fake_slimeball"
+			},
+			"minecraft:display_name": {
+				"value": "origins.item.fake_slimeball.name"
+			},
+			"minecraft:max_stack_size": {
+				"value": 64
+			},
+			"minecraft:food": {
+				"can_always_eat": true
+			},
+			"minecraft:use_animation": {
+				"value": "eat"
+			},
+			"minecraft:use_duration": {
+				"value": 1.6
+			},
+			"minecraft:use_modifiers": {
+				"movement_modifier": 0.35,
+				"use_duration": 1.6
+			}
+		}
+	}
 }

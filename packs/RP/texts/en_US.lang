@@ -354,6 +354,7 @@ origins.trait.sapling_setblock.description=There's a chance logs you break may b
 
 origins.item.orb_of_origins.name=Orb of Origins
 origins.item.resignation_paper.name=Resignation Paper
+origins.item.fake_slimeball.name=Slimeball
 
 
 origins.gui.title.pr=Choose your Origin.
