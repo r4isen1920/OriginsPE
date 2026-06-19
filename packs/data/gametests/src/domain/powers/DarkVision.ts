@@ -41,7 +41,14 @@ export class Darkvision implements Power {
         });
         const hasCeiling = headBlock !== undefined && !headBlock.isAir;
 
-        if (isUnderground || hasCeiling) {
+        const oneBlockGap = player.dimension.getBlock({
+            x: Math.floor(loc.x),
+            y: Math.floor(loc.y) + 1,
+            z: Math.floor(loc.z),
+        });
+        const hasOneBlockGap = oneBlockGap !== undefined && !oneBlockGap.isAir;
+
+        if (isUnderground || hasCeiling || hasOneBlockGap) {
             player.addEffect('night_vision', 250, { amplifier: 0, showParticles: false });
         } else {
             player.removeEffect('night_vision');
