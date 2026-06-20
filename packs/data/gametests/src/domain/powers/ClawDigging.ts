@@ -1,38 +1,31 @@
-import { EquipmentSlot, GameMode, Player, PlayerBreakBlockBeforeEvent, system, TicksPerSecond, world } from '@minecraft/server';
+import { EquipmentSlot, GameMode, Player, PlayerBreakBlockBeforeEvent, system, world } from '@minecraft/server';
 import { RegisterPower } from '../Registries';
 import { Power } from '../Ability';
 import { PlayerState } from '../../core/PlayerState';
 import { PlayerTick } from '../../core/Ticker';
 
 
-const UNDERGROUND_BLOCKS = new Set([
-    'minecraft:stone',
-    'minecraft:deepslate',
-    'minecraft:iron_ore',
-    'minecraft:coal_ore',
-    'minecraft:diamond_ore',
-    'minecraft:gold_ore',
-    'minecraft:copper_ore',
-    'minecraft:deepslate_iron_ore',
-    'minecraft:deepslate_coal_ore',
-    'minecraft:deepslate_diamond_ore',
-    'minecraft:deepslate_gold_ore',
-    'minecraft:deepslate_copper_ore',
-    'minecraft:cobblestone',
-    'minecraft:diorite',
-    'minecraft:andesite',
-    'minecraft:granite',
-    'minecraft:dripstone_block',
-]);
-
-const CLAW_DIGGABLE_BLOCKS = new Set([
-    'minecraft:dirt',
-    'minecraft:gravel',
-    'minecraft:sand',
-    'minecraft:grass_block',
-]);
-
+const CEILING_SCAN_HEIGHT = 15;
 const HASTE_AMPLIFIER = 10;
+
+
+export function isPlayerUnderground(player: Player): boolean {
+    const loc = player.location;
+
+    if (loc.y < 60) return true;
+
+    for (let dy = 1; dy <= CEILING_SCAN_HEIGHT; dy++) {
+        const block = player.dimension.getBlock({
+            x: Math.floor(loc.x),
+            y: Math.floor(loc.y) + dy,
+            z: Math.floor(loc.z),
+        });
+        if (block !== undefined && !block.isAir) return true;
+    }
+
+    return false;
+}
+
 
 /**
  * Allows the player to dig with their bare hands with haste effects based on block type.
@@ -60,30 +53,7 @@ export class ClawDigging implements Power {
             return;
         }
 
-        const loc = player.location;
-
-        const block = player.dimension.getBlock({
-            x: Math.floor(loc.x),
-            y: Math.floor(loc.y),
-            z: Math.floor(loc.z),
-        });
-        const headBlock = player.dimension.getBlock({
-            x: Math.floor(loc.x),
-            y: Math.floor(loc.y) + 2,
-            z: Math.floor(loc.z),
-        });
-        const oneBlockGap = player.dimension.getBlock({
-            x: Math.floor(loc.x),
-            y: Math.floor(loc.y) + 1,
-            z: Math.floor(loc.z),
-        });
-
-        const isUnderground = loc.y < 60;
-        const hasCeiling = headBlock !== undefined && !headBlock.isAir;
-        const hasOneBlockGap = oneBlockGap !== undefined && !oneBlockGap.isAir;
-        const inCave = isUnderground || hasCeiling || hasOneBlockGap || (block !== undefined && !block.isAir);
-
-        if (inCave) {
+        if (isPlayerUnderground(player)) {
             player.addEffect('haste', 250, { amplifier: HASTE_AMPLIFIER, showParticles: false });
         } else {
             player.removeEffect('haste');
