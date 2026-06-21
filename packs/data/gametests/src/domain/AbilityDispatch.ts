@@ -51,7 +51,7 @@ export class AbilityDispatch {
 		try {
 			call(ability);
 		} catch (e: any) {
-			this.log.error(`${kind} '${id}' threw in ${hook}: ${e?.stack ?? e}`);
+			this.log.error(`${kind} '${id}' threw in ${hook}: `, e);
 		}
 	}
 }

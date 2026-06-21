@@ -28,7 +28,7 @@ export class FlagService {
 		try {
 			player.setProperty(`r4isen1920_originspe:${flag}`, value);
 		} catch (e: any) {
-			this.log.error(`setProperty '${flag}' = ${value} failed: ${e?.stack ?? e}`);
+			this.log.error(`setProperty '${flag}' = ${value} failed: `, e);
 		}
 	}
 

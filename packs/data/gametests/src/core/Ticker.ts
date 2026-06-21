@@ -97,11 +97,11 @@ export class Ticker {
 			if (now < task.nextTick) continue;
 			task.nextTick = now + task.intervalTicks;
 			if (task.kind === 'global') {
-				try { task.fn(); } catch (e: any) { this.log.error(`[${task.id}] ${e?.stack ?? e}`); }
+				try { task.fn(); } catch (e: any) { this.log.error(`[${task.id}] `, e); }
 			} else {
 				for (const player of this.cachedPlayers) {
 					if (!player.isValid) continue;
-					try { task.fn(player); } catch (e: any) { this.log.error(`[${task.id}] ${e?.stack ?? e}`); }
+					try { task.fn(player); } catch (e: any) { this.log.error(`[${task.id}] `, e); }
 				}
 			}
 		}

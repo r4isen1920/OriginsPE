@@ -343,7 +343,7 @@ export class ResourceBarService {
 
 			return { slots, lastPayload: undefined };
 		} catch (e: any) {
-			this.log.warn(`Failed to hydrate resource bars for player: ${player.name}, error: ${e?.stack ?? e}`);
+			this.log.warn(`Failed to hydrate resource bars for player: ${player.name}, error: `, e);
 			return { slots: this.emptySlots(), lastPayload: undefined };
 		}
 	}
@@ -359,7 +359,7 @@ export class ResourceBarService {
 		try {
 			player.setDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.resourceBars, JSON.stringify(data));
 		} catch (e: any) {
-			this.log.error(`Failed to persist bars for player: ${player.name}, error: ${e?.stack ?? e}`);
+			this.log.error(`Failed to persist bars for player: ${player.name}, error: `, e);
 		}
 	}
 
@@ -387,7 +387,7 @@ export class ResourceBarService {
 			});
 			state.lastPayload = payload;
 		} catch (e: any) {
-			this.log.error(`Failed to send payload for player: ${player.name}, error: ${e?.stack ?? e}`);
+			this.log.error(`Failed to send payload for player: ${player.name}, error: `, e);
 		}
 	}
 
@@ -477,7 +477,7 @@ export class ResourceBarService {
 				inhaleTime: c.inhaleTime,
 			};
 		} catch (e: any) {
-			this.log.warn(`Failed to read breathable for player: ${player.name}, error: ${e?.stack ?? e}`);
+			this.log.warn(`Failed to read breathable for player: ${player.name}, error: `, e);
 			return defaults;
 		}
 	}

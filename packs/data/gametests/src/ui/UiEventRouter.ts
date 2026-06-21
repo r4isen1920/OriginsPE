@@ -63,7 +63,7 @@ export class UiEventRouter {
 			PlayerLifecycle.onJoinDialogueLoaded(player);
 			this.dispatch(player, String(ev.message ?? ''));
 		} catch (e: any) {
-			this.log.error(`dispatch '${ev.message}': ${e?.stack ?? e}`);
+			this.log.error(`dispatch '${ev.message}': `, e);
 		}
 	}
 

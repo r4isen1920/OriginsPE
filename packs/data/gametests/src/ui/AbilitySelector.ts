@@ -284,7 +284,7 @@ export default class AbilitySelector {
 				this.log.debug(`payload: ${payload}`);
 			}
 		} catch (e: any) {
-			this.log.error(`pushPayload for ${player.name}: ${e?.stack ?? e}`);
+			this.log.error(`pushPayload for ${player.name}: `, e);
 		}
 	}
 

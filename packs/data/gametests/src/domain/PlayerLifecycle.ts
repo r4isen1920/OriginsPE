@@ -229,12 +229,12 @@ export class PlayerLifecycle {
 	private static applyEffects(player: Player, value: string | undefined, suffix: string): void {
 		if (!value) return;
 		try { player.triggerEvent(`r4isen1920_originspe:${suffix}.${value}`); }
-		catch (e: any) { this.log.error(`triggerEvent ${suffix}.${value}: ${e?.stack ?? e}`); }
+		catch (e: any) { this.log.error(`triggerEvent ${suffix}.${value}: `, e); }
 	}
 	private static applyProperty(player: Player, value: string | undefined, property: string): void {
     	if (!value) return;
     	try { player.setProperty(`r4isen1920_originspe:${property}`, value); }
-    	catch (e: any) { this.log.error(`setProperty ${property} = ${value}: ${e?.stack ?? e}`); }
+    	catch (e: any) { this.log.error(`setProperty ${property} = ${value}: `, e); }
 	}
 
 

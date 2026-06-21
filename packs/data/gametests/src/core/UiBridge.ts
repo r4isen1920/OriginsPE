@@ -73,7 +73,7 @@ export class UiBridge {
 				`dialogue open @e[type=${Entities.DialogueHandler},c=1] @s ${dialogueId}`,
 			);
 		} catch (e: any) {
-			this.log.error(`openDialogue '${dialogueId}': ${e?.stack ?? e}`);
+			this.log.error(`openDialogue '${dialogueId}': `, e);
 		}
 
 		return await system.waitTicks(1);
@@ -124,7 +124,7 @@ export class UiBridge {
 				z: player.location.z,
 			});
 		} catch (e: any) {
-			this.log.error(`spawn dialogue_handler: ${e?.stack ?? e}`);
+			this.log.error(`spawn dialogue_handler: `, e);
 		}
 
 		return await system.waitTicks(1);

@@ -36,7 +36,7 @@ function readToggles(): Record<string, 0 | 1> {
 		const parsed = JSON.parse(raw);
 		if (parsed && typeof parsed === 'object') return parsed as Record<string, 0 | 1>;
 	} catch (e: any) {
-		log.error(`toggles parse: ${e?.stack ?? e}`);
+		log.error(`toggles parse: `, e);
 	}
 	return {};
 }

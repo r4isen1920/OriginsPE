@@ -219,7 +219,7 @@ export class PlayerState {
 		try {
 			this.player.setDynamicProperty(key, JSON.stringify(value));
 		} catch (e: any) {
-			PlayerState.log.error(`Failed to write ${key}: ${e?.stack ?? e}`);
+			PlayerState.log.error(`Failed to write ${key}: `, e);
 		}
 	}
 

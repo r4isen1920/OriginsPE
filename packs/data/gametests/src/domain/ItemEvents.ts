@@ -100,7 +100,7 @@ export class ItemEvents {
 			return;
 		}
 		try { handler.onStartUse(ev.source); }
-		catch (e: any) { this.log.error(`startUse '${handler.id}': ${e?.stack ?? e}`); }
+		catch (e: any) { this.log.error(`startUse '${handler.id}': `, e); }
 	}
 
 	@AfterItemUse()

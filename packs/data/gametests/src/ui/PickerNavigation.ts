@@ -22,7 +22,7 @@ function readBans(): Record<string, 1> {
 		const parsed = JSON.parse(raw);
 		if (parsed && typeof parsed === 'object') return parsed as Record<string, 1>;
 	} catch (e: any) {
-		log.error(`bans parse: ${e?.stack ?? e}`);
+		log.error(`bans parse: `, e);
 	}
 	return {};
 }

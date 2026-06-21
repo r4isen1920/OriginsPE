@@ -186,7 +186,7 @@ export default class Version {
 			return true;
 		} catch (e: any) {
 			this.log.error(
-				`Failed to reset player record for version: ${resetVersion}, player: ${player.name}, error: ${e?.stack ?? e}`
+				`Failed to reset player record for version: ${resetVersion}, player: ${player.name}, error: `, e
 			);
 			return false;
 		}
