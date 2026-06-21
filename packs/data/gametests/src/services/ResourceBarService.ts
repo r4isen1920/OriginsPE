@@ -58,11 +58,11 @@ interface PersistedBars {
 export class ResourceBarService {
 	private static readonly log = Logger.getLogger('OriginsPE', 'ResourceBarService');
 	private static readonly slots: ResourceBarSlot[] = [1, 2, 3];
-	private static readonly payloadPrefix = 'origins.resource_bar';
+	private static readonly payloadPrefix = '_op:resource_bar.';
 	private static readonly defaultSegmentBySlot: Record<ResourceBarSlot, string> = {
-		1: 'A:00,000,000,000',
-		2: 'B:00,000,000,000',
-		3: 'C:00,000,000,000',
+		1: 'A:00,000',
+		2: 'B:00,000',
+		3: 'C:00,000',
 	};
 	private static readonly slotCode: Record<ResourceBarSlot, string> = {
 		1: 'A',
@@ -209,11 +209,9 @@ export class ResourceBarService {
 
 		if (dirty) {
 			this.persistState(player, state);
-			this.emitPayload(player, state);
-			return;
 		}
 
-		if (!state.lastPayload && this.hasVisibleBars(state)) {
+		if (dirty || this.hasVisibleBars(state)) {
 			this.emitPayload(player, state);
 		}
 	}
@@ -336,9 +334,10 @@ export class ResourceBarService {
 	private static emitPayload(player: Player, state: CachedBars): void {
 		if (this.suspended.has(player.id)) return;
 
+		const now = system.currentTick;
 		const parts = this.slots.map((slot) => {
 			const bar = state.slots[slot];
-			return bar ? this.segment(slot, bar) : this.defaultSegmentBySlot[slot];
+			return bar ? this.segment(slot, bar, now) : this.defaultSegmentBySlot[slot];
 		});
 		const payload = `${this.payloadPrefix} ${parts.join(' ')}`;
 		if (payload === state.lastPayload) return;
@@ -355,12 +354,22 @@ export class ResourceBarService {
 		}
 	}
 
-	private static segment(slot: ResourceBarSlot, bar: ResourceBarEntry): string {
+	private static segment(slot: ResourceBarSlot, bar: ResourceBarEntry, now: number): string {
 		const id = String(this.clampInt(bar.id, 0, 99)).padStart(2, '0');
-		const from = String(this.clampInt(bar.from, 0, 100)).padStart(3, '0');
-		const to = String(this.clampInt(bar.to, 0, 100)).padStart(3, '0');
-		const duration = String(this.clampInt(bar.durationSeconds, 0, 999)).padStart(3, '0');
-		return `${this.slotCode[slot]}:${id},${from},${to},${duration}`;
+		const value = String(this.computeValue(bar, now)).padStart(3, '0');
+		return `${this.slotCode[slot]}:${id},${value}`;
+	}
+
+	/**
+	 * Interpolates the bar's current value (0..100) from its `from`/`to` range
+	 * across the configured duration. Server-side interpolation keeps the HUD
+	 * faithful to the real countdown instead of relying on client animation.
+	 */
+	private static computeValue(bar: ResourceBarEntry, now: number): number {
+		const totalTicks = Math.max(1, bar.durationSeconds * 20);
+		const elapsed = Math.min(Math.max(0, now - bar.startedAtTick), totalTicks);
+		const progress = elapsed / totalTicks;
+		return this.clampInt(Math.round(bar.from + (bar.to - bar.from) * progress), 0, 100);
 	}
 
 	private static emptySlots(): Record<ResourceBarSlot, ResourceBarEntry | undefined> {

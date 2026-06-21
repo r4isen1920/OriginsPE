@@ -43,14 +43,6 @@
 	//---------------------------------------------------------------------------
 
 
-	"bar_progress_anim": {
-		"anim_type": "clip",
-		"easing": "linear",
-		"from": "(1.0 - $bar_progress_from)",
-		"to": "(1.0 - $bar_progress_to)",
-		"duration": "$bar_progress_duration"
-	},
-
 	"bar_size": {
 		"$bar_size_init|default": ["100%c", "100%c"],
 
@@ -102,8 +94,8 @@
 	//---------------------------------------------------------------------------
 
 
-	//* origins.resource_bar A:<id>,<from>,<to>,<duration> ... 2+
-	//* origins.resource_bar A:00,000,000,000 B:00,000,000,000 C:00,000,000,000
+	//* _op:resource_bar. A:<id>,<value> ... 2+
+	//* _op:resource_bar. A:00,000 B:00,000 C:00,000
 
 	"resource_bar@origin_common.hori_stack": {
 		"use_child_anchors": true,
@@ -132,12 +124,10 @@
 								"$texture": "('%.4s' * $bar_data)",
 
 								"$bar_clip_ratio": 100.0, //? convert into float
-								"$bar_progress_from": "((('%.4s' * ($bar_data - ('%.4s' * $bar_data))) - ',') / $bar_clip_ratio)",
-								"$bar_progress_to": "((('%.4s' * ($bar_data - ('%.8s' * $bar_data))) - ',') / $bar_clip_ratio)",
-								"$bar_progress_duration": "(('%.4s' * ($bar_data - ('%.12s' * $bar_data))) - ',')",
+								"$bar_value": "((('%.4s' * ($bar_data - ('%.4s' * $bar_data))) - ',') / $bar_clip_ratio)",
 								"clip_direction": "left",
 								"clip_pixelperfect": true,
-								"anims": ["@origin_resource_bar.bar_progress_anim"],
+								"clip_ratio": "(1.0 - $bar_value)",
 
 								"layer": 2
 							}
@@ -166,7 +156,7 @@
 
 		"variables": [
 			{
-				"requires": "(('%.4s' * ($bar_data - ('%.12s' * $bar_data))) = ',000')",
+				"requires": "(('%.4s' * ($bar_data - ('%.4s' * $bar_data))) = ',000')",
 				"$bar_outx": true
 			},
 			{
@@ -214,21 +204,21 @@
 		"controls": [
 			{
 				"bar_3@resource_bar_holder": {
-					"$bar_data": "('%.16s' * ($var_title_text - ('%.55s' * $var_title_text)))"
+					"$bar_data": "('%.8s' * ($var_title_text - ('%.36s' * $var_title_text)))"
 				}
 			},
 			{
 				"bar_2@resource_bar_holder": {
-					"$bar_data": "('%.17s' * ($var_title_text - ('%.38s' * $var_title_text)))"
+					"$bar_data": "('%.9s' * ($var_title_text - ('%.27s' * $var_title_text)))"
 				}
 			},
 			{
 				"bar_1@resource_bar_holder": {
-					"$bar_data": "('%.17s' * ($var_title_text - ('%.21s' * $var_title_text)))"
+					"$bar_data": "('%.9s' * ($var_title_text - ('%.18s' * $var_title_text)))"
 				}
 			}
 		],
-		"ignored": "(($var_title_text - 'resource_bar') = $var_title_text)"
+		"ignored": "(not ('%.17s' * $var_title_text = '_op:resource_bar.'))"
 	}
 
 }
