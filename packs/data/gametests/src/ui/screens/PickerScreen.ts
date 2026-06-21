@@ -68,8 +68,6 @@ export class PickerScreen extends Screen {
 		if (kind === PickerKind.Race) state.setOrigin(resolved);
 		else state.setClass(resolved);
 
-		PlayerLifecycle.applyOriginAndClass(player);
-
 		this.openPickerScene(player, kind, PickerMode.View, resolved);
 
 		player.playSound('ui.enchant', { volume: 1, pitch: 1.25 });
@@ -86,6 +84,7 @@ export class PickerScreen extends Screen {
 			UiRouter.route(player, 'open_options:general');
 			return;
 		}
+
 		if (!state.getOrigin()) {
 			const raceStart = defaultId(PickerKind.Race);
 			const mode = resolvePickMode(PickerKind.Race, raceStart, player);
@@ -98,6 +97,8 @@ export class PickerScreen extends Screen {
 			this.openPickerScene(player, PickerKind.Class, mode, classStart);
 			return;
 		}
+
+		PlayerLifecycle.applyOriginAndClass(player);
 
 		UiBridge.closeScreen(player);
 	}
