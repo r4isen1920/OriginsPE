@@ -16,7 +16,6 @@ import {
 import { Log } from '../utils/Log';
 import { PlayerState } from '../core/PlayerState';
 import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
-import { InventoryService } from '../services/InventoryService';
 import { isToggleOn } from '../ui/OptionsState';
 import { EntityUtils } from '../utils/EntityUtils';
 import { AbilityDispatch } from './AbilityDispatch';
