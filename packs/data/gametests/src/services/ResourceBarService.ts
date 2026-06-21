@@ -1,4 +1,4 @@
-import { Player, PlayerLeaveAfterEvent, system } from '@minecraft/server';
+import { Block, EntityBreathableComponent, EntityComponentTypes, GameMode, Player, PlayerLeaveAfterEvent, system } from '@minecraft/server';
 
 import { PLAYER_DYNAMIC_PROPERTIES } from '../Constants';
 import { AfterPlayerLeave } from '../core/DecoratedEvents';
@@ -43,10 +43,21 @@ interface ResourceBarEntry {
 interface CachedBars {
 	slots: Record<ResourceBarSlot, ResourceBarEntry | undefined>;
 	lastPayload: string | undefined;
+	lastOffset?: string;
 }
 
 interface PersistedBars {
 	slots?: Partial<Record<ResourceBarSlot, ResourceBarEntry>>;
+}
+
+/** Breathable config snapshot, normalized with air-breather fallbacks. */
+interface BreathConfig {
+	breathesAir: boolean;
+	breathesWater: boolean;
+	breathesLava: boolean;
+	breathesSolids: boolean;
+	totalSupply: number;
+	inhaleTime: number;
 }
 
 
@@ -72,11 +83,17 @@ export class ResourceBarService {
 	private static readonly cache = new Map<string, CachedBars>();
 	private static readonly expiryTokens = new Map<string, Record<ResourceBarSlot, number>>();
 	private static readonly suspended = new Set<string>();
+	private static readonly airState = new Map<string, { airTicks: number; updatedAtTick: number }>();
+	private static readonly bubblesVisible = new Map<string, boolean>();
+	private static readonly defaultRefillSeconds = 3;
 
 	@OnWorldLoad
 	private static onWorldLoad(): void {
 		this.log.info('Resource bar service initialized');
 	}
+
+
+	//#region API
 
 	/**
 	 * Pushes/updates one bar entry. Supports both temporary cooldown bars and
@@ -182,17 +199,23 @@ export class ResourceBarService {
 		this.refresh(player);
 	}
 
+
+	//#region EVENTS
+
 	@AfterPlayerLeave
 	private static onPlayerLeave(ev: PlayerLeaveAfterEvent): void {
 		this.cache.delete(ev.playerId);
 		this.expiryTokens.delete(ev.playerId);
 		this.suspended.delete(ev.playerId);
+		this.airState.delete(ev.playerId);
+		this.bubblesVisible.delete(ev.playerId);
 	}
 
 	@PlayerTick(2)
 	private static onTick(player: Player): void {
 		const state = this.ensureState(player);
 		const now = system.currentTick;
+		this.updateAir(player);
 		let dirty = false;
 
 		for (const slot of this.slots) {
@@ -211,10 +234,14 @@ export class ResourceBarService {
 			this.persistState(player, state);
 		}
 
-		if (dirty || this.hasVisibleBars(state)) {
+		const offsetChanged = state.lastOffset !== undefined && state.lastOffset !== this.offsetSignature(player);
+		if (dirty || this.hasVisibleBars(state) || offsetChanged) {
 			this.emitPayload(player, state);
 		}
 	}
+
+
+	//#region STATE
 
 	private static selectSlot(state: CachedBars, push: ResourceBarPushConfig): ResourceBarSlot {
 		if (push.slot) return push.slot;
@@ -331,6 +358,9 @@ export class ResourceBarService {
 		}
 	}
 
+
+	//#region PAYLOAD
+
 	private static emitPayload(player: Player, state: CachedBars): void {
 		if (this.suspended.has(player.id)) return;
 
@@ -339,7 +369,9 @@ export class ResourceBarService {
 			const bar = state.slots[slot];
 			return bar ? this.segment(slot, bar, now) : this.defaultSegmentBySlot[slot];
 		});
-		const payload = `${this.payloadPrefix} ${parts.join(' ')}`;
+		const offset = this.offsetSignature(player);
+		state.lastOffset = offset;
+		const payload = `${this.payloadPrefix} ${parts.join(' ')} ${offset}`;
 		if (payload === state.lastPayload) return;
 
 		try {
@@ -359,6 +391,133 @@ export class ResourceBarService {
 		const value = String(this.computeValue(bar, now)).padStart(3, '0');
 		return `${this.slotCode[slot]}:${id},${value}`;
 	}
+
+	/**
+	 * Builds the HUD offset suffix from gamemode and bubble visibility. Tracked
+	 * so a change can trigger a re-emit even when bar values are otherwise static.
+	 */
+	private static offsetSignature(player: Player): string {
+		const gm = player.getGameMode();
+		const gamemode = gm === GameMode.Spectator ? 'p' : gm; //? diffrentiate s[p]ectator from [s]urvival
+		const bubbles = this.bubblesVisible.get(player.id) ?? false;
+		return `${gamemode.charAt(0).toLowerCase()};${bubbles ? 't' : 'f'}`;
+	}
+
+
+	//#region AIR
+
+	/**
+	 * Advances the simulated air supply and caches whether the vanilla bubble
+	 * HUD should currently be visible. The breathable component only exposes
+	 * config (no live air value), so the supply is simulated to mirror the
+	 * on-screen bubbles: it depletes while the head sits in a medium the entity
+	 * cannot breathe and refills over `inhaleTime` once it can, keeping the
+	 * post-surface delay.
+	 */
+	private static updateAir(player: Player): void {
+		const breathable = this.getBreathable(player);
+		const maxTicks = Math.max(1, Math.round(breathable.totalSupply * 20));
+		const now = system.currentTick;
+		const prev = this.airState.get(player.id);
+		const prevAir = prev ? prev.airTicks : maxTicks;
+		const delta = prev ? Math.max(1, now - prev.updatedAtTick) : 1;
+
+		let canBreathe = true;
+		try {
+			canBreathe = this.canBreatheAtHead(player, breathable);
+		} catch {
+			canBreathe = true;
+		}
+
+		let airTicks: number;
+		if (canBreathe) {
+			const refillSeconds = breathable.inhaleTime > 0 ? breathable.inhaleTime : this.defaultRefillSeconds;
+			const rate = maxTicks / Math.max(1, refillSeconds * 20);
+			airTicks = Math.min(maxTicks, prevAir + rate * delta);
+		} else {
+			airTicks = Math.max(0, prevAir - delta);
+		}
+
+		this.airState.set(player.id, { airTicks, updatedAtTick: now });
+		this.setBubblesVisible(player, airTicks < maxTicks);
+	}
+
+	/**
+	 * Reads the player's breathable component, falling back to normal
+	 * air-breather values when it is missing or unreadable so the common
+	 * submersion case still works.
+	 */
+	private static getBreathable(player: Player): BreathConfig {
+		/** default values just in case the getComponent does wrongdoings :< */
+		const defaults: BreathConfig = {
+			breathesAir: true,
+			breathesWater: false,
+			breathesLava: false,
+			breathesSolids: false,
+			totalSupply: 15,
+			inhaleTime: 0,
+		};
+
+		try {
+			const c = player.getComponent(EntityComponentTypes.Breathable) as
+				| EntityBreathableComponent
+				| undefined;
+			if (!c) return defaults;
+			return {
+				breathesAir: c.breathesAir,
+				breathesWater: c.breathesWater,
+				breathesLava: c.breathesLava,
+				breathesSolids: c.breathesSolids,
+				totalSupply: c.totalSupply > 0 ? c.totalSupply : 15,
+				inhaleTime: c.inhaleTime,
+			};
+		} catch (e: any) {
+			this.log.warn(`Failed to read breathable for player: ${player.name}, error: ${e?.stack ?? e}`);
+			return defaults;
+		}
+	}
+
+	private static setBubblesVisible(player: Player, visible: boolean): void {
+		if (this.bubblesVisible.get(player.id) === visible) return;
+		this.bubblesVisible.set(player.id, visible);
+		this.log.debug(`bubbles visibility changed for player: ${player.name}, visible: ${visible}`);
+	}
+
+	/**
+	 * Whether the player can breathe in the block occupying its head position.
+	 * Uses the head block (not the whole body) and the breathable flags so
+	 * origins that breathe water instead of air are handled correctly.
+	 */
+	private static canBreatheAtHead(player: Player, breathable: BreathConfig): boolean {
+		const head = player.getHeadLocation();
+		const block = player.dimension.getBlock({
+			x: Math.floor(head.x),
+			y: Math.floor(head.y),
+			z: Math.floor(head.z),
+		});
+		if (!block) return true;
+
+		if (this.isWaterBlock(block)) return breathable.breathesWater;
+		if (this.isLavaBlock(block)) return breathable.breathesLava;
+		if (block.isAir) return breathable.breathesAir;
+		return breathable.breathesSolids;
+	}
+
+	private static isWaterBlock(block: Block): boolean {
+		if (block.isWaterlogged) return true;
+		const id = block.typeId;
+		if (id === 'minecraft:water' || id === 'minecraft:flowing_water') return true;
+		return block.isLiquid && !id.includes('lava');
+	}
+
+	private static isLavaBlock(block: Block): boolean {
+		const id = block.typeId;
+		if (id === 'minecraft:lava' || id === 'minecraft:flowing_lava') return true;
+		return block.isLiquid && id.includes('lava');
+	}
+
+
+	//#region UTILS
 
 	/**
 	 * Interpolates the bar's current value (0..100) from its `from`/`to` range
