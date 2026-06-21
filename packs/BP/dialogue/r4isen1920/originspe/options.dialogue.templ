@@ -1,0 +1,244 @@
+{
+	"$scope": {
+		"toggle_keys": ["orb", "paper", "unique", "announce"]
+	},
+
+	"$template": {
+		"format_version": "1.17.0",
+		"minecraft:npc_dialogue": {
+			"scenes": [
+				{
+					"{{#['on', 'off'] as particle_state}}": {
+						"scene_tag": "gui_options_general_root_particle{{particle_state}}",
+						"npc_name": "_op:options",
+
+						"text": "_op:options.general.root",
+
+						"buttons": [
+							{
+								"name": "cancel",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui close"
+								]
+							},
+							{
+								"name": "tab.admin",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin"
+								]
+							},
+							{
+								"name": "view_origin",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui open:race:view"
+								]
+							},
+							{
+								"name": "view_class",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui open:class:view"
+								]
+							},
+							{
+								"name": "particle.{{particle_state}}",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui toggle:particle"
+								]
+							}
+						]
+					}
+				},
+
+				{
+					"scene_tag": "gui_options_admin_root",
+					"npc_name": "_op:opts",
+
+					"text": "_op:options.admin.root",
+
+					"buttons": [
+						{
+							"name": "cancel",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui close"
+							]
+						},
+						{
+							"name": "tab.general",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:general"
+							]
+						},
+						{
+							"name": "ban.root",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin_ban"
+							]
+						},
+						{
+							"name": "toggle.root",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin_toggle"
+							]
+						},
+						{
+							"name": "reset_all",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin_reset_confirm"
+							]
+						}
+					]
+				},
+
+				{
+					"scene_tag": "gui_options_admin_root_resetconfirm",
+					"npc_name": "_op:opts",
+
+					"text": "_op:options.admin.root",
+
+					"buttons": [
+						{
+							"name": "return",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin"
+							]
+						},
+						{
+							"name": "tab.general",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:general"
+							]
+						},
+						{
+							"name": "ban.root",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin_ban"
+							]
+						},
+						{
+							"name": "toggle.root",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin_toggle"
+							]
+						},
+						{
+							"name": "reset_all.c",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui reset:all"
+							]
+						}
+					]
+				},
+
+				{
+					"scene_tag": "gui_options_admin_denied",
+					"npc_name": "_op:opts",
+
+					"text": "_op:options.admin.denied",
+
+					"buttons": [
+						{
+							"name": "cancel",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui close"
+							]
+						},
+						{
+							"name": "tab.general",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:general"
+							]
+						}
+					]
+				},
+
+				{
+					"scene_tag": "gui_options_admin_ban_root",
+					"npc_name": "_op:opts",
+
+					"text": "_op:options.admin.ban.root",
+
+					"buttons": [
+						{
+							"name": "return",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin"
+							]
+						},
+						{
+							"name": "tab.general",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:general"
+							]
+						},
+						{
+							"name": "ban.origins",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open:race:ban"
+							]
+						},
+						{
+							"name": "ban.classes",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open:class:ban"
+							]
+						},
+						{
+							"name": "ban.evict",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui evict_unselected"
+							]
+						}
+					]
+				},
+
+				{
+					"{{#0..15 as state}}": {
+						"scene_tag": "gui_options_admin_toggle_root_{{mod(floor(state / 8), 2)}}{{mod(floor(state / 4), 2)}}{{mod(floor(state / 2), 2)}}{{mod(state, 2)}}",
+						"npc_name": "_op:opts",
+
+						"text": "_op:options.admin.toggle.root",
+
+						"buttons": [
+							{
+								"name": "return",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin"
+								]
+							},
+							{
+								"name": "tab.general",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:general"
+								]
+							},
+							{
+								"name": "orb.{{(mod(floor(state / 8), 2) == 1) ? 'on' : 'off'}}",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui toggle:orb"
+								]
+							},
+							{
+								"name": "paper.{{(mod(floor(state / 4), 2) == 1) ? 'on' : 'off'}}",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui toggle:paper"
+								]
+							},
+							{
+								"name": "unique.{{(mod(floor(state / 2), 2) == 1) ? 'on' : 'off'}}",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui toggle:unique"
+								]
+							},
+							{
+								"name": "announce.{{(mod(state, 2) == 1) ? 'on' : 'off'}}",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui toggle:announce"
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

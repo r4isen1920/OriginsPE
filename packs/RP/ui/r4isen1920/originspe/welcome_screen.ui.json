@@ -1,0 +1,326 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+
+	"namespace": "origin_welcome_screen",
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Content Stack
+	//---------------------------------------------------------------------------
+
+
+	"welcome_screen_description_scroll_content@origin_common.verti_stack": {
+		"size": ["100%", "100%c"],
+
+		"controls": [
+			{
+				"text_description@origin_common.text_label": {
+					"text": "origins.welcome_message"
+				}
+			},
+			{
+				"text_padding_0@common.empty_panel": {
+					"size": ["100%", 7.5]
+				}
+			},
+			{
+				"created_by@origin_common.image_with_text_description": {
+					"$image_icon": "textures/origins/r4isen1920",
+					"$text_header": "© r4isen1920",
+					"$text_body": "Original by APACE100",
+					"$show_header_underline": false
+				}
+			},
+			{
+				"text_padding_1@common.empty_panel": {
+					"size": ["100%", 6.5]
+				}
+			},
+			{
+				"version_and_build_text@origin_common.text_label": {
+					"text": "('v6.0 (build ' + $r4ui_build_id + ')')",
+					"size": ["98%", "default"],
+					"font_scale_factor": 0.8,
+					"color": "$7_color_format"
+				}
+			},
+			{
+				"changelog_scroll_tip_text@origin_common.text_label": {
+					"text": "origins.changelog_message",
+					"size": ["98%", "default"],
+					"font_scale_factor": 0.8,
+					"color": "$7_color_format"
+				}
+			},
+			{
+				"text_padding_2@common.empty_panel": {
+					"size": ["100%", 9.5]
+				}
+			},
+			{
+				"version@origin_common.image_with_text_description": {
+					"$image_icon": "textures/items/paper",
+					"$text_header": "v6.0 patch notes",
+					"$text_body": " - §fOverhauled ability selector§r\n - §fNew Origins: Zeus & Vampire§r\n - §fRe-wrote backend from the ground up to resolve many bugs, issues, and glitchiness"
+				}
+			},
+			{
+				"text_padding_3@common.empty_panel": {
+					"size": ["100%", 10]
+				}
+			},
+			{
+				"contributors@origin_common.image_with_text_description": {
+					"$image_icon": "textures/items/map_locked",
+					"$text_header": "Contributors",
+					"$text_body": " - §fr4isen1920§r\n - §fyardy§r\n - §fR4M§r\n"
+				}
+			}
+		]
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Buttons
+	//---------------------------------------------------------------------------
+
+
+	"close_welcome_screen_dialog_button@origin_common.origin_selector_button_panel": {
+		"$button_type": "close_welcome_screen",
+		"$button_control": [
+			{
+				"close_wc_button@origin_common.origin_selector_button": {
+					"size": [75, 21],
+
+					"$button_text_label": "origins.gui.button.close_welcome_screen",
+					"$visible_binding": "(#student_button_text = 'close_wc')"
+				}
+			}
+		]
+	},
+
+	"ignore_welcome_screen_dialog_button@origin_common.origin_selector_button_panel": {
+		"$button_type": "ignore_welcome_screen",
+		"$button_control": [
+			{
+				"ignore_wc_button@origin_common.origin_selector_button": {
+					"size": [12, 12],
+
+					"$border_alpha": 0,
+					"$default_button_texture": "textures/ui/checkbox_space",
+					"$hover_button_texture": "textures/ui/checkbox_spaceHover",
+					"$pressed_button_texture": "textures/ui/checkbox_check",
+					"$visible_binding": "(#student_button_text = 'ignore_wc')"
+				}
+			},
+			{
+				"ignored_wc_button@origin_common.origin_selector_button": {
+					"size": [12, 12],
+
+					"$border_alpha": 0,
+					"$default_button_texture": "textures/ui/checkbox_check",
+					"$hover_button_texture": "textures/ui/checkbox_checkHover",
+					"$pressed_button_texture": "textures/ui/checkbox_space",
+					"$visible_binding": "(#student_button_text = 'ignored_wc')"
+				}
+			}
+		]
+	},
+
+	"dialog_button@origin_common.hori_stack": {
+		"collection_name": "student_buttons_collection",
+		"controls": [
+			{
+				"button_index@common.empty_panel": {
+					"collection_index": "$collection_index",
+					"size": ["100%", "100%"],
+					"$button_contents": "('origin_welcome_screen.' + $button_type + '_dialog_button')",
+					"controls": [
+						{ "button_contents@$button_contents": {} }
+					]
+				}
+			}
+		]
+	},
+
+	"welcome_screen_buttons@common.empty_panel": {
+		"layer": 3,
+
+		"controls": [
+			{
+				"selection_buttons_at_bottom_middle@common.empty_panel": {
+					"anchor_from": "center",
+					"anchor_to": "bottom_middle",
+					"size": ["100%cm", 22],
+					"offset": [0, "9% + 90px"],
+
+					"controls": [
+						{
+							"welcome_screen_buttons@origin_common.verti_stack": {
+								"size": ["100%cm", "100%c"],
+								"use_child_anchors": true,
+
+								"controls": [
+									{
+										"ignore_welcome_screen_checkbox@origin_common.hori_stack": {
+											"size": ["100%c", "100%cm"],
+											"ignored": true, //? we actually want a reason to open the npc screen every player load
+
+											"controls": [
+												{
+													"button@origin_welcome_screen.dialog_button": {
+														"size": [12, 12],
+														"$collection_index": 1,
+														"$button_type": "ignore_welcome_screen"
+													}
+												},
+												{
+													"padding@common.empty_panel": {
+														"size": [2.5, 1]
+													}
+												},
+												{
+													"label_centerer@common.empty_panel": {
+														"size": ["100%c", "100%sm"],
+
+														"controls": [
+															{
+																"label@npc_interact.student_button_label": {
+																	"max_size": ["default", "100%"],
+
+																	"text": "origins.gui.button.ignore_welcome_screen",
+																	"localize": true,
+																	"$text_color": "$f_color_format",
+
+																	"bindings": [
+																		{
+																			"binding_name": "#dialogtext",
+																			"binding_type": "global"
+																		},
+																		{
+																			"binding_type": "view",
+																			"source_property_name": "(not ((#dialogtext - '_op:welcome') = #dialogtext))",
+																			"target_property_name": "#visible"
+																		}
+																	]
+																}
+															}
+														]
+													}
+												}
+											]
+										}
+									},
+									// { "padding@common.empty_panel": { "size": [1, 5] } },
+									{
+										"close_button_centerer@common.empty_panel": {
+											"size": ["100%sm", "100%c"],
+
+											"controls": [
+												{
+													"close_welcome_screen_button@origin_welcome_screen.dialog_button": {
+														"size": [75, 21],
+														"$collection_index": 0,
+														"$button_type": "close_welcome_screen"
+													}
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Main
+	//---------------------------------------------------------------------------
+
+
+	"welcome_screen_content@origin_common.verti_stack": {
+		"size": ["100% - 12px", "100% - 8px"],
+
+		"controls": [
+			{
+				"header_panel": {
+					"type": "panel",
+					"size": ["100%", "100%c"],
+					"clips_children": true,
+
+					"controls": [
+						{
+							"title_image": {
+								"type": "image",
+								"texture": "textures/origins/title",
+								"anchor_from": "top_middle",
+								"anchor_to": "top_middle",
+								"size": [125, 23],
+								"uv_size": [174, 32],
+								"offset": [0, -2],
+								"bilinear": true,
+								"layer": 100
+							}
+						}
+					]
+				}
+			},
+			{
+				"description_panel@common.empty_panel": {
+					"size": ["100%", "fill"],
+
+					"controls": [
+						{
+							"scrollable_panel@origin_common.scrolling_panel": {
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"size": ["100%", "100%"],
+
+								"$scrolling_pane_size": ["100%", "100%"],
+								"$scrolling_pane_offset": [-0.5, 0],
+
+								"$scroll_bar_and_track_size": [10, "100%"],
+								"$scroll_box_image_control": "origin_common.scroll_box_active",
+								"$scroll_track_image_control": "common.container_scrollbar_track",
+
+								"$scroll_view_port_size": ["100% - 10px", "100%"], // clip excess; account for scroll bar and track
+								"$scrolling_content": "origin_welcome_screen.welcome_screen_description_scroll_content"
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+
+	"welcome_root_content@common.empty_panel": {
+		"controls": [
+			{
+				"welcome_sceen@origin_common.origin_picker_window_template": {
+					"size": [180, 152],
+					"$child_control": "origin_welcome_screen.welcome_screen_content"
+				}
+			},
+			{ "welcome_buttons@origin_welcome_screen.welcome_screen_buttons": {} }
+		]
+	},
+
+	"root@origin_common.binding_condition": {
+		"controls": [
+			{ "base@origin_welcome_screen.welcome_root_content": {} }
+		],
+
+		"$condition": "(('%.12s' * #dialogtext) = '_op:welcome.')"
+	}
+
+}

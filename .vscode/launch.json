@@ -5,10 +5,7 @@
             "type": "regolith",
             "request": "launch",
             "name": "Run default Regolith profile",
-            "profile": "default",
-            "experiments": [
-                "size_time_check"
-            ]
+            "profile": "default"
         },
         {
             "type": "minecraft-js",

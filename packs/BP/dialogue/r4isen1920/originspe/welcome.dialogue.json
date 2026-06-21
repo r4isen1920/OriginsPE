@@ -1,0 +1,50 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:npc_dialogue": {
+		"scenes": [
+			{
+				"scene_tag": "gui_welcome_screen",
+				"npc_name": "_op:welcome",
+
+				"text": "_op:welcome.unignored",
+
+				"buttons": [
+					{
+						"name": "close_wc",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:close:unignored"
+						]
+					},
+					{
+						"name": "ignore_wc",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:ignore"
+						]
+					}
+				]
+			},
+
+			{
+				"scene_tag": "gui_welcome_screen_ignore",
+				"npc_name": "_op:welcome",
+
+				"text": "_op:welcome.ignored",
+
+				"buttons": [
+					{
+						"name": "close_wc",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:close:ignored"
+						]
+					},
+					{
+						"name": "ignored_wc",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui welcome:unignore"
+						]
+					}
+				]
+			}
+		]
+	}
+}

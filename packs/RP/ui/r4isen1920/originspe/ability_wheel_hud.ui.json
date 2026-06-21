@@ -1,0 +1,359 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+
+	/*
+		Rendered on the HUD title channel so the per-player wheel state can update
+		dynamically while the (input-only) NPC screen is open.
+	*/
+
+	"namespace": "origin_ability_wheel_hud",
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Templates
+	//---------------------------------------------------------------------------
+
+
+	"img": {
+		"type": "image",
+		"allow_debug_missing_texture": false
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Box pieces
+	//---------------------------------------------------------------------------
+
+
+	"box_bg_default@origin_ability_wheel_hud.img": {
+		"size": ["100%", "100%"],
+		"layer": 5,
+		"texture": "textures/origins/gui/ability_selector/ability_box_default"
+	},
+	"box_bg_hover@origin_ability_wheel_hud.img": {
+		"size": ["100%", "100%"],
+		"layer": 5,
+		"texture": "textures/origins/gui/ability_selector/ability_box_hover"
+	},
+	"box_bg@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{
+				"default@box_bg_default": {
+					"ignored": "$slot_highlighted"
+				}
+			},
+			{
+				"hover@box_bg_hover": {
+					"ignored": "(not $slot_highlighted)"
+				}
+			}
+		]
+	},
+
+	"box_icon@origin_ability_wheel_hud.img": {
+		"size": [22, 22],
+		"layer": 6,
+
+		"uv": [1, 8],
+		"uv_size": [8, 8],
+		"keep_ratio": true,
+
+		"texture": "(('textures/origins/hud/cooldown/' + $slot_icon_code) - ';')",
+		"ignored": "(($slot_icon_code = ';--') or ($slot_icon_code = ';op'))"
+	},
+
+	"box_menu_icon@origin_ability_wheel_hud.img": {
+		"size": [22, 22],
+		"layer": 7,
+		"texture": "textures/origins/gui/ability_selector/menu",
+		"ignored": "(not ($slot_icon_code = ';op'))"
+	},
+
+	"box_highlight@origin_ability_wheel_hud.img": {
+		"$final_size": ["100% + 4px", "100% + 4px"],
+		"size": "$final_size",
+		"layer": 4,
+		"texture": "textures/origins/gui/ability_selector/ability_box_highlight",
+		"ignored": "(not $slot_highlighted)",
+
+		"anims": [
+			"@origin_common.anim_size",
+			"@origin_common.anim_beat_alpha_01"
+		],
+
+		"$easing_size": "out_cubic",
+		"$from_size": ["100% + 8px", "100% + 8px"],
+		"$to_size": "$final_size",
+		"$duration_size": 1.0,
+
+		"$lowest_alpha": 0.8,
+
+		"variables": [
+			{
+				//* Open
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
+
+				"$from_size": "$final_size",
+				"$to_size": "$final_size"
+			},
+			{
+				//* Close
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'd')",
+
+				"$from_size": "$final_size",
+				"$to_size": "$final_size"
+			},
+			{
+				//* Select
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b')",
+
+				"$from_size": "$final_size",
+				"$to_size": "$final_size",
+				"$duration_size": 1.0,
+
+				"$lowest_alpha": 0.4
+			}
+		]
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Box holder
+	//---------------------------------------------------------------------------
+
+
+	"box_holder@common.empty_panel": {
+		"$slot_offset|default": [0, 0],
+		"$slot_digit|default": "n",
+
+		"size": ["100%c", "100%c"],
+
+		"controls": [
+			{
+				"box@box": {
+					"size": [42, 42],
+					"offset": "$slot_offset",
+					"propagate_alpha": true,
+
+					"anims": [
+						"@origin_common.anim_offset",
+						"@origin_common.anim_alpha_delay"
+					],
+
+					"$easing_offset": "out_cubic",
+					"$from_offset": "$slot_offset",
+					"$to_offset": "$slot_offset",
+					"$duration_offset": 0.05,
+
+					"$from_alpha": 1.0,
+					"$to_alpha": 1.0,
+					"$duration_alpha": 0.05,
+					"$duration_delay_alpha": 0.05,
+
+					"variables": [
+						{
+							"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
+
+							"$from_offset": [0, 0],
+							"$to_offset": "$slot_offset",
+							"$duration_offset": 0.25,
+
+							"$from_alpha": 0.0,
+							"$to_alpha": 1.0,
+							"$duration_alpha": 0.15
+						},
+						{
+							"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'd')",
+
+							"$from_offset": "$slot_offset",
+							"$to_offset": "$slot_offset",
+							"$duration_offset": 0.1,
+							"$duration_delay_offset": 1.0,
+
+							"$from_alpha": 1.0,
+							"$to_alpha": 0.0,
+							"$duration_alpha": 0.2,
+							"$duration_delay_alpha": 0.25
+						}
+					]
+				}
+			}
+		]
+	},
+
+	"box@common.empty_panel": {
+		"controls": [
+			{ "bg@origin_ability_wheel_hud.box_bg": {} },
+			{ "icon@origin_ability_wheel_hud.box_icon": {} },
+			{ "menu_icon@origin_ability_wheel_hud.box_menu_icon": {} },
+			{ "highlight@origin_ability_wheel_hud.box_highlight": {} }
+		]
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Wheel
+	//---------------------------------------------------------------------------
+
+
+	//* _op:abw;n;op;02;--;--;--;a;name
+
+	"wheel_panel@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{
+				"box_0@origin_ability_wheel_hud.box_holder": {
+					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.9s' * $var_title_text)))",
+					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';0')",
+					"$slot_offset": [0, -52],
+
+					"$slot_tooltip_anchor": "bottom_middle",
+					"$slot_tooltip_offset": [0, 8.5],
+					"$button_type": "slot_0"
+				}
+			},
+			{
+				"box_1@origin_ability_wheel_hud.box_holder": {
+					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.12s' * $var_title_text)))",
+					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';1')",
+					"$slot_offset": [50, -10],
+
+					"$slot_tooltip_anchor": "left_middle",
+					"$slot_tooltip_offset": [-8.5, 0],
+					"$button_type": "slot_1"
+				}
+			},
+			{
+				"box_2@origin_ability_wheel_hud.box_holder": {
+					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.15s' * $var_title_text)))",
+					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';2')",
+					"$slot_offset": [31, 46],
+
+					"$slot_tooltip_anchor": "top_left",
+					"$slot_tooltip_offset": [-4.25, -8.5],
+					"$button_type": "slot_2"
+				}
+			},
+			{
+				"box_3@origin_ability_wheel_hud.box_holder": {
+					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.18s' * $var_title_text)))",
+					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';3')",
+					"$slot_offset": [-31, 46],
+
+					"$slot_tooltip_anchor": "top_right",
+					"$slot_tooltip_offset": [4.25, -8.5],
+					"$button_type": "slot_3"
+				}
+			},
+			{
+				"box_4@origin_ability_wheel_hud.box_holder": {
+					"$slot_icon_code": "('%.3s' * ($var_title_text - ('%.21s' * $var_title_text)))",
+					"$slot_highlighted": "(('%.2s' * ($var_title_text - ('%.7s' * $var_title_text))) = ';4')",
+					"$slot_offset": [-50, -10],
+
+					"$slot_tooltip_anchor": "right_middle",
+					"$slot_tooltip_offset": [8.5, 0],
+					"$button_type": "slot_4"
+				}
+			}
+		]
+	},
+
+
+
+
+	//---------------------------------------------------------------------------
+	// Main
+	//---------------------------------------------------------------------------
+
+
+	"selected_slot_label_bg": {
+		"type": "image",
+		"size": ["100%c + 4px", "100%c + 2px"],
+		"offset": [0, -112],
+		"texture": "textures/origins/gui/black",
+
+		"ignored": "(($var_title_text - ('%.27s' * $var_title_text)) = 'origins.wheel.empty')",
+
+		"anims": [
+			"@origin_common.anim_alpha"
+		],
+
+		// bg alpha is different to that of the child
+		"$from_alpha": 0.0,
+		"$to_alpha": 0.4,
+		"$duration_alpha": 0.1,
+
+		"controls": [
+			{
+				"label": {
+					"type": "label",
+					"text": "($var_title_text - ('%.27s' * $var_title_text))",
+					"localize": true,
+					"shadow": true,
+
+					"anims": [
+						"@origin_common.anim_alpha"
+					],
+
+					"$from_alpha": 0.0,
+					"$to_alpha": 1.0,
+					"$duration_alpha": 0.1
+				}
+			}
+		]
+	},
+
+
+	"bg@img": {
+		"texture": "textures/origins/gui/ability_selector/bg",
+
+		"anims": [
+			"@origin_common.anim_alpha"
+		],
+
+		"$from_alpha": 1.0,
+		"$to_alpha": 1.0,
+		"$duration_alpha": 0.1,
+
+		"variables": [
+			{
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
+				"$from_alpha": 0.0,
+				"$to_alpha": 1.0,
+				"$duration_alpha": 0.25
+			},
+			{
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'd')",
+				"$from_alpha": 1.0,
+				"$to_alpha": 0.0,
+				"$duration_alpha": 0.25
+			}
+		]
+	},
+
+
+	"root@common.empty_panel": {
+		"size": ["100%", "100%"],
+
+		"controls": [
+			{ "selected_slot_label@selected_slot_label_bg": {} },
+			{ "wheel@wheel_panel": {} },
+			{ "bg@bg": { "size": ["100%", "100%" ] } }
+		],
+
+		//* Only render when the wheel payload owns the title channel.
+		"ignored": "(not ('%.7s' * $var_title_text = '_op:abw'))"
+	}
+}

@@ -1,0 +1,882 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+	"$scope": {
+		"list": "{{[origins, classes].flatMap().filter(o => !endsWith(o.traits, 'random') && !endsWith(o.traits, 'none'))}}"
+	},
+
+	/*
+		Input-only layer. This shows the picker buttons, and title.
+	*/
+
+	//? $vars are to be delimited by another '$' prefix because otherwise jsonte will translate that into a field literal
+	"$template": {
+		"namespace": "origin_picker_screen_npc",
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Out-of-Window Section
+		//---------------------------------------------------------------------------
+
+
+		"picker_title_text@common.empty_panel": {
+			"anchor_from": "center",
+			"anchor_to": "top_middle",
+			"size": ["100%cm", "100%cm"],
+			"offset": [0, "-10% - 85px"],
+
+			"controls": [
+				{
+					"picker_title_text": {
+						"type": "label",
+						"text": "#text",
+						"localize": true,
+						"shadow": true,
+						"layer": 2,
+
+						"bindings": [
+							{
+								"binding_name": "#dialogtext",
+								"binding_type": "global"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+								"target_property_name": "#picker_title_text_type"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "('origins.gui.title.' + #picker_title_text_type)",
+								"target_property_name": "#text"
+							}
+						]
+					}
+				}
+			]
+		},
+
+
+		"picker_shine": {
+			"type": "image",
+			"texture": "#texture",
+			"offset": [0, -4],
+			"allow_clipping": false,
+			"propagate_alpha": true,
+			"layer": 2,
+
+			"anims": [
+				"@origin_common.anim_beat_size_01",
+				"@origin_common.anim_beat_alpha_01"
+			],
+
+			"bindings": [
+				{
+					"binding_name": "#dialogtext",
+					"binding_type": "global"
+				},
+
+				{
+					"binding_type": "view",
+					"source_property_name": "('textures/origins/gui/picker_screen/dialog_shine_' + (('%.13s' * #dialogtext) - ('%.12s' * #dialogtext)))",
+					"target_property_name": "#texture"
+				},
+
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+					"target_property_name": "#picker_title_text_type"
+				},
+				{
+					"binding_type": "view",
+					"source_property_name": "(('%.1s' * #picker_title_text_type) = 'v')",
+					"target_property_name": "#visible"
+				}
+			]
+		},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Buttons
+		//---------------------------------------------------------------------------
+
+		"continue_blocked_button_label_panel@common.empty_panel": {
+			"controls": [
+				{
+					"ban_button@npc_interact.student_button_label": {
+						"text": "origins.gui.button.manage.ban",
+						"localize": true,
+						"offset": [11, 0],
+						"$$visible_binding": "((#student_button_text = 'ban_limit') or (#student_button_text = 'ban_locked'))"
+					}
+				}
+			]
+		},
+
+
+		"left_cycle_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "left_cycle",
+			"$$button_control": [
+				{
+					"left_cycle_button@origin_common.origin_selector_button": {
+						"size": [23, 23],
+
+						"$$button_text_label": "<",
+						"$$visible_binding": "(#student_button_text = '<')"
+					}
+				},
+				{
+					"left_tooltip_helper@origin_picker_screen_npc.tooltip_helpers": {
+						"$$tooltip_helper_side": "left"
+					}
+				}
+			]
+		},
+
+		"select_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "select",
+			"$$button_control": [
+				{
+					"select_button@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.select",
+						"$$visible_binding": "(#student_button_text = 'select')"
+					}
+				}
+			]
+		},
+		"select_blocked_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "select_blocked",
+			"size": ["100%cm", "100%cm"],
+			"$$button_control": [
+				{
+					"select_blocked_ban@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.select",
+						"$$custom_locked_button": true,
+						"$$show_hover_content": true,
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
+						"$$hover_text": "origins.gui.subtitle.banned",
+						"$$visible_binding": "(#student_button_text = 'select_ban')"
+					}
+				},
+				{
+					"select_blocked_lock@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.select",
+						"$$custom_locked_button": true,
+						"$$show_hover_content": true,
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
+						"$$hover_text": "origins.gui.subtitle.locked",
+						"$$visible_binding": "(#student_button_text = 'select_lock')"
+					}
+				}
+			]
+		},
+
+		"start_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "start",
+			"$$button_control": [
+				{
+					"select_button@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.start",
+						"$$visible_binding": "(#student_button_text = 'start'))"
+					}
+				},
+				{
+					"select_button@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.return",
+						"$$visible_binding": "(#student_button_text = 'return_start')"
+					}
+				}
+			]
+		},
+
+		"continue_race_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "continue",
+			"$$button_control": [
+				{
+					"change@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.continue.change",
+						"$$visible_binding": "(#student_button_text = 'continue_race')"
+					}
+				},
+				{
+					"ban@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.manage.ban",
+						"$$visible_binding": "(#student_button_text = 'ban_race')"
+					}
+				},
+				{
+					"unban@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.manage.unban",
+						"$$visible_binding": "(#student_button_text = 'unban_race')"
+					}
+				}
+			]
+		},
+		"continue_class_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "continue",
+			"$$button_control": [
+				{
+					"resign@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.continue.resign",
+						"$$visible_binding": "(#student_button_text = 'continue_class')"
+					}
+				},
+				{
+					"ban@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.manage.ban",
+						"$$visible_binding": "(#student_button_text = 'ban_class')"
+					}
+				},
+				{
+					"unban@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.manage.unban",
+						"$$visible_binding": "(#student_button_text = 'unban_class')"
+					}
+				}
+			]
+		},
+
+		"continue_blocked_dialog_button@origin_common.origin_selector_button_panel": {
+			"size": ["100%cm", "100%cm"],
+
+			"$$button_type": "continue_blocked",
+			"$$button_control": [
+				{
+					"continue_blocked_ban_limit@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.manage.ban",
+						"$$custom_locked_button": true,
+						"$$show_hover_content": true,
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
+						"$$hover_text": "origins.gui.manage.ban_limit",
+						"$$visible_binding": "(#student_button_text = 'ban_limit')"
+					}
+				},
+				{
+					"continue_blocked_ban_locked@origin_common.origin_selector_button": {
+						"size": [82, 21],
+
+						"$$button_text_offset": [11, 0],
+						"$$button_text_label": "origins.gui.button.manage.ban",
+						"$$custom_locked_button": true,
+						"$$show_hover_content": true,
+						"$$hover_content": "origin_picker_screen_npc.unallowed_button_hover",
+						"$$hover_text": "origins.gui.manage.ban_locked",
+						"$$visible_binding": "(#student_button_text = 'ban_locked')"
+					}
+				}
+			]
+		},
+
+		"cancel_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "cancel",
+			"$$button_control": [
+				{
+					"cancel@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.cancel",
+						"$$visible_binding": "(#student_button_text = 'cancel')"
+					}
+				},
+				{
+					"return@origin_common.origin_selector_button": {
+						"size": [75, 21],
+
+						"$$button_text_label": "origins.gui.button.return",
+						"$$visible_binding": "((#student_button_text = 'return')"
+					}
+				}
+			]
+		},
+
+		"right_cycle_dialog_button@origin_common.origin_selector_button_panel": {
+			"$$button_type": "right_cycle",
+			"$$button_control": [
+				{
+					"right_cycle_button@origin_common.origin_selector_button": {
+						"size": [23, 23],
+
+						"$$button_text_label": ">",
+						"$$visible_binding": "(#student_button_text = '>')"
+					}
+				},
+				{
+					"right_tooltip_helper@origin_picker_screen_npc.tooltip_helpers": {
+						"$$tooltip_helper_side": "right"
+					}
+				}
+			]
+		},
+
+
+		"dialog_button@origin_common.hori_stack": {
+			"collection_name": "student_buttons_collection",
+
+			"controls": [
+				{
+					"button_index@common.empty_panel": {
+						"collection_index": "$collection_index",
+						"size": ["100%", "100%"],
+
+						"$$button_contents": "('origin_picker_screen_npc.' + $button_type + '_dialog_button')",
+						"controls": [
+							{ "button_contents@$button_contents": {} }
+						]
+					}
+				}
+			]
+		},
+
+		"tooltip_helpers@common.empty_panel": {
+			"controls": [
+				{
+					"left_trigger@common.empty_panel": {
+						"ignored": "(not ($tooltip_helper_side = 'left'))",
+
+						"controls": [
+							{
+								"gamepad_helper_left_bumper@common.gamepad_helper_left_bumper": {
+									"$$gamepad_helper_left_bumper_offset|default": [-25, 0],
+									"offset": "$gamepad_helper_left_bumper_offset",
+									"$$hide_description": true,
+									"layer": 3
+								}
+							},
+							{
+								"keyboard_left_trigger@common.keyboard_left_trigger": {
+									"$$keyboard_left_trigger_offset|default": [-24, 0],
+									"offset": "$keyboard_left_trigger_offset",
+									"$$hide_description": true,
+									"$$text_color": [1.0, 1.0, 1.0],
+									"layer": 3
+								}
+							}
+						],
+
+						"bindings": [
+							{
+								"binding_name": "#student_button_text",
+								"binding_type": "collection",
+								"binding_collection_name": "student_buttons_collection"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(#student_button_text = '<')",
+								"target_property_name": "#visible"
+							}
+						]
+					}
+				},
+				{
+					"right_trigger@common.empty_panel": {
+						"ignored": "(not ($tooltip_helper_side = 'right'))",
+
+						"controls": [
+							{
+								"gamepad_helper_right_bumper@common.gamepad_helper_right_bumper": {
+									"$$gamepad_helper_right_bumper_offset|default": [25, 0],
+									"offset": "$gamepad_helper_right_bumper_offset",
+									"$$hide_description": true,
+									"layer": 3
+								}
+							},
+							{
+								"keyboard_right_trigger@common.keyboard_right_trigger": {
+									"$$keyboard_right_trigger_offset|default": [24, 0],
+									"offset": "$keyboard_right_trigger_offset",
+									"$$hide_description": true,
+									"$$text_color": [1.0, 1.0, 1.0],
+									"layer": 3
+								}
+							}
+						],
+
+						"bindings": [
+							{
+								"binding_name": "#student_button_text",
+								"binding_type": "collection",
+								"binding_collection_name": "student_buttons_collection"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(#student_button_text = '>')",
+								"target_property_name": "#visible"
+							}
+						]
+					}
+				}
+			]
+		},
+
+		"continue_button_cost_display@common.empty_panel": {
+			"$$panel_base_layer": 100,
+			"controls": [
+				{
+					"origin_change": {
+						"type": "image",
+						"texture": "textures/origins/gui/picker_screen/side_ribbon",
+						"size": ["100%", "100%"],
+						"layer": "$panel_base_layer",
+
+						"controls": [
+							{
+								"orb_of_origins_item_render@origin_common.hoverable_image": {
+									"offset": [0.5, -1.1],
+
+									"$$hover_size": [15.5, 15.5],
+									"$$hover_offset": [8, -8],
+									"$$image_texture": "textures/origins/items/orb",
+									"$$hover_text": "origins.gui.change.race",
+
+									"bindings": [
+										{
+											"binding_name": "#dialogtext",
+											"binding_type": "global"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cr')",
+											"target_property_name": "#visible"
+										}
+									]
+								}
+							},
+							{
+								"ban_origin_image_render@origin_common.hoverable_image": {
+									"offset": [1, -1.1],
+
+									"$$hover_size": [14, 14],
+									"$$hover_offset": [8, 0],
+									"$$image_texture": "textures/origins/gui/options_screen/icon_ban_origins",
+									"$$hover_text": "origins.gui.manage.ban_race",
+
+									"bindings": [
+										{
+											"binding_name": "#dialogtext",
+											"binding_type": "global"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+											"target_property_name": "#screen_type"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "((#screen_type = 'br') or (#screen_type = 'ur'))",
+											"target_property_name": "#visible"
+										}
+									]
+								}
+							}
+						],
+
+						"bindings": [
+							{
+								"binding_name": "#dialogtext",
+								"binding_type": "global"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+								"target_property_name": "#screen_type"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "((#screen_type = 'cr') or (#screen_type = 'br') or (#screen_type = 'ur'))",
+								"target_property_name": "#visible"
+							}
+						]
+					}
+				},
+				{
+					"class_change": {
+						"type": "image",
+						"texture": "textures/origins/gui/picker_screen/side_ribbon_class",
+						"size": ["100%", "100%"],
+						"layer": "$panel_base_layer",
+
+						"controls": [
+							{
+								"resignation_paper_item_render@origin_common.hoverable_image": {
+									"offset": [1, -1.1],
+
+									"$$hover_size": [15, 15],
+									"$$hover_offset": [8, -8],
+									"$$image_texture": "textures/origins/items/resignation_paper",
+									"$$hover_text": "origins.gui.change.class",
+
+									"bindings": [
+										{
+											"binding_name": "#dialogtext",
+											"binding_type": "global"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "((('%.13s' * #dialogtext) - ('%.11s' * #dialogtext)) = 'cc')",
+											"target_property_name": "#visible"
+										}
+									]
+								}
+							},
+							{
+								"ban_class_image_render@origin_common.hoverable_image": {
+									"offset": [1, -1.1],
+
+									"$$hover_size": [14, 14],
+									"$$hover_offset": [8, 0],
+									"$$image_texture": "textures/origins/gui/options_screen/icon_ban_classes",
+									"$$hover_text": "origins.gui.manage.ban_class",
+
+									"bindings": [
+										{
+											"binding_name": "#dialogtext",
+											"binding_type": "global"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+											"target_property_name": "#screen_type"
+										},
+										{
+											"binding_type": "view",
+											"source_property_name": "((#screen_type = 'bc') or (#screen_type = 'uc'))",
+											"target_property_name": "#visible"
+										}
+									]
+								}
+							}
+						],
+
+						"bindings": [
+							{
+								"binding_name": "#dialogtext",
+								"binding_type": "global"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+								"target_property_name": "#screen_type"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "((#screen_type = 'cc') or (#screen_type = 'bc') or (#screen_type = 'uc'))",
+								"target_property_name": "#visible"
+							}
+						]
+					}
+				}
+			]
+		},
+
+		"unallowed_button_hover@common.empty_panel": {
+			"$$hover_text|default": "button_hover",
+			"$$hover_size|default": ["100%", "100%"],
+			"$$hover_offset|default": [0, 10],
+
+			"$$panel_base_layer|default": 150,
+
+			"size": "$hover_size",
+			"layer": "$panel_base_layer",
+
+			"controls": [
+				{
+					"hover_text_image": {
+						"type": "image",
+						"texture": "textures/ui/purpleBorder",
+						"size": ["100%c + 9px", "100%c + 8px"],
+						"offset": "$hover_offset",
+						"layer": "($panel_base_layer + 1)",
+						"allow_clipping": false,
+
+						"controls": [
+							{
+								"hover_text_label": {
+									"type": "label",
+									"anchor_from": "top_left",
+									"anchor_to": "top_left",
+									"size": ["default", "default"],
+									"max_size": ["145px", "default"],
+									"offset": [4, 3],
+
+									"text": "$hover_text",
+									"text_alignment": "center",
+									"color": "$f_color_format",
+									"locked_color": "$f_color_format",
+									"localize": true,
+
+									"layer": "($panel_base_layer + 2)"
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+
+		"picker_buttons@common.empty_panel": {
+			"size": ["100%", "100%"],
+			"layer": 3,
+
+			"controls": [
+				{
+					"cycle_left_button@origin_picker_screen_npc.dialog_button": {
+						"$$collection_index": 0,
+						"$$button_type": "left_cycle",
+
+						"size": [23, 23],
+						"offset": [-110, 0]
+					}
+				},
+				{
+					"selection_buttons_at_bottom_middle@common.empty_panel": {
+						"anchor_from": "center",
+						"anchor_to": "bottom_middle",
+						"size": ["100%cm", 22],
+						"offset": [0, "9% + 90px"],
+
+						"controls": [
+							{
+								"select_button@common.empty_panel": {
+									"size": [75, 21],
+
+									"controls": [
+										{
+											"select_button@origin_picker_screen_npc.dialog_button": {
+												"$$collection_index": 1,
+												"$$button_type": "select",
+
+												"size": ["100%", "100%"]
+											}
+										},
+										{
+											"select_button_blocked@origin_picker_screen_npc.dialog_button": {
+												"$$collection_index": 1,
+												"$$button_type": "select_blocked",
+
+												"size": ["100%", "100%"]
+											}
+										}
+									]
+								}
+							},
+
+							{
+								"start_button@origin_picker_screen_npc.dialog_button": {
+									"$$collection_index": 0,
+									"$$button_type": "start",
+
+									"size": [75, 21]
+								}
+							},
+
+							{
+								"continue_and_cancel_buttons@origin_common.hori_stack": {
+									"size": ["100%c", 22],
+
+									"controls": [
+										{
+											"continue_button_panel@common.empty_panel": {
+												"size": [83, "100%"],
+
+												"controls": [
+													{
+														"changing_cost_display_panel@origin_picker_screen_npc.continue_button_cost_display": {
+															"size": [31, 22],
+															"offset": [-27.5, 1.0]
+														}
+													},
+													{
+														"continue_button@common.empty_panel": {
+															"size": [82, 21],
+
+															"controls": [
+																{
+																	"continue_button_race@origin_picker_screen_npc.dialog_button": {
+																		"$$collection_index": 1,
+																		"$$button_type": "continue_race"
+																	}
+																},
+																{
+																	"continue_button_class@origin_picker_screen_npc.dialog_button": {
+																		"$$collection_index": 1,
+																		"$$button_type": "continue_class"
+																	}
+																},
+																{
+																	"continue_button_blocked@origin_picker_screen_npc.dialog_button": {
+																		"$$collection_index": 1,
+																		"$$button_type": "continue_blocked"
+																	}
+																}
+															]
+														}
+													}
+												]
+											}
+										},
+										{
+											"padding@common.empty_panel": {
+												"size": [14, "100%"],
+
+												"controls": [
+													{
+														"line_display": {
+															"type": "image",
+															"size": [1, "100% + 2px"],
+															"offset": [1, 0],
+															"texture": "textures/ui/underline",
+															"tiled": "y",
+															"color": "$7_color_format"
+														}
+													}
+												],
+
+												"bindings": [
+													{
+														"binding_name": "#dialogtext",
+														"binding_type": "global"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "(('%.13s' * #dialogtext) - ('%.11s' * #dialogtext))",
+														"target_property_name": "#screen_type"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "((#screen_type = 'cr') or (#screen_type = 'br') or (#screen_type = 'ur'))",
+														"target_property_name": "#is_changing_or_banning_origin"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "((#screen_type = 'cc') or (#screen_type = 'bc') or (#screen_type = 'uc'))",
+														"target_property_name": "#is_changing_or_banning_class"
+													},
+													{
+														"binding_type": "view",
+														"source_property_name": "(#is_changing_or_banning_origin or #is_changing_or_banning_class)",
+														"target_property_name": "#visible"
+													}
+												]
+											}
+										},
+										{
+											"cancel_button@common.empty_panel": {
+												"size": [83, "100%"],
+												"controls": [
+													{
+														"cancel_button_0@origin_picker_screen_npc.dialog_button": {
+															"$$collection_index": 0,
+															"$$button_type": "cancel",
+
+															"size": [75, 21]
+														}
+													},
+													{
+														"cancel_button_1@origin_picker_screen_npc.dialog_button": {
+															"$$collection_index": 2,
+															"$$button_type": "cancel",
+
+															"size": [75, 21]
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"cycle_right_button@common.empty_panel": {
+						"size": [23, 23],
+						"offset": [110, 0],
+						"controls": [
+							{
+								"cycle_right_button_0@origin_picker_screen_npc.dialog_button": {
+									"$$collection_index": 2,
+									"$$button_type": "right_cycle",
+
+									"anchor_from": "center",
+									"anchor_to": "center",
+									"size": [23, 23]
+								}
+							},
+							{
+								"cycle_right_button_1@origin_picker_screen_npc.dialog_button": {
+									"$$collection_index": 3,
+									"$$button_type": "right_cycle",
+
+									"anchor_from": "center",
+									"anchor_to": "center",
+									"size": [23, 23]
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Main
+		//---------------------------------------------------------------------------
+
+
+		"picker_root_content@common.empty_panel": {
+			"size": ["100%", "100%"],
+
+			"controls": [
+				{ "picker_buttons@picker_buttons": {} },
+				{ "picker_title_text@picker_title_text": {} },
+				{ "picker_shine@picker_shine": {} }
+			]
+		},
+
+		"root@origin_common.binding_condition": {
+			"controls": [
+				{ "base@origin_picker_screen_npc.picker_root_content": {} }
+			],
+
+			"$$condition": "(('%.11s' * #dialogtext) = '_op:picker.')"
+		}
+
+	}
+}

@@ -1,0 +1,486 @@
+{
+	"$scope": {
+		"attributes": {
+			"health": {
+				"range": [ 0, 100 ],
+				"default": 20,
+				"steps": [
+					{ "{{#1..150}}": "{{=value}}" }
+				]
+			},
+
+			"movement": {
+				"generic": {
+					"range": [ 0, 100 ],
+					"default": 0.1,
+					//* Base walking-speed steps. Mirror AttributeService STEPPED_ATTRIBUTES.
+					"steps": [ 0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25 ]
+				},
+				"underwater": {
+					"range": [ 0, 100 ],
+					"default": 0.025,
+					//* Base swim-speed steps. Mirror AttributeService STEPPED_ATTRIBUTES.
+					"steps": [ 0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25 ]
+				},
+				"lava": {
+					"range": [ 0, 100 ],
+					"default": 0.01
+				}
+			},
+
+			"scale": [
+				0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+				1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2.0,
+				2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3.0
+			],
+
+			"attack": [
+				{ "{{#0..20}}": "{{=value}}" }
+			]
+		}
+
+	},
+
+	"$copy": "{{getBPFile('entities/player.json', semver('1.26.20'))}}",
+
+	"$template": {
+		"minecraft:entity": {
+			"description": {
+				"properties": {
+
+					"r4isen1920_originspe:toggle_particles": {
+						//* Returns 1.0 if the player's idle particles are enabled, otherwise 0.0
+						"client_sync": true,
+						"type": "bool",
+						"default": true
+					},
+
+					"r4isen1920_originspe:model_type": {
+						//* Returns the current model type of the player
+						"client_sync": true,
+						"type": "enum",
+						"default": "normal",
+						"values": ["normal", "tiny", "small", "medium", "large"]
+					},
+
+					"r4isen1920_originspe:skin_type": {
+						//* Returns the current skin type of the player
+						"client_sync": true,
+						"type": "enum",
+						"default": "normal",
+						"values": ["normal", "ghostly", "slimy", "shadow"]
+					},
+
+					"r4isen1920_originspe:emitter_type": {
+						//* Returns the current particle emitter type of the player
+						"client_sync": true,
+						"type": "enum",
+						"default": "none",
+						"values": [
+							"none",
+							"enderian",
+							"starborne",
+							"elven",
+							"voidwalker",
+							"diviner"
+						]
+					},
+
+					"r4isen1920_originspe:flag_a": {
+						//* Generic boolean flag for script-driven state
+						"client_sync": true,
+						"type": "bool",
+						"default": false
+					},
+					"r4isen1920_originspe:flag_b": {
+						//* Generic boolean flag for script-driven state
+						"client_sync": true,
+						"type": "bool",
+						"default": false
+					},
+					"r4isen1920_originspe:flag_c": {
+						//* Generic boolean flag for script-driven state
+						"client_sync": true,
+						"type": "bool",
+						"default": false
+					},
+					"r4isen1920_originspe:flag_d": {
+						//* Generic boolean flag for script-driven state
+						"client_sync": true,
+						"type": "bool",
+						"default": false
+					}
+				}
+			},
+
+			"component_groups": {
+
+				"{{#attributes.scale as s}}": {
+					"r4isen1920_originspe:scale.{{s}}": {
+						"minecraft:scale": { "value": "{{=s}}" }
+					}
+				},
+
+				"{{#attributes.attack as a}}": {
+					"r4isen1920_originspe:attack.{{a}}": {
+						"minecraft:attack": { "damage": "{{=a}}" }
+					}
+				},
+
+				"{{#attributes.health.steps as h}}": {
+					"r4isen1920_originspe:health.{{h}}": {
+						"minecraft:health": { "max": "{{=h}}" }
+					}
+				},
+
+				"{{#attributes.movement.generic.steps as m}}": {
+					"r4isen1920_originspe:movement.{{m}}": {
+						"minecraft:movement": { "value": "{{=m}}" }
+					}
+				},
+
+				"{{#attributes.movement.underwater.steps as u}}": {
+					"r4isen1920_originspe:underwater_movement.{{u}}": {
+						"minecraft:underwater_movement": { "value": "{{=u}}" }
+					}
+				},
+
+
+				"r4isen1920_originspe:exhaustion.normal": {
+					"minecraft:exhaustion_values": {
+						"heal": 6,
+						"jump": 0.05,
+						"sprint_jump": 0.2,
+						"mine": 0.005,
+						"attack": 0.1,
+						"damage": 0.1,
+						"walk": 0.0,
+						"sprint": 0.1,
+						"swim": 0.01
+					}
+				},
+				"r4isen1920_originspe:exhaustion.shulk": {
+					"minecraft:exhaustion_values": {
+						"heal": 12,
+						"jump": 0.1,
+						"sprint_jump": 0.4,
+						"mine": 0.01,
+						"attack": 0.2,
+						"damage": 0.2,
+						"walk": 0.0,
+						"sprint": 0.2,
+						"swim": 0.02
+					}
+				},
+				"r4isen1920_originspe:exhaustion.piglin": {
+					"minecraft:exhaustion_values": {
+						"heal": 15
+					}
+				},
+				"r4isen1920_originspe:exhaustion.explorer": {
+					"minecraft:exhaustion_values": {
+						"sprint_jump": 0.0,
+						"sprint": 0.0
+					}
+				},
+				"r4isen1920_originspe:exhaustion.miner": {
+					"minecraft:exhaustion_values": {
+						"mine": 0.0
+					}
+				},
+
+
+				"r4isen1920_originspe:family_type.player": {
+					"minecraft:type_family": {
+						"family": ["player"]
+					}
+				},
+				"r4isen1920_originspe:family_type.cat": {
+					"minecraft:type_family": {
+						"family": ["player", "cat", "ocelot"]
+					}
+				},
+				"r4isen1920_originspe:family_type.enderman": {
+					"minecraft:type_family": {
+						"family": ["player", "enderman"]
+					}
+				},
+				"r4isen1920_originspe:family_type.fish": {
+					"minecraft:type_family": {
+						"family": ["player", "fish"]
+					}
+				},
+				"r4isen1920_originspe:family_type.undead": {
+					"minecraft:type_family": {
+						"family": ["undead"]
+					}
+				},
+				"r4isen1920_originspe:family_type.camouflage": {
+					"minecraft:type_family": {
+						"family": ["camouflage"]
+					}
+				},
+				"r4isen1920_originspe:family_type.bite_sized": {
+					"minecraft:type_family": {
+						"family": ["player", "bite_sized"]
+					}
+				},
+
+
+				"r4isen1920_originspe:fill_bubbles": {
+					"minecraft:breathable": {
+						"total_supply": 15,
+						"suffocate_time": -1,
+						"inhale_time": 3.75,
+						"generates_bubbles": false
+					}
+				},
+
+				"r4isen1920_originspe:breathable.land": {
+					"minecraft:breathable": {
+						"total_supply": 15,
+						"suffocate_time": -1,
+						"inhale_time": 3.75,
+						"generates_bubbles": false
+					}
+				},
+				"r4isen1920_originspe:breathable.underwater": {
+					"minecraft:breathable": {
+						"total_supply": 15,
+						"suffocate_time": -1,
+						"inhale_time": 3.75,
+						"generates_bubbles": false,
+						"breathes_air": false,
+						"breathes_water": true
+					}
+				},
+
+
+				"r4isen1920_originspe:buoyant.float_on_water": {
+					"minecraft:buoyant": {
+						"base_buoyancy": 1.0,
+						"apply_gravity": false,
+						"simulate_waves": true,
+						"liquid_blocks": ["minecraft:water", "minecraft:flowing_water"]
+					}
+				},
+
+
+				"r4isen1920_originspe:is_shaking": {
+					"minecraft:is_shaking": {}
+				},
+
+
+				"r4isen1920_originspe:burns_in_daylight": {
+					"minecraft:burns_in_daylight": {}
+				},
+
+
+				"r4isen1920_originspe:display_name": {
+					"minecraft:nameable": {
+						"always_show": true,
+						"allow_name_tag_renaming": false
+					}
+				},
+				"r4isen1920_originspe:hide_name": {
+					"minecraft:nameable": {
+						"always_show": false,
+						"allow_name_tag_renaming": false
+					}
+				},
+
+
+				"r4isen1920_originspe:add_knockback_resistance": {
+					"minecraft:knockback_resistance": {
+						"value": 1
+					}
+				},
+				"r4isen1920_originspe:remove_knockback_resistance": {
+					"minecraft:knockback_resistance": {
+						"value": 0
+					}
+				}
+			},
+
+			"components": {
+
+				"minecraft:health": {
+					"min": "{{=attributes.health.range[0]}}",
+					"max": "{{=attributes.health.range[1]}}",
+					"value": "{{=attributes.health.default}}"
+				},
+
+				"minecraft:movement": {
+					"min": "{{=attributes.movement.generic.range[0]}}",
+					"max": "{{=attributes.movement.generic.range[1]}}",
+					"value": "{{=attributes.movement.generic.default}}"
+				},
+				"minecraft:underwater_movement": {
+					"min": "{{=attributes.movement.underwater.range[0]}}",
+					"max": "{{=attributes.movement.underwater.range[1]}}",
+					"value": "{{=attributes.movement.underwater.default}}"
+				},
+				"minecraft:lava_movement": {
+					"min": "{{=attributes.movement.lava.range[0]}}",
+					"max": "{{=attributes.movement.lava.range[1]}}",
+					"value": "{{=attributes.movement.lava.default}}"
+				}
+
+			},
+
+			"events": {
+
+				"{{#attributes.scale as s}}": {
+					"r4isen1920_originspe:scale.{{s}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:scale.{{s}}"] }
+					}
+				},
+
+				"{{#attributes.attack as a}}": {
+					"r4isen1920_originspe:attack.{{a}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:attack.{{a}}"] }
+					}
+				},
+
+				"{{#attributes.health.steps as h}}": {
+					"r4isen1920_originspe:health.{{h}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:health.{{h}}"] }
+					}
+				},
+
+				"{{#attributes.movement.generic.steps as m}}": {
+					"r4isen1920_originspe:movement.{{m}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:movement.{{m}}"] }
+					}
+				},
+
+				"{{#attributes.movement.underwater.steps as u}}": {
+					"r4isen1920_originspe:underwater_movement.{{u}}": {
+						"add": { "component_groups": ["r4isen1920_originspe:underwater_movement.{{u}}"] }
+					}
+				},
+
+				"r4isen1920_originspe:exhaustion.normal": {
+					"add": { "component_groups": ["r4isen1920_originspe:exhaustion.normal"] }
+				},
+				"r4isen1920_originspe:exhaustion.shulk": {
+					"add": { "component_groups": ["r4isen1920_originspe:exhaustion.shulk"] }
+				},
+				"r4isen1920_originspe:exhaustion.piglin": {
+					"add": { "component_groups": ["r4isen1920_originspe:exhaustion.piglin"] }
+				},
+				"r4isen1920_originspe:exhaustion.explorer": {
+					"add": { "component_groups": ["r4isen1920_originspe:exhaustion.explorer"] }
+				},
+				"r4isen1920_originspe:exhaustion.miner": {
+					"add": { "component_groups": ["r4isen1920_originspe:exhaustion.miner"] }
+				},
+
+
+				"r4isen1920_originspe:family_type.player": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.player"] }
+				},
+				"r4isen1920_originspe:family_type.cat": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.cat"] }
+				},
+				"r4isen1920_originspe:family_type.enderman": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.enderman"] }
+				},
+				"r4isen1920_originspe:family_type.fish": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.fish"] }
+				},
+				"r4isen1920_originspe:family_type.undead": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.undead"] }
+				},
+				"r4isen1920_originspe:family_type.camouflage": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.camouflage"] }
+				},
+				"r4isen1920_originspe:family_type.bite_sized": {
+					"add": { "component_groups": ["r4isen1920_originspe:family_type.bite_sized"] }
+				},
+
+
+				"r4isen1920_originspe:fill_bubbles": {
+					"add": { "component_groups": ["r4isen1920_originspe:fill_bubbles"] }
+				},
+
+				"r4isen1920_originspe:breathable.land": {
+					"add": { "component_groups": ["r4isen1920_originspe:breathable.land"] }
+				},
+				"r4isen1920_originspe:breathable.underwater": {
+					"add": { "component_groups": ["r4isen1920_originspe:breathable.underwater"] }
+				},
+
+
+				"r4isen1920_originspe:buoyant.normal": {
+					"remove": {
+						"component_groups": ["r4isen1920_originspe:buoyant.float_on_water"]
+					}
+				},
+				"r4isen1920_originspe:buoyant.float_on_water": {
+					"add": { "component_groups": ["r4isen1920_originspe:buoyant.float_on_water"] }
+				},
+
+
+				"r4isen1920_originspe:is_shaking.true": {
+					"add": { "component_groups": ["r4isen1920_originspe:is_shaking"] }
+				},
+				"r4isen1920_originspe:is_shaking.false": {
+					"remove": { "component_groups": ["r4isen1920_originspe:is_shaking"] }
+				},
+
+
+				"r4isen1920_originspe:burns_in_daylight.true": {
+					"add": { "component_groups": ["r4isen1920_originspe:burns_in_daylight"] }
+				},
+				"r4isen1920_originspe:burns_in_daylight.false": {
+					"remove": { "component_groups": ["r4isen1920_originspe:burns_in_daylight"] }
+				},
+
+
+				"r4isen1920_originspe:display_name.true": {
+					"add": { "component_groups": ["r4isen1920_originspe:display_name"] }
+				},
+				"r4isen1920_originspe:display_name.false": {
+					"add": { "component_groups": ["r4isen1920_originspe:hide_name"] }
+				},
+
+
+				"r4isen1920_originspe:add_knockback_resistance": {
+					"sequence": [
+						{
+							"add": {
+								"component_groups": [
+									"r4isen1920_originspe:add_knockback_resistance"
+								]
+							}
+						}
+					]
+				},
+				"r4isen1920_originspe:remove_knockback_resistance": {
+					"sequence": [
+						{
+							"add": {
+								"component_groups": [
+									"r4isen1920_originspe:remove_knockback_resistance"
+								]
+							}
+						}
+					]
+				},
+
+
+				"r4isen1920_originspe:power.shulk_inventory.open_test": {
+					"queue_command": {
+						"command": ["tag @s add _shulk_inventory_opened"]
+					}
+				},
+				"r4isen1920_originspe:power.shulk_inventory.close": {
+					"queue_command": {
+						"command": ["tag @s add _control_use_shulk_inventory"]
+					}
+				}
+			}
+		}
+	}
+}

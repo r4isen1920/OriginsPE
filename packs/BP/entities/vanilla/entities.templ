@@ -1,6 +1,6 @@
 {
   "$files": {
-    "array": "listBPFiles('entities', semver('1.21.70')).filter(x => !exclude_entities.contains(fileBaseName(x)))",
+    "array": "listBPFiles('entities', semver('1.26.20')).filter(x => !exclude_entities.contains(fileBaseName(x)))",
     "filename": "{{fileBaseName(value)}}"
   },
   "$copy": "{{value}}",
@@ -51,6 +51,7 @@
                   },
                   {
                     "test": "has_tag",
+                    "subject": "other",
                     "operator": "!=",
                     "value": "_already_tamed"
                   }
@@ -103,7 +104,7 @@
             "command": [
               "execute at @s[tag=!perk_tamed_animal_boost] run playsound random.levelup @a ~~~ 1.0 1.5",
               "execute at @s[tag=!perk_tamed_animal_boost] run particle r4isen1920_originspe:beastmaster_on_tame ~~0.8~",
-
+              
               "tag @s add perk_tamed_animal_boost"
             ]
           }

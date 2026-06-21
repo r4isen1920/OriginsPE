@@ -1,19 +1,17 @@
 {
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
 
-  /* UI developed by r4isen1920 | Under MIT LICENSE */
-
-  "ui_defs": [
-    "ui/r4isen1920/originspe/ability_buttons.r4ui",
-    "ui/r4isen1920/originspe/buttons.r4ui",
-    "ui/r4isen1920/originspe/common.r4ui",
-    "ui/r4isen1920/originspe/hud_stuff.r4ui",
-    "ui/r4isen1920/originspe/options_menu.r4ui",
-    "ui/r4isen1920/originspe/powers.r4ui",
-    "ui/r4isen1920/originspe/resource_bar.r4ui",
-    "ui/r4isen1920/originspe/screen_picker_common.r4ui",
-    "ui/r4isen1920/originspe/screen_picker_list.r4ui",
-    "ui/r4isen1920/originspe/shulk_inventory.r4ui",
-    "ui/r4isen1920/originspe/welcome_screen.r4ui"
-  ]
-
+	"ui_defs": [
+		"ui/r4isen1920/originspe/ability_wheel_hud.ui.json",
+		"ui/r4isen1920/originspe/ability_wheel_npc.ui.json",
+		"ui/r4isen1920/originspe/common.ui.json",
+		"ui/r4isen1920/originspe/hud_stuff.ui.json",
+		"ui/r4isen1920/originspe/options_screen.ui.json",
+		"ui/r4isen1920/originspe/picker_screen_hud.ui.json",
+		"ui/r4isen1920/originspe/picker_screen_npc.ui.json",
+		"ui/r4isen1920/originspe/resource_bar.ui.json",
+		"ui/r4isen1920/originspe/shulk_inventory.ui.json",
+		"ui/r4isen1920/originspe/traits.ui.json",
+		"ui/r4isen1920/originspe/welcome_screen.ui.json"
+	]
 }

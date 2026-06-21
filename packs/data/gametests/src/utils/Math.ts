@@ -1,47 +1,84 @@
-
 declare global {
-  interface Math {
-    /**
-     * Linearly interpolates between two values.
-     * 
-     * @param a - The start value.
-     * @param b - The end value.
-     * @param t - The interpolation value.
-     * @returns The interpolated value.
-     */
-    lerp(a: number, b: number, t: number): number;
-
-    /**
-     * Clamps a value between a minimum and maximum.
-     * 
-     * @param value - The value to clamp.
-     * @param min - The minimum value.
-     * @param max - The maximum value.
-     * @returns The clamped value.
-     */
-    clamp(value: number, min: number, max: number): number;
-
-    /**
-     * Generates a random float between a minimum and maximum.
-     * 
-     * @param min - The minimum value.
-     * @param max - The maximum value.
-     * @returns The random float.
-     */
-    randomFloat(min: number, max: number): number;
-  }
+	interface Math {
+		/**
+		 * Clamps the value of n between min and max
+		 * @param n
+		 * @param min
+		 * @param max
+		 */
+		clamp(n: number, min: number, max: number): number;
+		/**
+		 * Linearly interpolates between a and b by t
+		 * @param a
+		 * @param b
+		 * @param t
+		 */
+		lerp(a: number, b: number, t: number): number;
+		/**
+		 * Returns true if n is between min and max
+		 * @param n
+		 * @param min
+		 * @param max
+		 */
+		isInRange(n: number, min: number, max: number): boolean;
+		/**
+		 * Returns a random number between a and b
+		 * @param a
+		 * @param b
+		 */
+		withinRange(a: number, b: number): number;
+		/**
+		 * Returns a random floored number between a and b
+		 * @param a
+		 * @param b
+		 */
+		integerWithinRange(a: number, b: number): number;
+		/**
+		 * Returns a random element from an array
+		 * @param arr
+		 */
+		chooseFromArray<T>(arr: T[]): T;
+		/**
+		 * Returns a random string ID
+		 * @param length - The length of the string ID
+		 */
+		stringID(length?: number): string;
+	}
 }
 
-Math.lerp = function(a: number, b: number, t: number): number {
-  return a + t * (b - a);
+Math.clamp = function (n, min, max) {
+	return Math.min(Math.max(n, min), max);
 };
 
-Math.clamp = function(value: number, min: number, max: number): number {
-  return Math.min(Math.max(value, min), max);
+Math.lerp = function (a, b, t) {
+	return a + (b - a) * t;
 };
 
-Math.randomFloat = function(min: number, max: number): number {
-  return min + Math.random() * (max - min);
+Math.isInRange = function (n, min, max) {
+	return n >= min && n <= max;
+};
+
+Math.withinRange = function (a: number, b: number) {
+	let d = b - a;
+	return a + Math.random() * d;
+};
+
+Math.integerWithinRange = function (a: number, b: number) {
+	return Math.round(Math.withinRange(a, b));
+};
+
+Math.chooseFromArray = function <T>(arr: T[]): T {
+	return arr[Math.floor(Math.random() * arr.length)];
+};
+
+Math.stringID = function (length = 10): string {
+	const chars =
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let result = '';
+	for (let i = 0; i < length; i++) {
+		result += chars.charAt(Math.floor(Math.random() * chars.length));
+	}
+	return result;
 };
 
 export {};

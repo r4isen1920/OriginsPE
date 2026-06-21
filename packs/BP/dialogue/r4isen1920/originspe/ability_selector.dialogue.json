@@ -1,0 +1,52 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:npc_dialogue": {
+		"scenes": [
+			{
+				"scene_tag": "gui_ability_selector",
+				"npc_name": "_op:ability_wheel",
+
+				"text": "_op:abw",
+
+				"buttons": [
+					{
+						"name": "close",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:close"
+						]
+					},
+					{
+						"name": "slot0",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:slot:0"
+						]
+					},
+					{
+						"name": "slot1",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:slot:1"
+						]
+					},
+					{
+						"name": "slot2",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:slot:2"
+						]
+					},
+					{
+						"name": "slot3",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:slot:3"
+						]
+					},
+					{
+						"name": "slot4",
+						"commands": [
+							"/execute as @initiator run scriptevent r4isen1920_originspe:ui wheel:slot:4"
+						]
+					}
+				]
+			}
+		]
+	}
+}

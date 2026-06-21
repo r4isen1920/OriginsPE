@@ -1,0 +1,287 @@
+{
+	/* UI developed by r4isen1920 | Under MIT LICENSE */
+
+	//? $vars are to be delimited by another '$' prefix because otherwise jsonte will translate that into a field literal
+	"$template": {
+		"namespace": "origin_traits",
+
+		"none@common.empty_panel": {},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Origins
+		//---------------------------------------------------------------------------
+
+		"r_random@common.empty_panel": {
+			"size": ["100%cm", "100%c"],
+
+			"controls": [
+				{
+					"list@origin_common.verti_stack": {
+						"anchor_from": "top_left",
+						"anchor_to": "top_left",
+						"offset": [2, 0],
+
+						"layer": 5,
+
+						"controls": [
+							{
+								"{{#origins.filter(e => e.navigable) as origin}}": {
+									"{{origin.id}}@origin_traits.label": {
+										"text": "origins.{{origin.id}}.name",
+										"color": "$7_color_format"
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"scroller_control@origin_common.empty_button": {
+						"size": ["100%sm", 1],
+						"offset": [0, "100%sm"],
+
+						"layer": 4
+					}
+				}
+			]
+		},
+
+		"r_human@common.empty_panel": {},
+
+		"{{#origins.filter(e => count(e.abilities) > 0) as o}}": {
+			"r_{{o.id}}@origin_common.verti_stack": {
+				"controls": [
+					{
+						"{{#o.abilities as a}}": {
+							"{{a.id}}@origin_traits.origin_traits_container_template": {
+								"$$power_name": "origins.trait.{{a.id}}.name",
+								"$$power_description": "origins.trait.{{a.id}}.description",
+								"$$power_icon_index": "{{a.icon}}"
+							}
+						}
+					}
+				]
+			}
+		},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Classes
+		//---------------------------------------------------------------------------
+
+		"c_random@common.empty_panel": {
+			"size": ["100%cm", "100%c"],
+
+			"controls": [
+				{
+					"list@origin_common.verti_stack": {
+						"anchor_from": "top_left",
+						"anchor_to": "top_left",
+						"offset": [2, 0],
+
+						"layer": 5,
+
+						"controls": [
+							{
+								"{{#classes.filter(e => e.navigable) as class}}": {
+									"{{class.id}}@origin_traits.label": {
+										"text": "origins.{{class.id}}.name",
+										"color": "$7_color_format"
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"scroller_control@origin_common.empty_button": {
+						"size": ["100%sm", 1],
+						"offset": [0, "100%sm"],
+
+						"layer": 4
+					}
+				}
+			]
+		},
+
+		"c_nitwit@common.empty_panel": {},
+
+		"{{#classes.filter(e => count(e.abilities) > 0) as c}}": {
+			"c_{{c.id}}@origin_common.verti_stack": {
+				"controls": [
+					{
+						"{{#c.abilities as a}}": {
+							"{{a.id}}@origin_traits.origin_traits_container_template": {
+								"$$power_name": "origins.trait.{{a.id}}.name",
+								"$$power_description": "origins.trait.{{a.id}}.description",
+								"$$power_icon_index": "{{a.icon}}"
+							}
+						}
+					}
+				]
+			}
+		},
+
+
+
+
+		//---------------------------------------------------------------------------
+		// Templates
+		//---------------------------------------------------------------------------
+
+
+		"label@origin_common.text_label": {
+			"size": ["default", "default"],
+			"max_size": [120, "default"]
+		},
+
+		"origin_traits_container_template@common.empty_panel": {
+			"size": ["100%c", "50%c"],
+			"layer": 3,
+
+			"controls": [
+				{
+					"main_layout@origin_common.verti_stack": {
+						"anchor_from": "top_left",
+						"anchor_to": "top_left",
+						"size": ["100%c", "100%c + 3px"],
+
+						"layer": 3,
+						"clips_children": true,
+
+						"$$power_name|default": "power_name",
+						"$$power_description|default": "power_description",
+
+						"controls": [
+							{
+								"top_padding@common.empty_panel": {
+									"size": [1, 3] // width does not matter
+								}
+							},
+							{
+								"power_name_with_icon": {
+									"type": "stack_panel",
+									"orientation": "horizontal",
+									"anchor_from": "top_left",
+									"anchor_to": "top_left",
+									"size": ["100%c", "100%cm"],
+
+									"controls": [
+										{
+											"power_name@origin_traits.label": {
+												"max_size": [120, 16],
+
+												"text": "$power_name",
+												"localize": true,
+												"shadow": true,
+												"color": "$power_name_color",
+												"font_type": "$power_name_font_type",
+
+												"layer": 4,
+
+												"$$power_name_color|default": "$body_text_color",
+												"$$power_name_font_type|default": "default",
+
+												"controls": [
+													{
+														"custom_underline": {
+															"type": "image",
+															"anchor_from": "bottom_left",
+															"anchor_to": "bottom_left",
+															"size": ["100%", 1],
+															"offset": [-0.5, 0],
+
+															"texture": "textures/ui/underline",
+															"tiled": "x",
+															"layer": 5
+														}
+													}
+												]
+											}
+										},
+										{
+											"padding@common.empty_panel": {
+												"size": [4, 4]
+											}
+										},
+										{
+											"power_icon@common.empty_panel": {
+												"size": [12, 12],
+												"offset": [0, 1],
+
+												"layer": 4,
+
+												"$$power_icon_index|default": "none",
+
+												"controls": [
+													{
+														"power_icon_image": {
+															"type": "image",
+															"size": ["100%", "100%"],
+															"offset": [-0.5, -0.5],
+
+															"texture": "('textures/origins/hud/cooldown/' + $power_icon_index)",
+															"uv": [1, 8],
+															"uv_size": [8, 8],
+															"bilinear": true,
+
+															"layer": 5,
+															"ignored": "($power_icon_index = 'none')"
+														}
+													},
+													{
+														"power_icon_image_padding@common.empty_panel": {
+															"ignored": "(not ($power_icon_index = 'none'))",
+															"size": ["100%", "100%"],
+															"layer": 5
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+
+							{
+								"header_padding@common.empty_panel": {
+									"size": [1, 1.5] // width does not matter
+								}
+							},
+
+							{
+								"power_description@origin_traits.label": {
+									"anchor_from": "top_left",
+									"anchor_to": "top_left",
+									"size": [120, "default"],
+
+									"text": "$power_description",
+									"localize": true,
+									"shadow": true,
+									"color": "$7_color_format",
+
+									"layer": 3
+								}
+							}
+						]
+					}
+				},
+				{
+					"scroller_control@origin_common.empty_button": {
+						"anchor_from": "top_left",
+						"anchor_to": "top_left",
+						"size": [1, "100%sm"], // width does not matter
+						"offset": [0, 1.5],
+
+						"layer": 2
+					}
+				}
+			]
+		}
+	}
+}

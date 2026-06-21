@@ -8,13 +8,22 @@
 	"regolith": {
 		"dataPath": "./packs/data",
 		"filterDefinitions": {
+			"emit_domain": {
+				"runWith": "nodejs",
+				"script": "./filters/emit_domain/emit_domain.js",
+				"requirements": "./filters/emit_domain"
+			},
 			"gametests": {
 				"url": "github.com/Bedrock-OSS/regolith-filters",
 				"version": "1.7.4"
 			},
+			"json_cleaner": {
+				"url": "github.com/Bedrock-OSS/regolith-filters",
+				"version": "2.0.2"
+			},
 			"jsonte": {
 				"url": "github.com/MCDevKit/regolith-library",
-				"version": "2.15.0"
+				"version": "2.16.0"
 			},
 			"meta_gen": {
 				"url": "github.com/r4isen1920/regolith-filters",
@@ -23,6 +32,10 @@
 			"packer": {
 				"url": "github.com/MCDevKit/regolith-library",
 				"version": "1.1.1"
+			},
+			"type_gen": {
+				"url": "github.com/Bedrock-OSS/regolith-filters",
+				"version": "1.4.2"
 			}
 		},
 		"formatVersion": "1.2.0",
@@ -34,7 +47,16 @@
 				},
 				"filters": [
 					{
+						"filter": "json_cleaner"
+					},
+					{
+						"filter": "emit_domain"
+					},
+					{
 						"filter": "jsonte"
+					},
+					{
+						"filter": "type_gen"
 					},
 					{
 						"filter": "meta_gen",
@@ -133,6 +155,7 @@
 								"bundle": true,
 								"dropLabels": [
 									"DEBUG",
+									"UI_DEBUG",
 									"LOGGING",
 									"DEV_UI"
 								],
@@ -157,7 +180,10 @@
 						"filter": "gametests",
 						"settings": {
 							"buildOptions": {
-								"minify": false
+								"minify": false,
+								"dropLabels": [
+									"UI_DEBUG"
+								]	
 							},
 							"debugBuild": true,
 							"modules": [

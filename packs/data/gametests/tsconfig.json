@@ -12,9 +12,12 @@
 		"outDir": "scripts/",
 		"strict": true,
 		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"useDefineForClassFields": false
 	},
-	"include": ["src", "tsconfig.json", "src/main.ts"],
-	"exclude": ["node_modules", "**/__tests__/*"]
+	"include": ["src"],
+	"exclude": ["node_modules", "scripts", "**/__tests__/*"]
 }
