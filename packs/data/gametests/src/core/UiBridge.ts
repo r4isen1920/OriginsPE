@@ -61,7 +61,7 @@ export class UiBridge {
 	static async openDialogue(player: Player, dialogueId: string): Promise<void> {
 		await this.ensureHandler(player);
 
-		ResourceBarService.suspend(player);
+		ResourceBarService.suspend(player, dialogueId === 'gui_welcome_screen');
 		player.onScreenDisplay.hideAllExcept();
 
 		UI_DEBUG: {

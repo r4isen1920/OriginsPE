@@ -188,9 +188,14 @@ export class ResourceBarService {
 	/**
 	 * Suspends title emission so another system can own the
 	 * shared title channel without being clobbered by bar updates.
+	 * 
+	 * @param clear if true, also clears the HUD bars from the player's view.
 	 */
-	static suspend(player: Player): void {
+	static suspend(player: Player, clear?: boolean): void {
 		this.suspended.add(player.id);
+		if (clear) {
+			player.onScreenDisplay.setTitle('_op:');
+		}
 	}
 
 	/** Resumes title emission and immediately restores the HUD bars. */
