@@ -1,6 +1,6 @@
 import { Player, EntityDamageCause, EntityHurtBeforeEvent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 /**
  * Brittle Bones is a passive power that increases the damage taken by the holder

@@ -1,5 +1,5 @@
-import { Origin, OriginDifficulty } from '../Ability';
-import { RegisterOrigin } from '../Registries';
+import { Origin, OriginDifficulty } from '../../core/abilities/Ability';
+import { RegisterOrigin } from '../../core/abilities/Registries';
 
 
 /** Bee origin grants the ability to poison the enemies. */

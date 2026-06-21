@@ -1,9 +1,9 @@
 import { Player, ItemStack, world, system, ItemCompleteUseAfterEvent } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
-import { AfterItemCompleteUse } from '../../core/DecoratedEvents';
+import { AfterItemCompleteUse } from '../../core/platform/DecoratedEvents';
 
 @RegisterPower
 export class SlimeBallConsume implements Power {

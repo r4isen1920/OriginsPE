@@ -5,10 +5,10 @@ import {
 	TicksPerSecond,
 	WeatherChangeAfterEvent
 } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
-import { AfterWeatherChange } from '../../core/DecoratedEvents';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterWeatherChange } from '../../core/platform/DecoratedEvents';
 
 /**
  * Diurnal: Affects the player's abilities based on the time of day and weather conditions.

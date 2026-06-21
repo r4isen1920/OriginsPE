@@ -1,7 +1,7 @@
 import { Player, EntityDamageCause, EntityHurtAfterEvent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 /**
  * Aegis: the holder deflects half of the damage dealt to them back at the attacker.

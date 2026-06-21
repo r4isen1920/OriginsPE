@@ -1,4 +1,3 @@
-import { OnWorldLoad } from "@bedrock-oss/stylish";
 
 /**
  * Generic immutable registry for domain singletons keyed by id.

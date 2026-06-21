@@ -1,9 +1,9 @@
 import { Player, ItemCompleteUseAfterEvent, world } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
-import { AfterItemCompleteUse } from '../../core/DecoratedEvents';
-import { PlayerTick } from '../../core/Ticker';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterItemCompleteUse } from '../../core/platform/DecoratedEvents';
+import { PlayerTick } from '../../core/platform/Ticker';
 
 
 /**

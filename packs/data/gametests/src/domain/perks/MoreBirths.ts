@@ -4,9 +4,9 @@ import {
     world,
 } from '@minecraft/server';
 
-import { Perk } from '../Ability';
-import { RegisterPerk } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
+import { Perk } from '../../core/abilities/Ability';
+import { RegisterPerk } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 
 /** Chance (0-100) for an additional baby to spawn when a rancher is nearby. */

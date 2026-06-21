@@ -12,19 +12,15 @@ import {
 	AfterPlayerBreakBlock,
 	AfterPlayerDimensionChange,
 	AfterPlayerPlaceBlock,
-} from '../core/DecoratedEvents';
-import { EntityUtils } from '../utils/EntityUtils';
-import { AbilityDispatch } from '../domain/AbilityDispatch';
+} from '../platform/DecoratedEvents';
+import { EntityUtils } from '../../utils/EntityUtils';
+import { AbilityDispatch } from './AbilityDispatch';
 
 
 //#region SERVICE
 
 /**
- * Single subscription point for the owner-centric world events that are not
- * already handled by {@link DamageService} or the item dispatcher. Iterates
- * the affected player's granted powers/perks and dispatches to their lifecycle
- * hooks, so individual abilities never subscribe to world events directly and
- * carry no origin/class coupling.
+ * Hooks events relevant to abilities and dispatches them to granted powers and perks via {@link AbilityDispatch}.	
  */
 export class AbilityEventService {
 	@AfterEntityHealthChanged()

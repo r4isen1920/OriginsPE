@@ -1,5 +1,5 @@
-import { ClassDifficulty, OriginDifficulty } from '../domain/Ability';
-import { ClassRegistry, OriginRegistry } from '../domain/Registries';
+import { ClassDifficulty, OriginDifficulty } from '../core/abilities/Ability';
+import { ClassRegistry, OriginRegistry } from '../core/abilities/Registries';
 import { PickerKind } from './UiPayload';
 
 

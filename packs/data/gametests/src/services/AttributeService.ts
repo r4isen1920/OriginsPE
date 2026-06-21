@@ -13,7 +13,7 @@ import {
 //#region SERVICE
 
 /**
- * Centralized attribute applier and the single abstraction layer over player attributes.
+ * Handles attribute application and provides a single abstraction layer over player attributes.
  */
 export class AttributeService {
 	private static readonly log = Log.get('AttributeService');

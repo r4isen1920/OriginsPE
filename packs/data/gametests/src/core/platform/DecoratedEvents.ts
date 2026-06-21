@@ -7,7 +7,7 @@ import {
 	SystemBeforeEvents,
 } from '@minecraft/server';
 
-import { Log } from '../utils/Log';
+import { Log } from '../../utils/Log';
 
 
 //#region TYPES

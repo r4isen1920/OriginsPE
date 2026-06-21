@@ -1,5 +1,5 @@
-import { Origin, OriginDifficulty } from '../Ability';
-import { RegisterOrigin } from '../Registries';
+import { Origin, OriginDifficulty } from '../../core/abilities/Ability';
+import { RegisterOrigin } from '../../core/abilities/Registries';
 
 
 /** Starborne origin grants the ability to hyperleap. */

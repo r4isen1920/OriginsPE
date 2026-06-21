@@ -10,43 +10,18 @@ import {
 
 import { Entities } from '../Files';
 import { Log } from '../utils/Log';
-import { PlayerState } from './PlayerState';
-import { buildPayload, pickerSceneTag } from '../ui/UiPayload';
+import { PlayerState } from '../core/platform/PlayerState';
+import { buildPayload, pickerSceneTag, PickerKind, PickerMode } from './UiPayload';
 import { ResourceBarService } from '../services/ResourceBarService';
-import { Registry } from './Registry';
-import { getDifficulty } from '../ui/PickerRegistry';
-
-
-//#region TYPES
-/**
- * Represents the different categories of pickers that can be opened for the player.
- */
-export enum PickerKind {
-	/** Shows changing Origin. */
-	Race = 'race',
-	/** Shows changing Class. */
-	Class = 'class',
-};
-/**
- * Represents the different modes in which a picker can be opened, affecting both the
- * UI and the player's ability to make changes.
- */
-export enum PickerMode {
-	/** Displays the picker for the player to choose an option. With navigation such as left and right arrows, and a select button. */
-	Pick = 'pick',
-	/** Allows the player to change their current selection. With two buttons: confirm and cancel. */
-	Change = 'change',
-	/** Displays the current selection without allowing changes. With a single "close" button. */
-	View = 'view',
-}
+import { Registry } from '../core/platform/Registry';
+import { getDifficulty } from './PickerRegistry';
 
 
 //#region UIBRIDGE
 
 /**
- * Thin abstraction over the dialogue + form APIs. Owns the spawn/lifecycle of
- * the `dialogue_handler` entity and replaces every legacy `runDialogueCommand`
- * call from the old `gui.ts`.
+ * Thin abstraction over the dialogue + form APIs.
+ * Owns the spawn/lifecycle of the `dialogue_handler` entity.
  */
 export class UiBridge {
 	private static readonly log = Log.get('UiBridge', 'ui');
@@ -77,6 +52,12 @@ export class UiBridge {
 		}
 
 		return await system.waitTicks(1);
+	}
+
+	/** Restores HUD elements and resumes the resource bar after a UI screen closes. */
+	static closeScreen(player: Player): void {
+		player.onScreenDisplay.resetHudElementsVisibility();
+		ResourceBarService.resume(player);
 	}
 
 	/** Opens the origin/class picker dialogue for the given player. */

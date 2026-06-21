@@ -1,6 +1,6 @@
 import { EntityEffectOptions, Player } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 
 /**
  * Slow falling power. Grants a gliding ability from one place to another.

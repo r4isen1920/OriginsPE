@@ -1,5 +1,5 @@
-import { Perk } from '../Ability';
-import { RegisterPerk } from '../Registries';
+import { Perk } from '../../core/abilities/Ability';
+import { RegisterPerk } from '../../core/abilities/Registries';
 
 
 /**

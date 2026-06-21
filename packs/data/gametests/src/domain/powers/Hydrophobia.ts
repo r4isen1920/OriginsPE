@@ -1,7 +1,7 @@
 import { Player, EntityDamageCause, WeatherType } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { AfterWeatherChange } from '../../core/DecoratedEvents';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { AfterWeatherChange } from '../../core/platform/DecoratedEvents';
 
 /**
  * Hydrophobia: this power takes damage when swimming or submerged in water.

@@ -1,8 +1,8 @@
 import { Player } from '@minecraft/server';
 
-import { Perk } from '../Ability';
-import { RegisterPerk } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
+import { Perk } from '../../core/abilities/Ability';
+import { RegisterPerk } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 
 /**

@@ -5,10 +5,10 @@ import {
     world,
 } from '@minecraft/server';
 
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
-import { PlayerTick } from '../../core/Ticker';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { PlayerTick } from '../../core/platform/Ticker';
 
 
 const REGEN_CHANCE = 0.10;

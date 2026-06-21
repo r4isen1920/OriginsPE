@@ -1,5 +1,5 @@
 import { OnWorldLoad } from '@bedrock-oss/stylish';
-import { Registry } from '../core/Registry';
+import { Registry } from '../platform/Registry';
 import { CharacterClass, Origin, Perk, Power } from './Ability';
 
 

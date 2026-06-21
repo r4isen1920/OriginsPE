@@ -1,6 +1,6 @@
 import { Player, EntityHurtBeforeEvent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 /**
  * Permeable: the holder takes 10% more damage from all sources.

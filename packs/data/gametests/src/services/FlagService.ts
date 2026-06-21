@@ -16,9 +16,8 @@ export type PlayerFlag = 'flag_a' | 'flag_b' | 'flag_c' | 'flag_d';
 //#region SERVICE
 
 /**
- * Thin abstraction over the player's generic boolean actor properties. Writes
- * go straight through `Player.setProperty`, so RP molang can read them via
- * `q.property('r4isen1920_originspe:flag_a')`.
+ * Handles generic boolean flags for the player. Provides a simple interface
+ * for setting and getting flags, with error handling and logging.
  */
 export class FlagService {
 	private static readonly log = Log.get('FlagService');

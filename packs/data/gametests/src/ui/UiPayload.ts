@@ -1,5 +1,5 @@
 import { Logger } from '@bedrock-oss/bedrock-boost';
-import { ClassDifficulty, OriginDifficulty } from '../domain/Ability';
+import { ClassDifficulty, OriginDifficulty } from '../core/abilities/Ability';
 
 
 
@@ -71,7 +71,7 @@ export function buildPayload(
 
 /**
  * Builds the dialogue `scene_tag` for a picker scene. Matches the convention
- * baked into the jsonte template `picker_screen.templ`.
+ * baked into the `picker_screen` dialogue files.
  */
 export function pickerSceneTag(kind: PickerKind, mode: PickerMode, id: string): string {
 	return `gui_${kind}_${mode}_${id}`;

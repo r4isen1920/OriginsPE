@@ -14,21 +14,25 @@ import {
 	ProjectileHitEntityAfterEvent,
 } from '@minecraft/server';
 
-import type { AttributeOverrides } from '../services/Attributes';
+import type { AttributeOverrides } from '../../services';
+
 
 
 /** Optional model/skin/emitter overrides applied via data-driven entity events. */
 export interface OriginEffects {
+	/** Changes to the geometry */
 	model?: string;
+	/** Changes to the skin */
 	skin?: string;
+	/** Particle effect added */
 	emitter?: string;
 }
 
 
 /**
  * Marks an {@link Ability} as an active (player-triggered) skill that appears in
- * the ability wheel. Abilities that declare this -- and implement
- * {@link Ability.onActivate} -- become selectable entries in the wheel.
+ * the ability wheel. Abilities that declare this--and implement
+ * {@link Ability.onActivate}--become selectable entries in the wheel.
  */
 export interface ActiveAbility {
 	/**
@@ -47,13 +51,9 @@ export interface ActiveAbility {
 
 
 //#region ABILITY
-
 /**
- * Common shape for both {@link Power} and {@link Perk}. Lists every optional
- * lifecycle hook that the centralized services will dispatch into.
- *
- * Concrete classes should declare `implements Power` (or `implements Perk`) so
- * the IDE flags missing/typo'd hooks and surfaces inherited docs.
+ * Describes a trait granted by an {@link Origin} or {@link CharacterClass}.
+ * Common shape for both {@link Power} and {@link Perk}, respectively.
  */
 export interface Ability {
 	/** Stable id (matches the legacy folder filename, e.g. "high_jump"). */
@@ -135,10 +135,10 @@ export interface Ability {
 }
 
 
-/** A power granted by the player's chosen origin. Use `implements Power`. */
+/** A power granted by the player's chosen {@link Origin}. Use `implements Power`. */
 export interface Power extends Ability {}
 
-/** A perk granted by the player's chosen class. Use `implements Perk`. */
+/** A perk granted by the player's chosen {@link CharacterClass}. Use `implements Perk`. */
 export interface Perk extends Ability {}
 
 

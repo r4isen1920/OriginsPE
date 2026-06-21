@@ -1,6 +1,6 @@
 import { AttributeOverrides } from '../../services/Attributes';
-import { Perk } from '../Ability';
-import { RegisterPerk } from '../Registries';
+import { Perk } from '../../core/abilities/Ability';
+import { RegisterPerk } from '../../core/abilities/Registries';
 import { Player } from '@minecraft/server';
 import { AttributeService } from '../../services/AttributeService';
 

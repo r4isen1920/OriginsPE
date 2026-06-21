@@ -38,11 +38,6 @@ declare global {
 		 * @param arr
 		 */
 		chooseFromArray<T>(arr: T[]): T;
-		/**
-		 * Returns a random string ID
-		 * @param length - The length of the string ID
-		 */
-		stringID(length?: number): string;
 	}
 }
 
@@ -69,16 +64,6 @@ Math.integerWithinRange = function (a: number, b: number) {
 
 Math.chooseFromArray = function <T>(arr: T[]): T {
 	return arr[Math.floor(Math.random() * arr.length)];
-};
-
-Math.stringID = function (length = 10): string {
-	const chars =
-		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	let result = '';
-	for (let i = 0; i < length; i++) {
-		result += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
-	return result;
 };
 
 export {};

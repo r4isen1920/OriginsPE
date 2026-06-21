@@ -11,8 +11,9 @@ import Meta from '../Meta';
 import { BindThis, CustomCmd, OnWorldLoad } from '@bedrock-oss/stylish';
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { WORLD_DYNAMIC_PROPERTIES } from '../Constants';
-import { PlayerState } from '../core/PlayerState';
-import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
+import { PlayerState } from '../core/platform/PlayerState';
+import { UiBridge } from '../ui/UiBridge';
+import { PickerKind, PickerMode } from '../ui/UiPayload';
 
 
 

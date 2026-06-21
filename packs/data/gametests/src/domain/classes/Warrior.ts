@@ -1,5 +1,5 @@
-import { CharacterClass, ClassDifficulty } from '../Ability';
-import { RegisterClass } from '../Registries';
+import { CharacterClass, ClassDifficulty } from '../../core/abilities/Ability';
+import { RegisterClass } from '../../core/abilities/Registries';
 
 
 /** Combat-oriented class. */

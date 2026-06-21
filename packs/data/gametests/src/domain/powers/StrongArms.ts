@@ -1,8 +1,8 @@
 import { system } from '@minecraft/server';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
-import { RegisterPower } from '../Registries';
-import { AfterPlayerBreakBlock } from '../../core/DecoratedEvents';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { AfterPlayerBreakBlock } from '../../core/platform/DecoratedEvents';
 
 const ALLOWED_BLOCK_IDS = [
 	'minecraft:stone',

@@ -1,8 +1,8 @@
 import { Player, EquipmentSlot, ItemStack, TicksPerSecond, system } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 import { ResourceBarService } from '../../services/ResourceBarService';
-import { PlayerState } from '../../core/PlayerState';
+import { PlayerState } from '../../core/platform/PlayerState';
 /**
  * EndlessQuiver: Players with this power have an endless supply of arrows.
  * Loose: dispatched to whoever is granted the power, with no origin coupling.

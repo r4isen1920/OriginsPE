@@ -1,6 +1,6 @@
 import { Player, EntityHurtBeforeEvent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 /**
  * Fragility: the holder takes increased damage when their health is low.

@@ -1,7 +1,7 @@
 import { Player, EntityHealthComponent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
 
 const BAR_FULL = 100;

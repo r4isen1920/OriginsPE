@@ -1,8 +1,8 @@
 import { EquipmentSlot, GameMode, Player, PlayerBreakBlockBeforeEvent, system, world } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
-import { PlayerTick } from '../../core/Ticker';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { PlayerTick } from '../../core/platform/Ticker';
 
 
 const CEILING_SCAN_HEIGHT = 15;

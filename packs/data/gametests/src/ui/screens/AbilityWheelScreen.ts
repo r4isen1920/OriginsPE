@@ -8,16 +8,16 @@ import {
 	system,
 } from '@minecraft/server';
 
-import { AfterPlayerButtonInput, AfterPlayerLeave } from '../core/DecoratedEvents';
-import { PlayerState } from '../core/PlayerState';
-import { UiBridge } from '../core/UiBridge';
-import { AbilityDispatch } from '../domain/AbilityDispatch';
-import type { Ability } from '../domain/Ability';
-import { PerkRegistry, PowerRegistry } from '../domain/Registries';
-import { ResourceBarService } from '../services/ResourceBarService';
-import { Log } from '../utils/Log';
-import { isToggleOn } from './OptionsState';
-import { UiEventRouter } from './UiEventRouter';
+import { AfterPlayerButtonInput, AfterPlayerLeave } from '../../core/platform/DecoratedEvents';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { UiBridge } from '../UiBridge';
+import { AbilityDispatch } from '../../core/abilities/AbilityDispatch';
+import type { Ability } from '../../core/abilities/Ability';
+import { PerkRegistry, PowerRegistry } from '../../core/abilities/Registries';
+import { ResourceBarService } from '../../services/ResourceBarService';
+import { Log } from '../../utils/Log';
+import { isToggleOn } from '../OptionsState';
+import { Screen } from './Screen';
 
 
 //#region CONSTANTS
@@ -77,9 +77,11 @@ interface WheelSession {
 //#region ABILITY WHEEL
 
 /**
- * Handles the ability selector wheel.
+ * Handles the ability wheel.
+ * The ability wheel allows the players to execute any of their active abilities on demand,
+ * as well as access to the options menu.
  */
-export default class AbilitySelector {
+export class AbilityWheelScreen extends Screen {
 	private static readonly log = Log.get('AbilityWheel', 'ui');
 
 	/** Tick of each player's most recent press, for tap-run detection. */
@@ -88,6 +90,27 @@ export default class AbilitySelector {
 	private static readonly pressCount = new Map<string, number>();
 	/** Active wheel session per player id. */
 	private static readonly sessions = new Map<string, WheelSession>();
+
+	readonly verbs = ['wheel'] as const;
+
+	handle(player: Player, [, action, arg]: string[]): void {
+		switch (action) {
+			case 'slot': {
+				const index = Number(arg);
+				if (!Number.isInteger(index)) {
+					AbilityWheelScreen.log.warn(`wheel slot with non-integer index '${arg}'`);
+					return;
+				}
+				AbilityWheelScreen.handleSlot(player, index);
+				return;
+			}
+			case 'close':
+				AbilityWheelScreen.close(player);
+				return;
+			default:
+				AbilityWheelScreen.log.warn(`unknown wheel action '${action}'`);
+		}
+	}
 
 
 	//#region INPUT
@@ -252,7 +275,7 @@ export default class AbilitySelector {
 	private static releaseAfterExit(player: Player): void {
 		system.runTimeout(() => {
 			if (!player.isValid) return;
-			UiEventRouter.handleClose(player);
+			UiBridge.closeScreen(player);
 		}, CLOSE_ANIM_TICKS);
 	}
 
@@ -308,5 +331,3 @@ export default class AbilitySelector {
 		return ability?.displayName ?? `origins.trait.${value}.name`;
 	}
 }
-
-

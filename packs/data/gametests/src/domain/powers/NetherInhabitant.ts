@@ -5,11 +5,11 @@ import {
     system,
     PlayerDimensionChangeAfterEvent
 } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerTick } from '../../core/Ticker';
-import { PlayerState } from '../../core/PlayerState';
-import { AfterPlayerDimensionChange } from '../../core/DecoratedEvents';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerTick } from '../../core/platform/Ticker';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterPlayerDimensionChange } from '../../core/platform/DecoratedEvents';
 
 
 const NETHER_MIN_Y = 0;

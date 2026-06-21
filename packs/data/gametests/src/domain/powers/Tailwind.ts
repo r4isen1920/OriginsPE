@@ -1,6 +1,6 @@
 import { AttributeOverrides } from '../../services/Attributes';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 
 /**
  * Tail wind power for avian origins. Grants a speed boost when sprinting.

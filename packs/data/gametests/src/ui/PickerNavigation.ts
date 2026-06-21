@@ -54,12 +54,9 @@ export function toggleBan(kind: PickerKind, id: string): boolean {
 //#region NAVIGATION
 
 /**
- * Returns the id that should be shown after navigating from `currentId` in
- * `direction`. In modes that allow filtering (`pick`, `change`), banned ids
- * are skipped. In `view` and `ban` modes every id is reachable.
- *
- * The navigable set always includes the `random` sentinel at the head so the
- * cycle is `random -> human -> avian -> ... -> rootkin -> random`.
+ * Returns the id that should be shown after navigating from `currentId` in `direction`.
+ * In modes that allow filtering (`pick`, `change`), banned ids are skipped.
+ * In `view` and `ban` modes every id is reachable.
  */
 export function neighborId(
 	kind: PickerKind,
@@ -95,8 +92,8 @@ export function selectableIds(kind: PickerKind): readonly string[] {
 }
 
 /**
- * True if banning `id` would leave zero selectable origins/classes --
- * i.e., every other navigable id is already banned.
+ * True if banning `id` would leave zero selectable origins/classes
+ * (i.e., every other navigable id is already banned).
  */
 export function wouldBanLimitIfBanned(kind: PickerKind, id: string): boolean {
 	return navigableIds(kind).filter((other) => other !== id && !isBanned(kind, other)).length === 0;

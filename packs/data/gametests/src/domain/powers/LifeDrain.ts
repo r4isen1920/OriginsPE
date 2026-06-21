@@ -1,6 +1,6 @@
 import { Player } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 @RegisterPower
 export class LifeDrain implements Power {

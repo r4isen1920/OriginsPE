@@ -1,5 +1,5 @@
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 
 
 /** Display-only stub for the `shooting_star` trait. Carries its powers-list icon; behavior not yet implemented. */

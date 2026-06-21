@@ -1,7 +1,7 @@
 import { Player, system, EntityHitEntityAfterEvent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 /**
  * Ember: when the holder hits an entity while on fire, they set the target and

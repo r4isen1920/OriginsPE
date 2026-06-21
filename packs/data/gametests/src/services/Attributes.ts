@@ -1,11 +1,8 @@
 import type { EntityDamageCause, EntityHurtBeforeEvent, Player } from '@minecraft/server';
 
-//#region VALUE TYPES
 
-/**
- * Sprint/exhaustion drain profile. Maps to the `exhaustion.*` data-driven
- * entity events on the player actor.
- */
+
+//#region VALUE TYPES
 export type ExhaustionRate =
 	| 'normal'
 	| 'piglin'
@@ -13,10 +10,6 @@ export type ExhaustionRate =
 	| 'explorer'
 	| 'miner';
 
-/**
- * Entity family the player reports as. Drives mob targeting/aggression and
- * maps to the `family_type.*` data-driven entity events.
- */
 export type FamilyType =
 	| 'player'
 	| 'fish'
@@ -25,13 +18,11 @@ export type FamilyType =
 	| 'cat'
 	| 'camouflage';
 
-/** Where the player can breathe. Maps to the `breathable.*` events. */
 export type BreathableMode = 'land' | 'underwater';
 
-/** Buoyancy behaviour in water. Maps to the `buoyant.*` events. */
 export type BuoyancyMode = 'normal' | 'float_on_water';
 
-/** Damage scaling rule evaluated while the player is hurt. */
+/** Represents how the rule on how damage is overriden. */
 export interface DamageOverride {
 	/** Stable id, used for logging/de-duplication. */
 	readonly id: string;
@@ -44,6 +35,7 @@ export interface DamageOverride {
 	/** Flat damage modifier added after the multiplier. */
 	readonly modifier?: number;
 }
+
 
 
 //#region PROFILE
@@ -97,6 +89,7 @@ export type AttributeKey = keyof PlayerAttributes;
 export type AttributeOverrides = Partial<PlayerAttributes>;
 
 
+
 //#region DEFAULTS
 
 /**
@@ -120,6 +113,7 @@ export const DEFAULT_ATTRIBUTES: Readonly<PlayerAttributes> = Object.freeze({
 });
 
 
+
 //#region STEPPED ATTRIBUTES
 
 /** Inclusive integer range helper. */
@@ -138,11 +132,11 @@ export interface SteppedAttribute {
 }
 
 /**
- * Numeric attributes whose base value (or max) can only be changed through
- * data-driven entity events -- the Scripts API can set an attribute's *current*
- * value but not its base/min/max. Each entry's {@link SteppedAttribute.steps}
- * MUST mirror the matching `attributes.*` list in `player.se.templ`; applied
- * values that fall between steps are snapped to the nearest available step.
+ * These are numeric attributes whose base value (or max) can only be changed through data-driven entity events
+ * The Scripts API can set an attribute's *current* value but not its base/min/max.
+ * 
+ * Each entry's {@link SteppedAttribute.steps} MUST mirror the matching `attributes.*` list in `player.se.templ`;
+ * applied values that fall between steps are snapped to the nearest available step.
  */
 export const STEPPED_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, SteppedAttribute>>> = Object.freeze({
 	movement: {

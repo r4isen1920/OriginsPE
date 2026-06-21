@@ -2,7 +2,8 @@ import { Entity, Player } from '@minecraft/server';
 
 
 /**
- * Static helpers around Entity / Player that don't fit elsewhere.
+ * General utils for working with entities.
+ * TODO: expand
  */
 export class EntityUtils {
 	/** Type guard for a player entity. */

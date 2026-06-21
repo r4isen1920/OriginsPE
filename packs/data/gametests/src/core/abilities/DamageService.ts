@@ -12,10 +12,10 @@ import {
 	AfterEntityHurt,
 	AfterProjectileHitEntity,
 	BeforeEntityHurt,
-} from '../core/DecoratedEvents';
-import { EntityUtils } from '../utils/EntityUtils';
-import { AbilityDispatch } from '../domain/AbilityDispatch';
-import { DamageOverride } from './Attributes';
+} from '../platform/DecoratedEvents';
+import { EntityUtils } from '../../utils/EntityUtils';
+import { AbilityDispatch } from './AbilityDispatch';
+import { DamageOverride } from '../../services/Attributes';
 
 
 //#region DAMAGE OVERRIDES
@@ -46,10 +46,8 @@ export function forgetDamageOverrides(playerId: string): void {
 //#region SERVICE
 
 /**
- * Single subscription point for combat events. Iterates the affected player's
- * granted powers/perks and dispatches to their lifecycle hooks. Replaces the
- * per-power `system.runInterval` + `entityHurt.subscribe` patterns from the
- * legacy code.
+ * Handles damage-related events and dispatches them to granted powers and perks via {@link AbilityDispatch}.
+ * This class intercepts damage received and dealt by players, allowing abilities to adjust or react to it.
  */
 export class DamageService {
 	@BeforeEntityHurt()

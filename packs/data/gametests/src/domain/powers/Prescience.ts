@@ -1,9 +1,9 @@
 import { Player, world, system, EntityHealthComponent } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
 import { FlagService } from '../../services/FlagService';
-import { AfterEntityHitEntity, AfterEntityDie } from '../../core/DecoratedEvents';
+import { AfterEntityHitEntity, AfterEntityDie } from '../../core/platform/DecoratedEvents';
 import { ResourceBarService } from '../../services/ResourceBarService';
 
 const LINK_DURATION_TICKS = 240;

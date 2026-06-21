@@ -1,6 +1,6 @@
 import { Player, TicksPerSecond } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 
 @RegisterPower
 export class AquaAffinity implements Power {

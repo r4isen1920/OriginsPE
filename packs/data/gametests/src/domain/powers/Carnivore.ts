@@ -1,8 +1,8 @@
 import { Player, ItemUseBeforeEvent } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 import { Log } from '../../utils/Log';
-import { PlayerState } from '../../core/PlayerState';
+import { PlayerState } from '../../core/platform/PlayerState';
 /**
  * Carnivorous diet: vegetable-based food gives no nutrition. We block use-time
  * via item events and let the player consume meat normally.

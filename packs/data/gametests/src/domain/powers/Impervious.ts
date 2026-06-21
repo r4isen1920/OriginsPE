@@ -4,8 +4,8 @@ import {
 	EntityHurtBeforeEvent,
 	TicksPerSecond
 } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 /**
  * Impervious: Makes the holder immune to fire and lava damage, gaining strength instead.
  */

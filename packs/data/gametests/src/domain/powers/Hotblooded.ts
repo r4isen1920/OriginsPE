@@ -1,6 +1,6 @@
 import { Player } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 /**
  * Hotblooded: Blazeborn with this power are resistant to poison and hunger effects. 

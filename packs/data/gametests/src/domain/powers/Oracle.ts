@@ -1,8 +1,8 @@
 import { Player, world, system, EntityDamageCause } from '@minecraft/server';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
-import { PlayerState } from '../../core/PlayerState';
-import { AfterEntityHealthChanged } from '../../core/DecoratedEvents';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterEntityHealthChanged } from '../../core/platform/DecoratedEvents';
 /**
  * Oracle: Players with this power are linked to another player (via Prescience).
  * When either the Oracle or the linked player takes damage or is healed for 2 or more health,

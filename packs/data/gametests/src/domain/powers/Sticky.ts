@@ -1,8 +1,8 @@
 import { Player, EntityDamageCause } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
-import { AfterEntityHitEntity, BeforeEntityHurt } from '../../core/DecoratedEvents';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterEntityHitEntity, BeforeEntityHurt } from '../../core/platform/DecoratedEvents';
 
 const SLOW_DURATION = 60;
 const SLOW_AMPLIFIER = 1;

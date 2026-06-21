@@ -1,7 +1,7 @@
-import { Origin, OriginDifficulty, OriginEffects } from '../Ability';
-import { RegisterOrigin } from '../Registries';
+import { Origin, OriginDifficulty, OriginEffects } from '../../core/abilities/Ability';
+import { RegisterOrigin } from '../../core/abilities/Registries';
 import { AttributeOverrides } from '../../services/Attributes';
-import { PlayerLifecycle } from '../PlayerLifecycle';
+import { PlayerLifecycle } from '../../core/abilities/PlayerLifecycle';
 
 /** Elven origin grants the ability to weave life. */
 

@@ -1,5 +1,5 @@
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 import { Block, BlockPermutation, Player } from '@minecraft/server';
 import { Log } from '../../utils/Log';
 

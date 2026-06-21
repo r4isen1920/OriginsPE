@@ -1,6 +1,6 @@
 import { AttributeOverrides } from '../../services/Attributes';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 
 @RegisterPower
 export class Gills implements Power {

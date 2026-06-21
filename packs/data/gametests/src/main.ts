@@ -181,21 +181,21 @@ import './domain/perks/EffectiveEmphaty';
 //-------------------------------------------
 
 import './core/Commands';
-import './core/Ticker';
+import './core/platform/Ticker';
 
-import './ui/UiEventRouter';
-import './ui/AbilitySelector';
+import './ui/UiRouter';
+import './ui/ItemEntryPoints';
 import './utils/Version';
 
-import { installDecoratedEventSubscribers } from './core/DecoratedEvents';
+import { installDecoratedEventSubscribers } from './core/platform/DecoratedEvents';
 installDecoratedEventSubscribers();
 
-import './domain/PlayerLifecycle';
-import './domain/ItemEvents';
-import './domain/Registries';
+import './core/abilities/PlayerLifecycle';
+import './core/abilities/ItemEvents';
+import './core/abilities/Registries';
 
-import './services/DamageService';
-import './services/AbilityEventService';
+import './core/abilities/DamageService';
+import './core/abilities/AbilityEventService';
 import './services/ResourceBarService';
 
 import { init } from '@bedrock-oss/stylish';

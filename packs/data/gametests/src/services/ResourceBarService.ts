@@ -1,8 +1,8 @@
 import { Block, EntityBreathableComponent, EntityComponentTypes, GameMode, Player, PlayerLeaveAfterEvent, system } from '@minecraft/server';
 
 import { PLAYER_DYNAMIC_PROPERTIES } from '../Constants';
-import { AfterPlayerLeave } from '../core/DecoratedEvents';
-import { PlayerTick } from '../core/Ticker';
+import { AfterPlayerLeave } from '../core/platform/DecoratedEvents';
+import { PlayerTick } from '../core/platform/Ticker';
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 
@@ -64,7 +64,9 @@ interface BreathConfig {
 
 //#region SERVICE
 /**
- * Handles the resource bar
+ * Handles the resource bar.
+ * The resource bar is a shared UI element used for both temporary cooldown bars and persistent status bars.
+ * This class service abstracts the logic around managing it and provides a simple API for pushing bars to the HUD.	
  */
 export class ResourceBarService {
 	private static readonly log = Logger.getLogger('OriginsPE', 'ResourceBarService');

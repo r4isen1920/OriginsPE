@@ -1,5 +1,5 @@
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 /**
  * Allows you to become invisible, making you harder to detect by enemies.

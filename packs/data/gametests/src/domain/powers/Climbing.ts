@@ -1,7 +1,7 @@
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 import { EntityDamageCause, Player } from '@minecraft/server';
-import { PlayerState } from '../../core/PlayerState';
+import { PlayerState } from '../../core/platform/PlayerState';
 /**
  * Wall-climb passive. The actual physics is driven by an attached entity
  * component / animation controller bound by the data-driven event triggered

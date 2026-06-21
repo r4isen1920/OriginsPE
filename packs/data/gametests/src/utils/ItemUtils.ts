@@ -17,8 +17,7 @@ export interface InventorySlot {
 
 
 /**
- * Static helpers for working with item stacks and inventories.
- * All methods are pure / non-throwing on missing components.
+ * Helpers for working with item stacks and inventories.
  */
 export class ItemUtils {
 

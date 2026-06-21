@@ -1,8 +1,9 @@
 import { Player, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, system, world } from '@minecraft/server';
 
-import { Log } from '../utils/Log';
+import { Log } from '../../utils/Log';
 import { AfterPlayerJoin, AfterPlayerLeave, AfterPlayerSpawn } from './DecoratedEvents';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
+
 
 
 //#region TYPES
@@ -12,6 +13,7 @@ export type GlobalTickFn = () => void;
 /** Function invoked once per cached player per scheduled tick. */
 export type PlayerTickFn = (player: Player) => void;
 
+/** Represents a base task to be performed. */
 interface BaseTask {
 	id: string;
 	intervalTicks: number;
@@ -23,12 +25,11 @@ interface PlayerTask extends BaseTask { kind: 'player'; fn: PlayerTickFn; }
 type Task = GlobalTask | PlayerTask;
 
 
-//#region TICKER
 
+//#region Class
 /**
- * Single consolidated scheduler driving all repeating work in the pack.
- *
- * - One `system.runInterval(..., 1)` is registered for the entire add-on.
+ * Single consolidated scheduler driving all repeating work:
+ * - One `system.runInterval(..., 1)` is registered for the entire Add-On.
  * - Tasks are scheduled by interval (in ticks) and priority (higher first).
  * - Per-player tasks iterate a cached player list invalidated on join/leave.
  * - Handler errors are logged and never break sibling tasks.
@@ -107,6 +108,7 @@ export class Ticker {
 		}
 	}
 }
+
 
 
 //#region DECORATORS

@@ -1,7 +1,7 @@
 import { Player, world } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
-import { PlayerState } from '../../core/PlayerState';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 
 /**

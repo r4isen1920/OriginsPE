@@ -1,7 +1,8 @@
 import { Player } from '@minecraft/server';
 
-import { PLAYER_DYNAMIC_PROPERTIES } from '../Constants';
-import { Log } from '../utils/Log';
+import { PLAYER_DYNAMIC_PROPERTIES } from '../../Constants';
+import { Log } from '../../utils/Log';
+
 
 
 //#region TYPES
@@ -24,16 +25,11 @@ interface CachedState {
 }
 
 
-//#region PLAYERSTATE
 
+//#region PlayerState
 /**
- * Centralized, cached, dynamic-property-backed state for a single player.
- *
- * - One instance per `Player.id`, lazily created via {@link PlayerState.for}.
- * - All reads come from the in-memory cache; writes are persisted to dynamic
- *   properties immediately.
- * - Replaces every `player.getTags().find(t => t.startsWith('race_'))` and
- *   `removeTags(player, '_')` pattern from the legacy code.
+ * Describes the state of a player.
+ * This is simply a cache layer over dynamic properties, which are expensive to read and write.
  */
 export class PlayerState {
 	private static readonly log = Log.get('PlayerState');
@@ -41,13 +37,11 @@ export class PlayerState {
 
 	private constructor(
 		public readonly player: Player,
-		private readonly state: CachedState,
+		private readonly state: CachedState
 	) {}
 
 
-	//#region FACTORY
-
-	/** Returns (and lazily hydrates) the state object for `player`. */
+	/** Returns the state object for `player`. */
 	static for(player: Player): PlayerState {
 		const existing = this.registry.get(player.id);
 		if (existing && existing.player.isValid) return existing;
@@ -61,7 +55,7 @@ export class PlayerState {
 			cooldowns: this.readJsonObject(player, PLAYER_DYNAMIC_PROPERTIES.cooldowns),
 			flags: this.readJsonObject(player, PLAYER_DYNAMIC_PROPERTIES.flags),
 			welcomed: this.readBoolean(player, PLAYER_DYNAMIC_PROPERTIES.welcomed),
-			recordVersion: this.readString(player, PLAYER_DYNAMIC_PROPERTIES.recordVersion),
+			recordVersion: this.readString(player, PLAYER_DYNAMIC_PROPERTIES.recordVersion)
 		};
 		const inst = new PlayerState(player, state);
 		this.registry.set(player.id, inst);
@@ -74,49 +68,59 @@ export class PlayerState {
 	}
 
 
-	//#region ORIGIN / CLASS
+	//#region API
 
-	getOrigin(): string | undefined { return this.state.origin; }
+	getOrigin(): string | undefined {
+		return this.state.origin;
+	}
 
 	setOrigin(originId: string | undefined): void {
 		this.state.origin = originId;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.origin, originId);
 	}
 
-	getClass(): string | undefined { return this.state.class; }
+	getClass(): string | undefined {
+		return this.state.class;
+	}
 
 	setClass(classId: string | undefined): void {
 		this.state.class = classId;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.class, classId);
 	}
 
-
-	//#region POWERS / PERKS / CONTROLS
-
-	getPowers(): readonly string[] { return this.state.powers; }
+	getPowers(): readonly string[] {
+		return this.state.powers;
+	}
 	setPowers(ids: readonly string[]): void {
 		this.state.powers = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.powers, this.state.powers);
 	}
 
-	getPerks(): readonly string[] { return this.state.perks; }
+	getPerks(): readonly string[] {
+		return this.state.perks;
+	}
 	setPerks(ids: readonly string[]): void {
 		this.state.perks = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.perks, this.state.perks);
 	}
 
-	getControls(): readonly string[] { return this.state.controls; }
+	getControls(): readonly string[] {
+		return this.state.controls;
+	}
 	setControls(ids: readonly string[]): void {
 		this.state.controls = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.controls, this.state.controls);
 	}
 
-	hasPower(id: string): boolean { return this.state.powers.includes(id); }
-	hasPerk(id: string): boolean { return this.state.perks.includes(id); }
-	hasControl(id: string): boolean { return this.state.controls.includes(id); }
-
-
-	//#region COOLDOWNS
+	hasPower(id: string): boolean {
+		return this.state.powers.includes(id);
+	}
+	hasPerk(id: string): boolean {
+		return this.state.perks.includes(id);
+	}
+	hasControl(id: string): boolean {
+		return this.state.controls.includes(id);
+	}
 
 	/** Returns the tick at which `id` expires, or 0 if not on cooldown. */
 	getCooldownExpiry(id: string): number {
@@ -148,9 +152,6 @@ export class PlayerState {
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.cooldowns, this.state.cooldowns);
 	}
 
-
-	//#region FLAGS
-
 	getFlag<T extends boolean | number | string>(name: string): T | undefined {
 		return this.state.flags[name] as T | undefined;
 	}
@@ -177,16 +178,17 @@ export class PlayerState {
 		if (mutated) this.writeJson(PLAYER_DYNAMIC_PROPERTIES.flags, this.state.flags);
 	}
 
-
-	//#region MISC
-
-	isWelcomed(): boolean { return this.state.welcomed; }
+	isWelcomed(): boolean {
+		return this.state.welcomed;
+	}
 	setWelcomed(value: boolean): void {
 		this.state.welcomed = value;
 		this.player.setDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.welcomed, value);
 	}
 
-	getRecordVersion(): string | undefined { return this.state.recordVersion; }
+	getRecordVersion(): string | undefined {
+		return this.state.recordVersion;
+	}
 	setRecordVersion(version: string | undefined): void {
 		this.state.recordVersion = version;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.recordVersion, version);
@@ -209,7 +211,7 @@ export class PlayerState {
 	}
 
 
-	//#region IO HELPERS
+	//#region HELPERS
 
 	private writeString(key: string, value: string | undefined): void {
 		this.player.setDynamicProperty(key, value);
@@ -237,8 +239,12 @@ export class PlayerState {
 		if (typeof raw !== 'string') return [];
 		try {
 			const parsed = JSON.parse(raw);
-			return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === 'string') : [];
-		} catch { return []; }
+			return Array.isArray(parsed)
+				? parsed.filter((x): x is string => typeof x === 'string')
+				: [];
+		} catch {
+			return [];
+		}
 	}
 
 	private static readJsonObject<T extends object>(player: Player, key: string): T {
@@ -246,7 +252,11 @@ export class PlayerState {
 		if (typeof raw !== 'string') return {} as T;
 		try {
 			const parsed = JSON.parse(raw);
-			return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed as T : {} as T;
-		} catch { return {} as T; }
+			return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+				? (parsed as T)
+				: ({} as T);
+		} catch {
+			return {} as T;
+		}
 	}
 }

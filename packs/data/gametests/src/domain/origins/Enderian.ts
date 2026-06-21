@@ -1,5 +1,5 @@
-import { Origin, OriginDifficulty, OriginEffects } from '../Ability';
-import { RegisterOrigin } from '../Registries';
+import { Origin, OriginDifficulty, OriginEffects } from '../../core/abilities/Ability';
+import { RegisterOrigin } from '../../core/abilities/Registries';
 
 
 /** Enderian origin grants the ability to teleport and avoid water. */

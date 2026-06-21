@@ -1,6 +1,6 @@
 import { Player } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 /**
  * The player must be an altitude of atleast 151 blocks,
  * when sleeping , to breathe fresh air.

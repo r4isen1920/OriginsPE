@@ -1,8 +1,8 @@
 // Soulburst.ts
 import { Player, system } from '@minecraft/server';
-import { PlayerState } from '../../core/PlayerState';
-import { RegisterPower } from '../Registries';
-import { Power } from '../Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { RegisterPower } from '../../core/abilities/Registries';
+import { Power } from '../../core/abilities/Ability';
 
 const PHASE_KEY = 'r4isen1920_originspe:beelzebub_phase';
 const DMG_KEY = 'r4isen1920_originspe:beelzebub_dmg';

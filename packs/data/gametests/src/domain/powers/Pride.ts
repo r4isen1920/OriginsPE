@@ -1,10 +1,10 @@
 import { Player, EquipmentSlot, world } from '@minecraft/server';
-import { Power } from '../Ability';
-import { RegisterPower } from '../Registries';
+import { Power } from '../../core/abilities/Ability';
+import { RegisterPower } from '../../core/abilities/Registries';
 
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { ItemUtils } from '../../utils/ItemUtils';
-import { PlayerState } from '../../core/PlayerState';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 interface GoldValue {
     typeId: string;

@@ -9,9 +9,9 @@ import {
 import { CustomCmd } from '@bedrock-oss/stylish';
 
 import { Log } from '../utils/Log';
-import { PlayerState } from './PlayerState';
-import { ClassRegistry, OriginRegistry } from '../domain/Registries';
-import { PlayerLifecycle } from '../domain/PlayerLifecycle';
+import { PlayerState } from './platform/PlayerState';
+import { ClassRegistry, OriginRegistry } from './abilities/Registries';
+import { PlayerLifecycle } from './abilities/PlayerLifecycle';
 
 
 const log = Log.get('Commands');

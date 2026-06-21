@@ -1,27 +1,16 @@
-import {
-	ItemCompleteUseAfterEvent,
-	ItemStartUseAfterEvent,
-	ItemUseAfterEvent,
-	ItemUseBeforeEvent,
-	Player,
-} from '@minecraft/server';
+import { ItemStartUseAfterEvent, Player } from '@minecraft/server';
 
 import { Items } from '../Files';
-import {
-	AfterItemCompleteUse,
-	AfterItemStartUse,
-	AfterItemUse,
-	BeforeItemUse,
-} from '../core/DecoratedEvents';
+import { AfterItemStartUse } from '../core/platform/DecoratedEvents';
 import { Log } from '../utils/Log';
-import { PlayerState } from '../core/PlayerState';
-import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
-import { isToggleOn } from '../ui/OptionsState';
+import { PlayerState } from '../core/platform/PlayerState';
 import { EntityUtils } from '../utils/EntityUtils';
-import { AbilityDispatch } from './AbilityDispatch';
+import { UiBridge } from './UiBridge';
+import { PickerKind, PickerMode } from './UiPayload';
+import { isToggleOn } from './OptionsState';
 
 
-//#region HANDLERS
+//#region TYPES
 
 interface ItemUseGate {
 	/** Returns an action-bar message if the use should be blocked, else `undefined`. */
@@ -77,15 +66,14 @@ const HANDLERS = new Map<string, ItemHandler>([
 ]);
 
 
-//#region DISPATCHER
+//#region ENTRY POINTS
 
 /**
- * Routes item events to the registered {@link ItemHandler} or, for any other
- * item, to active power/perk lifecycle hooks. Replaces the legacy item.ts
- * switch + ad-hoc subscriptions.
+ * Routes special-item starts (Orb of Origins, Resignation Paper)
+ * to the picker UI.
  */
-export class ItemEvents {
-	private static readonly log = Log.get('ItemEvents');
+export class ItemEntryPoints {
+	private static readonly log = Log.get('ItemEntryPoints', 'ui');
 
 	@AfterItemStartUse()
 	static onStartUse(ev: ItemStartUseAfterEvent): void {
@@ -100,26 +88,5 @@ export class ItemEvents {
 		}
 		try { handler.onStartUse(ev.source); }
 		catch (e: any) { this.log.error(`startUse '${handler.id}': `, e); }
-	}
-
-	@AfterItemUse()
-	static onUse(ev: ItemUseAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
-		const player = ev.source as Player;
-		AbilityDispatch.toGranted(player, 'onItemUse', (a) => a.onItemUse?.(player, ev));
-	}
-
-	@BeforeItemUse()
-	static onBeforeUse(ev: ItemUseBeforeEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
-		const player = ev.source as Player;
-		AbilityDispatch.toGranted(player, 'onBeforeItemUse', (a) => a.onBeforeItemUse?.(player, ev));
-	}
-
-	@AfterItemCompleteUse()
-	static onCompleteUse(ev: ItemCompleteUseAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
-		const player = ev.source as Player;
-		AbilityDispatch.toGranted(player, 'onItemCompleteUse', (a) => a.onItemCompleteUse?.(player, ev));
 	}
 }

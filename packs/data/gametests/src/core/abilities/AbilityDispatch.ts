@@ -1,18 +1,15 @@
 import { Player } from '@minecraft/server';
-import { PlayerState } from '../core/PlayerState';
+import { PlayerState } from '../platform/PlayerState';
 import { Perk, Power } from './Ability';
 import { PerkRegistry, PowerRegistry } from './Registries';
-import { Log } from '../utils/Log';
+import { Log } from '../../utils/Log';
 
 
 //#region DISPATCH
 
 /**
- * Central, fault-isolated dispatch for ability lifecycle hooks. Every hook
- * invocation routed through here is wrapped so that a single misbehaving
- * power/perk cannot break the dispatch loop or its sibling abilities. The
- * faulting ability is logged by registry kind + id, so individual hook
- * implementations no longer need their own try/catch boilerplate.
+ * Handles invoking ability hooks on a player's granted powers and perks.
+ * This class is responsible for proper error handling and logging, so that faults in one ability don't affect others.
  */
 export class AbilityDispatch {
 	private static readonly log = Log.get('AbilityDispatch');

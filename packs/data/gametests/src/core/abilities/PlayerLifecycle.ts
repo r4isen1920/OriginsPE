@@ -3,15 +3,16 @@ import { GameMode, Player, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, system 
 import {
 	AfterPlayerLeave,
 	AfterPlayerSpawn,
-} from '../core/DecoratedEvents';
-import { Log } from '../utils/Log';
-import { PlayerState } from '../core/PlayerState';
-import { PlayerTick, Ticker } from '../core/Ticker';
-import { PickerKind, PickerMode, UiBridge } from '../core/UiBridge';
-import { AttributeService } from '../services/AttributeService';
-import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../services/Attributes';
-import { forgetDamageOverrides, setDamageOverrides } from '../services/DamageService';
-import Version from '../utils/Version';
+} from '../platform/DecoratedEvents';
+import { Log } from '../../utils/Log';
+import { PlayerState } from '../platform/PlayerState';
+import { PlayerTick, Ticker } from '../platform/Ticker';
+import { UiBridge } from '../../ui/UiBridge';
+import { PickerKind, PickerMode } from '../../ui/UiPayload';
+import { AttributeService } from '../../services/AttributeService';
+import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../../services/Attributes';
+import { forgetDamageOverrides, setDamageOverrides } from './DamageService';
+import Version from '../../utils/Version';
 import { Perk, Power } from './Ability';
 import { AbilityDispatch } from './AbilityDispatch';
 import {
@@ -39,12 +40,7 @@ const DEFAULT_PERKS: readonly string[] = [
 //#region LIFECYCLE
 
 /**
- * Wires player join/leave/spawn into the new state model.
- *
- * - Hydrates {@link PlayerState} on spawn.
- * - Opens the origin/class picker on first join.
- * - Computes power/perk diffs and dispatches {@link Ability.onAcquire}/{@link Ability.onRelease}.
- * - Drives the per-player power/perk tick loop via {@link Ticker}.
+ * Handles how players join, leave, and tick in the world.
  */
 export class PlayerLifecycle {
 	private static readonly log = Log.get('PlayerLifecycle');
