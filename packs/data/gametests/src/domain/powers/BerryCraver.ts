@@ -36,8 +36,8 @@ export class BerryCraver implements Power {
         if (source.typeId !== 'minecraft:player') return;
         if (!PlayerState.for(source as Player).hasPower('berry_craver')) return;
 
-        source.addEffect('saturation', TicksPerSecond * 2, {
-            amplifier: 1,
+        source.addEffect('saturation', 4, {
+            amplifier: 0,
             showParticles: false,
         });
 
