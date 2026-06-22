@@ -5,7 +5,7 @@
 
     "r4isen1920_originspe:orb_of_origins": { "textures": [ "textures/origins/items/orb" ] },
     "r4isen1920_originspe:resignation_paper": { "textures": [ "textures/origins/items/resignation_paper" ] },
-    "r4isen1920_originspe:fake_slimeball": { "textures": [ "textures/origins/items/fake_slime" ] }
-
+    "r4isen1920_originspe:fake_slimeball": { "textures": [ "textures/origins/items/fake_slime" ] },
+    "r4isen1920_originspe:fake_sugar": { "textures": [ "textures/origins/items/fake_sugar" ] }
   }
 }

@@ -23,13 +23,11 @@ export class Nimble implements Power {
         const damageSource = ev.damageSource;
         const cause = damageSource?.cause;
 
-        // Immune to thorns damage
         if (cause === 'thorns') {
             ev.cancel = true;
             return;
         }
 
-        // Immune to velocity-based damage (knockback, fall damage, projectiles)
         const velocityDamageCauses = ['contact', 'fall', 'projectile', 'flyIntoWall'];
         if (velocityDamageCauses.includes(cause)) {
             ev.cancel = true;
