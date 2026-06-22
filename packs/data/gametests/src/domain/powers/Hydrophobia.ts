@@ -20,8 +20,19 @@ export class Hydrophobia implements Power {
 		isRaining = ev.newWeather === WeatherType.Rain || ev.newWeather === WeatherType.Thunder;
 	}
 
+	private isExposedToSky(player: Player): boolean {
+		const { x, y, z } = player.location;
+		const topmostBlock = player.dimension.getTopmostBlock({ x, z });
+
+		if (topmostBlock === undefined) return true;
+
+		return y >= topmostBlock.y;
+	}
+
 	onTick(player: Player): void {
-		if (player.isSwimming || player.isInWater || isRaining) {
+		const exposedToRain = isRaining && this.isExposedToSky(player);
+
+		if (player.isSwimming || player.isInWater || exposedToRain) {
 			player.applyDamage(1, { cause: EntityDamageCause.drowning });
 		}
 	}
