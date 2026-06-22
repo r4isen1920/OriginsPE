@@ -16,6 +16,7 @@ export class claustrophile implements Power {
     @PlayerTick(10)
     static onPlayerTick(player: Player): void {
         if (!PlayerState.for(player).hasPower('claustrophile')) return;
+        if (player.isInWater) return;
 
         if (isPlayerUnderground(player)) {
             player.addEffect('strength', 250, { amplifier: 0, showParticles: true });
