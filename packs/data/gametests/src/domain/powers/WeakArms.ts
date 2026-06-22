@@ -7,15 +7,10 @@ export class WeakArms implements Power {
 	readonly id = 'weak_arms';
 	readonly tickInterval = 2;
 
-	onRelease(player: Player): void {
-		player.removeEffect('minecraft:weakness');
-		player.removeEffect('minecraft:mining_fatigue');
-	}
-
 	onTick(player: Player): void {
-		if (player.getEffect('minecraft:strength')) {
-			player.removeEffect('minecraft:weakness');
-			player.removeEffect('minecraft:mining_fatigue');
+		if (player.getEffect('strength')) {  // remove 'minecraft:' prefix
+			player.removeEffect('weakness');
+			player.removeEffect('mining_fatigue');
 			return;
 		}
 
@@ -23,18 +18,23 @@ export class WeakArms implements Power {
 		const heldItem = equippableComp?.getEquipment(EquipmentSlot.Mainhand);
 
 		if (!heldItem || !WeakArms.isTool(heldItem) || !WeakArms.hasEfficiency(heldItem)) {
-			player.addEffect('minecraft:mining_fatigue', TicksPerSecond * 12, {
+			player.addEffect('mining_fatigue', TicksPerSecond * 12, {
 				amplifier: 0,
-				showParticles: false
+				showParticles: false,
 			});
 		} else {
-			player.removeEffect('minecraft:mining_fatigue');
+			player.removeEffect('mining_fatigue');
 		}
 
-		player.addEffect('minecraft:weakness', TicksPerSecond * 12, {
+		player.addEffect('weakness', TicksPerSecond * 12, {
 			amplifier: 0,
-			showParticles: false
+			showParticles: false,
 		});
+	}
+
+	onRelease(player: Player): void {
+		player.removeEffect('weakness');
+		player.removeEffect('mining_fatigue');
 	}
 
 	private static hasEfficiency(item: ItemStack): boolean {

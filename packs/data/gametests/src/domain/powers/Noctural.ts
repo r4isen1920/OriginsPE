@@ -18,13 +18,23 @@ export class Noctural implements Power {
 
 		if (lightLevel < 8) {
 			player.addEffect('night_vision', TicksPerSecond * 12, { showParticles: false });
-			player.addEffect('strength', TicksPerSecond * 12, {
-				amplifier: 0,
-				showParticles: false
-			});
+
+			// Only apply strength if not already affected by a potion (duration > our 12s grant)
+			const existingStrength = player.getEffect('strength');
+			if (!existingStrength || existingStrength.duration <= TicksPerSecond * 12) {
+				player.addEffect('strength', TicksPerSecond * 12, {
+					amplifier: 0,
+					showParticles: false,
+				});
+			}
 		} else {
 			player.removeEffect('night_vision');
-			player.removeEffect('strength');
+
+			// Only remove strength if it's ours (short duration), not from a potion
+			const existingStrength = player.getEffect('strength');
+			if (existingStrength && existingStrength.duration <= TicksPerSecond * 12) {
+				player.removeEffect('strength');
+			}
 		}
 	}
 }
