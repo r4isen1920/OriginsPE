@@ -47,18 +47,6 @@ export class CatlikeAppearance implements Power {
 			if (targetComp?.target?.id === player.id) {
 				targetComp.clearTarget();
 			}
-
-			const dx = creeper.location.x - player.location.x;
-			const dz = creeper.location.z - player.location.z;
-			const distance = Math.sqrt(dx * dx + dz * dz);
-
-			if (distance < 10 && distance > 0.1) {
-				creeper.applyImpulse({
-					x: (dx / distance) * 0.4,
-					y: 0.1,
-					z: (dz / distance) * 0.4
-				});
-			}
 		}
 	}
 }
