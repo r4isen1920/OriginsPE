@@ -52,7 +52,7 @@ export class Fragmentation implements Power {
 		const state = PlayerState.for(player);
 		const fragmentationLevel = state.getFlag<number>('fragmentation_level') ?? 0;
 
-		if (fragmentationLevel === 1 && cause.damageSource.cause === EntityDamageCause.fall) {
+		if (fragmentationLevel === 1 && 2 && cause.damageSource.cause === EntityDamageCause.fall) {
 			return true;
 		}
 
