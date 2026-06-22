@@ -455,6 +455,3 @@ entity.r4isen1920_originspe:webbing_attack.name=§z
 
 action.hint.exit.r4isen1920_originspe:inventory_keep=Open Inventory to view your Shulk inventory
 action.hint.exit.console.r4isen1920_originspe:inventory_keep=Press :_input_key.inventory: to view your Shulk inventory
-
-progressScreen.title.modifiedWorldWarning=Loading Origins and Classes
-progressScreen.message.modifiedWorldWarning=Please wait while the game loads your Origin and Class
