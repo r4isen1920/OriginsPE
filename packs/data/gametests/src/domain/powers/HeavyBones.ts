@@ -13,7 +13,11 @@ export class HeavyBones implements Power {
     readonly id = 'heavy_bones';
 
     onTick(player: Player): void {
-        if(player.isInWater) {
+        if (!PlayerState.for(player).hasPower('heavy_bones')) {
+            return;
+        }
+
+        if (player.isInWater) {
             player.runCommand(`event entity @s r4isen1920_originspe:movement.0.025`);
         } else {
             player.runCommand(`event entity @s r4isen1920_originspe:movement.0.1`);

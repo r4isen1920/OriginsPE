@@ -45,6 +45,8 @@ export class ClawDigging implements Power {
             return;
         }
 
+        if (player.isInWater) return;
+
         const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);
         const isBareHanded = !heldItem || heldItem.typeId === 'minecraft:air';
 
