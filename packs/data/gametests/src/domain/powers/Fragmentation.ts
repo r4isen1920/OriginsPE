@@ -1,4 +1,9 @@
-import { Player, EntityHealthComponent } from '@minecraft/server';
+import {
+	Player,
+	EntityHealthComponent,
+	EntityDamageCause,
+	EntityHurtAfterEvent
+} from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
@@ -41,6 +46,17 @@ export class Fragmentation implements Power {
 		if (health) health.resetToMaxValue();
 
 		ResourceBarService.pop(player, 8);
+	}
+
+	onHurt(player: Player, cause: EntityHurtAfterEvent): boolean {
+		const state = PlayerState.for(player);
+		const fragmentationLevel = state.getFlag<number>('fragmentation_level') ?? 0;
+
+		if (fragmentationLevel === 1 && cause.damageSource.cause === EntityDamageCause.fall) {
+			return true;
+		}
+
+		return false;
 	}
 
 	onTick(player: Player): void {
@@ -115,8 +131,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_FULL,
 					to: BAR_FULL,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 
@@ -136,8 +151,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_TWO_THIRDS,
 					to: BAR_TWO_THIRDS,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 
@@ -154,8 +168,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_ONE_THIRD,
 					to: BAR_ONE_THIRD,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 		}
@@ -173,8 +186,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_ONE_THIRD,
 					to: BAR_TWO_THIRDS,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 			case 3:
@@ -182,8 +194,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_TWO_THIRDS,
 					to: BAR_FULL,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 		}
@@ -201,8 +212,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_TWO_THIRDS,
 					to: BAR_ONE_THIRD,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 			case 2:
@@ -210,8 +220,7 @@ export class Fragmentation implements Power {
 					id: 8,
 					from: BAR_FULL,
 					to: BAR_TWO_THIRDS,
-					durationSeconds: 5,
-					persist: false
+					persist: true
 				});
 				break;
 		}
