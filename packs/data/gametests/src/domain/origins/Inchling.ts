@@ -11,7 +11,6 @@ export class Inchling implements Origin {
 		'nimble', 
 		'hyper_active',
 		'small_apetite',
-		'bite_sized',
-		'poisonous',
+		'bite_sized'
 	];
 }
