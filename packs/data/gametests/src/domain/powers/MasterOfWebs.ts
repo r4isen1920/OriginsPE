@@ -1,7 +1,8 @@
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
-import { Block, BlockPermutation, Player } from '@minecraft/server';
+import { Block, BlockPermutation, Player, PlayerPlaceBlockAfterEvent } from '@minecraft/server';
 import { Log } from '../../utils/Log';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 @RegisterPower
 export class MasterOfWebs implements Power {
@@ -75,6 +76,15 @@ export class MasterOfWebs implements Power {
 
 			MasterOfWebs.trackedWebs.delete(k);
 		}
+	}
+	onPlaceBlock(player: Player, ev: PlayerPlaceBlockAfterEvent): void {
+		const state = PlayerState.for(player);
+		if (!state.hasPower('master_of_webs')) return;
+		const block = ev.block;
+		if (!block?.isValid) return;
+		if (block.typeId !== MasterOfWebs.REAL_COBWEB) return;
+
+		block.setPermutation(BlockPermutation.resolve(MasterOfWebs.FAKE_COBWEB));
 	}
 
 	onUnload(player: Player): void {
