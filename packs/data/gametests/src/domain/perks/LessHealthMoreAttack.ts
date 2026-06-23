@@ -1,8 +1,6 @@
-import { AttributeOverrides } from '../../services/Attributes';
+import { Player, TicksPerSecond } from '@minecraft/server';
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { Player } from '@minecraft/server';
-import { AttributeService } from '../../services/AttributeService';
 
 /**
  * Warrior signature perk: trades max health for higher base attack. Both
@@ -12,21 +10,23 @@ import { AttributeService } from '../../services/AttributeService';
 export class LessHealthMoreAttack implements Perk {
 	readonly id = 'less_health_more_attack';
 	readonly tickInterval = 10;
-	readonly attributes: AttributeOverrides = {
-		health: 16,
-		attack: 2
-	};
 
 	onTick(player: Player): void {
 		const component = player.getComponent('health');
 		if (!component) return;
 
-		const current = component.currentValue;
-		const max = component.effectiveMax;
+		const ratio = component.currentValue / component.effectiveMax;
 
-		const missingRatio = 1 - current / max;
+		if (ratio > 0.5) {
+			player.removeEffect('strength');
+			return;
+		}
 
-		const attack = 2 + Math.round(missingRatio * 6);
-		AttributeService.apply(player, { attack });
+		const amplifier = ratio <= 0.25 ? 1 : 0;
+
+		player.addEffect('strength', TicksPerSecond * 15, {
+			amplifier,
+			showParticles: false
+		});
 	}
 }
