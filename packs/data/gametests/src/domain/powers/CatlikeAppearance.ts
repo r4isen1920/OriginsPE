@@ -1,13 +1,8 @@
-import { EntityHitEntityAfterEvent, Player, system } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
-import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
-
-type TargetComponent = {
-	target?: { id: string };
-	clearTarget(): void;
-};
+import { PlayerState } from '../../core';
 
 @RegisterPower
 export class CatlikeAppearance implements Power {
@@ -15,38 +10,10 @@ export class CatlikeAppearance implements Power {
 	readonly tickInterval = 3;
 
 	onRelease(player: Player): void {
-		AttributeService.apply(player, { familyType: 'player' });
-	}
+        AttributeService.apply(player, { familyType: 'player' });
+    }
 
-	onAttack(player: Player, ev: EntityHitEntityAfterEvent): void {
-		if (ev.hitEntity.typeId !== 'minecraft:creeper') return;
-		const state = PlayerState.for(player);
-		state.setFlag(`creeper_retaliation_${ev.hitEntity.id}`, system.currentTick + 200);
-	}
-
-	onTick(player: Player): void {
-		const state = PlayerState.for(player);
-
-		AttributeService.apply(player, { familyType: 'cat' });
-
-		const currentTick = system.currentTick;
-		const nearbyCreepers = player.dimension.getEntities({
-			location: player.location,
-			maxDistance: 16,
-			type: 'minecraft:creeper'
-		});
-
-		for (const creeper of nearbyCreepers) {
-			const retaliationExpiry =
-				state.getFlag<number>(`creeper_retaliation_${creeper.id}`) ?? 0;
-			if (currentTick < retaliationExpiry) continue;
-
-			creeper.triggerEvent('minecraft:stop_exploding');
-
-			const targetComp = creeper.getComponent('target') as TargetComponent | undefined;
-			if (targetComp?.target?.id === player.id) {
-				targetComp.clearTarget();
-			}
-		}
-	}
+    onTick(player: Player): void {
+        AttributeService.apply(player, { familyType: 'cat' });
+    }
 }
