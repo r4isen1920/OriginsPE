@@ -33,7 +33,6 @@ const DEFAULT_PERKS: readonly string[] = [
 	'longer_potions',
 	'more_saturated_food',
 	'powerful_potions',
-	'quality_equipment',
 ];
 
 
