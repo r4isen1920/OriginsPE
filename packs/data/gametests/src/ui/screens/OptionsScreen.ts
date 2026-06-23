@@ -3,6 +3,7 @@ import { CommandPermissionLevel, Player, world } from '@minecraft/server';
 import { WORLD_DYNAMIC_PROPERTIES } from '../../Constants';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerLifecycle } from '../../core/abilities/PlayerLifecycle';
+import { ResourceBarService } from '../../services/ResourceBarService';
 import { Log } from '../../utils/Log';
 import { UiBridge } from '../UiBridge';
 import { PickerKind } from '../UiPayload';
@@ -101,6 +102,9 @@ export class OptionsScreen extends Screen {
 		switch (scope) {
 			case 'player': {
 				PlayerState.for(player).reset();
+				// reset() wipes the power list, so applyOriginAndClass cannot diff and
+				// run onRelease for the old powers; clear their bars explicitly.
+				ResourceBarService.clear(player);
 				PlayerLifecycle.applyOriginAndClass(player);
 				const raceStart = defaultId(PickerKind.Race);
 				const mode = resolvePickMode(PickerKind.Race, raceStart, player);
@@ -114,6 +118,9 @@ export class OptionsScreen extends Screen {
 				resetAllToggles();
 				for (const p of world.getAllPlayers()) {
 					PlayerState.for(p).reset();
+					// reset() wipes the power list, so applyOriginAndClass cannot diff and
+					// run onRelease for the old powers; clear their bars explicitly.
+					ResourceBarService.clear(p);
 					PlayerLifecycle.applyOriginAndClass(p);
 					const raceStart = defaultId(PickerKind.Race);
 					const mode = resolvePickMode(PickerKind.Race, raceStart, p);
