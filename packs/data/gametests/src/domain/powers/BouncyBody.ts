@@ -4,11 +4,20 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { BeforeEntityHurt } from '../../core/platform/DecoratedEvents';
 
-const FALL_DAMAGE_MULTIPLIER = 0.25; 
+const FALL_DAMAGE_MULTIPLIER = 0.25;
+const SKIN = 'r4isen1920_originspe:skin_type';
 
 @RegisterPower
 export class BouncyBody implements Power {
 	readonly id = 'bouncy_body';
+
+	onAcquire(player: Player): void {
+		player.setProperty(SKIN, 'slimy');
+	}
+
+	onRelease(player: Player): void {
+		player.setProperty(SKIN, 'normal');
+	}
 
 	@BeforeEntityHurt
 	static onEntityHurt(event: any): void {
