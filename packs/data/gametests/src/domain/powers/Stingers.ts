@@ -22,7 +22,7 @@ export class Stingers implements Power {
 	private static readonly MAX_STINGERS = 7;
 
 	private static stingerPercent(count: number): number {
-		return Math.round((Math.max(0, count) / Stingers.MAX_STINGERS) * 100);
+		return Math.round((Math.max(0, count) / Stingers.MAX_STINGERS) * 99);
 	}
 
 	static pushStingerBar(player: Player, stingers: number): void {
