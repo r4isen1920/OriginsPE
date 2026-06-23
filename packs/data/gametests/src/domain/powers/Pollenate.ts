@@ -19,6 +19,7 @@ export class Pollenate implements Power {
 	private static readonly log = Log.get('Pollenate');
 
 	private static readonly BAR_ID = 18;
+	private static readonly BAR_SLOT = 1;
 	private static readonly COOLDOWN_KEY = 'pollenate_cooldown';
 	private static readonly CHARGE_KEY = 'pollenate_charge_start';
 	private static readonly CHARGE_FLOWER_KEY = 'pollenate_charge_flower';
@@ -83,6 +84,7 @@ export class Pollenate implements Power {
 			state.setFlag(Pollenate.CHARGE_FLOWER_KEY, blockId);
 			ResourceBarService.push(player, {
 				id: Pollenate.BAR_ID,
+				slot: Pollenate.BAR_SLOT,
 				durationSeconds: 5
 			});
 			return;

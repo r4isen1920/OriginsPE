@@ -16,7 +16,7 @@ export class Stingers implements Power {
 	readonly tickInterval = 2;
 
 	private static readonly BAR_ID = 13;
-	private static readonly BAR_SLOT = 1;
+	private static readonly BAR_SLOT = 2;
 	private static readonly COOLDOWN_KEY = 'stingers_cooldown';
 	private static readonly COOLDOWN_TICKS = TicksPerSecond * 5;
 	private static readonly MAX_STINGERS = 7;
