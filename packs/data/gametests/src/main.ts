@@ -20,6 +20,7 @@ import './domain/origins/Voidwalker';
 import './domain/origins/Diviner';
 import './domain/origins/Mole';
 import './domain/origins/Rootkin';
+import './domain/origins/Vampire';
 
 //* Powers
 import './domain/powers/Claustrophile';
@@ -132,6 +133,11 @@ import './domain/powers/LeechLife';
 import './domain/powers/Flammable';
 import './domain/powers/NoWeapon';
 import './domain/powers/SmallApetite';
+import './domain/powers/BloodSense';
+import './domain/powers/BerserksBlood';
+import './domain/powers/NightFalls';
+import './domain/powers/LifeSteal';
+import './domain/powers/Rapture';
 
 //-------------------------------------------
 
