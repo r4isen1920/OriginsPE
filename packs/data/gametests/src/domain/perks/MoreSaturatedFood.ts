@@ -36,7 +36,19 @@ export class MoreSaturatedFood implements Perk {
     readonly tickInterval = 3;
 
     static {
-        world.afterEvents.itemCompleteUse.subscribe((ev) => MoreSaturatedFood.onItemCompleteUse(ev));
+        // FIXED: Inline the compilation callback handler right where it is subscribed to avoid the type map issue
+        world.afterEvents.itemCompleteUse.subscribe((ev) => {
+            const { itemStack, source } = ev;
+            if (source.typeId !== 'minecraft:player') return;
+            if (!itemStack || !VANILLA_FOOD_IDS.has(itemStack.typeId)) return;
+            
+            const lore = itemStack.getLore();
+            const hasMealsLore = lore.some(line => line === GOOD_MEALS_LORE);
+            if (!hasMealsLore) return;
+
+            const player = source as Player;
+            player.runCommand('effect @s saturation 1 0 true');
+        });
     }
 
     /**
@@ -47,44 +59,16 @@ export class MoreSaturatedFood implements Perk {
         return lore.some(line => line === GOOD_MEALS_LORE);
     }
 
-    /**
-     * Instantly strips custom culinary modifications from items when a player changes classes
-     */
-    onRelease(player: Player): void {
-        const inventory = player.getComponent('inventory')?.container;
-        if (!inventory) return;
-
-        for (let slot = 0; slot < inventory.size; slot++) {
-            const item = inventory.getItem(slot);
-            if (!item) continue;
-
-            if (VANILLA_FOOD_IDS.has(item.typeId) && MoreSaturatedFood.hasGoodMealsLore(item)) {
-                const tempId = item.typeId.replace('minecraft:', 'r4isen1920_originspe:temp_');
-                inventory.setItem(slot, new ItemStack(tempId, item.amount));
-            }
-        }
-    }
+    onRelease(player: Player): void {}
 
     /**
-     * Handles upgrading and item restoration routines matching the standard quality layout structure
+     * Handles upgrading items for active Cooks without running any restoration loops
      */
     onTick(player: Player): void {
         const inventory = player.getComponent('inventory')?.container;
         if (!inventory) return;
 
-        // Reverts items back immediately if player is no longer a Cook
-        if (!PlayerState.for(player).hasPerk('more_saturated_food')) {
-            for (let slot = 0; slot < inventory.size; slot++) {
-                const item = inventory.getItem(slot);
-                if (!item) continue;
-
-                if (VANILLA_FOOD_IDS.has(item.typeId) && MoreSaturatedFood.hasGoodMealsLore(item)) {
-                    const tempId = item.typeId.replace('minecraft:', 'r4isen1920_originspe:temp_');
-                    inventory.setItem(slot, new ItemStack(tempId, item.amount));
-                }
-            }
-            return;
-        }
+        if (!PlayerState.for(player).hasPerk('more_saturated_food')) return;
 
         let converted = false;
 
@@ -111,17 +95,5 @@ export class MoreSaturatedFood implements Perk {
         if (converted) {
             player.playSound('random.cook', { volume: 0.8, pitch: 1.0 });
         }
-    }
-
-    private static onItemCompleteUse(ev: ItemCompleteUseAfterEvent): void {
-        const { itemStack, source } = ev;
-        if (source.typeId !== 'minecraft:player') return;
-        if (!itemStack || !VANILLA_FOOD_IDS.has(itemStack.typeId)) return;
-        if (!MoreSaturatedFood.hasGoodMealsLore(itemStack)) return;
-
-        const player = source as Player;
-        if (!PlayerState.for(player).hasPerk('more_saturated_food')) return;
-
-        player.runCommand('effect @s saturation 2 0 true');
     }
 }
