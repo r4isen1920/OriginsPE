@@ -131,7 +131,6 @@ import './domain/powers/VineBindPower';
 import './domain/powers/LeechLife';
 import './domain/powers/Flammable';
 import './domain/powers/NoWeapon';
-import './domain/powers/Poisonous';
 import './domain/powers/SmallApetite';
 
 //-------------------------------------------
