@@ -516,8 +516,12 @@ export class ResourceBarService {
 
 		if (this.isWaterBlock(block)) return breathable.breathesWater;
 		if (this.isLavaBlock(block)) return breathable.breathesLava;
-		if (block.isAir) return breathable.breathesAir;
-		return breathable.breathesSolids;
+
+		//? Only liquid media (water/lava) drain the bubble meter. Air, passable
+		//? blocks (tallgrass, flowers, vines, powder snow, etc.) and even solid
+		//? suffocation do not deplete bubbles in vanilla, so treat everything
+		//? non-liquid as breathable to avoid false underwater readings.
+		return breathable.breathesAir;
 	}
 
 	private static isWaterBlock(block: Block): boolean {
