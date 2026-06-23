@@ -1,15 +1,9 @@
-import {
-    EffectAddAfterEvent,
-    Player,
-    world,
-} from '@minecraft/server';
-
+import { Player } from '@minecraft/server';
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 
-
-const POTION_EFFECTS = new Set([
+const POTION_EFFECTS = [
     'fire_resistance',
     'invisibility',
     'jump_boost',
@@ -22,61 +16,58 @@ const POTION_EFFECTS = new Set([
     'speed',
     'strength',
     'water_breathing',
-    'weakness',
-]);
+    'weakness'
+];
 
+const lastPlayerEffects = new Map<string, Set<string>>();
 
-/**
- * Potion effects you receive are also applied to your nearby tamed animals.
- */
 @RegisterPerk
 export class EffectiveEmpathy implements Perk {
     readonly id = 'effective_empathy';
+    readonly tickInterval = 20;
 
-    private static handler: ((ev: EffectAddAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        EffectiveEmpathy.refCount++;
-        if (EffectiveEmpathy.refCount === 1) {
-            EffectiveEmpathy.handler = (ev) => EffectiveEmpathy.onEffectAdd(ev);
-            world.afterEvents.effectAdd.subscribe(EffectiveEmpathy.handler);
+    onTick(player: Player): void {
+        if (!PlayerState.for(player).hasPerk('effective_empathy')) {
+            lastPlayerEffects.delete(player.id);
+            return;
         }
-    }
 
-    onRelease(_player: Player): void {
-        EffectiveEmpathy.refCount = Math.max(0, EffectiveEmpathy.refCount - 1);
-        if (EffectiveEmpathy.refCount === 0 && EffectiveEmpathy.handler) {
-            world.afterEvents.effectAdd.unsubscribe(EffectiveEmpathy.handler);
-            EffectiveEmpathy.handler = undefined;
+        if (!lastPlayerEffects.has(player.id)) {
+            lastPlayerEffects.set(player.id, new Set<string>());
         }
-    }
 
-    onTick(_player: Player): void {}
-    private static isApplying = false;
+        const previousEffects = lastPlayerEffects.get(player.id)!;
+        const currentEffects = new Set<string>();
+        const activeEffects: { id: string; seconds: number; amp: number }[] = [];
 
-    private static onEffectAdd(ev: EffectAddAfterEvent): void {
-        const { entity, effect } = ev;
-
-        if (EffectiveEmpathy.isApplying) return;
-        if (entity.typeId !== 'minecraft:player') return;
-        if (!PlayerState.for(entity as Player).hasPerk('effective_empathy')) return;
-        if (!POTION_EFFECTS.has(effect.typeId)) return;
-        if (effect.amplifier >= 10) return;
-
-        EffectiveEmpathy.isApplying = true;
-        try {
-            entity.dimension.getEntities({
-                location: entity.location,
-                maxDistance: 21,
-                excludeFamilies: ['player', 'inanimate'],
-            }).forEach(nearbyEntity => {
-                nearbyEntity.addEffect(effect.typeId, effect.duration, {
-                    amplifier: effect.amplifier || 0,
+        for (const effectId of POTION_EFFECTS) {
+            const effect = player.getEffect(effectId);
+            if (effect && effect.amplifier < 10) {
+                currentEffects.add(effectId);
+                activeEffects.push({
+                    id: effectId,
+                    seconds: Math.max(1, Math.ceil(effect.duration / 20)),
+                    amp: effect.amplifier
                 });
-            });
-        } finally {
-            EffectiveEmpathy.isApplying = false;
+            }
+        }
+
+        for (const oldEffectId of previousEffects) {
+            if (!currentEffects.has(oldEffectId)) {
+                player.runCommand(`execute as @e[r=21,type=wolf,tag=perk_tamed_animal_boost] run effect @s ${oldEffectId} 0`);
+                player.runCommand(`execute as @e[r=21,type=cat,tag=perk_tamed_animal_boost] run effect @s ${oldEffectId} 0`);
+                player.runCommand(`execute as @e[r=21,type=parrot,tag=perk_tamed_animal_boost] run effect @s ${oldEffectId} 0`);
+            }
+        }
+
+        lastPlayerEffects.set(player.id, currentEffects);
+
+        if (activeEffects.length === 0) return;
+
+        for (const effect of activeEffects) {
+            player.runCommand(`execute as @e[r=21,type=wolf,tag=perk_tamed_animal_boost] run effect @s ${effect.id} ${effect.seconds} ${effect.amp} true`);
+            player.runCommand(`execute as @e[r=21,type=cat,tag=perk_tamed_animal_boost] run effect @s ${effect.id} ${effect.seconds} ${effect.amp} true`);
+            player.runCommand(`execute as @e[r=21,type=parrot,tag=perk_tamed_animal_boost] run effect @s ${effect.id} ${effect.seconds} ${effect.amp} true`);
         }
     }
 }
