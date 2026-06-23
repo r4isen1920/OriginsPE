@@ -82,37 +82,65 @@ export class Pounced implements Power {
             }
         }
 
-        if (state.getFlag<boolean>('pounce_launched') === true && player.isOnGround) {
-            state.setFlag('pounce_launched', false);
-            state.setCooldown(COOLDOWN_KEY, now, COOLDOWN_TICKS);
+        if (state.getFlag<boolean>('pounce_launched') === true) {
+            if (!player.isOnGround) {
+                state.setFlag('pounce_airborne', true);
+            }
 
-            ResourceBarService.pop(player, COOLDOWN_BAR_ID);
-            ResourceBarService.push(player, {
-                id: COOLDOWN_BAR_ID,
-                durationSeconds: 5,
-            });
+            if (player.isOnGround && state.getFlag<boolean>('pounce_airborne') === true) {
+                state.setFlag('pounce_launched', false);
+                state.setFlag('pounce_airborne', false);
+                state.setCooldown(COOLDOWN_KEY, now, COOLDOWN_TICKS);
 
-            player.dimension.playSound('random.explode', player.location, {
-                volume: 0.6,
-                pitch: 1.5,
-            });
-            player.dimension.spawnParticle('r4isen1920_originspe:air_burst', {
-                x: player.location.x,
-                y: player.location.y + 0.5,
-                z: player.location.z,
-            });
+                ResourceBarService.pop(player, COOLDOWN_BAR_ID);
+                ResourceBarService.push(player, {
+                    id: COOLDOWN_BAR_ID,
+                    durationSeconds: 5,
+                });
 
-            const targets = player.dimension.getEntities({
-                location: player.location,
-                maxDistance: 4,
-                excludeFamilies: ['inanimate'],
-            });
+                player.dimension.playSound('random.explode', player.location, {
+                    volume: 0.6,
+                    pitch: 1.5,
+                });
+                player.dimension.spawnParticle('r4isen1920_originspe:air_burst', {
+                    x: player.location.x,
+                    y: player.location.y + 0.5,
+                    z: player.location.z,
+                });
 
-            for (const entity of targets) {
-                if (entity.id === player.id) continue;
-                try {
-                    entity.runCommand(`damage @s 6 entity_attack damage_creator @p`);
-                } catch {}
+                const targets = player.dimension.getEntities({
+                    location: player.location,
+                    maxDistance: 4,
+                    excludeFamilies: ['inanimate'],
+                });
+
+                for (const entity of targets) {
+                    if (entity.id === player.id) continue;
+                    
+                    const entityLoc = entity.location;
+                    const playerLoc = player.location;
+                    
+                    let dirX = entityLoc.x - playerLoc.x;
+                    let dirZ = entityLoc.z - playerLoc.z;
+                    
+                    const len = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                    if (len > 0) {
+                        dirX /= len;
+                        dirZ /= len;
+                    } else {
+                        dirX = Math.random() - 0.5;
+                        dirZ = Math.random() - 0.5;
+                    }
+
+                    entity.applyImpulse({
+                        x: dirX * 0.6, 
+                        y: 0.55, 
+                        z: dirZ * 0.6
+                    });
+
+                    // FIXED: Inserted the required native keyword "entity" into the parameters layout
+                    entity.runCommand(`damage @s 6 entity_attack entity @p`);
+                }
             }
         }
     }
@@ -139,6 +167,7 @@ export class Pounced implements Power {
             pitch: 1.2,
         });
 
+        state.setFlag('pounce_airborne', false);
         state.setFlag('pounce_launched', true);
     }
 }
