@@ -22,8 +22,17 @@ export class AttributeService {
 
 	//#region APPLY
 
-	/** Applies the given attributes. Only acts on keys that changed. */
-	static apply(player: Player, attrs: AttributeOverrides): void {
+	/**
+	 * Applies the given attributes. Only acts on keys that changed.
+	 *
+	 * @param force
+	 * Pass `force` to re-fire every supplied key regardless of the diff cache.
+	 * This is required on origin/class change because some powers set attributes
+	 * (e.g. `scale`/`health`) through direct entity events that bypass this
+	 * service, leaving the cache out of sync; forcing guarantees the target
+	 * profile is fully reasserted rather than silently skipped.
+	 */
+	static apply(player: Player, attrs: AttributeOverrides, force = false): void {
 		const last = this.applied.get(player.id) ?? {};
 		const next: Partial<PlayerAttributes> = { ...last };
 
@@ -31,7 +40,7 @@ export class AttributeService {
 		for (const key of keys) {
 			const value = attrs[key];
 			if (value === undefined) continue;
-			if (last[key] === value) continue;
+			if (!force && last[key] === value) continue;
 			if (typeof value === 'object' || Array.isArray(value)) continue; // not primitive, skip
 			const mutableNext = next as Partial<Record<AttributeKey, PlayerAttributes[AttributeKey]>>;
 			mutableNext[key] = value;

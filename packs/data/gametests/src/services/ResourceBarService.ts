@@ -204,6 +204,16 @@ export class ResourceBarService {
 	static resume(player: Player): void {
 		this.suspended.delete(player.id);
 		this.refresh(player);
+
+		//? A closing screen (picker/dialogue) shares the same title channel and can
+		//? re-render its own payload on the same tick it closes, clobbering the
+		//? emit above and leaving a stale bar that was popped during onRelease.
+		//? Force a second flush next tick, once the screen has released the channel.
+		const playerId = player.id;
+		system.runTimeout(() => {
+			if (!player.isValid || this.suspended.has(playerId)) return;
+			this.refresh(player);
+		}, 1);
 	}
 
 

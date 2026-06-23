@@ -177,7 +177,10 @@ export class PlayerLifecycle {
 			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
 		}
 		setDamageOverrides(player, damageOverrides);
-		AttributeService.apply(player, merged);
+		//! Force a full re-apply: an origin/class change must reassert the entire
+		//! target profile so attributes set by the previous origin's powers via
+		//! direct entity events reset to baseline.
+		AttributeService.apply(player, merged, true);
 
 		// Apply origin render effects via data-driven events.
 		this.applyEffects(player, origin?.effects?.model, 'model_type');
