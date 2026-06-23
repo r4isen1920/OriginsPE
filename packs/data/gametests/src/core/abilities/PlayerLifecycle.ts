@@ -31,7 +31,6 @@ const DEFAULT_POWERS: readonly string[] = ['master_of_webs'];
 const DEFAULT_PERKS: readonly string[] = [
 	'better_stew',
 	'longer_potions',
-	'more_saturated_food',
 	'powerful_potions',
 ];
 
