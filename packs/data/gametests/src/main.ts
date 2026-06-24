@@ -138,6 +138,7 @@ import './domain/powers/BerserksBlood';
 import './domain/powers/NightFalls';
 import './domain/powers/LifeSteal';
 import './domain/powers/Rapture';
+import './domain/powers/VampireAura';
 
 //-------------------------------------------
 

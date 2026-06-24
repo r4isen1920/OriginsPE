@@ -309,6 +309,8 @@ origins.trait.life_steal.name=Life Steal
 origins.trait.life_steal.description=Attacks on hostile entities restore a percentage of lost health rather than total damage dealt. Each successful hit grants a stack up to a maximum of three healing the player for 0.5% of their missing HP per stack (max 1.5%).
 origins.trait.rapture.name=Rapture
 origins.trait.rapture.description=Any successful attack on a player or mob inflicts a specialized Bleeding status effect. Once afflicted, the target suffers a rapid-drain penalty, taking 0.5 damage every game tick until the effect expires or is cured.
+origins.trait.vampire_aura.name=Vampire Aura
+origins.trait.vampire_aura.description=Emits blood aura that it looks like you are always craving for bloods.
 
 origins.trait.sneaky.name=Sneaky
 origins.trait.sneaky.description=Your nameplate is never always visible, even when you're not sneaking.

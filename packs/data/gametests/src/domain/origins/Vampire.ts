@@ -13,5 +13,6 @@ export class Vampire implements Origin {
         'night_falls',
         'life_steal',
         'rapture',
+        'vampire_aura'
     ];
 }

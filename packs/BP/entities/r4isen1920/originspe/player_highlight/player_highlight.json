@@ -1,0 +1,58 @@
+{
+    "format_version": "1.19.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "r4isen1920_originspe:player_highlight",
+            "is_spawnable": true,
+            "is_summonable": true,
+            "properties": {
+                "r4isen1920_originspe:is_visible": {
+                    "type": "bool",
+                    "client_sync": true,
+                    "default": false
+                }
+            }
+        },
+        "component_groups": {
+            "despawn": {
+                "minecraft:instant_despawn": {
+                    "remove_child_entities": false
+                }
+            }
+        },
+        "components": {
+            "minecraft:collision_box": {
+                "width": 0,
+                "height": 0
+            },
+            "minecraft:physics": {
+                "has_gravity": false,
+                "has_collision": false
+            },
+            "minecraft:persistent": {},
+            "minecraft:breathable": {
+                "breathes_solids": true
+            },
+            "minecraft:damage_sensor": {
+                "triggers": [
+                    {
+                        "cause": "all",
+                        "deals_damage": "no",
+                        "on_damage": {
+                            "event": "instant_despawn"
+                        }
+                    }
+                ]
+            }
+        },
+        "events": {
+            "instant_despawn": {
+                "add": {
+                    "component_groups": [
+                        "despawn"
+                    ]
+                }
+            }
+        }
+    }
+}
