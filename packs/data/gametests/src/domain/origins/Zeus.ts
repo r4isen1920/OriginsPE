@@ -12,5 +12,6 @@ export class Zeus implements Origin {
     readonly powers: readonly string[] = [
         'electric_aura',
         'lightning_strike',
+        'storm_born',
     ];
 }

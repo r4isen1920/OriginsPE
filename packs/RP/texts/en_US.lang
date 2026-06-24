@@ -301,8 +301,10 @@ origins.trait.no_weapon.name=Barehanded
 origins.trait.no_weapon.description=You fight best with your bare hands. Holding items or weapons reduces your damage.
 origins.trait.electric_aura.name=Electric Aura
 origins.trait.electric_aura.description=Deals AoE damage to nearby entities and mobs within a 3-block radius, ticking for 0.5 damage whether walking or standing still.
-origins.trait.lightning_strike.name=Lighting Strike 
+origins.trait.lightning_strike.name=Lightning Strike 
 origins.trait.lightning_strike.description=Activate this ability to strike nearby entities with lightning, dealing 3 hearts of damage per hit.
+origins.trait.storm_born.name=Storm Born
+origins.trait.storm_born.description=During thunderstorms, the lightning bolt's damage increases to 5 hearts per hit. Additionally, all other attacks—including swords, bows, and unarmed punches—receive a damage boost.
 
 origins.trait.sneaky.name=Sneaky
 origins.trait.sneaky.description=Your nameplate is never always visible, even when you're not sneaking.
