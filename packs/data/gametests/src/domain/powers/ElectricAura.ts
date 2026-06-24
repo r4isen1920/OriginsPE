@@ -8,6 +8,7 @@ const AURA_DAMAGE = 0.5;
 const ZAP_VOLUME = 0.1;
 const MIN_PITCH = 0.8;
 const MAX_PITCH = 1.4;
+const BEAM_PARTICLE_DENSITY = 6;
 
 @RegisterPower
 export class ElectricAura implements Power {
@@ -27,6 +28,10 @@ export class ElectricAura implements Power {
             maxDistance: AURA_RADIUS,
             excludeFamilies: ['player', 'inanimate']
         });
+
+        const startX = player.location.x;
+        const startY = player.location.y + 1.0;
+        const startZ = player.location.z;
 
         for (const entity of targets) {
             const healthComponent = entity.getComponent('minecraft:health') as EntityHealthComponent | undefined;
@@ -48,10 +53,23 @@ export class ElectricAura implements Power {
                     pitch: randomPitch
                 });
 
-                player.dimension.spawnParticle(
-                    'minecraft:sparkler_rocket_particle',
-                    entity.location
-                );
+                const targetX = entity.location.x;
+                const targetY = entity.location.y + 1.0;
+                const targetZ = entity.location.z;
+
+                for (let i = 0; i <= BEAM_PARTICLE_DENSITY; i++) {
+                    const t = i / BEAM_PARTICLE_DENSITY;
+                    const particleLoc = {
+                        x: startX + (targetX - startX) * t,
+                        y: startY + (targetY - startY) * t,
+                        z: startZ + (targetZ - startZ) * t
+                    };
+
+                    player.dimension.spawnParticle(
+                        'r4isen1920_originspe:electric_zap',
+                        particleLoc
+                    );
+                }
             }
         }
     }
