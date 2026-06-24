@@ -23,3 +23,5 @@ packs/data/jsonte/classes.json
 *.DS_Store
 
 !packs/data/gametests/uuid.txt
+
+/wiki
