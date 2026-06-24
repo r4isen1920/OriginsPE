@@ -20,8 +20,10 @@ import './domain/origins/Voidwalker';
 import './domain/origins/Diviner';
 import './domain/origins/Mole';
 import './domain/origins/Rootkin';
+import './domain/origins/Zeus';
 
 //* Powers
+import './domain/powers/ElectricAura';
 import './domain/powers/Claustrophile';
 import './domain/powers/CompactSize';
 import './domain/powers/Nimble';
