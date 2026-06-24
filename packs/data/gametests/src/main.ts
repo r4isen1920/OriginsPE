@@ -23,6 +23,7 @@ import './domain/origins/Rootkin';
 import './domain/origins/Zeus';
 
 //* Powers
+import './domain/powers/LightningStrike';
 import './domain/powers/ElectricAura';
 import './domain/powers/Claustrophile';
 import './domain/powers/CompactSize';
