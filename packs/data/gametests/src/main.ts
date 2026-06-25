@@ -150,8 +150,10 @@ import './domain/classes/Miner';
 import './domain/classes/Rancher';
 import './domain/classes/Rogue';
 import './domain/classes/Warrior';
+import './domain/classes/Athlete';
 
 //* Perks
+import './domain/perks/HighJump';
 import './domain/perks/Agility';
 import './domain/perks/CheaperTrades';
 import './domain/perks/WanderingTraderSpawn';
