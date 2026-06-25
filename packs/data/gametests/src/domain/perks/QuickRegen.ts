@@ -5,7 +5,7 @@ import { RegisterPerk } from '../../core/abilities/Registries';
 import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
 
 const STILL_THRESHOLD_TICKS = 60; // 3seconds
-const REGEN_AMPLIFIER = 2; // regen 3
+const REGEN_AMPLIFIER = 0; // regen 1
 const REGEN_DURATION = 100; //5secs
 
 const lastHitTick = new Map<string, number>();
