@@ -83,6 +83,8 @@ origins.lumberjack.name=Lumberjack
 origins.lumberjack.description=Trees should watch out when Lumberjacks are around.
 origins.explorer.name=Explorer
 origins.explorer.description=Explorers find their way through the most difficult terrain easily and discover hidden landmarks.
+origins.doctor.name=Doctor
+origins.doctor.description=Armed with advanced medical knowledge, the Doctor keeps allies alive through potent healing abilities.
 
 
 origins.trait.water_breathing.name=Gills
@@ -364,6 +366,10 @@ origins.trait.tree_felling.name=Tree Capitator
 origins.trait.tree_felling.description=You can cut down an entire tree when using an axe.
 origins.trait.sapling_setblock.name=Replanting
 origins.trait.sapling_setblock.description=There's a chance logs you break may be replanted with the same type of sapling.
+origins.trait.instant_heal_potion.name=Instant Heal Potion
+origins.trait.instant_heal_potion.description=Spawns with 10 heal potion.
+origins.trait.quick_regen.name=Quick Regen
+origins.trait.quick_regen.description=Regenerate health quickly by standing still.
 
 
 origins.item.orb_of_origins.name=Orb of Origins
