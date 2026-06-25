@@ -154,7 +154,7 @@ import './domain/classes/Athlete';
 
 //* Perks
 import './domain/perks/SpeedRegulator';
-import './domain/perks/HighJump';
+import './domain/perks/bunnyJump';
 import './domain/perks/Agility';
 import './domain/perks/CheaperTrades';
 import './domain/perks/WanderingTraderSpawn';

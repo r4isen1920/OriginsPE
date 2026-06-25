@@ -4,12 +4,12 @@ import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 
 @RegisterPerk
-export class HighJump implements Perk {
-    readonly id = 'high_jump';
+export class BunnyJump implements Perk {
+    readonly id = 'bunny_jump';
     readonly tickInterval = 5;
 
     onTick(player: Player): void {
-        if (!PlayerState.for(player).hasPerk('high_jump')) return;
+        if (!PlayerState.for(player).hasPerk('bunny_jump')) return;
 
         player.addEffect('jump_boost', 15, { 
             amplifier: 2, 

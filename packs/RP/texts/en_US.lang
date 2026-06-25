@@ -298,6 +298,10 @@ origins.trait.flammable.description=You take double damage from fire and lava.
 origins.trait.no_weapon.name=Barehanded
 origins.trait.no_weapon.description=You fight best with your bare hands. Holding items or weapons reduces your damage.
 
+origins.trait.bunny_jump.name=High Jump
+origins.trait.bunny_jump.description=You can jump up to 3 blocks high.
+origins.trait.speed_regulator.name=Speed Regulator
+origins.trait.speed_regulator.description=Can walk up to 5.612 m/s , and Sprinting up to 6.132 m/s.
 origins.trait.sneaky.name=Sneaky
 origins.trait.sneaky.description=Your nameplate is never always visible, even when you're not sneaking.
 origins.trait.stealth.name=In the Shadows
