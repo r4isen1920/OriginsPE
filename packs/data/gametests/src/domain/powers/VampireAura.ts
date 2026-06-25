@@ -22,7 +22,7 @@ export class VampireAura implements Power {
 		player.dimension.spawnParticle(BAT_PARTICLE, loc);
 
 		if (system.currentTick % SOUND_INTERVAL_TICKS === 0) {
-			player.playSound('random.vampire', { volume: 0.5, pitch: 1.0 });
+			//player.dimension.playSound('random.vampire', { volume: 0.5, pitch: 1.0 });
 		}
 	}
 }
