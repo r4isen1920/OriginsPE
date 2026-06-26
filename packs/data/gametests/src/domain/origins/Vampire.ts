@@ -11,8 +11,9 @@ export class Vampire implements Origin {
         'blood_sense',
         'berserks_blood',
         'night_falls',
-        'life_steal',
         'rapture',
+        'i_want_meat',
+        'vampire_thing',
         'vampire_aura'
     ];
 }

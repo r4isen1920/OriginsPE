@@ -136,9 +136,10 @@ import './domain/powers/SmallApetite';
 import './domain/powers/BloodSense';
 import './domain/powers/BerserksBlood';
 import './domain/powers/NightFalls';
-import './domain/powers/LifeSteal';
 import './domain/powers/Rapture';
 import './domain/powers/VampireAura';
+import './domain/powers/Meat';
+import './domain/powers/VampireThing';
 
 //-------------------------------------------
 
