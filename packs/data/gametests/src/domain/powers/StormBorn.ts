@@ -3,7 +3,7 @@ import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 
-let isThunderstormActive = false;
+export let isThunderstormActive = false;
 
 world.afterEvents.weatherChange.subscribe((event) => {
     if (event.dimension === 'overworld') {

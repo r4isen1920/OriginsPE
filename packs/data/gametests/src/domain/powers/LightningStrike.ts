@@ -3,14 +3,16 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { isThunderstormActive } from './StormBorn';
 
 const COOLDOWN_KEY = 'lightning_strike_cooldown';
 const COOLDOWN_TICKS = TicksPerSecond * 15;
 const COOLDOWN_BAR_ID = 27;
 const INITIAL_RADIUS = 8;
 const CHAIN_RADIUS = 5;
-const LIGHTNING_DAMAGE = 4;
-const MAX_CHAINS = 3;
+const BASE_LIGHTNING_DAMAGE = 4;
+const STORM_LIGHTNING_DAMAGE = 10;
+const MAX_CHAINS = 4;
 const BEAM_PARTICLE_DENSITY = 8;
 const CHAIN_DELAY_TICKS = 10;
 
@@ -67,13 +69,14 @@ export class LightningStrike implements Power {
 
         const hitEntityIds = new Set<string>();
         let chainCount = 0;
+        const currentDamage = isThunderstormActive ? STORM_LIGHTNING_DAMAGE : BASE_LIGHTNING_DAMAGE;
 
         const processChain = () => {
             if (!currentTarget || !currentTarget.isValid) return;
 
             hitEntityIds.add(currentTarget.id);
 
-            currentTarget.applyDamage(LIGHTNING_DAMAGE, {
+            currentTarget.applyDamage(currentDamage, {
                 cause: EntityDamageCause.contact,
                 damagingEntity: player
             });
