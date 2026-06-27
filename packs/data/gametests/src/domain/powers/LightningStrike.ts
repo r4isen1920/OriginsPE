@@ -39,7 +39,7 @@ export class LightningStrike implements Power {
         const initialTargets = player.dimension.getEntities({
             location: player.location,
             maxDistance: INITIAL_RADIUS,
-            excludeFamilies: ['player', 'inanimate']
+            families: ['mob']
         });
 
         if (initialTargets.length === 0) {
@@ -112,7 +112,7 @@ export class LightningStrike implements Power {
             const nextTargets = player.dimension.getEntities({
                 location: currentTarget.location,
                 maxDistance: CHAIN_RADIUS,
-                excludeFamilies: ['player', 'inanimate']
+                families: ['mob']
             });
 
             let nextTarget = null;
