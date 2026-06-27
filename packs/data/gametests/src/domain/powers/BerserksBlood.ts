@@ -2,11 +2,16 @@ import { Player, EntityHurtAfterEvent, system } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
+import { PlayerState } from '../../core/platform/PlayerState';
+import { ResourceBarService } from '../../services/ResourceBarService';
 
-const STACK_KEY = 'berserks_blood:stacks';
-const MAX_STACKS = 4;
-const EFFECT_DURATION_TICKS = 200;
-
+const COOLDOWN_KEY = 'berserks_blood_cooldown';
+const EXPIRY_FLAG = 'berserks_blood_expiry';
+const COOLDOWN_TICKS = 300; // 15 seconds
+const STRENGTH_TICKS = 60;  // 3 seconds
+const STRENGTH_AMPLIFIER = 3; // Strength IV 
+const HP_THRESHOLD = 5;
+const RESOURCE_BAR_ID = 27; 
 const ENTITY_DAMAGE_CAUSES = new Set([
 	'entityAttack',
 	'entityExplosion',
@@ -16,40 +21,39 @@ const ENTITY_DAMAGE_CAUSES = new Set([
 	'sonicBoom'
 ]);
 
-/** Crimson Tracker gains 1 stack of Strength for every instance of damage taken from players or mobs,
- *  stacking up to a maximum of 4 Strength. */
-const lastStackTick = new Map<string, number>();
-
 @RegisterPower
 export class BerserksBlood implements Power {
 	readonly id = 'berserks_blood';
 
-	onAcquire(player: Player): void {
-		player.setDynamicProperty(STACK_KEY, 0);
-		lastStackTick.delete(player.id);
-	}
-
 	onRelease(player: Player): void {
-		player.setDynamicProperty(STACK_KEY, 0);
-		player.removeEffect('strength');
+		player.removeEffect(MinecraftEffectTypes.Strength);
+		ResourceBarService.pop(player, RESOURCE_BAR_ID);
 	}
 
 	onHurt(player: Player, ev: EntityHurtAfterEvent): void {
 		if (!ENTITY_DAMAGE_CAUSES.has(ev.damageSource.cause)) return;
 
+		if (player.getComponent('minecraft:health')!.currentValue > HP_THRESHOLD) return;
+
+		const state = PlayerState.for(player);
 		const currentTick = system.currentTick;
-		if (lastStackTick.get(player.id) === currentTick) return;
-		lastStackTick.set(player.id, currentTick);
 
-		const current = (player.getDynamicProperty(STACK_KEY) as number | undefined) ?? 0;
-		const stacks = Math.min(current + 1, MAX_STACKS);
-
-		player.setDynamicProperty(STACK_KEY, stacks);
+		if (state.isOnCooldown(COOLDOWN_KEY, currentTick)) return;
 
 		player.removeEffect(MinecraftEffectTypes.Strength);
-		player.addEffect(MinecraftEffectTypes.Strength, EFFECT_DURATION_TICKS, {
-			amplifier: stacks - 1,
-			showParticles: false
+		player.addEffect(MinecraftEffectTypes.Strength, STRENGTH_TICKS, {
+			amplifier: STRENGTH_AMPLIFIER,
+			showParticles: true,
 		});
+
+		ResourceBarService.push(player, {
+			id: RESOURCE_BAR_ID,
+			durationSeconds: 15,
+			from: 100,
+			to: 0,
+		});
+
+		state.setCooldown(COOLDOWN_KEY, currentTick, COOLDOWN_TICKS);
+		state.setFlag(EXPIRY_FLAG, currentTick + COOLDOWN_TICKS);
 	}
 }
