@@ -24,8 +24,10 @@ const ts = requireTypeScript();
 const DATA_DIR = path.resolve('data');
 const DOMAIN_DIR = path.join(DATA_DIR, 'gametests', 'src', 'domain');
 const MAIN_TS = path.join(DATA_DIR, 'gametests', 'src', 'main.ts');
+const META_TS = path.join(DATA_DIR, 'gametests', 'src', 'Meta.ts');
 const ABILITY_TS = path.join(DOMAIN_DIR, 'Ability.ts');
 const OUT_DIR = path.join(DATA_DIR, 'jsonte');
+const GLOBAL_VARS = path.resolve('RP', 'ui', '_global_variables.json');
 
 
 //#region AST HELPERS
@@ -189,6 +191,33 @@ function collect(kind, iconMap, enumMap) {
 }
 
 
+//#region UI VERSION
+
+/** Reads the `github.commit` and `github.tag` fields from the generated `Meta.ts`. */
+function readMeta() {
+	if (!fs.existsSync(META_TS)) throw new Error(`[emit_domain] Meta.ts not found: ${META_TS}`);
+	const text = fs.readFileSync(META_TS, 'utf8');
+	const commit = text.match(/commit:\s*"([^"]+)"/)?.[1];
+	const tag = text.match(/tag:\s*"([^"]+)"/)?.[1];
+	if (!commit || !tag) throw new Error('[emit_domain] could not read commit/tag from Meta.ts');
+	return { commit, tag };
+}
+
+/** Patches the version/commit UI globals in `_global_variables.json` from `Meta.ts`. */
+function emitUiVersion() {
+	if (!fs.existsSync(GLOBAL_VARS)) throw new Error(`[emit_domain] UI globals not found: ${GLOBAL_VARS}`);
+	const { commit, tag } = readMeta();
+	const shortCommit = commit.slice(0, 7);
+
+	let text = fs.readFileSync(GLOBAL_VARS, 'utf8');
+	text = text.replace(/("\$r4ui_pack_version"\s*:\s*)"[^"]*"/, `$1"${tag}"`);
+	text = text.replace(/("\$r4ui_pack_commit"\s*:\s*)"[^"]*"/, `$1"${shortCommit}"`);
+	fs.writeFileSync(GLOBAL_VARS, text);
+
+	console.log(`[emit_domain] emitted UI version ${tag} (build ${shortCommit})`);
+}
+
+
 //#region MAIN
 
 function main() {
@@ -204,6 +233,8 @@ function main() {
 	fs.writeFileSync(path.join(OUT_DIR, 'classes.json'), JSON.stringify({ classes }, null, 2) + '\n');
 
 	console.log(`[emit_domain] emitted ${origins.length} origins, ${classes.length} classes`);
+
+	emitUiVersion();
 }
 
 main();
