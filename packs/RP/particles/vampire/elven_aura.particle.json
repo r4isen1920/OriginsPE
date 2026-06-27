@@ -13,36 +13,33 @@
 				"type": "bezier",
 				"input": "v.particle_age",
 				"horizontal_range": "v.particle_lifetime",
-				"nodes": [0, 0.83, 0.82, 1]
+				"nodes": [1, 0.83, 0.82, 0]
 			}
 		},
 		"components": {
 			"minecraft:emitter_initialization": {
-				"creation_expression": "variable.size = 0.1;variable.lifetime = 2;",
+				"creation_expression": "variable.size = 0.6;variable.lifetime = 0.18;",
 				"per_update_expression": "variable.ysize = !q.is_sneaking ? 1 : 0.8;"
 			},
 			"minecraft:emitter_rate_steady": {
-				"spawn_rate": 5,
-				"max_particles": 10
+				"spawn_rate": 6,
+				"max_particles": 6
 			},
-			"minecraft:emitter_lifetime_looping": {
+			"minecraft:emitter_lifetime_once": {
 				"active_time": 1
 			},
-			"minecraft:emitter_shape_box": {
-				"offset": [0, "-(variable.ysize/2)", 0],
-				"half_dimensions": [0.4, "variable.ysize", 0.4],
-				"surface_only": true,
-				"direction": "outwards"
+			"minecraft:emitter_shape_point": {
+				"offset": [0, "-(variable.ysize/2)", 0]
 			},
 			"minecraft:particle_lifetime_expression": {
-				"max_lifetime": "math.random(0.25,0.75)"
+				"max_lifetime": "math.random(0.18, 0.25)"
 			},
 			"minecraft:particle_initial_spin": {
 				"rotation": "math.random(0, 360)"
 			},
-			"minecraft:particle_initial_speed": 1,
+			"minecraft:particle_initial_speed": 0,
 			"minecraft:particle_motion_dynamic": {
-				"linear_acceleration": ["math.random(1,-1)", "math.random(1.5,-1)", "math.random(1,-1)"],
+				"linear_acceleration": ["math.random(0,1)", "math.random(0,-1)", "math.random(0,1)"],
 				"linear_drag_coefficient": 5,
 				"rotation_acceleration": 10
 			},

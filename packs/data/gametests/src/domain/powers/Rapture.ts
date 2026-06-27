@@ -4,7 +4,8 @@ import {
 	EntityHitEntityAfterEvent,
 	EntityComponentTypes,
 	system,
-	world
+	world,
+	Vector3
 } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
@@ -23,11 +24,12 @@ const BLEED_MAX_DRAIN = 3;
 const BLEED_DURATION_TICKS = Math.ceil(BLEED_MAX_DRAIN / BLEED_DAMAGE_PER_TICK) * 4;
 
 const COOLDOWN_KEY = 'rapture_cooldown';
-const COOLDOWN_TICKS = 400; // 20 seconds
+const COOLDOWN_TICKS = 400;
 const EXPIRY_FLAG = 'rapture_expiry';
-const RESOURCE_BAR_ID = 4;
+const RESOURCE_BAR_ID = 28;
 
 const BLEED_PARTICLE = 'r4isen1920_originspe:bleeding';
+const SUCK_STEPS = 6;
 const HURT_FLASH_INTERVAL = 20;
 
 const DIMENSIONS = ['minecraft:overworld', 'minecraft:nether', 'minecraft:the_end'];
@@ -117,6 +119,7 @@ export class Rapture implements Power {
 					continue;
 				}
 
+				// --- Damage tick ---
 				const healthComp = entity.getComponent(EntityComponentTypes.Health);
 				if (!healthComp) continue;
 
@@ -136,12 +139,52 @@ export class Rapture implements Power {
 					}
 				}
 
-				entity.dimension.spawnParticle(BLEED_PARTICLE, entity.location);
-
 				if (currentTick % HURT_FLASH_INTERVAL === 0) {
 					entity.applyDamage(0);
 				}
+
+				// --- Suck particles: lerp from entity toward vampire ---
+				const sourceId = entity.getDynamicProperty(BLEED_SOURCE_KEY) as string | undefined;
+				const vampirePlayer = sourceId
+					? (dimension
+							.getEntities({ type: 'minecraft:player' })
+							.find((e) => e.id === sourceId) as Player | undefined)
+					: undefined;
+
+				if (vampirePlayer?.isValid) {
+					this.spawnSuckParticles(entity, vampirePlayer, entity.dimension.id);
+				}
 			}
+		}
+	}
+
+	private static spawnSuckParticles(entity: Entity, vampire: Player, dimensionId: string): void {
+		let dimension;
+		try {
+			dimension = world.getDimension(dimensionId);
+		} catch {
+			return;
+		}
+
+		const from = entity.location;
+		const to = vampire.location;
+
+		const toAdjusted: Vector3 = {
+			x: to.x,
+			y: to.y + 1.0,
+			z: to.z
+		};
+
+		for (let i = 0; i < SUCK_STEPS; i++) {
+			const t = 0.1 + (i / (SUCK_STEPS - 1)) * 0.85;
+
+			const spawnPos: Vector3 = {
+				x: from.x + (toAdjusted.x - from.x) * t,
+				y: from.y + 1.0 + (toAdjusted.y - (from.y + 1.0)) * t,
+				z: from.z + (toAdjusted.z - from.z) * t
+			};
+
+			dimension.spawnParticle(BLEED_PARTICLE, spawnPos);
 		}
 	}
 
