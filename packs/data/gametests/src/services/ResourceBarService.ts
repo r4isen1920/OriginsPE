@@ -130,9 +130,11 @@ export class ResourceBarService {
 
 		this.persistState(player, state);
 		this.emitPayload(player, state);
-		this.log.debug(
-			`push slot: ${slot}, id: ${id}, from: ${from}, to: ${to}, durationSeconds: ${durationSeconds}, persist: ${persist}`,
-		);
+		UI_DEBUG: {
+			this.log.debug(
+				`push slot: ${slot}, id: ${id}, from: ${from}, to: ${to}, durationSeconds: ${durationSeconds}, persist: ${persist}`,
+			);
+		}
 		return slot;
 	}
 
@@ -148,7 +150,9 @@ export class ResourceBarService {
 		state.slots[slot] = undefined;
 		this.persistState(player, state);
 		this.emitPayload(player, state);
-		this.log.debug(`pop id: ${id}, slot: ${slot}`);
+		UI_DEBUG: {
+			this.log.debug(`pop id: ${id}, slot: ${slot}`);
+		}
 		return true;
 	}
 
@@ -163,7 +167,9 @@ export class ResourceBarService {
 		state.slots[slot] = undefined;
 		this.persistState(player, state);
 		this.emitPayload(player, state);
-		this.log.debug(`pop slot: ${slot}`);
+		UI_DEBUG: {
+			this.log.debug(`pop slot: ${slot}`);
+		}
 	}
 
 	/** Clears all bars for the player. */
