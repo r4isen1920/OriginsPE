@@ -1,142 +1,152 @@
 import {
-    Block,
-    EquipmentSlot,
-    GameMode,
-    Player,
-    PlayerBreakBlockAfterEvent,
-    world,
+	Block,
+	EntityComponentTypes,
+	EntityItemComponent,
+	EquipmentSlot,
+	GameMode,
+	Player,
+	PlayerBreakBlockAfterEvent
 } from '@minecraft/server';
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { MinecraftBlockTypes } from '@minecraft/vanilla-data';
 
 
+
+//# region Constants
 const ORE_BLOCKS = [
-    'ancient_debris',
-    'coal_ore',
-    'copper_ore',
-    'deepslate_coal_ore',
-    'deepslate_diamond_ore',
-    'deepslate_emerald_ore',
-    'deepslate_gold_ore',
-    'deepslate_iron_ore',
-    'deepslate_lapis_ore',
-    'deepslate_redstone_ore',
-    'lit_deepslate_redstone_ore',
-    'diamond_ore',
-    'emerald_ore',
-    'gold_ore',
-    'iron_ore',
-    'lapis_ore',
-    'nether_gold_ore',
-    'quartz_ore',
-    'redstone_ore',
-    'lit_redstone_ore',
+	MinecraftBlockTypes.AncientDebris,
+	MinecraftBlockTypes.CoalOre,
+	MinecraftBlockTypes.CopperOre,
+	MinecraftBlockTypes.DeepslateCoalOre,
+	MinecraftBlockTypes.DeepslateDiamondOre,
+	MinecraftBlockTypes.DeepslateEmeraldOre,
+	MinecraftBlockTypes.DeepslateGoldOre,
+	MinecraftBlockTypes.DeepslateIronOre,
+	MinecraftBlockTypes.DeepslateLapisOre,
+	MinecraftBlockTypes.DeepslateRedstoneOre,
+	MinecraftBlockTypes.LitDeepslateRedstoneOre,
+	MinecraftBlockTypes.DiamondOre,
+	MinecraftBlockTypes.EmeraldOre,
+	MinecraftBlockTypes.GoldOre,
+	MinecraftBlockTypes.IronOre,
+	MinecraftBlockTypes.LapisOre,
+	MinecraftBlockTypes.NetherGoldOre,
+	MinecraftBlockTypes.QuartzOre,
+	MinecraftBlockTypes.RedstoneOre,
+	MinecraftBlockTypes.LitRedstoneOre,
 ];
 
 const DIRECTIONS = ['north', 'south', 'west', 'east', 'above', 'below'] as const;
-type NeighborDirection = typeof DIRECTIONS[number];
+type NeighborDirection = (typeof DIRECTIONS)[number];
+
+const MAX_CHAIN_DEPTH = 27;
+const MAX_CHAIN_BLOCKS = 512;
 
 
+
+//#region Perk
 @RegisterPerk
 export class OreVeinMiner implements Perk {
-    readonly id = 'ore_vein_miner';
-    readonly tickInterval = 2;
+	readonly id = 'ore_vein_miner';
 
-    onTick(player: Player): void {
-        if (!PlayerState.for(player).hasPerk('ore_vein_miner')) return;
-        if (player.isSneaking) return;
+	onBreakBlock(player: Player, ev: PlayerBreakBlockAfterEvent): void {
+		const { block, brokenBlockPermutation } = ev;
 
-        const entities = player.dimension.getEntities({
-            location: player.location,
-            maxDistance: 48,
-            type: 'r4isen1920_originspe:vein_miner',
-        });
+		if (!PlayerState.for(player).hasPerk('ore_vein_miner')) return;
+		if (player.isSneaking) return;
+		if (player.matches({ gameMode: GameMode.Creative })) return;
 
-        for (const veinMinerEntity of entities) {
-            // Only process entities belonging to this player
-            const originatorId = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:originator') as string;
-            if (originatorId !== player.id) continue;
+		const heldItem = player
+			.getComponent(EntityComponentTypes.Equippable)
+			?.getEquipment(EquipmentSlot.Mainhand);
+		if (!heldItem?.typeId.includes('_pickaxe')) return;
 
-            const iteration = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:iteration') as number;
-            const currentBlock = veinMinerEntity.dimension.getBlock(veinMinerEntity.location);
+		const oreBlock = ORE_BLOCKS.find((ore) =>
+			brokenBlockPermutation.matches(ore)
+		);
+		if (!oreBlock) return;
 
-            if (iteration > 27) {
-                veinMinerEntity.remove();
-                continue;
-            }
+		const queue: Array<{ block: Block; depth: number }> = [];
+		const visited = new Set<string>();
 
-            const targetBlock = veinMinerEntity.getDynamicProperty('r4isen1920_originspe:targetBlock') as string;
+		DIRECTIONS.forEach((direction) => {
+			const neighbor = OreVeinMiner.getNeighborBlock(block, direction);
+			if (!neighbor) return;
 
-            if (currentBlock?.permutation.matches(`minecraft:${targetBlock}`)) {
-                DIRECTIONS.forEach(direction => {
-                    const neighbor = OreVeinMiner.getNeighborBlock(currentBlock, direction);
-                    if (!neighbor) return;
+			queue.push({ block: neighbor, depth: 0 });
+		});
 
-                    const newEntity = player.dimension.spawnEntity(
-                        'r4isen1920_originspe:vein_miner',
-                        neighbor.center(),
-                    );
-                    newEntity.setDynamicProperty('r4isen1920_originspe:targetBlock', targetBlock);
-                    newEntity.setDynamicProperty('r4isen1920_originspe:originator', originatorId);
-                    newEntity.setDynamicProperty('r4isen1920_originspe:iteration', iteration + 1);
-                });
+		for (let index = 0, mined = 0; index < queue.length && mined < MAX_CHAIN_BLOCKS; index++) {
+			const { block: currentBlock, depth } = queue[index];
+			if (depth > MAX_CHAIN_DEPTH) continue;
 
-                veinMinerEntity.runCommand('setblock ~~~ air [] destroy');
-                player.dimension.spawnParticle('r4isen1920_originspe:vein_mine', currentBlock.center());
+			const key = OreVeinMiner.blockKey(currentBlock);
+			if (visited.has(key)) continue;
+			visited.add(key);
 
-                const originator = world.getEntity(originatorId);
-                if (originator) {
-                    currentBlock.dimension.getEntities({
-                        location: currentBlock.location,
-                        maxDistance: 5,
-                        type: 'minecraft:item',
-                    }).forEach(itemEntity => {
-                        if (itemEntity.getComponent('item')?.itemStack.typeId.includes(targetBlock.replace('_ore', ''))) {
-                            itemEntity.teleport(originator.location);
-                        }
-                    });
-                }
-            }
+			if (!currentBlock.permutation.matches(oreBlock)) continue;
 
-            veinMinerEntity.remove();
-        }
-    }
+			currentBlock.dimension.runCommand(
+				`setblock ${currentBlock.x} ${currentBlock.y} ${currentBlock.z} air [] destroy`
+			);
+			player.dimension.spawnParticle('r4isen1920_originspe:vein_mine', currentBlock.center());
+			OreVeinMiner.teleportDropsToPlayer(currentBlock, player, oreBlock);
+			mined++;
 
-    onBreakBlock(player: Player, ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation } = ev;
+			const nextDepth = depth + 1;
+			if (nextDepth > MAX_CHAIN_DEPTH) continue;
 
-        if (player.matches({ gameMode: GameMode.Creative })) return;
+			DIRECTIONS.forEach((direction) => {
+				const neighbor = OreVeinMiner.getNeighborBlock(currentBlock, direction);
+				if (!neighbor) return;
+				queue.push({ block: neighbor, depth: nextDepth });
+			});
+		}
+	}
 
-        const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);
-        if (!heldItem?.typeId.includes('_pickaxe')) return;
+	private static teleportDropsToPlayer(block: Block, player: Player, targetBlock: string): void {
+		const itemHint = targetBlock
+			.replace('lit_', '')
+			.replace('deepslate_', '')
+			.replace('_ore', '');
 
-        const oreBlock = ORE_BLOCKS.find(ore => brokenBlockPermutation.matches(`minecraft:${ore}`));
-        if (!oreBlock) return;
+		block.dimension
+			.getEntities({
+				location: block.location,
+				maxDistance: 5,
+				type: 'minecraft:item'
+			})
+			.forEach((itemEntity) => {
+				const itemComp = itemEntity.getComponent(EntityComponentTypes.Item);
+				if (!itemComp) return;
 
-        DIRECTIONS.forEach(direction => {
-            const neighbor = OreVeinMiner.getNeighborBlock(block, direction);
-            if (!neighbor) return;
+				const itemTypeId = itemComp.itemStack.typeId;
+				if (!itemTypeId.includes(itemHint)) return;
+				itemEntity.teleport(player.location);
+			});
+	}
 
-            const newVeinMinerEntity = player.dimension.spawnEntity(
-                'r4isen1920_originspe:vein_miner',
-                neighbor.center(),
-            );
-            newVeinMinerEntity.setDynamicProperty('r4isen1920_originspe:targetBlock', oreBlock);
-            newVeinMinerEntity.setDynamicProperty('r4isen1920_originspe:originator', player.id);
-            newVeinMinerEntity.setDynamicProperty('r4isen1920_originspe:iteration', 0);
-        });
-    }
+	private static blockKey(block: Block): string {
+		return `${block.x},${block.y},${block.z}`;
+	}
 
-    private static getNeighborBlock(block: Block, direction: NeighborDirection): Block | undefined {
-        switch (direction) {
-            case 'north': return block.north();
-            case 'south': return block.south();
-            case 'west': return block.west();
-            case 'east': return block.east();
-            case 'above': return block.above();
-            case 'below': return block.below();
-        }
-    }
+	private static getNeighborBlock(block: Block, direction: NeighborDirection): Block | undefined {
+		switch (direction) {
+			case 'north':
+				return block.north();
+			case 'south':
+				return block.south();
+			case 'west':
+				return block.west();
+			case 'east':
+				return block.east();
+			case 'above':
+				return block.above();
+			case 'below':
+				return block.below();
+		}
+	}
 }
