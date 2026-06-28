@@ -13,5 +13,6 @@ export class Zeus implements Origin {
         'electric_aura',
         'lightning_strike',
         'storm_born',
+        'static_field'
     ];
 }
