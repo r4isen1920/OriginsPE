@@ -55,6 +55,8 @@ export class IWantMeat implements Power {
 		state.setFlag(STARVING_FLAG, undefined);
 		ResourceBarService.pop(player, RESOURCE_BAR_ID);
 		AttributeService.reset(player);
+		player.removeEffect('minecraft:weakness');
+		player.removeEffect('minecraft:slowness');
 	}
 
 	onTick(player: Player): void {
