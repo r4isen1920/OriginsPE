@@ -1,7 +1,8 @@
-import { Player, world } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { BeforeEntityHurt } from '../../core';
 
 
 /**
@@ -11,10 +12,7 @@ import { PlayerState } from '../../core/platform/PlayerState';
 export class Nimble implements Power {
 	readonly id = 'nimble';
 
-    static {
-        world.beforeEvents.entityHurt.subscribe((ev) => Nimble.onBeforeHurt(ev));
-    }
-
+    @BeforeEntityHurt
     private static onBeforeHurt(ev: any): void {
         const player = ev.hurtEntity;
         if (player?.typeId !== 'minecraft:player') return;

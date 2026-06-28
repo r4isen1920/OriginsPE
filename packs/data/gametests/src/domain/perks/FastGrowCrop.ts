@@ -3,12 +3,12 @@ import {
     Player,
     PlayerPlaceBlockAfterEvent,
     system,
-    world,
 } from '@minecraft/server';
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterPlayerPlaceBlock } from '../../core';
 
 
 interface CropType {
@@ -35,27 +35,13 @@ const CROP_TYPES: CropType[] = [
 export class FastGrowCrop implements Perk {
     readonly id = 'fast_crop_growth';
 
-    private static handler: ((ev: PlayerPlaceBlockAfterEvent) => void) | undefined;
-    private static refCount = 0;
+    onAcquire(_player: Player): void {}
 
-    onAcquire(_player: Player): void {
-        FastGrowCrop.refCount++;
-        if (FastGrowCrop.refCount === 1) {
-            FastGrowCrop.handler = (ev) => FastGrowCrop.onPlaceBlock(ev);
-            world.afterEvents.playerPlaceBlock.subscribe(FastGrowCrop.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        FastGrowCrop.refCount = Math.max(0, FastGrowCrop.refCount - 1);
-        if (FastGrowCrop.refCount === 0 && FastGrowCrop.handler) {
-            world.afterEvents.playerPlaceBlock.unsubscribe(FastGrowCrop.handler);
-            FastGrowCrop.handler = undefined;
-        }
-    }
+    onRelease(_player: Player): void {}
 
     onTick(_player: Player): void {}
 
+    @AfterPlayerPlaceBlock
     private static onPlaceBlock(ev: PlayerPlaceBlockAfterEvent): void {
         const { block, player } = ev;
 

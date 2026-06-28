@@ -3,12 +3,12 @@ import {
     Direction,
     Player,
     PlayerBreakBlockAfterEvent,
-    world,
 } from '@minecraft/server';
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterPlayerBreakBlock } from '../../core';
 import { LOG_BLOCKS } from './TreeCapitator';
 
 
@@ -31,27 +31,7 @@ const SAPLING_MAP: Record<string, string> = {
 export class GreenThumb implements Perk {
     readonly id = 'sapling_setblock';
 
-    private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        GreenThumb.refCount++;
-        if (GreenThumb.refCount === 1) {
-            GreenThumb.handler = (ev) => GreenThumb.onBlockBreak(ev);
-            world.afterEvents.playerBreakBlock.subscribe(GreenThumb.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        GreenThumb.refCount = Math.max(0, GreenThumb.refCount - 1);
-        if (GreenThumb.refCount === 0 && GreenThumb.handler) {
-            world.afterEvents.playerBreakBlock.unsubscribe(GreenThumb.handler);
-            GreenThumb.handler = undefined;
-        }
-    }
-
-    onTick(_player: Player): void {}
-
+    @AfterPlayerBreakBlock
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
         const { block, brokenBlockPermutation, player } = ev;
 

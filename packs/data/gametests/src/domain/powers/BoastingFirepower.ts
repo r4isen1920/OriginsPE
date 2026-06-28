@@ -1,4 +1,4 @@
-import { EntityDamageCause, EntityHurtAfterEvent, Player, world } from '@minecraft/server';
+import { EntityDamageCause, EntityHurtAfterEvent, Player } from '@minecraft/server';
 
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
@@ -12,9 +12,6 @@ import { AfterEntityHurt } from '../../core/platform/DecoratedEvents';
 @RegisterPower
 export class BoastingFirepower implements Power {
     readonly id = 'increased_attack_per_entity';
-
-    private static handler: ((ev: EntityHurtAfterEvent) => void) | undefined;
-    private static refCount = 0;
 
     @AfterEntityHurt
     private static onEntityHurt(ev: EntityHurtAfterEvent): void {

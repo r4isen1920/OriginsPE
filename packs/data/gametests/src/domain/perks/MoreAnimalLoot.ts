@@ -1,12 +1,12 @@
 import {
     EntityDieAfterEvent,
     Player,
-    world,
 } from '@minecraft/server';
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterEntityDie } from '../../core';
 
 
 const DOUBLE_LOOT_CHANCE = 50;
@@ -19,27 +19,7 @@ const DOUBLE_LOOT_CHANCE = 50;
 export class MoreAnimalLoot implements Perk {
     readonly id = 'more_animal_loot';
 
-    private static handler: ((ev: EntityDieAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        MoreAnimalLoot.refCount++;
-        if (MoreAnimalLoot.refCount === 1) {
-            MoreAnimalLoot.handler = (ev) => MoreAnimalLoot.onEntityDie(ev);
-            world.afterEvents.entityDie.subscribe(MoreAnimalLoot.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        MoreAnimalLoot.refCount = Math.max(0, MoreAnimalLoot.refCount - 1);
-        if (MoreAnimalLoot.refCount === 0 && MoreAnimalLoot.handler) {
-            world.afterEvents.entityDie.unsubscribe(MoreAnimalLoot.handler);
-            MoreAnimalLoot.handler = undefined;
-        }
-    }
-
-    onTick(_player: Player): void {}
-
+    @AfterEntityDie
     private static onEntityDie(ev: EntityDieAfterEvent): void {
         const { damageSource, deadEntity } = ev;
         const entity = damageSource.damagingEntity;

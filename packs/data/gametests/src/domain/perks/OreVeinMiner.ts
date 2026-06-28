@@ -10,6 +10,7 @@ import {
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterPlayerBreakBlock } from '../../core';
 
 
 const ORE_BLOCKS = [
@@ -43,25 +44,6 @@ type NeighborDirection = typeof DIRECTIONS[number];
 export class OreVeinMiner implements Perk {
     readonly id = 'ore_vein_miner';
     readonly tickInterval = 2;
-
-    private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        OreVeinMiner.refCount++;
-        if (OreVeinMiner.refCount === 1) {
-            OreVeinMiner.handler = (ev) => OreVeinMiner.onBlockBreak(ev);
-            world.afterEvents.playerBreakBlock.subscribe(OreVeinMiner.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        OreVeinMiner.refCount = Math.max(0, OreVeinMiner.refCount - 1);
-        if (OreVeinMiner.refCount === 0 && OreVeinMiner.handler) {
-            world.afterEvents.playerBreakBlock.unsubscribe(OreVeinMiner.handler);
-            OreVeinMiner.handler = undefined;
-        }
-    }
 
     onTick(player: Player): void {
         if (!PlayerState.for(player).hasPerk('ore_vein_miner')) return;
@@ -123,6 +105,7 @@ export class OreVeinMiner implements Perk {
         }
     }
 
+    @AfterPlayerBreakBlock
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
         const { block, brokenBlockPermutation, player } = ev;
 

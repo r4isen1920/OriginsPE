@@ -1,7 +1,8 @@
-import { EntityHitEntityAfterEvent, Player, world } from '@minecraft/server';
+import { EntityHitEntityAfterEvent, Player } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterEntityHitEntity } from '../../core';
 
 
 /**
@@ -12,27 +13,7 @@ import { PlayerState } from '../../core/platform/PlayerState';
 export class NoHitting implements Power {
     readonly id = 'no_hitting';
 
-    private static handler: ((ev: EntityHitEntityAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        NoHitting.refCount++;
-        if (NoHitting.refCount === 1) {
-            NoHitting.handler = (ev) => NoHitting.onEntityHit(ev);
-            world.afterEvents.entityHitEntity.subscribe(NoHitting.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        NoHitting.refCount = Math.max(0, NoHitting.refCount - 1);
-        if (NoHitting.refCount === 0 && NoHitting.handler) {
-            world.afterEvents.entityHitEntity.unsubscribe(NoHitting.handler);
-            NoHitting.handler = undefined;
-        }
-    }
-
-    onTick(_player: Player): void {}
-
+    @AfterEntityHitEntity
     private static onEntityHit(ev: EntityHitEntityAfterEvent): void {
         const { hitEntity } = ev;
 

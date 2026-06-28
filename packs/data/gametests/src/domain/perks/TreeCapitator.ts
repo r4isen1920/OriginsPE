@@ -10,6 +10,7 @@ import {
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterPlayerBreakBlock } from '../../core';
 
 
 export const LOG_BLOCKS = [
@@ -32,25 +33,6 @@ type NeighborDirection = typeof DIRECTIONS[number];
 export class TreeCapitator implements Perk {
     readonly id = 'tree_felling';
     readonly tickInterval = 2;
-
-    private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        TreeCapitator.refCount++;
-        if (TreeCapitator.refCount === 1) {
-            TreeCapitator.handler = (ev) => TreeCapitator.onBlockBreak(ev);
-            world.afterEvents.playerBreakBlock.subscribe(TreeCapitator.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        TreeCapitator.refCount = Math.max(0, TreeCapitator.refCount - 1);
-        if (TreeCapitator.refCount === 0 && TreeCapitator.handler) {
-            world.afterEvents.playerBreakBlock.unsubscribe(TreeCapitator.handler);
-            TreeCapitator.handler = undefined;
-        }
-    }
 
     onTick(player: Player): void {
         if (player.isSneaking) return;
@@ -105,6 +87,7 @@ export class TreeCapitator implements Perk {
         });
     }
 
+    @AfterPlayerBreakBlock
     private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
         const { block, brokenBlockPermutation, player } = ev;
 
