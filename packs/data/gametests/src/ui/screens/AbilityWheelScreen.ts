@@ -298,11 +298,7 @@ export class AbilityWheelScreen extends Screen {
 			this.nameFor(session.slots[session.selected]);
 
 		try {
-			player.onScreenDisplay.setTitle(payload, {
-				fadeInDuration: 0,
-				stayDuration: 0,
-				fadeOutDuration: 0,
-			});
+			player.onScreenDisplay.setTitle(payload);
 			UI_DEBUG: {
 				this.log.debug(`payload: ${payload}`);
 			}

@@ -392,11 +392,7 @@ export class ResourceBarService {
 		if (payload === state.lastPayload) return;
 
 		try {
-			player.onScreenDisplay.setTitle(payload, {
-				fadeInDuration: 0,
-				stayDuration: 0,
-				fadeOutDuration: 0,
-			});
+			player.onScreenDisplay.setTitle(payload);
 			state.lastPayload = payload;
 		} catch (e: any) {
 			this.log.error(`Failed to send payload for player: ${player.name}, error: `, e);
