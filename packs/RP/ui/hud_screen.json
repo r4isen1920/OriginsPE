@@ -10,28 +10,65 @@
 
 
 	"hud_title_text": {
-		"modifications": [
+		"bindings": [
 			{
-				"array_name": "bindings",
-				"operation": "insert_front",
-				"value": [
-					{
-						"binding_type": "global",
-						"binding_name": "#hud_title_text_string",
-						"binding_name_override": "#text"
-					}
-				]
+				"binding_type": "global",
+				"binding_name": "#hud_title_text_string"
 			},
 			{
-				"array_name": "bindings",
-				"operation": "insert_back",
-				"value": [
-					{
-						"binding_type": "view",
-						"source_property_name": "(not ('%.4s' * #text = '_op:'))",
-						"target_property_name": "#visible"
-					}
-				]
+				"binding_type": "view",
+				"source_property_name": "(not ('%.4s' * #hud_title_text_string = '_op:'))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+
+	"chat_panel": {
+		"bindings": [
+			{
+				"binding_type": "global",
+				"binding_name": "#hud_title_text_string"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "('%.4s' * #hud_title_text_string = '_op:')",
+				"target_property_name": "#is_addon_payload"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "('%.17s' * #hud_title_text_string = '_op:resource_bar.')",
+				"target_property_name": "#is_resource_bar_payload"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "((not #is_addon_payload) or #is_resource_bar_payload)",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+
+	"subtitle_panel": {
+		"bindings": [
+			{
+				"binding_type": "global",
+				"binding_name": "#hud_title_text_string"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "('%.4s' * #hud_title_text_string = '_op:')",
+				"target_property_name": "#is_addon_payload"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "('%.17s' * #hud_title_text_string = '_op:resource_bar.')",
+				"target_property_name": "#is_resource_bar_payload"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "((not #is_addon_payload) or #is_resource_bar_payload)",
+				"target_property_name": "#visible"
 			}
 		]
 	},
