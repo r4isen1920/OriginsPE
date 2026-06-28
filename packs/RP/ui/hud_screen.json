@@ -144,6 +144,7 @@
 
 		"controls": [
 			{ "overhead_texts@origin_overhead_texts.root": {} },
+			{ "shulk_inventory_display_access_icon@origin_shulk_inventory.shulk_inventory_display_access_icon": {} },
 			{
 				//? re-instate vanilla actionbar text here
 				//? but under our own root actionbar factory so that `$actionbar_text` resolves properly with our usage
