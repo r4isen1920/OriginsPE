@@ -15,5 +15,6 @@ export class Zeus implements Origin {
         'storm_born',
         'static_field',
         'lightning_slowness',
+        'honey_mobility',
     ];
 }
