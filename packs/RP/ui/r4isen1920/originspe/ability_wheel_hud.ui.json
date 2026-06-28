@@ -473,7 +473,6 @@
 			{ "bg@bg": { "size": ["100%", "100%" ] } }
 		],
 
-		//* Only render when the wheel payload owns the title channel.
 		"ignored": "(not ('%.7s' * $var_title_text = '_op:abw'))"
 	}
 }

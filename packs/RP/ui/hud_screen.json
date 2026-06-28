@@ -143,7 +143,36 @@
 		"$var_actionbar_text": "$actionbar_text",
 
 		"controls": [
-			// { "hud_stuff@origin_hud_stuff.hud_stuff_list": {} }
+			{ "overhead_texts@origin_overhead_texts.root": {} },
+			{
+				//? re-instate vanilla actionbar text here
+				//? but under our own root actionbar factory so that `$actionbar_text` resolves properly with our usage
+				"vanilla_actionbar_text@hud_actionbar_text": {
+					"ignored": "('%.4s' * $var_actionbar_text = '_op:')",
+
+					"bindings": [	
+						{
+							"binding_type": "global",
+							"binding_name": "#hud_title_text_string"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "('%.4s' * #hud_title_text_string = '_op:')",
+							"target_property_name": "#is_addon_payload"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "('%.17s' * #hud_title_text_string = '_op:resource_bar.')",
+							"target_property_name": "#is_resource_bar_payload"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "((not #is_addon_payload) or #is_resource_bar_payload)",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			}
 		]
 	},
 
@@ -175,6 +204,9 @@
 				]
 			}
 		]
+	},
+	"root_panel/hud_actionbar_text_area": {
+		"ignored": true //? replace with our custom one
 	},
 
 	"root_panel_bg@common.empty_panel": {

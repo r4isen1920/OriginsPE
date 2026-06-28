@@ -3,6 +3,7 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import OverheadText from '../../ui/OverheadText';
 
 const CHARGE_SPEED_MULTIPLIER = 1.0; 
 const POUNCE_VERTICAL_BOOST = 0.9;
@@ -38,7 +39,7 @@ export class Pounced implements Power {
         state.setFlag('pounce_hold_tick', 0);
         player.playSound('random.bowhit', { volume: 0.5, pitch: 0.6 });
 
-        player.onScreenDisplay.setActionBar('§6Pounce Ready! §eSneak (Shift) to charge...');
+        OverheadText.show(player, 'origins.trait.pounce.charge');
     }
 
     onTick(player: Player): void {
