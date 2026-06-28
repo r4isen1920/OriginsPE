@@ -288,6 +288,9 @@ export class AbilityWheelScreen extends Screen {
 			icons += this.iconFor(session.slots[i]) + ABILITY_WHEEL.separator;
 		}
 
+		const playerControlModeChar = player.inputInfo.lastInputModeUsed
+			.toLowerCase().charAt(0);
+
 		const payload =
 			ABILITY_WHEEL.prefix +
 			selected +
@@ -295,15 +298,13 @@ export class AbilityWheelScreen extends Screen {
 			icons +
 			state +
 			ABILITY_WHEEL.separator +
+			playerControlModeChar +
+			ABILITY_WHEEL.separator +
 			this.nameFor(session.slots[session.selected]);
 
-		try {
-			player.onScreenDisplay.setTitle(payload);
-			UI_DEBUG: {
-				this.log.debug(`payload: ${payload}`);
-			}
-		} catch (e: any) {
-			this.log.error(`pushPayload for ${player.name}: `, e);
+		player.onScreenDisplay.setTitle(payload);
+		UI_DEBUG: {
+			this.log.debug(`payload: ${payload}`);
 		}
 	}
 

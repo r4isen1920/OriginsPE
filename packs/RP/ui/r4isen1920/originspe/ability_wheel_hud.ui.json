@@ -122,6 +122,71 @@
 		]
 	},
 
+	"box_tooltip_key@common.empty_panel": {
+		"$slot_tooltip_anchor|default": "center",
+		"$slot_tooltip_offset|default": [0, 0],
+
+		"anchor_from": "$slot_tooltip_anchor",
+		"anchor_to": "$slot_tooltip_anchor",
+		"size": [26, 26],
+		"offset": "$slot_tooltip_offset",
+
+		"$layer|default": 7,
+		"layer": "$layer",
+
+		"$player_input_mode_data": "('%.1s' * ($var_title_text - ('%.27s' * $var_title_text)))",
+
+		"ignored": "$touch",
+
+		"controls": [
+			{
+				"non_bind_bg": {
+					"type": "image",
+					"texture": "textures/ui/keyboard_tooltip_icon",
+					"size": [17, 17],
+
+					"layer": "$layer",
+
+					"controls": [
+						{
+							"text_icon": {
+								"type": "label",
+								"max_size": ["100%", "100%"],
+								"offset": [0.1, -1.5],
+								"text": "(('§z' + (1 + ($button_type - 'slot_'))))",
+								"shadow": false,
+								"layer": "($layer + 1)"
+							}
+						}
+					],
+
+					"ignored": "(not ($player_input_mode_data = 'k'))" //* [k]eyboard
+				}
+			},
+			{
+				"bind_icon@common.gamepad_icon_button": {
+					"layer": "$layer",
+
+					"variables": [
+						{ "requires": "($button_type = 'slot_0')", "$icon_texture": "#controller_face_up_icon" },
+						{ "requires": "($button_type = 'slot_1')", "$icon_texture": "#controller_dpad_up_icon" },
+						{ "requires": "($button_type = 'slot_2')", "$icon_texture": "#controller_dpad_right_icon" },
+						{ "requires": "($button_type = 'slot_3')", "$icon_texture": "#controller_dpad_left_icon" },
+						{ "requires": "($button_type = 'slot_4')", "$icon_texture": "#controller_dpad_down_icon" }
+					],
+
+					"bindings": [
+						{
+							"binding_name": "$icon_texture",
+							"binding_name_override": "#texture"
+						}
+					],
+
+					"ignored": "(not ($player_input_mode_data = 'g'))" //* [g]amepad
+				}
+			}
+		]
+	},
 
 
 
@@ -194,6 +259,7 @@
 			{ "bg@origin_ability_wheel_hud.box_bg": {} },
 			{ "icon@origin_ability_wheel_hud.box_icon": {} },
 			{ "menu_icon@origin_ability_wheel_hud.box_menu_icon": {} },
+			{ "tooltip@origin_ability_wheel_hud.box_tooltip_key": {} },
 			{ "highlight@origin_ability_wheel_hud.box_highlight": {} }
 		]
 	},
@@ -206,7 +272,7 @@
 	//---------------------------------------------------------------------------
 
 
-	//* _op:abw;n;op;02;--;--;--;a;name
+	//* _op:abw;n;op;02;--;--;--;a;k;name
 
 	"wheel_panel@common.empty_panel": {
 		"size": ["100%", "100%"],
@@ -219,7 +285,7 @@
 					"$slot_offset": [0, -52],
 
 					"$slot_tooltip_anchor": "bottom_middle",
-					"$slot_tooltip_offset": [0, 8.5],
+					"$slot_tooltip_offset": [0, 12.5],
 					"$button_type": "slot_0"
 				}
 			},
@@ -230,7 +296,7 @@
 					"$slot_offset": [50, -10],
 
 					"$slot_tooltip_anchor": "left_middle",
-					"$slot_tooltip_offset": [-8.5, 0],
+					"$slot_tooltip_offset": [-12.5, 0],
 					"$button_type": "slot_1"
 				}
 			},
@@ -241,7 +307,7 @@
 					"$slot_offset": [31, 46],
 
 					"$slot_tooltip_anchor": "top_left",
-					"$slot_tooltip_offset": [-4.25, -8.5],
+					"$slot_tooltip_offset": [-8.25, -12.5],
 					"$button_type": "slot_2"
 				}
 			},
@@ -252,7 +318,7 @@
 					"$slot_offset": [-31, 46],
 
 					"$slot_tooltip_anchor": "top_right",
-					"$slot_tooltip_offset": [4.25, -8.5],
+					"$slot_tooltip_offset": [8.25, -12.5],
 					"$button_type": "slot_3"
 				}
 			},
@@ -263,7 +329,7 @@
 					"$slot_offset": [-50, -10],
 
 					"$slot_tooltip_anchor": "right_middle",
-					"$slot_tooltip_offset": [8.5, 0],
+					"$slot_tooltip_offset": [12.5, 0],
 					"$button_type": "slot_4"
 				}
 			}
@@ -281,14 +347,15 @@
 	"selected_slot_label_bg": {
 		"type": "image",
 		"size": ["100%c + 4px", "100%c + 2px"],
-		"offset": [0, -112],
+		"offset": [0, -92],
 		"texture": "textures/origins/gui/black",
 
-		"ignored": "(($var_title_text - ('%.27s' * $var_title_text)) = 'origins.wheel.empty')",
+		"ignored": "(($var_title_text - ('%.29s' * $var_title_text)) = 'origins.wheel.empty')",
 
 		"anims": [
 			"@origin_common.anim_alpha"
 		],
+		"propagate_alpha": false,
 
 		// bg alpha is different to that of the child
 		"$from_alpha": 0.0,
@@ -299,7 +366,7 @@
 			{
 				"label": {
 					"type": "label",
-					"text": "($var_title_text - ('%.27s' * $var_title_text))",
+					"text": "($var_title_text - ('%.29s' * $var_title_text))",
 					"localize": true,
 					"shadow": true,
 
