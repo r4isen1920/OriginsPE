@@ -7,8 +7,6 @@ import {
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { AfterPlayerPlaceBlock } from '../../core';
 
 
 interface CropType {
@@ -35,17 +33,8 @@ const CROP_TYPES: CropType[] = [
 export class FastGrowCrop implements Perk {
     readonly id = 'fast_crop_growth';
 
-    onAcquire(_player: Player): void {}
-
-    onRelease(_player: Player): void {}
-
-    onTick(_player: Player): void {}
-
-    @AfterPlayerPlaceBlock
-    private static onPlaceBlock(ev: PlayerPlaceBlockAfterEvent): void {
-        const { block, player } = ev;
-
-        if (!PlayerState.for(player).hasPerk('fast_crop_growth')) return;
+    onPlaceBlock(player: Player, ev: PlayerPlaceBlockAfterEvent): void {
+        const { block } = ev;
 
         const crop = CROP_TYPES.find(c => block.permutation.matches(`minecraft:${c.typeId}`));
         if (!crop) return;

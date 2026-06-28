@@ -1,8 +1,6 @@
-import { Player } from '@minecraft/server';
+import { EntityDamageCause, EntityHurtBeforeEvent, Player } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { BeforeEntityHurt } from '../../core';
 
 
 /**
@@ -12,22 +10,21 @@ import { BeforeEntityHurt } from '../../core';
 export class Nimble implements Power {
 	readonly id = 'nimble';
 
-    @BeforeEntityHurt
-    private static onBeforeHurt(ev: any): void {
-        const player = ev.hurtEntity;
-        if (player?.typeId !== 'minecraft:player') return;
-        if (!PlayerState.for(player as Player).hasPower('nimble')) return;
+    onHurtBefore(_player: Player, ev: EntityHurtBeforeEvent): void {
+        const cause = ev.damageSource?.cause;
 
-        const damageSource = ev.damageSource;
-        const cause = damageSource?.cause;
-
-        if (cause === 'thorns') {
+        if (cause === EntityDamageCause.thorns) {
             ev.cancel = true;
             return;
         }
 
-        const velocityDamageCauses = ['contact', 'fall', 'projectile', 'flyIntoWall'];
-        if (velocityDamageCauses.includes(cause)) {
+        const velocityDamageCauses: EntityDamageCause[] = [
+            EntityDamageCause.contact,
+            EntityDamageCause.fall,
+            EntityDamageCause.projectile,
+            EntityDamageCause.flyIntoWall,
+        ];
+        if (cause && velocityDamageCauses.includes(cause)) {
             ev.cancel = true;
         }
     }

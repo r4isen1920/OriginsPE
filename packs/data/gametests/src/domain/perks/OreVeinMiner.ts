@@ -10,7 +10,6 @@ import {
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
-import { AfterPlayerBreakBlock } from '../../core';
 
 
 const ORE_BLOCKS = [
@@ -105,11 +104,9 @@ export class OreVeinMiner implements Perk {
         }
     }
 
-    @AfterPlayerBreakBlock
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, player } = ev;
+    onBreakBlock(player: Player, ev: PlayerBreakBlockAfterEvent): void {
+        const { block, brokenBlockPermutation } = ev;
 
-        if (!PlayerState.for(player).hasPerk('ore_vein_miner')) return;
         if (player.matches({ gameMode: GameMode.Creative })) return;
 
         const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);

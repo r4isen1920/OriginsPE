@@ -7,8 +7,6 @@ import {
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { AfterPlayerBreakBlock } from '../../core';
 import { LOG_BLOCKS } from './TreeCapitator';
 
 
@@ -31,11 +29,8 @@ const SAPLING_MAP: Record<string, string> = {
 export class GreenThumb implements Perk {
     readonly id = 'sapling_setblock';
 
-    @AfterPlayerBreakBlock
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, player } = ev;
-
-        if (!PlayerState.for(player).hasPerk('sapling_setblock')) return;
+    onBreakBlock(player: Player, ev: PlayerBreakBlockAfterEvent): void {
+        const { block, brokenBlockPermutation } = ev;
 
         const logBlock = LOG_BLOCKS.find(log => brokenBlockPermutation.matches(`minecraft:${log}`));
         const saplingBlock = logBlock ? SAPLING_MAP[logBlock] : undefined;

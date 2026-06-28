@@ -9,8 +9,6 @@ import {
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { AfterPlayerBreakBlock } from '../../core';
 
 
 export const LOG_BLOCKS = [
@@ -87,11 +85,9 @@ export class TreeCapitator implements Perk {
         });
     }
 
-    @AfterPlayerBreakBlock
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, player } = ev;
+    onBreakBlock(player: Player, ev: PlayerBreakBlockAfterEvent): void {
+        const { block, brokenBlockPermutation } = ev;
 
-        if (!PlayerState.for(player).hasPerk('tree_felling')) return;
         if (player.matches({ gameMode: GameMode.Creative })) return;
 
         const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);

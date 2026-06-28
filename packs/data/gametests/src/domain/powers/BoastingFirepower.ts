@@ -2,8 +2,6 @@ import { EntityDamageCause, EntityHurtAfterEvent, Player } from '@minecraft/serv
 
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { AfterEntityHurt } from '../../core/platform/DecoratedEvents';
 
 
 /**
@@ -13,15 +11,10 @@ import { AfterEntityHurt } from '../../core/platform/DecoratedEvents';
 export class BoastingFirepower implements Power {
     readonly id = 'increased_attack_per_entity';
 
-    @AfterEntityHurt
-    private static onEntityHurt(ev: EntityHurtAfterEvent): void {
+    onDealDamage(_player: Player, ev: EntityHurtAfterEvent): void {
         const { damage, damageSource, hurtEntity } = ev;
 
         if (damageSource.cause !== EntityDamageCause.entityAttack) return;
-
-        const attacker = damageSource.damagingEntity;
-        if (attacker?.typeId !== 'minecraft:player') return;
-        if (!PlayerState.for(attacker as Player).hasPower('increased_attack_per_entity')) return;
 
         const nearbyEntitiesCount = hurtEntity.dimension.getEntities({
             location: hurtEntity.location,

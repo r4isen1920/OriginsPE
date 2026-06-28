@@ -5,8 +5,6 @@ import {
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { AfterPlayerBreakBlock } from '../../core';
 
 
 const CROP_TYPES = ['wheat', 'beetroot', 'carrots', 'potatoes'];
@@ -19,11 +17,8 @@ const CROP_TYPES = ['wheat', 'beetroot', 'carrots', 'potatoes'];
 export class MoreCropsDrop implements Perk {
     readonly id = 'more_crop_drops';
 
-    @AfterPlayerBreakBlock
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, player } = ev;
-
-        if (!PlayerState.for(player).hasPerk('more_crop_drops')) return;
+    onBreakBlock(player: Player, ev: PlayerBreakBlockAfterEvent): void {
+        const { block, brokenBlockPermutation } = ev;
 
         const crop = CROP_TYPES.find(c => brokenBlockPermutation.matches(`minecraft:${c}`));
         if (!crop) return;

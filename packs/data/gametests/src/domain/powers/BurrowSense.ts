@@ -3,7 +3,6 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerTick } from '../../core/platform/Ticker';
-import { AfterPlayerBreakBlock } from '../../core';
 
 
 const SUPPORTED_ORES = new Set([
@@ -104,11 +103,9 @@ export class BurrowSense implements Power {
         }
     }
 
-    @AfterPlayerBreakBlock
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, dimension, player } = ev;
+    onBreakBlock(_player: Player, ev: PlayerBreakBlockAfterEvent): void {
+        const { block, brokenBlockPermutation, dimension } = ev;
 
-        if (!PlayerState.for(player).hasPower('burrow_sense')) return;
         if (!SUPPORTED_ORES.has(brokenBlockPermutation.type.id)) return;
 
         const entity = dimension
