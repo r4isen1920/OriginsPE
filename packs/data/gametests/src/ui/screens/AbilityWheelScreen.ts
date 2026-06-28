@@ -43,7 +43,7 @@ export const ABILITY_WHEEL = {
 	/** Animation state words appended after the icon block. */
 	state: {
 		open: 'a',
-		retain: 'b',
+		confirm: 'b',
 		select: 'c',
 		close: 'd',
 	},
@@ -204,15 +204,20 @@ export class AbilityWheelScreen extends Screen {
 
 		const session = this.sessions.get(player.id);
 		this.sessions.delete(player.id);
-		if (session) this.pushPayload(player, session, ABILITY_WHEEL.state.select);
+		if (session) this.pushPayload(player, session, ABILITY_WHEEL.state.confirm);
+
+		player.playSound('random.orb', { volume: 0.6, pitch: 1.4 });
 
 		if (value === OPTIONS_SLOT) {
-			const tag = isToggleOn('particle')
-				? 'gui_options_general_root_particleon'
-				: 'gui_options_general_root_particleoff';
-			UiBridge.openDialogue(player, tag);
-			player.onScreenDisplay.setTitle('_op:');
-			player.playSound('random.orb', { volume: 1, pitch: 0.2 });
+			system.runTimeout(() => {
+				if (!player.isValid) return;
+				const tag = isToggleOn('particle')
+					? 'gui_options_general_root_particleon'
+					: 'gui_options_general_root_particleoff';
+				UiBridge.openDialogue(player, tag);
+				player.onScreenDisplay.setTitle('_op:');
+				player.playSound('random.orb', { volume: 1, pitch: 0.2 });
+			}, CLOSE_ANIM_TICKS);
 			return;
 		}
 
@@ -225,7 +230,6 @@ export class AbilityWheelScreen extends Screen {
 			return;
 		}
 
-		player.playSound('random.orb', { volume: 0.6, pitch: 1.4 });
 		AbilityDispatch.invoke(
 			power ? 'Power' : 'Perk',
 			value,

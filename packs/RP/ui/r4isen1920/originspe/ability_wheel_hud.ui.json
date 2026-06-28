@@ -83,7 +83,7 @@
 		"ignored": "(not $slot_highlighted)",
 
 		"anims": [
-			"@origin_common.anim_size",
+			"@origin_common.anim_size_delay",
 			"@origin_common.anim_beat_alpha_01"
 		],
 
@@ -91,6 +91,7 @@
 		"$from_size": ["100% + 8px", "100% + 8px"],
 		"$to_size": "$final_size",
 		"$duration_size": 1.0,
+		"$duration_delay_size": 0.05,
 
 		"$lowest_alpha": 0.8,
 
@@ -111,13 +112,24 @@
 			},
 			{
 				//* Select
-				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b')",
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'c')",
 
 				"$from_size": "$final_size",
 				"$to_size": "$final_size",
 				"$duration_size": 1.0,
 
-				"$lowest_alpha": 0.4
+				"$lowest_alpha": 0.2
+			},
+			{
+				//* Confirm
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b')",
+
+				"$from_size": ["100% + 18px", "100% + 18px"],
+				"$to_size": "$final_size",
+				"$duration_size": 0.2,
+				"$duration_delay_size": 0.18,
+
+				"$lowest_alpha": 0.8
 			}
 		]
 	},
@@ -136,7 +148,7 @@
 
 		"$player_input_mode_data": "('%.1s' * ($var_title_text - ('%.27s' * $var_title_text)))",
 
-		"ignored": "$touch",
+		"ignored": "($touch or (('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b'))",
 
 		"controls": [
 			{
@@ -196,6 +208,7 @@
 
 
 	"box_holder@common.empty_panel": {
+		"$slot_size|default": [42, 42],
 		"$slot_offset|default": [0, 0],
 		"$slot_digit|default": "n",
 
@@ -204,14 +217,20 @@
 		"controls": [
 			{
 				"box@box": {
-					"size": [42, 42],
+					"size": "$slot_size",
 					"offset": "$slot_offset",
 					"propagate_alpha": true,
 
 					"anims": [
+						"@origin_common.anim_size",
 						"@origin_common.anim_offset",
 						"@origin_common.anim_alpha_delay"
 					],
+
+					"$easing_size": "out_cubic",
+					"$from_size": "$slot_size",
+					"$to_size": "$slot_size",
+					"$duration_size": 0.05,
 
 					"$easing_offset": "out_cubic",
 					"$from_offset": "$slot_offset",
@@ -247,6 +266,34 @@
 							"$to_alpha": 0.0,
 							"$duration_alpha": 0.2,
 							"$duration_delay_alpha": 0.25
+						},
+						{
+							"requires": "((('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b') and (not $slot_highlighted))",
+
+							"$from_offset": "$slot_offset",
+							"$to_offset": "$slot_offset",
+							"$duration_offset": 0.1,
+
+							"$from_alpha": 1.0,
+							"$to_alpha": 0.0,
+							"$duration_alpha": 0.12,
+							"$duration_delay_alpha": 0.0
+						},
+						{
+							"requires": "((('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b') and $slot_highlighted)",
+
+							"$from_size": "$slot_size",
+							"$to_size": [52, 52],
+							"$duration_size": 0.32,
+
+							"$from_offset": "$slot_offset",
+							"$to_offset": [0, 0],
+							"$duration_offset": 0.18,
+
+							"$from_alpha": 1.0,
+							"$to_alpha": 0.0,
+							"$duration_alpha": 0.1,
+							"$duration_delay_alpha": 0.5
 						}
 					]
 				}
@@ -395,6 +442,12 @@
 		"$duration_alpha": 0.1,
 
 		"variables": [
+			{
+				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'b')",
+				"$from_alpha": 1.0,
+				"$to_alpha": 0.0,
+				"$duration_alpha": 0.12
+			},
 			{
 				"requires": "(('%.1s' * ($var_title_text - ('%.25s' * $var_title_text))) = 'a')",
 				"$from_alpha": 0.0,
