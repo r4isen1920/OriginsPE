@@ -12,7 +12,7 @@ const MEAT_WINDOW_SECONDS = 20;
 const LAST_FED_FLAG = 'i_want_meat:last_fed_tick';
 const STARVING_FLAG = 'i_want_meat:is_starving';
 
-const RESOURCE_BAR_ID = 12;
+const RESOURCE_BAR_ID = 29;
 
 const MEAT_ITEMS = new Set([
 	'minecraft:beef',
