@@ -357,6 +357,8 @@ origins.item.resignation_paper.name=Resignation Paper
 origins.item.fake_slimeball.name=Slimeball
 origins.item.fake_sugar.name=Sugar
 
+origins.block.fake_cobweb.name=Web
+
 
 origins.gui.title.pr=Choose your Origin.
 origins.gui.title.pc=Choose your Class.

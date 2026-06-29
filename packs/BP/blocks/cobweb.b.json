@@ -4,11 +4,13 @@
         "description": {
             "identifier": "r4isen1920_originspe:fake_cobweb",
             "menu_category": {
-                "category": "none"
+                "category": "none",
+                "is_hidden_in_commands": true
             }
         },
         "components": {
             "minecraft:geometry":"geometry.r4isen1920_originspe.cobweb",
+            
 
             "minecraft:material_instances" : {
                 "*" : {
@@ -18,6 +20,7 @@
                     "face_dimming": false
                 }    
             },
+            "minecraft:display_name": "origins.block.fake_cobweb.name",
             "minecraft:light_dampening": 0,
             "minecraft:collision_box" : false,
             "r4isen1920_originspe:fake_cobweb" : {},
