@@ -1,13 +1,13 @@
 import {
+    EntityDamageCause,
+    EntityHurtBeforeEvent,
     ItemCompleteUseAfterEvent,
     Player,
     TicksPerSecond,
-    world,
 } from '@minecraft/server';
 
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerTick } from '../../core/platform/Ticker';
 
 
@@ -22,40 +22,28 @@ const REGEN_CHANCE = 0.10;
 export class BerryCraver implements Power {
     readonly id = 'berry_craver';
 
-    static {
-        world.afterEvents.itemCompleteUse.subscribe((ev) => BerryCraver.onItemCompleteUse(ev));
-        world.beforeEvents.entityHurt.subscribe((ev) => BerryCraver.onBeforeHurt(ev));
-    }
-
     @PlayerTick(3)
     static onPlayerTick(_player: Player): void {}
 
-    private static onItemCompleteUse(ev: ItemCompleteUseAfterEvent): void {
-        const { itemStack, source } = ev;
-        if (itemStack.typeId !== 'minecraft:sweet_berries') return;
-        if (source.typeId !== 'minecraft:player') return;
-        if (!PlayerState.for(source as Player).hasPower('berry_craver')) return;
+    onItemCompleteUse(player: Player, ev: ItemCompleteUseAfterEvent): void {
+        if (ev.itemStack.typeId !== 'minecraft:sweet_berries') return;
 
-        source.addEffect('saturation', 4, {
+        player.addEffect('saturation', 4, {
             amplifier: 0,
             showParticles: false,
         });
 
         if (Math.random() < REGEN_CHANCE) {
-            source.addEffect('regeneration', TicksPerSecond * 10, {
+            player.addEffect('regeneration', TicksPerSecond * 10, {
                 amplifier: 1,
                 showParticles: true,
             });
         }
     }
 
-    private static onBeforeHurt(ev: any): void {
-        const player = ev.hurtEntity;
-        if (player?.typeId !== 'minecraft:player') return;
-        if (!PlayerState.for(player as Player).hasPower('berry_craver')) return;
-
+    onHurtBefore(_player: Player, ev: EntityHurtBeforeEvent): void {
         // Cancel all contact damage (berry bushes and similar)
-        if (ev.damageSource?.cause === 'contact') {
+        if (ev.damageSource?.cause === EntityDamageCause.contact) {
             ev.cancel = true;
         }
     }

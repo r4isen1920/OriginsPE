@@ -40,7 +40,7 @@
 			},
 			{
 				"version_and_build_text@origin_common.text_label": {
-					"text": "('v6.0 (build ' + $r4ui_build_id + ')')",
+					"text": "($r4ui_pack_version + ' (commit ' + $r4ui_pack_commit + ')')",
 					"size": ["98%", "default"],
 					"font_scale_factor": 0.8,
 					"color": "$7_color_format"

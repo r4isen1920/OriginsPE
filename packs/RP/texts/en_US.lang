@@ -54,6 +54,8 @@ origins.rootkin.name=Rootkin
 origins.rootkin.description=A nature-wrought brawler who binds enemies with roots, redirects damage, and grows stronger with every fight—incapable of wielding weapons nor endure fire.
 origins.zeus.name=Zeus
 origins.zeus.description=When the skies darken and the air crackles with static, know that Taranis is watching. Do not seek the storm, or you will become the lightning rod.
+origins.vampire.name=Vampire
+origins.vampire.description=Utilizing acute sensory adaptation and blood-tracking abilities, they excel at hunting down targets across dimensions and turning their prey’s life force against them.
 
 origins.nitwit.name=Nitwit
 origins.nitwit.description=Nitwits aren't really good at anything. You'll continue with no additional traits.
@@ -83,6 +85,10 @@ origins.lumberjack.name=Lumberjack
 origins.lumberjack.description=Trees should watch out when Lumberjacks are around.
 origins.explorer.name=Explorer
 origins.explorer.description=Explorers find their way through the most difficult terrain easily and discover hidden landmarks.
+origins.athlete.name=Athlete
+origins.athlete.description=A high-mobility class focused on speed, stamina, and sprint-based attacks.
+origins.doctor.name=Doctor
+origins.doctor.description=Armed with advanced medical knowledge, the Doctor keeps allies alive through potent healing abilities.
 
 
 origins.trait.water_breathing.name=Gills
@@ -123,7 +129,7 @@ origins.trait.vegetarian.name=Vegetarian
 origins.trait.vegetarian.description=Your diet is restricted to vegetables, and you won't be able to eat nor interact with meat consumables.
 origins.trait.fresh_air.name=Fresh Air
 origins.trait.fresh_air.description=When sleeping, your bed needs to be at an altitude of at least 151 blocks, so you can breathe fresh air.
-origins.trait.fresh_air.sleep_fail=You need to sleep at an altitude of at least 151 blocks
+origins.trait.fresh_air.sleep_fail=You need fresh air to sleep
 origins.trait.phantomize.name=Phantomize
 origins.trait.phantomize.description=Use the ability item to turn into spectator mode. You exit this state when you stand still.
 origins.trait.invisibility.name=Spiritual Body
@@ -162,7 +168,6 @@ origins.trait.familiar_face.name=Familiar Face
 origins.trait.familiar_face.description=Monsters and other endermans won't attack you even if you look directly at them without wearing a carved pumpkin, unless you attack them first.
 origins.trait.shulk_inventory.name=Hoarder
 origins.trait.shulk_inventory.description=Trigger the ability to switch to a different inventory space. Allowing you to store more items with 9 additional slots which are kept even upon death.
-origins.trait.shulk_inventory.label=Shulk Inventory
 origins.trait.natural_armor.name=Sturdy Skin
 origins.trait.natural_armor.description=Even without wearing armor, your skin provides natural protection thus receiving 20% less damage from any source.
 origins.trait.more_exhaustion.name=Large Appetite
@@ -179,6 +184,7 @@ origins.trait.fast_footed.name=Fast-footed
 origins.trait.fast_footed.description=Due to your shorter legs and low exhaustion, your movement speed is increased and your size is decreased.
 origins.trait.pounce.name=Pounce
 origins.trait.pounce.description=Charge the ability item by holding it and leap into the direction you are looking at. The more the charge, the greater the distance will be.
+origins.trait.pounce.charge=Hold sneak to charge pounce
 origins.trait.berry_craver.name=Berry Craver
 origins.trait.berry_craver.description=Sweet berries restores more hunger points when eaten, and would sometimes grant regeneration effects. You are also not damaged from berry bushes.
 origins.trait.smaller_heart.name=Smaller Heart
@@ -311,7 +317,27 @@ origins.trait.lightning_slowness.name=Lightning Slowness
 origins.trait.lightning_slowness.description=Zeus is practically untouchable while moving, so to keep things fair, their normal movement speed has been reduced by 50%.
 origins.trait.honey_mobility.name=Honey Mobility
 origins.trait.honey_mobility.description=Zeus needs to eat honey to trigger an extra mobility boost, which can activate once every 20 seconds.
+origins.trait.blood_sense.name=Blood Sense
+origins.trait.blood_sense.description=Vampire locates low-health players on the map. While it functions similarly to a wallhack, it only tracks players who are down to 2 HP (health points).
+origins.trait.berserks_blood.name=Berserks Blood
+origins.trait.berserks_blood.description=Pushed to the brink of death (below 5 HP), a rush of adrenaline grants you Strength IV for 3 seconds. This survival instinct cannot retrigger for another 5 seconds.
+origins.trait.night_falls.name=Night Falls
+origins.trait.night_falls.description=At nightfall, the Crimson Tracker grants a 20% Resistance bonus and activates Night Vision.
+origins.trait.life_steal.name=Life Steal
+origins.trait.life_steal.description=Attacks on hostile entities restore a percentage of lost health rather than total damage dealt. Each successful hit grants a stack up to a maximum of three healing the player for 0.5% of their missing HP per stack (max 1.5%).
+origins.trait.rapture.name=Rapture
+origins.trait.rapture.description=Landing 5 successful attacks on a target inflicts a unique Bleeding status effect. Once applied, the target suffers a rapid health drain of 0.5 damage per tick (up to a maximum loss of 3 HP), places the Rapture ability on a 20-second cooldown, and grants you life steal for every health point the raptured player loses.
+origins.trait.i_want_meat.name=I want MEATTTT!
+origins.trait.i_want_meat.description=Meat must be consumed at least once every 20 seconds. Failure to do so results in immediate physical exhaustion and a severe penalty to your attributes. 
+origins.trait.vampire_thing.name=A Vampire thing
+origins.trait.vampire_thing.description=Vampire is afraid of sunlight.
+origins.trait.vampire_aura.name=Vampire Aura
+origins.trait.vampire_aura.description=Emits blood aura that it looks like you are always craving for bloods.
 
+origins.trait.bunny_jump.name=High Jump
+origins.trait.bunny_jump.description=You can jump up to 3 blocks high.
+origins.trait.speed_regulator.name=Speed Regulator
+origins.trait.speed_regulator.description=Can walk up to 5.612 m/s , and Sprinting up to 6.132 m/s.
 origins.trait.sneaky.name=Sneaky
 origins.trait.sneaky.description=Your nameplate is never always visible, even when you're not sneaking.
 origins.trait.stealth.name=In the Shadows
@@ -364,12 +390,18 @@ origins.trait.tree_felling.name=Tree Capitator
 origins.trait.tree_felling.description=You can cut down an entire tree when using an axe.
 origins.trait.sapling_setblock.name=Replanting
 origins.trait.sapling_setblock.description=There's a chance logs you break may be replanted with the same type of sapling.
+origins.trait.instant_heal_potion.name=Instant Heal Potion
+origins.trait.instant_heal_potion.description=Spawns with 10 heal potion.
+origins.trait.quick_regen.name=Quick Regen
+origins.trait.quick_regen.description=Regenerate health quickly by standing still.
 
 
 origins.item.orb_of_origins.name=Orb of Origins
 origins.item.resignation_paper.name=Resignation Paper
 origins.item.fake_slimeball.name=Slimeball
 origins.item.fake_sugar.name=Sugar
+
+origins.block.fake_cobweb.name=Web
 
 
 origins.gui.title.pr=Choose your Origin.
@@ -451,6 +483,7 @@ origins.change.announce.race=%1 has changed their Origin to [%2]
 origins.change.announce.class=%1 has changed their Class to [%2]
 origins.change.fail.race=The Orb of Origins has been disabled
 origins.change.fail.class=The Resignation Paper has been disabled
+origins.change.fail.not_on_ground=You must be on ground to use this item
 
 origins.wheel.empty=§z
 origins.wheel.options=Options

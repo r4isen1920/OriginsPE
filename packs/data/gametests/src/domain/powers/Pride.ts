@@ -1,4 +1,4 @@
-import { Player, EquipmentSlot, world } from '@minecraft/server';
+import { Player, EquipmentSlot, EntityHurtBeforeEvent } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 
@@ -132,22 +132,19 @@ export class Pride implements Power {
         state.setFlag('pride_gold_value', undefined);
         state.setFlag('pride_bar_init', undefined);
     }
+
+    /**
+     * Actively intercept damage to reduce it up to 90% based on their gold score.
+     */
+    onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
+        const state = PlayerState.for(player);
+
+        const goldValue = state.getFlag<number>('pride_gold_value') ?? 0;
+        if (goldValue <= 0) return;
+
+        const mitigationPercent = (goldValue / MAX_GOLD_SCORE) * 0.90;
+        const finalMitigation = Math.min(mitigationPercent, 0.90);
+
+        ev.damage = ev.damage * (1 - finalMitigation);
+    }
 }
-
-// Actively intercept damage to reduce it up to 90% based on their gold score
-world.beforeEvents.entityHurt.subscribe((event) => {
-    const player = event.hurtEntity;
-    if (!(player instanceof Player)) return;
-
-    const state = PlayerState.for(player);
-
-    if (!state.getPowers().includes('pride')) return;
-
-    const goldValue = state.getFlag<number>('pride_gold_value') ?? 0;
-    if (goldValue <= 0) return;
-
-    const mitigationPercent = (goldValue / MAX_GOLD_SCORE) * 0.90;
-    const finalMitigation = Math.min(mitigationPercent, 0.90);
-
-    event.damage = event.damage * (1 - finalMitigation);
-});

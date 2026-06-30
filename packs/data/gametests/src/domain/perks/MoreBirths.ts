@@ -1,12 +1,12 @@
 import {
     EntitySpawnAfterEvent,
     Player,
-    world,
 } from '@minecraft/server';
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AfterEntitySpawn } from '../../core';
 
 
 /** Chance (0-100) for an additional baby to spawn when a rancher is nearby. */
@@ -20,27 +20,7 @@ const TWIN_BIRTH_CHANCE = 100;
 export class MoreBirths implements Perk {
     readonly id = 'twin_breeding';
 
-    private static handler: ((ev: EntitySpawnAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        MoreBirths.refCount++;
-        if (MoreBirths.refCount === 1) {
-            MoreBirths.handler = (ev) => MoreBirths.onEntitySpawn(ev);
-            world.afterEvents.entitySpawn.subscribe(MoreBirths.handler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        MoreBirths.refCount = Math.max(0, MoreBirths.refCount - 1);
-        if (MoreBirths.refCount === 0 && MoreBirths.handler) {
-            world.afterEvents.entitySpawn.unsubscribe(MoreBirths.handler);
-            MoreBirths.handler = undefined;
-        }
-    }
-
-    onTick(_player: Player): void {}
-
+    @AfterEntitySpawn
     private static onEntitySpawn(ev: EntitySpawnAfterEvent): void {
         const { entity, cause } = ev;
 

@@ -116,6 +116,15 @@
         }
       ]
     },
+    "random.vampire":{
+      "category": "player",
+      "sounds": [
+        {
+          "name" : "sounds/random/vampire",
+          "load_on_low_memory" : true
+        }
+      ]
+    },
 
     "random.zap": {
       "category": "player",

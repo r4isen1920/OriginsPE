@@ -21,6 +21,7 @@ import './domain/origins/Diviner';
 import './domain/origins/Mole';
 import './domain/origins/Rootkin';
 import './domain/origins/Zeus';
+import './domain/origins/Vampire';
 
 //* Powers
 import './domain/powers/HoneyMobility';
@@ -139,6 +140,13 @@ import './domain/powers/LeechLife';
 import './domain/powers/Flammable';
 import './domain/powers/NoWeapon';
 import './domain/powers/SmallApetite';
+import './domain/powers/BloodSense';
+import './domain/powers/BerserksBlood';
+import './domain/powers/NightFalls';
+import './domain/powers/Rapture';
+import './domain/powers/VampireAura';
+import './domain/powers/Meat';
+import './domain/powers/VampireThing';
 
 //-------------------------------------------
 
@@ -157,8 +165,12 @@ import './domain/classes/Miner';
 import './domain/classes/Rancher';
 import './domain/classes/Rogue';
 import './domain/classes/Warrior';
+import './domain/classes/Athlete';
+import './domain/classes/Doctor';
 
 //* Perks
+import './domain/perks/SpeedRegulator';
+import './domain/perks/BunnyJump';
 import './domain/perks/Agility';
 import './domain/perks/CheaperTrades';
 import './domain/perks/WanderingTraderSpawn';
@@ -185,6 +197,8 @@ import './domain/perks/EfficientRepairs';
 import './domain/perks/LessHealthMoreAttack';
 import './domain/perks/NoMiningExhaustion';
 import './domain/perks/EffectiveEmphaty';
+import './domain/perks/InstantHealPotion';
+import './domain/perks/QuickRegen';
 
 //-------------------------------------------
 

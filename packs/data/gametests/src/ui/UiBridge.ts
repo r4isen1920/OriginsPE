@@ -68,12 +68,7 @@ export class UiBridge {
 		const id = pickerSceneTag(kind, mode, current ?? fallback);
 
 		player.onScreenDisplay.setTitle(
-			buildPayload(mode, kind, getDifficulty(kind, current ?? fallback), current ?? fallback),
-			{
-				fadeInDuration: 0,
-				stayDuration: 0,
-				fadeOutDuration: 0,
-			}
+			buildPayload(mode, kind, getDifficulty(kind, current ?? fallback), current ?? fallback)
 		);
 
 		await this.openDialogue(player, id);

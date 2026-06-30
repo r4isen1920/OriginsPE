@@ -8,36 +8,28 @@ import { EntityUtils } from '../utils/EntityUtils';
 import { UiBridge } from './UiBridge';
 import { PickerKind, PickerMode } from './UiPayload';
 import { isToggleOn } from './OptionsState';
+import OverheadText from './OverheadText';
 
 
 //#region TYPES
 
-interface ItemUseGate {
-	/** Returns an action-bar message if the use should be blocked, else `undefined`. */
-	(player: Player): string | undefined;
-}
-
 interface ItemHandler {
 	id: string;
-	gate?: ItemUseGate;
 	onStartUse(player: Player): void;
 }
-
-
-//#region GATES
-
-const requireOnGround: ItemUseGate = (player) =>
-	player.isOnGround ? undefined : 'You must be on the ground to use this item!';
 
 
 //#region BUILT-IN HANDLERS
 
 const ORB_OF_ORIGINS: ItemHandler = {
 	id: Items.OrbOfOrigins,
-	gate: requireOnGround,
 	onStartUse(player) {
 		if (!isToggleOn('orb')) {
-			player.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.race');
+			OverheadText.show(player, 'origins.change.fail.race');
+			return;
+		}
+		if (!player.isOnGround) {
+			OverheadText.show(player, 'origins.change.fail.not_on_ground');
 			return;
 		}
 		PlayerState.for(player).setFlag('change_resign', true);
@@ -48,10 +40,13 @@ const ORB_OF_ORIGINS: ItemHandler = {
 
 const RESIGNATION_PAPER: ItemHandler = {
 	id: Items.ResignationPaper,
-	gate: requireOnGround,
 	onStartUse(player) {
 		if (!isToggleOn('paper')) {
-			player.onScreenDisplay.setActionBar('origins.hud.overhead_text:origins.change.fail.class');
+			OverheadText.show(player, 'origins.change.fail.class');
+			return;
+		}
+		if (!player.isOnGround) {
+			OverheadText.show(player, 'origins.change.fail.not_on_ground');
 			return;
 		}
 		PlayerState.for(player).setFlag('change_resign', true);
@@ -80,12 +75,6 @@ export class ItemEntryPoints {
 		if (!EntityUtils.isPlayer(ev.source)) return;
 		const handler = HANDLERS.get(ev.itemStack.typeId);
 		if (!handler) return;
-		const reason = handler.gate?.(ev.source);
-		if (reason) {
-			ev.source.onScreenDisplay.setActionBar(reason);
-			ev.source.playSound('note.bass');
-			return;
-		}
 		try { handler.onStartUse(ev.source); }
 		catch (e: any) { this.log.error(`startUse '${handler.id}': `, e); }
 	}

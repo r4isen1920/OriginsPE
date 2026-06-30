@@ -27,12 +27,7 @@ export abstract class Screen {
 	protected openPickerScene(player: Player, kind: PickerKind, mode: PickerMode, id: string): void {
 		UiBridge.openDialogue(player, pickerSceneTag(kind, mode, id));
 		player.onScreenDisplay.setTitle(
-			buildPayload(mode, kind, getDifficulty(kind, id), id),
-			{
-				fadeInDuration: 0,
-				stayDuration: 0,
-				fadeOutDuration: 0,
-			}
+			buildPayload(mode, kind, getDifficulty(kind, id), id)
 		);
 	}
 

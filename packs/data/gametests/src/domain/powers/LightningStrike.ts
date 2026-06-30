@@ -19,10 +19,10 @@ const CHAIN_DELAY_TICKS = 10;
 @RegisterPower
 export class LightningStrike implements Power {
     readonly id = 'lightning_strike';
-    readonly icon = '27';
+    readonly icon = '31';
 
     readonly active = {
-        icon: '27',
+        icon: '31',
         name: 'origins.trait.lightning_strike.name',
         cooldownKey: COOLDOWN_KEY,
     };

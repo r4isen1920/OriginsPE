@@ -1,27 +1,17 @@
 import {
-    BlockPermutation,
-    Direction,
-    Player,
-    PlayerBreakBlockAfterEvent,
-    world,
+	BlockPermutation,
+	Direction,
+	Player,
+	PlayerBreakBlockAfterEvent,
+	system
 } from '@minecraft/server';
 
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
 import { LOG_BLOCKS } from './TreeCapitator';
+import { Vec3 } from '@bedrock-oss/bedrock-boost';
+import { MinecraftBlockTypes } from '@minecraft/vanilla-data';
 
-
-const SAPLING_MAP: Record<string, string> = {
-    'acacia_log':   'acacia_sapling',
-    'birch_log':    'birch_sapling',
-    'cherry_log':   'cherry_sapling',
-    'dark_oak_log': 'dark_oak_sapling',
-    'jungle_log':   'jungle_sapling',
-    'mangrove_log': 'mangrove_propagule',
-    'oak_log':      'oak_sapling',
-    'spruce_log':   'spruce_sapling',
-};
 
 
 /**
@@ -29,74 +19,66 @@ const SAPLING_MAP: Record<string, string> = {
  */
 @RegisterPerk
 export class GreenThumb implements Perk {
-    readonly id = 'sapling_setblock';
+	readonly id = 'sapling_setblock';
 
-    private static handler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
-    private static refCount = 0;
+	readonly SAPLING_MAP: Record<string, string> = {
+		[MinecraftBlockTypes.AcaciaLog]: MinecraftBlockTypes.AcaciaSapling,
+		[MinecraftBlockTypes.BirchLog]: MinecraftBlockTypes.BirchSapling,
+		[MinecraftBlockTypes.CherryLog]: MinecraftBlockTypes.CherrySapling,
+		[MinecraftBlockTypes.DarkOakLog]: MinecraftBlockTypes.DarkOakSapling,
+		[MinecraftBlockTypes.JungleLog]: MinecraftBlockTypes.JungleSapling,
+		[MinecraftBlockTypes.MangroveLog]: MinecraftBlockTypes.MangrovePropagule,
+		[MinecraftBlockTypes.OakLog]: MinecraftBlockTypes.OakSapling,
+		[MinecraftBlockTypes.SpruceLog]: MinecraftBlockTypes.SpruceSapling
+	} as const;
 
-    onAcquire(_player: Player): void {
-        GreenThumb.refCount++;
-        if (GreenThumb.refCount === 1) {
-            GreenThumb.handler = (ev) => GreenThumb.onBlockBreak(ev);
-            world.afterEvents.playerBreakBlock.subscribe(GreenThumb.handler);
-        }
-    }
+	onBreakBlock(__player: Player, ev: PlayerBreakBlockAfterEvent): void {
+		const { block, brokenBlockPermutation } = ev;
 
-    onRelease(_player: Player): void {
-        GreenThumb.refCount = Math.max(0, GreenThumb.refCount - 1);
-        if (GreenThumb.refCount === 0 && GreenThumb.handler) {
-            world.afterEvents.playerBreakBlock.unsubscribe(GreenThumb.handler);
-            GreenThumb.handler = undefined;
-        }
-    }
+		const logBlock = LOG_BLOCKS.find((log) => brokenBlockPermutation.type.id === log);
+		const saplingBlock = logBlock ? this.SAPLING_MAP[logBlock] : undefined;
+		if (!logBlock || !saplingBlock) return;
 
-    onTick(_player: Player): void {}
+		if (Math.random() < 0.8) return;
 
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, player } = ev;
+		//? we wait for the TreeCapitator to finish breaking the tree before we set the sapling back down,
+		//? otherwise it will be destroyed immediately
+		system.runTimeout(() => {
+			const sapling = block.dimension.getBlockFromRay(Vec3.from(block.location), Vec3.Down, {
+				maxDistance: 16,
+				includeLiquidBlocks: false,
+				includePassableBlocks: false
+			});
+			if (!sapling) return;
 
-        if (!PlayerState.for(player).hasPerk('sapling_setblock')) return;
+			const targetBlock = GreenThumb.getAdjacentBlock(sapling.block, sapling.face);
+			if (!targetBlock) return;
 
-        const logBlock = LOG_BLOCKS.find(log => brokenBlockPermutation.matches(`minecraft:${log}`));
-        const saplingBlock = logBlock ? SAPLING_MAP[logBlock] : undefined;
-        if (!logBlock || !saplingBlock) return;
+			targetBlock.setPermutation(BlockPermutation.resolve(saplingBlock));
 
-        // 60% chance to skip — matches original Math.random() < 0.6 early return.
-        if (Math.random() < 0.6) return;
+			const saplingLoc = sapling.block.center();
+			block.dimension.spawnParticle('r4isen1920_originspe:experience_touch', saplingLoc);
+			block.dimension.playSound('random.orb', saplingLoc, { volume: 0.25, pitch: 1.75 });
+		}, 5); // should suffice
+	}
 
-        const viewDir = player.getViewDirection();
-        const saplingLocation = block.dimension.getBlockFromRay(
-            {
-                x: block.location.x + 0.5,
-                y: block.location.y,
-                z: block.location.z + 0.5,
-            },
-            { x: 0, y: -1, z: 0 },
-            {
-                maxDistance: 16,
-                includeLiquidBlocks: false,
-                includePassableBlocks: false,
-            }
-        );
-
-        if (!saplingLocation) return;
-
-        const targetBlock = GreenThumb.getAdjacentBlock(saplingLocation.block, saplingLocation.face);
-
-        if (!targetBlock) return;
-
-        targetBlock.setPermutation(BlockPermutation.resolve(`minecraft:${saplingBlock}`));
-        block.dimension.spawnParticle('r4isen1920_originspe:experience_touch', saplingLocation.block.center());
-    }
-
-    private static getAdjacentBlock(block: PlayerBreakBlockAfterEvent['block'], face: Direction): PlayerBreakBlockAfterEvent['block'] | undefined {
-        switch (face) {
-            case Direction.Up: return block.above();
-            case Direction.Down: return block.below();
-            case Direction.North: return block.north();
-            case Direction.South: return block.south();
-            case Direction.West: return block.west();
-            case Direction.East: return block.east();
-        }
-    }
+	private static getAdjacentBlock(
+		block: PlayerBreakBlockAfterEvent['block'],
+		face: Direction
+	): PlayerBreakBlockAfterEvent['block'] | undefined {
+		switch (face) {
+			case Direction.Up:
+				return block.above();
+			case Direction.Down:
+				return block.below();
+			case Direction.North:
+				return block.north();
+			case Direction.South:
+				return block.south();
+			case Direction.West:
+				return block.west();
+			case Direction.East:
+				return block.east();
+		}
+	}
 }
