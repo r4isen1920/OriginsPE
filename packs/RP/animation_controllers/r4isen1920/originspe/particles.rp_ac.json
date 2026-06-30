@@ -138,7 +138,22 @@
           "particle_effects": [ { "effect": "diviner_aura" } ]
         }
       }
-    }
+    },
 
+    "controller.animation.r4isen1920_originspe.particles.blood_sense": {
+      "initial_state": "on_detect",
+      "states": {
+        "on_detect": {
+          "transitions": [
+            { "emit": "v.p_emitter_type == 'diviner' && v.p_toggle_particles" }
+          ]
+        },
+
+        "emit": {
+          "transitions": [ { "on_detect": "v.p_emitter_type != 'diviner' || !v.p_toggle_particles" } ],
+          "particle_effects": [ { "effect": "blood_sense" } ]
+        }
+      }
+    }
   }
 }
