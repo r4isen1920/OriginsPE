@@ -18,6 +18,7 @@ import {
     incrementBeelzebubPhase,
     incrementBeelzebubDmg,
 } from './SoulBurst';
+import { AfterEntityHurt } from '../../core';
 
 
 const BAR_ID = 19;
@@ -37,25 +38,9 @@ export class Beelzebub implements Power {
     readonly id = 'beelzebub';
     readonly icon = '19';
 
-    private static handler: ((ev: EntityHurtAfterEvent) => void) | undefined;
-    private static refCount = 0;
     private static lastHitTimes = new Map<string, number>();
 
-    onAcquire(_player: Player): void {
-        Beelzebub.refCount++;
-        if (Beelzebub.refCount === 1) {
-            Beelzebub.handler = (ev) => Beelzebub.onEntityHurt(ev);
-            world.afterEvents.entityHurt.subscribe(Beelzebub.handler);
-        }
-    }
-
     onRelease(player: Player): void {
-        Beelzebub.refCount = Math.max(0, Beelzebub.refCount - 1);
-        if (Beelzebub.refCount === 0 && Beelzebub.handler) {
-            world.afterEvents.entityHurt.unsubscribe(Beelzebub.handler);
-            Beelzebub.handler = undefined;
-        }
-
         player.setDynamicProperty(PHASE_KEY, undefined);
         player.setDynamicProperty(DMG_KEY, undefined);
         PlayerState.for(player).setFlag('beelzebub_bar_init', undefined);
@@ -80,7 +65,9 @@ export class Beelzebub implements Power {
         }
     }
 
-    private static onEntityHurt(ev: EntityHurtAfterEvent): void {
+
+    @AfterEntityHurt
+    private static __onEntityHurt(ev: EntityHurtAfterEvent): void {
         const { damage, damageSource, hurtEntity } = ev;
 
         const attacker = damageSource.damagingEntity;

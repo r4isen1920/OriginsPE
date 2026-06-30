@@ -92,7 +92,7 @@
 					{
 						"filter": "packer",
 						"settings": {
-							"output": "TheDawnEra-DW-${git.tag ?? 'test'}-dev.mcaddon"
+							"output": "OriginsPE-${git.tag ?? 'test'}-dev.mcaddon"
 						}
 					}
 				]
@@ -109,7 +109,7 @@
 					{
 						"filter": "packer",
 						"settings": {
-							"output": "TheDawnEra-DW-${git.tag ?? 'test'}.mcaddon"
+							"output": "OriginsPE-${git.tag ?? 'test'}.mcaddon"
 						}
 					}
 				]
@@ -162,8 +162,8 @@
 								"minify": true
 							},
 							"modules": [
-								"@minecraft/server@2.6.0",
-								"@minecraft/server-ui@2.0.0"
+								"@minecraft/server@2.8.0",
+								"@minecraft/server-ui@2.1.0"
 							],
 							"outfile": "BP/scripts/main.js"
 						}
@@ -187,8 +187,8 @@
 							},
 							"debugBuild": true,
 							"modules": [
-								"@minecraft/server@2.6.0",
-								"@minecraft/server-ui@2.0.0"
+								"@minecraft/server@2.8.0",
+								"@minecraft/server-ui@2.1.0"
 							],
 							"outfile": "BP/scripts/main.js"
 						}

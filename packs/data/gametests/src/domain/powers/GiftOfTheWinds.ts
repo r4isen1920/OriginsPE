@@ -62,9 +62,6 @@ export class GiftOfTheWinds implements Power {
 
 			if (ticksLeft > 0) {
 				const secondsLeft = (ticksLeft / 20).toFixed(1);
-				player.sendMessage(
-					`§c[Debug] Gift of the Winds is on cooldown! §e${secondsLeft}s §cleft.`
-				);
 			}
 		}
 	}

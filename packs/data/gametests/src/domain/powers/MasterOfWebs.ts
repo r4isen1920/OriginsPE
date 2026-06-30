@@ -1,8 +1,17 @@
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
-import { Block, BlockPermutation, Player, PlayerPlaceBlockAfterEvent } from '@minecraft/server';
+import {
+	Block,
+	BlockPermutation,
+	Player,
+	PlayerPlaceBlockAfterEvent,
+	ItemStack,
+	world,
+	system
+} from '@minecraft/server';
 import { Log } from '../../utils/Log';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { OnWorldLoad } from '@bedrock-oss/stylish';
 
 @RegisterPower
 export class MasterOfWebs implements Power {
@@ -23,6 +32,24 @@ export class MasterOfWebs implements Power {
 
 	onTick(player: Player): void {
 		if (!player.isValid) return;
+
+		const inventory = player.getComponent('minecraft:inventory');
+		if (inventory?.container) {
+			const container = inventory.container;
+
+			const selectedSlot = player.selectedSlotIndex;
+			const selectedItem = container.getItem(selectedSlot);
+			const isPlacing = selectedItem?.typeId === MasterOfWebs.FAKE_COBWEB;
+
+			for (let slot = 0; slot < container.size; slot++) {
+				if (isPlacing && slot === selectedSlot) continue;
+
+				const item = container.getItem(slot);
+				if (item?.typeId === MasterOfWebs.REAL_COBWEB) {
+					container.setItem(slot, new ItemStack(MasterOfWebs.FAKE_COBWEB, item.amount));
+				}
+			}
+		}
 
 		const dim = player.dimension;
 		const loc = player.location;
@@ -77,6 +104,7 @@ export class MasterOfWebs implements Power {
 			MasterOfWebs.trackedWebs.delete(k);
 		}
 	}
+
 	onPlaceBlock(player: Player, ev: PlayerPlaceBlockAfterEvent): void {
 		const state = PlayerState.for(player);
 		if (!state.hasPower('master_of_webs')) return;
@@ -102,5 +130,31 @@ export class MasterOfWebs implements Power {
 		}
 
 		MasterOfWebs.trackedWebs.clear();
+	}
+
+	@OnWorldLoad
+	static onWorldLoad(): void {
+		system.runInterval(() => {
+			for (const player of world.getAllPlayers()) {
+				if (!player.isValid) continue;
+
+				const state = PlayerState.for(player);
+				if (!state || !state.hasPower('master_of_webs')) {
+					const inventory = player.getComponent('minecraft:inventory');
+					if (!inventory?.container) continue;
+
+					const container = inventory.container;
+					for (let slot = 0; slot < container.size; slot++) {
+						const item = container.getItem(slot);
+						if (item?.typeId === MasterOfWebs.FAKE_COBWEB) {
+							container.setItem(
+								slot,
+								new ItemStack(MasterOfWebs.REAL_COBWEB, item.amount)
+							);
+						}
+					}
+				}
+			}
+		}, 20);
 	}
 }

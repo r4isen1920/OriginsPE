@@ -20,7 +20,7 @@ function openShulkInv(player: Player): void {
 	player.runCommand(
 		`ride @s start_riding @e[type=r4isen1920_originspe:inventory_keep,tag="_inventory_keep_${player.id}",tag="_inventory_keep_shulk",c=1] teleport_ride`
 	);
-	player.onScreenDisplay.setTitle('origins.shulk_inventory');
+	player.onScreenDisplay.setActionBar('_op:inv.shulk');
 	player.playSound('random.enderchestopen');
 	player.dimension.spawnParticle('r4isen1920_originspe:shulk_inventory', {
 		x: player.location.x,
@@ -32,7 +32,7 @@ function openShulkInv(player: Player): void {
 
 function closeShulkInv(player: Player): void {
 	player.runCommand('ride @s stop_riding');
-	player.onScreenDisplay.setTitle('origins.player_inventory');
+	player.onScreenDisplay.setActionBar('_op:inv.player');
 	player.playSound('random.enderchestclosed');
 	player.dimension.spawnParticle('r4isen1920_originspe:player_inventory', {
 		x: player.location.x,
@@ -51,7 +51,7 @@ export class ShulkInventory implements Power {
 	readonly tickInterval = 1;
 
 	readonly active = {
-		icon: '',
+		icon: '30',
 		name: 'origins.trait.shulk_inventory.label'
 	};
 

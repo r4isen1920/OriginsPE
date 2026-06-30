@@ -85,7 +85,9 @@ export class HighJump implements Power {
 			const falloff = 1 - dist / HighJump.IMPACT_RADIUS;
 			const hForce = HighJump.KNOCKBACK_STRENGTH * falloff;
 
-			entity.applyKnockback({ x: dx / dist, z: dz / dist }, hForce);
+			if (entity.hasComponent('minecraft:health')) {
+				entity.applyKnockback({ x: dx / dist, z: dz / dist }, hForce);
+			}
 
 			entity.applyDamage(HighJump.IMPACT_DAMAGE * falloff, {
 				cause: EntityDamageCause.entityAttack,

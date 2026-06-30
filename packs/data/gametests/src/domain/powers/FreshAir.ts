@@ -1,6 +1,7 @@
 import { Player } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
+import OverheadText from '../../ui/OverheadText';
 /**
  * The player must be an altitude of atleast 151 blocks,
  * when sleeping , to breathe fresh air.
@@ -25,7 +26,6 @@ export class FreshAir implements Power {
 
 		player.teleport({ x, y: y + 0.1, z });
 
-		player.onScreenDisplay.setActionBar('§cThe air is too thin! Sleep above Y=150.');
-		player.playSound('note.bass');
+		OverheadText.show(player, 'origins.trait.fresh_air.sleep_fail');
 	}
 }

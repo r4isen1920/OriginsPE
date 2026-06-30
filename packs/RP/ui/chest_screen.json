@@ -1,10 +1,19 @@
 {
 	/* created by r4isen1920 | MIT License */
 
+
+
+
+	//---------------------------------------------------------------------------
+	// Vanilla Modifications
+	//---------------------------------------------------------------------------
+
+
 	"chest_label": {
 		"$new_custom_name|default": "$container_title",
 		"text": "$new_custom_name"
 	},
+
 
 	/* Parse required variables to all screen */
 	"small_chest_screen": {
@@ -31,6 +40,7 @@
 			}
 		]
 	},
+
 
 	"large_chest_screen": {
 		"$container_name": "$container_title",

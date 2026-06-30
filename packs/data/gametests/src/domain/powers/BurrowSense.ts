@@ -1,4 +1,4 @@
-import { BlockVolume, Player, system, world, PlayerBreakBlockAfterEvent } from '@minecraft/server';
+import { BlockVolume, Player, system, PlayerBreakBlockAfterEvent } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
@@ -96,25 +96,6 @@ export class BurrowSense implements Power {
         cooldownKey: 'burrow_sense_cooldown',
     };
 
-    private static breakHandler: ((ev: PlayerBreakBlockAfterEvent) => void) | undefined;
-    private static refCount = 0;
-
-    onAcquire(_player: Player): void {
-        BurrowSense.refCount++;
-        if (BurrowSense.refCount === 1) {
-            BurrowSense.breakHandler = (ev) => BurrowSense.onBlockBreak(ev);
-            world.afterEvents.playerBreakBlock.subscribe(BurrowSense.breakHandler);
-        }
-    }
-
-    onRelease(_player: Player): void {
-        BurrowSense.refCount = Math.max(0, BurrowSense.refCount - 1);
-        if (BurrowSense.refCount === 0 && BurrowSense.breakHandler) {
-            world.afterEvents.playerBreakBlock.unsubscribe(BurrowSense.breakHandler);
-            BurrowSense.breakHandler = undefined;
-        }
-    }
-
     onActivate(player: Player): void {
         const oreLocations = findNearbyOres(player);
         if (oreLocations.length > 0) {
@@ -122,10 +103,9 @@ export class BurrowSense implements Power {
         }
     }
 
-    private static onBlockBreak(ev: PlayerBreakBlockAfterEvent): void {
-        const { block, brokenBlockPermutation, dimension, player } = ev;
+    onBreakBlock(_player: Player, ev: PlayerBreakBlockAfterEvent): void {
+        const { block, brokenBlockPermutation, dimension } = ev;
 
-        if (!PlayerState.for(player).hasPower('burrow_sense')) return;
         if (!SUPPORTED_ORES.has(brokenBlockPermutation.type.id)) return;
 
         const entity = dimension

@@ -15,7 +15,8 @@
 
 				"textures": {
 					"slimy": "textures/entity/r4isen1920/originspe/slime_overlay",
-					"divine": "textures/entity/r4isen1920/originspe/divine_aura"
+					"divine": "textures/entity/r4isen1920/originspe/divine_aura",
+					"blood_sense": "textures/entity/r4isen1920/originspe/blood_sense"
 				},
 
 				"geometry": {
@@ -33,6 +34,7 @@
 						"v.p_flag_b = 0.0;",
 						"v.p_flag_c = 0.0;",
 						"v.p_flag_d = 0.0;",
+						"v.p_flag_e = 0.0;",
 
 						"v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);"
 					],
@@ -46,6 +48,7 @@
 						"  v.p_flag_b = q.property('r4isen1920_originspe:flag_b');",
 						"  v.p_flag_c = q.property('r4isen1920_originspe:flag_c');",
 						"  v.p_flag_d = q.property('r4isen1920_originspe:flag_d');",
+						"  v.p_flag_e = q.property('r4isen1920_originspe:flag_e');",
 						"};",
 
 						"v.is_using_slim_skin = (v.short_arm_offset_left == 0.5);"
@@ -55,7 +58,8 @@
 						{ "starborne_particles": "!v.is_paperdoll" },
 						{ "elven_particles": "!v.is_paperdoll" },
 						{ "voidwalker_particles": "!v.is_paperdoll" },
-						{ "diviner_particles": "!v.is_paperdoll" }
+						{ "diviner_particles": "!v.is_paperdoll" },
+						{ "blood_sense_particles": "!v.is_paperdoll" }
 					]
 				},
 
@@ -65,6 +69,7 @@
 					"elven_particles": "controller.animation.r4isen1920_originspe.particles.elf",
 					"voidwalker_particles": "controller.animation.r4isen1920_originspe.particles.voidwalker",
 					"diviner_particles": "controller.animation.r4isen1920_originspe.particles.diviner",
+					"blood_sense_particles": "controller.animation.r4isen1920_originspe.particles.blood_sense",
 
 					//? For some reason, this isn't define within the vanilla files?
 					"first_person_breathing_bob": "animation.player.first_person.breathing_bob"
@@ -81,7 +86,8 @@
 
 					"voidwalker_aura": "r4isen1920_originspe:voidwalker_aura",
 
-					"diviner_aura": "r4isen1920_originspe:diviner_aura"
+					"diviner_aura": "r4isen1920_originspe:diviner_aura",
+					"blood_sense": "r4isen1920_originspe:blood_sense"
 				},
 
 				"render_controllers": [
@@ -92,7 +98,9 @@
 					{ "controller.render.player.slimy.third_person": "v.p_skin_type == 'slimy' && !v.is_first_person && !v.map_face_icon" },
 					{ "controller.render.player.divine": "v.p_skin_type == 'normal' && v.p_flag_a && v.is_first_person" },
 					{ "controller.render.player.divine.third_person": "v.p_skin_type == 'normal' && v.p_flag_a && !v.is_first_person && !v.map_face_icon" },
-					{ "controller.render.player.divine.third_person_slim": "v.p_skin_type == 'normal' && v.p_flag_a && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" }
+					{ "controller.render.player.divine.third_person_slim": "v.p_skin_type == 'normal' && v.p_flag_a && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" },
+					{ "controller.render.player.blood_tracker": "v.p_skin_type == 'normal' && v.p_flag_e && !v.is_first_person && !v.map_face_icon" },
+					{ "controller.render.player.blood_tracker_slim": "v.p_skin_type == 'normal' && v.p_flag_e && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" }
 				]
 			}
 		}
