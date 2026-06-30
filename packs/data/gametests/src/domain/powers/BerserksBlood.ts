@@ -7,10 +7,10 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 
 const COOLDOWN_KEY = 'berserks_blood_cooldown';
 const EXPIRY_FLAG = 'berserks_blood_expiry';
-const COOLDOWN_TICKS = 300; // 15 seconds
+const COOLDOWN_TICKS = 100; // 5 seconds
 const STRENGTH_TICKS = 60;  // 3 seconds
 const STRENGTH_AMPLIFIER = 3; // Strength IV 
-const HP_THRESHOLD = 5;
+const HP_THRESHOLD = 10; // 5 hp
 const RESOURCE_BAR_ID = 27; 
 const ENTITY_DAMAGE_CAUSES = new Set([
 	'entityAttack',
@@ -48,7 +48,7 @@ export class BerserksBlood implements Power {
 
 		ResourceBarService.push(player, {
 			id: RESOURCE_BAR_ID,
-			durationSeconds: 15,
+			durationSeconds: 5,
 			from: 100,
 			to: 0,
 		});
