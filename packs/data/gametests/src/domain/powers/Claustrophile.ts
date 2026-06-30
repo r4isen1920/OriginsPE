@@ -10,7 +10,7 @@ import { isPlayerUnderground } from './ClawDigging';
  * You get strength and regeneration when underground.
  */
 @RegisterPower
-export class claustrophile implements Power {
+export class Claustrophile implements Power {
     readonly id = 'claustrophile';
 
     @PlayerTick(10)

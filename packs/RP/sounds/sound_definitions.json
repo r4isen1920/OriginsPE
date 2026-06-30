@@ -1,7 +1,6 @@
 {
   "format_version": "1.20.20",
   "sound_definitions": {
-
     "enchant.thorns.hit": {
       "category": "player",
       "sounds": [
@@ -123,6 +122,16 @@
         {
           "name" : "sounds/random/vampire",
           "load_on_low_memory" : true
+        }
+      ]
+    },
+
+    "random.zap": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/random/zap",
+          "load_on_low_memory": true
         }
       ]
     },
