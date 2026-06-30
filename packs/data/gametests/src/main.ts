@@ -158,9 +158,12 @@ import './domain/classes/Miner';
 import './domain/classes/Rancher';
 import './domain/classes/Rogue';
 import './domain/classes/Warrior';
+import './domain/classes/Athlete';
 import './domain/classes/Doctor';
 
 //* Perks
+import './domain/perks/SpeedRegulator';
+import './domain/perks/BunnyJump';
 import './domain/perks/Agility';
 import './domain/perks/CheaperTrades';
 import './domain/perks/WanderingTraderSpawn';

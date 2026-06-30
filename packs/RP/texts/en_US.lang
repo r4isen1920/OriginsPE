@@ -83,6 +83,8 @@ origins.lumberjack.name=Lumberjack
 origins.lumberjack.description=Trees should watch out when Lumberjacks are around.
 origins.explorer.name=Explorer
 origins.explorer.description=Explorers find their way through the most difficult terrain easily and discover hidden landmarks.
+origins.athlete.name=Athlete
+origins.athlete.description=A high-mobility class focused on speed, stamina, and sprint-based attacks.
 origins.doctor.name=Doctor
 origins.doctor.description=Armed with advanced medical knowledge, the Doctor keeps allies alive through potent healing abilities.
 
@@ -318,6 +320,10 @@ origins.trait.vampire_thing.description=Vampire is afraid of sunlight.
 origins.trait.vampire_aura.name=Vampire Aura
 origins.trait.vampire_aura.description=Emits blood aura that it looks like you are always craving for bloods.
 
+origins.trait.bunny_jump.name=High Jump
+origins.trait.bunny_jump.description=You can jump up to 3 blocks high.
+origins.trait.speed_regulator.name=Speed Regulator
+origins.trait.speed_regulator.description=Can walk up to 5.612 m/s , and Sprinting up to 6.132 m/s.
 origins.trait.sneaky.name=Sneaky
 origins.trait.sneaky.description=Your nameplate is never always visible, even when you're not sneaking.
 origins.trait.stealth.name=In the Shadows
