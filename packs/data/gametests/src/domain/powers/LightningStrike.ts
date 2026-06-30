@@ -7,7 +7,7 @@ import { isThunderstormActive } from './StormBorn';
 
 const COOLDOWN_KEY = 'lightning_strike_cooldown';
 const COOLDOWN_TICKS = TicksPerSecond * 15;
-const COOLDOWN_BAR_ID = 27;
+const COOLDOWN_BAR_ID = 31;
 const INITIAL_RADIUS = 8;
 const CHAIN_RADIUS = 5;
 const BASE_LIGHTNING_DAMAGE = 4;
