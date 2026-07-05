@@ -2,12 +2,15 @@ import {
 	Player,
 	EntityHealthComponent,
 	EntityDamageCause,
-	EntityHurtAfterEvent
+	EntityHurtAfterEvent,
+	world
 } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { OnWorldLoad } from '@bedrock-oss/stylish';
 
 const BAR_FULL = 100;
 const BAR_TWO_THIRDS = 71;
@@ -39,8 +42,7 @@ export class Fragmentation implements Power {
 		state.setFlag('last_rendered_level', undefined);
 		state.setFlag('slime_ball_consumed', undefined);
 
-		player.triggerEvent('r4isen1920_originspe:scale.1');
-		player.triggerEvent('r4isen1920_originspe:health.20');
+		AttributeService.apply(player, { scale: 1, health: 20 });
 
 		const health = player.getComponent('minecraft:health') as EntityHealthComponent;
 		if (health) health.resetToMaxValue();
@@ -119,8 +121,7 @@ export class Fragmentation implements Power {
 
 		switch (level) {
 			case 3:
-				player.triggerEvent('r4isen1920_originspe:health.40');
-				player.triggerEvent('r4isen1920_originspe:scale.1.25');
+				AttributeService.apply(player, { health: 40, scale: 1.25 });
 
 				if (previousLevel === 2) {
 					this.onIncrementFragmentationLevel(player, state, 3);
@@ -136,8 +137,7 @@ export class Fragmentation implements Power {
 				break;
 
 			case 2:
-				player.triggerEvent('r4isen1920_originspe:health.20');
-				player.triggerEvent('r4isen1920_originspe:scale.1');
+				AttributeService.apply(player, { health: 20, scale: 1 });
 
 				if (previousLevel === 3) {
 					this.onDecrementFragmentationLevel(player, state, 2);
@@ -156,8 +156,7 @@ export class Fragmentation implements Power {
 				break;
 
 			case 1:
-				player.triggerEvent('r4isen1920_originspe:health.10');
-				player.triggerEvent('r4isen1920_originspe:scale.0.5');
+				AttributeService.apply(player, { health: 10, scale: 0.5 });
 
 				if (previousLevel === 2) {
 					this.onDecrementFragmentationLevel(player, state, 1);
@@ -223,6 +222,16 @@ export class Fragmentation implements Power {
 					persist: true
 				});
 				break;
+		}
+	}
+
+	@OnWorldLoad
+	static onWorldLoad(): void {
+		for (const player of world.getAllPlayers()) {
+			if (!player.isValid) continue;
+			const state = PlayerState.for(player);
+			if (!state.hasPower('fragmentation')) continue;
+			state.setFlag('last_rendered_level', undefined);
 		}
 	}
 }
