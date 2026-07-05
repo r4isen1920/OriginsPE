@@ -1,4 +1,4 @@
-import { Entity, EntityComponentTypes, Player, system } from '@minecraft/server';
+import { Entity, EntityComponentTypes, Player, PlayerDimensionChangeAfterEvent, system, world } from '@minecraft/server';
 import { Logger, Vec3 } from '@bedrock-oss/bedrock-boost';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
@@ -33,7 +33,7 @@ export class ShulkInventory implements Power {
 
 	onAcquire(player: Player): void {
 		PlayerState.for(player).setFlag(this.OPEN_FLAG, false);
-		ShulkInventory.log.info(`acquired: player: ${player.name}`);
+		ShulkInventory.log.info(`acquired, for: ${player.name}`);
 		system.runTimeout(() => {
 			if (!player.isValid) return;
 			const isOpen = PlayerState.for(player).getFlag<boolean>(this.OPEN_FLAG) ?? false;
@@ -44,7 +44,7 @@ export class ShulkInventory implements Power {
 	onRelease(player: Player): void {
 		const state = PlayerState.for(player);
 		if (state.getFlag<boolean>(this.OPEN_FLAG)) {
-			ShulkInventory.log.info(`closing on release: player: ${player.name}`);
+			ShulkInventory.log.info(`closing on release, for: ${player.name}`);
 			this.close(player);
 		}
 		player.onScreenDisplay.setActionBar('_op:');
@@ -81,6 +81,18 @@ export class ShulkInventory implements Power {
 		}
 	}
 
+	onDimensionChange(player: Player, _ev: PlayerDimensionChangeAfterEvent): void {
+		const state = PlayerState.for(player);
+		if (!state.getFlag<boolean>(this.OPEN_FLAG)) return;
+
+		// Dimension change ejects the rider naturally; just reset state.
+		state.setFlag(this.OPEN_FLAG, false);
+		player.playSound('random.enderchestclosed');
+		player.onScreenDisplay.setActionBar(this.PAYLOAD_CLOSED);
+		ShulkInventory.log.info(`closed on dimension change, for: ${player.name}, id: ${player.id}`);
+		// Entity relocation is handled by onTick via the cross-dimension findEntity search.
+	}
+
 
 
 	//#region INVENTORY
@@ -91,7 +103,8 @@ export class ShulkInventory implements Power {
 
 		const rideable = entity.getComponent(EntityComponentTypes.Rideable);
 		if (!rideable?.addRider(player)) {
-			ShulkInventory.log.warn(`addRider failed: player: ${player.name}`);
+			ShulkInventory.log.warn(`addRider failed, for: ${player.name}, id: ${entity.id}`);
+			return;
 		}
 
 		player.playSound('random.enderchestopen');
@@ -101,7 +114,7 @@ export class ShulkInventory implements Power {
 		);
 
 		PlayerState.for(player).setFlag(this.OPEN_FLAG, true);
-		ShulkInventory.log.info(`opened: player: ${player.name}`);
+		ShulkInventory.log.info(`opened, for: ${player.name}, id: ${entity.id}`);
 
 		// delay payload str to avoid being overridden by the riding-start hint string.
 		system.runTimeout(() => {
@@ -112,10 +125,13 @@ export class ShulkInventory implements Power {
 
 	private close(player: Player): void {
 		const entity = this.findEntity(player);
-		if (entity?.isValid) {
-			const rideable = entity.getComponent(EntityComponentTypes.Rideable);
-			if (rideable) rideable.ejectRider(player);
+		if (!entity || !entity.isValid) {
+			ShulkInventory.log.warn(`close failed, entity not found, for: ${player.name}`);	
+			return;
 		}
+
+		const rideable = entity.getComponent(EntityComponentTypes.Rideable);
+		if (rideable) rideable.ejectRider(player);
 
 		player.onScreenDisplay.setActionBar(this.PAYLOAD_CLOSED);
 		player.playSound('random.enderchestclosed');
@@ -125,33 +141,42 @@ export class ShulkInventory implements Power {
 		);
 
 		PlayerState.for(player).setFlag(this.OPEN_FLAG, false);
-		ShulkInventory.log.info(`closed: player: ${player.name}`);
+		ShulkInventory.log.info(`closed, for: ${player.name}, id: ${entity.id}`);
 	}
 
 	private findEntity(player: Player): Entity | undefined {
-		return player.dimension
-			.getEntities({ type: this.INV_ENTITY_TYPE })
-			.find(e =>
-				e.getDynamicProperty(this.OWNER_DP_KEY) === player.id &&
-				e.getDynamicProperty(this.IS_SHULK_DP_KEY) === true
-			);
+		// Search player's current dimension first, then fall back to all known dimensions.
+		// The entity may still be in the previous dimension right after a dimension change.
+		const seen = new Set<string>();
+		const dims = [
+			player.dimension,
+			world.getDimension('overworld'),
+			world.getDimension('nether'),
+			world.getDimension('the_end'),
+		];
+		for (const dim of dims) {
+			if (seen.has(dim.id)) continue;
+			seen.add(dim.id);
+			const entity = dim
+				.getEntities({ type: this.INV_ENTITY_TYPE })
+				.find(e =>
+					e.getDynamicProperty(this.OWNER_DP_KEY) === player.id &&
+					e.getDynamicProperty(this.IS_SHULK_DP_KEY) === true
+				);
+			if (entity) return entity;
+		}
+		return undefined;
 	}
 
 	private getOrCreateEntity(player: Player): Entity {
 		const existing = this.findEntity(player);
 		if (existing) return existing;
 
-		ShulkInventory.log.info(`spawning inventory entity: player: ${player.name}`);
 		const entity = player.dimension.spawnEntity(this.INV_ENTITY_TYPE, player.location);
+		ShulkInventory.log.info(`spawning inventory entity, for: ${player.name}, id: ${entity.id}`);
 		entity.setDynamicProperty(this.OWNER_DP_KEY, player.id);
 		entity.setDynamicProperty(this.IS_SHULK_DP_KEY, true);
 		return entity;
 	}
-
-
-
-
-	//# region EDGE CASES
-
 
 }
