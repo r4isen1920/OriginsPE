@@ -216,7 +216,7 @@
 		"alpha": "@origin_shulk_inventory.shulk_inventory_display_access_icon_fade",
 		"propagate_alpha": true,
 
-		"$set_offset|default": [0, -11],
+		"$set_offset|default": [0, -12.5],
 		"variables": {
 			"requires": "($is_android or $is_ios)",
 			"$set_offset": [-2, -32]

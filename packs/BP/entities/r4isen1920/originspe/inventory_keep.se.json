@@ -30,14 +30,13 @@
       },
       "minecraft:rideable": {
         "family_types": [ "player" ],
-        "seat_count": 1
+        "seat_count": 1,
+				"seats": [
+					{ "position": [ 0, 0.4, 0 ] }
+				]
       },
 
       "minecraft:persistent": {},
-      "minecraft:tick_world": {
-        "never_despawn": true,
-        "radius": 2
-      },
 
       "minecraft:health": {
         "min": 1,
