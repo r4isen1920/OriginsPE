@@ -56,6 +56,9 @@ export class DamageService {
 
 		const player = ev.hurtEntity;
 
+		// If damage is through /kill command, ignore
+		if (ev.damageSource.cause === EntityDamageCause.selfDestruct) return;
+
 		// Declarative overrides first.
 		const activeOverrides = [...damageOverrides, ...(playerDamageOverrides.get(player.id) ?? [])];
 		if (activeOverrides.length > 0) {
