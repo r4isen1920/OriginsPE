@@ -11,6 +11,7 @@ import { UiBridge } from '../../ui/UiBridge';
 import { PickerKind, PickerMode } from '../../ui/UiPayload';
 import { AttributeService } from '../../services/AttributeService';
 import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../../services/Attributes';
+import { CameraService } from '../../services/CameraService';
 import { forgetDamageOverrides, setDamageOverrides } from './DamageService';
 import Version from '../../utils/Version';
 import { Perk, Power } from './Ability';
@@ -66,6 +67,7 @@ export class PlayerLifecycle {
 	static onLeave(ev: PlayerLeaveAfterEvent): void {
 		PlayerState.release(ev.playerId);
 		AttributeService.forget(ev.playerId);
+		CameraService.forget(ev.playerId);
 		forgetDamageOverrides(ev.playerId);
 	}
 

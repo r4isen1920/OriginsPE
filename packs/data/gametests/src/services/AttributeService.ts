@@ -48,6 +48,15 @@ export class AttributeService {
 			mutableNext[key] = value;
 			this.trigger(player, key, value);
 		}
+
+		// Camera: store explicit override in cache; CameraService handles all side-effects.
+		if ('camera' in attrs) {
+			next.camera = attrs.camera;
+		} else if (force) {
+			// Force-refresh clears any stale explicit override not re-supplied.
+			next.camera = undefined;
+		}
+
 		this.applied.set(player.id, next);
 	}
 
@@ -61,6 +70,11 @@ export class AttributeService {
 	/** Drops the diff cache for a player (call on leave). */
 	static forget(playerId: string): void {
 		this.applied.delete(playerId);
+	}
+
+	/** Returns the full applied attribute for the specified `playerId`. */
+	static getApplied(playerId: string): Readonly<Partial<PlayerAttributes>> {
+		return this.applied.get(playerId) ?? {};
 	}
 
 

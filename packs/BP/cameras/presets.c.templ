@@ -1,0 +1,37 @@
+{
+	"$scope": {
+		//? see `packs/data/jsonte/data.json`
+
+		"__array": [
+			{
+				"{{#camera_presets.states as t}}": {
+					"{{#camera_presets.scales as c}}": {
+						"state": "{{t}}",
+						"scale": "{{c}}"
+					}
+				}
+			}
+		]
+	},
+
+	"$files": {
+		"array": "__array",
+		"filename": "presets/r4isen1920/originspe/{{state}}_{{replace(asString(scale), '.', '_')}}.c"
+	},
+
+	"$template": {
+		"format_version": "1.21.0",
+		"minecraft:camera_preset": {
+			"identifier": "r4isen1920_originspe:{{state}}_{{replace(asString(scale), '.', '_')}}",
+			"inherit_from": "minecraft:follow_orbit",
+			"entity_offset": [
+				0.0,
+				//** ~-1.6 -> smallest, standing
+				//** ~-0.35 -> smallest, crawling
+				"{{=max(state == 'standing' ? -1.7 : -0.45, (state == 'standing' ? -1.7 : -0.45) + scale)}}",
+				0.5
+			],
+			"radius": 0.1
+		}
+	}
+}

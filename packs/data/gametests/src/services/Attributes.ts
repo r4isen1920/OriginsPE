@@ -80,6 +80,8 @@ export interface PlayerAttributes {
 	displayName: boolean;
 	/** Current outline/aura type rendered on the player. */
 	outlineType: OutlineType;
+	/** Explicit camera preset override. If absent, camera is auto-derived from scale. */
+	camera?: string;
 	/** Damage overrides applied to the player. */
 	damageOverrides?: DamageOverride[];
 }
