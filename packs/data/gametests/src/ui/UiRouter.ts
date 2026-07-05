@@ -1,6 +1,6 @@
 import { Player, ScriptEventCommandMessageAfterEvent, ScriptEventSource } from '@minecraft/server';
 
-import { SystemAfterScriptEventReceive } from '../core/platform/DecoratedEvents';
+import { SystemScriptEventReceive } from '../core/platform/DecoratedEvents';
 import { PlayerLifecycle } from '../core/abilities/PlayerLifecycle';
 import { Log } from '../utils/Log';
 import { Screen } from './screens/Screen';
@@ -51,7 +51,7 @@ export class UiRouter {
 		return map;
 	}
 
-	@SystemAfterScriptEventReceive()
+	@SystemScriptEventReceive()
 	static onEvent(ev: ScriptEventCommandMessageAfterEvent): void {
 		if (ev.id !== 'r4isen1920_originspe:ui') return;
 		const player = ev.sourceType === ScriptEventSource.Entity && ev.sourceEntity instanceof Player
