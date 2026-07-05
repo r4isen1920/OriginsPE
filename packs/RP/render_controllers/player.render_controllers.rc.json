@@ -23,7 +23,12 @@
 			]
 		},
 		"controller.render.player.third_person": {
-			"geometry": "Geometry.default",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "v.p_outline_type != 'divine_aura' ? Material.default : Material.highlight_base" }],
 			"textures": ["Texture.default"],
 			"part_visibility": [
@@ -79,7 +84,12 @@
 			}
 		},
 		"controller.render.player.ghostly.third_person": {
-			"geometry": "Geometry.default",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.ghostly" }],
 			"textures": ["Texture.default"],
 			"part_visibility": [
@@ -118,7 +128,12 @@
 			}
 		},
 		"controller.render.player.ghostly.third_person_overlay": {
-			"geometry": "Geometry.default",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.ghostly" }],
 			"textures": ["Texture.default"],
 			"part_visibility": [
@@ -179,7 +194,12 @@
 			]
 		},
 		"controller.render.player.slimy.third_person": {
-			"geometry": "Geometry.default",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.custom" }],
 			"textures": ["Texture.slimy"],
 			"part_visibility": [
@@ -226,7 +246,12 @@
 			"is_hurt_color": {}
 		},
 		"controller.render.player.divine.third_person": {
-			"geometry": "Geometry.default_scaled",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default_scaled", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.highlight_outliner" }],
 			"textures": ["Texture.divine"],
 
@@ -249,7 +274,12 @@
 			"ignore_lighting": true
 		},
 		"controller.render.player.divine.third_person_slim": {
-			"geometry": "Geometry.default_scaled_slim_arms",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default_scaled_slim_arms", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.highlight_outliner" }],
 			"textures": ["Texture.divine"],
 
@@ -269,7 +299,12 @@
 			"ignore_lighting": true
 		},
 		"controller.render.player.blood_tracker": {
-			"geometry": "Geometry.default_scaled",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default_scaled", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.highlight_outliner" }],
 			"textures": ["Texture.blood_sense"],
 
@@ -292,7 +327,12 @@
 			"ignore_lighting": true
 		},
 		"controller.render.player.blood_tracker_slim": {
-			"geometry": "Geometry.default_scaled_slim_arms",
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.default_scaled_slim_arms", "Geometry.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
 			"materials": [{ "*": "Material.highlight_outliner" }],
 			"textures": ["Texture.blood_sense"],
 

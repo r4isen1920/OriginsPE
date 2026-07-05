@@ -102,6 +102,7 @@ export class CameraService {
 		log.debug(`camera preset: ${preset} for player: ${player.name}`);
 		try {
 			player.camera.setCamera(preset);
+			this.setActiveProperty(player, true);
 		} catch (e: any) {
 			log.error(`setCamera '${preset}' failed for player: ${player.name}: ${e}`);
 		}
@@ -113,8 +114,18 @@ export class CameraService {
 		log.debug(`camera cleared for player: ${player.name}`);
 		try {
 			player.camera.clear();
+			this.setActiveProperty(player, false);
 		} catch (e: any) {
 			log.error(`camera.clear failed for player: ${player.name}: ${e}`);
+		}
+	}
+
+	/** Toggles the client-synced flag that hides the local player's own model. */
+	private static setActiveProperty(player: Player, active: boolean): void {
+		try {
+			player.setProperty('r4isen1920_originspe:camera_active', active);
+		} catch (e: any) {
+			log.error(`setProperty camera_active = ${active} failed for player: ${player.name}: ${e}`);
 		}
 	}
 }
