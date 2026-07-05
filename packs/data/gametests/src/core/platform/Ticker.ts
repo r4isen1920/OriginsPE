@@ -45,6 +45,11 @@ export class Ticker {
 	private static playersDirty = true;
 	private static started = false;
 
+	/** Returns the currently cached player list. */
+	static getPlayers(): readonly Player[] {
+		return this.cachedPlayers;
+	}
+
 	/** Registers a global recurring task. */
 	static every(intervalTicks: number, fn: GlobalTickFn, opts?: { id?: string; priority?: number }): void {
 		this.tasks.push({

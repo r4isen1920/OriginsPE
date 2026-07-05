@@ -1,7 +1,8 @@
-import { Player, world, system, EntityHealthComponent } from '@minecraft/server';
+import { Player, system, EntityHealthComponent } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { Ticker } from '../../core/platform/Ticker';
 import { AfterEntityHitEntity, AfterEntityDie } from '../../core/platform/DecoratedEvents';
 import { AttributeService } from '../../services/AttributeService';
 import { ResourceBarService } from '../../services/ResourceBarService';
@@ -148,7 +149,7 @@ export class Prescience implements Power {
 	}
 
 	private static breakLinkForEveryone(linkedId: string): void {
-		for (const player of world.getAllPlayers()) {
+		for (const player of Ticker.getPlayers()) {
 			if (!player?.isValid) continue;
 			const playerState = PlayerState.for(player);
 			if (!playerState) continue;

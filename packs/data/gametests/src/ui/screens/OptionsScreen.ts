@@ -3,6 +3,7 @@ import { CommandPermissionLevel, Player, world } from '@minecraft/server';
 import { WORLD_DYNAMIC_PROPERTIES } from '../../Constants';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerLifecycle } from '../../core/abilities/PlayerLifecycle';
+import { Ticker } from '../../core/platform/Ticker';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { Log } from '../../utils/Log';
 import { UiBridge } from '../UiBridge';
@@ -116,7 +117,7 @@ export class OptionsScreen extends Screen {
 				world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.toggles, undefined);
 				world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.bans, undefined);
 				resetAllToggles();
-				for (const p of world.getAllPlayers()) {
+				for (const p of Ticker.getPlayers()) {
 					PlayerState.for(p).reset();
 					// reset() wipes the power list, so applyOriginAndClass cannot diff and
 					// run onRelease for the old powers; clear their bars explicitly.
@@ -135,7 +136,7 @@ export class OptionsScreen extends Screen {
 
 	private handleEvictUnselected(player: Player): void {
 		if (!this.isAdmin(player)) { UiBridge.openDialogue(player, 'gui_options_admin_denied'); return; }
-		for (const p of world.getAllPlayers()) {
+		for (const p of Ticker.getPlayers()) {
 			const st = PlayerState.for(p);
 			if (!st.getOrigin() || !st.getClass()) {
 				const raceStart = defaultId(PickerKind.Race);

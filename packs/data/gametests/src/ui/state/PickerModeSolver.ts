@@ -1,6 +1,7 @@
-import { Player, world } from '@minecraft/server';
+import { Player } from '@minecraft/server';
 
 import { PlayerState } from '../../core/platform/PlayerState';
+import { Ticker } from '../../core/platform/Ticker';
 import { PickerKind, PickerMode } from '../UiPayload';
 import { isToggleOn } from '../OptionsState';
 import { isBanned, wouldBanLimitIfBanned } from '../PickerNavigation';
@@ -55,7 +56,7 @@ export function resolvePickMode(kind: PickerKind, id: string, player: Player): P
 	if (id === 'random') return PickerMode.Pick;
 	if (isBanned(kind, id)) return PickerMode.PickBan;
 	if (isToggleOn('unique')) {
-		const alreadyTaken = world.getAllPlayers().some((p) => {
+		const alreadyTaken = Ticker.getPlayers().some((p) => {
 			if (p.id === player.id) return false;
 			const st = PlayerState.for(p);
 			return kind === PickerKind.Race ? st.getOrigin() === id : st.getClass() === id;

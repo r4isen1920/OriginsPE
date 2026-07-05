@@ -1,7 +1,8 @@
-import { Player, world, system, EntityDamageCause } from '@minecraft/server';
+import { Player, system, EntityDamageCause } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { Ticker } from '../../core/platform/Ticker';
 import { AfterEntityHealthChanged } from '../../core/platform/DecoratedEvents';
 /**
  * Oracle: Players with this power are linked to another player (via Prescience).
@@ -27,7 +28,7 @@ export class Oracle implements Power {
 		const healthDiff = Math.floor(newValue - oldValue);
 		if (Math.abs(healthDiff) < 2) return;
 
-		for (const player of world.getAllPlayers()) {
+		for (const player of Ticker.getPlayers()) {
 			if (!player.isValid || player.id === entity.id) continue;
 
 			const pState = PlayerState.for(player);
