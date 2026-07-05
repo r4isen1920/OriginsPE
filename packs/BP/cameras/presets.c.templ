@@ -26,9 +26,10 @@
 			"inherit_from": "minecraft:follow_orbit",
 			"entity_offset": [
 				0.0,
-				//** ~-1.6 -> smallest, standing
-				//** ~-0.35 -> smallest, crawling
-				"{{=max(state == 'standing' ? -1.7 : -0.45, (state == 'standing' ? -1.7 : -0.45) + scale)}}",
+				//** offset = base + 1.7 * scale (linear eye-height model)
+				//** standing base -1.77 -> ~-1.6 at scale 0.1, ~0.35 at scale 1.25
+				//** crawling base -0.52 -> ~-0.35 at scale 0.1
+				"{{=(state == 'standing' ? -1.77 : -0.52) + 1.7 * scale}}",
 				0.5
 			],
 			"radius": 0.1
