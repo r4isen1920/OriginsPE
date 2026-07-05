@@ -203,6 +203,7 @@ import './domain/perks/QuickRegen';
 //-------------------------------------------
 
 import './core/Commands';
+import './core/platform/ItemAssociation';
 import './core/platform/Ticker';
 
 import './ui/UiRouter';
