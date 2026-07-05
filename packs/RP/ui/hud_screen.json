@@ -143,8 +143,38 @@
 		"$var_actionbar_text": "$actionbar_text",
 
 		"controls": [
-			{ "overhead_texts@origin_overhead_texts.root": {} },
-			{ "shulk_inventory_display_access_icon@origin_shulk_inventory.shulk_inventory_display_access_icon": {} },
+			{
+				"hud_elements@common.empty_panel": {
+					"size": ["100%", "100%"],
+
+					"controls": [
+						{ "overhead_texts@origin_overhead_texts.root": {} },
+						{ "shulk_inventory_display_access_icon@origin_shulk_inventory.shulk_inventory_display_access_icon": {} }
+					],
+
+					"bindings": [
+						{
+							"binding_type": "global",
+							"binding_name": "#hud_title_text_string"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "('%.4s' * #hud_title_text_string = '_op:')",
+							"target_property_name": "#is_addon_payload"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "('%.17s' * #hud_title_text_string = '_op:resource_bar.')",
+							"target_property_name": "#is_resource_bar_payload"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "((not #is_addon_payload) or #is_resource_bar_payload)",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			},
 			{
 				//? re-instate vanilla actionbar text here
 				//? but under our own root actionbar factory so that `$actionbar_text` resolves properly with our usage
