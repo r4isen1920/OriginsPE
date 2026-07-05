@@ -1,7 +1,8 @@
-import { Player, ItemStack, world, system, ItemCompleteUseAfterEvent } from '@minecraft/server';
+import { Player, ItemStack, system, ItemCompleteUseAfterEvent } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { Ticker } from '../../core/platform/Ticker';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 import { AfterItemCompleteUse } from '../../core/platform/DecoratedEvents';
 import { ResourceBarService } from '../../services';
@@ -66,7 +67,7 @@ export class HyperActive implements Power {
 	@OnWorldLoad
 	static onWorldLoad(): void {
 		system.runInterval(() => {
-			for (const player of world.getAllPlayers()) {
+			for (const player of Ticker.getPlayers()) {
 				if (!player.isValid) continue;
 
 				const state = PlayerState.for(player);

@@ -1,18 +1,83 @@
+import { BindThis, BlockComponent } from '@bedrock-oss/stylish';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import {
-	Block,
+	BlockCustomComponent,
+	BlockComponentTickEvent,
 	BlockPermutation,
 	Player,
 	PlayerPlaceBlockAfterEvent,
-	ItemStack,
-	world,
-	system
+	Dimension,
+	Vector3,
+	BlockVolume,
 } from '@minecraft/server';
+import { Ticker } from '../../core/platform/Ticker';
 import { Log } from '../../utils/Log';
 import { PlayerState } from '../../core/platform/PlayerState';
-import { OnWorldLoad } from '@bedrock-oss/stylish';
+import { BlockStateSuperset, MinecraftBlockTypes } from '@minecraft/vanilla-data';
+import { Vec3 } from '@bedrock-oss/bedrock-boost';
 
+import { Blocks } from '../../Files';
+
+
+
+//#region FakeCobweb Block
+
+/**
+ * Block custom component for the fake cobweb block.
+ * On each tick, checks whether any Arachnid player is within the bubble. If not,
+ * restores to a vanilla cobweb. Also applies slowness effects to non-exempt entities.
+ */
+@BlockComponent
+export class FakeCobweb implements BlockCustomComponent {
+	static readonly componentId = 'r4isen1920_originspe:fake_cobweb';
+	private static readonly log = Log.get('MasterOfWebs', 'FakeCobweb');
+
+	public static readonly BUBBLE_RADIUS = 1;
+
+	@BindThis
+	onTick(event: BlockComponentTickEvent): void {
+		const { block, dimension } = event;
+		if (!block?.isValid) return;
+
+		this.slowEntities(dimension, block.location);
+
+		const loc = Vec3.from(block.location);
+		const hasNearbyArachnid = Ticker.getPlayers().some((player) => {
+			if (!player.isValid) return false;
+			if (!PlayerState.for(player).hasPower('master_of_webs')) return false;
+			const playerFloor = Vec3.from(player.location).floor();
+			const diff = loc.subtract(playerFloor);
+			return (
+				Math.abs(diff.x) <= FakeCobweb.BUBBLE_RADIUS &&
+				Math.abs(diff.y) <= FakeCobweb.BUBBLE_RADIUS &&
+				Math.abs(diff.z) <= FakeCobweb.BUBBLE_RADIUS
+			);
+		});
+
+		if (!hasNearbyArachnid) {
+			block.setType(MinecraftBlockTypes.Web);
+			// FakeCobweb.log.debug(`Cobweb restored at: ${loc.x},${loc.y},${loc.z}`);
+		}
+	}
+
+	private slowEntities(dimension: Dimension, location: Vector3): void {
+		dimension.getEntitiesAtBlockLocation(location).forEach((entity) => {
+			if (entity instanceof Player) {
+				const state = PlayerState.for(entity);
+				if (state.hasPower('webbing') || state.hasPower('master_of_webs')) return;
+			}
+			entity.addEffect('slowness', 5, { amplifier: 4, showParticles: false });
+			entity.addEffect('slow_falling', 5, { amplifier: 4, showParticles: false });
+		});
+	}
+}
+
+
+
+//#region MasterOfWebs Power
+
+/** Arachnid can walk through cobwebs unimpeded, like spiders. */
 @RegisterPower
 export class MasterOfWebs implements Power {
 	readonly id = 'master_of_webs';
@@ -20,141 +85,33 @@ export class MasterOfWebs implements Power {
 
 	private static readonly log = Log.get('MasterOfWebs');
 
-	private static readonly FAKE_COBWEB = 'r4isen1920_originspe:fake_cobweb';
-	private static readonly REAL_COBWEB = 'minecraft:web';
-
-	private static readonly trackedWebs = new Map<string, BlockPermutation>();
-
-	private static key(block: Block): string {
-		const { x, y, z } = block.location;
-		return `${x},${y},${z},${block.dimension.id}`;
-	}
-
 	onTick(player: Player): void {
 		if (!player.isValid) return;
-
-		const inventory = player.getComponent('minecraft:inventory');
-		if (inventory?.container) {
-			const container = inventory.container;
-
-			const selectedSlot = player.selectedSlotIndex;
-			const selectedItem = container.getItem(selectedSlot);
-			const isPlacing = selectedItem?.typeId === MasterOfWebs.FAKE_COBWEB;
-
-			for (let slot = 0; slot < container.size; slot++) {
-				if (isPlacing && slot === selectedSlot) continue;
-
-				const item = container.getItem(slot);
-				if (item?.typeId === MasterOfWebs.REAL_COBWEB) {
-					container.setItem(slot, new ItemStack(MasterOfWebs.FAKE_COBWEB, item.amount));
-				}
-			}
-		}
+		if (!PlayerState.for(player).hasPower('master_of_webs')) return;
 
 		const dim = player.dimension;
-		const loc = player.location;
-
-		const fx = Math.floor(loc.x);
-		const fy = Math.floor(loc.y);
-		const fz = Math.floor(loc.z);
-
-		const currentBlocks = [
-			dim.getBlock({ x: fx, y: fy, z: fz }),
-			dim.getBlock({ x: fx, y: fy + 1, z: fz })
-		];
-
-		const currentKeys = new Set<string>();
-
-		for (const block of currentBlocks) {
-			if (!block?.isValid) continue;
-
-			if (block.typeId === MasterOfWebs.REAL_COBWEB) {
-				const k = MasterOfWebs.key(block);
-				currentKeys.add(k);
-
-				if (!MasterOfWebs.trackedWebs.has(k)) {
-					MasterOfWebs.trackedWebs.set(k, block.permutation);
-					block.setPermutation(BlockPermutation.resolve(MasterOfWebs.FAKE_COBWEB));
-				}
-			} else if (block.typeId === MasterOfWebs.FAKE_COBWEB) {
-				const k = MasterOfWebs.key(block);
-				currentKeys.add(k);
-			}
-		}
-
-		for (const [k, originalPermutation] of MasterOfWebs.trackedWebs) {
-			if (currentKeys.has(k)) continue;
-
-			const [x, y, z, dimId] = k.split(',');
-			if (dimId !== dim.id) continue;
-
-			const b = dim.getBlock({
-				x: Number(x),
-				y: Number(y),
-				z: Number(z)
-			});
-
-			if (
-				b?.isValid &&
-				(b.typeId === MasterOfWebs.FAKE_COBWEB || b.typeId === MasterOfWebs.REAL_COBWEB)
-			) {
-				b.setPermutation(originalPermutation);
-			}
-
-			MasterOfWebs.trackedWebs.delete(k);
-		}
+		const flooredLoc = Vec3.from(player.location).floor();
+		const blockVolume = new BlockVolume(
+			flooredLoc.add(FakeCobweb.BUBBLE_RADIUS),
+			flooredLoc.subtract(FakeCobweb.BUBBLE_RADIUS)
+		);
+		dim.fillBlocks(blockVolume, Blocks.FakeCobweb, {
+			blockFilter: {
+				includeTypes: [MinecraftBlockTypes.Web],
+			},
+			ignoreChunkBoundErrors: true,
+		});
 	}
 
 	onPlaceBlock(player: Player, ev: PlayerPlaceBlockAfterEvent): void {
-		const state = PlayerState.for(player);
-		if (!state.hasPower('master_of_webs')) return;
+		if (!PlayerState.for(player).hasPower('master_of_webs')) return;
 		const block = ev.block;
-		if (!block?.isValid) return;
-		if (block.typeId !== MasterOfWebs.REAL_COBWEB) return;
-
-		block.setPermutation(BlockPermutation.resolve(MasterOfWebs.FAKE_COBWEB));
-	}
-
-	onUnload(player: Player): void {
-		for (const [k, originalPermutation] of MasterOfWebs.trackedWebs) {
-			const [x, y, z, dimId] = k.split(',');
-			if (dimId !== player.dimension.id) continue;
-
-			const b = player.dimension.getBlock({
-				x: Number(x),
-				y: Number(y),
-				z: Number(z)
-			});
-
-			if (b?.isValid) b.setPermutation(originalPermutation);
-		}
-
-		MasterOfWebs.trackedWebs.clear();
-	}
-
-	@OnWorldLoad
-	static onWorldLoad(): void {
-		system.runInterval(() => {
-			for (const player of world.getAllPlayers()) {
-				if (!player.isValid) continue;
-
-				const state = PlayerState.for(player);
-				if (!state || !state.hasPower('master_of_webs')) {
-					const inventory = player.getComponent('minecraft:inventory');
-					if (!inventory?.container) continue;
-
-					const container = inventory.container;
-					for (let slot = 0; slot < container.size; slot++) {
-						const item = container.getItem(slot);
-						if (item?.typeId === MasterOfWebs.FAKE_COBWEB) {
-							container.setItem(
-								slot,
-								new ItemStack(MasterOfWebs.REAL_COBWEB, item.amount)
-							);
-						}
-					}
-				}
-			}
-		}, 20);
+		if (!block?.isValid || block.typeId !== MinecraftBlockTypes.Web) return;
+		block.setPermutation(
+			BlockPermutation.resolve(Blocks.FakeCobweb, {
+				'r4isen1920_originspe:is_from_attack': false,
+			})
+		);
+		MasterOfWebs.log.debug(`Placed cobweb converted at: ${block.location.x},${block.location.y},${block.location.z}`);
 	}
 }

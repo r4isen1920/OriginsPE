@@ -1,0 +1,75 @@
+{
+	"format_version": "1.26.30",
+	"minecraft:block": {
+		"description": {
+			"identifier": "r4isen1920_originspe:fake_cobweb",
+
+			"menu_category": {
+				"category": "none",
+				"is_hidden_in_commands": true
+			},
+
+			"states": {
+				"r4isen1920_originspe:is_from_attack": [false, true]
+			}
+		},
+
+		"permutations": [
+			{
+				// Placed by the Webbing attack, it allows the Arachnid to easily mark and hit their target without accidentally hitting this cobweb
+				"condition": "q.block_state('r4isen1920_originspe:is_from_attack')",
+				"components": {
+					"minecraft:selection_box": false
+				}
+			},
+
+			{
+				"condition": "!q.block_state('r4isen1920_originspe:is_from_attack')",
+				"components": {
+					"r4isen1920_originspe:fake_cobweb": {},
+					"minecraft:tick": {
+						"interval_range": [1, 1],
+						"looping": true
+					}
+				}
+			}
+		],
+
+		"components": {
+			"minecraft:map_color": "#FFFFFF",
+			"minecraft:display_name": "tile.web.name",
+
+			"minecraft:geometry": {
+				"identifier": "geometry.r4isen1920_originspe.cobweb"
+			},
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "r4isen1920_originspe:fake_cobweb",
+					"render_method": "blend_to_opaque",
+					"ambient_occlusion": 0, // or false
+					"face_dimming": true
+				}
+			},
+
+			"minecraft:collision_box": false,
+			"minecraft:selection_box": true,
+
+			"minecraft:light_dampening": 0,
+
+			"minecraft:destructible_by_mining": {
+				"seconds_to_destroy": 20,
+				"item_specific_speeds": [
+					{
+						"item": { "tags": "q.any_tag('minecraft:is_shears', 'minecraft:is_sword')" },
+						"destroy_speed": 0.4
+					}
+				]
+			},
+			"minecraft:destructible_by_explosion": {
+				"explosion_resistance": 4
+			},
+
+			"minecraft:tags": ["minecraft:is_shears_item_destructible"]
+		}
+	}
+}

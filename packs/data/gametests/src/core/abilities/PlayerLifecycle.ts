@@ -26,7 +26,7 @@ import {
 //#region BUILT-IN GRANTS
 
 /** Powers granted to every player regardless of origin. */
-const DEFAULT_POWERS: readonly string[] = ['master_of_webs'];
+const DEFAULT_POWERS: readonly string[] = [];
 /** Perks granted to every player regardless of class. */
 const DEFAULT_PERKS: readonly string[] = [
 	'better_stew',

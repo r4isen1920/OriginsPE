@@ -1,49 +1,19 @@
-import { BlockComponent } from '@bedrock-oss/stylish';
 import {
 	EntityHitEntityAfterEvent,
 	system,
 	TicksPerSecond,
-	BlockCustomComponent,
-	BlockComponentTickEvent,
-	Player
+	Player,
+	BlockPermutation
 } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { MinecraftBlockTypes, MinecraftEffectTypes } from '@minecraft/vanilla-data';
+import { Vec3 } from '@bedrock-oss/bedrock-boost';
+import { Blocks, Particles } from '../../Files';
 
-@BlockComponent
-export class FakeCobweb implements BlockCustomComponent {
-	public static readonly componentId = 'r4isen1920_originspe:fake_cobweb';
 
-	onTick(events: BlockComponentTickEvent): void {
-		const block = events.block;
-		const dimension = events.dimension;
-		const loc = block.location;
-		const currentBlock = block.dimension.getBlock({
-			x: Math.floor(loc.x),
-			y: Math.floor(loc.y),
-			z: Math.floor(loc.z)
-		});
-		dimension.getEntitiesAtBlockLocation(block.location).forEach((entity) => {
-			if (currentBlock?.typeId === 'r4isen1920_originspe:fake_cobweb') {
-				if (entity instanceof Player) {
-					const state = PlayerState.for(entity);
-					if (state.hasPower('webbing')) return;
-				}
-				entity.addEffect('slowness', 5, { amplifier: 4, showParticles: false });
-				entity.addEffect('slow_falling', 5, { amplifier: 4, showParticles: false });
-				entity.addEffect('poison', 5, { amplifier: 0, showParticles: false });
-			} else {
-				entity.removeEffect('slowness');
-				entity.removeEffect('slow_falling');
-				entity.removeEffect('poison');
-			}
-		});
-
-		if (!block || !block.isValid) return;
-	}
-}
 
 @RegisterPower
 export class Webbing implements Power {
@@ -71,35 +41,41 @@ export class Webbing implements Power {
 			durationSeconds: 13
 		});
 
-		const trapEntity = player.dimension.spawnEntity(
-			'r4isen1920_originspe:webbing_attack',
-			target.location
-		);
+		const targetDim = target.dimension;
+		const targetLoc = Vec3.from(target.location);
 
-		if (trapEntity?.isValid) {
-			trapEntity.triggerEvent('r4isen1920_originspe:start_webbing_control');
-		}
+		const targetBlock = targetDim.getBlock(targetLoc);
+		if (targetBlock && targetBlock.isAir) {
+			const targetBlockLoc = Vec3.from(targetBlock.bottomCenter());
 
-		const loc = target.location;
-		const trapped = {
-			x: Math.floor(loc.x),
-			y: Math.floor(loc.y),
-			z: Math.floor(loc.z)
-		};
+			target.teleport(targetBlockLoc);
 
-		const block1 = player.dimension.getBlock(trapped);
+			targetBlock.setPermutation(
+				BlockPermutation.resolve(Blocks.FakeCobweb, {
+					'r4isen1920_originspe:is_from_attack': true,
+				})
+			);
+			targetDim.spawnParticle(Particles.WebbingTrap, targetBlockLoc);
+			targetDim.playSound('mob.spider.death', targetBlockLoc);
 
-		if (block1?.isAir) {
-			block1.setType('minecraft:web');
+			let trapTick = 0;
+			const trapRunId = system.runInterval(() => {
+				trapTick++;
 
-			const dim = player.dimension;
+				const blockAlive = targetBlock.isValid && targetBlock.typeId === Blocks.FakeCobweb;
 
-			system.runTimeout(() => {
-				const webBlock = dim.getBlock(trapped);
-				if (webBlock?.isValid && webBlock.typeId === 'minecraft:web') {
-					webBlock.setType('minecraft:air');
+				if (!target.isValid || !blockAlive || trapTick >= TicksPerSecond * 6) {
+					system.clearRun(trapRunId);
+					if (blockAlive) {
+						targetBlock.setType(MinecraftBlockTypes.Air);
+						targetDim.spawnParticle(Particles.WebbingPoof, targetBlockLoc);
+						targetDim.playSound('random.fizz', targetBlockLoc);
+					}
+					return;
 				}
-			}, TicksPerSecond * 6);
+
+				target.teleport(targetBlockLoc);
+			}, 1);
 		}
 	}
 }

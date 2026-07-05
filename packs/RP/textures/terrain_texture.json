@@ -7,7 +7,8 @@
     "empty": {
       "textures": "textures/empty"
     },
-    "cobweb": {
+
+    "r4isen1920_originspe:fake_cobweb": {
       "textures": "textures/blocks/web"
     }
   }

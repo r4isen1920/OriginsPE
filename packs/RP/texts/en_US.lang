@@ -104,7 +104,7 @@ origins.trait.no_trident_damage.description=You are invulnerable from damage dea
 origins.trait.fragile.name=Fragile
 origins.trait.fragile.description=You have 3 less hearts of health than humans.
 origins.trait.webbing.name=Webbing
-origins.trait.webbing.description=When you hit an enemy in melee, they get temporarily stuck in a cobweb, and further slows and poisons the target. Has a 13-second cooldown.
+origins.trait.webbing.description=When you hit an enemy in melee, they get temporarily stuck in a cobweb. Has a 13-second cooldown.
 origins.trait.master_of_webs.name=Master of Webs
 origins.trait.master_of_webs.description=You are able to traverse cobwebs without being slowed down.
 origins.trait.climbing.name=Climbing
@@ -400,8 +400,6 @@ origins.item.orb_of_origins.name=Orb of Origins
 origins.item.resignation_paper.name=Resignation Paper
 origins.item.fake_slimeball.name=Slimeball
 origins.item.fake_sugar.name=Sugar
-
-origins.block.fake_cobweb.name=Web
 
 
 origins.gui.title.pr=Choose your Origin.
