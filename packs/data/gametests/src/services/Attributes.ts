@@ -22,6 +22,9 @@ export type BreathableMode = 'land' | 'underwater';
 
 export type BuoyancyMode = 'normal' | 'float_on_water';
 
+/** Outline or aura type rendered over the player's model. */
+export type OutlineType = 'none' | 'divine_aura' | 'blood_tracked';
+
 /** Represents how the rule on how damage is overriden. */
 export interface DamageOverride {
 	/** Stable id, used for logging/de-duplication. */
@@ -75,6 +78,8 @@ export interface PlayerAttributes {
 	burnsInDaylight: boolean;
 	/** Whether the player's nametag/display name is shown. */
 	displayName: boolean;
+	/** Current outline/aura type rendered on the player. */
+	outlineType: OutlineType;
 	/** Damage overrides applied to the player. */
 	damageOverrides?: DamageOverride[];
 }
@@ -109,6 +114,7 @@ export const DEFAULT_ATTRIBUTES: Readonly<PlayerAttributes> = Object.freeze({
 	isShaking: false,
 	burnsInDaylight: false,
 	displayName: true,
+	outlineType: 'none',
 	damageOverrides: [],
 });
 
@@ -164,3 +170,19 @@ export const STEPPED_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, SteppedAt
 		],
 	},
 });
+
+
+//#region PROPERTY ATTRIBUTES
+
+/**
+ * Attribute keys whose values are applied via setProperty rather than entity events.
+ * Each entry maps to the corresponding actor property id.
+ */
+export const PROPERTY_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, string>>> = Object.freeze({
+	outlineType: 'r4isen1920_originspe:outline_type',
+});
+
+export type PropertyAttributeKey = keyof typeof PROPERTY_ATTRIBUTES & AttributeKey;
+
+/** Partial overrides for actor-property-driven attributes only. */
+export type PropertyAttributeOverrides = { [K in PropertyAttributeKey]?: PlayerAttributes[K] };

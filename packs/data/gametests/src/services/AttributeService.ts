@@ -5,7 +5,9 @@ import {
 	type AttributeKey,
 	type AttributeOverrides,
 	type PlayerAttributes,
+	type PropertyAttributeOverrides,
 	DEFAULT_ATTRIBUTES,
+	PROPERTY_ATTRIBUTES,
 	STEPPED_ATTRIBUTES,
 } from './Attributes';
 
@@ -65,6 +67,12 @@ export class AttributeService {
 	//#region INTERNAL
 
 	private static trigger<K extends AttributeKey>(player: Player, key: K, value: PlayerAttributes[K]): void {
+		const propId = (PROPERTY_ATTRIBUTES as Record<string, string | undefined>)[key];
+		if (propId !== undefined) {
+			this.applyActorProperty(player, propId, value as string | number | boolean);
+			return;
+		}
+
 		const stepped = STEPPED_ATTRIBUTES[key];
 		if (stepped) {
 			const snapped = this.snap(value as number, stepped.steps);
@@ -99,6 +107,33 @@ export class AttributeService {
         	this.log.error(`triggerEvent '${eventName}' failed: ${e}`);
     	}
 		return false;
+	}
+
+	/**
+	 * Applies actor-property overrides on `target` as seen from `holder`'s perspective.
+	 * Uses the experimental setPropertyOverrideForEntity API.
+	 * @param holder The player who is "holding" the target (e.g. the one who can see the override).
+	 * @param target The player whose properties are being overridden.
+	 * @param attrs The property attributes to override.
+	 */
+	static applyOverride(holder: Player, target: Player, attrs: PropertyAttributeOverrides): void {
+		for (const [key, value] of Object.entries(attrs) as [string, PlayerAttributes[keyof PlayerAttributes]][]) {
+			const propId = (PROPERTY_ATTRIBUTES as Record<string, string | undefined>)[key];
+			if (!propId || value === undefined) continue;
+			try {
+				(holder as any).setPropertyOverrideForEntity(target, propId, value);
+			} catch (e: any) {
+				this.log.error(`setPropertyOverrideForEntity '${propId}' = '${String(value)}' on '${target.id}' failed: ${e}`);
+			}
+		}
+	}
+
+	private static applyActorProperty(player: Player, propId: string, value: string | number | boolean): void {
+		try {
+			player.setProperty(propId, value);
+		} catch (e: any) {
+			this.log.error(`setProperty '${propId}' = '${String(value)}' failed: ${e}`);
+		}
 	}
 
 	/** Returns the entry of `steps` closest to `value`. */

@@ -2,6 +2,7 @@ import { Player, EntityComponentTypes, system, world } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AttributeService } from '../../services/AttributeService';
 
 const SCAN_RANGE = 64;
 const LOW_HP_THRESHOLD = 6;
@@ -74,11 +75,7 @@ export class BloodSense implements Power {
 				if (!holder.isValid || !target.isValid) return;
 				if (!PlayerState.for(holder).hasPower('blood_sense')) return;
 
-				(holder as any).setPropertyOverrideForEntity(
-					target,
-					'r4isen1920_originspe:flag_e',
-					true
-				);
+				AttributeService.applyOverride(holder, target, { outlineType: 'blood_tracked' });
 			},
 			Math.floor(Math.random() * 5)
 		);
@@ -91,11 +88,7 @@ export class BloodSense implements Power {
 		const otherHolderStillTracking = holders && [...holders].some((id) => id !== holder.id);
 
 		if (!otherHolderStillTracking) {
-			(holder as any).setPropertyOverrideForEntity(
-				target,
-				'r4isen1920_originspe:flag_e',
-				false
-			);
+			AttributeService.applyOverride(holder, target, { outlineType: 'none' });
 		}
 	}
 

@@ -2,8 +2,8 @@ import { Player, world, system, EntityHealthComponent } from '@minecraft/server'
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
-import { FlagService } from '../../services/FlagService';
 import { AfterEntityHitEntity, AfterEntityDie } from '../../core/platform/DecoratedEvents';
+import { AttributeService } from '../../services/AttributeService';
 import { ResourceBarService } from '../../services/ResourceBarService';
 
 const LINK_DURATION_TICKS = 240;
@@ -82,7 +82,7 @@ export class Prescience implements Power {
 				amplifier,
 				showParticles: false
 			});
-			FlagService.set(player, 'flag_a', true);
+			AttributeService.apply(player, { outlineType: 'divine_aura' });
 		}
 
 		system.runTimeout(() => {
@@ -166,7 +166,7 @@ export class Prescience implements Power {
 
 		if (player?.isValid) {
 			player.removeEffect('health_boost');
-			FlagService.set(player, 'flag_a', false);
+			AttributeService.apply(player, { outlineType: 'none' });
 			player.playSound('respawn_anchor.deplete', { pitch: 1.75 });
 		}
 	}

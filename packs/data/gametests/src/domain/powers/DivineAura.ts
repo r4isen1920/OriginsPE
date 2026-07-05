@@ -1,7 +1,7 @@
 import { Player } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
-import { FlagService } from '../../services/FlagService';
+import { AttributeService } from '../../services/AttributeService';
 
 /**
  * Divine_Aura: the holder permanently glows with a divine aura.
@@ -13,10 +13,10 @@ export class DivineAura implements Power {
 	readonly tickInterval = 10;
 
 	onRelease(player: Player): void {
-		FlagService.set(player, 'flag_a', false);
+		AttributeService.apply(player, { outlineType: 'none' });
 	}
 
 	onTick(player: Player): void {
-		FlagService.set(player, 'flag_a', true);
+		AttributeService.apply(player, { outlineType: 'divine_aura' });
 	}
 }
