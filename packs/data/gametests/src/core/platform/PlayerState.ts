@@ -1,6 +1,6 @@
 import { Player } from '@minecraft/server';
 
-import { PLAYER_DYNAMIC_PROPERTIES } from '../../Constants';
+import { PLAYER_DYNAMIC_PROPERTIES, PLAYER_STATE_TAG_PREFIXES } from '../../Constants';
 import { Log } from '../../utils/Log';
 
 
@@ -59,6 +59,7 @@ export class PlayerState {
 		};
 		const inst = new PlayerState(player, state);
 		this.registry.set(player.id, inst);
+		inst.syncAllTags();
 		return inst;
 	}
 
@@ -77,6 +78,7 @@ export class PlayerState {
 	setOrigin(originId: string | undefined): void {
 		this.state.origin = originId;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.origin, originId);
+		this.syncTag(PLAYER_STATE_TAG_PREFIXES.origin, originId);
 	}
 
 	getClass(): string | undefined {
@@ -86,6 +88,7 @@ export class PlayerState {
 	setClass(classId: string | undefined): void {
 		this.state.class = classId;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.class, classId);
+		this.syncTag(PLAYER_STATE_TAG_PREFIXES.class, classId);
 	}
 
 	getPowers(): readonly string[] {
@@ -94,6 +97,7 @@ export class PlayerState {
 	setPowers(ids: readonly string[]): void {
 		this.state.powers = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.powers, this.state.powers);
+		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.power, this.state.powers);
 	}
 
 	getPerks(): readonly string[] {
@@ -102,6 +106,7 @@ export class PlayerState {
 	setPerks(ids: readonly string[]): void {
 		this.state.perks = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.perks, this.state.perks);
+		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.perk, this.state.perks);
 	}
 
 	getControls(): readonly string[] {
@@ -110,6 +115,7 @@ export class PlayerState {
 	setControls(ids: readonly string[]): void {
 		this.state.controls = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.controls, this.state.controls);
+		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.control, this.state.controls);
 	}
 
 	hasPower(id: string): boolean {
@@ -194,7 +200,7 @@ export class PlayerState {
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.recordVersion, version);
 	}
 
-	/** Wipes all OriginsPE-managed dynamic properties for this player. */
+	/** Wipes all OriginsPE-managed dynamic properties and state tags for this player. */
 	reset(): void {
 		this.state.origin = undefined;
 		this.state.class = undefined;
@@ -207,6 +213,51 @@ export class PlayerState {
 		this.state.recordVersion = undefined;
 		for (const key of Object.values(PLAYER_DYNAMIC_PROPERTIES)) {
 			this.player.setDynamicProperty(key, undefined);
+		}
+		this.syncAllTags();
+	}
+
+
+	//#region SYNC
+
+	/**
+	 * Syncs and emits all five tag groups to the current cached state.
+	 * 
+	 * The purpose of this is so that other systems can query the player state, outside of Scripts API context.
+	 * The tags are in the format:
+	 * ```
+	 * r4isen1920_originspe:origin_<originId>
+	 * r4isen1920_originspe:class_<classId>
+	 * r4isen1920_originspe:power_<powerId>
+	 * r4isen1920_originspe:perk_<perkId>
+	 * r4isen1920_originspe:control_<controlId>
+	 * ```
+	 * For `power_`, `perk_`, and `control_`, multiple tags may be emitted, one for each id in the respective array.
+	 */
+	private syncAllTags(): void {
+		this.syncTag(PLAYER_STATE_TAG_PREFIXES.origin, this.state.origin);
+		this.syncTag(PLAYER_STATE_TAG_PREFIXES.class, this.state.class);
+		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.power, this.state.powers);
+		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.perk, this.state.perks);
+		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.control, this.state.controls);
+	}
+
+	/** Removes any tag on the player starting with `prefix`, then adds `prefix + id` if `id` is defined. */
+	private syncTag(prefix: string, id: string | undefined): void {
+		for (const tag of this.player.getTags()) {
+			if (tag.startsWith(prefix)) this.player.removeTag(tag);
+		}
+		if (id !== undefined) this.player.addTag(prefix + id);
+	}
+
+	/** Adds and removes `prefix + id` tags on the player to match `ids` exactly. */
+	private syncTagSet(prefix: string, ids: readonly string[]): void {
+		const desired = new Set(ids.map(id => prefix + id));
+		for (const tag of this.player.getTags()) {
+			if (tag.startsWith(prefix) && !desired.has(tag)) this.player.removeTag(tag);
+		}
+		for (const tag of desired) {
+			if (!this.player.hasTag(tag)) this.player.addTag(tag);
 		}
 	}
 

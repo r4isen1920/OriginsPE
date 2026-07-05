@@ -28,6 +28,16 @@ export enum PLAYER_DYNAMIC_PROPERTIES {
 }
 
 
+/** Tag prefixes for PlayerState-managed entity tags emitted on the player. Tags follow the format `<prefix><id>`. */
+export const PLAYER_STATE_TAG_PREFIXES = {
+	origin: 'r4isen1920_originspe:origin_',
+	class: 'r4isen1920_originspe:class_',
+	power: 'r4isen1920_originspe:power_',
+	perk: 'r4isen1920_originspe:perk_',
+	control: 'r4isen1920_originspe:control_'
+} as const;
+
+
 /** World-scoped dynamic property keys. */
 export enum WORLD_DYNAMIC_PROPERTIES {
 	/** Build id the world was last initialized for. */
