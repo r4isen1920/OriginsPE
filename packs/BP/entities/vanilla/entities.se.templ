@@ -1,0 +1,12 @@
+{
+  "$files": {
+    "array": "listBPFiles('entities', semver('1.26.20')).filter(x => !exclude_entities.contains(fileBaseName(x)))",
+    "filename": "{{fileBaseName(value)}}"
+  },
+  "$copy": "{{value}}",
+
+	"$extend": [
+		"perk_tamed_animal_boost",
+		"power_sinister_aura"
+	]
+}

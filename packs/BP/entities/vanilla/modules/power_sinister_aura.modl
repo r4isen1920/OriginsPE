@@ -1,0 +1,25 @@
+{
+	"$module": "power_sinister_aura",
+
+	"$template": {
+		"minecraft:entity": {
+			"components": {
+				"minecraft:behavior.avoid_mob_type": {
+					"priority": 1,
+					"entity_types": [
+						{
+							"filters": {
+								"test": "has_tag",
+								"subject": "other",
+								"value": "r4isen1920_originspe:power_sinister_aura"
+							},
+							"max_dist": 6,
+							"walk_speed_multiplier": 1.5,
+							"sprint_speed_multiplier": 1.25
+						}
+					]
+				}
+			}
+		}
+	}
+}

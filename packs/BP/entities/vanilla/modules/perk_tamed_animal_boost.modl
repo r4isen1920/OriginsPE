@@ -1,0 +1,86 @@
+{
+	// todo: deprecate; use native Script API EntityTameableComponent handling
+	"$module": "perk_tamed_animal_boost",
+
+	"$template": {
+		"minecraft:entity": {
+			"components": {
+				"minecraft:entity_sensor": {
+					"relative_range": false,
+					"subsensors": [
+						{
+							"require_all": false,
+							"minimum_count": 1,
+							"maximum_count": -1,
+							"event_filters": {
+								"all_of": [
+									{
+										"test": "is_owner",
+										"subject": "other",
+										"value": true
+									},
+									{
+										"test": "has_tag",
+										"subject": "other",
+										"operator": "!=",
+										"value": "r4isen1920_originspe:perk_tamed_animal_boost"
+									},
+									{
+										"test": "has_tag",
+										"subject": "other",
+										"operator": "!=",
+										"value": "_already_tamed"
+									}
+								]
+							},
+							"event": "r4isen1920_originspe:perk_tamed_animal_boost_not"
+						},
+						{
+							"require_all": false,
+							"minimum_count": 1,
+							"maximum_count": -1,
+							"event_filters": {
+								"all_of": [
+									{
+										"test": "is_owner",
+										"subject": "other",
+										"value": true
+									},
+									{
+										"test": "has_tag",
+										"subject": "other",
+										"value": "r4isen1920_originspe:perk_tamed_animal_boost"
+									},
+									{
+										"test": "has_tag",
+										"operator": "!=",
+										"value": "_already_tamed"
+									}
+								]
+							},
+							"event": "r4isen1920_originspe:perk_tamed_animal_boost"
+						}
+					]
+				}
+			},
+
+			"events": {
+				"r4isen1920_originspe:perk_tamed_animal_boost_not": {
+					"queue_command": {
+						"command": ["tag @s add _already_tamed"]
+					}
+				},
+				"r4isen1920_originspe:perk_tamed_animal_boost": {
+					"queue_command": {
+						"command": [
+							"execute at @s[tag=!perk_tamed_animal_boost] run playsound random.levelup @a ~~~ 1.0 1.5",
+							"execute at @s[tag=!perk_tamed_animal_boost] run particle r4isen1920_originspe:beastmaster_on_tame ~~0.8~",
+
+							"tag @s add perk_tamed_animal_boost"
+						]
+					}
+				}
+			}
+		}
+	}
+}
