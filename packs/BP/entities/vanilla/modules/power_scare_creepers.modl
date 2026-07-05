@@ -1,0 +1,49 @@
+{
+	"$module": "power_scare_creepers",
+
+	"$template": {
+		"{{?contains(value, 'creeper')}}": {
+			"minecraft:entity": {
+				"components": {
+					"minecraft:behavior.nearest_attackable_target": {
+						"$entity_types": [
+							{
+								"filters": {
+									"AND": [
+										{
+											"test": "is_family",
+											"subject": 1,
+											"operator": 0,
+											"value": "player"
+										},
+										{
+											"test": "has_tag",
+											"subject": "other",
+											"operator": "!=",
+											"value": "r4isen1920_originspe:power_scare_creepers"
+										}
+									]
+								}
+							}
+						]
+					},
+					"minecraft:behavior.avoid_mob_type": {
+						"priority": 1,
+						"entity_types": [
+							{
+								"filters": {
+									"test": "has_tag",
+									"subject": "other",
+									"value": "r4isen1920_originspe:power_scare_creepers"
+								},
+								"max_dist": 6,
+								"walk_speed_multiplier": 1.5,
+								"sprint_speed_multiplier": 1.25
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}
