@@ -1,23 +1,40 @@
-import { Player } from '@minecraft/server';
+import { Entity, EntityComponentTypes, EntityHealthComponent, EntityHurtAfterEvent, Player } from '@minecraft/server';
+import { Logger } from '@bedrock-oss/bedrock-boost';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class LifeDrain implements Power {
+    private static readonly log = Logger.getLogger('OriginsPE', 'LifeDrain');
+
     readonly id = 'life_drain';
-}
 
-export function lifeDrain(attacker: Player, hurtEntity: any): void {
-    const attackerHealth = attacker.getComponent('health') as any;
-    const hurtHealth = hurtEntity.getComponent('health') as any;
-    if (!attackerHealth || !hurtHealth) return;
+    onDealDamage(player: Player, ev: EntityHurtAfterEvent): void {
+        if (!EntityUtils.isPlayer(ev.damageSource.damagingEntity)) return;
+        if (ev.damageSource.damagingEntity.id !== player.id) return;
+        LifeDrain.applyLifeDrainReduction(player, ev.hurtEntity);
+    }
 
-    const healthDecrement = Math.min(
-        hurtHealth.effectiveMax - hurtHealth.currentValue,
-        attackerHealth.effectiveMax * 0.5,
-    );
+    public static applyLifeDrainReduction(attacker: Player, hurtEntity: Entity): void {
+        const attackerHealth = LifeDrain.readHealth(attacker);
+        const hurtHealth = LifeDrain.readHealth(hurtEntity);
+        if (!attackerHealth || !hurtHealth) {
+            LifeDrain.log.debug(`Skipped due to missing health component. attacker: ${attacker.typeId}, target: ${hurtEntity.typeId}`);
+            return;
+        }
 
-    attackerHealth.setCurrentValue(
-        Math.round(Math.max(attackerHealth.currentValue - healthDecrement, 2)),
-    );
+        const healthDecrement = Math.min(
+            hurtHealth.effectiveMax - hurtHealth.currentValue,
+            attackerHealth.effectiveMax * 0.5,
+        );
+
+        attackerHealth.setCurrentValue(
+            Math.max(attackerHealth.currentValue - healthDecrement, 1),
+        );
+    }
+
+    private static readHealth(entity: Entity): EntityHealthComponent | undefined {
+        return entity.getComponent(EntityComponentTypes.Health) as EntityHealthComponent | undefined;
+    }
 }

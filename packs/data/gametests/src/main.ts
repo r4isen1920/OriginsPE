@@ -39,6 +39,7 @@ import './domain/powers/HyperLeap';
 import './domain/powers/UmbralVeil';
 import './domain/powers/SoulBurst';
 import './domain/powers/LifeDrain';
+import './domain/powers/SinisterAura';
 import './domain/powers/Photosensitive';
 import './domain/powers/HeavyBones';
 import './domain/powers/ClawDigging';

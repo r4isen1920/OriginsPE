@@ -1,23 +1,81 @@
 {
+	"$scope": {
+		"target_mobs": [
+			"allay",
+			"armadillo",
+			"axolotl",
+			"bat",
+			"camel",
+			"cat",
+			"chicken",
+			"cod",
+			"copper_golem",
+			"cow",
+			"donkey",
+			"frog",
+			"glow_squid",
+			"happy_ghast",
+			"horse",
+			"mooshroom",
+			"mule",
+			"ocelot",
+			"parrot",
+			"pig",
+			"rabbit",
+			"salmon",
+			"sheep",
+			"skeleton_horse",
+			"sniffer",
+			"snow_golem",
+			"squid",
+			"strider",
+			"sulfur_cube",
+			"tadpole",
+			"tropical_fish",
+			"turtle",
+			"villager",
+			"wandering_trader",
+			"zombie_horse",
+
+			"bee",
+			"cave_spider",
+			"dolphin",
+			"fox",
+			"goat",
+			"iron_golem",
+			"llama",
+			"nautilus",
+			"panda",
+			"polar_bear",
+			"pufferfish",
+			"trader_llama",
+			"wolf",
+			"zombie_nautilus",
+			"zombie_pigman"
+		]
+	},
+
 	"$module": "power_sinister_aura",
 
 	"$template": {
-		"minecraft:entity": {
-			"components": {
-				"minecraft:behavior.avoid_mob_type": {
-					"priority": 1,
-					"entity_types": [
-						{
-							"filters": {
-								"test": "has_tag",
-								"subject": "other",
-								"value": "r4isen1920_originspe:power_sinister_aura"
-							},
-							"max_dist": 6,
-							"walk_speed_multiplier": 1.5,
-							"sprint_speed_multiplier": 1.25
-						}
-					]
+		"{{?target_mobs.any(x => contains(value, x))}}": {
+			"minecraft:entity": {
+				"components": {
+					"minecraft:behavior.avoid_mob_type": {
+						"priority": 1,
+						"entity_types": [
+							{
+								"filters": {
+									"test": "has_tag",
+									"subject": "other",
+									"value": "r4isen1920_originspe:power_sinister_aura"
+								},
+								"max_dist": 6,
+								"walk_speed_multiplier": 1.5,
+								"sprint_speed_multiplier": 1.25
+							}
+						]
+					}
 				}
 			}
 		}

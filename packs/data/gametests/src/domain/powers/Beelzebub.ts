@@ -1,50 +1,38 @@
-// Beelzebub.ts
 import {
-    EntityDamageCause,
+    EntityComponentTypes,
     EntityHurtAfterEvent,
     Player,
-    world,
 } from '@minecraft/server';
+import { Logger } from '@bedrock-oss/bedrock-boost';
 
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerTick } from '../../core/platform/Ticker';
 import { ResourceBarService } from '../../services/ResourceBarService';
-import { lifeDrain } from './LifeDrain';
-import {
-    soulburst,
-    getBeelzebubPhase,
-    incrementBeelzebubPhase,
-    incrementBeelzebubDmg,
-} from './SoulBurst';
-import { AfterEntityHurt } from '../../core';
+import { Soulburst } from './SoulBurst';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 const BAR_ID = 19;
-const BAR_VALUES = [0, 29, 71, 100, 100];
-
-const PHASE_KEY = 'r4isen1920_originspe:beelzebub_phase';
-const DMG_KEY = 'r4isen1920_originspe:beelzebub_dmg';
+const BAR_VALUES = [0, 29, 71, 100];
 
 
 /**
- * Beelzebub — attacking enemies drains their health to you and builds up a
- * phase meter; at phase 3+ your next hit unleashes a soulburst that deals
- * accumulated bonus damage to your target.
+ * Beelzebub applies bonus melee damage from missing health and builds Soulburst stacks.
  */
 @RegisterPower
 export class Beelzebub implements Power {
+    private static readonly log = Logger.getLogger('OriginsPE', 'Beelzebub');
+
     readonly id = 'beelzebub';
     readonly icon = '19';
 
-    private static lastHitTimes = new Map<string, number>();
-
     onRelease(player: Player): void {
-        player.setDynamicProperty(PHASE_KEY, undefined);
-        player.setDynamicProperty(DMG_KEY, undefined);
+        Soulburst.resetBeelzebubPhase(player);
         PlayerState.for(player).setFlag('beelzebub_bar_init', undefined);
         ResourceBarService.pop(player, BAR_ID);
+        Beelzebub.log.info(`Released for player: ${player.name}`);
     }
 
     @PlayerTick(3)
@@ -53,7 +41,7 @@ export class Beelzebub implements Power {
 
         const state = PlayerState.for(player);
         if (!state.getFlag<boolean>('beelzebub_bar_init')) {
-            const phase = getBeelzebubPhase(player);
+            const phase = Soulburst.getBeelzebubPhase(player);
             ResourceBarService.push(player, {
                 id: BAR_ID,
                 from: BAR_VALUES[phase],
@@ -62,42 +50,40 @@ export class Beelzebub implements Power {
                 persist: true,
             });
             state.setFlag('beelzebub_bar_init', true);
+            Beelzebub.log.info(`Initialized bar for player: ${player.name}, phase: ${phase}`);
         }
     }
 
-
-    @AfterEntityHurt
-    private static __onEntityHurt(ev: EntityHurtAfterEvent): void {
+    onDealDamage(player: Player, ev: EntityHurtAfterEvent): void {
         const { damage, damageSource, hurtEntity } = ev;
+        if (damage <= 0) return;
+        if (!EntityUtils.isPlayer(damageSource.damagingEntity)) return;
+        if (damageSource.damagingEntity.id !== player.id) return;
+        if (damageSource.cause !== 'entityAttack') return;
 
-        const attacker = damageSource.damagingEntity;
-        if (attacker?.typeId !== 'minecraft:player') return;
-        if (!PlayerState.for(attacker as Player).hasPower('beelzebub')) return;
-        if (damageSource.cause !== EntityDamageCause.entityAttack) return;
+        const health = player.getComponent(EntityComponentTypes.Health);
+        if (!health) {
+            Beelzebub.log.warn(`No health component for player: ${player.name}`);
+            return;
+        }
 
-        const player = attacker as Player;
+        const missingHealth = Math.max(0, health.effectiveMax - health.currentValue);
+        if (missingHealth > 0) {
+            hurtEntity.applyDamage(Math.ceil(missingHealth));
+        }
 
-        const now = Date.now();
-        const lastHit = Beelzebub.lastHitTimes.get(player.id) ?? 0;
-        if (now - lastHit < 150) return;
-        Beelzebub.lastHitTimes.set(player.id, now);
+        const phase = Soulburst.getBeelzebubPhase(player);
+        const nextPhase = Math.min(phase + 1, 3);
 
-        hurtEntity.addTag(`_beelzebub_target_${player.id}`);
-
-        soulburst(player, hurtEntity);
-        lifeDrain(player, hurtEntity);
-
-        const phase = getBeelzebubPhase(player);
         ResourceBarService.push(player, {
             id: BAR_ID,
             from: BAR_VALUES[phase],
-            to: BAR_VALUES[Math.min(phase + 1, 4)],
+            to: BAR_VALUES[nextPhase],
             durationSeconds: 1,
             persist: true,
         });
 
-        incrementBeelzebubPhase(player, 1);
-        incrementBeelzebubDmg(player, damage);
+        Soulburst.incrementBeelzebubPhase(player, 1);
 
         const headLoc = player.getHeadLocation();
         const viewDir = player.getViewDirection();
@@ -107,12 +93,16 @@ export class Beelzebub implements Power {
             z: headLoc.z + viewDir.z * 1.75,
         });
 
-        // world.playSound('enchant.sweeping_edge.hit', hurtEntity.location, { volume: 0.75, pitch: 1.25 });
-
-        const attackerHealth = player.getComponent('health') as any;
-        if (attackerHealth) {
-            const missingHealth = attackerHealth.effectiveMax - attackerHealth.currentValue;
-            player.runCommand(`damage @e[tag="_beelzebub_target_${player.id}",c=1] ${Math.ceil(missingHealth)}`);
+        if (nextPhase >= 3 && PlayerState.for(player).hasPower('soulburst')) {
+            Soulburst.triggerSoulburst(player, hurtEntity);
+            ResourceBarService.push(player, {
+                id: BAR_ID,
+                from: BAR_VALUES[3],
+                to: BAR_VALUES[0],
+                durationSeconds: 1,
+                persist: true,
+            });
+            Beelzebub.log.info(`Soulburst triggered for player: ${player.name}`);
         }
     }
 }
