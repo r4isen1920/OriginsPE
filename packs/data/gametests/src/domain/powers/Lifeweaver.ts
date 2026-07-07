@@ -1,4 +1,11 @@
-import { Player, system, TicksPerSecond, EntityHurtAfterEvent } from '@minecraft/server';
+import {
+	EntityComponentTypes,
+	EntityHealthComponent,
+	EntityHurtAfterEvent,
+	Player,
+	system,
+	TicksPerSecond,
+} from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
@@ -25,7 +32,9 @@ export class Lifeweaver implements Power {
 
 		if (state.isOnCooldown(Lifeweaver.COOLDOWN_KEY, now)) return;
 
-		const healthComp = player.getComponent('health');
+		const healthComp = player.getComponent(
+			EntityComponentTypes.Health
+		) as EntityHealthComponent | undefined;
 		if (healthComp) {
 			const restored = damage / 2;
 			const finalHealth = Math.min(

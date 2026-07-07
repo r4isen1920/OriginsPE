@@ -6,6 +6,7 @@ import { OnWorldLoad } from '@bedrock-oss/stylish';
 import { AttributeService } from './AttributeService';
 import { DEFAULT_ATTRIBUTES, STEPPED_ATTRIBUTES } from './Attributes';
 import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
+import { EntityProperties } from '../Files';
 
 
 const log = Logger.getLogger('TDEW', 'CameraService');
@@ -109,23 +110,33 @@ export class CameraService {
 	}
 
 	private static clear(player: Player): void {
-		if (!this.lastApplied.has(player.id)) return;
-		this.lastApplied.delete(player.id);
+		const hadAppliedPreset = this.lastApplied.delete(player.id);
+		const isCameraFlagActive = this.isCameraFlagActive(player);
+		if (!hadAppliedPreset && !isCameraFlagActive) return;
 		log.debug(`camera cleared for player: ${player.name}`);
 		try {
 			player.camera.clear();
-			this.setActiveProperty(player, false);
 		} catch (e: any) {
 			log.error(`camera.clear failed for player: ${player.name}: ${e}`);
 		}
+		this.setActiveProperty(player, false);
 	}
 
 	/** Toggles the client-synced flag that hides the local player's own model. */
 	private static setActiveProperty(player: Player, active: boolean): void {
 		try {
-			player.setProperty('r4isen1920_originspe:camera_active', active);
+			player.setProperty(EntityProperties.Player.CameraActive, active);
 		} catch (e: any) {
 			log.error(`setProperty camera_active = ${active} failed for player: ${player.name}: ${e}`);
+		}
+	}
+
+	private static isCameraFlagActive(player: Player): boolean {
+		try {
+			return player.getProperty(EntityProperties.Player.CameraActive) === true;
+		} catch (e: any) {
+			log.error(`getProperty camera_active failed for player: ${player.name}: ${e}`);
+			return false;
 		}
 	}
 }

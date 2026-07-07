@@ -1,9 +1,7 @@
 import { Origin, OriginDifficulty, OriginEffects } from '../../core/abilities/Ability';
 import { RegisterOrigin } from '../../core/abilities/Registries';
-import { AttributeOverrides } from '../../services/Attributes';
-import { PlayerLifecycle } from '../../core/abilities/PlayerLifecycle';
 
-/** Elven origin grants the ability to weave life. */
+/** Elven origin centered around sustain, precision, and bow mastery. */
 
 @RegisterOrigin
 export class Elf implements Origin {
@@ -12,8 +10,9 @@ export class Elf implements Origin {
 	readonly powers: readonly string[] = [
 		'lifeweaver',
 		'endless_quiver',
-		'imbue',
-		'agility',
+		'imbued_shots',
+		'elegant',
+		'swift',
 		'permeable'
 	];
 	readonly effects: OriginEffects = {

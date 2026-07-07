@@ -80,6 +80,7 @@ import './domain/powers/Instability';
 import './domain/powers/Lifeweaver';
 import './domain/powers/EndlessQuiver';
 import './domain/powers/Imbue';
+import './domain/powers/Elegant';
 import './domain/powers/Swift';
 import './domain/powers/Permeable';
 import './domain/powers/GiftOfTheWinds';

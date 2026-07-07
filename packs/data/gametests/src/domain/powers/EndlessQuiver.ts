@@ -1,8 +1,18 @@
-import { Player, EquipmentSlot, ItemStack, TicksPerSecond, system } from '@minecraft/server';
+import {
+	EntityComponentTypes,
+	EntityEquippableComponent,
+	EntityInventoryComponent,
+	EquipmentSlot,
+	ItemStack,
+	Player,
+	system,
+	TicksPerSecond,
+} from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { PlayerState } from '../../core/platform/PlayerState';
+
 /**
  * EndlessQuiver: Players with this power have an endless supply of arrows.
  * Loose: dispatched to whoever is granted the power, with no origin coupling.
@@ -18,12 +28,12 @@ export class EndlessQuiver implements Power {
 	private static readonly COOLDOWN_LORE = TicksPerSecond * 2;
 
 	onTick(player: Player): void {
-		const inventoryComp = player.getComponent('inventory');
-		const equippableComp = player.getComponent('equippable');
+		const inventoryComp = player.getComponent(EntityComponentTypes.Inventory);
+		const equippableComp = player.getComponent(EntityComponentTypes.Equippable);
 		if (!inventoryComp?.container || !equippableComp) return;
 
 		const mainhandItem = equippableComp.getEquipment(EquipmentSlot.Mainhand);
-		const hasBowInHand = mainhandItem && mainhandItem.typeId.includes('bow');
+		const hasBowInHand = mainhandItem?.typeId.endsWith('bow') === true;
 
 		let totalArrowCount = 0;
 		let customArrowSlot = -1;
