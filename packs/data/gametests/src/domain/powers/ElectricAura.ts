@@ -23,6 +23,15 @@ export class ElectricAura implements Power {
 
         const now = system.currentTick;
 
+        // Drop expired cooldown entries so the map doesn't grow unbounded as
+        // mobs spawn and despawn. An expired entry no longer suppresses a hit,
+        // so removing it is behaviour-preserving. Swept once per cooldown span.
+        if (now % TARGET_COOLDOWN_TICKS === 0) {
+            for (const [id, tick] of targetCooldowns) {
+                if (now >= tick) targetCooldowns.delete(id);
+            }
+        }
+
         player.dimension.spawnParticle(
             'r4isen1920_originspe:electric_aura',
             player.location

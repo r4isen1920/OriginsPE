@@ -6,8 +6,10 @@ import { PlayerState } from '../../core/platform/PlayerState';
 const RETALIATION_DAMAGE = 2; // 1 full heart
 const KNOCKBACK_STRENGTH = 0.5;
 const RECOIL_COOLDOWN_TICKS = 10; // 0.5 seconds
+const PRUNE_INTERVAL_TICKS = 200; // sweep expired entries at most this often
 
 const attackerCooldowns = new Map<string, number>();
+let lastPruneTick = 0;
 
 world.afterEvents.entityHurt.subscribe((event) => {
     const victim = event.hurtEntity;
@@ -19,6 +21,17 @@ world.afterEvents.entityHurt.subscribe((event) => {
     if (!PlayerState.for(victim).hasPower('static_field')) return;
 
     const now = system.currentTick;
+
+    // Periodically drop expired cooldown entries so the map doesn't grow
+    // unbounded across every attacker ever seen. Gated by wall-clock ticks
+    // since this runs from a sporadic combat event, not a fixed tick loop.
+    if (now - lastPruneTick >= PRUNE_INTERVAL_TICKS) {
+        lastPruneTick = now;
+        for (const [id, tick] of attackerCooldowns) {
+            if (now >= tick) attackerCooldowns.delete(id);
+        }
+    }
+
     const nextValidHit = attackerCooldowns.get(attacker.id) ?? 0;
     if (now < nextValidHit) return;
 
