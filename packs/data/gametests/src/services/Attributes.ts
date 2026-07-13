@@ -23,8 +23,33 @@ export type BreathableMode = 'land' | 'underwater';
 
 export type BuoyancyMode = 'normal' | 'float_on_water';
 
-/** Outline or aura type rendered over the player's model. */
-export type OutlineType = 'none' | 'divine_aura' | 'blood_tracked';
+// <generated-player-property-types>
+export type ModelType =
+	| 'normal'
+	| 'tiny'
+	| 'small'
+	| 'medium'
+	| 'large';
+
+export type SkinType =
+	| 'normal'
+	| 'ghostly'
+	| 'slimy'
+	| 'shadow';
+
+export type EmitterType =
+	| 'none'
+	| 'enderian'
+	| 'starborne'
+	| 'elven'
+	| 'voidwalker'
+	| 'diviner';
+
+export type OutlineType =
+	| 'none'
+	| 'divine_aura'
+	| 'blood_tracked';
+// </generated-player-property-types>
 
 /** Represents how the rule on how damage is overriden. */
 export interface DamageOverride {

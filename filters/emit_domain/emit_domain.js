@@ -21,13 +21,19 @@ const ts = requireTypeScript();
 
 //#region PATHS
 
+const REPO_ROOT = path.resolve(__dirname, '..', '..');
 const DATA_DIR = path.resolve('data');
 const DOMAIN_DIR = path.join(DATA_DIR, 'gametests', 'src', 'domain');
 const MAIN_TS = path.join(DATA_DIR, 'gametests', 'src', 'main.ts');
 const META_TS = path.join(DATA_DIR, 'gametests', 'src', 'Meta.ts');
+const ATTRIBUTES_TS = path.join(DATA_DIR, 'gametests', 'src', 'services', 'Attributes.ts');
+const SOURCE_ATTRIBUTES_TS = path.join(REPO_ROOT, 'packs', 'data', 'gametests', 'src', 'services', 'Attributes.ts');
+const SOURCE_PLAYER_TEMPLATE = path.join(REPO_ROOT, 'packs', 'BP', 'entities', 'vanilla', 'player.se.templ');
 const ABILITY_TS = path.join(DOMAIN_DIR, 'Ability.ts');
 const OUT_DIR = path.join(DATA_DIR, 'jsonte');
 const GLOBAL_VARS = path.resolve('RP', 'ui', '_global_variables.json');
+const GENERATED_PLAYER_TYPES_START = '// <generated-player-property-types>';
+const GENERATED_PLAYER_TYPES_END = '// </generated-player-property-types>';
 
 
 //#region AST HELPERS
@@ -36,6 +42,28 @@ const GLOBAL_VARS = path.resolve('RP', 'ui', '_global_variables.json');
 function parseSource(file) {
 	const text = fs.readFileSync(file, 'utf8');
 	return ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true);
+}
+
+/** Finds the index of the matching closing token for the opener at `start`. */
+function findMatchingToken(text, start, openChar, closeChar) {
+	let depth = 0;
+	let inString = false;
+	for (let index = start; index < text.length; index++) {
+		const char = text[index];
+		const prev = index > 0 ? text[index - 1] : '';
+
+		if (char === '"' && prev !== '\\') {
+			inString = !inString;
+			continue;
+		}
+		if (inString) continue;
+		if (char === openChar) depth++;
+		if (char === closeChar) {
+			depth--;
+			if (depth === 0) return index;
+		}
+	}
+	return -1;
 }
 
 /** Finds the first exported class declaration in a source file. */
@@ -129,6 +157,108 @@ function buildIconMap() {
 		}
 	}
 	return map;
+}
+
+/** Converts a snake_case identifier to PascalCase. */
+function snakeToPascal(value) {
+	return value
+		.split('_')
+		.filter(Boolean)
+		.map((part) => part[0].toUpperCase() + part.slice(1))
+		.join('');
+}
+
+/** Reads enum-valued actor property definitions from the player template. */
+function readPlayerPropertyEnums() {
+	if (!fs.existsSync(SOURCE_PLAYER_TEMPLATE)) throw new Error(`[emit_domain] player template not found: ${SOURCE_PLAYER_TEMPLATE}`);
+	const text = fs.readFileSync(SOURCE_PLAYER_TEMPLATE, 'utf8');
+	const propertiesKeyIndex = text.indexOf('"properties"');
+	if (propertiesKeyIndex === -1) throw new Error('[emit_domain] could not find description.properties in player template');
+
+	const propertiesOpenIndex = text.indexOf('{', propertiesKeyIndex);
+	const propertiesCloseIndex = findMatchingToken(text, propertiesOpenIndex, '{', '}');
+	if (propertiesOpenIndex === -1 || propertiesCloseIndex === -1) {
+		throw new Error('[emit_domain] could not parse description.properties block in player template');
+	}
+
+	const propertiesBlock = text.slice(propertiesOpenIndex + 1, propertiesCloseIndex);
+	const entries = [];
+	const propertyPattern = /"r4isen1920_originspe:([a-z0-9_]+)"\s*:\s*\{/g;
+	let match;
+
+	while ((match = propertyPattern.exec(propertiesBlock)) !== null) {
+		const propertyId = match[1];
+		const objectOpenIndex = propertiesBlock.indexOf('{', match.index);
+		const objectCloseIndex = findMatchingToken(propertiesBlock, objectOpenIndex, '{', '}');
+		if (objectOpenIndex === -1 || objectCloseIndex === -1) {
+			throw new Error(`[emit_domain] could not parse property block for ${propertyId}`);
+		}
+
+		const propertyBlock = propertiesBlock.slice(objectOpenIndex + 1, objectCloseIndex);
+		propertyPattern.lastIndex = objectCloseIndex + 1;
+
+		if (!/"type"\s*:\s*"enum"/.test(propertyBlock)) continue;
+
+		const valuesKeyIndex = propertyBlock.indexOf('"values"');
+		if (valuesKeyIndex === -1) {
+			throw new Error(`[emit_domain] enum property missing values: ${propertyId}`);
+		}
+
+		const valuesOpenIndex = propertyBlock.indexOf('[', valuesKeyIndex);
+		const valuesCloseIndex = findMatchingToken(propertyBlock, valuesOpenIndex, '[', ']');
+		if (valuesOpenIndex === -1 || valuesCloseIndex === -1) {
+			throw new Error(`[emit_domain] could not parse enum values for ${propertyId}`);
+		}
+
+		const valuesBlock = propertyBlock.slice(valuesOpenIndex + 1, valuesCloseIndex);
+		const values = Array.from(valuesBlock.matchAll(/"([^"]+)"/g), ([, value]) => value);
+		if (values.length === 0) {
+			throw new Error(`[emit_domain] enum property has no values: ${propertyId}`);
+		}
+
+		entries.push({
+			propertyId,
+			typeName: snakeToPascal(propertyId),
+			values,
+		});
+	}
+
+	return entries;
+}
+
+/** Emits generated enum value unions into `Attributes.ts`. */
+function emitPlayerPropertyTypes() {
+	if (!fs.existsSync(ATTRIBUTES_TS)) throw new Error(`[emit_domain] Attributes.ts not found: ${ATTRIBUTES_TS}`);
+
+	const entries = readPlayerPropertyEnums();
+	const generatedBody = entries
+		.map(({ typeName, values }) => {
+			const union = values.map((value) => `\t| '${value}'`).join('\n');
+			return `export type ${typeName} =\n${union};`;
+		})
+		.join('\n\n');
+
+	const replacement = `${GENERATED_PLAYER_TYPES_START}\n${generatedBody}\n${GENERATED_PLAYER_TYPES_END}`;
+	writeGeneratedTypes(ATTRIBUTES_TS, replacement);
+	if (path.resolve(SOURCE_ATTRIBUTES_TS) !== path.resolve(ATTRIBUTES_TS) && fs.existsSync(SOURCE_ATTRIBUTES_TS)) {
+		writeGeneratedTypes(SOURCE_ATTRIBUTES_TS, replacement);
+	}
+	console.log(`[emit_domain] emitted ${entries.length} player property value types`);
+}
+
+/** Replaces the generated player property type block in a target file. */
+function writeGeneratedTypes(file, replacement) {
+	const current = fs.readFileSync(file, 'utf8');
+	if (!current.includes(GENERATED_PLAYER_TYPES_START) || !current.includes(GENERATED_PLAYER_TYPES_END)) {
+		throw new Error(`[emit_domain] generated player property markers not found in ${file}`);
+	}
+
+	const next = current.replace(
+		new RegExp(`${GENERATED_PLAYER_TYPES_START}[\\s\\S]*?${GENERATED_PLAYER_TYPES_END}`),
+		replacement,
+	);
+
+	fs.writeFileSync(file, next);
 }
 
 
@@ -234,6 +364,7 @@ function main() {
 
 	console.log(`[emit_domain] emitted ${origins.length} origins, ${classes.length} classes`);
 
+	emitPlayerPropertyTypes();
 	emitUiVersion();
 }
 
