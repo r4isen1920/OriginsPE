@@ -70,14 +70,7 @@ export interface DamageOverride {
 //#region PROFILE
 
 /**
- * Strongly typed snapshot of every script-driven player attribute. Numeric
- * stats are plain numbers (no string round-trip); toggles are booleans; the
- * remaining categorical stats are documented string unions. Each key is mapped
- * to a concrete effect by {@link AttributeService}:
- *
- * - `movement` / `underwaterMovement` adjust an `EntityAttributeComponent`.
- * - `health` drives the BP `health.N` events (and the definitive-health flag).
- * - everything else triggers a single data-driven entity event.
+ * Represents the full set of player attributes that can be modified by powers and perks.
  */
 export interface PlayerAttributes {
 	/** Base walking speed (component value), e.g. `0.1`. */
