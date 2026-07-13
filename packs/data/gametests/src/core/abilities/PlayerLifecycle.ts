@@ -14,7 +14,7 @@ import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../../se
 import { CameraService } from '../../services/CameraService';
 import { forgetDamageOverrides, setDamageOverrides } from './DamageService';
 import Version from '../../utils/Version';
-import { Perk, Power } from './Ability';
+import { type OriginEffects, Perk, Power } from './Ability';
 import { AbilityDispatch } from './AbilityDispatch';
 import {
 	ClassRegistry,
@@ -162,7 +162,10 @@ export class PlayerLifecycle {
 		state.setControls(nextControls);
 
 		// Apply attributes: defaults overlaid by every active power/perk.
-		const merged: AttributeOverrides = { ...DEFAULT_ATTRIBUTES };
+		const merged: AttributeOverrides = {
+			...DEFAULT_ATTRIBUTES,
+			...this.originEffectsToAttributes(origin?.effects),
+		};
 		const damageOverrides: DamageOverride[] = [];
 		for (const id of nextPowers) {
 			const attrs = PowerRegistry.get(id)?.attributes;
@@ -181,12 +184,6 @@ export class PlayerLifecycle {
 		//! target profile so attributes set by the previous origin's powers via
 		//! direct entity events reset to baseline.
 		AttributeService.apply(player, merged, true);
-
-		// Apply origin render effects via data-driven events.
-		this.applyEffects(player, origin?.effects?.model, 'model_type');
-		this.applyEffects(player, origin?.effects?.skin, 'skin_type');
-		this.applyProperty(player, 'none', 'emitter_type');
-		this.applyProperty(player, origin?.effects?.emitter, 'emitter_type');
 
 		Version.markPlayerRecordCurrent(player);
 	}
@@ -225,15 +222,13 @@ export class PlayerLifecycle {
 		return kept;
 	}
 
-	private static applyEffects(player: Player, value: string | undefined, suffix: string): void {
-		if (!value) return;
-		try { player.triggerEvent(`r4isen1920_originspe:${suffix}.${value}`); }
-		catch (e: any) { this.log.error(`triggerEvent ${suffix}.${value}: `, e); }
-	}
-	private static applyProperty(player: Player, value: string | undefined, property: string): void {
-    	if (!value) return;
-    	try { player.setProperty(`r4isen1920_originspe:${property}`, value); }
-    	catch (e: any) { this.log.error(`setProperty ${property} = ${value}: `, e); }
+	private static originEffectsToAttributes(originEffects: OriginEffects | undefined): AttributeOverrides {
+		if (!originEffects) return {};
+		return {
+			emitterType: originEffects.emitter,
+			modelType: originEffects.model,
+			skinType: originEffects.skin,
+		};
 	}
 
 

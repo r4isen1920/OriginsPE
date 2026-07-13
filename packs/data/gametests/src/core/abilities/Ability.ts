@@ -14,18 +14,18 @@ import {
 	ProjectileHitEntityAfterEvent,
 } from '@minecraft/server';
 
-import type { AttributeOverrides } from '../../services';
+import type { AttributeOverrides, EmitterType, ModelType, SkinType } from '../../services';
 
 
 
 /** Optional model/skin/emitter overrides applied via data-driven entity events. */
 export interface OriginEffects {
 	/** Changes to the geometry */
-	model?: string;
+	model?: ModelType;
 	/** Changes to the skin */
-	skin?: string;
+	skin?: SkinType;
 	/** Particle effect added */
-	emitter?: string;
+	emitter?: EmitterType;
 }
 
 

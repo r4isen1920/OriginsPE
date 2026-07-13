@@ -1,3 +1,4 @@
+import { EntityProperties } from '../Files';
 import type { EntityDamageCause, EntityHurtBeforeEvent, Player } from '@minecraft/server';
 
 
@@ -78,6 +79,12 @@ export interface PlayerAttributes {
 	burnsInDaylight: boolean;
 	/** Whether the player's nametag/display name is shown. */
 	displayName: boolean;
+	/** Current model/geometry variant rendered on the player. */
+	modelType: ModelType;
+	/** Current skin/material variant rendered on the player. */
+	skinType: SkinType;
+	/** Current particle emitter attached to the player. */
+	emitterType: EmitterType;
 	/** Current outline/aura type rendered on the player. */
 	outlineType: OutlineType;
 	/** Explicit camera preset override. If absent, camera is auto-derived from scale. */
@@ -116,6 +123,9 @@ export const DEFAULT_ATTRIBUTES: Readonly<PlayerAttributes> = Object.freeze({
 	isShaking: false,
 	burnsInDaylight: false,
 	displayName: true,
+	modelType: 'normal',
+	skinType: 'normal',
+	emitterType: 'none',
 	outlineType: 'none',
 	damageOverrides: [],
 });
@@ -181,7 +191,10 @@ export const STEPPED_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, SteppedAt
  * Each entry maps to the corresponding actor property id.
  */
 export const PROPERTY_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, string>>> = Object.freeze({
-	outlineType: 'r4isen1920_originspe:outline_type',
+	emitterType: EntityProperties.Player.EmitterType,
+	modelType: EntityProperties.Player.ModelType,
+	outlineType: EntityProperties.Player.OutlineType,
+	skinType: EntityProperties.Player.SkinType,
 });
 
 export type PropertyAttributeKey = keyof typeof PROPERTY_ATTRIBUTES & AttributeKey;
