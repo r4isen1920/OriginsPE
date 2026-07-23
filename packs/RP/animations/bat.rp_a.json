@@ -1,0 +1,111 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.morph.bat.resting": {
+			"loop": true,
+			"bones": {
+				"rightWing": {
+					"rotation": [0, -10, 0],
+					"position": [0, 0, 1]
+				},
+				"rightWingTip": {
+					"rotation": [0, -120, 0]
+				},
+				"leftWing": {
+					"rotation": [0, 10, 0],
+					"position": [0, 0, 1]
+				},
+				"leftWingTip": {
+					"rotation": [0, 120, 0]
+				}
+			}
+		},
+		"animation.morph.bat.flying": {
+			"loop": true,
+			"animation_length": 0.5,
+			"bones": {
+				"_Head": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.125": [20, 0, 0],
+						"0.5": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.125": [0, 2, 0],
+						"0.25": [0, 1, 0],
+						"0.375": [0, 0, 0],
+						"0.4583": [0, -1, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"body": {
+					"rotation": {
+						"0.0": [40, 0, 0],
+						"0.25": [52.5, 0, 0],
+						"0.5": [40, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.125": [0, 2, 0],
+						"0.25": [0, 1, 0],
+						"0.375": [0, 0, 0],
+						"0.4583": [0, -1, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"feet": {
+					"rotation": {
+						"0.0": [10, 0, 0],
+						"0.125": [-21.25, 0, 0],
+						"0.25": [-12.5, 0, 0],
+						"0.5": [10, 0, 0]
+					}
+				},
+				"rightWing": {
+					"rotation": {
+						"0.0": [0, 85, 0],
+						"0.125": [0, -55, 0],
+						"0.25": [0, 50, 0],
+						"0.375": [0, 70, 0],
+						"0.5": [0, 85, 0]
+					}
+				},
+				"rightWingTip": {
+					"rotation": {
+						"0.0": [0, 10.5, 0],
+						"0.0417": [0, 65.5, 0],
+						"0.2083": [0, -135, 0],
+						"0.5": [0, 10.5, 0]
+					}
+				},
+				"leftWing": {
+					"rotation": {
+						"0.0": [0, -85, 0],
+						"0.125": [0, 55, 0],
+						"0.25": [0, -50, 0],
+						"0.375": [0, -70, 0],
+						"0.5": [0, -85, 0]
+					}
+				},
+				"leftWingTip": {
+					"rotation": {
+						"0.0": [0, -10.5, 0],
+						"0.0417": [0, -65.5, 0],
+						"0.2083": [0, 135, 0],
+						"0.5": [0, -10.5, 0]
+					}
+				}
+			}
+		},
+		"animation.morph.bat.sleeping": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": ["7 * math.cos(query.body_y_rotation) * math.cos(query.sleep_rotation) - 7 * math.sin(query.body_y_rotation) * math.sin(query.sleep_rotation)", -1, "7 * math.cos(query.body_y_rotation) * math.sin(query.sleep_rotation) + 7 * math.sin(query.body_y_rotation) * math.cos(query.sleep_rotation)"],
+					"rotation": [-90, "270 - query.sleep_rotation - query.body_y_rotation", 0]
+				}
+			}
+		}
+	}
+}

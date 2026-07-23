@@ -95,7 +95,16 @@
         "sounds/mob/illusioner/mirror_move2"
       ]
     },
-  
+    "origins.bat.transform": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/mob/illusioner/mirror_move1",
+          "load_on_low_memory": true
+        },
+        "sounds/mob/illusioner/mirror_move1"
+      ]
+    },
     "origins.elven.unlink": {
       "category": "player",
       "sounds": [

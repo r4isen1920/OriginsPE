@@ -96,7 +96,7 @@ import './domain/powers/FamiliarFace';
 import './domain/powers/StrongAnkles';
 import './domain/powers/Acrobatics';
 import './domain/powers/NineLives';
-import './domain/powers/Noctural';
+import './domain/powers/Nocturnal';
 import './domain/powers/WeakArms';
 import './domain/powers/CatlikeAppearance';
 import './domain/powers/Camouflage';
@@ -142,13 +142,9 @@ import './domain/powers/LeechLife';
 import './domain/powers/Flammable';
 import './domain/powers/NoWeapon';
 import './domain/powers/SmallApetite';
-import './domain/powers/BloodSense';
-import './domain/powers/BerserksBlood';
-import './domain/powers/NightFalls';
-import './domain/powers/Rapture';
-import './domain/powers/VampireAura';
-import './domain/powers/Meat';
-import './domain/powers/VampireThing';
+import './domain/powers/BatForm'
+import './domain/powers/Nocturnal'
+import './domain/powers/DeathSense'
 
 //-------------------------------------------
 

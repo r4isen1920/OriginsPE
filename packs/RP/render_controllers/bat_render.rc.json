@@ -1,0 +1,10 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.morph.bat": {
+      "geometry": "Geometry.bat",
+      "materials": [ { "*": "Material.bat" } ],
+      "textures": [ "Texture.bat" ]
+    }
+  }
+}
