@@ -23,8 +23,8 @@ export class BatForm implements Power {
 
 		state.setFlag(FLAG_BAT_FORM, next);
 		AttributeService.apply(player, {
-			modelType: 'bat',
-		})
+			modelType: next ? 'bat' : 'normal',
+		});
 
 		if (!next) {
 			player.removeEffect('levitation');
