@@ -28,7 +28,7 @@
 					"Array.geo": ["Geometry.default", "Geometry.hidden"]
 				}
 			},
-			"geometry": "Array.geo[v.is_using_custom_camera || v.p_is_bat_form]",
+			"geometry": "Array.geo[v.is_using_custom_camera || v.p_model_type == 'bat']",
 			"materials": [{ "*": "v.p_outline_type != 'divine_aura' ? Material.default : Material.highlight_base" }],
 			"textures": ["Texture.default"],
 			"part_visibility": [

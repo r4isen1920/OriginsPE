@@ -2,9 +2,9 @@ import { EntityEffectOptions, Player } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { AttributeService } from '../../services';
 
 const FLAG_BAT_FORM = 'bat_form_active';
-const PROP_BAT_FORM = 'r4isen1920_originspe:is_bat_form';
 
 @RegisterPower
 export class BatForm implements Power {
@@ -22,7 +22,9 @@ export class BatForm implements Power {
 		const next = !isActive;
 
 		state.setFlag(FLAG_BAT_FORM, next);
-		player.setProperty(PROP_BAT_FORM, next);
+		AttributeService.apply(player, {
+			modelType: 'bat',
+		})
 
 		if (!next) {
 			player.removeEffect('levitation');
@@ -40,7 +42,9 @@ export class BatForm implements Power {
 
 	onRelease(player: Player): void {
 		PlayerState.for(player).setFlag(FLAG_BAT_FORM, undefined);
-		player.setProperty(PROP_BAT_FORM, false);
+		AttributeService.apply(player, {
+			modelType: 'normal',
+		})
 		player.removeEffect('levitation');
 	}
 

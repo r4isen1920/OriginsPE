@@ -36,7 +36,6 @@
 						"v.p_emitter_type = 'none';",
 						"v.p_outline_type = 'none';",
 						"v.p_camera_active = 0.0;",
-						"v.p_is_bat_form = false;",  
 
 						"v.is_using_custom_camera = 0.0;",
 
@@ -50,8 +49,6 @@
 						"  v.p_emitter_type = q.property('r4isen1920_originspe:emitter_type');",
 						"  v.p_outline_type = q.property('r4isen1920_originspe:outline_type');",
 						"  v.p_camera_active = q.property('r4isen1920_originspe:camera_active');",
-						"  v.p_is_bat_form = q.property('r4isen1920_originspe:is_bat_form');",
-						"v.p_model_type = q.property('r4isen1920_originspe:model_type');",
 
 						"  v.is_using_custom_camera = q.is_local_player && v.p_camera_active;",
 						"};",
@@ -65,10 +62,12 @@
 						{ "voidwalker_particles": "!v.is_paperdoll" },
 						{ "diviner_particles": "!v.is_paperdoll" },
 						{ "blood_sense_particles": "!v.is_paperdoll" },
+
 						{ "shulk_inv_standing": "q.is_riding_any_entity_of_type('r4isen1920_originspe:inventory_keep')" },
-						{ "bat_resting":  "!v.is_first_person && v.p_is_bat_form && (q.is_on_ground || q.is_sleeping)" },
-    					{ "bat_flying":   "!v.is_first_person && v.p_is_bat_form && !q.is_on_ground && !q.is_sleeping" },
-    					{ "bat_sleeping": "!v.is_first_person && v.p_is_bat_form && q.is_sleeping" }
+
+						{ "bat_resting":  "!v.is_first_person && v.p_model_type == 'bat' && (q.is_on_ground || q.is_sleeping)" },
+						{ "bat_flying":   "!v.is_first_person && v.p_model_type == 'bat' && !q.is_on_ground && !q.is_sleeping" },
+						{ "bat_sleeping": "!v.is_first_person && v.p_model_type == 'bat' && q.is_sleeping" }
 					]
 				},
 
@@ -80,13 +79,13 @@
 					"diviner_particles": "controller.animation.r4isen1920_originspe.particles.diviner",
 					"blood_sense_particles": "controller.animation.r4isen1920_originspe.particles.blood_sense",
 
-					//? For some reason, this isn't defined within the vanilla files?
-					"first_person_breathing_bob": "animation.player.first_person.breathing_bob",
-
 					"shulk_inv_standing": "animation.r4isen1920_originspe.shulk_inv.standing",
 					"bat_resting": "animation.morph.bat.resting",
-    				"bat_flying": "animation.morph.bat.flying",
-    				"bat_sleeping": "animation.morph.bat.sleeping"
+					"bat_flying": "animation.morph.bat.flying",
+					"bat_sleeping": "animation.morph.bat.sleeping",
+
+					//? For some reason, this isn't defined within the vanilla files?
+					"first_person_breathing_bob": "animation.player.first_person.breathing_bob"
 				},
 
 				"particle_effects": {
@@ -116,7 +115,7 @@
 					{ "controller.render.player.divine.third_person_slim": "v.p_skin_type == 'normal' && v.p_outline_type == 'divine_aura' && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" },
 					{ "controller.render.player.blood_tracker": "v.p_skin_type == 'normal' && v.p_outline_type == 'blood_tracked' && !v.is_first_person && !v.map_face_icon" },
 					{ "controller.render.player.blood_tracker_slim": "v.p_skin_type == 'normal' && v.p_outline_type == 'blood_tracked' && !v.is_first_person && !v.map_face_icon && v.is_using_slim_skin" },
-					{ "controller.render.morph.bat": "!v.is_first_person && !q.is_spectator && v.p_is_bat_form" }
+					{ "controller.render.morph.bat": "!v.is_first_person && !q.is_spectator && v.p_model_type == 'bat'" }
 				]
 			}
 		}

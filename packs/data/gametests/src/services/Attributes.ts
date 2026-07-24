@@ -29,7 +29,8 @@ export type ModelType =
 	| 'tiny'
 	| 'small'
 	| 'medium'
-	| 'large';
+	| 'large'
+	| 'bat';
 
 export type SkinType =
 	| 'normal'
