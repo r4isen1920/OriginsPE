@@ -19,7 +19,7 @@ export type FamilyType =
 	| 'cat'
 	| 'camouflage';
 
-export type BreathableMode = 'land' | 'underwater';
+export type BreathableMode = 'land' | 'underwater' | 'amphibious';
 
 export type BuoyancyMode = 'normal' | 'float_on_water';
 
@@ -120,6 +120,7 @@ export type AttributeKey = keyof PlayerAttributes;
  * Damage overrides are collected alongside the normal stat overlay.
  */
 export type AttributeOverrides = Partial<PlayerAttributes>;
+
 
 
 

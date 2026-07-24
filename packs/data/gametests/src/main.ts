@@ -144,9 +144,11 @@ import './domain/powers/LeechLife';
 import './domain/powers/Flammable';
 import './domain/powers/NoWeapon';
 import './domain/powers/SmallApetite';
-import './domain/powers/BatForm'
-import './domain/powers/Nocturnal'
-import './domain/powers/DeathSense'
+import './domain/powers/BatForm';
+import './domain/powers/Nocturnal';
+import './domain/powers/DeathSense';
+import './domain/powers/Bloodthirsty';
+import './domain/powers/Undead';
 
 //-------------------------------------------
 

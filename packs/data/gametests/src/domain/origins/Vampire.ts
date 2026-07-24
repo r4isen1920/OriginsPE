@@ -9,7 +9,9 @@ export class Vampire implements Origin {
     readonly difficulty = OriginDifficulty.Hard;
     readonly powers: readonly string[] = [
         'bat_form',
+        'bloodthirsty',
         'death_sense',
-        'nocturnal'
+        'nocturnal',
+        'undead'
     ];
 }

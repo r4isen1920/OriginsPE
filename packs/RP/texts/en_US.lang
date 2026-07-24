@@ -331,10 +331,14 @@ origins.trait.honey_mobility.name=Honey Mobility
 origins.trait.honey_mobility.description=Zeus needs to eat honey to trigger an extra mobility boost, which can activate once every 20 seconds.
 origins.trait.bat_form.name=Bat Form
 origins.trait.bat_form.description=Use the ability to switch into a bat form, allowing you to traverse in the air with great mobility. While in bat form, you cannot be able to attack nor use your tools. Use again to transform back.
+origins.trait.bloodthirsty.name=Bloodthirsty
+origins.trait.bloodthirsty.description=As a Vampire, your diet is limited to drinking blood. You may not satiate your hunger with normal foods, and instead can only drink blood. Blood is restored every time you hit any living being. If your blood bar reaches zero, you get weakness and will continuously take damage.
 origins.trait.death_sense.name=Death Sense
 origins.trait.death_sense.description=Inflicting players and mobs with 20% of health or less, guarantees a fatal damage that can kill them. After killing, gains additional strength and attack damage for 6 seconds. 
 origins.trait.nocturnal.name=Nocturnal
 origins.trait.nocturnal.description=At night, you are able to see more clearly with night vision, and speed.
+origins.trait.undead.name=Undead
+origins.trait.undead.description=Their undead condition makes them immune to poison and freezing damage, but weak to fire, and sunlight. Health and harming potions have opposite effects. They also don't have to breath underwater to survive.
 
 origins.trait.bunny_jump.name=High Jump
 origins.trait.bunny_jump.description=You can jump up to 3 blocks high.
