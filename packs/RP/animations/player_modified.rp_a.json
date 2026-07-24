@@ -36,7 +36,17 @@
 					"rotation": [ "query.target_x_rotation", "query.target_y_rotation + 180", 0.0 ]
 				}
 			}
-		}
+		},
 
+		"animation.player.cape": {
+			"loop": true,
+			"bones": {
+				"cape": {
+					"position": [ 0.0, "query.get_root_locator_offset('armor_offset.default_neck', 1)", 0.0 ],
+					"rotation": [ "math.lerp(0.0, -126.0, query.cape_flap_amount) - 6.0", 0.0, 0.0 ],
+					"scale": "v.p_model_type == 'bat' ? 0 : 1"
+				}
+			}
+		}
 	}
 }
