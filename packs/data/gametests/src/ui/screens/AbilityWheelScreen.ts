@@ -245,28 +245,24 @@ export class AbilityWheelScreen extends Screen {
 	/**
 	 * Builds the ordered list of active ability ids for the wheel: granted
 	 * powers (in origin order) followed by granted perks, keeping only abilities
-	 * that declare {@link Ability.active}. Abilities not on cooldown are listed
-	 * first; the result is capped at {@link MAX_ABILITIES}.
+	 * that declare {@link Ability.active}.
 	 */
 	private static computeAbilityList(player: Player): string[] {
 		const state = PlayerState.for(player);
-		const now = system.currentTick;
 
-		const ready: string[] = [];
-		const cooling: string[] = [];
+		const list: string[] = [];
 		const seen = new Set<string>();
 
 		const consider = (id: string, ability: Ability | undefined): void => {
 			if (!ability || !ability.active || !ability.onActivate || seen.has(id)) return;
 			seen.add(id);
-			const key = ability.active.cooldownKey ?? ability.id;
-			(state.isOnCooldown(key, now) ? cooling : ready).push(id);
+			list.push(id);
 		};
 
 		for (const id of state.getPowers()) consider(id, PowerRegistry.get(id));
 		for (const id of state.getPerks()) consider(id, PerkRegistry.get(id));
 
-		return [...ready, ...cooling].slice(0, MAX_ABILITIES);
+		return [...list].slice(0, MAX_ABILITIES);
 	}
 
 
