@@ -14,6 +14,9 @@ packs/data/gametests/src/Files.ts
 packs/data/jsonte/origins.json
 packs/data/jsonte/classes.json
 
+# Do not override vanilla particles
+packs/RP/textures/particle/particles.png
+
 *.txt
 *.py
 *.ase
