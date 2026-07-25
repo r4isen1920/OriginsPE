@@ -13,8 +13,8 @@
 				"creation_expression": "variable.size = 0.08;variable.lifetime = 4;"
 			},
 			"minecraft:emitter_rate_steady": {
-				"spawn_rate": 24,
-				"max_particles": 150
+				"spawn_rate": 50,
+				"max_particles": 300
 			},
 			"minecraft:emitter_lifetime_expression": {},
 			"minecraft:emitter_shape_point": {},

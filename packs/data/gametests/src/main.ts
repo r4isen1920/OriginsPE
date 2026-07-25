@@ -149,6 +149,8 @@ import './domain/powers/Nocturnal';
 import './domain/powers/DeathSense';
 import './domain/powers/Bloodthirsty';
 import './domain/powers/Undead';
+import './domain/powers/Burning';
+import './domain/powers/CosmicGift';
 
 //-------------------------------------------
 

@@ -4,13 +4,15 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { system } from '@minecraft/server';
+import { Vec3 } from '@bedrock-oss/bedrock-boost';
+import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
 
 
 const COOLDOWN_KEY = 'hyper_leap_cooldown';
 const STRESS_KEY = 'r4isen1920_originspe:stress';
 const BAR_ID = 21;
 const LEVITATION_FORCE = 10;
-const KNOCKBACK_FORCE = 1.2;
+const KNOCKBACK_FORCE = 3.4;
 
 
 /**
@@ -41,25 +43,32 @@ export class HyperLeap implements Power {
         const cooldownSeconds = currentStress > 70 ? 1 : 3;
         const cooldownTicks = cooldownSeconds * 20;
 
-        // Levitate nearby entities
         player.dimension.getEntities({
             location: player.location,
             maxDistance: 6,
             excludeFamilies: ['inanimate'],
         }).forEach(entity => {
             if (entity.id === player.id) return;
-            entity.addEffect('levitation', TicksPerSecond * 1, {
+            entity.addEffect(MinecraftEffectTypes.Levitation, TicksPerSecond * 1, {
                 amplifier: LEVITATION_FORCE,
                 showParticles: false,
             });
         });
 
-        // Launch player
-        const viewDir = player.getViewDirection();
-        player.applyKnockback(
-            { x: viewDir.x, z: viewDir.z },
-            KNOCKBACK_FORCE,
-        );
+		const viewDir = Vec3.from(player.getViewDirection()); 
+
+		const VERTICAL_MULTIPLIER = 1.5;
+		const BASE_LIFT = 0.6;
+
+		let impulseY = (viewDir.y * KNOCKBACK_FORCE * VERTICAL_MULTIPLIER) + BASE_LIFT;
+		impulseY = Math.max(impulseY, BASE_LIFT); // surely they at least get the minimum hop
+		const impulse = new Vec3(
+			viewDir.x * KNOCKBACK_FORCE,
+			impulseY,
+			viewDir.z * KNOCKBACK_FORCE
+		);
+
+		player.applyImpulse(impulse);
 
         // Particles
         player.dimension.spawnParticle('r4isen1920_originspe:star_leap_base', {
@@ -73,11 +82,9 @@ export class HyperLeap implements Power {
             z: player.location.z,
         });
 
-        // Sounds
         player.dimension.playSound('origins.starborne.leap', player.location);
         player.playSound('origins.starborne.leap_direct');
 
-        // Cooldown + bar
         state.setCooldown(COOLDOWN_KEY, now, cooldownTicks);
 
         ResourceBarService.push(player, {

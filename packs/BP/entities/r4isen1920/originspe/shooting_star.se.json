@@ -3,7 +3,6 @@
   "minecraft:entity": {
     "description": {
       "identifier": "r4isen1920_originspe:shooting_star",
-      "runtime_identifier": "minecraft:snowball",
 
       "is_summonable": true
     },
@@ -35,8 +34,8 @@
         "angle_offset": 0,
         "uncertainty_base": 0,
         "uncertainty_multiplier": 0,
-        "inertia": 1,
-        "liquid_inertia": 1
+        "inertia": 1.2,
+        "liquid_inertia": 1.2
       },
       "minecraft:tick_world": {
         "radius": 2,
@@ -85,8 +84,8 @@
           {
             "queue_command": {
               "command": [
-                "damage @e[r=4,tag=!\"race_starborne\",family=!inanimate] 5 magic entity @a[tag=\"race_starborne\",c=1]",
-                "damage @e[rm=4,r=6,tag=!\"race_starborne\",family=!inanimate] 3 magic entity @a[tag=\"race_starborne\",c=1]",
+                "damage @e[r=6,tag=!\"r4isen1920_originspe:power_shooting_star\",family=!inanimate] 5 magic entity @a[tag=\"r4isen1920_originspe:power_shooting_star\",c=1]",
+                "damage @e[rm=6,r=12,tag=!\"r4isen1920_originspe:power_shooting_star\",family=!inanimate] 3 magic entity @a[tag=\"r4isen1920_originspe:power_shooting_star\",c=1]",
 
                 "particle r4isen1920_originspe:star_projectile_impact ~~~",
                 "particle r4isen1920_originspe:star_projectile_accent ~~~",
@@ -107,8 +106,8 @@
           {
             "queue_command": {
               "command": [
-                "damage @e[r=4,tag=!\"race_starborne\",family=!inanimate] 3 magic entity @a[tag=\"race_starborne\",c=1]",
-                "damage @e[rm=4,r=6,tag=!\"race_starborne\",family=!inanimate] 1 magic entity @a[tag=\"race_starborne\",c=1]",
+                "damage @e[r=8,tag=!\"r4isen1920_originspe:power_shooting_star\",family=!inanimate] 10 magic entity @a[tag=\"r4isen1920_originspe:power_shooting_star\",c=1]",
+                "damage @e[rm=8,r=12,tag=!\"r4isen1920_originspe:power_shooting_star\",family=!inanimate] 6 magic entity @a[tag=\"r4isen1920_originspe:power_shooting_star\",c=1]",
 
                 "particle r4isen1920_originspe:star_projectile_accent ~~~",
                 "playsound firework.twinkle @a ~~~ 100"
