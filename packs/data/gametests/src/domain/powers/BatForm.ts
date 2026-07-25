@@ -12,7 +12,7 @@ export class BatForm implements Power {
 	readonly tickInterval = 1;
 
 	readonly active = {
-		icon: '32',
+		icon: '34',
 		name: 'origins.trait.bat_form.name'
 	};
 
