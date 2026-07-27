@@ -31,12 +31,10 @@ export class Undead implements Power {
 			{
 				cause: EntityDamageCause.freezing,
 				multiplier: 0,
-				id: 'freezing'
 			},
 			{
 				cause: EntityDamageCause.fire,
 				multiplier: 2,
-				id: 'fire'
 			}
 		]
 	};

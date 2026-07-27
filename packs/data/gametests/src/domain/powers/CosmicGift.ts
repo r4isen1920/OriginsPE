@@ -12,7 +12,6 @@ export class CosmicGift implements Power {
 	readonly attributes: AttributeOverrides = {
 		damageOverrides: [
 			{
-				id: 'fall',
 				cause: EntityDamageCause.fall,
 				multiplier: 0.0
 			}

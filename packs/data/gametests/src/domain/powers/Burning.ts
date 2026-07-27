@@ -10,12 +10,10 @@ export class Burning implements Power {
 	readonly attributes: AttributeOverrides = {
 		damageOverrides: [
 			{
-				id: 'fire',
 				cause: EntityDamageCause.fire,
 				multiplier: 2
 			},
 			{
-				id: 'fire_tick',
 				cause: EntityDamageCause.fireTick,
 				multiplier: 2
 			}
