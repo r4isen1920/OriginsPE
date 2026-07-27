@@ -32,23 +32,16 @@ export interface OriginEffects {
 
 
 /**
- * Marks an {@link Ability} as an active (player-triggered) skill that appears in
- * the ability wheel. Abilities that declare this--and implement
- * {@link Ability.onActivate}--become selectable entries in the wheel.
+ * Represents how this ability can be actively triggered from the ability wheel.
  */
 export interface ActiveAbility {
 	/**
-	 * Two-character icon id from the `textures/origins/hud/cooldown/` atlas used
-	 * to render the wheel slot (e.g. "24").
+	 * Two-character icon id from the `textures/origins/hud/cooldown/`
+	 * atlas used to render for the wheel slot (e.g. "23").
 	 */
 	readonly icon: string;
 	/** Localization key for the ability's display name shown in the wheel. */
 	readonly name: string;
-	/**
-	 * Cooldown key consulted when prioritizing wheel slots. Abilities that are
-	 * not on cooldown are listed first. Defaults to the ability {@link Ability.id}.
-	 */
-	readonly cooldownKey?: string;
 }
 
 
@@ -58,7 +51,7 @@ export interface ActiveAbility {
  * Common shape for both {@link Power} and {@link Perk}, respectively.
  */
 export interface Ability {
-	/** Stable id (matches the legacy folder filename, e.g. "high_jump"). */
+	/** Unique identifier for this ability. */
 	readonly id: string;
 
 	/** Optional display name used in the UI. Falls back to the id if not set. */
@@ -74,17 +67,15 @@ export interface Ability {
 	readonly tickInterval?: number;
 
 	/**
-	 * Attribute overrides layered on top of the default attribute profile when
-	 * this ability is active. Damage overrides can live here too and are merged
-	 * from every active ability in registration order; later entries win for
-	 * conflicting stat keys.
+	 * Attributes to override for the player while this ability is active.
+	 * You can use these to actively modify the player's stats, such as movement speed, health, or attack damage.
+	 * Note that these overrides are applied on top of the player's base attributes and any other active abilities.
 	 */
 	readonly attributes?: AttributeOverrides;
 
 	/**
-	 * When specified, this ability is an active (player-triggered) skill: it is
-	 * listed in the player's ability wheel and {@link onActivate} is invoked when
-	 * the player confirms it from the wheel.
+	 * When specified, this ability can be actively triggered from the ability wheel.
+	 * You can then use the {@link onActivate} event handler when the player confirms this ability from the ability wheel.
 	 */
 	readonly active?: ActiveAbility;
 
@@ -94,83 +85,104 @@ export interface Ability {
 	onRelease?(player: Player): void;
 
 	/**
-	 * Called when the player confirms this ability from the ability wheel. Only
-	 * meaningful for abilities that also declare {@link active}.
+	 * Called when the player confirms this ability from the ability wheel.
+	 * Only meaningful for abilities that also declare {@link active}.
 	 */
 	onActivate?(player: Player): void;
 
 	/** Per-player tick callback. Only invoked when {@link tickInterval} is set. */
 	onTick?(player: Player): void;
-	/** Called from {@link DamageService} when the owner is hurt. */
+	/** Called when the owner is hurt. */
 	onHurt?(player: Player, ev: EntityHurtAfterEvent): void;
 	/**
-	 * Called from {@link DamageService} when the owner deals damage to another
-	 * entity. Unlike {@link onAttack}, this fires from the `entityHurt` event so
-	 * the applied `ev.damage` amount is available (read-only).
+	 * Called when the owner deals damage to another entity.
+	 * Unlike {@link onAttack}, this event includes the damage dealt.
 	 */
 	onDealDamage?(player: Player, ev: EntityHurtAfterEvent): void;
-	/**
-	 * Called from {@link DamageService} before the owner's incoming damage is
-	 * applied. Mutate `ev.damage` to rescale/cancel the hit.
-	 */
+	/** Called before the owner's incoming damage is applied. */
 	onHurtBefore?(player: Player, ev: EntityHurtBeforeEvent): void;
-	/** Called from {@link DamageService} when the owner attacks an entity. */
+	/** Called when the owner attacks an entity. */
 	onAttack?(player: Player, ev: EntityHitEntityAfterEvent): void;
-	/** Called from {@link DamageService} when the owner's projectile hits. */
+	/** Called when the owner's projectile hits. */
 	onProjectileHit?(player: Player, ev: ProjectileHitEntityAfterEvent): void;
-	/** Called from the item-use dispatcher when the owner uses any item. */
+	/** Called when the owner uses any item. */
 	onItemUse?(player: Player, ev: ItemUseAfterEvent): void;
-	/** Called from the item-use dispatcher before the owner uses any item. */
+	/** Called before the owner uses any item. */
 	onBeforeItemUse?(player: Player, ev: ItemUseBeforeEvent): void;
-	/** Called when the owner finishes consuming a food/potion item. */
+	/** Called when the owner finishes consuming a food or potion item. */
 	onItemCompleteUse?(player: Player, ev: ItemCompleteUseAfterEvent): void;
-	/** Called from {@link AbilityEventService} when the owner's health changes. */
+	/** Called when the owner's health changes. */
 	onHealthChange?(player: Player, ev: EntityHealthChangedAfterEvent): void;
-	/** Called from {@link AbilityEventService} when an effect is added to the owner. */
+	/** Called when an effect is added to the owner. */
 	onEffectAdd?(player: Player, ev: EffectAddAfterEvent): void;
-	/** Called from {@link AbilityEventService} when the owner changes dimension. */
+	/** Called when the owner changes dimension. */
 	onDimensionChange?(player: Player, ev: PlayerDimensionChangeAfterEvent): void;
-	/** Called from {@link AbilityEventService} when the owner breaks a block. */
+	/** Called when the owner breaks a block. */
 	onBreakBlock?(player: Player, ev: PlayerBreakBlockAfterEvent): void;
-	/** Called from {@link AbilityEventService} when the owner places a block. */
+	/** Called when the owner places a block. */
 	onPlaceBlock?(player: Player, ev: PlayerPlaceBlockAfterEvent): void;
 }
 
 
-/** A power granted by the player's chosen {@link Origin}. Use `implements Power`. */
+/** Represents a trait granted by the player's chosen {@link Origin}. */
 export interface Power extends Ability {}
 
-/** A perk granted by the player's chosen {@link CharacterClass}. Use `implements Perk`. */
+/** Represents a trait granted by the player's chosen {@link CharacterClass}. */
 export interface Perk extends Ability {}
 
 
 /** Difficulty tier shown by the picker UI for an origin. */
 export enum OriginDifficulty {
+	/**
+	 * This Origin does not impact gameplay.
+	 */
 	Human = 'human',
+	/**
+	 * This Origin has a minor impact on gameplay.
+	 */
 	Easy = 'easy',
+	/**
+	 * This Origin has a moderate impact on gameplay.
+	 */
 	Medium = 'medium',
+	/**
+	 * This Origin has a significant impact on gameplay.
+	 */
 	Hard = 'hard',
 }
 
 /** Difficulty tier shown by the picker UI for a class. */
 export enum ClassDifficulty {
+	/**
+	 * This Class does not grant additional perks.
+	 */
 	Nitwit = 'nitwit',
+	/**
+	 * This Class grants a minor set of perks.
+	 */
 	Niche = 'niche',
+	/**
+	 * This Class grants a moderate set of perks.
+	 */
 	Decent = 'decent',
+	/**
+	 * This Class grants a significant set of perks.
+	 */
 	Very = 'very',
 }
 
 
-/** A selectable origin (race) granting a fixed list of powers. Use `implements Origin`. */
+/** A selectable Origin (race) granting a fixed list of powers. */
 export interface Origin {
+	/** Unique identifier for this Origin. */
 	readonly id: string;
 	/** Otherwise known as the **impact** of this Origin to the gameplay. */
 	readonly difficulty: OriginDifficulty;
-	/** Power ids (lang-token spelling, e.g. "webbing"). Order drives the powers UI. */
+	/** Identifiers that correspond to the powers granted by this Origin. */
 	readonly powers: readonly string[];
 	/** Optional control bindings. */
 	readonly controls?: readonly string[];
-	/** Optional render overrides applied via data-driven events. */
+	/** Optional effects applied to the player. These are purely cosmetic and visual. */
 	readonly effects?: OriginEffects;
 }
 
@@ -180,7 +192,7 @@ export interface CharacterClass {
 	readonly id: string;
 	/** Otherwise known as how **game-changing** this Class is to the gameplay. */
 	readonly difficulty: ClassDifficulty;
-	/** Perk ids (lang-token spelling). Order drives the powers UI. */
+	/** Identifiers that correspond to the perks granted by this Class. */
 	readonly perks: readonly string[];
 	/** Optional control bindings. */
 	readonly controls?: readonly string[];
