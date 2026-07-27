@@ -4,7 +4,6 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeService } from '../../services';
 
-const FLAG_BAT_FORM = 'bat_form_active';
 
 @RegisterPower
 export class BatForm implements Power {
@@ -17,11 +16,9 @@ export class BatForm implements Power {
 	};
 
 	onActivate(player: Player): void {
-		const state = PlayerState.for(player);
-		const isActive = state.getFlag<boolean>(FLAG_BAT_FORM) ?? false;
+		const isActive = AttributeService.getApplied(player.id).modelType === 'bat';
 		const next = !isActive;
 
-		state.setFlag(FLAG_BAT_FORM, next);
 		AttributeService.apply(player, {
 			modelType: next ? 'bat' : 'normal',
 		});
@@ -41,7 +38,6 @@ export class BatForm implements Power {
 	}
 
 	onRelease(player: Player): void {
-		PlayerState.for(player).setFlag(FLAG_BAT_FORM, undefined);
 		AttributeService.apply(player, {
 			modelType: 'normal',
 		})
@@ -49,8 +45,8 @@ export class BatForm implements Power {
 	}
 
 	onTick(player: Player): void {
-		const state = PlayerState.for(player);
-		if (!(state.getFlag<boolean>(FLAG_BAT_FORM) ?? false)) return;
+		const state = AttributeService.getApplied(player.id);
+		if (state.modelType !== 'bat') return;
 
 		if (player.isJumping) {
 			const effectOptions: EntityEffectOptions = {
