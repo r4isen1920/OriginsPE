@@ -5,6 +5,7 @@ import { AfterPlayerLeave } from '../core/platform/DecoratedEvents';
 import { PlayerTick } from '../core/platform/Ticker';
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
+import { PlayerState } from '../core/platform/PlayerState';
 
 
 //#region TYPES
@@ -295,7 +296,8 @@ export class ResourceBarService {
 	}
 
 	private static hydrate(player: Player): CachedBars {
-		const raw = player.getDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.resourceBars);
+		const state = PlayerState.for(player);
+		const raw = state.getFlag<string>(PLAYER_DYNAMIC_PROPERTIES.resourceBars);
 		if (typeof raw !== 'string') {
 			return { slots: this.emptySlots(), lastPayload: undefined };
 		}
@@ -367,6 +369,7 @@ export class ResourceBarService {
 	}
 
 	private static persistState(player: Player, state: CachedBars): void {
+		const ps = PlayerState.for(player);
 		const data: PersistedBars = { slots: {} };
 		for (const slot of this.slots) {
 			const entry = state.slots[slot];
@@ -375,7 +378,7 @@ export class ResourceBarService {
 		}
 
 		try {
-			player.setDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.resourceBars, JSON.stringify(data));
+			ps.setFlag(PLAYER_DYNAMIC_PROPERTIES.resourceBars, JSON.stringify(data));
 		} catch (e: any) {
 			this.log.error(`Failed to persist bars for player: ${player.name}, error: `, e);
 		}

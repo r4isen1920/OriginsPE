@@ -1,7 +1,7 @@
 import { EntityComponentTypes, Player, system } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core';
+import { PlayerState } from '../../core/platform/PlayerState';
 import { Entities } from '../../Files';
 import { Vec3 } from '@bedrock-oss/bedrock-boost';
 import { ResourceBarService } from '../../services';
@@ -47,7 +47,7 @@ export class ShootingStar implements Power {
 			uncertainty: 0.0
 		});
 
-        const currentStress = (player.getDynamicProperty(STRESS_KEY) as number) ?? 0;
+        const currentStress = state.getFlag<number>(STRESS_KEY) ?? 0;
         const cooldownSeconds = currentStress > 70 ? 3 : 6;
         const cooldownTicks = cooldownSeconds * 20;
 

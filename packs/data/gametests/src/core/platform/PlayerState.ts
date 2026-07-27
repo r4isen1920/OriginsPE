@@ -12,6 +12,7 @@ type CooldownMap = Record<string, number>;
 /** JSON-encoded record of arbitrary transient flags. */
 type FlagMap = Record<string, boolean | number | string>;
 
+/** Describes a curated cached state for this player */
 interface CachedState {
 	origin: string | undefined;
 	class: string | undefined;
@@ -28,20 +29,24 @@ interface CachedState {
 
 //#region PlayerState
 /**
- * Describes the state of a player.
- * This is simply a cache layer over dynamic properties, which are expensive to read and write.
+ * Handles the current state of a player in key-value pairs. 
+ * A state is cached per-player, and is persisted to the player's dynamic properties.
+ * 
+ * This class is simply a wrapper, cache layer, surrounding the player's dynamic properties.
+ * It is recommended to use this class instead of directly reading/writing dynamic properties, as it provides a more structured and type-safe interface.
  */
 export class PlayerState {
 	private static readonly log = Log.get('PlayerState');
 	private static readonly registry = new Map<string, PlayerState>();
 
+	/** Please use the {@link PlayerState.for `PlayerState.for(player: Player)`} method to retrieve an instance. */
 	private constructor(
 		public readonly player: Player,
 		private readonly state: CachedState
 	) {}
 
 
-	/** Returns the state object for `player`. */
+	/** Initializes and retrieves the PlayerState for the given `player`. */
 	static for(player: Player): PlayerState {
 		const existing = this.registry.get(player.id);
 		if (existing && existing.player.isValid) return existing;
@@ -70,60 +75,72 @@ export class PlayerState {
 
 
 	//#region API
-
+	/** Retrieves this player's current Origin. */
 	getOrigin(): string | undefined {
 		return this.state.origin;
 	}
 
+	/** Sets this player's current Origin. */
 	setOrigin(originId: string | undefined): void {
 		this.state.origin = originId;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.origin, originId);
 		this.syncTag(PLAYER_STATE_TAG_PREFIXES.origin, originId);
 	}
 
+	/** Retrieves this player's current Class. */
 	getClass(): string | undefined {
 		return this.state.class;
 	}
 
+	/** Sets this player's current Class. */
 	setClass(classId: string | undefined): void {
 		this.state.class = classId;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.class, classId);
 		this.syncTag(PLAYER_STATE_TAG_PREFIXES.class, classId);
 	}
 
+	/** Retrieves this player's current Powers. Powers are Origin traits. */
 	getPowers(): readonly string[] {
 		return this.state.powers;
 	}
+	/** Sets this player's current Powers. Powers are Origin traits. */
 	setPowers(ids: readonly string[]): void {
 		this.state.powers = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.powers, this.state.powers);
 		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.power, this.state.powers);
 	}
 
+	/** Retrieves this player's current Perks. Perks are Class traits. */
 	getPerks(): readonly string[] {
 		return this.state.perks;
 	}
+	/** Sets this player's current Perks. Perks are Class traits. */
 	setPerks(ids: readonly string[]): void {
 		this.state.perks = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.perks, this.state.perks);
 		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.perk, this.state.perks);
 	}
 
+	/** Retrieves this player's current Controls. Controls are input bindings. */
 	getControls(): readonly string[] {
 		return this.state.controls;
 	}
+	/** Sets this player's current Controls. Controls are input bindings. */
 	setControls(ids: readonly string[]): void {
 		this.state.controls = [...ids];
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.controls, this.state.controls);
 		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.control, this.state.controls);
 	}
 
+	/** Returns true if the player has the specified Power. */
 	hasPower(id: string): boolean {
 		return this.state.powers.includes(id);
 	}
+	/** Returns true if the player has the specified Perk. */
 	hasPerk(id: string): boolean {
 		return this.state.perks.includes(id);
 	}
+	/** Returns true if the player has the specified Control. */
 	hasControl(id: string): boolean {
 		return this.state.controls.includes(id);
 	}
@@ -158,10 +175,12 @@ export class PlayerState {
 		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.cooldowns, this.state.cooldowns);
 	}
 
+	/** Retrieves the value of a flag with the given name. Returns `undefined` if the flag is not set. */
 	getFlag<T extends boolean | number | string>(name: string): T | undefined {
 		return this.state.flags[name] as T | undefined;
 	}
 
+	/** Sets a flag to the given value for a given name. If `value` is `undefined`, the flag is removed. */
 	setFlag(name: string, value: boolean | number | string | undefined): void {
 		if (value === undefined) {
 			if (this.state.flags[name] === undefined) return;
@@ -184,17 +203,25 @@ export class PlayerState {
 		if (mutated) this.writeJson(PLAYER_DYNAMIC_PROPERTIES.flags, this.state.flags);
 	}
 
+	/** Returns true if the player has been welcomed. The player is considered welcomed if the welcome GUI has been shown and dismissed. */
 	isWelcomed(): boolean {
 		return this.state.welcomed;
 	}
+	/** Sets whether the player has been welcomed. */
 	setWelcomed(value: boolean): void {
 		this.state.welcomed = value;
-		this.player.setDynamicProperty(PLAYER_DYNAMIC_PROPERTIES.welcomed, value);
+		this.writeBoolean(PLAYER_DYNAMIC_PROPERTIES.welcomed, value);
 	}
 
+	/**
+	 * Retrieves the record version for this player.
+	 * The record version is used to track the version of the player's data.
+	 * This is used to determine if the player's data needs to be migrated to a new version.
+	 */
 	getRecordVersion(): string | undefined {
 		return this.state.recordVersion;
 	}
+	/** Sets the record version for this player. */
 	setRecordVersion(version: string | undefined): void {
 		this.state.recordVersion = version;
 		this.writeString(PLAYER_DYNAMIC_PROPERTIES.recordVersion, version);
@@ -263,28 +290,37 @@ export class PlayerState {
 
 
 	//#region HELPERS
-
+	/** Writes a primitive string-type to the player's dynamic properties. */
 	private writeString(key: string, value: string | undefined): void {
 		this.player.setDynamicProperty(key, value);
 	}
 
+	/** Writes a primitive boolean-type to the player's dynamic properties. */
+	private writeBoolean(key: string, value: boolean): void {
+		this.player.setDynamicProperty(key, value);
+	}
+
+	/** Writes a JSON-serializable value to the player's dynamic properties. The value is converted into string. */
 	private writeJson(key: string, value: unknown): void {
 		try {
-			this.player.setDynamicProperty(key, JSON.stringify(value));
+			this.writeString(key, JSON.stringify(value));
 		} catch (e: any) {
 			PlayerState.log.error(`Failed to write ${key}: `, e);
 		}
 	}
 
+	/** Reads a primitive string-type from the player's dynamic properties. Returns `undefined` if the property is not a string. */
 	private static readString(player: Player, key: string): string | undefined {
 		const raw = player.getDynamicProperty(key);
 		return typeof raw === 'string' ? raw : undefined;
 	}
 
+	/** Reads a primitive boolean-type from the player's dynamic properties. Also returns `false` if the property is not a boolean. */
 	private static readBoolean(player: Player, key: string): boolean {
 		return player.getDynamicProperty(key) === true;
 	}
 
+	/** Reads a JSON-serialized array of strings from the player's dynamic properties. Returns an empty array if the property is not a valid JSON array of strings. */
 	private static readJsonArray(player: Player, key: string): string[] {
 		const raw = player.getDynamicProperty(key);
 		if (typeof raw !== 'string') return [];
@@ -298,6 +334,7 @@ export class PlayerState {
 		}
 	}
 
+	/** Reads a JSON-serialized object from the player's dynamic properties. Returns an empty object if the property is not a valid JSON object. */
 	private static readJsonObject<T extends object>(player: Player, key: string): T {
 		const raw = player.getDynamicProperty(key);
 		if (typeof raw !== 'string') return {} as T;

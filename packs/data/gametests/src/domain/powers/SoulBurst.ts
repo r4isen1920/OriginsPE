@@ -9,6 +9,7 @@ import {
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 @RegisterPower
 export class Soulburst implements Power {
@@ -19,7 +20,8 @@ export class Soulburst implements Power {
 	readonly id = 'soulburst';
 
 	public static getBeelzebubPhase(player: Player): number {
-		return (player.getDynamicProperty(Soulburst.PHASE_KEY) as number) ?? 0;
+		const state = PlayerState.for(player);
+		return state.getFlag<number>(Soulburst.PHASE_KEY) ?? 0;
 	}
 
 	public static incrementBeelzebubPhase(player: Player, increment: number): void {
@@ -27,11 +29,13 @@ export class Soulburst implements Power {
 			Math.max(Soulburst.getBeelzebubPhase(player) + increment, 0),
 			Soulburst.MAX_PHASE
 		);
-		player.setDynamicProperty(Soulburst.PHASE_KEY, next);
+		const state = PlayerState.for(player);
+		state.setFlag(Soulburst.PHASE_KEY, next);
 	}
 
 	public static resetBeelzebubPhase(player: Player): void {
-		player.setDynamicProperty(Soulburst.PHASE_KEY, 0);
+		const state = PlayerState.for(player);
+		state.setFlag(Soulburst.PHASE_KEY, 0);
 	}
 
 	public static triggerSoulburst(attacker: Player, hurtEntity: Entity): void {

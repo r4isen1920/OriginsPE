@@ -39,7 +39,7 @@ export class HyperLeap implements Power {
             return;
         }
 
-        const currentStress = (player.getDynamicProperty(STRESS_KEY) as number) ?? 0;
+        const currentStress = state.getFlag<number>(STRESS_KEY) ?? 0;
         const cooldownSeconds = currentStress > 70 ? 1 : 3;
         const cooldownTicks = cooldownSeconds * 20;
 

@@ -31,12 +31,13 @@ export class Stress implements Power {
         const healthComponent = player.getComponent(EntityComponentTypes.Health);
         if (!healthComponent || healthComponent.currentValue <= 0) return;
 
-        const currentStress = (player.getDynamicProperty(STRESS_KEY) as number) ?? 0;
+		const state = PlayerState.for(player);
+        const currentStress = state.getFlag<number>(STRESS_KEY) ?? 0;
         const isMissingHealth = (healthComponent.currentValue / healthComponent.effectiveMax) < 1.0;
         const isMeditating = player.isSneaking && !isMissingHealth;
 
         const newStress = Math.max(0, Math.min(100, currentStress + (isMeditating ? -0.5 : 0.05)));
-        player.setDynamicProperty(STRESS_KEY, newStress);
+        state.setFlag(STRESS_KEY, newStress);
 
         // Show stress bar - display as percentage (0-100)
         ResourceBarService.push(player, {
@@ -49,7 +50,7 @@ export class Stress implements Power {
 
         // Max stress — explode and die
         if (newStress >= 100.0) {
-            player.setDynamicProperty(STRESS_KEY, 0);
+            state.setFlag(STRESS_KEY, 0);
             player.dimension.createExplosion(player.location, 10, {
 				breaksBlocks: world.gameRules.mobGriefing,
 				causesFire: false,

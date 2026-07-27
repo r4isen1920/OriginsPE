@@ -1,6 +1,7 @@
 import { Player, EntityHurtAfterEvent, EntityComponentTypes, system } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
+import { PlayerState } from '../../core/platform/PlayerState';
 
 const MAX_STACKS = 3;
 const HEAL_PER_STACK = 0.005;
@@ -15,14 +16,16 @@ export class LifeSteal implements Power {
 	readonly id = 'life_steal';
 
 	onAcquire(player: Player): void {
-		player.setDynamicProperty(STACK_KEY, 0);
-		player.setDynamicProperty(LAST_HIT_KEY, 0);
+		const state = PlayerState.for(player);
+		state.setFlag(STACK_KEY, 0);
+		state.setFlag(LAST_HIT_KEY, 0);
 		lastStackTick.delete(player.id);
 	}
 
 	onRelease(player: Player): void {
-		player.setDynamicProperty(STACK_KEY, 0);
-		player.setDynamicProperty(LAST_HIT_KEY, 0);
+		const state = PlayerState.for(player);
+		state.setFlag(STACK_KEY, 0);
+		state.setFlag(LAST_HIT_KEY, 0);
 		lastStackTick.delete(player.id);
 	}
 
@@ -39,13 +42,14 @@ export class LifeSteal implements Power {
 		if (lastStackTick.get(player.id) === currentTick) return;
 		lastStackTick.set(player.id, currentTick);
 
-		const lastHitTick = (player.getDynamicProperty(LAST_HIT_KEY) as number | undefined) ?? 0;
-		const currentStacks = (player.getDynamicProperty(STACK_KEY) as number | undefined) ?? 0;
+		const state = PlayerState.for(player);
+		const lastHitTick = state.getFlag<number>(LAST_HIT_KEY) ?? 0;
+		const currentStacks = state.getFlag<number>(STACK_KEY) ?? 0;
 		const decayedStacks = currentTick - lastHitTick > STACK_DURATION_TICKS ? 0 : currentStacks;
 		const newStacks = Math.min(decayedStacks + 1, MAX_STACKS);
 
-		player.setDynamicProperty(STACK_KEY, newStacks);
-		player.setDynamicProperty(LAST_HIT_KEY, currentTick);
+		state.setFlag(STACK_KEY, newStacks);
+		state.setFlag(LAST_HIT_KEY, currentTick);
 
 		const healthComp = player.getComponent(EntityComponentTypes.Health);
 		if (!healthComp) return;
