@@ -12,7 +12,6 @@ export class Teleportation implements Power {
 	readonly active = {
 		icon: '03',
 		name: 'origins.trait.throw_ender_pearl.name',
-		cooldownKey: 'teleportation_cooldown'
 	};
 
 	private static readonly COOLDOWN_BAR_ID = 3;

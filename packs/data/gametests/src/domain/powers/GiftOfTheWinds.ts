@@ -18,7 +18,6 @@ export class GiftOfTheWinds implements Power {
 	readonly active = {
 		icon: '02',
 		name: 'origins.trait.launch_into_air.name',
-		cooldownKey: 'gift_of_the_winds_cooldown'
 	};
 
 	onActivate(player: Player): void {

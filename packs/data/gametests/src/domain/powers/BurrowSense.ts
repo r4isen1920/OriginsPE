@@ -93,7 +93,6 @@ export class BurrowSense implements Power {
     readonly active = {
         icon: '22',
         name: 'origins.trait.burrow_sense.name',
-        cooldownKey: 'burrow_sense_cooldown',
     };
 
     onActivate(player: Player): void {

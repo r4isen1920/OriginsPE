@@ -24,7 +24,6 @@ export class LightningStrike implements Power {
     readonly active = {
         icon: '31',
         name: 'origins.trait.lightning_strike.name',
-        cooldownKey: COOLDOWN_KEY,
     };
 
     onActivate(player: Player): void {

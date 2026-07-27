@@ -44,7 +44,6 @@ export class TunnelLeap implements Power {
     readonly active = {
         icon: '23',
         name: 'origins.trait.tunnel_leap.name',
-        cooldownKey: COOLDOWN_KEY,
     };
 
     onActivate(player: Player): void {

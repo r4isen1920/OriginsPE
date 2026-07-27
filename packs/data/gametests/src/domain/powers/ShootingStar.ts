@@ -22,7 +22,6 @@ export class ShootingStar implements Power {
     readonly active = {
         icon: '11',
         name: 'origins.trait.shooting_star.name',
-        cooldownKey: COOLDOWN_KEY,
     };
 
 	onActivate(player: Player): void {

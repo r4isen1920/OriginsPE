@@ -27,7 +27,6 @@ export class HyperLeap implements Power {
     readonly active = {
         icon: '21',
         name: 'origins.trait.hyper_leap.name',
-        cooldownKey: COOLDOWN_KEY,
     };
 
     onActivate(player: Player): void {

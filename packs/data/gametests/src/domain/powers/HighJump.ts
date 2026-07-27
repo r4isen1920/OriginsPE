@@ -20,7 +20,6 @@ export class HighJump implements Power {
 	readonly active = {
 		icon: '07',
 		name: 'origins.trait.high_jump.name',
-		cooldownKey: HighJump.COOLDOWN_KEY
 	};
 
 	private static readonly COOLDOWN_BAR_ID = 7;

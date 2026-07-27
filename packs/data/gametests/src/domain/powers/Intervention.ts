@@ -20,7 +20,6 @@ export class Intervention implements Power {
 	readonly active = {
 		icon: '32',
 		name: 'origins.trait.intervention.name',
-		cooldownKey: 'intervention',
 	};
 
 	onActivate(player: Player): void {

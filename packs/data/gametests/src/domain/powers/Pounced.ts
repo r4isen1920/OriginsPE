@@ -23,7 +23,6 @@ export class Pounced implements Power {
     readonly active = {
         icon: '06',
         name: 'origins.trait.pounce.name',
-        cooldownKey: COOLDOWN_KEY,
     };
 
     onActivate(player: Player): void {
