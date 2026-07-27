@@ -16,5 +16,4 @@ export class Kitsune implements Origin {
 		'fast_metabolism',
 		'fall_immunity',
 	];
-	readonly controls: readonly string[] = ['pounced-hold'];
 }

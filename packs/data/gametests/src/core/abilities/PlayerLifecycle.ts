@@ -140,10 +140,6 @@ export class PlayerLifecycle {
 			])),
 			(id) => PerkRegistry.has(id), player,
 		);
-		const nextControls = Array.from(new Set([
-			...(origin?.controls ?? []),
-			...(klass?.controls ?? []),
-		]));
 
 		// Diff and dispatch.
 		const prevPowers = state.getPowers();
@@ -159,7 +155,6 @@ export class PlayerLifecycle {
 
 		state.setPowers(nextPowers);
 		state.setPerks(nextPerks);
-		state.setControls(nextControls);
 
 		// Apply attributes: defaults overlaid by every active power/perk.
 		const merged: AttributeOverrides = {

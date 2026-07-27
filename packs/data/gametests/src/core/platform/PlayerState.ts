@@ -18,7 +18,6 @@ interface CachedState {
 	class: string | undefined;
 	powers: string[];
 	perks: string[];
-	controls: string[];
 	cooldowns: CooldownMap;
 	flags: FlagMap;
 	welcomed: boolean;
@@ -56,7 +55,6 @@ export class PlayerState {
 			class: this.readString(player, PLAYER_DYNAMIC_PROPERTIES.class),
 			powers: this.readJsonArray(player, PLAYER_DYNAMIC_PROPERTIES.powers),
 			perks: this.readJsonArray(player, PLAYER_DYNAMIC_PROPERTIES.perks),
-			controls: this.readJsonArray(player, PLAYER_DYNAMIC_PROPERTIES.controls),
 			cooldowns: this.readJsonObject(player, PLAYER_DYNAMIC_PROPERTIES.cooldowns),
 			flags: this.readJsonObject(player, PLAYER_DYNAMIC_PROPERTIES.flags),
 			welcomed: this.readBoolean(player, PLAYER_DYNAMIC_PROPERTIES.welcomed),
@@ -121,17 +119,6 @@ export class PlayerState {
 		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.perk, this.state.perks);
 	}
 
-	/** Retrieves this player's current Controls. Controls are input bindings. */
-	getControls(): readonly string[] {
-		return this.state.controls;
-	}
-	/** Sets this player's current Controls. Controls are input bindings. */
-	setControls(ids: readonly string[]): void {
-		this.state.controls = [...ids];
-		this.writeJson(PLAYER_DYNAMIC_PROPERTIES.controls, this.state.controls);
-		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.control, this.state.controls);
-	}
-
 	/** Returns true if the player has the specified Power. */
 	hasPower(id: string): boolean {
 		return this.state.powers.includes(id);
@@ -139,10 +126,6 @@ export class PlayerState {
 	/** Returns true if the player has the specified Perk. */
 	hasPerk(id: string): boolean {
 		return this.state.perks.includes(id);
-	}
-	/** Returns true if the player has the specified Control. */
-	hasControl(id: string): boolean {
-		return this.state.controls.includes(id);
 	}
 
 	/** Returns the tick at which `id` expires, or 0 if not on cooldown. */
@@ -233,7 +216,6 @@ export class PlayerState {
 		this.state.class = undefined;
 		this.state.powers = [];
 		this.state.perks = [];
-		this.state.controls = [];
 		this.state.cooldowns = {};
 		this.state.flags = {};
 		this.state.welcomed = false;
@@ -266,7 +248,6 @@ export class PlayerState {
 		this.syncTag(PLAYER_STATE_TAG_PREFIXES.class, this.state.class);
 		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.power, this.state.powers);
 		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.perk, this.state.perks);
-		this.syncTagSet(PLAYER_STATE_TAG_PREFIXES.control, this.state.controls);
 	}
 
 	/** Removes any tag on the player starting with `prefix`, then adds `prefix + id` if `id` is defined. */

@@ -180,8 +180,6 @@ export interface Origin {
 	readonly difficulty: OriginDifficulty;
 	/** Identifiers that correspond to the powers granted by this Origin. */
 	readonly powers: readonly string[];
-	/** Optional control bindings. */
-	readonly controls?: readonly string[];
 	/** Optional effects applied to the player. These are purely cosmetic and visual. */
 	readonly effects?: OriginEffects;
 }
@@ -194,6 +192,4 @@ export interface CharacterClass {
 	readonly difficulty: ClassDifficulty;
 	/** Identifiers that correspond to the perks granted by this Class. */
 	readonly perks: readonly string[];
-	/** Optional control bindings. */
-	readonly controls?: readonly string[];
 }

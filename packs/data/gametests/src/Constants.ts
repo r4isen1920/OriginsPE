@@ -9,8 +9,6 @@ export enum PLAYER_DYNAMIC_PROPERTIES {
 	powers = 'r4isen1920_originspe:powers',
 	/** JSON array of granted perk ids. */
 	perks = 'r4isen1920_originspe:perks',
-	/** JSON array of granted control ids. */
-	controls = 'r4isen1920_originspe:controls',
 	/** JSON record of cooldown id -> tick at which the cooldown expires. */
 	cooldowns = 'r4isen1920_originspe:cooldowns',
 	/** JSON record of arbitrary boolean/number flags (transient state). */
