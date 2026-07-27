@@ -25,7 +25,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 export class Undead implements Power {
 	readonly id = 'undead';
 	readonly attributes: AttributeOverrides = {
-		familyType: 'undead',
+		//familyType: 'undead',
 		breathable: 'amphibious',
 		damageOverrides: [
 			{

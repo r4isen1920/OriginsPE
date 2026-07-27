@@ -151,6 +151,7 @@ import './domain/powers/Bloodthirsty';
 import './domain/powers/Undead';
 import './domain/powers/Burning';
 import './domain/powers/CosmicGift';
+import './domain/powers/Regenerative';
 
 //-------------------------------------------
 

@@ -12,6 +12,7 @@ export class Vampire implements Origin {
         'bloodthirsty',
         'death_sense',
         'nocturnal',
+        'regenerative',
         'undead'
     ];
 }

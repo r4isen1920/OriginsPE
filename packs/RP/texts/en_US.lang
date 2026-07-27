@@ -337,6 +337,8 @@ origins.trait.death_sense.name=Death Sense
 origins.trait.death_sense.description=Inflicting players and mobs with 20% of health or less, guarantees a fatal damage that can kill them. After killing, gains additional strength and attack damage for 6 seconds. 
 origins.trait.nocturnal.name=Nocturnal
 origins.trait.nocturnal.description=At night, you are able to see more clearly with night vision, and speed.
+origins.trait.regenerative.name=Regenerative
+origins.trait.regenerative.description=You regenerate faster than normal. However, you get thirsty quickly and you cannot regenerate while burning.
 origins.trait.undead.name=Undead
 origins.trait.undead.description=Their undead condition makes them immune to poison and freezing damage, but weak to fire, and sunlight. Health and harming potions have opposite effects. They also don't have to breath underwater to survive.
 
