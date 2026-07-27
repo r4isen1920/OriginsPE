@@ -207,16 +207,14 @@ import './domain/perks/QuickRegen';
 
 //-------------------------------------------
 
+import './utils/Version';
+
 import './core/Commands';
 import './core/platform/ItemAssociation';
 import './core/platform/Ticker';
 
 import './ui/UiRouter';
 import './ui/ItemEntryPoints';
-import './utils/Version';
-
-import { installDecoratedEventSubscribers } from './core/platform/DecoratedEvents';
-installDecoratedEventSubscribers();
 
 import './core/abilities/AbilityEventService';
 import './core/abilities/PlayerLifecycle';
@@ -225,6 +223,9 @@ import './core/abilities/Registries';
 
 import './services/DamageService';
 import './services/ResourceBarService';
+
+import { installDecoratedEventSubscribers } from './core/platform/DecoratedEvents';
+installDecoratedEventSubscribers();
 
 import { init } from '@bedrock-oss/stylish';
 init();

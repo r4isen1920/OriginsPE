@@ -104,12 +104,9 @@ export class PlayerLifecycle {
 
 		if (!state.isWelcomed()) {
 			UiBridge.openDialogue(player, 'gui_welcome_screen');
-			this.applyOriginAndClass(player, false);
 			system.runTimeout(() => this.openJoinDialogue(player), 20);
 			return;
 		}
-
-		this.applyOriginAndClass(player, false);
 	}
 
 
@@ -119,7 +116,7 @@ export class PlayerLifecycle {
 	 * Recomputes the active power/perk lists from the player's origin/class
 	 * and runs onRelease/onAcquire diffs. Safe to call any time origin/class changes.
 	 */
-	static applyOriginAndClass(player: Player, log: boolean = true): void {
+	static applyOriginAndClass(player: Player): void {
 		const state = PlayerState.for(player);
 		const originId = state.getOrigin() ?? 'human';
 		const classId = state.getClass() ?? 'nitwit';
@@ -181,7 +178,7 @@ export class PlayerLifecycle {
 		//! Force a full re-apply: an origin/class change must reassert the entire
 		//! target profile so attributes set by the previous origin's powers via
 		//! direct entity events reset to baseline.
-		AttributeService.apply(player, merged, true, log);
+		AttributeService.apply(player, merged, true);
 
 		Version.markPlayerRecordCurrent(player);
 	}
@@ -235,13 +232,6 @@ export class PlayerLifecycle {
 	/** Cadence applied to an ability that does not declare its own `tickInterval`. */
 	private static readonly DEFAULT_TICK_INTERVAL = 2;
 
-	/**
-	 * Single per-player loop that drives every active power/perk's `onTick`.
-	 * Eliminates the per-power `system.runInterval` and bespoke `@PlayerTick`
-	 * patterns from the legacy code. Each ability is gated by its declared
-	 * {@link Ability.tickInterval} (defaulting to {@link DEFAULT_TICK_INTERVAL}),
-	 * so converting a `@PlayerTick(n)` handler to an `onTick` hook preserves cadence.
-	 */
 	@PlayerTick(1)
 	static onPlayerTick(player: Player): void {
 		const state = PlayerState.for(player);

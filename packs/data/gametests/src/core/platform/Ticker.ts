@@ -80,7 +80,7 @@ export class Ticker {
 	@AfterPlayerSpawn
 	@AfterPlayerJoin
 	@AfterPlayerLeave
-	static invalidatePlayers(_: PlayerJoinAfterEvent | PlayerLeaveAfterEvent | PlayerSpawnAfterEvent): void {
+	static invalidatePlayers(): void {
 		this.playersDirty = true;
 	}
 

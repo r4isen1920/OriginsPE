@@ -4,6 +4,8 @@ import { Log } from '../../utils/Log';
 import { UiBridge } from '../UiBridge';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { Screen } from './Screen';
+import { AttributeService } from '../../services';
+import { PlayerLifecycle, Ticker } from '../../core';
 
 
 //#region WELCOME SCREEN
@@ -20,6 +22,8 @@ export class WelcomeScreen extends Screen {
 		switch (action) {
 			case 'close':
 				PlayerState.for(player).setWelcomed(state === 'ignored');
+				PlayerLifecycle.applyOriginAndClass(player);
+				Ticker.invalidatePlayers();
 				UiBridge.closeScreen(player);
 				return;
 			case 'ignore':

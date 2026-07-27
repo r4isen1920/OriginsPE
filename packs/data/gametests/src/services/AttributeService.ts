@@ -36,7 +36,7 @@ export class AttributeService {
 	 * service, leaving the cache out of sync; forcing guarantees the target
 	 * profile is fully reasserted rather than silently skipped.
 	 */
-	static apply(player: Player, attrs: AttributeOverrides, force: boolean = false, log: boolean = true): void {
+	static apply(player: Player, attrs: AttributeOverrides, force: boolean = false): void {
 		const last = this.applied.get(player.id) ?? {};
 		const next: Partial<PlayerAttributes> = { ...last };
 
@@ -56,13 +56,11 @@ export class AttributeService {
 			mutableNext[key] = value;
 			this.trigger(player, key, value);
 
-			if (log) {
-				let valueColor: string = '';
-				if (typeof value === 'number' || typeof value === 'bigint') valueColor = '§3';
-				if (typeof value === 'boolean') valueColor = value ? '§a' : '§c';
-				if (typeof value === 'string') valueColor = '§6';
-				this.log.debug(`Apply attribute: '${key}' = ${valueColor}${value}§r, to: ${player.name}`);
-			}
+			let valueColor: string = '';
+			if (typeof value === 'number' || typeof value === 'bigint') valueColor = '§3';
+			if (typeof value === 'boolean') valueColor = value ? '§a' : '§c';
+			if (typeof value === 'string') valueColor = '§6';
+			this.log.debug(`Apply attribute: '${key}' = ${valueColor}${value}§r, to: ${player.name}`);
 		}
 
 		//? Explicitly override camera prop in cache;
