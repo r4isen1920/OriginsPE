@@ -12,35 +12,12 @@ import {
 	AfterEntityHurt,
 	AfterProjectileHitEntity,
 	BeforeEntityHurt,
-} from '../platform/DecoratedEvents';
-import { EntityUtils } from '../../utils/EntityUtils';
-import { AbilityDispatch } from './AbilityDispatch';
-import { DamageOverride } from '../../services/Attributes';
+} from '../core/platform/DecoratedEvents';
+import { EntityUtils } from '../utils/EntityUtils';
+import { AbilityDispatch } from '../core/abilities/AbilityDispatch';
+import { DamageOverride } from './Attributes';
+import { Log } from '../utils';
 
-
-//#region DAMAGE OVERRIDES
-
-const damageOverrides: DamageOverride[] = [];
-const playerDamageOverrides = new Map<string, readonly DamageOverride[]>();
-
-/** Registers a {@link DamageOverride} evaluated on every player `entityHurt` before-event. */
-export function registerDamageOverride(override: DamageOverride): void {
-	damageOverrides.push(override);
-}
-
-/** Replaces the active per-player damage overrides used by the hurt handler. */
-export function setDamageOverrides(player: Player, overrides: readonly DamageOverride[]): void {
-	if (overrides.length === 0) {
-		playerDamageOverrides.delete(player.id);
-		return;
-	}
-	playerDamageOverrides.set(player.id, [...overrides]);
-}
-
-/** Drops any cached per-player damage overrides. Call on leave. */
-export function forgetDamageOverrides(playerId: string): void {
-	playerDamageOverrides.delete(playerId);
-}
 
 
 //#region SERVICE
@@ -49,7 +26,32 @@ export function forgetDamageOverrides(playerId: string): void {
  * Handles damage-related events and dispatches them to granted powers and perks via {@link AbilityDispatch}.
  * This class intercepts damage received and dealt by players, allowing abilities to adjust or react to it.
  */
-export class DamageService {
+export default class DamageService {
+	private static playerDamageOverrides = new Map<string, readonly DamageOverride[]>();
+	private static readonly log = Log.get('DamageService');
+
+
+	//#region Overrides
+
+	/** Replaces the active per-player damage overrides used by the hurt handler. */
+	public static setDamageOverrides(player: Player, overrides: readonly DamageOverride[], log: boolean = true): void {
+		if (overrides.length === 0) {
+			this.playerDamageOverrides.delete(player.id);
+			if (log) this.log.debug(`Cleared damage overrides for player: ${player.name}`);
+			return;
+		}
+		this.playerDamageOverrides.set(player.id, [...overrides]);
+		if (log) this.log.debug(`Set ${overrides.length} damage overrides for player: ${player.name}`, overrides);
+	}
+
+	/** Drops any cached per-player damage overrides. Call on leave. */
+	public static forgetDamageOverrides(playerId: string): void {
+		this.playerDamageOverrides.delete(playerId);
+	}
+
+
+	//#region Handlers
+
 	@BeforeEntityHurt()
 	static onHurtBefore(ev: EntityHurtBeforeEvent): void {
 		if (!EntityUtils.isPlayer(ev.hurtEntity)) return;
@@ -59,17 +61,27 @@ export class DamageService {
 		// If damage is through /kill command, ignore
 		if (ev.damageSource.cause === EntityDamageCause.selfDestruct) return;
 
-		// Declarative overrides first.
-		const activeOverrides = [...damageOverrides, ...(playerDamageOverrides.get(player.id) ?? [])];
-		if (activeOverrides.length > 0) {
+		const activeOverrides = this.playerDamageOverrides.get(player.id);
+		if (activeOverrides && activeOverrides.length > 0) {
 			let damage = ev.damage;
 			for (const override of activeOverrides) {
-				if (override.cause && override.cause !== ev.damageSource.cause) continue;
-				if (override.when && !override.when(player, ev)) continue;
+				if (
+					'cause' in override &&
+					override.cause && override.cause !== ev.damageSource.cause
+				) continue;
+				if (
+					'when' in override &&
+					override.when && !override.when(player, ev)
+				) continue;
 				if (override.multiplier !== undefined) damage *= override.multiplier;
 				if (override.modifier !== undefined) damage += override.modifier;
 			}
-			if (damage !== ev.damage) ev.damage = Math.max(0, damage);
+
+			if (damage !== ev.damage) {
+				const dmg = Math.max(0, damage);
+				this.log.debug(`Applied final damage: ${dmg} HP, from: ${ev.damage} HP, to: ${player.name}`);
+				ev.damage = dmg;
+			}
 		}
 
 		// Granted ability hooks may further adjust `ev.damage`.

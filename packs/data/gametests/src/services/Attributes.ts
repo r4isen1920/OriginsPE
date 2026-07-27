@@ -52,19 +52,36 @@ export type OutlineType =
 	| 'blood_tracked';
 // </generated-player-property-types>
 
-/** Represents how the rule on how damage is overriden. */
-export interface DamageOverride {
-	/** Stable id, used for logging/de-duplication. */
-	readonly id: string;
-	/** Optional damage-cause filter. When set, only matches this cause. */
-	readonly cause?: EntityDamageCause;
-	/** Optional predicate gating the override (e.g. on granted powers). */
-	when?(player: Player, ev: EntityHurtBeforeEvent): boolean;
-	/** Damage multiplier (applied before {@link DamageOverride.modifier}). */
+/** Represents the base rule for how damage is overridden. */
+export interface DamageOverrideBase {
+	/**
+	 * This value is multiplied with the incoming damage.
+	 * For example, setting this to `0.5` will halve the damage, while `2` will double it.
+	 * A value of `0` will completely negate the damage.
+	 */
 	readonly multiplier?: number;
-	/** Flat damage modifier added after the multiplier. */
+	/**
+	 * This value is added to the incoming damage after the multiplier is applied.
+	 * For example, setting this to `2` will increase the damage by 2 points.
+	 * A value of `-5` will reduce the damage by 5 points.
+	 */
 	readonly modifier?: number;
 }
+
+/** Represents a damage override that is gated by a specific cause. */
+export interface DamageOverrideCause extends DamageOverrideBase {
+	/** This damage condition is applied if this specific cause matches. */
+	readonly cause: EntityDamageCause;
+}
+
+/** Represents a damage override that is gated by a predicate function. */
+export interface DamageOverridePredicate extends DamageOverrideBase {
+	/** This damage condition is applied if the predicate returns `true`. */
+	when(player: Player, ev: EntityHurtBeforeEvent): boolean;
+}
+
+/** Represents a damage override, which can be either cause-based or predicate-based. */
+export type DamageOverride = DamageOverrideCause | DamageOverridePredicate;
 
 
 
@@ -108,7 +125,12 @@ export interface PlayerAttributes {
 	outlineType: OutlineType;
 	/** Explicit camera preset override. If absent, camera is auto-derived from scale. */
 	camera?: string;
-	/** Damage overrides applied to the player. */
+	/**
+	 * Alters how incoming damage is calculated for this player.
+	 * Each entry is determined & applied in order, and can be gated by a specific cause or a predicate function.
+	 * 
+	 * The final damage is clamped to a minimum of zero.
+	 */
 	damageOverrides?: DamageOverride[];
 }
 

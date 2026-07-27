@@ -1,8 +1,9 @@
-import { GameMode, Player, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, system } from '@minecraft/server';
+import { GameMode, Player, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, system, TicksPerSecond, WorldLoadAfterEvent } from '@minecraft/server';
 
 import {
 	AfterPlayerLeave,
 	AfterPlayerSpawn,
+	AfterWorldLoad,
 } from '../platform/DecoratedEvents';
 import { Log } from '../../utils/Log';
 import { PlayerState } from '../platform/PlayerState';
@@ -12,7 +13,6 @@ import { PickerKind, PickerMode } from '../../ui/UiPayload';
 import { AttributeService } from '../../services/AttributeService';
 import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../../services/Attributes';
 import { CameraService } from '../../services/CameraService';
-import { forgetDamageOverrides, setDamageOverrides } from './DamageService';
 import Version from '../../utils/Version';
 import { type OriginEffects, Perk, Power } from './Ability';
 import { AbilityDispatch } from './AbilityDispatch';
@@ -22,6 +22,7 @@ import {
 	PerkRegistry,
 	PowerRegistry,
 } from './Registries';
+import DamageService from '../../services/DamageService';
 
 
 //#region BUILT-IN GRANTS
@@ -43,6 +44,8 @@ const DEFAULT_PERKS: readonly string[] = [
  */
 export class PlayerLifecycle {
 	private static readonly log = Log.get('PlayerLifecycle');
+	private static readonly skippedReInitPlayers = new Set<string>();
+
 	private static readonly JOIN_UI_ACK_FLAG = 'join_ui_loaded';
 
 	@AfterPlayerSpawn()
@@ -68,7 +71,7 @@ export class PlayerLifecycle {
 		PlayerState.release(ev.playerId);
 		AttributeService.forget(ev.playerId);
 		CameraService.forget(ev.playerId);
-		forgetDamageOverrides(ev.playerId);
+		DamageService.forgetDamageOverrides(ev.playerId);
 	}
 
 	static onJoinDialogueLoaded(player: Player): void {
@@ -101,12 +104,12 @@ export class PlayerLifecycle {
 
 		if (!state.isWelcomed()) {
 			UiBridge.openDialogue(player, 'gui_welcome_screen');
-			this.applyOriginAndClass(player);
+			this.applyOriginAndClass(player, false);
 			system.runTimeout(() => this.openJoinDialogue(player), 20);
 			return;
 		}
 
-		this.applyOriginAndClass(player);
+		this.applyOriginAndClass(player, false);
 	}
 
 
@@ -116,7 +119,7 @@ export class PlayerLifecycle {
 	 * Recomputes the active power/perk lists from the player's origin/class
 	 * and runs onRelease/onAcquire diffs. Safe to call any time origin/class changes.
 	 */
-	static applyOriginAndClass(player: Player): void {
+	static applyOriginAndClass(player: Player, log: boolean = true): void {
 		const state = PlayerState.for(player);
 		const originId = state.getOrigin() ?? 'human';
 		const classId = state.getClass() ?? 'nitwit';
@@ -174,11 +177,11 @@ export class PlayerLifecycle {
 			Object.assign(merged, attrs);
 			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
 		}
-		setDamageOverrides(player, damageOverrides);
+		merged.damageOverrides = damageOverrides;
 		//! Force a full re-apply: an origin/class change must reassert the entire
 		//! target profile so attributes set by the previous origin's powers via
 		//! direct entity events reset to baseline.
-		AttributeService.apply(player, merged, true);
+		AttributeService.apply(player, merged, true, log);
 
 		Version.markPlayerRecordCurrent(player);
 	}
@@ -277,4 +280,27 @@ export class PlayerLifecycle {
 			state.setFlag('phantomized', true);
 		}
 	}
+
+
+	//#region RE-INIT
+	/**
+	 * Mainly used after running the `/reload` command, which resets the world in-place.
+	 */
+	@AfterWorldLoad
+	static reInitializeAllExistingPlayers(): void {
+		system.runTimeout(() => {
+			const all = Ticker.getPlayers();
+			for (const player of all) {
+				if (this.skippedReInitPlayers.has(player.id)) continue;
+
+				const state = PlayerState.for(player);
+				if (!state.getFlag<boolean>(this.JOIN_UI_ACK_FLAG)) continue;
+				if (!state.getOrigin() || !state.getClass()) continue;
+
+				this.log.info(`Re-initializing player: ${player.name}`);
+				this.applyOriginAndClass(player);
+			}
+		}, TicksPerSecond);	
+	}
+
 }

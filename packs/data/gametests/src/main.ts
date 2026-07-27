@@ -218,12 +218,12 @@ import './utils/Version';
 import { installDecoratedEventSubscribers } from './core/platform/DecoratedEvents';
 installDecoratedEventSubscribers();
 
+import './core/abilities/AbilityEventService';
 import './core/abilities/PlayerLifecycle';
 import './core/abilities/ItemEvents';
 import './core/abilities/Registries';
 
-import './core/abilities/DamageService';
-import './core/abilities/AbilityEventService';
+import './services/DamageService';
 import './services/ResourceBarService';
 
 import { init } from '@bedrock-oss/stylish';

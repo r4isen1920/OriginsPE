@@ -6,10 +6,12 @@ import {
 	type AttributeOverrides,
 	type PlayerAttributes,
 	type PropertyAttributeOverrides,
+	DamageOverride,
 	DEFAULT_ATTRIBUTES,
 	PROPERTY_ATTRIBUTES,
 	STEPPED_ATTRIBUTES,
 } from './Attributes';
+import DamageService from './DamageService';
 
 
 //#region SERVICE
@@ -34,7 +36,7 @@ export class AttributeService {
 	 * service, leaving the cache out of sync; forcing guarantees the target
 	 * profile is fully reasserted rather than silently skipped.
 	 */
-	static apply(player: Player, attrs: AttributeOverrides, force = false): void {
+	static apply(player: Player, attrs: AttributeOverrides, force: boolean = false, log: boolean = true): void {
 		const last = this.applied.get(player.id) ?? {};
 		const next: Partial<PlayerAttributes> = { ...last };
 
@@ -43,17 +45,32 @@ export class AttributeService {
 			const value = attrs[key];
 			if (value === undefined) continue;
 			if (!force && last[key] === value) continue;
-			if (typeof value === 'object' || Array.isArray(value)) continue; // not primitive, skip
+
+			if (key === 'damageOverrides') {
+				DamageService.setDamageOverrides(player, attrs.damageOverrides ?? []);
+			}
+
+			if (typeof value === 'object' || Array.isArray(value)) continue; // not-primitive, skip; move on...
+
 			const mutableNext = next as Partial<Record<AttributeKey, PlayerAttributes[AttributeKey]>>;
 			mutableNext[key] = value;
 			this.trigger(player, key, value);
+
+			if (log) {
+				let valueColor: string = '';
+				if (typeof value === 'number' || typeof value === 'bigint') valueColor = '§3';
+				if (typeof value === 'boolean') valueColor = value ? '§a' : '§c';
+				if (typeof value === 'string') valueColor = '§6';
+				this.log.debug(`Apply attribute: '${key}' = ${valueColor}${value}§r, to: ${player.name}`);
+			}
 		}
 
-		// Camera: store explicit override in cache; CameraService handles all side-effects.
+		//? Explicitly override camera prop in cache;
+		//? CameraService handles all side-effects
 		if ('camera' in attrs) {
 			next.camera = attrs.camera;
 		} else if (force) {
-			// Force-refresh clears any stale explicit override not re-supplied.
+			//? Force-refresh clears any stale explicit override not re-supplied
 			next.camera = undefined;
 		}
 
@@ -146,7 +163,7 @@ export class AttributeService {
 		try {
 			player.setProperty(propId, value);
 		} catch (e: any) {
-			this.log.error(`setProperty '${propId}' = '${String(value)}' failed: ${e}`);
+			this.log.error(`Set property '${propId}' = '${String(value)}' failed: ${e}`);
 		}
 	}
 
