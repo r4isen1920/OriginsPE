@@ -1,3 +1,32 @@
+
+import './services/DamageService';
+import './services/ResourceBarService';
+
+import './core/Commands';
+import './core/platform/ItemAssociation';
+import './core/platform/Ticker';
+
+import './core/abilities/AbilityEventService';
+import './core/abilities/PlayerLifecycle';
+import './core/abilities/ItemEvents';
+import './core/abilities/Registries';
+
+import './ui/UiRouter';
+import './ui/ItemEntryPoints';
+
+import './utils/Version';
+
+import { installDecoratedEventSubscribers } from './core/platform/DecoratedEvents';
+installDecoratedEventSubscribers();
+
+import { init } from '@bedrock-oss/stylish';
+init();
+
+import { Logger, LogLevel } from '@bedrock-oss/bedrock-boost';
+Logger.setLevel(LogLevel.Debug);
+
+//-------------------------------------------
+
 //* Origins
 import './domain/origins/Human';
 import './domain/origins/Avian';
@@ -203,31 +232,3 @@ import './domain/perks/NoMiningExhaustion';
 import './domain/perks/EffectiveEmphaty';
 import './domain/perks/InstantHealPotion';
 import './domain/perks/QuickRegen';
-
-//-------------------------------------------
-
-import './utils/Version';
-
-import './core/Commands';
-import './core/platform/ItemAssociation';
-import './core/platform/Ticker';
-
-import './ui/UiRouter';
-import './ui/ItemEntryPoints';
-
-import './core/abilities/AbilityEventService';
-import './core/abilities/PlayerLifecycle';
-import './core/abilities/ItemEvents';
-import './core/abilities/Registries';
-
-import './services/DamageService';
-import './services/ResourceBarService';
-
-import { installDecoratedEventSubscribers } from './core/platform/DecoratedEvents';
-installDecoratedEventSubscribers();
-
-import { init } from '@bedrock-oss/stylish';
-init();
-
-import { Logger, LogLevel } from '@bedrock-oss/bedrock-boost';
-Logger.setLevel(LogLevel.Debug);
