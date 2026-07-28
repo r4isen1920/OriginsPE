@@ -134,6 +134,15 @@
         }
       ]
     },
+    "random.zeus_clouds":{
+      "category": "player",
+      "sounds": [
+        {
+          "name" : "sounds/random/zeus_clouds",
+          "load_on_low_memory" : true
+        }
+      ]
+    },
 
     "random.zap": {
       "category": "player",
