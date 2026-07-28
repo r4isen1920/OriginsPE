@@ -95,7 +95,7 @@ export class Ticker {
 
 	private static pump(): void {
 		const now = system.currentTick;
-		if (this.playersDirty) {
+		if (this.playersDirty || this.cachedPlayers.length === 0) {
 			this.cachedPlayers = world.getAllPlayers().filter((p) => p.isValid);
 			this.playersDirty = false;
 		}
