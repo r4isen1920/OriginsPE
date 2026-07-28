@@ -10,11 +10,7 @@ export class Zeus implements Origin {
     readonly id = 'zeus';
     readonly difficulty = OriginDifficulty.Hard;
     readonly powers: readonly string[] = [
-        'electric_aura',
-        'lightning_strike',
-        'storm_born',
-        'static_field',
-        'lightning_slowness',
-        'honey_mobility',
+        'wrath_of_olympus',
+        'divine_ascent'
     ];
 }

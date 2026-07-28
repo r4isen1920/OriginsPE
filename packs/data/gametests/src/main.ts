@@ -25,11 +25,9 @@ import './domain/origins/Vampire';
 
 //* Powers
 import './domain/powers/HoneyMobility';
-import './domain/powers/LightningSlowness';
+
 import './domain/powers/StaticField';
 import './domain/powers/StormBorn';
-import './domain/powers/LightningStrike';
-import './domain/powers/ElectricAura';
 import './domain/powers/Claustrophile';
 import './domain/powers/CompactSize';
 import './domain/powers/Nimble';
@@ -152,7 +150,8 @@ import './domain/powers/Undead';
 import './domain/powers/Burning';
 import './domain/powers/CosmicGift';
 import './domain/powers/Regenerative';
-
+import './domain/powers/WrathOfOlympus';
+import './domain/powers/DivineAscent';
 //-------------------------------------------
 
 //* Classes
