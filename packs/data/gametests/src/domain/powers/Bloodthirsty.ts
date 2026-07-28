@@ -12,6 +12,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { isInBatForm } from './BatForm';
 
 @RegisterPower
 export class Bloodthirsty implements Power {
@@ -89,6 +90,7 @@ export class Bloodthirsty implements Power {
 	}
 
 	onAttack(player: Player, ev: EntityHitEntityAfterEvent): void {
+		if (isInBatForm(player)) return;
 		const target = ev.hitEntity;
 		if (!target?.isValid) return;
 		if (!target.getComponent(EntityComponentTypes.Health)) return;

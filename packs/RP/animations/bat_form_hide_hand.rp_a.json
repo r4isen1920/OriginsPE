@@ -1,0 +1,22 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.r4isen1920_originspe.bat_form.hide_hands": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "scale": 0
+        },
+        "leftArm": {
+          "scale": 0
+        },
+        "rightItem": {
+          "scale": 0
+        },
+        "leftItem": {
+          "scale": 0
+        }
+      }
+    }
+  }
+}
