@@ -58,7 +58,7 @@ export class CameraService {
 
 	//#region TICK
 
-	@PlayerTick(1)
+	// @PlayerTick(1)
 	static onTick(player: Player): void {
 		const attrs = AttributeService.getApplied(player.id);
 
