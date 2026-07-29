@@ -181,6 +181,8 @@ import './domain/powers/CosmicGift';
 import './domain/powers/Regenerative';
 import './domain/powers/WrathOfOlympus';
 import './domain/powers/DivineAscent';
+import './domain/powers/StaticEnergy';
+import './domain/powers/Discharge';
 //-------------------------------------------
 
 //* Classes
