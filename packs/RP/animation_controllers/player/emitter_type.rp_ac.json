@@ -1,0 +1,160 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+
+		"controller.animation.r4isen1920_originspe.emitter_type.enderian": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [
+						{ "emit": "v.p_emitter_type == 'enderian' && v.p_toggle_particles" }
+					]
+				},
+				"emit": {
+					"transitions": [ { "on_detect": "v.p_emitter_type != 'enderian' || !v.p_toggle_particles" } ],
+					"particle_effects": [ { "effect": "emitter_type.enderian_aura" } ]
+				}
+			}
+		},
+
+		"controller.animation.r4isen1920_originspe.emitter_type.starborne": {
+			"initial_state": "on_detect",
+			"states": {
+
+				"disabled": {
+					"transitions": [
+						{ "on_detect": "v.p_toggle_particles && v.p_emitter_type == 'starborne'" }
+					]
+				},
+
+				"on_detect": {
+					"transitions": [
+						{ "disabled": "!v.p_toggle_particles || v.p_emitter_type != 'starborne'" },
+
+						{ "meditate_down": "(v.p_emitter_type == 'starborne' && q.is_alive && q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" },
+						{ "stress_up": "(v.p_emitter_type == 'starborne' && q.is_alive)" }
+					]
+				},
+
+				"meditate_down": {
+					"transitions": [
+						{ "disabled": "!v.p_toggle_particles || v.p_emitter_type != 'starborne'" },
+
+						{ "stress_up": "!q.is_alive || !q.is_sneaking || (math.floor((q.health / q.max_health) * 100) < 100)" }
+					],
+					"particle_effects": [
+						{ "effect": "emitter_type.starborne_meditate" },
+						{ "effect": "emitter_type.starborne_star" }
+					]
+				},
+
+				"stress_up": {
+					"transitions": [
+						{ "disabled": "!v.p_toggle_particles || v.p_emitter_type != 'starborne'" },
+
+						{ "meditate_down": "!q.is_alive || (q.is_sneaking && (math.floor((q.health / q.max_health) * 100) > 99))" }
+					],
+					"particle_effects": [
+						{ "effect": "emitter_type.starborne_stress" },
+						{ "effect": "emitter_type.starborne_star" }
+					]
+				}
+			}
+		},
+		"controller.animation.r4isen1920_originspe.emitter_type.starborne.shooting_star": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [ { "emit": "q.is_alive" } ]
+				},
+
+				"emit": {
+					"transitions": [ { "on_detect": "!q.is_alive" } ],
+					"particle_effects": [
+						{ "effect": "emitter_type.stars" },
+						{ "effect": "emitter_type.trail" }
+					]
+				}
+			}
+		},
+
+		"controller.animation.r4isen1920_originspe.emitter_type.elf": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [
+						{ "emit": "v.p_emitter_type == 'elven' && v.p_toggle_particles" }
+					]
+				},
+
+				"emit": {
+					"transitions": [ { "on_detect": "v.p_emitter_type != 'elven' || !v.p_toggle_particles" } ],
+					"particle_effects": [ { "effect": "emitter_type.elven_aura" } ]
+				}
+			}
+		},
+
+		"controller.animation.r4isen1920_originspe.emitter_type.voidwalker": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [
+						{ "emit": "v.p_emitter_type == 'voidwalker' && v.p_toggle_particles" }
+					]
+				},
+
+				"emit": {
+					"transitions": [ { "on_detect": "v.p_emitter_type != 'voidwalker' || !v.p_toggle_particles" } ],
+					"particle_effects": [ { "effect": "emitter_type.voidwalker_aura" } ]
+				}
+			}
+		},
+
+		"controller.animation.r4isen1920_originspe.emitter_type.diviner": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [
+						{ "emit": "v.p_emitter_type == 'diviner' && v.p_toggle_particles" }
+					]
+				},
+
+				"emit": {
+					"transitions": [ { "on_detect": "v.p_emitter_type != 'diviner' || !v.p_toggle_particles" } ],
+					"particle_effects": [ { "effect": "emitter_type.diviner_aura" } ]
+				}
+			}
+		},
+
+		"controller.animation.r4isen1920_originspe.emitter_type.vampire": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [
+						{ "emit": "v.p_emitter_type == 'vampire' && v.p_toggle_particles" }
+					]
+				},
+
+				"emit": {
+					"transitions": [
+						{ "on_detect": "v.p_emitter_type != 'vampire' || !v.p_toggle_particles" },
+						{ "emit.bat_form": "v.p_model_type == 'bat'" }
+					],
+					"particle_effects": [ { "effect": "emitter_type.vampire_aura" } ]
+				},
+				"emit.bat_form": {
+					"transitions": [
+						{ "on_detect": "v.p_emitter_type != 'vampire' || !v.p_toggle_particles" },
+						{ "emit": "v.p_model_type != 'bat'" }
+					],
+					"particle_effects": [
+						{
+							"effect": "emitter_type.vampire_bat_form_aura",
+							"locator": "r4isen1920_originspe_model_type_bat"
+						}
+					]
+				}
+			}
+		}
+	}
+}

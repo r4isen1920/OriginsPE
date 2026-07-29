@@ -174,7 +174,11 @@ export class PlayerLifecycle {
 			Object.assign(merged, attrs);
 			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
 		}
+
 		merged.damageOverrides = damageOverrides;
+
+		
+
 		//! Force a full re-apply: an origin/class change must reassert the entire
 		//! target profile so attributes set by the previous origin's powers via
 		//! direct entity events reset to baseline.

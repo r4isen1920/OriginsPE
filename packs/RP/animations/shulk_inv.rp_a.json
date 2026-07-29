@@ -1,0 +1,27 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+
+		"animation.r4isen1920_originspe.shulk_inv.standing": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [ 0.0, "-(variable.riding_y_offset ?? 0.0)", 0.0 ]
+				},
+				"leftarm": {
+					"rotation": [ 36.0, 0.0, 0.0 ]
+				},
+				"rightarm": {
+					"rotation": [ 36.0, 0.0, 0.0 ]
+				},
+				"leftleg": {
+					"rotation": [ 81.0, 18.0, 0.0 ]
+				},
+				"rightleg": {
+					"rotation": [ 81.0, -18.0, 0.0 ]
+				}
+			}
+		}
+
+	}
+}

@@ -5,7 +5,9 @@ import {
 	EntityHurtAfterEvent,
 	EntityHealthComponent,
 	Player,
-	system
+	system,
+	world,
+	GameMode
 } from '@minecraft/server';
 import { AfterEntityHurt } from '../../core/platform/DecoratedEvents';
 import { AttributeOverrides } from '../../services/Attributes';
@@ -35,6 +37,10 @@ export class Undead implements Power {
 			{
 				cause: EntityDamageCause.fire,
 				multiplier: 2,
+			},
+			{
+				cause: EntityDamageCause.fireTick,
+				multiplier: 2,
 			}
 		]
 	};
@@ -46,30 +52,13 @@ export class Undead implements Power {
 		if (hasPoison) {
 			player.removeEffect('poison');
 		}
+
 		const loc = player.location;
+		const hasCeiling = !!player.dimension.getBlockAbove(loc);
+		const isDay = world.getTimeOfDay() >= 1000 && world.getTimeOfDay() <= 13000;
+		const inDirectSunlight = !hasCeiling && isDay;
 
-		let hasCeiling = false;
-		for (let dy = 1; dy <= 10; dy++) {
-			const above = player.dimension.getBlock({
-				x: Math.floor(loc.x),
-				y: Math.floor(loc.y) + dy,
-				z: Math.floor(loc.z)
-			});
-			if (above && !above.isAir) {
-				hasCeiling = true;
-				break;
-			}
-		}
-
-		let isDay = false;
-
-		const result = player.runCommand('time query daytime');
-		const ticks = parseInt((result as any).statusMessage?.match(/\d+/)?.[0] ?? '0');
-		isDay = ticks >= 0 && ticks <= 12000;
-
-		const inDirectSunlight = !hasCeiling && isDay && loc.y > 60;
-
-		if (inDirectSunlight) {
+		if (inDirectSunlight && player.getGameMode() !== GameMode.Creative) {
 			AttributeService.apply(player, { burnsInDaylight: true });
 		} else {
 			AttributeService.apply(player, { burnsInDaylight: false });

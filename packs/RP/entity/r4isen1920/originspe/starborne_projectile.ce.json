@@ -18,7 +18,7 @@
         "should_update_bones_and_effects_offscreen": "1.0"
       },
       "animations": {
-        "particles": "controller.animation.r4isen1920_originspe.particles.starborne.shooting_star"
+        "particles": "controller.animation.r4isen1920_originspe.emitter_type.starborne.shooting_star"
       },
       "particle_effects": {
         "stars": "r4isen1920_originspe:star_projectile_stars",

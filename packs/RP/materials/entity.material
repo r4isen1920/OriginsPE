@@ -2,6 +2,19 @@
   "materials": {
     "version": "1.0.0",
 
+    "model_type_transition:entity_static": {
+      "+defines": [ "USE_UV_ANIM" ],
+      "+states": [ "DisableCulling" ],
+      "blendSrc": "One",
+      "blendDst": "One",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureWrap": "Repeat"
+        }
+      ]
+    },
+
     "ghostly:entity_alphablend_nocolor": {
       "+states": [ "DisableDepthWrite" ],
       "+defines": [ "USE_COLOR_MASK", "USE_UV_ANIM" ]

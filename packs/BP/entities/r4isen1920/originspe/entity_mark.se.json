@@ -1,0 +1,68 @@
+{
+	"format_version": "1.19.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "r4isen1920_originspe:entity_mark",
+
+			"is_summonable": true,
+
+			"properties": {
+
+				//* Whether this entity is visible to the player or not
+				"r4isen1920_originspe:is_visible": {
+					"type": "bool",
+					"client_sync": true,
+					"default": false
+				}
+
+			}
+		},
+
+		"component_groups": {
+			"originspe:instant_despawn": {
+				"minecraft:instant_despawn": {}
+			}
+		},
+
+		"components": {
+			"minecraft:collision_box": {
+				"width": 0,
+				"height": 0
+			},
+			"minecraft:physics": {
+				"has_gravity": false,
+				"has_collision": false
+			},
+			"minecraft:persistent": {},
+			"minecraft:breathable": {
+				"breathes_solids": true
+			},
+			"minecraft:timer": {
+				"time": 10,
+				"looping": true,
+				"time_down_event": {
+					"event": "instant_despawn",
+					"target": "self"
+				}
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"cause": "all",
+						"deals_damage": "no",
+						"on_damage": {
+							"event": "instant_despawn"
+						}
+					}
+				]
+			}
+		},
+		"events": {
+			"originspe:instant_despawn": {
+				"add": {
+					"component_groups": ["originspe:instant_despawn"]
+				}
+			}
+		}
+	}
+}

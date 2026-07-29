@@ -1,4 +1,4 @@
-import { Origin, OriginDifficulty } from '../../core/abilities/Ability';
+import { Origin, OriginDifficulty, OriginEffects } from '../../core/abilities/Ability';
 import { RegisterOrigin } from '../../core/abilities/Registries';
 
 /** Vampire origin grants the ability to blood tracking. */
@@ -15,4 +15,7 @@ export class Vampire implements Origin {
         'regenerative',
         'undead'
     ];
+	readonly effects: OriginEffects = {
+		emitter: 'vampire',
+	}
 }

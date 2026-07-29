@@ -26,10 +26,6 @@ export type BuoyancyMode = 'normal' | 'float_on_water';
 // <generated-player-property-types>
 export type ModelType =
 	| 'normal'
-	| 'tiny'
-	| 'small'
-	| 'medium'
-	| 'large'
 	| 'bat';
 
 export type SkinType =
@@ -44,12 +40,12 @@ export type EmitterType =
 	| 'starborne'
 	| 'elven'
 	| 'voidwalker'
-	| 'diviner';
+	| 'diviner'
+	| 'vampire';
 
 export type OutlineType =
 	| 'none'
-	| 'divine_aura'
-	| 'blood_tracked';
+	| 'divine_aura';
 // </generated-player-property-types>
 
 /** Represents the base rule for how damage is overridden. */

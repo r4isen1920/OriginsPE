@@ -6,14 +6,19 @@ import {
 	system,
 	world,
 	Entity,
-	Vector3
+	Vector3,
+	EntityDamageCause,
+	MolangVariableMap
 } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
-import { isInBatForm } from './BatForm';
+import { BatForm } from './BatForm';
 import { EntityUtils } from '../../utils/EntityUtils';
+import { Particles } from '../../Files';
+import { Vec3 } from '@bedrock-oss/bedrock-boost';
+import { Log } from '../../utils';
 
 @RegisterPower
 export class Bloodthirsty implements Power {
@@ -21,14 +26,14 @@ export class Bloodthirsty implements Power {
 	readonly icon = '28';
 	readonly tickInterval = 2;
 
+	private static readonly log = Log.get('Bloodthirsty');
+
 	private static readonly BAR_ID = 28;
 	private static readonly BAR_SLOT = 3;
 
 	private static readonly BLOOD_FLAG = 'vampire_blood';
 	private static readonly MAX_BLOOD = 100;
 	
-	private static readonly RESTORE_REMAINDER_KEY = 'bloodthirsty_restore_remainder';
-
 	private static readonly DECAY_KEY = 'bloodthirsty_decay';
 	private static readonly DECAY_INTERVAL_TICKS = 100; //5seconds
 	private static readonly DECAY_AMOUNT = 1;
@@ -37,14 +42,6 @@ export class Bloodthirsty implements Power {
 	private static readonly STARVE_DAMAGE_INTERVAL_TICKS = TicksPerSecond * 1;
 	private static readonly STARVE_DAMAGE_AMOUNT = 1;
 	private static readonly WEAKNESS_REFRESH_TICKS = TicksPerSecond * 2;
-
-	private static readonly BLEED_PARTICLE = 'r4isen1920_originspe:bleeding';
-	private static readonly SUCK_STEPS = 6;
-	private static readonly DIMENSIONS = [
-		'minecraft:overworld',
-		'minecraft:nether',
-		'minecraft:the_end'
-	];
 
 	private static bloodPercent(blood: number): number {
 		return Math.round(
@@ -92,37 +89,34 @@ export class Bloodthirsty implements Power {
 	}
 
 	onDealDamage(player: Player, ev: EntityHurtAfterEvent): void {
-		if (isInBatForm(player)) return;
+		if (BatForm.isInBatForm(player)) return;
 
 		const { damage, damageSource, hurtEntity } = ev;
 		if (damage <= 0) return;
 		if (!EntityUtils.isPlayer(damageSource.damagingEntity)) return;
 		if (damageSource.damagingEntity.id !== player.id) return;
-		if (damageSource.cause !== 'entityAttack') return;
+		if (damageSource.cause !== EntityDamageCause.entityAttack) return;
 
 		if (!hurtEntity?.isValid) return;
 		if (!hurtEntity.getComponent(EntityComponentTypes.Health)) return;
 
-		const state = PlayerState.for(player);
-
-		let remainder = state.getFlag<number>(Bloodthirsty.RESTORE_REMAINDER_KEY) ?? 0;
-		remainder += damage;
-		const restoreAmount = Math.floor(remainder);
-		remainder -= restoreAmount;
-		state.setFlag(Bloodthirsty.RESTORE_REMAINDER_KEY, remainder);
-
+		const restoreAmount = Math.floor(damage * 2);
 		if (restoreAmount <= 0) return;
 
+		const state = PlayerState.for(player);
 		let blood = state.getFlag<number>(Bloodthirsty.BLOOD_FLAG) ?? Bloodthirsty.MAX_BLOOD;
 		blood = Math.min(Bloodthirsty.MAX_BLOOD, blood + restoreAmount);
 
 		state.setFlag(Bloodthirsty.BLOOD_FLAG, blood);
 		Bloodthirsty.pushBloodBar(player, blood);
 
-		const dimensionId = player.dimension.id;
-		if (Bloodthirsty.DIMENSIONS.includes(dimensionId)) {
-			Bloodthirsty.spawnSuckParticles(hurtEntity, player, dimensionId);
-		}
+		Bloodthirsty.log.debug(`Restored: ${restoreAmount} blood to ${player.name} (now at ${blood})`);
+
+		const molang = new MolangVariableMap();
+		molang.setFloat('particle_count', restoreAmount);
+		const aabb = hurtEntity.getAABB();
+		molang.setVector3('size', Vec3.from(aabb.extent).scale(0.67));
+		player.dimension.spawnParticle(Particles.BloodthirstyBleed, Vec3.from(hurtEntity.location), molang);
 	}
 
 	onTick(player: Player): void {
@@ -172,36 +166,6 @@ export class Bloodthirsty implements Power {
 					Bloodthirsty.STARVE_DAMAGE_INTERVAL_TICKS
 				);
 			}
-		}
-	}
-
-	private static spawnSuckParticles(entity: Entity, vampire: Player, dimensionId: string): void {
-		let dimension;
-		try {
-			dimension = world.getDimension(dimensionId);
-		} catch {
-			return;
-		}
-
-		const from = entity.location;
-		const to = vampire.location;
-
-		const toAdjusted: Vector3 = {
-			x: to.x,
-			y: to.y + 1.0,
-			z: to.z
-		};
-
-		for (let i = 0; i < Bloodthirsty.SUCK_STEPS; i++) {
-			const t = 0.1 + (i / (Bloodthirsty.SUCK_STEPS - 1)) * 0.85;
-
-			const spawnPos: Vector3 = {
-				x: from.x + (toAdjusted.x - from.x) * t,
-				y: from.y + 1.0 + (toAdjusted.y - (from.y + 1.0)) * t,
-				z: from.z + (toAdjusted.z - from.z) * t
-			};
-
-			dimension.spawnParticle(Bloodthirsty.BLEED_PARTICLE, spawnPos);
 		}
 	}
 }

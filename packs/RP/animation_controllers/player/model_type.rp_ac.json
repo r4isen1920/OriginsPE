@@ -1,0 +1,69 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+
+		"controller.animation.r4isen1920_originspe.model_type.transition": {
+			"initial_state": "on_detect",
+			"states": {
+				"on_detect": {
+					"transitions": [
+						{ "model_type.normal": "v.p_model_type == 'normal'" },
+						{ "model_type.bat": "v.p_model_type == 'bat'" }
+					]
+				},
+
+				"model_type.normal": {
+					"animations": [ "model_type.normal" ],
+					"transitions": [
+						{ "model_type.bat": "v.p_model_type == 'bat'" }
+					],
+					"blend_transition": 0.75,
+					"blend_via_shortest_path": true
+				},
+
+				"model_type.bat": {
+					"animations": [ "model_type.bat" ],
+					"transitions": [
+						{ "model_type.normal": "v.p_model_type == 'normal'"}
+					],
+					"particle_effects": [
+						{ "effect": "model_type.transition" }
+					],
+					"blend_transition": 0.75,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+
+		
+		"controller.animation.r4isen1920_originspe.model_type.bat": {
+			"initial_state": "init",
+			"states": {
+				"init": {
+					"transitions": [
+						{ "flying": "(!q.is_on_ground || q.is_moving) && !v.p_model_type_transitioning" },
+						{ "resting": "q.is_on_ground && !q.is_moving || v.p_model_type_transitioning" }
+					]
+				},
+
+				"flying": {
+					"animations": [ "model_type.bat.flying" ],
+					"transitions": [
+						{ "resting": "(q.is_on_ground && !q.is_moving && q.state_time > 1.5) || v.p_model_type_transitioning" }
+					],
+					"blend_transition": 1.5,
+					"blend_via_shortest_path": true
+				},
+				"resting": {
+					"animations": [ "model_type.bat.resting" ],
+					"transitions": [
+						{ "flying": "(!q.is_on_ground || q.is_moving) && q.state_time > 1.5 && !v.p_model_type_transitioning" }
+					],
+					"blend_transition": 1.5,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+
+  }
+}

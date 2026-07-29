@@ -1,0 +1,29 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+
+		"controller.render.r4isen1920_originspe.model_type.transition": {
+			"geometry": "Geometry.model_type.transition",
+			"materials": [{ "*": "Material.model_type.transition" }],
+			"textures": ["Texture.model_type.transition"],
+
+			"uv_anim": {
+				"offset": [
+					"q.rotation_to_camera(1)/800 + q.life_time*0.1",
+					"-q.rotation_to_camera(0)/800 + q.life_time*0.1"
+				],
+				"scale": [1, 1]
+			},
+
+			"ignore_lighting": true
+		},
+
+
+		"controller.render.r4isen1920_originspe.model_type.bat": {
+			"geometry": "Geometry.model_type.bat",
+			"materials": [{ "*": "Material.default" }],
+			"textures": ["Texture.model_type.bat"]
+		}
+
+	}
+}

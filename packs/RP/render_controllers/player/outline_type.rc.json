@@ -1,0 +1,96 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+
+		"controller.render.r4isen1920_originspe.outline_type.divine": {
+			"geometry": "Geometry.outline_type.wide",
+			"materials": [
+				{ "*": "Material.outline_type.highlight_outliner" }
+			],
+			"textures": ["Texture.outline_type.divine"],
+			"part_visibility": [
+				{ "*": false },
+
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'filled_map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+				}
+			],
+
+			"uv_anim": {
+				"offset": [
+					"(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01",
+					"(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01"
+				],
+				"scale": [1.0, 1.0]
+			},
+
+			"on_fire_color": {},
+			"is_hurt_color": {}
+		},
+
+		"controller.render.r4isen1920_originspe.outline_type.divine.third_person": {
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.outline_type.wide", "Geometry.model_type.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
+			"materials": [
+				{ "*": "Material.outline_type.highlight_outliner" }
+			],
+			"textures": ["Texture.outline_type.divine"],
+
+			"part_visibility": [
+				{ "rightArm": "!v.is_using_slim_skin" },
+				{ "leftArm": "!v.is_using_slim_skin" }
+			],
+
+			"uv_anim": {
+				"offset": [
+					"(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01",
+					"(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01"
+				],
+				"scale": [1.0, 1.0]
+			},
+
+			"on_fire_color": {},
+			"is_hurt_color": {},
+
+			"ignore_lighting": true
+		},
+
+		"controller.render.r4isen1920_originspe.outline_type.divine.third_person_slim": {
+			"arrays": {
+				"geometries": {
+					"Array.geo": ["Geometry.outline_type.slim", "Geometry.model_type.hidden"]
+				}
+			},
+			"geometry": "Array.geo[v.is_using_custom_camera]",
+			"materials": [
+				{ "*": "Material.outline_type.highlight_outliner" }
+			],
+			"textures": ["Texture.outline_type.divine"],
+
+			"part_visibility": [
+				{ "*": "v.is_using_slim_skin" }
+			],
+
+			"uv_anim": {
+				"offset": [
+					"(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01",
+					"(Math.floor(q.life_time * 15.0) + q.frame_alpha) * 0.01"
+				],
+				"scale": [1.0, 1.0]
+			},
+
+			"on_fire_color": {},
+			"is_hurt_color": {},
+
+			"ignore_lighting": true
+		}
+
+	}
+}

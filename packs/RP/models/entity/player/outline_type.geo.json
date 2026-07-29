@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.r4isen1920_originspe.player_scaled",
+				"identifier": "geometry.r4isen1920_originspe.outline_type.wide",
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
@@ -138,7 +138,7 @@
 		},
 		{
 			"description": {
-				"identifier": "geometry.r4isen1920_originspe.player_scaled_slim_arms",
+				"identifier": "geometry.r4isen1920_originspe.outline_type.slim",
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,

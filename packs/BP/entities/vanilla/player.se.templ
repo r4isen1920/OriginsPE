@@ -60,7 +60,16 @@
 						"client_sync": true,
 						"type": "enum",
 						"default": "normal",
-						"values": ["normal", "tiny", "small", "medium", "large", "bat"]
+						"values": [
+							"normal",
+							"bat"
+						]
+					},
+					"r4isen1920_originspe:model_type_transitioning": {
+						//* Returns true if the current model type is transitioning
+						"client_sync": true,
+						"type": "bool",
+						"default": false
 					},
 
 					"r4isen1920_originspe:skin_type": {
@@ -68,7 +77,12 @@
 						"client_sync": true,
 						"type": "enum",
 						"default": "normal",
-						"values": ["normal", "ghostly", "slimy", "shadow"]
+						"values": [
+							"normal",
+							"ghostly",
+							"slimy",
+							"shadow"
+						]
 					},
 
 					"r4isen1920_originspe:emitter_type": {
@@ -82,7 +96,8 @@
 							"starborne",
 							"elven",
 							"voidwalker",
-							"diviner"
+							"diviner",
+							"vampire"
 						]
 					},
 
@@ -91,7 +106,10 @@
 						"client_sync": true,
 						"type": "enum",
 						"default": "none",
-						"values": ["none", "divine_aura", "blood_tracked"]
+						"values": [
+							"none",
+							"divine_aura"
+						]
 					},
 
 					"r4isen1920_originspe:camera_active": {
