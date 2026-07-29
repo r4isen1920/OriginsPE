@@ -1,7 +1,7 @@
 import {
 	Player,
 	TicksPerSecond,
-	EntityHitEntityAfterEvent,
+	EntityHurtAfterEvent,
 	EntityComponentTypes,
 	system,
 	world,
@@ -13,6 +13,7 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { isInBatForm } from './BatForm';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Bloodthirsty implements Power {
@@ -25,7 +26,8 @@ export class Bloodthirsty implements Power {
 
 	private static readonly BLOOD_FLAG = 'vampire_blood';
 	private static readonly MAX_BLOOD = 100;
-	private static readonly HIT_RESTORE_AMOUNT = 2;
+	
+	private static readonly RESTORE_REMAINDER_KEY = 'bloodthirsty_restore_remainder';
 
 	private static readonly DECAY_KEY = 'bloodthirsty_decay';
 	private static readonly DECAY_INTERVAL_TICKS = 100; //5seconds
@@ -89,22 +91,37 @@ export class Bloodthirsty implements Power {
 		ResourceBarService.pop(player, Bloodthirsty.BAR_ID);
 	}
 
-	onAttack(player: Player, ev: EntityHitEntityAfterEvent): void {
+	onDealDamage(player: Player, ev: EntityHurtAfterEvent): void {
 		if (isInBatForm(player)) return;
-		const target = ev.hitEntity;
-		if (!target?.isValid) return;
-		if (!target.getComponent(EntityComponentTypes.Health)) return;
+
+		const { damage, damageSource, hurtEntity } = ev;
+		if (damage <= 0) return;
+		if (!EntityUtils.isPlayer(damageSource.damagingEntity)) return;
+		if (damageSource.damagingEntity.id !== player.id) return;
+		if (damageSource.cause !== 'entityAttack') return;
+
+		if (!hurtEntity?.isValid) return;
+		if (!hurtEntity.getComponent(EntityComponentTypes.Health)) return;
 
 		const state = PlayerState.for(player);
+
+		let remainder = state.getFlag<number>(Bloodthirsty.RESTORE_REMAINDER_KEY) ?? 0;
+		remainder += damage;
+		const restoreAmount = Math.floor(remainder);
+		remainder -= restoreAmount;
+		state.setFlag(Bloodthirsty.RESTORE_REMAINDER_KEY, remainder);
+
+		if (restoreAmount <= 0) return;
+
 		let blood = state.getFlag<number>(Bloodthirsty.BLOOD_FLAG) ?? Bloodthirsty.MAX_BLOOD;
-		blood = Math.min(Bloodthirsty.MAX_BLOOD, blood + Bloodthirsty.HIT_RESTORE_AMOUNT);
+		blood = Math.min(Bloodthirsty.MAX_BLOOD, blood + restoreAmount);
 
 		state.setFlag(Bloodthirsty.BLOOD_FLAG, blood);
 		Bloodthirsty.pushBloodBar(player, blood);
 
 		const dimensionId = player.dimension.id;
 		if (Bloodthirsty.DIMENSIONS.includes(dimensionId)) {
-			Bloodthirsty.spawnSuckParticles(target, player, dimensionId);
+			Bloodthirsty.spawnSuckParticles(hurtEntity, player, dimensionId);
 		}
 	}
 
