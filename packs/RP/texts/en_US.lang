@@ -332,7 +332,11 @@ origins.trait.undead.description=Their undead condition makes them immune to poi
 origins.trait.wrath_of_olympus.name=Wrath of Olympus
 origins.trait.wrath_of_olympus.description=Spawns in a Trident imbued with lightning bolt from the skies, creating an explosion and damaging mobs and players on impact. You are immune from this damage. Has a 30-second cooldown.
 origins.trait.divine_ascent.name=Divine Ascent
-origins.trait.divine_ascent.description=Gifted with the power of skies, you are able to hover and float around under a foam of clouds.
+origins.trait.divine_ascent.description=Gifted with the power of skies, you are able to hover and float around under a foam of clouds. Pressed Double Jump and hold to activate it.
+origins.trait.static_energy.name=Static Energy
+origins.trait.static_energy.description=The power of electricity gushes in you. Applies static energy on mobs & players you hit, or hit you. Such entities will be inflicted with slowness for 6 seconds.
+origins.trait.discharge.name=Discharge
+origins.trait.discharge.description=Whenever you deal damage on other mobs & players that are slowed, there is a 30% chance you will stun them for 1-2 seconds. Stunned enemies additionally takes 1 health of damage for every 2 unique metallic items in their inventory.
 
 origins.trait.bunny_jump.name=High Jump
 origins.trait.bunny_jump.description=You can jump up to 3 blocks high.
