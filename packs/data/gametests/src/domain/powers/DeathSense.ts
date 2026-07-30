@@ -10,7 +10,7 @@ import { Vec3 } from '@bedrock-oss/bedrock-boost';
 export class DeathSense implements Power {
     readonly id = 'death_sense';
 	readonly icon = '27';
-    readonly tickInterval = 5;
+    readonly tickInterval = 2;
 
 
     private static readonly log = Log.get('DeathSense');
@@ -92,7 +92,7 @@ export class DeathSense implements Power {
                 const dz = location.z - target.location.z;
                 const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-                if (distance > 16) {
+                if (distance > 8) {
                     let expireTick = marker.getDynamicProperty('expireTick') as number | undefined;
                     if (expireTick === undefined) {
                         expireTick = system.currentTick + DeathSense.MARK_EXPIRATION_TICKS;
@@ -127,7 +127,7 @@ export class DeathSense implements Power {
         // mark new potential targets
         const nearbyEntities = dimension.getEntities({
             location,
-            maxDistance: 16,
+            maxDistance: 8,
             excludeFamilies: ['inanimate']
         });
 
