@@ -1,0 +1,20 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.r4isen1920_originspe.entity_mark.rotation": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						"q.rotation_to_camera(0)/1.5",
+						"q.rotation_to_camera(1) - q.body_y_rotation",
+						0
+					]
+				},
+				"icon": {
+					"scale": "Math.clamp(q.distance_from_camera/9, 0.5, 2.5)*2"
+				}
+			}
+		}
+	}
+}

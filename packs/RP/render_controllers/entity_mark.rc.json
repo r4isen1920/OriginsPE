@@ -1,0 +1,46 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+
+		"controller.render.r4isen1920_originspe.entity_mark": {
+			"arrays": {
+				"textures": {
+					"Array.frames": [
+            "Texture.frame.0",
+            "Texture.frame.1",
+            "Texture.frame.2",
+            "Texture.frame.3",
+            "Texture.frame.4",
+            "Texture.frame.5",
+            "Texture.frame.6",
+            "Texture.frame.0",
+            "Texture.frame.1",
+            "Texture.frame.2",
+            "Texture.frame.3",
+            "Texture.frame.4",
+            "Texture.frame.5",
+            "Texture.frame.6",
+            "Texture.frame.7",
+            "Texture.frame.7",
+            "Texture.frame.7",
+            "Texture.frame.7",
+            "Texture.frame.7",
+            "Texture.frame.7",
+            "Texture.frame.7",
+            "Texture.frame.7"
+					]
+				}
+			},
+
+			"geometry": "Geometry.default",
+			"materials": [{ "*": "Material.default" }],
+			"textures": [
+				"Array.frames[Math.mod(Math.floor(q.life_time * 24), 21)]"
+			],
+
+			"on_fire_color": {},
+			"is_hurt_color": {}
+		}
+
+	}
+}

@@ -16,7 +16,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "shooting_star", "originspe", "inanimate" ]
+        "family": [ "shooting_star", "originspe", "projectile", "inanimate" ]
       },
 
       "minecraft:projectile": {

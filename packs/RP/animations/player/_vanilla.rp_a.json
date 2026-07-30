@@ -17,12 +17,19 @@
 			}
 		},
 
-		"animation.player.cape": {
+		"animation.player.hide_cape": {
 			"loop": true,
 			"bones": {
 				"cape": {
-					"position": [ 0.0, "query.get_root_locator_offset('armor_offset.default_neck', 1)", 0.0 ],
-					"rotation": [ "math.lerp(0.0, -126.0, query.cape_flap_amount) - 6.0", 0.0, 0.0 ],
+					"scale": "v.p_model_type_transitioning || v.p_model_type != 'normal' ? 0 : 1"
+				}
+			}
+		},
+
+		"animation.player.hide_item": {
+			"loop": true,
+			"bones": {
+				"rightItem": {
 					"scale": "v.p_model_type_transitioning || v.p_model_type != 'normal' ? 0 : 1"
 				}
 			}

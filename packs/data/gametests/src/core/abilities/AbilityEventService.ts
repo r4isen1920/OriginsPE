@@ -1,5 +1,6 @@
 import {
 	EffectAddAfterEvent,
+	EntityDieAfterEvent,
 	EntityHealthChangedAfterEvent,
 	PlayerBreakBlockAfterEvent,
 	PlayerDimensionChangeAfterEvent,
@@ -8,6 +9,7 @@ import {
 
 import {
 	AfterEffectAdd,
+	AfterEntityDie,
 	AfterEntityHealthChanged,
 	AfterPlayerBreakBlock,
 	AfterPlayerDimensionChange,
@@ -53,5 +55,12 @@ export class AbilityEventService {
 	static onPlaceBlock(ev: PlayerPlaceBlockAfterEvent): void {
 		const player = ev.player;
 		AbilityDispatch.toGranted(player, 'onPlaceBlock', (a) => a.onPlaceBlock?.(player, ev));
+	}
+
+	@AfterEntityDie()
+	static onDeath(ev: EntityDieAfterEvent): void {
+		const player = ev.deadEntity;
+		if (!EntityUtils.isPlayer(player)) return;
+		AbilityDispatch.toGranted(player, 'onDeath', (a) => a.onDeath?.(player, ev));
 	}
 }

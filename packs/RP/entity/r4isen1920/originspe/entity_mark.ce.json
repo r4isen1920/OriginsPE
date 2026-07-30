@@ -2,7 +2,33 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "r4isen1920_originspe:entity_mark"
+			"identifier": "r4isen1920_originspe:entity_mark",
+			"materials": {
+				"default": "entity_mark"
+			},
+			"textures": {
+				"frame.0": "textures/entity/r4isen1920/originspe/entity_mark/0",
+				"frame.1": "textures/entity/r4isen1920/originspe/entity_mark/1",
+				"frame.2": "textures/entity/r4isen1920/originspe/entity_mark/2",
+				"frame.3": "textures/entity/r4isen1920/originspe/entity_mark/3",
+				"frame.4": "textures/entity/r4isen1920/originspe/entity_mark/4",
+				"frame.5": "textures/entity/r4isen1920/originspe/entity_mark/5",
+				"frame.6": "textures/entity/r4isen1920/originspe/entity_mark/6",
+				"frame.7": "textures/entity/r4isen1920/originspe/entity_mark/7"
+			},
+			"geometry": {
+				"default": "geometry.r4isen1920_originspe.entity_mark"
+			},
+			"scripts": {
+				"animate": [ "rotation" ]
+			},
+			"animations": {
+				"rotation": "animation.r4isen1920_originspe.entity_mark.rotation"
+			},
+			"render_controllers": [
+				// "controller.render.r4isen1920_originspe.entity_mark"
+				{ "controller.render.r4isen1920_originspe.entity_mark": "q.property('r4isen1920_originspe:is_visible')" }
+			]
 		}
 	}
 }

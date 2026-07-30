@@ -8,7 +8,10 @@ import {
 	Entity,
 	Vector3,
 	EntityDamageCause,
-	MolangVariableMap
+	MolangVariableMap,
+	GameMode,
+	PlayerSpawnAfterEvent,
+	EntityDieAfterEvent
 } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
@@ -19,6 +22,7 @@ import { EntityUtils } from '../../utils/EntityUtils';
 import { Particles } from '../../Files';
 import { Vec3 } from '@bedrock-oss/bedrock-boost';
 import { Log } from '../../utils';
+import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
 
 @RegisterPower
 export class Bloodthirsty implements Power {
@@ -35,7 +39,7 @@ export class Bloodthirsty implements Power {
 	private static readonly MAX_BLOOD = 100;
 	
 	private static readonly DECAY_KEY = 'bloodthirsty_decay';
-	private static readonly DECAY_INTERVAL_TICKS = 100; //5seconds
+	private static readonly DECAY_INTERVAL_TICKS = 2.5 * TicksPerSecond;
 	private static readonly DECAY_AMOUNT = 1;
 
 	private static readonly STARVE_DAMAGE_KEY = 'bloodthirsty_starve_damage';
@@ -50,6 +54,11 @@ export class Bloodthirsty implements Power {
 	}
 
 	static drainBlood(player: Player, amount: number): number {
+		const gm = player.getGameMode();
+		if (gm === GameMode.Creative || gm === GameMode.Spectator) {
+			return Bloodthirsty.getBlood(player);
+		}
+
 		const state = PlayerState.for(player);
 		let blood = state.getFlag<number>(Bloodthirsty.BLOOD_FLAG) ?? Bloodthirsty.MAX_BLOOD;
 		blood = Math.max(0, blood - amount);
@@ -85,6 +94,7 @@ export class Bloodthirsty implements Power {
 	}
 
 	onRelease(player: Player): void {
+		player.removeEffect(MinecraftEffectTypes.Saturation);
 		ResourceBarService.pop(player, Bloodthirsty.BAR_ID);
 	}
 
@@ -100,8 +110,7 @@ export class Bloodthirsty implements Power {
 		if (!hurtEntity?.isValid) return;
 		if (!hurtEntity.getComponent(EntityComponentTypes.Health)) return;
 
-		const restoreAmount = Math.floor(damage * 2);
-		if (restoreAmount <= 0) return;
+		const restoreAmount = Math.max(Math.floor(damage * 2), 1); // min is 1 always
 
 		const state = PlayerState.for(player);
 		let blood = state.getFlag<number>(Bloodthirsty.BLOOD_FLAG) ?? Bloodthirsty.MAX_BLOOD;
@@ -110,7 +119,7 @@ export class Bloodthirsty implements Power {
 		state.setFlag(Bloodthirsty.BLOOD_FLAG, blood);
 		Bloodthirsty.pushBloodBar(player, blood);
 
-		Bloodthirsty.log.debug(`Restored: ${restoreAmount} blood to ${player.name} (now at ${blood})`);
+		Bloodthirsty.log.debug(`Restored: ${restoreAmount} blood, to ${player.name} (now at ${blood})`);
 
 		const molang = new MolangVariableMap();
 		molang.setFloat('particle_count', restoreAmount);
@@ -120,6 +129,11 @@ export class Bloodthirsty implements Power {
 	}
 
 	onTick(player: Player): void {
+		player.addEffect(MinecraftEffectTypes.Saturation, TicksPerSecond * 10, {
+			amplifier: 255,
+			showParticles: false,
+		});
+
 		const state = PlayerState.for(player);
 		const now = system.currentTick;
 
@@ -168,4 +182,15 @@ export class Bloodthirsty implements Power {
 			}
 		}
 	}
+
+	onDeath(player: Player, ev: EntityDieAfterEvent): void {
+		if (!ev.deadEntity) return;
+
+		const state = PlayerState.for(player);
+		state.setFlag(Bloodthirsty.BLOOD_FLAG, Bloodthirsty.MAX_BLOOD);
+		Bloodthirsty.pushBloodBar(player, Bloodthirsty.MAX_BLOOD);
+
+		Bloodthirsty.log.info(`Player ${player.name} died, restoring blood to max: ${Bloodthirsty.MAX_BLOOD}`);
+	}
+	
 }

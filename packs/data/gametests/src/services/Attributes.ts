@@ -17,7 +17,8 @@ export type FamilyType =
 	| 'undead'
 	| 'enderman'
 	| 'cat'
-	| 'camouflage';
+	| 'camouflage'
+	| 'bat';
 
 export type BreathableMode = 'land' | 'underwater' | 'amphibious';
 

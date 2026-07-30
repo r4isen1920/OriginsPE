@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.ore_highlight",
+				"identifier": "geometry.r4isen1920_originspe.ore_highlight",
 				"texture_width": 16,
 				"texture_height": 16,
 				"visible_bounds_width": 2,
@@ -51,7 +51,7 @@
 		},
 		{
 			"description": {
-				"identifier": "geometry.ore_highlight.scaled",
+				"identifier": "geometry.r4isen1920_originspe.ore_highlight.scaled",
 				"texture_width": 16,
 				"texture_height": 16,
 				"visible_bounds_width": 3,

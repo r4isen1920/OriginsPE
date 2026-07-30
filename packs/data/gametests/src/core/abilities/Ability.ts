@@ -12,6 +12,7 @@ import {
 	PlayerDimensionChangeAfterEvent,
 	PlayerPlaceBlockAfterEvent,
 	ProjectileHitEntityAfterEvent,
+	EntityDieAfterEvent,
 } from '@minecraft/server';
 
 import type { AttributeOverrides, EmitterType, ModelType, OutlineType, SkinType } from '../../services';
@@ -121,6 +122,8 @@ export interface Ability {
 	onBreakBlock?(player: Player, ev: PlayerBreakBlockAfterEvent): void;
 	/** Called when the owner places a block. */
 	onPlaceBlock?(player: Player, ev: PlayerPlaceBlockAfterEvent): void;
+	/** Called when the player dies. */
+	onDeath?(player: Player, ev: EntityDieAfterEvent): void;
 }
 
 

@@ -5,8 +5,6 @@
     "model_type_transition:entity_static": {
       "+defines": [ "USE_UV_ANIM" ],
       "+states": [ "DisableCulling" ],
-      "blendSrc": "One",
-      "blendDst": "One",
       "+samplerStates": [
         {
           "samplerIndex": 0,
@@ -18,6 +16,10 @@
     "ghostly:entity_alphablend_nocolor": {
       "+states": [ "DisableDepthWrite" ],
       "+defines": [ "USE_COLOR_MASK", "USE_UV_ANIM" ]
+    },
+
+		"entity_mark:spider_invisible": {
+      "depthFunc": "Always"
     },
 
 		"highlight_base:entity_alphatest": {

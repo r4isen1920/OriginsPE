@@ -16,6 +16,8 @@ import { BeforeEntityHurt } from '../../core';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
+import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
+import { BatForm } from './BatForm';
 
 /**
  * Their undead condition makes them immune to poison and freezing damage, but weak to fire, and sunlight.
@@ -48,9 +50,15 @@ export class Undead implements Power {
 
 	//poison and sunlight
 	onTick(player: Player): void {
-		const hasPoison = player.getEffect('poison');
-		if (hasPoison) {
-			player.removeEffect('poison');
+		const immuneEffects = [
+			MinecraftEffectTypes.Poison,
+			MinecraftEffectTypes.FatalPoison,
+			MinecraftEffectTypes.Wither,
+		];
+		for (const effect of immuneEffects) {
+			if (player.getEffect(effect)) {
+				player.removeEffect(effect);
+			}
 		}
 
 		const loc = player.location;
@@ -58,7 +66,11 @@ export class Undead implements Power {
 		const isDay = world.getTimeOfDay() >= 1000 && world.getTimeOfDay() <= 13000;
 		const inDirectSunlight = !hasCeiling && isDay;
 
-		if (inDirectSunlight && player.getGameMode() !== GameMode.Creative) {
+		if (
+			!BatForm.isInBatForm(player) &&
+			inDirectSunlight &&
+			player.getGameMode() !== GameMode.Creative
+		) {
 			AttributeService.apply(player, { burnsInDaylight: true });
 		} else {
 			AttributeService.apply(player, { burnsInDaylight: false });

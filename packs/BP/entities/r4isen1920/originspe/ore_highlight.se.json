@@ -25,6 +25,10 @@
 		},
 
 		"components": {
+      "minecraft:type_family": {
+        "family": [ "ore_highlight", "originspe", "inanimate" ]
+      },
+
 			"minecraft:collision_box": {
 				"width": 0,
 				"height": 0

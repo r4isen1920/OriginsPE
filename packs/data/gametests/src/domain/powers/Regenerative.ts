@@ -11,8 +11,8 @@ export class Regenerative implements Power {
 	readonly id = 'regenerative';
 	readonly tickInterval = 20; // 1s
 
-	private static readonly REGEN_AMPLIFIER = 1; // Regeneration II
-	private static readonly REGEN_DURATION_TICKS = 40; //2s
+	private static readonly REGEN_AMPLIFIER = 2;
+	private static readonly REGEN_DURATION_TICKS = 100;
 
 	private static readonly DRAIN_KEY = 'regenerative_extra_drain';
 	private static readonly DRAIN_INTERVAL_TICKS = 100; // 5s
@@ -30,6 +30,12 @@ export class Regenerative implements Power {
 	}
 
 	onTick(player: Player): void {
+		const health = player.getComponent(EntityComponentTypes.Health);
+		if (health && health.currentValue >= health.effectiveMax) {
+			player.removeEffect(MinecraftEffectTypes.Regeneration);
+			return;
+		}
+
 		const isBurning = player.getComponent(EntityComponentTypes.OnFire) !== undefined;
 		const blood = Bloodthirsty.getBlood(player);
 

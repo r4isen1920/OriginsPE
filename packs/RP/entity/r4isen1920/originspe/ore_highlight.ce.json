@@ -12,8 +12,8 @@
 				"aura": "textures/entity/r4isen1920/originspe/ore_highlight"
 			},
 			"geometry": {
-				"default": "geometry.ore_highlight",
-				"default_scaled": "geometry.ore_highlight.scaled"
+				"default": "geometry.r4isen1920_originspe.ore_highlight",
+				"default_scaled": "geometry.r4isen1920_originspe.ore_highlight.scaled"
 			},
 			"render_controllers": [
 				{

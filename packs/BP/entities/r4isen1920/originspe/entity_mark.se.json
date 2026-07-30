@@ -25,6 +25,10 @@
 		},
 
 		"components": {
+      "minecraft:type_family": {
+        "family": [ "entity_mark", "originspe", "inanimate" ]
+      },
+
 			"minecraft:collision_box": {
 				"width": 0,
 				"height": 0
@@ -33,29 +37,25 @@
 				"has_gravity": false,
 				"has_collision": false
 			},
-			"minecraft:persistent": {},
 			"minecraft:breathable": {
 				"breathes_solids": true
 			},
-			"minecraft:timer": {
-				"time": 10,
-				"looping": true,
-				"time_down_event": {
-					"event": "instant_despawn",
-					"target": "self"
-				}
-			},
+
+      "minecraft:health": {
+        "min": 1,
+        "value": 1
+      },
 			"minecraft:damage_sensor": {
 				"triggers": [
 					{
 						"cause": "all",
-						"deals_damage": "no",
-						"on_damage": {
-							"event": "instant_despawn"
-						}
+						"deals_damage": "no"
 					}
 				]
-			}
+			},
+
+			"minecraft:persistent": {},
+			"minecraft:cannot_be_attacked": {}
 		},
 		"events": {
 			"originspe:instant_despawn": {

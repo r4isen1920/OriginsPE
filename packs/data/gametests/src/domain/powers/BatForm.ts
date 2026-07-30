@@ -41,22 +41,13 @@ export class BatForm implements Power {
 
 		state.setFlag(BatForm.FLAG_BAT_FORM, next);
 		AttributeService.apply(player, {
-			modelType: next ? 'bat' : 'normal'
+			modelType: next ? 'bat' : 'normal',
+			familyType: next ? 'bat' : 'player',
 		});
 
 		if (!next) {
 			player.removeEffect('levitation');
 		}
-
-		// player.dimension.playSound('origins.bat.transform', player.location, {
-		// 	volume: 1.0,
-		// 	pitch: 1.25
-		// });
-		// player.dimension.spawnParticle('r4isen1920_originspe:bat', {
-		// 	x: player.location.x,
-		// 	y: player.location.y + 1,
-		// 	z: player.location.z
-		// });
 	}
 
 	onRelease(player: Player): void {
