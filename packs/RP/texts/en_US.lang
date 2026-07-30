@@ -337,6 +337,12 @@ origins.trait.static_energy.name=Static Energy
 origins.trait.static_energy.description=The power of electricity gushes in you. Applies static energy on mobs & players you hit, or hit you. Such entities will be inflicted with slowness for 6 seconds.
 origins.trait.discharge.name=Discharge
 origins.trait.discharge.description=Whenever you deal damage on other mobs & players that are slowed, there is a 30% chance you will stun them for 1-2 seconds. Stunned enemies additionally takes 1 health of damage for every 2 unique metallic items in their inventory.
+origins.trait.surge_protection.name=Surge Protection
+origins.trait.surge_protection.description=You are immune from lightning damage.
+origins.trait.claustrophobic.name=Claustrophobic
+origins.trait.claustrophobic.description=As a God from the skies, you aren't used to being underneath. You gain weakness whenever you're underground or not in the Overworld.
+origins.trait.severed_connection.name=Severed Connection
+origins.trait.severed_connection.description=The End and the Nether have no skies. You are unable to call upon the Wrath of Olympus on dimensions other than the Overworld.
 
 origins.trait.bunny_jump.name=High Jump
 origins.trait.bunny_jump.description=You can jump up to 3 blocks high.

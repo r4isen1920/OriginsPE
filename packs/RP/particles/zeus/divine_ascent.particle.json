@@ -5,7 +5,7 @@
 			"identifier": "r4isen1920_originspe:zeus_clouds",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "textures/particle/particles"
+				"texture": "textures\\origins\\particles\\cloud"
 			}
 		},
 		"components": {
@@ -35,8 +35,8 @@
 					"texture_width": 128,
 					"texture_height": 128,
 					"flipbook": {
-						"base_UV": [64, 0],
-						"size_UV": [8, 8],
+						"base_UV": [1, 2],
+						"size_UV": [127, 112],
 						"step_UV": [-8, 0],
 						"frames_per_second": 1,
 						"max_frame": 7,

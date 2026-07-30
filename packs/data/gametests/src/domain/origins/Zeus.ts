@@ -14,5 +14,8 @@ export class Zeus implements Origin {
         'divine_ascent',
         'static_energy',
         'discharge',
+        'surge_protection',
+        'claustrophobic',
+        'severed_connection'
     ];
 }

@@ -183,6 +183,9 @@ import './domain/powers/WrathOfOlympus';
 import './domain/powers/DivineAscent';
 import './domain/powers/StaticEnergy';
 import './domain/powers/Discharge';
+import './domain/powers/SurgeProtection';
+import './domain/powers/Claustrophobic';
+import './domain/powers/SeveredConnection';
 //-------------------------------------------
 
 //* Classes

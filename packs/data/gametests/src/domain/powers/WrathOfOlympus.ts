@@ -12,6 +12,9 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { SeveredConnection } from './SeveredConnection';
+import { Log } from '../../utils';
+import OverheadText from '../../ui/OverheadText';
 
 const COOLDOWN_KEY = 'wrath_of_olympus_cooldown';
 const COOLDOWN_SECONDS = 30;
@@ -36,7 +39,14 @@ export class WrathOfOlympus implements Power {
 		name: 'origins.trait.wrath_of_olympus.name'
 	};
 
+	private static readonly log = Log.get('WrathOfOlympus');
+
 	onActivate(player: Player): void {
+		if (!SeveredConnection.canCallLightning(player)) {
+			OverheadText.show(player, 'There is no sky to call upon here!');
+			player.playSound('note.bass', { volume: 0.5, pitch: 1.0 });
+			return;
+		}
 		const state = PlayerState.for(player);
 		const now = system.currentTick;
 
@@ -124,66 +134,69 @@ export class WrathOfOlympus implements Power {
 	}
 
 	private strikeImpact(player: Player, location: Vector3, tridentEntity?: Entity): void {
-    const dimension = player.dimension;
+		const dimension = player.dimension;
 
-    if (tridentEntity?.isValid) {
-        tridentEntity.remove();
-    }
+		if (tridentEntity?.isValid) {
+			tridentEntity.remove();
+		}
 
-    const IMMUNITY_TICKS = TicksPerSecond * 2;
-    player.addEffect('resistance', IMMUNITY_TICKS, {
-        amplifier: 255,
-        showParticles: false,
-    });
+		const IMMUNITY_TICKS = TicksPerSecond * 2;
+		player.addEffect('resistance', IMMUNITY_TICKS, {
+			amplifier: 255,
+			showParticles: false
+		});
 
-    dimension.spawnEntity('minecraft:lightning_bolt', location);
+		dimension.spawnEntity('minecraft:lightning_bolt', location);
 
-    dimension.createExplosion(location, EXPLOSION_RADIUS, {
-        breaksBlocks: true,
-        causesFire: false,
-        source: player,
-    });
+		dimension.createExplosion(location, EXPLOSION_RADIUS, {
+			breaksBlocks: true,
+			causesFire: false,
+			source: player
+		});
 
-    player.playSound('random.explode', { location, volume: 1.0, pitch: 0.8 });
+		player.playSound('random.explode', { location, volume: 1.0, pitch: 0.8 });
 
-    const nearbyEntities = dimension.getEntities({
-        location,
-        maxDistance: EXPLOSION_RADIUS,
-        excludeTypes: ['minecraft:item'],
-    });
+		const nearbyEntities = dimension.getEntities({
+			location,
+			maxDistance: EXPLOSION_RADIUS,
+			excludeTypes: ['minecraft:item']
+		});
 
-    for (const entity of nearbyEntities) {
-        if (!entity.isValid || entity.id === player.id) continue; 
+		for (const entity of nearbyEntities) {
+			if (!entity.isValid || entity.id === player.id) continue;
 
-        const dist = this.getDistance(location, entity.location);
-        if (dist > EXPLOSION_RADIUS) continue;
+			const dist = this.getDistance(location, entity.location);
+			if (dist > EXPLOSION_RADIUS) continue;
 
-        const falloff = 1 - dist / EXPLOSION_RADIUS;
-        const damage = Math.max(1, Math.round(EXPLOSION_DAMAGE * falloff));
+			const falloff = 1 - dist / EXPLOSION_RADIUS;
+			const damage = Math.max(1, Math.round(EXPLOSION_DAMAGE * falloff));
 
-        entity.applyDamage(damage, {
-            cause: EntityDamageCause.lightning,
-            damagingEntity: player,
-        });
+			entity.applyDamage(damage, {
+				cause: EntityDamageCause.lightning,
+				damagingEntity: player
+			});
 
-        if (!entity.isValid) continue;
-        if (!entity.hasComponent('minecraft:health')) continue;
+			if (!entity.isValid) continue;
+			if (!entity.hasComponent('minecraft:health')) continue;
 
-        const dx = entity.location.x - location.x;
-        const dz = entity.location.z - location.z;
-        const horizontalDist = Math.max(0.1, Math.sqrt(dx * dx + dz * dz));
-        entity.applyKnockback(
-            { x: (dx / horizontalDist) * EXPLOSION_KNOCKBACK, z: (dz / horizontalDist) * EXPLOSION_KNOCKBACK },
-            0.5
-        );
-    }
+			const dx = entity.location.x - location.x;
+			const dz = entity.location.z - location.z;
+			const horizontalDist = Math.max(0.1, Math.sqrt(dx * dx + dz * dz));
+			entity.applyKnockback(
+				{
+					x: (dx / horizontalDist) * EXPLOSION_KNOCKBACK,
+					z: (dz / horizontalDist) * EXPLOSION_KNOCKBACK
+				},
+				0.5
+			);
+		}
 
-    system.runTimeout(() => {
-        if (player.isValid) {
-            player.removeEffect('resistance');
-        }
-    }, IMMUNITY_TICKS);
-}
+		system.runTimeout(() => {
+			if (player.isValid) {
+				player.removeEffect('resistance');
+			}
+		}, IMMUNITY_TICKS);
+	}
 
 	private getDistance(loc1: Vector3, loc2: Vector3): number {
 		const dx = loc1.x - loc2.x;
