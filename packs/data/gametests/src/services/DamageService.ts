@@ -77,8 +77,14 @@ export default class DamageService {
 				if (override.modifier !== undefined) damage += override.modifier;
 			}
 
+			const dmg = Math.max(0, damage);
+			if (dmg === 0) {
+				this.log.debug(`Damage negated: ${ev.damage} HP, to: ${player.name}`);
+				ev.cancel = true;
+				return;
+			}
+
 			if (damage !== ev.damage) {
-				const dmg = Math.max(0, damage);
 				this.log.debug(`Applied final damage: ${dmg} HP, from: ${ev.damage} HP, to: ${player.name}`);
 				ev.damage = dmg;
 			}
