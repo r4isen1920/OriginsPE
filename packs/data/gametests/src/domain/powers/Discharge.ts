@@ -131,17 +131,17 @@ export class Discharge implements Power {
 		}
 
 		const container = inventory.container;
-		let metallicItemCount = 0;
+		const uniqueMetallicTypes = new Set<String>();
 
 		for (let i = 0; i < container.size; i++) {
 			const stack = container.getItem(i);
 			if (!stack) continue;
 			if (METALLIC_ITEM_TYPES.has(stack.typeId)) {
-				metallicItemCount += stack.amount;
+				uniqueMetallicTypes.add(stack.typeId);
 			}
 		}
 
-		const bonusDamage = Math.floor(metallicItemCount / 2);
+		const bonusDamage = Math.floor(uniqueMetallicTypes.size / 1);
 		if (bonusDamage <= 0) {
 			return;
 		}
