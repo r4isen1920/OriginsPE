@@ -344,10 +344,10 @@ origins.trait.claustrophobic.description=As a God from the skies, you aren't use
 origins.trait.severed_connection.name=Severed Connection
 origins.trait.severed_connection.description=The End and the Nether have no skies. You are unable to call upon the Wrath of Olympus on dimensions other than the Overworld.
 
-origins.trait.bunny_jump.name=High Jump
-origins.trait.bunny_jump.description=You can jump up to 3 blocks high.
-origins.trait.speed_regulator.name=Speed Regulator
+origins.trait.speed_regulator.name=Speedy
 origins.trait.speed_regulator.description=Can walk up to 5.612 m/s , and Sprinting up to 6.132 m/s.
+origins.trait.strong.name=Strong
+origins.trait.strong.description=Your punches deal 1 more damage.
 origins.trait.sneaky.name=Sneaky
 origins.trait.sneaky.description=Your nameplate is never always visible, even when you're not sneaking.
 origins.trait.stealth.name=In the Shadows

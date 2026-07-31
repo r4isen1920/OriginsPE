@@ -7,7 +7,7 @@ export class Athlete implements CharacterClass {
 	readonly id = 'athlete';
 	readonly difficulty = ClassDifficulty.Decent;
 	readonly perks: readonly string[] = [
-		'bunny_jump',
 		'speed_regulator',
+		'strong',
 	];
 }
