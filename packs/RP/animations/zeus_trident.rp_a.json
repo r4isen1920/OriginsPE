@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.r4isen1920_originspe.zeus_trident.scale": {
+			"loop": true,
+			"bones": {
+				"pole": {
+					"scale": 3
+				}
+			}
+		},
+		"animation.r4isen1920_originspe.zeus_trident.rotate": {
+			"loop": true,
+			"bones": {
+				"pole": {
+					"rotation": ["-q.body_x_rotation + 90", "-q.body_y_rotation", 0],
+					"position": [0, -24, 0]
+				}
+			}
+		}
+	}
+}

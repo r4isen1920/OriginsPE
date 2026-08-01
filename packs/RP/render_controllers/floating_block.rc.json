@@ -1,0 +1,21 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+
+		"controller.render.r4isen1920_originspe.floating_block": {
+			"geometry": "geometry.default",
+			"materials": [{ "*": "material.default" }],
+			"textures": ["texture.default"],
+
+			"overlay_color": {
+				"r": 0.0,
+				"g": 0.0,
+				"b": 0.0,
+				"a": "math.min(1.0, q.life_time * 0.1)"
+			},
+			"is_hurt_color": {},
+			"ignore_lighting": true
+		}
+
+	}
+}

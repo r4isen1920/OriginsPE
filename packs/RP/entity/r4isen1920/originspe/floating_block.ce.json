@@ -1,0 +1,26 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "r4isen1920_originspe:floating_block",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"geometry": {
+				"default": "geometry.r4isen1920_originspe.floating_block"
+			},
+			"textures": {
+				"default": "textures/entity/armor_stand"
+			},
+			"scripts": {
+				"animate": ["scale"],
+				"should_update_bones_and_effects_offscreen": true
+			},
+			"animations": {
+				"scale": "animation.r4isen1920_originspe.floating_block.scale"
+			},
+			"render_controllers": ["controller.render.r4isen1920_originspe.floating_block"],
+			"enable_attachables": true
+		}
+	}
+}

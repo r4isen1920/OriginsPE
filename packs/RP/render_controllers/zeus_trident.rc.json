@@ -1,0 +1,25 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+
+		"controller.render.r4isen1920_originspe.zeus_trident.armor": {
+			"geometry": "Geometry.armor",
+			"materials": [ { "*": "Material.armor" } ],
+			"textures": [ "Texture.armor" ],
+			"overlay_color": {
+				"r": 1.0,
+				"g": 1.0,
+				"b": 1.0,
+				"a": 1.0
+			},
+			"uv_anim": {
+				"offset": [ "(Math.floor(q.life_time * 20.0) + q.frame_alpha) * 0.01", 
+										"(Math.floor(q.life_time * 20.0) + q.frame_alpha) * 0.01" ],
+				"scale": [ 1.0, 1.0 ]
+			},
+			"light_color_multiplier": 0.5,
+			"ignore_lighting" : true
+		}
+
+	}
+}

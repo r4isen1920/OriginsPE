@@ -42,7 +42,8 @@ export type EmitterType =
 	| 'elven'
 	| 'voidwalker'
 	| 'diviner'
-	| 'vampire';
+	| 'vampire'
+	| 'zeus_clouds';
 
 export type OutlineType =
 	| 'none'

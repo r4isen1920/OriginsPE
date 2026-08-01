@@ -52,8 +52,8 @@ origins.mole.name=Mole
 origins.mole.description=Born to burrow, you thrive in darkness and detest the sunlit surface. The depths are your true domain.
 origins.rootkin.name=Rootkin
 origins.rootkin.description=A nature-wrought brawler who binds enemies with roots, redirects damage, and grows stronger with every fight—incapable of wielding weapons nor endure fire.
-origins.zeus.name=Zeus
-origins.zeus.description=When the skies darken and the air crackles with static, know that Taranis is watching. Do not seek the storm, or you will become the lightning rod.
+origins.zeus.name=Child of Zeus
+origins.zeus.description=Descendants of the great thunder God, capable of controlling the lightning itself.
 origins.vampire.name=Vampire
 origins.vampire.description=Utilizing acute sensory adaptation and blood-tracking abilities, they excel at hunting down targets across dimensions and turning their prey’s life force against them.
 
@@ -86,9 +86,7 @@ origins.lumberjack.description=Trees should watch out when Lumberjacks are aroun
 origins.explorer.name=Explorer
 origins.explorer.description=Explorers find their way through the most difficult terrain easily and discover hidden landmarks.
 origins.athlete.name=Athlete
-origins.athlete.description=A high-mobility class focused on speed, stamina, and sprint-based attacks.
-origins.doctor.name=Doctor
-origins.doctor.description=Armed with advanced medical knowledge, the Doctor keeps allies alive through potent healing abilities.
+origins.athlete.description=A high-mobility class that excels in speed, and stamina.
 
 
 origins.trait.water_breathing.name=Gills
@@ -330,9 +328,12 @@ origins.trait.regenerative.description=When not in full health, you regenerate f
 origins.trait.undead.name=Undead
 origins.trait.undead.description=Your undead condition makes you immune to poison and freezing damage, but weak to fire, and sunlight. You also don't have to breath underwater to survive.
 origins.trait.wrath_of_olympus.name=Wrath of Olympus
-origins.trait.wrath_of_olympus.description=Spawns in a Trident imbued with lightning bolt from the skies, creating an explosion and damaging mobs and players on impact. You are immune from this damage. Has a 30-second cooldown.
+origins.trait.wrath_of_olympus.description=Conjures a powerful throwable Trident on your hand, creating an explosion and damaging mobs and players on impact. Has a 30-second cooldown.
+origins.trait.wrath_of_olympus.cast_begin=Throw trident to target location
+origins.trait.wrath_of_olympus.cast_cancel=Cast canceled
+origins.trait.wrath_of_olympus.no_sky=There is no sky to call upon here!
 origins.trait.divine_ascent.name=Divine Ascent
-origins.trait.divine_ascent.description=Gifted with the power of skies, you are able to hover and float around under a foam of clouds. Pressed Double Jump and hold to activate it.
+origins.trait.divine_ascent.description=Gifted with the power of skies, you can double jump able to hover and float around under a foam of clouds. You are also immune from fall damage.
 origins.trait.static_energy.name=Static Energy
 origins.trait.static_energy.description=The power of electricity gushes in you. Applies static energy on mobs & players you hit, or hit you. Such entities will be inflicted with slowness for 6 seconds.
 origins.trait.discharge.name=Discharge
@@ -344,8 +345,8 @@ origins.trait.claustrophobic.description=As a God from the skies, you aren't use
 origins.trait.severed_connection.name=Severed Connection
 origins.trait.severed_connection.description=The End and the Nether have no skies. You are unable to call upon the Wrath of Olympus on dimensions other than the Overworld.
 
-origins.trait.speed_regulator.name=Speedy
-origins.trait.speed_regulator.description=Can walk up to 5.612 m/s , and Sprinting up to 6.132 m/s.
+origins.trait.speedy.name=Speedy
+origins.trait.speedy.description=You can walk, swim, and sprint a bit faster.
 origins.trait.strong.name=Strong
 origins.trait.strong.description=Your punches deal 1 more damage.
 origins.trait.sneaky.name=Sneaky
@@ -400,10 +401,6 @@ origins.trait.tree_felling.name=Tree Capitator
 origins.trait.tree_felling.description=You can cut down an entire tree when using an axe.
 origins.trait.sapling_setblock.name=Replanting
 origins.trait.sapling_setblock.description=There's a chance logs you break may be replanted with the same type of sapling.
-origins.trait.instant_heal_potion.name=Instant Heal Potion
-origins.trait.instant_heal_potion.description=Spawns with 10 heal potion.
-origins.trait.quick_regen.name=Quick Regen
-origins.trait.quick_regen.description=Regenerate health quickly by standing still.
 
 
 origins.item.orb_of_origins.name=Orb of Origins

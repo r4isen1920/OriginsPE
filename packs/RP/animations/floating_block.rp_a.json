@@ -1,0 +1,22 @@
+{
+	"format_version": "1.19.0",
+	"animations": {
+		"animation.r4isen1920_originspe.floating_block.scale": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						0,
+						"-q.body_y_rotation + (Math.round(q.body_y_rotation / 90) * 90)",
+						0
+					]
+				},
+				"model": {
+					"position": [-10.865, 10.82, "-5.135+16"],
+					"scale": 2.675,
+					"rotation": [-20, -45, 0]
+				}
+			}
+		}
+	}
+}

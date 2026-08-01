@@ -204,10 +204,9 @@ import './domain/classes/Rancher';
 import './domain/classes/Rogue';
 import './domain/classes/Warrior';
 import './domain/classes/Athlete';
-import './domain/classes/Doctor';
 
 //* Perks
-import './domain/perks/SpeedRegulator';
+import './domain/perks/Speedy';
 import './domain/perks/Strong';
 import './domain/perks/Agility';
 import './domain/perks/CheaperTrades';
@@ -235,5 +234,3 @@ import './domain/perks/EfficientRepairs';
 import './domain/perks/LessHealthMoreAttack';
 import './domain/perks/NoMiningExhaustion';
 import './domain/perks/EffectiveEmphaty';
-import './domain/perks/InstantHealPotion';
-import './domain/perks/QuickRegen';

@@ -1,0 +1,110 @@
+{
+	"format_version": "1.19.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "r4isen1920_originspe:floating_block",
+
+			"is_summonable": true
+		},
+
+		"components": {
+			"minecraft:type_family": {
+				"family": ["floating_block", "originspe", "inanimate"]
+			},
+
+			"minecraft:dimension_bound": {},
+			"minecraft:cannot_be_attacked": {},
+
+			"minecraft:collision_box": {
+				"height": 0.0,
+				"width": 0.0
+			},
+			"minecraft:custom_hit_test": {
+				"hitboxes": [
+					{
+						"width": 1,
+						"height": 1,
+						"pivot": [0, 0.5, 0]
+					}
+				]
+			},
+			"minecraft:physics": {},
+
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"test": "has_damage",
+								"value": "projectile"
+							},
+							"target": "self",
+							"event": "r4isen1920_originspe:explode"
+						},
+						"deals_damage": "no"
+					},
+					{
+						"cause": "all",
+						"deals_damage": "no"
+					}
+				]
+			},
+
+			"minecraft:shareables": {
+				"all_items": true,
+				"all_items_max_amount": 64,
+				"all_items_surplus_amount": -1,
+				"all_items_want_amount": -1,
+				"items": [
+					{ "item": "minecraft:dirt" }
+				]
+			},
+			"minecraft:inventory": {
+				"container_type": "inventory",
+				"inventory_size": 27,
+				"private": true
+			},
+			"minecraft:behavior.pickup_items": {
+				"priority": 0,
+				"max_dist": 4,
+				"goal_radius": 2,
+				"speed_multiplier": 0.0,
+				"pickup_based_on_chance": false,
+				"can_pickup_any_item": true
+			},
+			"minecraft:equip_item": {},
+			"minecraft:behavior.equip_item": {
+				"priority": 1
+			},
+
+			"minecraft:timer": {
+				"time": 16.0,
+				"looping": false,
+				"time_down_event": {
+					"event": "r4isen1920_originspe:despawn",
+					"target": "self"
+				}
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		},
+
+		"component_groups": {
+
+      "r4isen1920_originspe:instant_despawn": {
+        "minecraft:instant_despawn": {
+        }
+      }
+
+		},
+
+		"events": {
+
+			"r4isen1920_originspe:instant_despawn": {
+				"add": {
+					"component_groups": ["r4isen1920_originspe:instant_despawn"]
+				}
+			}
+
+		}
+	}
+}

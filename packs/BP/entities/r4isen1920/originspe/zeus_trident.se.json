@@ -1,0 +1,82 @@
+{
+	"format_version": "1.26.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "r4isen1920_originspe:zeus_trident_thrown",
+			"runtime_identifier": "minecraft:snowball",
+
+			"is_summonable": true
+		},
+
+		"component_groups": {
+			"r4isen1920_originspe:explode": {
+				"minecraft:explode": {
+					"breaks_blocks": true,
+					"causes_fire": false,
+					"destroy_affected_by_griefing": true,
+					"fire_affected_by_griefing": false,
+					"fuse_lit": true,
+					"power": 3
+				}	
+			}
+		},
+
+		"components": {
+			"minecraft:type_family": {
+				"family": ["trident", "zeus_trident", "projectile", "inanimate"]
+			},
+
+			"minecraft:collision_box": {
+				"height": 0.35,
+				"width": 0.25
+			},
+
+			"minecraft:conditional_bandwidth_optimization": {
+				"default_values": {
+					"max_dropped_ticks": 7,
+					"max_optimized_distance": 80.0,
+					"use_motion_prediction_hints": true
+				}
+			},
+
+			"minecraft:dimension_bound": {},
+			"minecraft:physics": {},
+
+			"minecraft:projectile": {
+				"hit_ground_sound": "item.trident.hit_ground",
+				"anchor": 1,
+				"gravity": 0,
+				"hit_sound": "item.trident.hit",
+				"multiple_targets": false,
+				"liquid_inertia": 0.99,
+				"on_hit": {
+					"impact_damage": {
+						"apply_knockback_to_blocking_targets": true,
+						"damage": 8,
+						"knockback": true,
+						"destroy_on_hit": false,
+						"semi_random_diff_damage": false
+					},
+					"stick_in_ground": {
+						"shake_time": 0
+					}
+				},
+				"offset": [0, -0.1, 0],
+				"power": 4,
+				"should_bounce": true,
+				"stop_on_hurt": true,
+				"uncertainty_base": 1,
+				"uncertainty_multiplier": 0
+			}
+		},
+
+		"events": {
+			"r4isen1920_originspe:explode": {
+				"add": {
+					"component_groups": [ "r4isen1920_originspe:explode" ]
+				}
+			}
+		}
+
+	}
+}
