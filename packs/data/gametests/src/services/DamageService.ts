@@ -35,6 +35,9 @@ export default class DamageService {
 
 	/** Replaces the active per-player damage overrides used by the hurt handler. */
 	public static setDamageOverrides(player: Player, overrides: readonly DamageOverride[], log: boolean = true): void {
+		const current = this.playerDamageOverrides.get(player.id) ?? [];
+		if (JSON.stringify(current) === JSON.stringify(overrides)) return;
+
 		if (overrides.length === 0) {
 			this.playerDamageOverrides.delete(player.id);
 			if (log) this.log.debug(`Cleared damage overrides for player: ${player.name}`);
