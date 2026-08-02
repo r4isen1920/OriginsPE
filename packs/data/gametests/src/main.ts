@@ -191,6 +191,7 @@ import './domain/powers/SeveredConnection';
 //* Classes
 import './domain/classes/Nitwit';
 import './domain/classes/Archer';
+import './domain/classes/Athlete';
 import './domain/classes/Beastmaster';
 import './domain/classes/Blacksmith';
 import './domain/classes/Cleric';
@@ -203,7 +204,6 @@ import './domain/classes/Miner';
 import './domain/classes/Rancher';
 import './domain/classes/Rogue';
 import './domain/classes/Warrior';
-import './domain/classes/Athlete';
 
 //* Perks
 import './domain/perks/Speedy';
