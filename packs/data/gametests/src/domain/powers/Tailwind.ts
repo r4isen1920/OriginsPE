@@ -9,7 +9,8 @@ import { RegisterPower } from '../../core/abilities/Registries';
 @RegisterPower
 export class Tailwind implements Power {
 	readonly id = 'tailwind';
+
 	readonly attributes: AttributeOverrides = {
-		movement: 0.15,
+		movement: 0.05,
 	}
 }

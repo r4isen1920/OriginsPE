@@ -9,7 +9,8 @@ import { RegisterPower } from '../../core/abilities/Registries';
 @RegisterPower
 export class NineLives implements Power {
 	readonly id = 'nine_lives';
+
 	readonly attributes: AttributeOverrides = {
-		health: 18,
+		health: { set: 18 },
 	}
 }

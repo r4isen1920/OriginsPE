@@ -2,7 +2,7 @@ import { Player } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
-import { AttributeService } from '../../services/AttributeService';
+import { AttributeSourceInstance } from '../../services/AttributeService';
 
 /**
  * Claustrophobia is a slow debuff that builds up while in tight spaces. Loose:
@@ -18,13 +18,9 @@ export class Claustrophobia implements Power {
 		const state = PlayerState.for(player);
 		state.setFlag('claustrophobia_level', undefined);
 		state.setFlag('is_claustrophobic_slow', false);
-		AttributeService.apply(player, { attack: 1 });
-		if (state.getFlag<boolean>('is_heavy') !== true) {
-			AttributeService.apply(player, { movement: 0.1 });
-		}
 	}
 
-	onTick(player: Player): void {
+	onTick(player: Player, attributes: AttributeSourceInstance): void {
 		const state = PlayerState.for(player);
 
 		const headLocation = player.getHeadLocation();
@@ -46,15 +42,11 @@ export class Claustrophobia implements Power {
 
 		if (claustrophobiaLevel < 150) {
 			state.setFlag('is_claustrophobic_slow', false);
-			AttributeService.apply(player, { attack: 1 });
-
-			if (state.getFlag<boolean>('is_heavy') !== true) {
-				AttributeService.apply(player, { movement: 0.1 });
-			}
+			attributes.clear();
 		} else {
 			state.setFlag('is_claustrophobic_slow', true);
-			AttributeService.apply(player, { attack: 0 });
-			AttributeService.apply(player, { movement: 0.05 });
+			// panic zeroes attack outright and slows movement (base 0.1 -> 0.05)
+			attributes.set({ attack: { set: 0 }, movement: { add: -0.05 } });
 		}
 	}
 }

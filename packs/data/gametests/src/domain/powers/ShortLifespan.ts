@@ -10,7 +10,8 @@ import { RegisterPower } from '../../core/abilities/Registries';
 @RegisterPower
 export class ShortLifespan implements Power {
 	readonly id = 'lifespan';
+
 	readonly attributes: AttributeOverrides = {
-		health: 14,
+		health: -6,
 	}
 }

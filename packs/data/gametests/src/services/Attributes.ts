@@ -135,11 +135,31 @@ export interface PlayerAttributes {
 /** Any key of {@link PlayerAttributes}. */
 export type AttributeKey = keyof PlayerAttributes;
 
+/** Numeric attribute keys that stack additively/multiplicatively across sources. */
+export const NUMERIC_ATTRIBUTE_KEYS = ['movement', 'underwaterMovement', 'health', 'attack', 'scale'] as const;
+
+/** A numeric attribute key. */
+export type NumericAttributeKey = typeof NUMERIC_ATTRIBUTE_KEYS[number];
+
 /**
- * A partial set of attribute values to apply on top of the current profile.
- * Damage overrides are collected alongside the normal stat overlay.
+ * A stacking contribution to a numeric attribute from a single source.
+ * When a source supplies a plain `number` instead of this object, it is treated as `{ add }`.
  */
-export type AttributeOverrides = Partial<PlayerAttributes>;
+export interface AttributeModifier {
+	/** Adds this amount to this attribute. */
+	readonly add?: number;
+	/** Multiplies this attribute by this amount. */
+	readonly multiply?: number;
+	/** Overrides the attribute to this amount. */
+	readonly set?: number;
+}
+
+/**
+ * Describes a set of attribute values to apply on top of the current profile.
+ */
+export type AttributeOverrides =
+	& { [K in NumericAttributeKey]?: number | AttributeModifier }
+	& { [K in Exclude<AttributeKey, NumericAttributeKey>]?: PlayerAttributes[K] };
 
 
 
@@ -199,11 +219,11 @@ export interface SteppedAttribute {
 export const STEPPED_ATTRIBUTES: Readonly<Partial<Record<AttributeKey, SteppedAttribute>>> = Object.freeze({
 	movement: {
 		event: 'movement',
-		steps: [0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25],
+		steps: [0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3],
 	},
 	underwaterMovement: {
 		event: 'underwater_movement',
-		steps: [0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.1425, 0.15, 0.2, 0.25],
+		steps: [0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3],
 	},
 	health: {
 		event: 'health',

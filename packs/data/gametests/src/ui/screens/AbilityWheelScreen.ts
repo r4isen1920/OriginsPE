@@ -231,11 +231,12 @@ export class AbilityWheelScreen extends Screen {
 		}
 
 		AbilityDispatch.invoke(
+			player,
 			power ? 'Power' : 'Perk',
 			value,
 			ability,
 			'onActivate',
-			(a) => a.onActivate?.(player),
+			(a, attrs) => a.onActivate?.(player, attrs),
 		);
 	}
 

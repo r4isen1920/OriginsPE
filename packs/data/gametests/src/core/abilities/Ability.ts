@@ -15,7 +15,7 @@ import {
 	EntityDieAfterEvent,
 } from '@minecraft/server';
 
-import type { AttributeOverrides, EmitterType, ModelType, OutlineType, SkinType } from '../../services';
+import type { AttributeOverrides, AttributeSourceInstance, EmitterType, ModelType, OutlineType, SkinType } from '../../services';
 
 
 
@@ -71,6 +71,10 @@ export interface Ability {
 	 * Attributes to override for the player while this ability is active.
 	 * You can use these to actively modify the player's stats, such as movement speed, health, or attack damage.
 	 * Note that these overrides are applied on top of the player's base attributes and any other active abilities.
+	 *
+	 * These are the ability's unconditional contribution. For runtime/conditional changes, use the
+	 * {@link AttributeSourceInstance} handle passed as the last argument to every hook. When both are set,
+	 * the unconditional attributes fold first, then the dynamic ones on top.
 	 */
 	readonly attributes?: AttributeOverrides;
 
@@ -81,49 +85,49 @@ export interface Ability {
 	readonly active?: ActiveAbility;
 
 	/** Called once when the ability is granted to the player. */
-	onAcquire?(player: Player): void;
+	onAcquire?(player: Player, attributes: AttributeSourceInstance): void;
 	/** Called once when the ability is revoked from the player. */
-	onRelease?(player: Player): void;
+	onRelease?(player: Player, attributes: AttributeSourceInstance): void;
 
 	/**
 	 * Called when the player confirms this ability from the ability wheel.
 	 * Only meaningful for abilities that also declare {@link active}.
 	 */
-	onActivate?(player: Player): void;
+	onActivate?(player: Player, attributes: AttributeSourceInstance): void;
 
 	/** Per-player tick callback. Only invoked when {@link tickInterval} is set. */
-	onTick?(player: Player): void;
+	onTick?(player: Player, attributes: AttributeSourceInstance): void;
 	/** Called when the owner is hurt. */
-	onHurt?(player: Player, ev: EntityHurtAfterEvent): void;
+	onHurt?(player: Player, ev: EntityHurtAfterEvent, attributes: AttributeSourceInstance): void;
 	/**
 	 * Called when the owner deals damage to another entity.
 	 * Unlike {@link onAttack}, this event includes the damage dealt.
 	 */
-	onDealDamage?(player: Player, ev: EntityHurtAfterEvent): void;
+	onDealDamage?(player: Player, ev: EntityHurtAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called before the owner's incoming damage is applied. */
-	onHurtBefore?(player: Player, ev: EntityHurtBeforeEvent): void;
+	onHurtBefore?(player: Player, ev: EntityHurtBeforeEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner attacks an entity. */
-	onAttack?(player: Player, ev: EntityHitEntityAfterEvent): void;
+	onAttack?(player: Player, ev: EntityHitEntityAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner's projectile hits. */
-	onProjectileHit?(player: Player, ev: ProjectileHitEntityAfterEvent): void;
+	onProjectileHit?(player: Player, ev: ProjectileHitEntityAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner uses any item. */
-	onItemUse?(player: Player, ev: ItemUseAfterEvent): void;
+	onItemUse?(player: Player, ev: ItemUseAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called before the owner uses any item. */
-	onBeforeItemUse?(player: Player, ev: ItemUseBeforeEvent): void;
+	onBeforeItemUse?(player: Player, ev: ItemUseBeforeEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner finishes consuming a food or potion item. */
-	onItemCompleteUse?(player: Player, ev: ItemCompleteUseAfterEvent): void;
+	onItemCompleteUse?(player: Player, ev: ItemCompleteUseAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner's health changes. */
-	onHealthChange?(player: Player, ev: EntityHealthChangedAfterEvent): void;
+	onHealthChange?(player: Player, ev: EntityHealthChangedAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when an effect is added to the owner. */
-	onEffectAdd?(player: Player, ev: EffectAddAfterEvent): void;
+	onEffectAdd?(player: Player, ev: EffectAddAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner changes dimension. */
-	onDimensionChange?(player: Player, ev: PlayerDimensionChangeAfterEvent): void;
+	onDimensionChange?(player: Player, ev: PlayerDimensionChangeAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner breaks a block. */
-	onBreakBlock?(player: Player, ev: PlayerBreakBlockAfterEvent): void;
+	onBreakBlock?(player: Player, ev: PlayerBreakBlockAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the owner places a block. */
-	onPlaceBlock?(player: Player, ev: PlayerPlaceBlockAfterEvent): void;
+	onPlaceBlock?(player: Player, ev: PlayerPlaceBlockAfterEvent, attributes: AttributeSourceInstance): void;
 	/** Called when the player dies. */
-	onDeath?(player: Player, ev: EntityDieAfterEvent): void;
+	onDeath?(player: Player, ev: EntityDieAfterEvent, attributes: AttributeSourceInstance): void;
 }
 
 

@@ -1,7 +1,6 @@
-import { Player } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
-import { AttributeService } from '../../services/AttributeService';
+import { AttributeOverrides } from '../../services';
 
 /**
  * Swift: Players with this power have increased movement speed.
@@ -10,13 +9,8 @@ import { AttributeService } from '../../services/AttributeService';
 @RegisterPower
 export class Swift implements Power {
 	readonly id = 'swift';
-	readonly tickInterval = 5;
 
-	onRelease(player: Player): void {
-		AttributeService.apply(player, { movement: 0.1 });
-	}
-
-	onTick(player: Player): void {
-		AttributeService.apply(player, { movement: 0.15 });
-	}
+	readonly attributes: AttributeOverrides = {
+		movement: 0.05,
+	};
 }

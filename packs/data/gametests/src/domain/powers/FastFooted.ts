@@ -1,29 +1,13 @@
-import { Player } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
-import { PlayerState } from '../../core/platform/PlayerState';
-import { AttributeService } from '../../services/AttributeService';
+import { AttributeOverrides } from '../../services';
 
 @RegisterPower
 export class FastFooted implements Power {
 	readonly id = 'fast_footed';
-	readonly tickInterval = 3;
 
-	onRelease(player: Player): void {
-		const state = PlayerState.for(player);
-		if (state.getFlag<boolean>('scale_set') === true) {
-			AttributeService.apply(player, { movement: 0.1, scale: 1 });
-			state.setFlag('scale_set', false);
-		}
-	}
-
-	onTick(player: Player): void {
-		const state = PlayerState.for(player);
-		const wasScaleApplied = state.getFlag<boolean>('scale_set') === true;
-
-		if (wasScaleApplied) return;
-
-		AttributeService.apply(player, { movement: 0.1425, scale: 0.75 });
-		state.setFlag('scale_set', true);
-	}
+	readonly attributes: AttributeOverrides = {
+		movement: 0.0425,
+		scale: -0.25,
+	};
 }

@@ -1,28 +1,28 @@
-import { GameMode, Player, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, system, TicksPerSecond, WorldLoadAfterEvent } from '@minecraft/server';
-
 import {
-	AfterPlayerLeave,
-	AfterPlayerSpawn,
-	AfterWorldLoad,
-} from '../platform/DecoratedEvents';
+	GameMode,
+	Player,
+	PlayerLeaveAfterEvent,
+	PlayerSpawnAfterEvent,
+	system,
+	TicksPerSecond,
+	WorldLoadAfterEvent
+} from '@minecraft/server';
+
+import { AfterPlayerLeave, AfterPlayerSpawn, AfterWorldLoad } from '../platform/DecoratedEvents';
 import { Log } from '../../utils/Log';
 import { PlayerState } from '../platform/PlayerState';
 import { PlayerTick, Ticker } from '../platform/Ticker';
 import { UiBridge } from '../../ui/UiBridge';
 import { PickerKind, PickerMode } from '../../ui/UiPayload';
 import { AttributeService } from '../../services/AttributeService';
-import { AttributeOverrides, DamageOverride, DEFAULT_ATTRIBUTES } from '../../services/Attributes';
+import { AttributeOverrides } from '../../services/Attributes';
 import { CameraService } from '../../services/CameraService';
 import Version from '../../utils/Version';
 import { type OriginEffects, Perk, Power } from './Ability';
 import { AbilityDispatch } from './AbilityDispatch';
-import {
-	ClassRegistry,
-	OriginRegistry,
-	PerkRegistry,
-	PowerRegistry,
-} from './Registries';
+import { ClassRegistry, OriginRegistry, PerkRegistry, PowerRegistry } from './Registries';
 import DamageService from '../../services/DamageService';
+
 
 
 //#region BUILT-IN GRANTS
@@ -30,11 +30,8 @@ import DamageService from '../../services/DamageService';
 /** Powers granted to every player regardless of origin. */
 const DEFAULT_POWERS: readonly string[] = [];
 /** Perks granted to every player regardless of class. */
-const DEFAULT_PERKS: readonly string[] = [
-	'better_stew',
-	'longer_potions',
-	'powerful_potions',
-];
+const DEFAULT_PERKS: readonly string[] = [];
+
 
 
 //#region LIFECYCLE
@@ -110,6 +107,8 @@ export class PlayerLifecycle {
 	}
 
 
+	
+	
 	//#region GRANT FLOW
 
 	/**
@@ -126,72 +125,129 @@ export class PlayerLifecycle {
 		if (!origin) this.log.error(`Unknown origin '${originId}' on ${player.name}`);
 		if (!klass) this.log.error(`Unknown class '${classId}' on ${player.name}`);
 
-		const nextPowers = this.filterRegistered('Power',
-			Array.from(new Set([
-				...DEFAULT_POWERS,
-				...(origin?.powers ?? []),
-			])),
-			(id) => PowerRegistry.has(id), player,
+		const nextPowers = this.filterRegistered(
+			'Power',
+			Array.from(new Set([...DEFAULT_POWERS, ...(origin?.powers ?? [])])),
+			(id) => PowerRegistry.has(id),
+			player
 		);
-		const nextPerks = this.filterRegistered('Perk',
-			Array.from(new Set([
-				...DEFAULT_PERKS,
-				...(klass?.perks ?? []),
-			])),
-			(id) => PerkRegistry.has(id), player,
+		const nextPerks = this.filterRegistered(
+			'Perk',
+			Array.from(new Set([...DEFAULT_PERKS, ...(klass?.perks ?? [])])),
+			(id) => PerkRegistry.has(id),
+			player
 		);
 
 		// Diff and dispatch.
 		const prevPowers = state.getPowers();
-		this.diff(prevPowers, nextPowers,
-			(id) => AbilityDispatch.invoke('Power', id, PowerRegistry.get(id), 'onRelease', (power) => power.onRelease?.(player)),
-			(id) => AbilityDispatch.invoke('Power', id, PowerRegistry.get(id), 'onAcquire', (power) => power.onAcquire?.(player)),
+		this.diff(
+			prevPowers,
+			nextPowers,
+			(id) =>
+				AbilityDispatch.invoke(
+					player,
+					'Power',
+					id,
+					PowerRegistry.get(id),
+					'onRelease',
+					(power, attrs) => power.onRelease?.(player, attrs)
+				),
+			(id) =>
+				AbilityDispatch.invoke(
+					player,
+					'Power',
+					id,
+					PowerRegistry.get(id),
+					'onAcquire',
+					(power, attrs) => power.onAcquire?.(player, attrs)
+				)
 		);
 		const prevPerks = state.getPerks();
-		this.diff(prevPerks, nextPerks,
-			(id) => AbilityDispatch.invoke('Perk', id, PerkRegistry.get(id), 'onRelease', (perk) => perk.onRelease?.(player)),
-			(id) => AbilityDispatch.invoke('Perk', id, PerkRegistry.get(id), 'onAcquire', (perk) => perk.onAcquire?.(player)),
+		this.diff(
+			prevPerks,
+			nextPerks,
+			(id) =>
+				AbilityDispatch.invoke(
+					player,
+					'Perk',
+					id,
+					PerkRegistry.get(id),
+					'onRelease',
+					(perk, attrs) => perk.onRelease?.(player, attrs)
+				),
+			(id) =>
+				AbilityDispatch.invoke(
+					player,
+					'Perk',
+					id,
+					PerkRegistry.get(id),
+					'onAcquire',
+					(perk, attrs) => perk.onAcquire?.(player, attrs)
+				)
 		);
 
 		state.setPowers(nextPowers);
 		state.setPerks(nextPerks);
 
-		// Apply attributes: defaults overlaid by every active power/perk.
-		const merged: AttributeOverrides = {
-			...DEFAULT_ATTRIBUTES,
-			...this.originEffectsToAttributes(origin?.effects),
-		};
-		const damageOverrides: DamageOverride[] = [];
+		for (const id of prevPowers) {
+			if (!nextPowers.includes(id))
+				AttributeService.removeSource(
+					player,
+					AbilityDispatch.sourceIdFor('Power', id),
+					true
+				);
+		}
+		for (const id of prevPerks) {
+			if (!nextPerks.includes(id))
+				AttributeService.removeSource(
+					player,
+					AbilityDispatch.sourceIdFor('Perk', id),
+					true
+				);
+		}
+
 		for (const id of nextPowers) {
-			const attrs = PowerRegistry.get(id)?.attributes;
-			if (!attrs) continue;
-			Object.assign(merged, attrs);
-			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
+			this.registerStaticSource(
+				player,
+				AbilityDispatch.sourceIdFor('Power', id),
+				PowerRegistry.get(id)?.attributes
+			);
 		}
 		for (const id of nextPerks) {
-			const attrs = PerkRegistry.get(id)?.attributes;
-			if (!attrs) continue;
-			Object.assign(merged, attrs);
-			if (attrs.damageOverrides) damageOverrides.push(...attrs.damageOverrides);
+			this.registerStaticSource(
+				player,
+				AbilityDispatch.sourceIdFor('Perk', id),
+				PerkRegistry.get(id)?.attributes
+			);
 		}
 
-		merged.damageOverrides = damageOverrides;
+		const originEffects = this.originEffectsToAttributes(origin?.effects);
+		if (Object.keys(originEffects).length > 0)
+			AttributeService.setSource(player, 'origin:effects', originEffects, true);
+		else AttributeService.removeSource(player, 'origin:effects', true);
 
-		
-
-		//! Force a full re-apply: an origin/class change must reassert the entire
-		//! target profile so attributes set by the previous origin's powers via
-		//! direct entity events reset to baseline.
-		AttributeService.apply(player, merged, true);
+		//! Drop stale imperative toggles from the previous origin, then reassert the whole profile
+		//! so attributes set through direct entity events reset to baseline before layering sources.
+		AttributeService.clearOverrides(player, true);
+		AttributeService.recompute(player, { full: true });
 
 		Version.markPlayerRecordCurrent(player);
+	}
+
+	/** Registers an ability's unconditional attributes as its stacking source. Always registered so the ability owns a source even with no attributes. */
+	private static registerStaticSource(
+		player: Player,
+		sourceId: string,
+		attrs: AttributeOverrides | undefined
+	): void {
+		AttributeService.setSource(player, sourceId, attrs ?? {}, true);
 	}
 
 	private static diff(
 		prev: readonly string[],
 		next: readonly string[],
 		onRemoved: (id: string) => void,
-		onAdded: (id: string) => void,
+		onAdded: (id: string) => void
 	): void {
 		const prevSet = new Set(prev);
 		const nextSet = new Set(next);
@@ -208,7 +264,7 @@ export class PlayerLifecycle {
 		kind: string,
 		ids: readonly string[],
 		has: (id: string) => boolean,
-		player: Player,
+		player: Player
 	): string[] {
 		const kept: string[] = [];
 		for (const id of ids) {
@@ -216,21 +272,27 @@ export class PlayerLifecycle {
 				kept.push(id);
 				continue;
 			}
-			this.log.warn(`${kind} '${id}' has no registered implementation, skipping for player: ${player.name}`);
+			this.log.warn(
+				`${kind} '${id}' has no registered implementation, skipping for player: ${player.name}`
+			);
 		}
 		return kept;
 	}
 
-	private static originEffectsToAttributes(originEffects: OriginEffects | undefined): AttributeOverrides {
+	private static originEffectsToAttributes(
+		originEffects: OriginEffects | undefined
+	): AttributeOverrides {
 		if (!originEffects) return {};
 		return {
 			emitterType: originEffects.emitter,
 			modelType: originEffects.model,
-			skinType: originEffects.skin,
+			skinType: originEffects.skin
 		};
 	}
 
 
+	
+	
 	//#region TICK LOOP
 
 	/** Cadence applied to an ability that does not declare its own `tickInterval`. */
@@ -253,12 +315,14 @@ export class PlayerLifecycle {
 		now: number,
 		kind: string,
 		id: string,
-		ability: Power | Perk | undefined,
+		ability: Power | Perk | undefined
 	): void {
 		if (!ability?.onTick) return;
 		const interval = ability.tickInterval ?? this.DEFAULT_TICK_INTERVAL;
 		if (now % interval !== 0) return;
-		AbilityDispatch.invoke(kind, id, ability, 'onTick', (a) => a.onTick(player));
+		AbilityDispatch.invoke(player, kind, id, ability, 'onTick', (a, attrs) =>
+			a.onTick(player, attrs)
+		);
 	}
 
 	/** Force-installs the tick loop. Called from Main as a no-op safety. */
@@ -276,6 +340,8 @@ export class PlayerLifecycle {
 	}
 
 
+	
+	
 	//#region RE-INIT
 	/**
 	 * Mainly used after running the `/reload` command, which resets the world in-place.
@@ -294,7 +360,6 @@ export class PlayerLifecycle {
 				this.log.info(`Re-initializing player: ${player.name}`);
 				this.applyOriginAndClass(player);
 			}
-		}, TicksPerSecond);	
+		}, TicksPerSecond);
 	}
-
 }

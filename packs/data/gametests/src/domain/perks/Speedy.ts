@@ -9,7 +9,7 @@ export class Speedy implements Perk {
     readonly id = 'speedy';
 
     readonly attributes: AttributeOverrides = {
-		movement: 0.11,
-		underwaterMovement: 0.11,
+		movement: { add: 0.025 },
+		underwaterMovement: { add: 0.025 },
 	}
 }

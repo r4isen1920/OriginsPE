@@ -15,7 +15,7 @@ export class CompactSize implements Power {
     readonly id = 'compact_size';
 
     readonly attributes: AttributeOverrides = {
-        scale: 0.5,
-        health: 14,
+        scale: -0.5,
+        health: -6,
     };
 }

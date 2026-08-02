@@ -2,6 +2,7 @@ import {
 	EffectAddAfterEvent,
 	EntityDieAfterEvent,
 	EntityHealthChangedAfterEvent,
+	Player,
 	PlayerBreakBlockAfterEvent,
 	PlayerDimensionChangeAfterEvent,
 	PlayerPlaceBlockAfterEvent,
@@ -42,19 +43,19 @@ export class AbilityEventService {
 	@AfterPlayerDimensionChange()
 	static onDimensionChange(ev: PlayerDimensionChangeAfterEvent): void {
 		const player = ev.player;
-		AbilityDispatch.toGranted(player, 'onDimensionChange', (a) => a.onDimensionChange?.(player, ev));
+		AbilityDispatch.toGranted(player, 'onDimensionChange', (a, attrs) => a.onDimensionChange?.(player, ev, attrs));
 	}
 
 	@AfterPlayerBreakBlock()
 	static onBreakBlock(ev: PlayerBreakBlockAfterEvent): void {
 		const player = ev.player;
-		AbilityDispatch.toGranted(player, 'onBreakBlock', (a) => a.onBreakBlock?.(player, ev));
+		AbilityDispatch.toGranted(player, 'onBreakBlock', (a, attrs) => a.onBreakBlock?.(player, ev, attrs));
 	}
 
 	@AfterPlayerPlaceBlock()
 	static onPlaceBlock(ev: PlayerPlaceBlockAfterEvent): void {
 		const player = ev.player;
-		AbilityDispatch.toGranted(player, 'onPlaceBlock', (a) => a.onPlaceBlock?.(player, ev));
+		AbilityDispatch.toGranted(player, 'onPlaceBlock', (a, attrs) => a.onPlaceBlock?.(player, ev, attrs));
 	}
 
 	@AfterEntityDie()

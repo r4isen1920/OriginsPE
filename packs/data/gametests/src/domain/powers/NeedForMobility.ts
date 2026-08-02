@@ -2,7 +2,7 @@ import { Player, EquipmentSlot } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
-import { AttributeService } from '../../services/AttributeService';
+import { AttributeSourceInstance } from '../../services/AttributeService';
 
 /**
  * Need for Mobility is a passive power that makes the holder slower when wearing
@@ -19,10 +19,9 @@ export class NeedForMobility implements Power {
 	onRelease(player: Player): void {
 		const state = PlayerState.for(player);
 		state.setFlag('is_heavy', false);
-		AttributeService.apply(player, { movement: 0.1 });
 	}
 
-	onTick(player: Player): void {
+	onTick(player: Player, attributes: AttributeSourceInstance): void {
 		const state = PlayerState.for(player);
 
 		const equippableComp = player.getComponent('equippable');
@@ -41,16 +40,12 @@ export class NeedForMobility implements Power {
 				NeedForMobility.HEAVY_ARMOR_PREFIXES.some((prefix) => armor.includes(prefix))
 		);
 
-		const isClaustrophobic = state.getFlag<boolean>('is_claustrophobic_slow') === true;
-
 		if (hasHeavyArmor) {
 			state.setFlag('is_heavy', true);
-			AttributeService.apply(player, { movement: 0.05 });
+			attributes.set({ movement: { add: -0.05 } }); // base 0.1 -> 0.05
 		} else {
 			state.setFlag('is_heavy', false);
-			if (!isClaustrophobic) {
-				AttributeService.apply(player, { movement: 0.1 });
-			}
+			attributes.clear();
 		}
 	}
 }

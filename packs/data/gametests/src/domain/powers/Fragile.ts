@@ -10,7 +10,8 @@ import { RegisterPower } from '../../core/abilities/Registries';
 @RegisterPower
 export class Fragile implements Power {
 	readonly id = 'fragile';
+
 	readonly attributes: AttributeOverrides	 = {
-		health: 14,
+		health: -6,
 	}
 }
