@@ -24,7 +24,6 @@
 				"active_time": 1
 			},
 			"minecraft:emitter_shape_sphere": {
-				"offset": [0, 0.8, 0],
 				"radius": 0.5,
 				"direction": "outwards"
 			},

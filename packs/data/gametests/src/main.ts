@@ -208,7 +208,7 @@ import './domain/classes/Warrior';
 //* Perks
 import './domain/perks/Speedy';
 import './domain/perks/Strong';
-import './domain/perks/Agility';
+import './domain/perks/LessBowSlowdown';
 import './domain/perks/CheaperTrades';
 import './domain/perks/WanderingTraderSpawn';
 import './domain/perks/NoSprintExhaustion';
@@ -225,7 +225,7 @@ import './domain/perks/ExplorerKit';
 import './domain/perks/TreeCapitator';
 import './domain/perks/OreVeinMiner';
 import './domain/perks/FaunaFriends';
-import './domain/perks/Precision';
+import './domain/perks/NoProjectileDivergence';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
 import './domain/perks/PowerfulPotions';
