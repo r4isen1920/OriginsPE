@@ -28,16 +28,16 @@ import { AbilityDispatch } from './AbilityDispatch';
 export class AbilityEventService {
 	@AfterEntityHealthChanged()
 	static onHealthChanged(ev: EntityHealthChangedAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.entity)) return;
 		const player = ev.entity;
-		AbilityDispatch.toGranted(player, 'onHealthChange', (a) => a.onHealthChange?.(player, ev));
+		if (!(player instanceof Player)) return;
+		AbilityDispatch.toGranted(player, 'onHealthChange', (a, attrs) => a.onHealthChange?.(player, ev, attrs));
 	}
 
 	@AfterEffectAdd()
 	static onEffectAdd(ev: EffectAddAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.entity)) return;
 		const player = ev.entity;
-		AbilityDispatch.toGranted(player, 'onEffectAdd', (a) => a.onEffectAdd?.(player, ev));
+		if (!(player instanceof Player)) return;
+		AbilityDispatch.toGranted(player, 'onEffectAdd', (a, attrs) => a.onEffectAdd?.(player, ev, attrs));
 	}
 
 	@AfterPlayerDimensionChange()
@@ -61,7 +61,7 @@ export class AbilityEventService {
 	@AfterEntityDie()
 	static onDeath(ev: EntityDieAfterEvent): void {
 		const player = ev.deadEntity;
-		if (!EntityUtils.isPlayer(player)) return;
-		AbilityDispatch.toGranted(player, 'onDeath', (a) => a.onDeath?.(player, ev));
+		if (!(player instanceof Player)) return;
+		AbilityDispatch.toGranted(player, 'onDeath', (a, attrs) => a.onDeath?.(player, ev, attrs));
 	}
 }

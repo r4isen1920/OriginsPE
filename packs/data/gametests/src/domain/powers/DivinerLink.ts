@@ -380,7 +380,7 @@ export class DivinerLink {
 	@BeforeEntityHurt
 	static onHurtBefore(ev: EntityHurtBeforeEvent): void {
 		const victim = ev.hurtEntity;
-		if (!EntityUtils.isPlayer(victim)) return;
+		if (!(victim instanceof Player)) return;
 		if (ev.damage <= 0) return;
 		if (ev.damageSource.cause === EntityDamageCause.selfDestruct) return;
 
@@ -428,7 +428,7 @@ export class DivinerLink {
 	@AfterEntityHealthChanged
 	static onHealthChanged(ev: EntityHealthChangedAfterEvent): void {
 		const entity = ev.entity;
-		if (!EntityUtils.isPlayer(entity)) return;
+		if (!(entity instanceof Player)) return;
 		if (DivinerLink.guard.has(entity.id)) return;
 
 		const delta = ev.newValue - ev.oldValue;

@@ -11,8 +11,9 @@ export class LifeDrain implements Power {
     readonly id = 'life_drain';
 
     onDealDamage(player: Player, ev: EntityHurtAfterEvent): void {
-        if (!EntityUtils.isPlayer(ev.damageSource.damagingEntity)) return;
-        if (ev.damageSource.damagingEntity.id !== player.id) return;
+		const dmgEntity = ev.damageSource.damagingEntity;
+        if (!(dmgEntity instanceof Player)) return;
+        if (dmgEntity.id !== player.id) return;
         LifeDrain.applyLifeDrainReduction(player, ev.hurtEntity);
     }
 

@@ -57,8 +57,10 @@ export class Beelzebub implements Power {
     onDealDamage(player: Player, ev: EntityHurtAfterEvent): void {
         const { damage, damageSource, hurtEntity } = ev;
         if (damage <= 0) return;
-        if (!EntityUtils.isPlayer(damageSource.damagingEntity)) return;
-        if (damageSource.damagingEntity.id !== player.id) return;
+
+		const dmgEntity = damageSource.damagingEntity;
+        if (!(dmgEntity instanceof Player)) return;
+        if (dmgEntity.id !== player.id) return;
         if (damageSource.cause !== 'entityAttack') return;
 
         const health = player.getComponent(EntityComponentTypes.Health);

@@ -54,9 +54,8 @@ export default class DamageService {
 
 	@BeforeEntityHurt()
 	static onHurtBefore(ev: EntityHurtBeforeEvent): void {
-		if (!EntityUtils.isPlayer(ev.hurtEntity)) return;
-
 		const player = ev.hurtEntity;
+		if (!(player instanceof Player)) return;
 
 		// If damage is through /kill command, ignore
 		if (ev.damageSource.cause === EntityDamageCause.selfDestruct) return;
@@ -91,33 +90,33 @@ export default class DamageService {
 		}
 
 		// Granted ability hooks may further adjust `ev.damage`.
-		AbilityDispatch.toGranted(player, 'onHurtBefore', (a) => a.onHurtBefore?.(player, ev));
+		AbilityDispatch.toGranted(player, 'onHurtBefore', (a, attrs) => a.onHurtBefore?.(player, ev, attrs));
 	}
 
 	@AfterEntityHurt()
 	static onHurt(ev: EntityHurtAfterEvent): void {
-		if (EntityUtils.isPlayer(ev.hurtEntity)) {
-			const victim = ev.hurtEntity;
-			AbilityDispatch.toGranted(victim, 'onHurt', (a) => a.onHurt?.(victim, ev));
+		const victim = ev.hurtEntity;
+		if (victim instanceof Player) {
+			AbilityDispatch.toGranted(victim, 'onHurt', (a, attrs) => a.onHurt?.(victim, ev, attrs));
 		}
 
 		const attacker = ev.damageSource.damagingEntity;
-		if (EntityUtils.isPlayer(attacker)) {
-			AbilityDispatch.toGranted(attacker, 'onDealDamage', (a) => a.onDealDamage?.(attacker, ev));
+		if (attacker instanceof Player) {
+			AbilityDispatch.toGranted(attacker, 'onDealDamage', (a, attrs) => a.onDealDamage?.(attacker, ev, attrs));
 		}
 	}
 
 	@AfterEntityHitEntity()
 	static onHitEntity(ev: EntityHitEntityAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.damagingEntity)) return;
 		const attacker = ev.damagingEntity;
-		AbilityDispatch.toGranted(attacker, 'onAttack', (a) => a.onAttack?.(attacker, ev));
+		if (!(attacker instanceof Player)) return;
+		AbilityDispatch.toGranted(attacker, 'onAttack', (a, attrs) => a.onAttack?.(attacker, ev, attrs));
 	}
 
 	@AfterProjectileHitEntity()
 	static onProjectileHit(ev: ProjectileHitEntityAfterEvent): void {
 		const shooter = ev.source;
-		if (!EntityUtils.isPlayer(shooter)) return;
-		AbilityDispatch.toGrantedPowers(shooter, 'onProjectileHit', (a) => a.onProjectileHit?.(shooter, ev));
+		if (!(shooter instanceof Player)) return;
+		AbilityDispatch.toGrantedPowers(shooter, 'onProjectileHit', (a, attrs) => a.onProjectileHit?.(shooter, ev, attrs));
 	}
 }

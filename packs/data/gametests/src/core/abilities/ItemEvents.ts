@@ -22,22 +22,22 @@ import { AbilityDispatch } from './AbilityDispatch';
 export class ItemEvents {
 	@AfterItemUse()
 	static onUse(ev: ItemUseAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
-		const player = ev.source as Player;
-		AbilityDispatch.toGranted(player, 'onItemUse', (a) => a.onItemUse?.(player, ev));
+		const player = ev.source;
+		if (!(player instanceof Player)) return;
+		AbilityDispatch.toGranted(player, 'onItemUse', (a, attrs) => a.onItemUse?.(player, ev, attrs));
 	}
 
 	@BeforeItemUse()
 	static onBeforeUse(ev: ItemUseBeforeEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
-		const player = ev.source as Player;
-		AbilityDispatch.toGranted(player, 'onBeforeItemUse', (a) => a.onBeforeItemUse?.(player, ev));
+		const player = ev.source;
+		if (!(player instanceof Player)) return;
+		AbilityDispatch.toGranted(player, 'onBeforeItemUse', (a, attrs) => a.onBeforeItemUse?.(player, ev, attrs));
 	}
 
 	@AfterItemCompleteUse()
 	static onCompleteUse(ev: ItemCompleteUseAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
-		const player = ev.source as Player;
-		AbilityDispatch.toGranted(player, 'onItemCompleteUse', (a) => a.onItemCompleteUse?.(player, ev));
+		const player = ev.source;
+		if (!(player instanceof Player)) return;
+		AbilityDispatch.toGranted(player, 'onItemCompleteUse', (a, attrs) => a.onItemCompleteUse?.(player, ev, attrs));
 	}
 }

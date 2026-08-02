@@ -1,31 +1,94 @@
-import { Entity, Player } from '@minecraft/server';
+import { Vec3 } from '@bedrock-oss/bedrock-boost';
+import { Entity, EntityComponent, EntityComponentReturnType, Vector3 } from '@minecraft/server';
+
 
 
 /**
- * General utils for working with entities.
- * TODO: expand
+ * Utility methods for working with entities and their components.
+ * This class acts as a cache layer for entity methods.
  */
 export class EntityUtils {
-	/** Type guard for a player entity. */
-	static isPlayer(entity: Entity | undefined): entity is Player {
-		return entity?.typeId === 'minecraft:player';
-	}
+	private static readonly componentCache = new Map<string, Map<string, EntityComponent>>();
+	private static readonly dynamicPropertyCache = new Map<string, Map<string, string | number | boolean | Vec3>>();
 
-	/** Read a numeric component property safely. */
-	static health(entity: Entity): number | undefined {
-		const c = entity.getComponent('health');
-		return c?.currentValue;
+
+	/**
+	 * Retrieves the component of the given entity.
+	 *
+	 * This method caches the component for future retrieval, and
+	 * will return the cached version if it is still valid.
+	 */
+	static getComponent<T extends string>(
+		entity: Entity,
+		componentId: T
+	): EntityComponentReturnType<T> | undefined {
+		const byComponent = this.componentCache.get(entity.id);
+		const cached = byComponent?.get(componentId);
+		if (cached) {
+			if (cached.isValid) return cached as EntityComponentReturnType<T>;
+			byComponent!.delete(componentId);
+		}
+
+		const component = entity.getComponent(componentId);
+		if (!component) return undefined;
+
+		if (byComponent) {
+			byComponent.set(componentId, component);
+		} else {
+			this.componentCache.set(entity.id, new Map([[componentId, component]]));
+		}
+		return component;
 	}
 
 	/**
-	 * Returns the total brightness level (0-15) at the entity's location via
-	 * {@link Block.getLightLevel}. Returns 0 if the block cannot be read.
+	 * Retrieves a dynamic property of the given entity.
+	 *
+	 * This method caches the value for future retrieval. `Vector3`
+	 * values are converted into {@link Vec3} instances.
 	 */
-	static getLightLevel(entity: Entity): number {
-		try {
-			return entity.dimension.getBlock(entity.location)?.getLightLevel() ?? 0;
-		} catch {
-			return 0;
+	static getDynamicProperty(
+		entity: Entity,
+		identifier: string
+	): string | number | boolean | Vec3 | undefined {
+		const byProperty = this.dynamicPropertyCache.get(entity.id);
+		if (byProperty?.has(identifier)) return byProperty.get(identifier);
+
+		const raw = entity.getDynamicProperty(identifier);
+		if (raw === undefined) return undefined;
+		const value = typeof raw === 'object' ? Vec3.from(raw) : raw;
+
+		if (byProperty) {
+			byProperty.set(identifier, value);
+		} else {
+			this.dynamicPropertyCache.set(entity.id, new Map([[identifier, value]]));
+		}
+		return value;
+	}
+
+	/**
+	 * Sets a dynamic property of the given entity and updates the cache.
+	 *
+	 * `Vector3` values are stored as {@link Vec3} instances. Passing
+	 * `undefined` clears the property and its cached value.
+	 */
+	static setDynamicProperty(
+		entity: Entity,
+		identifier: string,
+		value?: string | number | boolean | Vector3
+	): void {
+		entity.setDynamicProperty(identifier, value);
+
+		const byProperty = this.dynamicPropertyCache.get(entity.id);
+		if (value === undefined) {
+			byProperty?.delete(identifier);
+			return;
+		}
+
+		const stored = typeof value === 'object' ? Vec3.from(value) : value;
+		if (byProperty) {
+			byProperty.set(identifier, stored);
+		} else {
+			this.dynamicPropertyCache.set(entity.id, new Map([[identifier, stored]]));
 		}
 	}
 }

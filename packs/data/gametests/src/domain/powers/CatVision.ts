@@ -14,7 +14,7 @@ export class Noctural implements Power {
 	}
 
 	onTick(player: Player): void {
-		const lightLevel = EntityUtils.getLightLevel(player);
+		const lightLevel = player.dimension.getLightLevel(player.location);
 
 		if (lightLevel < 8) {
 			player.addEffect('night_vision', TicksPerSecond * 12, { showParticles: false });

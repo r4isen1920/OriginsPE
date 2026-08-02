@@ -72,10 +72,13 @@ export class ItemEntryPoints {
 
 	@AfterItemStartUse()
 	static onStartUse(ev: ItemStartUseAfterEvent): void {
-		if (!EntityUtils.isPlayer(ev.source)) return;
+		const player = ev.source;
+		if (!(player instanceof Player)) return;
+
 		const handler = HANDLERS.get(ev.itemStack.typeId);
 		if (!handler) return;
-		try { handler.onStartUse(ev.source); }
+
+		try { handler.onStartUse(player); }
 		catch (e: any) { this.log.error(`startUse '${handler.id}': `, e); }
 	}
 }

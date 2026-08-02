@@ -103,8 +103,10 @@ export class Bloodthirsty implements Power {
 
 		const { damage, damageSource, hurtEntity } = ev;
 		if (damage <= 0) return;
-		if (!EntityUtils.isPlayer(damageSource.damagingEntity)) return;
-		if (damageSource.damagingEntity.id !== player.id) return;
+		
+		const dmgEntity = damageSource.damagingEntity;
+		if (!(dmgEntity instanceof Player)) return;
+		if (dmgEntity.id !== player.id) return;
 		if (damageSource.cause !== EntityDamageCause.entityAttack) return;
 
 		if (!hurtEntity?.isValid) return;
