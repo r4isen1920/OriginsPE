@@ -9,6 +9,7 @@ import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AfterEntityHurt } from '../../core/platform/DecoratedEvents';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Flammable implements Power {
@@ -33,7 +34,7 @@ export class Flammable implements Power {
 		system.run(() => {
 			if (!player.isValid) return;
 
-			const health = player.getComponent('minecraft:health') as EntityHealthComponent;
+			const health = EntityUtils.getComponent(player, 'minecraft:health') as EntityHealthComponent;
 			if (health) {
 				const targetHealth = Math.max(0, health.currentValue - damage);
 

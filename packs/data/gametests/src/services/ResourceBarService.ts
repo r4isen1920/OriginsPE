@@ -6,6 +6,7 @@ import { PlayerTick } from '../core/platform/Ticker';
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 import { PlayerState } from '../core/platform/PlayerState';
+import { EntityUtils } from '../utils/EntityUtils';
 
 
 //#region TYPES
@@ -481,7 +482,7 @@ export class ResourceBarService {
 		};
 
 		try {
-			const c = player.getComponent(EntityComponentTypes.Breathable) as
+			const c = EntityUtils.getComponent(player, EntityComponentTypes.Breathable) as
 				| EntityBreathableComponent
 				| undefined;
 			if (!c) return defaults;

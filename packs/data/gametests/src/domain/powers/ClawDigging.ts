@@ -10,6 +10,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerTick } from '../../core/platform/Ticker';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const CEILING_SCAN_HEIGHT = 15;
 const HASTE_AMPLIFIER = 10;
@@ -48,7 +49,7 @@ export class ClawDigging implements Power {
 
 		if (player.isInWater) return;
 
-		const heldItem = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Mainhand);
+		const heldItem = EntityUtils.getComponent(player, 'equippable')?.getEquipment(EquipmentSlot.Mainhand);
 		const isBareHanded = !heldItem || heldItem.typeId === 'minecraft:air';
 
 		if (!isBareHanded || !isPlayerUnderground(player)) {

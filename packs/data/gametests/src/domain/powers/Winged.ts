@@ -8,6 +8,7 @@ import {
 } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 /**
  * Winged is a passive power that grants the holder a custom Elytra item when equipped.
@@ -25,7 +26,7 @@ export class Winged implements Power {
 	}
 
 	onRelease(player: Player): void {
-		const equippableComp = player.getComponent(EntityComponentTypes.Equippable);
+		const equippableComp = EntityUtils.getComponent(player, EntityComponentTypes.Equippable);
 		if (!equippableComp) return;
 
 		const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);
@@ -44,7 +45,7 @@ export class Winged implements Power {
 	}
 
 	private ensureElytra(player: Player): void {
-		const equippableComp = player.getComponent(EntityComponentTypes.Equippable);
+		const equippableComp = EntityUtils.getComponent(player, EntityComponentTypes.Equippable);
 		if (!equippableComp) return;
 
 		const chestItem = equippableComp.getEquipment(EquipmentSlot.Chest);

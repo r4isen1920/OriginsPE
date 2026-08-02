@@ -17,6 +17,7 @@ import { ResourceBarService } from '../../services/ResourceBarService';
 import { Log } from '../../utils/Log';
 import { AfterEntityHurt } from '../../core/platform/DecoratedEvents';
 import { Wrathroot } from './Wrathroot';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const log = Log.get('VineBind');
 
@@ -282,7 +283,7 @@ export class VineBind implements Power {
 
 			for (const { entity } of ctx.entityInfos) {
 				if (!entity?.isValid) continue;
-				const hp = entity.getComponent('minecraft:health') as any;
+				const hp = EntityUtils.getComponent(entity, 'minecraft:health') as any;
 				if (hp) totalHealth += hp.currentValue;
 				targets.push(entity);
 			}

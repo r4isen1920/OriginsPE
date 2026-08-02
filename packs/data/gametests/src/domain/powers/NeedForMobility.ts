@@ -3,6 +3,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeSourceInstance } from '../../services/AttributeService';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 /**
  * Need for Mobility is a passive power that makes the holder slower when wearing
@@ -24,7 +25,7 @@ export class NeedForMobility implements Power {
 	onTick(player: Player, attributes: AttributeSourceInstance): void {
 		const state = PlayerState.for(player);
 
-		const equippableComp = player.getComponent('equippable');
+		const equippableComp = EntityUtils.getComponent(player, 'equippable');
 		if (!equippableComp) return;
 
 		const head = equippableComp.getEquipment(EquipmentSlot.Head)?.typeId;

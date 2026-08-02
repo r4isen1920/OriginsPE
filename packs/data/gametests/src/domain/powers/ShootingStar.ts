@@ -5,6 +5,7 @@ import { PlayerState } from '../../core/platform/PlayerState';
 import { Entities } from '../../Files';
 import { Vec3 } from '@bedrock-oss/bedrock-boost';
 import { ResourceBarService } from '../../services';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 //#region Constants
@@ -38,7 +39,7 @@ export class ShootingStar implements Power {
 			Vec3.from(player.location).up().up()
 		);
 
-		const proj = ent.getComponent(EntityComponentTypes.Projectile);
+		const proj = EntityUtils.getComponent(ent, EntityComponentTypes.Projectile);
 		if (!proj) return;
 
 		proj.owner = player;

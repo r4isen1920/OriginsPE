@@ -1,6 +1,7 @@
 import { EquipmentSlot, InputButton, ButtonState, Player, TicksPerSecond } from '@minecraft/server';
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 /**
  * You get additional protection when blocking yourself with a shield.
@@ -15,7 +16,7 @@ export class ShieldWield implements Perk {
 	}
 
 	onTick(player: Player): void {
-		const offhand = player.getComponent('equippable')?.getEquipment(EquipmentSlot.Offhand);
+		const offhand = EntityUtils.getComponent(player, 'equippable')?.getEquipment(EquipmentSlot.Offhand);
 		const hasShield = offhand?.typeId === 'minecraft:shield';
 
 		const isSneaking =

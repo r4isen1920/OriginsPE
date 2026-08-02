@@ -3,6 +3,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 type TargetComponent = {
 	target?: { id: string };
@@ -37,7 +38,7 @@ export class Camouflage implements Power {
 			});
 
 			for (const entity of nearbyHostiles) {
-				const targetComp = entity.getComponent('target') as TargetComponent | undefined;
+				const targetComp = EntityUtils.getComponent(entity, 'target') as TargetComponent | undefined;
 				if (!targetComp) continue;
 
 				const currentTarget = targetComp.target;

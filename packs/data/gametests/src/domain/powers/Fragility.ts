@@ -2,6 +2,7 @@ import { EntityComponentTypes, EntityHealthComponent, EntityHurtBeforeEvent, Pla
 
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 /**
@@ -13,7 +14,7 @@ export class Fragility implements Power {
 	readonly id = 'fragility';
 
 	onHurtBefore(player: Player, ev: EntityHurtBeforeEvent): void {
-		const health = player.getComponent(EntityComponentTypes.Health) as EntityHealthComponent | undefined;
+		const health = EntityUtils.getComponent(player, EntityComponentTypes.Health) as EntityHealthComponent | undefined;
 		if (!health) return;
 
 		const missing = 20 - Math.floor(health.currentValue);

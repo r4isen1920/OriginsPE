@@ -63,7 +63,7 @@ export class Beelzebub implements Power {
         if (dmgEntity.id !== player.id) return;
         if (damageSource.cause !== 'entityAttack') return;
 
-        const health = player.getComponent(EntityComponentTypes.Health);
+        const health = EntityUtils.getComponent(player, EntityComponentTypes.Health);
         if (!health) {
             Beelzebub.log.warn(`No health component for player: ${player.name}`);
             return;

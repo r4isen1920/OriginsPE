@@ -2,6 +2,7 @@ import { Player, TicksPerSecond } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { AttributeService } from '../../services/AttributeService';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class ScaredOfGourds implements Power {
@@ -13,7 +14,7 @@ export class ScaredOfGourds implements Power {
 	}
 
 	onTick(player: Player): void {
-		const inventoryComp = player.getComponent('inventory');
+		const inventoryComp = EntityUtils.getComponent(player, 'inventory');
 		if (!inventoryComp?.container) return;
 
 		let hasPumpkin = false;

@@ -2,6 +2,7 @@ import { ItemStack, EntityComponentTypes, GameMode, Container, PlayerInventoryIt
 import { Logger } from '@bedrock-oss/bedrock-boost';
 import { AfterPlayerInventoryItemChange } from '.';
 import { Log } from '../../utils';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 import item_association from '../../../../jsonte/item_association.json';
 
@@ -32,7 +33,7 @@ export default class ItemAssociation {
 
 		if (this.ignoredItemsDueToWarnings.includes(from)) return;
 
-		const container = player.getComponent(EntityComponentTypes.Inventory)?.container;
+		const container = EntityUtils.getComponent(player, EntityComponentTypes.Inventory)?.container;
 		if (!container) return;
 
 		try {

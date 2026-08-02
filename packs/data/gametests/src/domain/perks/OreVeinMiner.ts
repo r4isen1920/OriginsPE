@@ -12,6 +12,7 @@ import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { MinecraftBlockTypes } from '@minecraft/vanilla-data';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 
@@ -59,8 +60,7 @@ export class OreVeinMiner implements Perk {
 		if (player.isSneaking) return;
 		if (player.matches({ gameMode: GameMode.Creative })) return;
 
-		const heldItem = player
-			.getComponent(EntityComponentTypes.Equippable)
+		const heldItem = EntityUtils.getComponent(player, EntityComponentTypes.Equippable)
 			?.getEquipment(EquipmentSlot.Mainhand);
 		if (!heldItem?.typeId.includes('_pickaxe')) return;
 
@@ -120,7 +120,7 @@ export class OreVeinMiner implements Perk {
 				type: 'minecraft:item'
 			})
 			.forEach((itemEntity) => {
-				const itemComp = itemEntity.getComponent(EntityComponentTypes.Item);
+				const itemComp = EntityUtils.getComponent(itemEntity, EntityComponentTypes.Item);
 				if (!itemComp) return;
 
 				const itemTypeId = itemComp.itemStack.typeId;

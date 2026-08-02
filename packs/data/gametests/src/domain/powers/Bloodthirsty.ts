@@ -110,7 +110,7 @@ export class Bloodthirsty implements Power {
 		if (damageSource.cause !== EntityDamageCause.entityAttack) return;
 
 		if (!hurtEntity?.isValid) return;
-		if (!hurtEntity.getComponent(EntityComponentTypes.Health)) return;
+		if (!EntityUtils.getComponent(hurtEntity, EntityComponentTypes.Health)) return;
 
 		const restoreAmount = Math.max(Math.floor(damage * 2), 1); // min is 1 always
 

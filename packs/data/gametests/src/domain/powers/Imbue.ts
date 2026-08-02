@@ -9,6 +9,7 @@ import {
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { Entities, Particles } from '../../Files';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 
@@ -38,7 +39,7 @@ export class Imbue implements Power {
 		if (now - lastProc < Imbue.TARGET_PROC_COOLDOWN_TICKS) return;
 		Imbue.targetProcTick.set(procKey, now);
 
-		const attackerHealthComp = player.getComponent(EntityComponentTypes.Health);
+		const attackerHealthComp = EntityUtils.getComponent(player, EntityComponentTypes.Health);
 		if (!attackerHealthComp) return;
 
 		const additionalDamage = attackerHealthComp.currentValue;

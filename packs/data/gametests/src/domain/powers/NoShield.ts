@@ -2,6 +2,7 @@ import { Player, EquipmentSlot } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { RegisterPower } from '../../core/abilities/Registries';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class NoShield implements Power {
@@ -14,7 +15,7 @@ export class NoShield implements Power {
 		const state = PlayerState.for(player);
 		if (!state || !state.hasPower('no_shield')) return;
 
-		const equippableComp = player.getComponent('equippable');
+		const equippableComp = EntityUtils.getComponent(player, 'equippable');
 		if (!equippableComp) return;
 
 		const offhandItem = equippableComp.getEquipment(EquipmentSlot.Offhand);

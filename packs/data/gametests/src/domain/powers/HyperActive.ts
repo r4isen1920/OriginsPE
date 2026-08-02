@@ -6,6 +6,7 @@ import { Ticker } from '../../core/platform/Ticker';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 import { AfterItemCompleteUse } from '../../core/platform/DecoratedEvents';
 import { ResourceBarService } from '../../services';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const VANILLA_SUGAR = 'minecraft:sugar';
 const FAKE_SUGAR = 'r4isen1920_originspe:fake_sugar';
@@ -26,7 +27,7 @@ export class HyperActive implements Power {
 		const state = PlayerState.for(player);
 		if (!state.hasPower('hyper_active')) return;
 
-		const inventory = player.getComponent('minecraft:inventory');
+		const inventory = EntityUtils.getComponent(player, 'minecraft:inventory');
 		if (!inventory?.container) return;
 		const container = inventory.container;
 
@@ -73,7 +74,7 @@ export class HyperActive implements Power {
 				const state = PlayerState.for(player);
 				if (state?.hasPower('hyper_active')) continue;
 
-				const inventory = player.getComponent('minecraft:inventory');
+				const inventory = EntityUtils.getComponent(player, 'minecraft:inventory');
 				if (!inventory?.container) continue;
 				const container = inventory.container;
 

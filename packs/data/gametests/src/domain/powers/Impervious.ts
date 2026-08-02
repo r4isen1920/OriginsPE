@@ -6,6 +6,7 @@ import {
 } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
+import { EntityUtils } from '../../utils/EntityUtils';
 /**
  * Impervious: Makes the holder immune to fire and lava damage, gaining strength instead.
  */
@@ -32,7 +33,7 @@ export class Impervious implements Power {
 	onTick(player: Player): void {
 		if (!player.isValid) return;
 
-		const isBurning = player.getComponent('minecraft:onfire');
+		const isBurning = EntityUtils.getComponent(player, 'minecraft:onfire');
 		if (isBurning) {
 			player.addEffect('fire_resistance', TicksPerSecond * 2, {
 				showParticles: false

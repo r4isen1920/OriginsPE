@@ -10,6 +10,7 @@ import {
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Elegant implements Power {
@@ -27,8 +28,8 @@ export class Elegant implements Power {
 	private static readonly MASTERY_EFFECT_TICKS = 40;
 
 	onTick(player: Player): void {
-		const equippable = player.getComponent(EntityComponentTypes.Equippable);
-		const inventory = player.getComponent(EntityComponentTypes.Inventory);
+		const equippable = EntityUtils.getComponent(player, EntityComponentTypes.Equippable);
+		const inventory = EntityUtils.getComponent(player, EntityComponentTypes.Inventory);
 		if (!equippable) return;
 
 		this.enforceArmor(player, equippable, inventory);

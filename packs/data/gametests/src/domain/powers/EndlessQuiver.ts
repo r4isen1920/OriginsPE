@@ -12,6 +12,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 /**
  * EndlessQuiver: Players with this power have an endless supply of arrows.
@@ -28,8 +29,8 @@ export class EndlessQuiver implements Power {
 	private static readonly COOLDOWN_LORE = TicksPerSecond * 2;
 
 	onTick(player: Player): void {
-		const inventoryComp = player.getComponent(EntityComponentTypes.Inventory);
-		const equippableComp = player.getComponent(EntityComponentTypes.Equippable);
+		const inventoryComp = EntityUtils.getComponent(player, EntityComponentTypes.Inventory);
+		const equippableComp = EntityUtils.getComponent(player, EntityComponentTypes.Equippable);
 		if (!inventoryComp?.container || !equippableComp) return;
 
 		const mainhandItem = equippableComp.getEquipment(EquipmentSlot.Mainhand);

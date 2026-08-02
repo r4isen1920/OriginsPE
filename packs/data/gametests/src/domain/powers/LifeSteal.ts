@@ -2,6 +2,7 @@ import { Player, EntityHurtAfterEvent, EntityComponentTypes, system } from '@min
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const MAX_STACKS = 3;
 const HEAL_PER_STACK = 0.005;
@@ -34,7 +35,7 @@ export class LifeSteal implements Power {
 
 		if (target instanceof Player) return;
 
-		const targetHealth = target.getComponent(EntityComponentTypes.Health);
+		const targetHealth = EntityUtils.getComponent(target, EntityComponentTypes.Health);
 		if (!targetHealth) return;
 
 		const currentTick = system.currentTick;
@@ -51,7 +52,7 @@ export class LifeSteal implements Power {
 		state.setFlag(STACK_KEY, newStacks);
 		state.setFlag(LAST_HIT_KEY, currentTick);
 
-		const healthComp = player.getComponent(EntityComponentTypes.Health);
+		const healthComp = EntityUtils.getComponent(player, EntityComponentTypes.Health);
 		if (!healthComp) return;
 
 		const maxHp = healthComp.effectiveMax;

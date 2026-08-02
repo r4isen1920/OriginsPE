@@ -11,6 +11,7 @@ import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const BAR_FULL = 100;
 const BAR_TWO_THIRDS = 71;
@@ -44,7 +45,7 @@ export class Fragmentation implements Power {
 
 		AttributeService.apply(player, { scale: 1, health: 20 });
 
-		const health = player.getComponent('minecraft:health') as EntityHealthComponent;
+		const health = EntityUtils.getComponent(player, 'minecraft:health') as EntityHealthComponent;
 		if (health) health.resetToMaxValue();
 
 		ResourceBarService.pop(player, 8);
@@ -75,7 +76,7 @@ export class Fragmentation implements Power {
 			return;
 		}
 
-		const healthComponent = player.getComponent('minecraft:health') as EntityHealthComponent;
+		const healthComponent = EntityUtils.getComponent(player, 'minecraft:health') as EntityHealthComponent;
 		if (!healthComponent) return;
 
 		const playerHealth = healthComponent.currentValue;
@@ -176,7 +177,7 @@ export class Fragmentation implements Power {
 	private onIncrementFragmentationLevel(player: Player, state: PlayerState, level: number): void {
 		state.setFlag('previous_fragmentation_level', undefined);
 
-		const health = player.getComponent('minecraft:health') as EntityHealthComponent;
+		const health = EntityUtils.getComponent(player, 'minecraft:health') as EntityHealthComponent;
 		if (health) health.resetToMaxValue();
 
 		switch (level) {
@@ -202,7 +203,7 @@ export class Fragmentation implements Power {
 	private onDecrementFragmentationLevel(player: Player, state: PlayerState, level: number): void {
 		state.setFlag('previous_fragmentation_level', undefined);
 
-		const health = player.getComponent('minecraft:health') as EntityHealthComponent;
+		const health = EntityUtils.getComponent(player, 'minecraft:health') as EntityHealthComponent;
 		if (health) health.resetToMaxValue();
 
 		switch (level) {

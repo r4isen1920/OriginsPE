@@ -10,6 +10,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
 import { ResourceBarService } from '../../services/ResourceBarService';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const BAR_ID = 25;
 const MAX_STACKS = 7;
@@ -75,7 +76,7 @@ export class Wrathroot implements Power {
 		const target = ev.hurtEntity;
 		if (!target.isValid) return;
 
-		const health = target.getComponent('minecraft:health');
+		const health = EntityUtils.getComponent(target, 'minecraft:health');
 		if (!health || health.currentValue > 0) return;
 
 		const current = Wrathroot.getStacks(player);

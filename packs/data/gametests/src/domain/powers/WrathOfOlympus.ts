@@ -29,6 +29,7 @@ import { AfterProjectileHitBlock, AfterProjectileHitEntity, BeforeExplosion, Aft
 import { Entities, Items } from '../../Files';
 import { MinecraftBlockTypes, MinecraftEntityTypes } from '@minecraft/vanilla-data';
 import { Vec3 } from '@bedrock-oss/bedrock-boost';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 
@@ -133,7 +134,7 @@ export class WrathOfOlympus implements Power {
 		// Prevent multiple triggers if they are already in the cast sequence
 		if (WrathOfOlympus.activeCasts.has(player.id)) return;
 
-		const inventory = player.getComponent(EntityComponentTypes.Inventory);
+		const inventory = EntityUtils.getComponent(player, EntityComponentTypes.Inventory);
 		const container = inventory?.container;
 		if (!container) return;
 
@@ -186,7 +187,7 @@ export class WrathOfOlympus implements Power {
 				}
 
 				const currentSlotIndex = player.selectedSlotIndex;
-				const inventory = player.getComponent(EntityComponentTypes.Inventory);
+				const inventory = EntityUtils.getComponent(player, EntityComponentTypes.Inventory);
 				const container = inventory?.container;
 				if (!container) continue;
 
@@ -279,11 +280,11 @@ export class WrathOfOlympus implements Power {
 		this.findStorageEntity(player)?.remove();
 
 		const entity = player.dimension.spawnEntity(Entities.InventoryKeep, player.location);
-		entity.setDynamicProperty(this.STORAGE_OWNER_DP, player.id);
-		entity.setDynamicProperty(this.STORAGE_MARKER_DP, true);
+		EntityUtils.setDynamicProperty(entity, this.STORAGE_OWNER_DP, player.id);
+		EntityUtils.setDynamicProperty(entity, this.STORAGE_MARKER_DP, true);
 
 		if (item) {
-			const inventory = entity.getComponent(EntityComponentTypes.Inventory);
+			const inventory = EntityUtils.getComponent(entity, EntityComponentTypes.Inventory);
 			inventory?.container?.setItem(0, item);
 		}
 
@@ -298,7 +299,7 @@ export class WrathOfOlympus implements Power {
 		const entity = this.findStorageEntity(player);
 		if (!entity) return undefined;
 
-		const inventory = entity.getComponent(EntityComponentTypes.Inventory);
+		const inventory = EntityUtils.getComponent(entity, EntityComponentTypes.Inventory);
 		const item = inventory?.container?.getItem(0);
 
 		entity.remove();
@@ -329,8 +330,8 @@ export class WrathOfOlympus implements Power {
 			const entity = dim
 				.getEntities({ type: Entities.InventoryKeep })
 				.find(e =>
-					e.getDynamicProperty(this.STORAGE_OWNER_DP) === player.id &&
-					e.getDynamicProperty(this.STORAGE_MARKER_DP) === true
+					EntityUtils.getDynamicProperty(e, this.STORAGE_OWNER_DP) === player.id &&
+					EntityUtils.getDynamicProperty(e, this.STORAGE_MARKER_DP) === true
 				);
 			if (entity) return entity;
 		}
@@ -373,7 +374,7 @@ export class WrathOfOlympus implements Power {
 		)
 			return;
 
-		const inventory = source.getComponent('inventory') as EntityInventoryComponent;
+		const inventory = EntityUtils.getComponent(source, 'inventory') as EntityInventoryComponent;
 		const container = inventory?.container;
 
 		//* Sucessful cast

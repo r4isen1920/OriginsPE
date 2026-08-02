@@ -3,6 +3,7 @@ import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AttributeService } from '../../services/AttributeService';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class BurnsInDaylight implements Power {
@@ -16,7 +17,7 @@ export class BurnsInDaylight implements Power {
 		if (!state || !state.hasPower('burns_in_daylight')) return;
 
 		const isPhantom = state.getFlag<boolean>('is_phantomized') ?? false;
-		const equippableComp = player.getComponent('equippable');
+		const equippableComp = EntityUtils.getComponent(player, 'equippable');
 		const hasHelmet = !!equippableComp?.getEquipment(EquipmentSlot.Head);
 
 		if (isPhantom || hasHelmet) {

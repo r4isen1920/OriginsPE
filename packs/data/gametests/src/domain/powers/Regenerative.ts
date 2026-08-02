@@ -5,6 +5,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { Bloodthirsty } from './Bloodthirsty';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Regenerative implements Power {
@@ -30,13 +31,13 @@ export class Regenerative implements Power {
 	}
 
 	onTick(player: Player): void {
-		const health = player.getComponent(EntityComponentTypes.Health);
+		const health = EntityUtils.getComponent(player, EntityComponentTypes.Health);
 		if (health && health.currentValue >= health.effectiveMax) {
 			player.removeEffect(MinecraftEffectTypes.Regeneration);
 			return;
 		}
 
-		const isBurning = player.getComponent(EntityComponentTypes.OnFire) !== undefined;
+		const isBurning = EntityUtils.getComponent(player, EntityComponentTypes.OnFire) !== undefined;
 		const blood = Bloodthirsty.getBlood(player);
 
 		if (isBurning || blood <= 0) {

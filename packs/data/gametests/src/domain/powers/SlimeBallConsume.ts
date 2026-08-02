@@ -5,6 +5,7 @@ import { PlayerState } from '../../core/platform/PlayerState';
 import { Ticker } from '../../core/platform/Ticker';
 import { OnWorldLoad } from '@bedrock-oss/stylish';
 import { AfterItemCompleteUse } from '../../core/platform/DecoratedEvents';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class SlimeBallConsume implements Power {
@@ -17,7 +18,7 @@ export class SlimeBallConsume implements Power {
 		const state = PlayerState.for(player);
 		if (!state.hasPower('slime_ball_consume')) return;
 
-		const inventory = player.getComponent('minecraft:inventory');
+		const inventory = EntityUtils.getComponent(player, 'minecraft:inventory');
 		if (!inventory || !inventory.container) return;
 
 		const container = inventory.container;
@@ -77,7 +78,7 @@ export class SlimeBallConsume implements Power {
 
 				const state = PlayerState.for(player);
 				if (!state || !state.hasPower('slime_ball_consume')) {
-					const inventory = player.getComponent('minecraft:inventory');
+					const inventory = EntityUtils.getComponent(player, 'minecraft:inventory');
 					if (!inventory || !inventory.container) continue;
 
 					const container = inventory.container;

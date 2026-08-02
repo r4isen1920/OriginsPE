@@ -2,6 +2,7 @@ import { Player } from '@minecraft/server';
 
 import { PLAYER_DYNAMIC_PROPERTIES, PLAYER_STATE_TAG_PREFIXES } from '../../Constants';
 import { Log } from '../../utils/Log';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 
@@ -221,7 +222,7 @@ export class PlayerState {
 		this.state.welcomed = false;
 		this.state.recordVersion = undefined;
 		for (const key of Object.values(PLAYER_DYNAMIC_PROPERTIES)) {
-			this.player.setDynamicProperty(key, undefined);
+			EntityUtils.setDynamicProperty(this.player, key, undefined);
 		}
 		this.syncAllTags();
 	}
@@ -273,12 +274,12 @@ export class PlayerState {
 	//#region HELPERS
 	/** Writes a primitive string-type to the player's dynamic properties. */
 	private writeString(key: string, value: string | undefined): void {
-		this.player.setDynamicProperty(key, value);
+		EntityUtils.setDynamicProperty(this.player, key, value);
 	}
 
 	/** Writes a primitive boolean-type to the player's dynamic properties. */
 	private writeBoolean(key: string, value: boolean): void {
-		this.player.setDynamicProperty(key, value);
+		EntityUtils.setDynamicProperty(this.player, key, value);
 	}
 
 	/** Writes a JSON-serializable value to the player's dynamic properties. The value is converted into string. */
@@ -292,18 +293,18 @@ export class PlayerState {
 
 	/** Reads a primitive string-type from the player's dynamic properties. Returns `undefined` if the property is not a string. */
 	private static readString(player: Player, key: string): string | undefined {
-		const raw = player.getDynamicProperty(key);
+		const raw = EntityUtils.getDynamicProperty(player, key);
 		return typeof raw === 'string' ? raw : undefined;
 	}
 
 	/** Reads a primitive boolean-type from the player's dynamic properties. Also returns `false` if the property is not a boolean. */
 	private static readBoolean(player: Player, key: string): boolean {
-		return player.getDynamicProperty(key) === true;
+		return EntityUtils.getDynamicProperty(player, key) === true;
 	}
 
 	/** Reads a JSON-serialized array of strings from the player's dynamic properties. Returns an empty array if the property is not a valid JSON array of strings. */
 	private static readJsonArray(player: Player, key: string): string[] {
-		const raw = player.getDynamicProperty(key);
+		const raw = EntityUtils.getDynamicProperty(player, key);
 		if (typeof raw !== 'string') return [];
 		try {
 			const parsed = JSON.parse(raw);
@@ -317,7 +318,7 @@ export class PlayerState {
 
 	/** Reads a JSON-serialized object from the player's dynamic properties. Returns an empty object if the property is not a valid JSON object. */
 	private static readJsonObject<T extends object>(player: Player, key: string): T {
-		const raw = player.getDynamicProperty(key);
+		const raw = EntityUtils.getDynamicProperty(player, key);
 		if (typeof raw !== 'string') return {} as T;
 		try {
 			const parsed = JSON.parse(raw);

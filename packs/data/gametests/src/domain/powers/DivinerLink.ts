@@ -135,7 +135,7 @@ export class DivinerLink {
 	}
 
 	private static healthOf(player: Player): EntityHealthComponent | undefined {
-		return player.getComponent(EntityComponentTypes.Health) as EntityHealthComponent | undefined;
+		return EntityUtils.getComponent(player, EntityComponentTypes.Health) as EntityHealthComponent | undefined;
 	}
 
 	/**

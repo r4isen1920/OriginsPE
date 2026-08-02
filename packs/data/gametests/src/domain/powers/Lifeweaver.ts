@@ -11,6 +11,7 @@ import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { Log } from '../../utils/Log';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Lifeweaver implements Power {
@@ -32,7 +33,8 @@ export class Lifeweaver implements Power {
 
 		if (state.isOnCooldown(Lifeweaver.COOLDOWN_KEY, now)) return;
 
-		const healthComp = player.getComponent(
+		const healthComp = EntityUtils.getComponent(
+			player,
 			EntityComponentTypes.Health
 		) as EntityHealthComponent | undefined;
 		if (healthComp) {

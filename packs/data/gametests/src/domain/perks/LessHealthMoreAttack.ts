@@ -1,6 +1,7 @@
 import { Player, TicksPerSecond } from '@minecraft/server';
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 /**
  * Warrior signature perk: trades max health for higher base attack. Both
@@ -12,7 +13,7 @@ export class LessHealthMoreAttack implements Perk {
 	readonly tickInterval = 10;
 
 	onTick(player: Player): void {
-		const component = player.getComponent('health');
+		const component = EntityUtils.getComponent(player, 'health');
 		if (!component) return;
 
 		const ratio = component.currentValue / component.effectiveMax;

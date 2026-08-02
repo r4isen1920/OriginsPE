@@ -9,6 +9,7 @@ import {
 
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 const STUN_CHANCE = 0.3; //30 percent
 const STUN_MIN_TICKS = TicksPerSecond * 1; //1sec
@@ -125,7 +126,7 @@ export class Discharge implements Power {
 	}
 
 	private static applyMetallicDamage(target: Entity, owner: Player): void {
-		const inventory = target.getComponent('minecraft:inventory');
+		const inventory = EntityUtils.getComponent(target, 'minecraft:inventory');
 		if (!inventory?.container) {
 			return;
 		}

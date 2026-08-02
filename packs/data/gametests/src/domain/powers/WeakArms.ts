@@ -1,6 +1,7 @@
 import { Player, TicksPerSecond, EquipmentSlot, ItemStack } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class WeakArms implements Power {
@@ -14,7 +15,7 @@ export class WeakArms implements Power {
 			return;
 		}
 
-		const equippableComp = player.getComponent('equippable');
+		const equippableComp = EntityUtils.getComponent(player, 'equippable');
 		const heldItem = equippableComp?.getEquipment(EquipmentSlot.Mainhand);
 
 		if (!heldItem || !WeakArms.isTool(heldItem) || !WeakArms.hasEfficiency(heldItem)) {

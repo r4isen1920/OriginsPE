@@ -5,6 +5,7 @@ import { PlayerState } from '../../core/platform/PlayerState';
 import { PlayerTick } from '../../core/platform/Ticker';
 import { ResourceBarService } from '../../services/ResourceBarService';
 import { AttributeOverrides } from '../../services';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 const STRESS_KEY = 'r4isen1920_originspe:stress';
@@ -28,7 +29,7 @@ export class Stress implements Power {
 			return;
 		}
 
-        const healthComponent = player.getComponent(EntityComponentTypes.Health);
+        const healthComponent = EntityUtils.getComponent(player, EntityComponentTypes.Health);
         if (!healthComponent || healthComponent.currentValue <= 0) return;
 
 		const state = PlayerState.for(player);

@@ -2,6 +2,7 @@ import { Player, system, EntityHitEntityAfterEvent } from '@minecraft/server';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 /**
  * Ember: when the holder hits an entity while on fire, they set the target and
@@ -17,13 +18,13 @@ export class Ember implements Power {
 		const hitEntity = ev.hitEntity;
 		if (!hitEntity) return;
 
-		if (!player.getComponent('onfire')) return;
+		if (!EntityUtils.getComponent(player, 'onfire')) return;
 
 		const state = PlayerState.for(player);
 		const currentTick = system.currentTick;
 		if (state.isOnCooldown('ember_cooldown', currentTick)) return;
 
-		const healthComponent = hitEntity.getComponent('health');
+		const healthComponent = EntityUtils.getComponent(hitEntity, 'health');
 		const strengthEffect = player.getEffect('strength');
 		const strengthAmplifier = strengthEffect ? strengthEffect.amplifier : -1;
 

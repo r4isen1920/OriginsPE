@@ -36,6 +36,6 @@ export class LifeDrain implements Power {
     }
 
     private static readHealth(entity: Entity): EntityHealthComponent | undefined {
-        return entity.getComponent(EntityComponentTypes.Health) as EntityHealthComponent | undefined;
+        return EntityUtils.getComponent(entity, EntityComponentTypes.Health) as EntityHealthComponent | undefined;
     }
 }

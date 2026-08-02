@@ -7,6 +7,7 @@ import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { AfterEntityDie } from '../../core';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 const DOUBLE_LOOT_CHANCE = 50;
@@ -27,7 +28,7 @@ export class MoreAnimalLoot implements Perk {
         if (entity?.typeId !== 'minecraft:player') return;
         if (!PlayerState.for(entity as Player).hasPerk('more_animal_loot')) return;
         if (!deadEntity.matches({ families: ['mob'] })) return;
-        if (deadEntity.getComponent('is_baby')) return;
+        if (EntityUtils.getComponent(deadEntity, 'is_baby')) return;
         if (Math.random() * 100 >= DOUBLE_LOOT_CHANCE) return;
 
         deadEntity.runCommand('loot spawn ~~0.5~ kill @s');

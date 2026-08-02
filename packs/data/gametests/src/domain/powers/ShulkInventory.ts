@@ -4,6 +4,7 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
 import { Log } from '../../utils';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 
@@ -101,7 +102,7 @@ export class ShulkInventory implements Power {
 		const entity = this.getOrCreateEntity(player);
 		entity.nameTag = 'origins.shulk_inventory';
 
-		const rideable = entity.getComponent(EntityComponentTypes.Rideable);
+		const rideable = EntityUtils.getComponent(entity, EntityComponentTypes.Rideable);
 		if (!rideable?.addRider(player)) {
 			ShulkInventory.log.warn(`addRider failed, for: ${player.name}, id: ${entity.id}`);
 			return;
@@ -130,7 +131,7 @@ export class ShulkInventory implements Power {
 			return;
 		}
 
-		const rideable = entity.getComponent(EntityComponentTypes.Rideable);
+		const rideable = EntityUtils.getComponent(entity, EntityComponentTypes.Rideable);
 		if (rideable) rideable.ejectRider(player);
 
 		player.onScreenDisplay.setActionBar(this.PAYLOAD_CLOSED);
@@ -160,8 +161,8 @@ export class ShulkInventory implements Power {
 			const entity = dim
 				.getEntities({ type: this.INV_ENTITY_TYPE })
 				.find(e =>
-					e.getDynamicProperty(this.OWNER_DP_KEY) === player.id &&
-					e.getDynamicProperty(this.IS_SHULK_DP_KEY) === true
+					EntityUtils.getDynamicProperty(e, this.OWNER_DP_KEY) === player.id &&
+					EntityUtils.getDynamicProperty(e, this.IS_SHULK_DP_KEY) === true
 				);
 			if (entity) return entity;
 		}
@@ -174,8 +175,8 @@ export class ShulkInventory implements Power {
 
 		const entity = player.dimension.spawnEntity(this.INV_ENTITY_TYPE, player.location);
 		ShulkInventory.log.info(`spawning inventory entity, for: ${player.name}, id: ${entity.id}`);
-		entity.setDynamicProperty(this.OWNER_DP_KEY, player.id);
-		entity.setDynamicProperty(this.IS_SHULK_DP_KEY, true);
+		EntityUtils.setDynamicProperty(entity, this.OWNER_DP_KEY, player.id);
+		EntityUtils.setDynamicProperty(entity, this.IS_SHULK_DP_KEY, true);
 		return entity;
 	}
 

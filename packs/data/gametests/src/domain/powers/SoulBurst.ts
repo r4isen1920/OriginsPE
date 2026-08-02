@@ -10,6 +10,7 @@ import { Logger } from '@bedrock-oss/bedrock-boost';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class Soulburst implements Power {
@@ -93,7 +94,7 @@ export class Soulburst implements Power {
 	}
 
 	private static readHealth(entity: Entity): EntityHealthComponent | undefined {
-		return entity.getComponent(EntityComponentTypes.Health) as
+		return EntityUtils.getComponent(entity, EntityComponentTypes.Health) as
 			| EntityHealthComponent
 			| undefined;
 	}

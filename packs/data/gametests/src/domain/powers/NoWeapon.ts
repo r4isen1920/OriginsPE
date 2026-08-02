@@ -2,6 +2,7 @@ import { Player, EntityEquippableComponent, EquipmentSlot } from '@minecraft/ser
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
 export class NoWeapon implements Power {
@@ -21,7 +22,7 @@ export class NoWeapon implements Power {
 			return;
 		}
 
-		const equippable = player.getComponent('minecraft:equippable') as EntityEquippableComponent;
+		const equippable = EntityUtils.getComponent(player, 'minecraft:equippable') as EntityEquippableComponent;
 		if (!equippable) {
 			return;
 		}

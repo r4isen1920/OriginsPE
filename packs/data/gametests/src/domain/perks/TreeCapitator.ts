@@ -11,6 +11,7 @@ import {
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { MinecraftBlockTypes } from '@minecraft/vanilla-data';
+import { EntityUtils } from '../../utils/EntityUtils';
 
 
 
@@ -47,8 +48,7 @@ export class TreeCapitator implements Perk {
 		if (player.isSneaking) return;
 		if (player.matches({ gameMode: GameMode.Creative })) return;
 
-		const heldItem = player
-			.getComponent(EntityComponentTypes.Equippable)
+		const heldItem = EntityUtils.getComponent(player, EntityComponentTypes.Equippable)
 			?.getEquipment(EquipmentSlot.Mainhand);
 		if (!heldItem || !heldItem.hasTag('minecraft:is_axe')) return;
 
@@ -101,7 +101,7 @@ export class TreeCapitator implements Perk {
 				type: 'minecraft:item'
 			})
 			.forEach((itemEntity) => {
-				const itemComp = itemEntity.getComponent(EntityComponentTypes.Item) as
+				const itemComp = EntityUtils.getComponent(itemEntity, EntityComponentTypes.Item) as
 					| EntityItemComponent
 					| undefined;
 				if (!itemComp?.itemStack.typeId.includes(targetBlock)) return;
