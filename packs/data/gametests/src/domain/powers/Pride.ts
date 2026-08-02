@@ -1,10 +1,10 @@
-import { Player, EquipmentSlot, EntityHurtBeforeEvent } from '@minecraft/server';
+import { Player, EquipmentSlot, EntityHurtBeforeEvent, EntityComponentTypes } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 
 import { ResourceBarService } from '../../services/ResourceBarService';
-import { ItemUtils } from '../../utils/ItemUtils';
 import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityUtils } from '../../utils';
 
 interface GoldValue {
     typeId: string;
@@ -51,17 +51,21 @@ export class Pride implements Power {
     readonly icon = '15';
 
     onTick(player: Player): void {
-        const inventorySlots = ItemUtils.findAll(player);
-        let inventoryGoldScore = 0;
+		const container = EntityUtils.getComponent(player, EntityComponentTypes.Inventory)?.container;
+		if (!container) return;
 
-        for (const slot of inventorySlots) {
-            if (!slot.item) continue;
-            const match = GOLD_ITEMS.find(g => g.typeId === slot.item?.typeId);
+        let inventoryGoldScore = 0;
+        for (let i = 0; i < container.size; i++) {
+			const item = container.getItem(i);
+            if (!item) continue;
+
+            const match = GOLD_ITEMS.find(g => g.typeId === item.typeId);
             if (match) {
-                inventoryGoldScore += slot.item.amount * match.value;
+                inventoryGoldScore += item.amount * match.value;
             }
         }
         inventoryGoldScore = Math.min(inventoryGoldScore, MAX_GOLD_SCORE);
+
 
         let equipmentGoldScore = 0;
         const slotsToCheck = [
@@ -73,8 +77,11 @@ export class Pride implements Power {
             EquipmentSlot.Offhand
         ];
 
+		const equippableComponent = EntityUtils.getComponent(player, EntityComponentTypes.Equippable);
+		if (!equippableComponent) return;
+
         for (const slot of slotsToCheck) {
-            const item = ItemUtils.getEquipment(player, slot);
+            const item = equippableComponent.getEquipment(slot);
             if (!item) continue;
             const match = GOLD_WEARABLES.find(g => g.typeId === item.typeId);
             if (match) {
