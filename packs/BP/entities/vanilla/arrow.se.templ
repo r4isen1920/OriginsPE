@@ -3,15 +3,6 @@
 
 	"$template": {
 		"minecraft:entity": {
-			"description": {
-				"properties": {
-					"r4isen1920_originspe:is_imbued": {
-						"client_sync": true,
-						"type": "bool",
-						"default": false
-					}
-				}
-			},
 
 			"component_groups": {
 				"r4isen1920_originspe:perk_no_projectile_divergence": {
@@ -49,22 +40,13 @@
 				"minecraft:entity_spawned": {
 					"^sequence": [
 						{
-							"filters": { "test": "has_tag", "subject": "other", "value": "r4isen1920_originspe:power_imbue" },
-							"queue_command": {
-								"command": [ "tag @s add _imbue_arrow" ]
-							},
-							"set_property": {
-								"r4isen1920_originspe:is_imbued": true
-							}
-						},
-						{
 							"filters": {
 								"all_of": [
 									{ "test": "has_tag", "subject": "other", "value": "r4isen1920_originspe:perk_no_projectile_divergence" }
 								]
 							},
 							"queue_command": {
-								"command": [ "tag @s add _no_projectile_divergence" ]
+								"command": [ "tag @s add r4isen1920_originspe:perk_no_projectile_divergence" ]
 							},
 							"add": {
 								"component_groups" : [ "r4isen1920_originspe:perk_no_projectile_divergence" ]
