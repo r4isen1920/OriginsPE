@@ -1,5 +1,6 @@
 import { Vec3 } from '@bedrock-oss/bedrock-boost';
-import { Entity, EntityComponent, EntityComponentReturnType, Vector3 } from '@minecraft/server';
+import { Entity, EntityComponent, EntityComponentReturnType, EntityComponentTypes, EntityRemoveAfterEvent, ItemStack, Player, PlayerInventoryItemChangeAfterEvent, PlayerLeaveAfterEvent, Vector3 } from '@minecraft/server';
+import { AfterEntityRemove, AfterPlayerInventoryItemChange, AfterPlayerLeave } from '../core/platform/DecoratedEvents';
 
 
 
@@ -8,9 +9,11 @@ import { Entity, EntityComponent, EntityComponentReturnType, Vector3 } from '@mi
  * This class acts as a cache layer for entity methods.
  */
 export class EntityUtils {
-	private static readonly componentCache = new Map<string, Map<string, EntityComponent>>();
-	private static readonly dynamicPropertyCache = new Map<string, Map<string, string | number | boolean | Vec3>>();
 
+
+	//#region Component
+	/** Cached component data in memory */
+	private static readonly componentCache = new Map<string, Map<string, EntityComponent>>();
 
 	/**
 	 * Retrieves the component of the given entity.
@@ -39,6 +42,12 @@ export class EntityUtils {
 		}
 		return component;
 	}
+
+
+
+	//#region Dyn. Property
+	/** Cached dynamic property data in memory */
+	private static readonly dynamicPropertyCache = new Map<string, Map<string, string | number | boolean | Vec3>>();
 
 	/**
 	 * Retrieves a dynamic property of the given entity.
@@ -91,4 +100,81 @@ export class EntityUtils {
 			this.dynamicPropertyCache.set(entity.id, new Map([[identifier, stored]]));
 		}
 	}
+
+
+
+	//#region Inventory
+	/** Cached inventory data in memory */
+	private static readonly inventoryCache = new Map<string, Map<number, ItemStack>>();
+	/** Player ids whose inventory has been seeded from the live container. */
+	private static readonly seededInventories = new Set<string>();
+
+	@AfterPlayerInventoryItemChange()
+	private static __updateCache(event: PlayerInventoryItemChangeAfterEvent): void {
+		const { itemStack, player, slot } = event;
+		const bySlot = this.inventoryCache.get(player.id);
+
+		if (bySlot && itemStack) {
+			bySlot.set(slot, itemStack);
+		}
+		else if (!bySlot && itemStack) {
+			this.inventoryCache.set(player.id, new Map([[slot, itemStack]]));
+		}
+		else if (bySlot && !itemStack) {
+			bySlot?.delete(slot);
+		}
+	}
+
+	/**
+	 * Seeds the inventory cache from the live container on first access, so reads
+	 * reflect the full inventory and not only slots changed since load.
+	 */
+	private static ensureInventorySeeded(player: Player): Map<number, ItemStack> | undefined {
+		if (this.seededInventories.has(player.id)) return this.inventoryCache.get(player.id);
+
+		const container = this.getComponent(player, EntityComponentTypes.Inventory)?.container;
+		const bySlot = new Map<number, ItemStack>();
+		if (container) {
+			for (let i = 0; i < container.size; i++) {
+				const item = container.getItem(i);
+				if (item) bySlot.set(i, item);
+			}
+		}
+
+		this.inventoryCache.set(player.id, bySlot);
+		this.seededInventories.add(player.id);
+		return bySlot;
+	}
+
+	/**
+	 * Retrieves the item in the given player's inventory slot.
+	 * This method retrieves the item from the cache.
+	 * 
+	 * **This method can only be used for the Player.**
+	 * 
+	 * @param player The player to get the item from.
+	 * @param slot The inventory slot to get the item from.
+	 * @returns
+	 * The item in the given slot, or `undefined` if the slot is empty.
+	 * The return type is an ItemStack, which represents the item in the slot.
+	 */
+	static getInventoryItem(player: Player, slot: number): ItemStack | undefined {
+		return this.ensureInventorySeeded(player)?.get(slot);
+	}
+
+	/**
+	 * Retrives the entire inventory of the given player.
+	 * This method retrieves the inventory from the cache.
+	 * 
+	 * **This method can only be used for the Player.**
+	 * 
+	 * @param player The player to get the inventory from.
+	 * @returns
+	 * The entire inventory of the given player as an ItemStack mapped to its slot index.
+	 * Empty slots are not included, so the map is empty when the player holds nothing.
+	 */
+	static getInventory(player: Player): Map<number, ItemStack> | undefined {
+		return this.ensureInventorySeeded(player);
+	}
+
 }

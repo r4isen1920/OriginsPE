@@ -139,7 +139,7 @@ export class WrathOfOlympus implements Power {
 		if (!container) return;
 
 		const selectedSlot = player.selectedSlotIndex;
-		const currentItem = container.getItem(selectedSlot);
+		const currentItem = EntityUtils.getInventoryItem(player, selectedSlot);
 
 		// Stash the original item natively in a persistent entity so it survives a reload.
 		WrathOfOlympus.stashItem(player, currentItem);
@@ -191,6 +191,8 @@ export class WrathOfOlympus implements Power {
 				const container = inventory?.container;
 				if (!container) continue;
 
+				// let's read this slot directly as the trident is placed via container.setItem, which the
+				// inventory cache only reflects after the later change event fires.
 				const itemInOriginalSlot = container.getItem(slotIndex);
 
 				//* player changed their hotbar slot
@@ -395,14 +397,9 @@ export class WrathOfOlympus implements Power {
 		//* Faile cast & edge-case
 		else {
 			if (container) {
-				// sweeping the inventory is generally not performant,
-				// but this is the most reliable way of preventing exploits
-				// this is because native methods will only search with ItemStack instance object,
-				// which may not exactly match at all times
-				for (let i = 0; i < container.size; i++) {
-					const item = container.getItem(i);
-					if (item?.typeId === Items.ZeusTrident) {
-						container.setItem(i, undefined);
+				for (let slot = 0; slot < container.size; slot++) {
+					if (container.getItem(slot)?.typeId === Items.ZeusTrident) {
+						container.setItem(slot, undefined);
 					}
 				}
 

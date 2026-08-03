@@ -73,7 +73,7 @@ import {
 	StartupEvent,
 	WorldLoadAfterEvent,
 } from '@minecraft/server';
-import { Log } from '../../utils';
+import { Log } from '../../utils/Log';
 
 const log = Log.get('DecoratedEvents');
 
