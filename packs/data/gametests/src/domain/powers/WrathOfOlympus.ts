@@ -554,7 +554,12 @@ export class WrathOfOlympus implements Power {
 					});
 
 					if (targetBlock) {
-						if (targetBlock.isAir || targetBlock.isLiquid) {
+						if (
+							targetBlock.isAir || targetBlock.isLiquid ||
+							targetBlock.hasTag('plant') ||
+							targetBlock.hasTag('minecraft:crop') ||
+							targetBlock.hasTag('fertilize_area')
+						) {
 							targetBlock.setPermutation(dummy.permutation);
 						} else {
 							const blockAbove = targetBlock.above();
