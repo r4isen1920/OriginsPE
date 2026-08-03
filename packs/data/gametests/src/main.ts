@@ -1,4 +1,12 @@
 
+import { Logger, LogLevel } from '@bedrock-oss/bedrock-boost';
+Logger.setLevel(LogLevel.Debug);
+Logger.setTagsOutputVisibility(true);
+
+
+//-------------------------------------------
+
+
 import './services/DamageService';
 import './services/ResourceBarService';
 
@@ -22,8 +30,6 @@ installDecoratedEventSubscribers();
 import { init } from '@bedrock-oss/stylish';
 init();
 
-import { Logger, LogLevel } from '@bedrock-oss/bedrock-boost';
-Logger.setLevel(LogLevel.Debug);
 
 //-------------------------------------------
 
