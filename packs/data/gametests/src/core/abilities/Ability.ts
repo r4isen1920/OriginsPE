@@ -194,6 +194,7 @@ export interface Origin {
 
 /** A selectable class granting a fixed list of perks. Use `implements CharacterClass`. */
 export interface CharacterClass {
+	/** Unique identifier for this Class. */
 	readonly id: string;
 	/** Otherwise known as how **game-changing** this Class is to the gameplay. */
 	readonly difficulty: ClassDifficulty;
