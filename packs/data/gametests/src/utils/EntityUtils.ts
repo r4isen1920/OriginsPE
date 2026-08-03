@@ -177,4 +177,24 @@ export class EntityUtils {
 		return this.ensureInventorySeeded(player);
 	}
 
+
+
+	//#region Lifecycle
+	@AfterPlayerLeave
+	private static __onPlayerLeave(event: PlayerLeaveAfterEvent): void {
+		this.purge(event.playerId);
+	}
+
+	@AfterEntityRemove
+	private static __onEntityRemove(event: EntityRemoveAfterEvent): void {
+		this.purge(event.removedEntityId);
+	}
+
+	/** Drops every cached entry for an entity id. */
+	private static purge(id: string): void {
+		this.componentCache.delete(id);
+		this.dynamicPropertyCache.delete(id);
+		this.inventoryCache.delete(id);
+		this.seededInventories.delete(id);
+	}
 }
