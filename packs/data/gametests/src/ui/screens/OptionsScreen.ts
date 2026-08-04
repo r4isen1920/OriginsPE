@@ -63,6 +63,9 @@ export class OptionsScreen extends Screen {
 				UiBridge.openDialogue(player, tag);
 				return;
 			}
+			case 'patch_notes':
+				UiBridge.openDialogue(player, 'gui_options_general_patchnotes');
+				return;
 			case 'admin':
 				UiBridge.openDialogue(player, this.isAdmin(player) ? 'gui_options_admin_root' : 'gui_options_admin_denied');
 				return;

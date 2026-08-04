@@ -44,9 +44,37 @@
 								"commands": [
 									"/execute as @initiator run scriptevent r4isen1920_originspe:ui toggle:particle"
 								]
+							},
+							{
+								"name": "patch_notes",
+								"commands": [
+									"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:patch_notes"
+								]
 							}
 						]
 					}
+				},
+
+				{
+					"scene_tag": "gui_options_general_patchnotes",
+					"npc_name": "_op:options",
+
+					"text": "_op:options.general.patchnotes",
+
+					"buttons": [
+						{
+							"name": "return",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:general"
+							]
+						},
+						{
+							"name": "tab.admin",
+							"commands": [
+								"/execute as @initiator run scriptevent r4isen1920_originspe:ui open_options:admin"
+							]
+						}
+					]
 				},
 
 				{
