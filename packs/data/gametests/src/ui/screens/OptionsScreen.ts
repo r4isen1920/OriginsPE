@@ -39,7 +39,8 @@ export class OptionsScreen extends Screen {
 	//#region HELPERS
 
 	private isAdmin(player: Player): boolean {
-		return player.commandPermissionLevel !== CommandPermissionLevel.Any;
+		return player.commandPermissionLevel !== CommandPermissionLevel.Any ||
+			player.hasTag('origins_admin');
 	}
 
 	private isToggleKey(v: string | undefined): v is ToggleKey {
