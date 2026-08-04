@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.50",
+  "format_version": "1.26.30",
   "minecraft:item": {
     "description": {
       "identifier": "r4isen1920_originspe:resignation_paper",
@@ -10,33 +10,30 @@
     },
 
     "components": {
-      "minecraft:icon": {
-        "texture": "r4isen1920_originspe:resignation_paper"
-      },
+      "minecraft:icon": "r4isen1920_originspe:resignation_paper",
+
       "minecraft:display_name": {
         "value": "origins.item.resignation_paper.name"
       },
+      "minecraft:rarity": "uncommon",
+
       "minecraft:max_stack_size": {
         "value": 64
       },
       "minecraft:glint": {
         "value": true
       },
+
       "minecraft:food": {
         "can_always_eat": true
       },
-      "minecraft:hover_text_color": {
-        "value": "gold"
-      },
 
       "minecraft:use_modifiers": {
-        "use_duration": 1,
-        "movement_modifier": 0
+        "use_duration": 9999,
+        "movement_modifier": 1.0
       },
 
-      "minecraft:use_animation": {
-        "value": "bow"
-      }
+      "minecraft:use_animation": "none"
     }
   }
 }
