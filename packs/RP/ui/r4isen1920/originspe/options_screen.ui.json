@@ -368,7 +368,62 @@
 						}
 					]
 				}
+			},
+			{
+				"patch_notes@common.empty_panel": {
+					"size": ["100%", "100%"],
+					"offset": [0, 4],
+					"layer": 4,
+
+					"controls": [
+						{
+							"scrollable_panel@origin_common.scrolling_panel": {
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"size": ["100% - 4px", "100% - 4px"],
+								"offset": [2, 0],
+
+								"$scrolling_pane_size": ["100%", "100%"],
+								"$scrolling_pane_offset": [0, 0],
+
+								"$scroll_bar_and_track_size": [10, "100%"],
+								"$scroll_box_image_control": "origin_common.scroll_box_active",
+								"$scroll_track_image_control": "common.container_scrollbar_track",
+
+								"$scroll_view_port_size": ["100% - 10px", "100%"],
+								"$scrolling_content": "origin_options_screen.patch_notes_scroll_content"
+							}
+						}
+					],
+
+					"bindings": [
+						{
+							"binding_type": "global",
+							"binding_name": "#dialogtext"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(#dialogtext = '_op:options.general.patchnotes')",
+							"target_property_name": "#visible"
+						}
+					]
+				}
 			}
+		]
+	},
+
+	"patch_notes_scroll_content@origin_common.verti_stack": {
+		"size": ["100%", "100%c"],
+
+		"controls": [
+			// {
+			// 	"entry_0@origin_common.image_with_text_description": {
+			// 		"$image_icon": "textures/items/paper",
+			// 		"$text_header": "Lorem ipsum v1.2",
+			// 		"$text_body": " - §fLorem ipsum dolor sit amet, consectetur adipiscing elit§r\n - §fSed do eiusmod tempor incididunt ut labore et dolore§r\n - §fUt enim ad minim veniam, quis nostrud exercitation§r"
+			// 	}
+			// },
+			{ "padding_0@common.empty_panel": { "size": ["100%", 10] } }
 		]
 	},
 
@@ -446,6 +501,13 @@
 					"$screen_directory": "tab_admin_denied",
 					"$screen_name": "origins.gui.options.admin_denied.name",
 					"$visible_binding": "(#dialogtext = '_op:options.admin.denied')"
+				}
+			},
+			{
+				"patch_notes_root@origin_options_screen.screen_directory_info": {
+					"$screen_directory": "tab_general",
+					"$screen_name": "origins.gui.options.patch_notes.name",
+					"$visible_binding": "(#dialogtext = '_op:options.general.patchnotes')"
 				}
 			},
 			{
@@ -737,6 +799,13 @@
 									},
 
 									{
+										"patch_notes@origin_options_screen.options_button_icon": {
+											"$options_button_icon": "patch_notes",
+											"$visible_binding": "(#student_button_text = 'patch_notes')"
+										}
+									},
+
+									{
 										"ban_root@origin_options_screen.options_button_icon": {
 											"$options_button_icon": "ban",
 											"$visible_binding": "(#student_button_text = 'ban.root')"
@@ -821,6 +890,13 @@
 										"toggle_particle@origin_options_screen.options_button_label": {
 											"text": "origins.gui.options.toggle_particle.name",
 											"$visible_binding": "((#student_button_text = 'particle.on') or (#student_button_text = 'particle.off'))"
+										}
+									},
+
+									{
+										"patch_notes@origin_options_screen.options_button_label": {
+											"text": "origins.gui.options.patch_notes.name",
+											"$visible_binding": "(#student_button_text = 'patch_notes')"
 										}
 									},
 
@@ -1065,6 +1141,13 @@
 			},
 
 			{
+				"patch_notes@origin_options_screen.options_button_description": {
+					"$hover_text": "origins.gui.options.patch_notes.description",
+					"$visible_binding": "(#student_button_text = 'patch_notes')"
+				}
+			},
+
+			{
 				"ban_root@origin_options_screen.options_button_description": {
 					"$hover_text": "origins.gui.options.ban.root.description",
 					"$visible_binding": "(#student_button_text = 'ban.root')"
@@ -1234,6 +1317,30 @@
 	//---------------------------------------------------------------------------
 
 
+	"close_dialog_button@origin_common.origin_selector_button_panel": {
+		"size": ["100%c", "100%c"],
+
+		"$button_type": "cancel",
+		"$button_control": [
+			{
+				"cancel@origin_common.origin_selector_button": {
+					"size": [75, 21],
+
+					"$button_text_label": "origins.gui.button.cancel",
+					"$visible_binding": "(#student_button_text = 'cancel')"
+				}
+			},
+			{
+				"return@origin_common.origin_selector_button": {
+					"size": [75, 21],
+
+					"$button_text_label": "origins.gui.button.return",
+					"$visible_binding": "(#student_button_text = 'return')"
+				}
+			}
+		]
+	},
+
 	"close_button@origin_common.hori_stack": {
 		"anchor_from": "center",
 		"anchor_to": "bottom_middle",
@@ -1242,8 +1349,6 @@
 
 		"collection_name": "student_buttons_collection",
 
-		"$visible_binding": "(#title_text = '_op:options')",
-
 		"controls": [
 			{
 				"button_base@common.empty_panel": {
@@ -1251,14 +1356,7 @@
 					"collection_index": 0,
 
 					"controls": [
-						{
-							"button_control@origin_common.origin_selector_button": {
-								"$button_type": "cancel",
-								"$button_text_label": "origins.gui.button.cancel",
-
-								"size": [75, 21]
-							}
-						}
+						{ "button_contents@origin_options_screen.close_dialog_button": {} }
 					]
 				}
 			}
