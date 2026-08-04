@@ -1,0 +1,36 @@
+{
+	"$scope": {
+		"__textures": [
+			{
+				"{{#cleric_potions as p}}": "Texture.{{p.id}}"
+			}
+		]
+	},
+
+	"$template": {
+		"format_version": "1.8.0",
+		"render_controllers": {
+			"controller.render.r4isen1920_originspe.cleric_potion": {
+				"arrays": {
+					"textures": {
+						"Array.potions": "{{=__textures}}"
+					}
+				},
+				"geometry": "Geometry.default",
+				"materials": [{ "*": "Material.default" }],
+				"textures": [
+					"Array.potions[query.property('r4isen1920_originspe:potion')]",
+					"Texture.enchanted"
+				],
+				"filter_lighting": true
+			},
+
+			"controller.render.r4isen1920_originspe.cleric_potion_cloud": {
+				"geometry": "Geometry.default",
+				"materials": [{ "*": "Material.default" }],
+				"textures": ["Texture.default"],
+				"ignore_lighting": true
+			}
+		}
+	}
+}

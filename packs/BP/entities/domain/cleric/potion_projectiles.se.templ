@@ -1,0 +1,87 @@
+{
+	//? see `packs/data/jsonte/cleric_potions.json`
+	//?
+	//? Emits `splash_potion.se.json` and `lingering_potion.se.json`.
+	//?
+	//? These are deliberately inert shells. The legacy definitions encoded the
+	//? potion identity as `minecraft:variant` component groups and applied
+	//? effects through hundreds of lines of `queue_command`, which was both
+	//? unmaintainable and quietly broken in several places. Identity now lives
+	//? in a client-synced actor property so the render controller can read it,
+	//? and every gameplay consequence is handled by ClericPotionService.
+	//?
+	//? Numbers below are vanilla's own projectile tuning, matched exactly.
+
+	"$files": {
+		"array": "cleric_potion_deliveries.filter(d => d.throwable)",
+		"filename": "{{id}}.se"
+	},
+
+	"$template": {
+		"format_version": "1.21.0",
+		"minecraft:entity": {
+			"description": {
+				"identifier": "{{entity}}",
+
+				//? Retained for the vanilla projectile runtime behaviour.
+				"runtime_identifier": "minecraft:snowball",
+
+				"is_summonable": false,
+				"is_spawnable": false,
+
+				"properties": {
+					//* Index into the potion table, mirrored by the render controller
+					//* to pick the bottle texture. Dynamic properties are invisible to
+					//* client Molang, so an actor property is the only workable channel.
+					"r4isen1920_originspe:potion": {
+						"type": "int",
+						"range": [0, "{{=count(cleric_potions) - 1}}"],
+						"client_sync": true,
+						"default": 0
+					}
+				}
+			},
+
+			"components": {
+				"minecraft:type_family": {
+					"family": ["cleric_control", "potion", "origins", "inanimate"]
+				},
+
+				"minecraft:collision_box": {
+					"width": 0.25,
+					"height": 0.25
+				},
+
+				"minecraft:physics": {},
+
+				"minecraft:pushable": {
+					"is_pushable": true,
+					"is_pushable_by_piston": true
+				},
+
+				"minecraft:conditional_bandwidth_optimization": {
+					"default_values": {
+						"max_optimized_distance": 80.0,
+						"max_dropped_ticks": 5,
+						"use_motion_prediction_hints": true
+					}
+				},
+
+				//? No `definition_event` here: the impact is observed script side
+				//? through projectileHitBlock / projectileHitEntity, so the entity
+				//? needs no events at all.
+				"minecraft:projectile": {
+					"on_hit": {
+						"douse_fire": {},
+						"impact_damage": null,
+						"remove_on_hit": {}
+					},
+					"power": 0.5,
+					"gravity": 0.05,
+					"angle_offset": -20.0,
+					"hit_sound": "glass"
+				}
+			}
+		}
+	}
+}

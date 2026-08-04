@@ -34,6 +34,16 @@
 						"textures/items/leather_{{type}}"
 					]
 				}
+			},
+
+			"{{#cleric_potion_deliveries as d}}": {
+				"{{#cleric_potions as p}}": {
+					"r4isen1920_originspe:{{d.texture}}_{{p.texture}}": {
+						"textures": [
+							"textures/items/{{d.texture}}_{{p.texture}}"
+						]
+					}
+				}
 			}
 		}
 	}

@@ -60,7 +60,6 @@ import './domain/origins/Vampire';
 
 //* Powers
 import './domain/powers/HoneyMobility';
-
 import './domain/powers/StaticField';
 import './domain/powers/StormBorn';
 import './domain/powers/Claustrophile';
@@ -240,3 +239,5 @@ import './domain/perks/EfficientRepairs';
 import './domain/perks/LessHealthMoreAttack';
 import './domain/perks/NoMiningExhaustion';
 import './domain/perks/EffectiveEmphaty';
+import './domain/perks/cleric/ClericPotionHandler';
+import './domain/perks/cleric/ClericPotionInventory';

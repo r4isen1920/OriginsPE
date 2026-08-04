@@ -1,0 +1,69 @@
+{
+	//? see `packs/data/jsonte/cleric_potions.json`
+	//?
+	//? The lingering cloud. Previously this carried a looping `minecraft:timer`
+	//? plus an `environment_sensor` keyed on `distance_to_nearest_player <= 128`,
+	//? which refired continuously and turned into a command storm; the effect
+	//? table was also duplicated four times over, once per radius stage.
+	//?
+	//? Staging and effect application now live in ClericPotionService, driven by
+	//? `cleric_potion_cloud` in the data file. What remains is a summonable,
+	//? inert, non-interactive marker.
+
+	"$template": {
+		"format_version": "1.21.0",
+		"minecraft:entity": {
+			"description": {
+				"identifier": "r4isen1920_originspe:cleric_area_effect_cloud",
+
+				"is_summonable": true,
+				"is_spawnable": false,
+
+				"properties": {
+					//* Carried so the cloud's particle tint can be resolved without a
+					//* script lookup on every stage tick.
+					"r4isen1920_originspe:potion": {
+						"type": "int",
+						"range": [0, "{{=count(cleric_potions) - 1}}"],
+						"client_sync": true,
+						"default": 0
+					}
+				}
+			},
+
+			"components": {
+				"minecraft:type_family": {
+					"family": ["cleric_control", "potion", "origins", "inanimate"]
+				},
+
+				"minecraft:collision_box": {
+					"width": 0.0,
+					"height": 0.0
+				},
+
+				"minecraft:physics": {},
+
+				"minecraft:pushable": {
+					"is_pushable": false,
+					"is_pushable_by_piston": true
+				},
+
+				//? Immune to everything: it is a marker, not a target.
+				"minecraft:damage_sensor": {
+					"triggers": {
+						"cause": "all",
+						"deals_damage": "no"
+					}
+				},
+
+				"minecraft:conditional_bandwidth_optimization": {
+					"default_values": {
+						"max_optimized_distance": 80.0,
+						"max_dropped_ticks": 5,
+						"use_motion_prediction_hints": true
+					}
+				}
+			}
+		}
+	}
+}

@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "r4isen1920_originspe:cleric_splash_potion_turtle_master",
+			"identifier": "r4isen1920_originspe:cleric_potion_splash",
 			"basic_render_parameters": {
 				"material": "particles_blend",
 				"texture": "textures/particle/particles"
@@ -60,14 +60,14 @@
 				"expire_on_contact": true
 			},
 			"minecraft:particle_appearance_lighting": {},
+
 			"minecraft:particle_appearance_tinting": {
-				"color": {
-					"interpolant": "variable.particle_age",
-					"gradient": {
-						"0.57": "#FF93BB79",
-						"1.0": "#FF7EABB2"
-					}
-				}
+				"color": [
+					"math.lerp(1.0, variable.color.r, variable.particle_age / variable.particle_lifetime)",
+					"math.lerp(1.0, variable.color.g, variable.particle_age / variable.particle_lifetime)",
+					"math.lerp(1.0, variable.color.b, variable.particle_age / variable.particle_lifetime)",
+					1.0
+				]
 			}
 		}
 	}

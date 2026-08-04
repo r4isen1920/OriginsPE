@@ -1,0 +1,47 @@
+//? Lets an already-enhanced potion keep moving along vanilla's container chain:
+//? drinkable + gunpowder -> splash, splash + dragon's breath -> lingering. Without
+//? these, a Cleric potion is a dead end because it is no longer `minecraft:potion`
+//? and so matches none of vanilla's container recipes.
+//?
+//? Vanilla needs one recipe per step because the potion identity rides in the data
+//? value. Ours is baked into the item id, so every (potion, tier) pair needs its own
+//? pair of recipes -- 22 pairs, 44 recipes.
+{
+	"$scope": {
+		"__array": [
+			{
+				"{{#cleric_potions as p}}": {
+					"{{#p.tiers as t}}": {
+						"{{#cleric_potion_deliveries.filter(d => d.brewed_from != null) as d}}": {
+							"id": "{{p.id}}",
+							"tier": "{{t.tier}}",
+							"from": "{{d.brewed_from}}",
+							"to": "{{d.id}}",
+							"reagent": "{{d.reagent}}"
+						}
+					}
+				}
+			}
+		]
+	},
+
+	"$files": {
+		"array": "__array",
+		"filename": "{{to}}/{{tier}}_{{id}}.r"
+	},
+
+	"$template": {
+		"format_version": "1.20.10",
+		"minecraft:recipe_brewing_container": {
+			"description": {
+				"identifier": "r4isen1920_originspe:brew_cleric_{{tier}}_{{id}}_{{to}}"
+			},
+
+			"tags": [ "brewing_stand" ],
+
+			"input": "r4isen1920_originspe:cleric_{{from}}_{{tier}}_{{id}}",
+			"reagent": "{{reagent}}",
+			"output": "r4isen1920_originspe:cleric_{{to}}_{{tier}}_{{id}}"
+		}
+	}
+}

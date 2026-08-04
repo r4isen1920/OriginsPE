@@ -1,0 +1,52 @@
+{
+	"$scope": {
+		"__deliveries": [
+			{
+				"{{#cleric_potion_deliveries.filter(d => d.throwable) as d}}": {
+					"id": "{{d.id}}",
+					"entity": "{{d.entity}}",
+					"prefix": "{{d.texture}}"
+				}
+			}
+		]
+	},
+
+	"$files": {
+		"array": "__deliveries",
+		"filename": "{{id}}.ce"
+	},
+
+	"$template": {
+		"format_version": "1.10.0",
+		"minecraft:client_entity": {
+			"description": {
+				"identifier": "{{entity}}",
+				"materials": {
+					"default": "splash_potion_enchanted"
+				},
+
+				"textures": {
+					"{{#cleric_potions as p}}": {
+						"{{p.id}}": "textures/items/{{prefix}}_{{p.texture}}"
+					},
+					"enchanted": "textures/misc/enchanted_item_glint"
+				},
+
+				"geometry": {
+					"default": "geometry.item_sprite"
+				},
+
+				"render_controllers": [
+					"controller.render.r4isen1920_originspe.cleric_potion"
+				],
+
+				"animations": {
+					"flying": "animation.actor.billboard"
+				},
+				"scripts": {
+					"animate": ["flying"]
+				}
+			}
+		}
+	}
+}

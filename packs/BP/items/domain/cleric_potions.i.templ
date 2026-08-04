@@ -1,0 +1,109 @@
+{
+	//? see `packs/data/jsonte/cleric_potions.json`
+	//?
+	//? Emits the full cross product of potion x tier x delivery. The data file
+	//? only lists the 22 tier combinations vanilla actually brews (13 long,
+	//? 9 potent), so this expands to exactly 66 items rather than the 90 a
+	//? naive 15 x 2 x 3 product would produce.
+	//?
+	//? Every item reuses vanilla art and vanilla display-name keys, so neither
+	//? new textures nor new lang entries are required for any of the 66.
+
+	"$scope": {
+		"__array": [
+			{
+				"{{#cleric_potions as p}}": {
+					"{{#p.tiers as t}}": {
+						"{{#cleric_potion_deliveries as d}}": {
+							"id": "{{p.id}}",
+							"texture": "{{p.texture}}",
+							"lang": "{{p.lang}}",
+
+							"tier": "{{t.tier}}",
+
+							"delivery": "{{d.id}}",
+							"delivery_lang": "{{d.lang}}",
+							"delivery_texture": "{{d.texture}}",
+							"throwable": "{{=d.throwable}}",
+							"entity": "{{d.entity}}"
+						}
+					}
+				}
+			}
+		]
+	},
+
+	"$files": {
+		"array": "__array",
+		"filename": "cleric/{{delivery}}/{{tier}}_{{id}}.i"
+	},
+
+	"$template": {
+		"format_version": "1.26.30",
+		"minecraft:item": {
+			"description": {
+				"identifier": "r4isen1920_originspe:cleric_{{delivery}}_{{tier}}_{{id}}",
+				"menu_category": {
+					"category": "none",
+					"is_hidden_in_commands": true
+				}
+			},
+
+			"components": {
+				//? Atlas keys are registered in `packs/RP/textures/item_texture.templ`
+				//? and simply point back at the vanilla potion bottle textures.
+				"minecraft:icon": "r4isen1920_originspe:{{delivery_texture}}_{{texture}}",
+
+				//? Vanilla already ships every name we need, across all three
+				//? delivery forms. Note `lang` is the display-name suffix, which
+				//? differs from the texture suffix for slow falling alone.
+				"minecraft:display_name": {
+					"value": "potion.{{lang}}{{delivery_lang}}.name"
+				},
+
+				"minecraft:rarity": "rare",
+				"minecraft:glint": true,
+
+				//? Potions are unstackable in vanilla; keeping that is what lets
+				//? ItemBonuses write a lore line without splitting stacks.
+				"minecraft:max_stack_size": {
+					"value": 1
+				},
+
+				"minecraft:tags": {
+					"tags": [
+						"r4isen1920_originspe:cleric_potion",
+						{ "{{?delivery != 'potion'}}": "r4isen1920_originspe:cleric_{{delivery}}" }
+					]
+				},
+
+				//? Throwables hand off to the projectile entity, which carries the
+				//? identity as an actor property rather than the old variant soup.
+				"{{?throwable}}": {
+					"minecraft:throwable": {
+						"do_swing_animation": true
+					},
+					"minecraft:projectile": {
+						"projectile_entity": "{{entity}}"
+					},
+					"minecraft:use_modifiers": {
+						"use_duration": 0
+					}
+				},
+
+				//? Drinkables are consumed in hand; the empty bottle is returned by
+				//? PotionService on the item-complete-use event.
+				"{{?!throwable}}": {
+					"minecraft:food": {
+						"can_always_eat": true,
+						"using_converts_to": "minecraft:glass_bottle"
+					},
+					"minecraft:use_animation": "drink",
+					"minecraft:use_modifiers": {
+						"use_duration": 1.6
+					}
+				}
+			}
+		}
+	}
+}

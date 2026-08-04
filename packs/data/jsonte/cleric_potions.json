@@ -1,0 +1,219 @@
+{
+	"cleric_potions": [
+		{
+			"id": "swiftness",
+			"texture": "moveSpeed",
+			"lang": "moveSpeed",
+			"color": "#7CAFC6",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_swiftness", "effects": [{ "effect": "minecraft:speed", "duration": 9600, "amplifier": 0 }] },
+				{ "tier": "potent", "potion": "minecraft:strong_swiftness", "effects": [{ "effect": "minecraft:speed", "duration": 1800, "amplifier": 1 }] }
+			]
+		},
+		{
+			"id": "slowness",
+			"texture": "moveSlowdown",
+			"lang": "moveSlowdown",
+			"color": "#5A6C81",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_slowness", "effects": [{ "effect": "minecraft:slowness", "duration": 4800, "amplifier": 0 }] },
+				{ "tier": "potent", "potion": "minecraft:strong_slowness", "effects": [{ "effect": "minecraft:slowness", "duration": 400, "amplifier": 3 }] }
+			]
+		},
+		{
+			"id": "strength",
+			"texture": "damageBoost",
+			"lang": "damageBoost",
+			"color": "#932423",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_strength", "effects": [{ "effect": "minecraft:strength", "duration": 9600, "amplifier": 0 }] },
+				{ "tier": "potent", "potion": "minecraft:strong_strength", "effects": [{ "effect": "minecraft:strength", "duration": 1800, "amplifier": 1 }] }
+			]
+		},
+		{
+			// Instant effects carry no duration; only the amplifier is meaningful.
+			"id": "healing",
+			"texture": "heal",
+			"lang": "heal",
+			"color": "#F82423",
+			"tiers": [
+				{ "tier": "potent", "potion": "minecraft:strong_healing", "effects": [{ "effect": "minecraft:instant_health", "duration": 0, "amplifier": 1 }] }
+			]
+		},
+		{
+			"id": "harming",
+			"texture": "harm",
+			"lang": "harm",
+			"color": "#430A09",
+			"tiers": [
+				{ "tier": "potent", "potion": "minecraft:strong_harming", "effects": [{ "effect": "minecraft:instant_damage", "duration": 0, "amplifier": 1 }] }
+			]
+		},
+		{
+			"id": "leaping",
+			"texture": "jump",
+			"lang": "jump",
+			"color": "#22FF4C",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_leaping", "effects": [{ "effect": "minecraft:jump_boost", "duration": 9600, "amplifier": 0 }] },
+				{ "tier": "potent", "potion": "minecraft:strong_leaping", "effects": [{ "effect": "minecraft:jump_boost", "duration": 1800, "amplifier": 1 }] }
+			]
+		},
+		{
+			"id": "regeneration",
+			"texture": "regeneration",
+			"lang": "regeneration",
+			"color": "#CD5CAB",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_regeneration", "effects": [{ "effect": "minecraft:regeneration", "duration": 1800, "amplifier": 0 }] },
+				{ "tier": "potent", "potion": "minecraft:strong_regeneration", "effects": [{ "effect": "minecraft:regeneration", "duration": 440, "amplifier": 1 }] }
+			]
+		},
+		{
+			"id": "fire_resistance",
+			"texture": "fireResistance",
+			"lang": "fireResistance",
+			"color": "#E49A3A",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_fire_resistance", "effects": [{ "effect": "minecraft:fire_resistance", "duration": 9600, "amplifier": 0 }] }
+			]
+		},
+		{
+			"id": "water_breathing",
+			"texture": "waterBreathing",
+			"lang": "waterBreathing",
+			"color": "#2E5299",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_water_breathing", "effects": [{ "effect": "minecraft:water_breathing", "duration": 9600, "amplifier": 0 }] }
+			]
+		},
+		{
+			"id": "invisibility",
+			"texture": "invisibility",
+			"lang": "invisibility",
+			"color": "#7F8392",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_invisibility", "effects": [{ "effect": "minecraft:invisibility", "duration": 9600, "amplifier": 0 }] }
+			]
+		},
+		{
+			// The one irregular vanilla id: long_nightvision, with no underscore.
+			"id": "night_vision",
+			"texture": "nightVision",
+			"lang": "nightVision",
+			"color": "#1F1FA1",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_nightvision", "effects": [{ "effect": "minecraft:night_vision", "duration": 9600, "amplifier": 0 }] }
+			]
+		},
+		{
+			"id": "weakness",
+			"texture": "weakness",
+			"lang": "weakness",
+			"color": "#484D48",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_weakness", "effects": [{ "effect": "minecraft:weakness", "duration": 4800, "amplifier": 0 }] }
+			]
+		},
+		{
+			"id": "poison",
+			"texture": "poison",
+			"lang": "poison",
+			"color": "#4E9331",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_poison", "effects": [{ "effect": "minecraft:poison", "duration": 1800, "amplifier": 0 }] },
+				{ "tier": "potent", "potion": "minecraft:strong_poison", "effects": [{ "effect": "minecraft:poison", "duration": 420, "amplifier": 1 }] }
+			]
+		},
+		{
+			// The only multi-effect potion, and the reason `effects` is an array.
+			// The legacy entities modelled this as a single effect and silently
+			// dropped resistance.
+			"id": "turtle_master",
+			"texture": "turtleMaster",
+			"lang": "turtleMaster",
+			"color": "#4C6C86",
+			"tiers": [
+				{
+					"tier": "long",
+					"potion": "minecraft:long_turtle_master",
+					"effects": [
+						{ "effect": "minecraft:slowness", "duration": 800, "amplifier": 3 },
+						{ "effect": "minecraft:resistance", "duration": 800, "amplifier": 2 }
+					]
+				},
+				{
+					"tier": "potent",
+					"potion": "minecraft:strong_turtle_master",
+					"effects": [
+						{ "effect": "minecraft:slowness", "duration": 400, "amplifier": 5 },
+						{ "effect": "minecraft:resistance", "duration": 400, "amplifier": 3 }
+					]
+				}
+			]
+		},
+		{
+			// Texture suffix is slowFall, display-name suffix is slowFalling.
+			"id": "slow_falling",
+			"texture": "slowFall",
+			"lang": "slowFalling",
+			"color": "#F7F8E0",
+			"tiers": [
+				{ "tier": "long", "potion": "minecraft:long_slow_falling", "effects": [{ "effect": "minecraft:slow_falling", "duration": 4800, "amplifier": 0 }] }
+			]
+		}
+	],
+
+	// The three containers a brewed potion can end up in. `factor` scales the
+	// derived duration. Vanilla docks splash potions to 0.75; the Cleric's
+	// enhanced splashes deliberately drop that penalty and sit at parity with
+	// the drinkable. Lingering keeps vanilla's 0.25 per-application value
+	// because the cloud reapplies the effect on every stage tick.
+	//
+	// `brewed_from` and `reagent` mirror vanilla's container chain and drive
+	// `packs/BP/recipes/domain/cleric/brewing.r.templ`, so an already-enhanced
+	// potion can keep being brewed forward without losing its tier.
+	"cleric_potion_deliveries": [
+		{
+			"id": "potion",
+			"lang": "",
+			"texture": "potion_bottle",
+			"factor": 1.0,
+			"throwable": false,
+			"entity": null,
+			"brewed_from": null,
+			"reagent": null
+		},
+		{
+			"id": "splash_potion",
+			"lang": ".splash",
+			"texture": "potion_bottle_splash",
+			"factor": 1.0,
+			"throwable": true,
+			"entity": "r4isen1920_originspe:cleric_splash_potion",
+			"brewed_from": "potion",
+			"reagent": "minecraft:gunpowder"
+		},
+		{
+			"id": "lingering_potion",
+			"lang": ".linger",
+			"texture": "potion_bottle_lingering",
+			"factor": 0.25,
+			"throwable": true,
+			"entity": "r4isen1920_originspe:cleric_lingering_potion",
+			"brewed_from": "splash_potion",
+			"reagent": "minecraft:dragon_breath"
+		}
+	],
+
+
+	"cleric_potion_cloud": {
+		"stage_ticks": 150,
+		"stages": [
+			{ "radius": 3.0 },
+			{ "radius": 3.0 },
+			{ "radius": 2.0 },
+			{ "radius": 1.0 }
+		]
+	}
+}
