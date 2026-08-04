@@ -1,99 +1,92 @@
-import {
-    ItemCompleteUseAfterEvent,
-    ItemStack,
-    Player,
-    world,
-} from '@minecraft/server';
-
+import { MinecraftItemTypes } from '@minecraft/vanilla-data';
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
-import { PlayerState } from '../../core/platform/PlayerState';
+import { EntityComponentTypes, ItemCompleteUseAfterEvent, Player } from '@minecraft/server';
+import { EntityUtils, Log } from '../../utils';
+import { AfterItemCompleteUse } from '../../core';
+import { ItemBonuses } from '../../core/platform/ItemBonuses';
 
-const GOOD_MEALS_LORE = '§r§6Good Meals§r';
-const GOOD_MEALS_DESC = '§r§7Cooked with exceptional culinary expertise.§r';
 
-const TEMP_FOOD_ITEMS = [
-    'r4isen1920_originspe:temp_baked_potato',
-    'r4isen1920_originspe:temp_beetroot_soup',
-    'r4isen1920_originspe:temp_bread',
-    'r4isen1920_originspe:temp_cooked_beef',
-    'r4isen1920_originspe:temp_cooked_chicken',
-    'r4isen1920_originspe:temp_cooked_cod',
-    'r4isen1920_originspe:temp_cooked_mutton',
-    'r4isen1920_originspe:temp_cooked_porkchop',
-    'r4isen1920_originspe:temp_cooked_rabbit',
-    'r4isen1920_originspe:temp_cooked_salmon',
-    'r4isen1920_originspe:temp_dried_kelp',
-];
-
-const VANILLA_FOOD_IDS = new Set(
-    TEMP_FOOD_ITEMS.map(id => id.replace('r4isen1920_originspe:temp_', 'minecraft:'))
-);
 
 @RegisterPerk
 export class MoreSaturatedFood implements Perk {
-    readonly id = 'more_saturated_food';
-    readonly tickInterval = 3;
+	private static readonly log = Log.get('MoreSaturatedFood');
 
-    static {
-        // FIXED: Inline the compilation callback handler right where it is subscribed to avoid the type map issue
-        world.afterEvents.itemCompleteUse.subscribe((ev) => {
-            const { itemStack, source } = ev;
-            if (source.typeId !== 'minecraft:player') return;
-            if (!itemStack || !VANILLA_FOOD_IDS.has(itemStack.typeId)) return;
-            
-            const lore = itemStack.getLore();
-            const hasMealsLore = lore.some(line => line === GOOD_MEALS_LORE);
-            if (!hasMealsLore) return;
+	readonly id = 'more_saturated_food';
+	readonly tickInterval = 2;
 
-            const player = source as Player;
-            player.runCommand('effect @s saturation 1 0 true');
-        });
-    }
 
-    /**
-     * Helper method to safely read array lines and confirm lore tags match
-     */
-    private static hasGoodMealsLore(item: ItemStack): boolean {
-        const lore = item.getLore();
-        return lore.some(line => line === GOOD_MEALS_LORE);
-    }
+	private static readonly affectedItems: FoodItemEntry[] = [
+		{ itemTypeId: MinecraftItemTypes.BakedPotato, saturation: 6 },
+		{ itemTypeId: MinecraftItemTypes.BeetrootSoup, saturation: 7.2 },
+		{ itemTypeId: MinecraftItemTypes.Bread, saturation: 6 },
+		{ itemTypeId: MinecraftItemTypes.CookedBeef, saturation: 12.8 },
+		{ itemTypeId: MinecraftItemTypes.CookedChicken, saturation: 7.2 },
+		{ itemTypeId: MinecraftItemTypes.CookedCod, saturation: 6 },
+		{ itemTypeId: MinecraftItemTypes.CookedMutton, saturation: 9.6 },
+		{ itemTypeId: MinecraftItemTypes.CookedPorkchop, saturation: 12.8 },
+		{ itemTypeId: MinecraftItemTypes.CookedRabbit, saturation: 6 },
+		{ itemTypeId: MinecraftItemTypes.CookedSalmon, saturation: 9.6 },
+		{ itemTypeId: MinecraftItemTypes.DriedKelp, saturation: 0.2 },
+		{ itemTypeId: MinecraftItemTypes.MushroomStew, saturation: 7.2 },
+		{ itemTypeId: MinecraftItemTypes.GoldenCarrot, saturation: 14.4 },
+		{ itemTypeId: MinecraftItemTypes.RabbitStew, saturation: 12 },
+	];
 
-    onRelease(player: Player): void {}
 
-    /**
-     * Handles upgrading items for active Cooks without running any restoration loops
-     */
-    onTick(player: Player): void {
-        const inventory = player.getComponent('inventory')?.container;
-        if (!inventory) return;
+	//#region Apply
 
-        if (!PlayerState.for(player).hasPerk('more_saturated_food')) return;
+	onTick(player: Player): void {
+		const container = EntityUtils.getComponent(player, EntityComponentTypes.Inventory)?.container;
+		if (!container) return;
 
-        let converted = false;
+		const inventory = EntityUtils.getInventory(player);
+		if (!inventory) return;
 
-        for (let slot = 0; slot < inventory.size; slot++) {
-            const item = inventory.getItem(slot);
-            if (!item) continue;
+		for (const [slot, item] of inventory) {
+			if (!MoreSaturatedFood.affectedItems.some(e => e.itemTypeId === item.typeId)) continue;
 
-            if (TEMP_FOOD_ITEMS.includes(item.typeId)) {
-                const vanillaId = item.typeId.replace('r4isen1920_originspe:temp_', 'minecraft:');
-                const newItem = new ItemStack(vanillaId, item.amount);
-                newItem.setLore([GOOD_MEALS_LORE, GOOD_MEALS_DESC]);
-                
-                inventory.setItem(slot, newItem);
-                converted = true;
-            } 
-            else if (VANILLA_FOOD_IDS.has(item.typeId) && !MoreSaturatedFood.hasGoodMealsLore(item)) {
-                item.setLore([GOOD_MEALS_LORE, GOOD_MEALS_DESC]);
-                
-                inventory.setItem(slot, item);
-                converted = true;
-            }
-        }
+			const newItem = ItemBonuses.mark(item, 'more_saturated_food');
+			if (!newItem) continue;
 
-        if (converted) {
-            player.playSound('random.cook', { volume: 0.8, pitch: 1.0 });
-        }
-    }
+			container.setItem(slot, newItem);
+			MoreSaturatedFood.log.info(`Item marked: ${item.typeId} in slot ${slot} for player ${player.name}`);
+		}
+	}
+
+
+	//#region Triggers
+
+	@AfterItemCompleteUse
+	static onItemCompleteUse(event: ItemCompleteUseAfterEvent): void {
+		const { itemStack, source } = event;
+		const entry = MoreSaturatedFood.affectedItems.find(e => e.itemTypeId === itemStack.typeId);
+		if (
+			!entry ||
+			!ItemBonuses.hasBonus(itemStack, 'more_saturated_food')
+		) return;
+
+		const hunger = EntityUtils.getComponent(source, EntityComponentTypes.Hunger);
+		if (!hunger) return;
+
+		const curr = hunger.currentValue;
+		const restoreAmount = entry.saturation * 0.25; // 25% more saturation
+		hunger.setCurrentValue(
+			Math.min(
+				curr + restoreAmount,
+				hunger.effectiveMax
+			)
+		);
+		this.log.info(`Applied hunger: ${restoreAmount}, for ${source.name}, item: ${itemStack.typeId}, was: ${curr}, now: ${hunger.currentValue}`);
+	}
+}
+
+
+
+//#region Types
+type FoodItemEntry = {
+	/** The type identifier of this food entry */
+	itemTypeId: string;
+	/** Amount of saturation that this food typically restores */
+	saturation: number;
 }
