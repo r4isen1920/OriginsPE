@@ -1,0 +1,19 @@
+{
+	"$copy": "{{getLatestRPFile('animation_controllers/player.animation_controllers.json')}}",
+
+	"$template": {
+		"animation_controllers": {
+			"controller.animation.player.root": {
+				"states": {
+					"third_person": {
+						"animations": [
+							{
+								"third_person_bow_equipped": "q.is_item_name_any('slot.weapon.mainhand', 0, 'r4isen1920_originspe:enhanced_bow') && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

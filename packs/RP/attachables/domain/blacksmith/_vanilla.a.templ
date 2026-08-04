@@ -1,0 +1,74 @@
+{
+	"$scope": {
+		"included": [
+			{
+				"{{#blacksmith_tools as bt}}": "{{keys(bt).contains('material') ? (bt.material + '_' + bt.type) : bt.type}}"
+			}
+		],
+		// some of these tools aren't provided by the vanilla template for some reason and requires other form of unique implementation methods, thx mojang
+		"excluded": [
+			"bow",
+			"shield",
+			{ "{{#(blacksmith_tools).filter(b => b.type == 'spear') as bt}}": "{{bt.material}}_{{bt.type}}" }
+		],
+
+		"trim": {
+			"patterns": [
+				"bolt", "coast", "dune", "eye", "flow", "host", "raiser", "rib", "sentry", "shaper", "silence", "snout", "spire", "tide", "vex", "ward", "wayfinder", "wild"
+			],
+			"palettes": [
+				"amethyst", "copper", "diamond", "emerald", "gold", "iron", "lapis", "netherite", "quartz", "resin"
+			]
+		}
+	},
+
+	"$files": {
+		"array": "listLatestRPFiles('attachables').filter(x => included.contains(fileBaseName(x)) && !excluded.contains(fileBaseName(x)))",
+		"filename": "{{fileBaseName(value)}}.a"
+	},
+	"$copy": "{{value}}",
+
+	"$template": {
+		"format_version": "1.26.30",
+		"minecraft:attachable": {
+			"description": {
+				"identifier": "r4isen1920_originspe:enhanced_{{fileBaseName(value)}}",
+
+
+				"textures": {
+					"{{?['helmet', 'chestplate', 'leggings', 'boots'].contains(split(fileBaseName(value), '_')[1])}}": {
+						"{{#trim.patterns as pattern_name}}": {
+							"{{pattern_name}}_trim": "textures/trims/{{pattern_name}}{{contains(fileBaseName(value), 'leggings') ? '_leggings' : ''}}"
+						},
+						"{{#trim.palettes as palette_name}}": {
+							"{{palette_name}}_palette": "textures/trims/color_palettes/{{palette_name}}",
+							"{{?palette_name != 'amethyst'}}": {
+								"{{palette_name}}_palette_darker": "textures/trims/color_palettes/{{palette_name}}_darker"
+							}
+						}
+					},
+					"{{?(contains(fileBaseName(value), 'leather'))}}": {
+						"dyed": "textures/models/armor/leather_{{contains(fileBaseName(value), 'leggings') ? 2 : 1}}"
+					}
+				},
+
+				"{{?(contains(fileBaseName(value), 'leather'))}}": {
+					"materials": {
+						"dyed": "entity_alphatest_change_color"
+					},
+
+
+					"scripts": {
+						"pre_animation": [
+							"variable.is_dyed = query.armor_color_slot(1, 0) != 1.0 || query.armor_color_slot(1, 1) != 1.0 || query.armor_color_slot(1, 2) != 1.0;"
+						]
+					}
+
+					// "render_controllers": [
+					// 	"controller.render.r4isen1920_originspe.blacksmith.leather_armor"
+					// ]
+				}
+			}
+		}
+	}
+}

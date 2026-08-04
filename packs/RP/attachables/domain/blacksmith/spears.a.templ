@@ -1,0 +1,47 @@
+{
+	"$files": {
+		"array": "blacksmith_tools.filter(b => b.type == 'spear')",
+		"filename": "{{material}}_{{type}}.a"
+	},
+
+	"$template": {
+		"format_version": "1.10.0",
+		"minecraft:attachable": {
+			"description": {
+				"identifier": "r4isen1920_originspe:enhanced_{{material}}_{{type}}",
+				"materials": {
+					"default": "entity_alphatest",
+					"enchanted": "entity_alphatest_glint"
+				},
+				"textures": {
+					"default": "textures/entity/spear/{{material == 'golden' ? 'gold' : (material == 'wooden' ? 'wood' : material)}}_spear",
+					"enchanted": "textures/misc/enchanted_item_glint"
+				},
+				"geometry": {
+					"default": "geometry.spear"
+				},
+				"animations": {
+					"held_first_person": "animation.spear.held_first_person",
+					"held_third_person": "animation.spear.held_third_person",
+					"hit": "animation.spear.hit",
+					"control_held": "controller.animation.spear.held",
+					"control_hit": "controller.animation.spear.hit"
+				},
+				"scripts": {
+					"animate": [
+						{
+							"held_first_person": "c.is_first_person"
+						},
+						{
+							"held_third_person": "!c.is_first_person"
+						},
+						{
+							"hit": "c.owning_entity->query.ticks_since_last_kinetic_weapon_hit >= 0.0 && c.owning_entity->query.ticks_since_last_kinetic_weapon_hit <= 5.0"
+						}
+					]
+				},
+				"render_controllers": ["controller.render.item_default"]
+			}
+		}
+	}
+}

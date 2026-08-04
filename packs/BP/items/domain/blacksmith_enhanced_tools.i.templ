@@ -1,0 +1,233 @@
+{
+	"$files": {
+		"array": "blacksmith_tools",
+		"filename": "blacksmith/{{material != null ? (material + '/' + type) : type}}.i"
+	},
+
+	"$template": {
+		"format_version": "1.26.30",
+		"minecraft:item": {
+			"description": {
+				"identifier": "r4isen1920_originspe:enhanced_{{material != null ? (material + '_' + type) : type}}",
+				"menu_category": {
+					"category": "none",
+					"is_hidden_in_commands": true
+				}
+			},
+
+			"components": {
+				"{{?!(type == 'spear' || material == 'leather')}}": {
+					"minecraft:icon": "{{material != null ? (material + '_' + type) : type}}"
+				},
+
+				"minecraft:display_name": {
+					"value": "item.{{material != null ? (material + '_' + type) : type}}.name"
+				},
+				//? Rarity increased by two tiers by default
+				"minecraft:rarity": "rare",
+
+				"minecraft:hand_equipped": "{{=!['helmet', 'chestplate', 'leggings', 'boots', 'bow'].contains(type)}}",
+				"minecraft:can_destroy_in_creative": "{{=!(type == 'sword' || type == 'spear')}}",
+
+
+				"minecraft:max_stack_size": {
+					"value": 1
+				},
+
+				"minecraft:tags": {
+					"tags": [
+						"r4isen1920_originspe:blacksmith_forged",
+
+						"minecraft:is_{{type}}",
+
+						{ "{{?['helmet', 'chestplate', 'leggings', 'boots'].contains(type)}}": "minecraft:is_armor" },
+						{ "{{?['helmet', 'chestplate', 'leggings', 'boots'].contains(type)}}": "minecraft:trimmable_armors" },
+
+						{ "{{?material}}": "minecraft:{{material}}_tier" },
+						{ "{{?material == 'diamond'}}": "minecraft:transformable_items" }
+					]
+				},
+
+				//? Enchantability increased by 4
+				"minecraft:enchantable": {
+					"value": "{{=(material == 'golden' ? 25 : (material == 'wooden' ? 15 : (material == 'leather' ? 15 : (material == 'netherite' ? 15 : (material == 'copper' ? 12 : (material == 'diamond' ? 10 : (material == 'iron' ? 9 : (material == 'stone' ? 5 : (type == 'mace' ? 10 : (type == 'bow' ? 1 : 0))))))))) + 4)}}",
+					"slot": "{{type == 'helmet' ? 'armor_head' : (type == 'chestplate' ? 'armor_torso' : (type == 'leggings' ? 'armor_legs' : (type == 'boots' ? 'armor_feet' : (type == 'spear' ? 'melee_spear' : type))))}}"
+				},
+				//? Durability increased by 25%
+				"minecraft:durability": {
+					"max_durability": "{{=(durability + floor(durability * 0.25))}}",
+					"damage_chance": {
+						"min": 0,
+						"max": 100
+					}
+				},
+				"minecraft:repairable": {
+					"repair_items": [
+						{
+							"items": [
+								"r4isen1920_originspe:enhanced_{{material != null ? (material + '_' + type) : type}}"
+							],
+							//? Repairing by matching Blacksmith tools repairs an amount similar to vanilla rate
+							"repair_amount": "math.min(q.remaining_durability + (c.other -> q.remaining_durability) + math.floor(q.max_durability / 20), (c.other -> q.max_durability))"
+						},
+						{
+							"items": [
+								"minecraft:{{material != null ? (material + '_' + type) : type}}"
+							],
+							//? Repairing from non-Blacksmith tools amounts to a fixed 10% of max durability
+							"repair_amount": "q.max_durability * 0.1"
+						},
+						{
+							"items": [
+								{ "{{?material == 'iron' || material == 'golden'}}": "minecraft:{{material}}_ingot" },
+								{ "{{?material != 'iron' && material != 'golden'}}": "minecraft:{{material}}" }
+							],
+							//? Repairable by material now amounts to 33% of durability instead of 25%
+							"repair_amount": "q.max_durability * 0.33"
+						}
+					]
+				},
+
+				//? Base damage dealt increased by 1
+				"{{?damage}}": {
+					"minecraft:damage": "{{=damage + 1}}"
+				},
+				"{{?(protection && ['helmet', 'chestplate', 'leggings', 'boots'].contains(type))}}": {
+					//? Base protection increased by 1
+					"minecraft:wearable": {
+						"slot": "slot.armor.{{type == 'helmet' ? 'head' : (type == 'chestplate' ? 'chest' : (type == 'leggings' ? 'legs' : 'feet'))}}",
+						"protection": "{{=(protection + 1)}}"
+					},
+					"minecraft:damage_absorption": {
+						"absorbable_causes": ["all"]
+					},
+
+					"{{?material == 'leather'}}": {
+						"minecraft:dyeable": {
+							"default_color": "#A06540"
+						},
+
+						"minecraft:icon": {
+							"textures": {
+								"default": "leather_{{type}}_default",
+								"dyed": "leather_{{type}}_dyed"
+							}
+						}
+					}
+				},
+
+
+				"{{?material == 'netherite'}}": {
+					"minecraft:fire_resistant": {
+						"value": true
+					}
+				},
+
+
+				"{{?['axe', 'hoe', 'pickaxe', 'shovel', 'sword'].contains(type)}}": {
+					//? Digger speed increased by 2
+					"minecraft:digger": {
+						"use_efficiency": true,
+						"destroy_speeds": [
+							{
+								"block": {
+									"tags": "q.any_tag('minecraft:is_{{type}}_item_destructible')"
+								},
+								"speed": "{{=(material == 'netherite' ? 9 : (material == 'diamond' ? 8 : (material == 'golden' ? 12 : (material == 'iron' ? 6 : ((material == 'stone' || material == 'copper' ? 4 : 2)))))) + 2}}"
+							}
+						]
+					},
+
+					"r4isen1920_originspe:blacksmith_tool": {}
+				},
+
+
+				"{{?type == 'spear'}}": {
+					"minecraft:icon": "{{material != null ? ((material == 'golden' ? 'gold' : (material == 'wooden' ? 'wood' : material)) + '_' + type) : type}}",
+
+					"minecraft:swing_duration": {
+						"value": 0.85
+					},
+					"minecraft:swing_sounds": {
+						"attack_hit": "item.spear.attack_hit",
+						"attack_miss": "item.spear.attack_miss"
+					},
+
+					"minecraft:use_modifiers": {
+						"use_duration": 72000,
+						"start_sound": "item.spear.use",
+						"emit_vibrations": false,
+						"movement_modifier": 1.0
+					},
+
+					"minecraft:piercing_weapon": {
+						"reach": {
+							"min": 2.0,
+							"max": 4.5
+						},
+						"creative_reach": {
+							"min": 2.0,
+							"max": 7.5
+						},
+						"hitbox_margin": 0.25
+					},
+					"minecraft:kinetic_weapon": {
+						"delay": 12,
+						"reach": {
+							"min": 2.0,
+							"max": 4.5
+						},
+						"creative_reach": {
+							"min": 2.0,
+							"max": 7.5
+						},
+						"hitbox_margin": 0.25,
+						"damage_multiplier": 0.95,
+						"damage_conditions": {
+							"max_duration": 225,
+							"min_relative_speed": 4.6
+						},
+						"knockback_conditions": {
+							"max_duration": 90,
+							"min_speed": 5.1
+						},
+						"dismount_conditions": {
+							"max_duration": 50,
+							"min_speed": 11.0
+						}
+					},
+
+					//? Spear cooldown reduced by half
+					"minecraft:cooldown": {
+						"duration": 0.425,
+						"category": "spear",
+						"type": "attack"
+					}
+				},
+
+				"{{?(type == 'bow')}}": {
+					"minecraft:shooter": {
+						"ammunition": [
+							{
+								"item": "minecraft:arrow",
+								"use_offhand": true,
+								"search_inventory": true,
+								"use_in_creative": true
+							}
+						],
+						//? Bow max draw duration increased twice
+						"max_draw_duration": 3.0,
+						"scale_power_by_draw_duration": true
+					},
+
+
+					//? Bow use modifier slow down removed
+					"minecraft:use_modifiers": {
+						"use_duration": 72000,
+						"movement_modifier": 1.0
+					}
+				}
+			}
+		}
+	}
+}

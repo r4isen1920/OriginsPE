@@ -235,7 +235,7 @@ import './domain/perks/NoProjectileDivergence';
 import './domain/perks/BetterStew';
 import './domain/perks/LongerPotions';
 import './domain/perks/PowerfulPotions';
-import './domain/perks/QualityEquipments';
+import './domain/perks/QualityEquipment';
 import './domain/perks/EfficientRepairs';
 import './domain/perks/LessHealthMoreAttack';
 import './domain/perks/NoMiningExhaustion';
