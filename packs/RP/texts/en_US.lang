@@ -490,6 +490,8 @@ origins.change.fail.race=The Orb of Origins has been disabled
 origins.change.fail.class=The Resignation Paper has been disabled
 origins.change.fail.not_on_ground=You must be on ground to use this item
 
+origins.item_lore.bonuses=Bonuses:
+
 origins.wheel.empty=§z
 origins.wheel.options=Options
 
