@@ -60,7 +60,6 @@ import './domain/origins/Vampire';
 
 //* Powers
 import './domain/powers/HoneyMobility';
-import './domain/powers/StaticField';
 import './domain/powers/StormBorn';
 import './domain/powers/Claustrophile';
 import './domain/powers/CompactSize';
