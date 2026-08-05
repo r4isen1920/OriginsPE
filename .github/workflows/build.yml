@@ -183,15 +183,24 @@ jobs:
 
                   payload="$(jq -n --arg prompt "$prompt" '{contents: [{parts: [{text: $prompt}]}]}')"
 
-                  response="$(curl -sS -X POST \
+                  gemini_response_file="$(mktemp)"
+                  http_status="$(curl -sS -o "$gemini_response_file" -w "%{http_code}" -X POST \
                     -H 'Content-Type: application/json' \
                     "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}" \
                     -d "$payload" || true)"
+                  response="$(cat "$gemini_response_file")"
 
                   generated="$(echo "$response" | jq -r '.candidates[0].content.parts[0].text // empty')"
 
                   if [ -z "$generated" ]; then
                     echo "Gemini response missing content, using fallback release notes" >&2
+                    echo "Gemini HTTP status: ${http_status}" >&2
+                    if [ -n "$response" ]; then
+                      echo "Gemini response body:" >&2
+                      echo "$response" | jq . >&2 || echo "$response" >&2
+                    else
+                      echo "Gemini response body is empty" >&2
+                    fi
                     prs="$(echo "$CHANGE_CONTEXT" | jq -r '.pullRequests[]? | "- [#\(.number)](\(.url)) \(.title) (by @\(.actor))"')"
                     closed="$(echo "$CHANGE_CONTEXT" | jq -r '.issuesClosed[]? | "- [#\(.number)](\(.url)) \(.title) (by @\(.actor))"')"
                     opened="$(echo "$CHANGE_CONTEXT" | jq -r '.issuesOpened[]? | "- [#\(.number)](\(.url)) \(.title) (by @\(.actor))"')"
