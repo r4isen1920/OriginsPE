@@ -33,6 +33,15 @@
 					"scale": "v.p_model_type_transitioning || v.p_model_type != 'normal' ? 0 : 1"
 				}
 			}
+		},
+
+		"animation.player.hide_head": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"scale": "v.p_model_type_transitioning || v.p_model_type != 'normal' ? 0 : 1"
+				}
+			}
 		}
 	}
 }
