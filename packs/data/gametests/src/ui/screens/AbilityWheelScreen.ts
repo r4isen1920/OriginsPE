@@ -128,7 +128,7 @@ export class AbilityWheelScreen extends Screen {
 		const withinWindow = last !== undefined && now > last && now - last <= TAP_WINDOW_TICKS;
 		const count = withinWindow ? (this.pressCount.get(player.id) ?? 1) + 1 : 1;
 
-		if (count >= TAP_COUNT) {
+		if (count >= TAP_COUNT + (playerInput === InputMode.Touch ? 1 : 0)) {
 			this.lastPressed.delete(player.id);
 			this.pressCount.delete(player.id);
 			this.open(player);
