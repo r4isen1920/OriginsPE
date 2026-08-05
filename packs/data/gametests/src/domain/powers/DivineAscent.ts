@@ -67,7 +67,7 @@ export class DivineAscent implements Power {
 
 		const input = player.inputInfo;
 		const jumpHeld = input.getButtonState(InputButton.Jump) === ButtonState.Pressed;
-		const sneakHeld = input.getButtonState(InputButton.Sneak) === ButtonState.Pressed;
+		const sneakHeld = input.getButtonState(InputButton.Sneak) === ButtonState.Pressed || player.isSneaking;
 		const onGround = player.isOnGround;
 		const jumpRising = jumpHeld && !rt.prevJump;
 
