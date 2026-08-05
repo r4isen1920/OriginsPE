@@ -132,6 +132,7 @@ import './domain/powers/NineLives';
 import './domain/powers/Nocturnal';
 import './domain/powers/WeakArms';
 import './domain/powers/CatlikeAppearance';
+import './domain/powers/CatVision';
 import './domain/powers/Camouflage';
 import './domain/powers/FastFooted';
 import './domain/powers/Pounced';
