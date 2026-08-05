@@ -1,4 +1,4 @@
-import { ItemStartUseAfterEvent, Player } from '@minecraft/server';
+import { GameMode, ItemStartUseAfterEvent, Player } from '@minecraft/server';
 
 import { Items } from '../Files';
 import { AfterItemStartUse } from '../core/platform/DecoratedEvents';
@@ -81,4 +81,23 @@ export class ItemEntryPoints {
 		try { handler.onStartUse(player); }
 		catch (e: any) { this.log.error(`startUse '${handler.id}': `, e); }
 	}
+}
+
+
+//#region DECREMENT STK
+/**
+ * Removes one item from the player's stack of the given item, if they have any.
+ * 
+ * @remarks
+ * This uses the `clear` command.
+ * Although native container APIs could be used, this is simpler and more straightforward.
+ * 
+ * @param player The player to remove the item from.
+ * @param itemId The type identifier of the item to remove.
+ */
+export function decrementStack(player: Player, itemId: string): void {
+	const gm = player.getGameMode();
+	if (gm === GameMode.Creative) return;
+
+	player.runCommand(`clear @s ${itemId} 0 1`);
 }

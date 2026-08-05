@@ -10,6 +10,8 @@ import { neighborId } from '../PickerNavigation';
 import { isKind, isMode, isBanContextMode, isPickContextMode, resolveBanMode, resolvePickMode } from '../state/PickerModeSolver';
 import { Screen } from './Screen';
 import { UiRouter } from '../UiRouter';
+import { decrementStack } from '../ItemEntryPoints';
+import { Items } from '../../Files';
 
 
 //#region PICKER SCREEN
@@ -105,6 +107,10 @@ export class PickerScreen extends Screen {
 
 	private handleChange(player: Player, [, kind, id]: string[]): void {
 		if (!isKind(kind) || !id || !isValidId(kind, id)) return;
+		decrementStack(
+			player,
+			kind === PickerKind.Race ? Items.OrbOfOrigins : Items.ResignationPaper
+		);
 		// Open the pick picker at the current origin/class id. Does NOT commit or
 		// clear state -- the player will do that via the select button in pick mode.
 		const mode = resolvePickMode(kind, id, player);
