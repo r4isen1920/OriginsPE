@@ -105,10 +105,10 @@ export class OptionsScreen extends Screen {
 
 	private handleReset(player: Player, [, scope]: string[]): void {
 		switch (scope) {
+			//! This option is unused
 			case 'player': {
+				PlayerLifecycle.releaseAll(player);
 				PlayerState.for(player).reset();
-				// reset() wipes the power list, so applyOriginAndClass cannot diff and
-				// run onRelease for the old powers; clear their bars explicitly.
 				ResourceBarService.clear(player);
 				PlayerLifecycle.applyOriginAndClass(player);
 				const raceStart = defaultId(PickerKind.Race);
@@ -122,9 +122,8 @@ export class OptionsScreen extends Screen {
 				world.setDynamicProperty(WORLD_DYNAMIC_PROPERTIES.bans, undefined);
 				resetAllToggles();
 				for (const p of Ticker.getPlayers()) {
+					PlayerLifecycle.releaseAll(p);
 					PlayerState.for(p).reset();
-					// reset() wipes the power list, so applyOriginAndClass cannot diff and
-					// run onRelease for the old powers; clear their bars explicitly.
 					ResourceBarService.clear(p);
 					PlayerLifecycle.applyOriginAndClass(p);
 					const raceStart = defaultId(PickerKind.Race);

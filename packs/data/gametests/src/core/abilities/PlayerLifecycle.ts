@@ -234,6 +234,44 @@ export class PlayerLifecycle {
 		Version.markPlayerRecordCurrent(player);
 	}
 
+	/**
+	 * Invokes onRelease for all powers/perks and clears the player's state.
+	 * Used when resetting a player to a blank slate.
+	 */
+	static releaseAll(player: Player): void {
+		const state = PlayerState.for(player);
+		const prevPowers = state.getPowers();
+		const prevPerks = state.getPerks();
+
+		for (const id of prevPowers) {
+			AbilityDispatch.invoke(
+				player,
+				'Power',
+				id,
+				PowerRegistry.get(id),
+				'onRelease',
+				(power, attrs) => power.onRelease?.(player, attrs)
+			);
+			AttributeService.removeSource(player, AbilityDispatch.sourceIdFor('Power', id), true);
+		}
+		for (const id of prevPerks) {
+			AbilityDispatch.invoke(
+				player,
+				'Perk',
+				id,
+				PerkRegistry.get(id),
+				'onRelease',
+				(perk, attrs) => perk.onRelease?.(player, attrs)
+			);
+			AttributeService.removeSource(player, AbilityDispatch.sourceIdFor('Perk', id), true);
+		}
+
+		state.setPowers([]);
+		state.setPerks([]);
+		AttributeService.removeSource(player, 'origin:effects', true);
+		AttributeService.recompute(player, { full: true });
+	}
+
 	/** Registers an ability's unconditional attributes as its stacking source. Always registered so the ability owns a source even with no attributes. */
 	private static registerStaticSource(
 		player: Player,
