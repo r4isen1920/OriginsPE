@@ -1,8 +1,8 @@
-import { Origin, OriginDifficulty } from '../../core/abilities/Ability';
+import { Origin, OriginDifficulty, OriginEffects } from '../../core/abilities/Ability';
 import { RegisterOrigin } from '../../core/abilities/Registries';
 
 
-/** Phantom origin turn into spectator mode. */
+
 @RegisterOrigin
 export class Phantom implements Origin {
 	readonly id = 'phantom';
@@ -12,4 +12,7 @@ export class Phantom implements Origin {
 		'invisibility',
 		'burns_in_daylight',
 	];
+	readonly effects: OriginEffects = {
+		skin: 'ghostly',
+	}
 }
