@@ -1,8 +1,8 @@
-import { Player, EquipmentSlot } from '@minecraft/server';
+import { Player, EquipmentSlot, GameMode } from '@minecraft/server';
 import { Power } from '../../core/abilities/Ability';
 import { RegisterPower } from '../../core/abilities/Registries';
 import { PlayerState } from '../../core/platform/PlayerState';
-import { AttributeService } from '../../services/AttributeService';
+import { AttributeService, AttributeSourceInstance } from '../../services/AttributeService';
 import { EntityUtils } from '../../utils/EntityUtils';
 
 @RegisterPower
@@ -10,20 +10,17 @@ export class BurnsInDaylight implements Power {
 	readonly id = 'burns_in_daylight';
 	readonly tickInterval = 5;
 
-	onTick(player: Player): void {
-		if (!player?.isValid) return;
+	onTick(player: Player, attributes: AttributeSourceInstance): void {
+		if (player.getGameMode() === GameMode.Creative) return;
 
 		const state = PlayerState.for(player);
-		if (!state || !state.hasPower('burns_in_daylight')) return;
-
 		const isPhantom = state.getFlag<boolean>('is_phantomized') ?? false;
+
 		const equippableComp = EntityUtils.getComponent(player, 'equippable');
 		const hasHelmet = !!equippableComp?.getEquipment(EquipmentSlot.Head);
 
-		if (isPhantom || hasHelmet) {
-			AttributeService.apply(player, { burnsInDaylight: false });
-		} else {
-			AttributeService.apply(player, { burnsInDaylight: true });
-		}
+		attributes.set({
+			burnsInDaylight: !isPhantom && !hasHelmet,
+		});
 	}
 }
