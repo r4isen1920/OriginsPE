@@ -59,11 +59,12 @@
 			{
 				"background": {
 					"type": "image",
-					"size": ["100%", "100%"],
+					"size": ["100% + 1920px", "100% + 1080px"],
 					"texture": "textures/ui/White",
 					"color": [0.0, 0.0, 0.0],
 					"alpha": 0.6,
 					"layer": 1,
+					"allow_clipping": false,
 
 					"bindings": [
 						{
