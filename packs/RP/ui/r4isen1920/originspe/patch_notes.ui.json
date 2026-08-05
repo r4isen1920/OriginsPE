@@ -40,7 +40,7 @@
 			},
 			{
 				"body_2@patch_notes_label_body": {
-					"text": "This update brings brand new Origins: the Child of Zeus, and the Vampire! Additionally, one new Class has been added: the Athlete. The architecture and foundation of the Add-On's code has also been re-written from the ground up to allow for maintainability and readability, alongside many balancing tweaks, bug fixes, QoL and UI changes."
+					"text": "Adds 2 new Origins (Child of Zeus, Vampire), 1 new Class (Athlete), a full codebase rewrite for maintainability, plus balance, bug fix, QoL, and UI updates."
 				}
 			},
 			{
@@ -49,8 +49,8 @@
 				}
 			},
 			{
-				"sub_header_4@patch_notes_label_sub_header": {
-					"text": "New Origin: Child of Zeus"
+				"header_4@patch_notes_label_header": {
+					"text": "New Origins"
 				}
 			},
 			{
@@ -59,8 +59,8 @@
 				}
 			},
 			{
-				"body_6@patch_notes_label_body": {
-					"text": "Descendants of the great thunder God, capable of controlling the lightning itself."
+				"sub_header_6@patch_notes_label_sub_header": {
+					"text": "Child of Zeus"
 				}
 			},
 			{
@@ -69,48 +69,48 @@
 				}
 			},
 			{
-				"bullet_8@patch_notes_label_body": {
-					"text": "  - [Wrath of Olympus]: Conjures a powerful throwable Trident on your hand, creating an explosion and damaging mobs and players on impact. Has a 30-second cooldown."
+				"body_8@patch_notes_label_body": {
+					"text": "Thunder-born descendants with strong sky and lightning powers."
 				}
 			},
 			{
-				"bullet_9@patch_notes_label_body": {
-					"text": "  - [Divine Ascent]: Gifted with the power of skies, you can double jump able to hover and float around under a foam of clouds. You are also immune from fall damage."
-				}
-			},
-			{
-				"bullet_10@patch_notes_label_body": {
-					"text": "  - [Static Energy]: The power of electricity gushes in you. Applies slowness on mobs & players you hit, or hit you, which lasts for 6 seconds."
-				}
-			},
-			{
-				"bullet_11@patch_notes_label_body": {
-					"text": "  - [Discharge]: Whenever you deal damage on other mobs & players that are slowed, there is a 30% chance you will stun them for 1-2 seconds. Stunned enemies additionally take 3 health of damage for every 2 unique metallic items in your inventory."
-				}
-			},
-			{
-				"bullet_12@patch_notes_label_body": {
-					"text": "  - [Surge Protection]: You are immune from lightning damage."
-				}
-			},
-			{
-				"bullet_13@patch_notes_label_body": {
-					"text": "  - [Claustrophobic]: As a God from the skies, you aren't used to being underneath. You gain weakness whenever you're underground or not in the Overworld."
-				}
-			},
-			{
-				"bullet_14@patch_notes_label_body": {
-					"text": "  - [Severed Connection]: The End and the Nether have no skies. You are unable to call upon the Wrath of Olympus on dimensions other than the Overworld."
-				}
-			},
-			{
-				"spacer_15@patch_notes_label_body": {
+				"spacer_9@patch_notes_label_body": {
 					"text": " "
 				}
 			},
 			{
-				"sub_header_16@patch_notes_label_sub_header": {
-					"text": "New Origin: Vampire"
+				"bullet_10@patch_notes_label_body": {
+					"text": "  - [Wrath of Olympus]: Summon and throw a Trident that explodes on impact, damaging mobs and players. 30s cooldown."
+				}
+			},
+			{
+				"bullet_11@patch_notes_label_body": {
+					"text": "  - [Divine Ascent]: Double jump and hover in clouds. Immune to fall damage."
+				}
+			},
+			{
+				"bullet_12@patch_notes_label_body": {
+					"text": "  - [Static Energy]: Applies Slowness for 6s to mobs and players you hit, or that hit you."
+				}
+			},
+			{
+				"bullet_13@patch_notes_label_body": {
+					"text": "  - [Discharge]: Hitting a Slowed target has a 30% chance to stun for 1-2s. Stunned enemies take +3 health damage per 2 unique metallic items in your inventory."
+				}
+			},
+			{
+				"bullet_14@patch_notes_label_body": {
+					"text": "  - [Surge Protection]: Immune to lightning damage."
+				}
+			},
+			{
+				"bullet_15@patch_notes_label_body": {
+					"text": "  - [Claustrophobic]: Gain Weakness underground or outside the Overworld."
+				}
+			},
+			{
+				"bullet_16@patch_notes_label_body": {
+					"text": "  - [Severed Connection]: Wrath of Olympus only works in the Overworld."
 				}
 			},
 			{
@@ -119,8 +119,8 @@
 				}
 			},
 			{
-				"body_18@patch_notes_label_body": {
-					"text": "Creatures of the night that trade the warmth of the sun for power drawn from blood."
+				"sub_header_18@patch_notes_label_sub_header": {
+					"text": "Vampire"
 				}
 			},
 			{
@@ -129,88 +129,143 @@
 				}
 			},
 			{
-				"bullet_20@patch_notes_label_body": {
-					"text": "  - [Bloodthirst]: Striking mobs and players drains their life to heal you, but you must keep feeding or slowly waste away."
+				"body_20@patch_notes_label_body": {
+					"text": "Blood-based hunters with mobility, execution, and sustain tools."
 				}
 			},
 			{
-				"bullet_21@patch_notes_label_body": {
-					"text": "  - [Nocturnal]: You grow stronger under the moon and suffer weakness in direct sunlight."
-				}
-			},
-			{
-				"spacer_22@patch_notes_label_body": {
+				"spacer_21@patch_notes_label_body": {
 					"text": " "
 				}
 			},
 			{
-				"sub_header_23@patch_notes_label_sub_header": {
-					"text": "New Class: Athlete"
+				"bullet_22@patch_notes_label_body": {
+					"text": "  - [Bat Form]: Transform into a bat to fly. In bat form you do not burn in daylight, but cannot attack or use tools. Use again to revert."
 				}
 			},
 			{
-				"spacer_24@patch_notes_label_body": {
-					"text": " "
+				"bullet_23@patch_notes_label_body": {
+					"text": "  - [Bloodthirsty]: Cannot eat normal food; must drink blood. Blood restores when hitting living entities. At 0 blood, gain Weakness and take continuous damage."
 				}
 			},
 			{
-				"body_25@patch_notes_label_body": {
-					"text": "Peak physical specimens who rely on raw stamina and agility over brute force."
+				"bullet_24@patch_notes_label_body": {
+					"text": "  - [Death Sense]: Targets at 20% health or lower are executed (fatal hit) when damaged."
 				}
 			},
 			{
-				"spacer_26@patch_notes_label_body": {
-					"text": " "
+				"bullet_25@patch_notes_label_body": {
+					"text": "  - [Nocturnal]: Gain Night Vision and Speed at night."
+				}
+			},
+			{
+				"bullet_26@patch_notes_label_body": {
+					"text": "  - [Regenerative]: Faster healing while injured, but drains blood quickly. Cannot regenerate while burning."
 				}
 			},
 			{
 				"bullet_27@patch_notes_label_body": {
-					"text": "  - [Second Wind]: Sprinting long enough rewards you with a burst of speed and regeneration."
+					"text": "  - [Undead]: Immune to poison and freezing; weak to fire and sunlight; can breathe underwater."
 				}
 			},
 			{
-				"bullet_28@patch_notes_label_body": {
-					"text": "  - [Sure Footing]: Short drops no longer hurt, and you scale ladders and vines faster."
-				}
-			},
-			{
-				"spacer_29@patch_notes_label_body": {
+				"spacer_28@patch_notes_label_body": {
 					"text": " "
 				}
 			},
 			{
-				"sub_header_30@patch_notes_label_sub_header": {
-					"text": "Changes and Fixes"
+				"header_29@patch_notes_label_header": {
+					"text": "New Classes"
 				}
 			},
 			{
-				"spacer_31@patch_notes_label_body": {
+				"spacer_30@patch_notes_label_body": {
 					"text": " "
 				}
 			},
 			{
-				"bullet_32@patch_notes_label_body": {
-					"text": "  - Re-wrote the entire Add-On foundation for better maintainability and performance."
+				"sub_header_31@patch_notes_label_sub_header": {
+					"text": "Athlete"
 				}
 			},
 			{
-				"bullet_33@patch_notes_label_body": {
-					"text": "  - Reworked the cooldown system to be more consistent and responsive."
+				"spacer_32@patch_notes_label_body": {
+					"text": " "
 				}
 			},
 			{
-				"bullet_34@patch_notes_label_body": {
-					"text": "  - Various UI polish across the Origin picker and Options screens."
+				"body_33@patch_notes_label_body": {
+					"text": "High-mobility class focused on stamina and agility."
+				}
+			},
+			{
+				"spacer_34@patch_notes_label_body": {
+					"text": " "
 				}
 			},
 			{
 				"bullet_35@patch_notes_label_body": {
+					"text": "  - [Speedy]: Faster walk, swim, and sprint speed."
+				}
+			},
+			{
+				"bullet_36@patch_notes_label_body": {
+					"text": "  - [Strong]: Punches deal +1 damage."
+				}
+			},
+			{
+				"spacer_37@patch_notes_label_body": {
+					"text": " "
+				}
+			},
+			{
+				"header_38@patch_notes_label_header": {
+					"text": "Changes and Fixes"
+				}
+			},
+			{
+				"spacer_39@patch_notes_label_body": {
+					"text": " "
+				}
+			},
+			{
+				"bullet_40@patch_notes_label_body": {
+					"text": "  - Re-wrote the entire Add-On foundation for better maintainability and performance."
+				}
+			},
+			{
+				"bullet_41@patch_notes_label_body": {
+					"text": "  - Reworked the cooldown system to be more consistent and responsive."
+				}
+			},
+			{
+				"bullet_42@patch_notes_label_body": {
+					"text": "  - Various UI polish across the Origin picker and Options screens."
+				}
+			},
+			{
+				"bullet_43@patch_notes_label_body": {
 					"text": "  - Numerous balancing tweaks and bug fixes across existing Origins and Classes."
 				}
 			},
 			{
-				"spacer_36@patch_notes_label_body": {
+				"spacer_44@patch_notes_label_body": {
 					"text": " "
+				}
+			},
+			{
+				"body_45@patch_notes_label_body": {
+					"text": "For an in-depth changelog, please visit the official MCPEDL / CurseForge page."
+				}
+			},
+			{
+				"spacer_46@patch_notes_label_body": {
+					"text": " "
+				}
+			},
+			{
+				"body_47@patch_notes_label_body": {
+					"text": "Thank you for playing my Add-On!"
 				}
 			}
 		]
