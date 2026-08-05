@@ -252,7 +252,22 @@
 					],
 
 					"controls": [
-						{ "stack@origin_resource_bar.stack": {} }
+						{
+							"padding_offset_touch@common.empty_panel": {
+								"size": ["100%cm", "100%cm"],
+								"offset": "$padding_offset_touch",
+
+								"$padding_offset_touch|default": [0, 0],
+								"variables": {
+									"requires": "$touch",
+									"$padding_offset_touch": [10, -6]
+								},
+
+								"controls": [
+									{ "stack@origin_resource_bar.stack": {} }
+								]
+							}
+						}
 					],
 
 					"ignored": "(('%.1s' * ($var_title_text - ('%.45s' * $var_title_text))) = 'p')" //? p = s[p]ectator
