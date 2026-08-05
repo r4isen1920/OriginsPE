@@ -505,20 +505,15 @@ origins.wheel.empty=§z
 origins.wheel.options=Options
 
 entity.r4isen1920_originspe:cleric_area_effect_cloud.name=§z
-entity.r4isen1920_originspe:cleric_lingering_potion.name=§z
-entity.r4isen1920_originspe:cleric_splash_potion.name=§z
 entity.r4isen1920_originspe:dialogue_handler.name=§z
-entity.r4isen1920_originspe:elven_arrow.name=§z
-entity.r4isen1920_originspe:huge_explosion.name=§z
 entity.r4isen1920_originspe:inventory_keep.name=§z
-entity.r4isen1920_originspe:knockback_roar.name=§z
-entity.r4isen1920_originspe:safe_teleporter.name=§z
 entity.r4isen1920_originspe:shooting_star.name=§z
-entity.r4isen1920_originspe:vein_miner.name=§z
-entity.r4isen1920_originspe:webbing_attack.name=§z
-
-action.hint.exit.r4isen1920_originspe:inventory_keep=Open Inventory to view your Shulk inventory
-action.hint.exit.console.r4isen1920_originspe:inventory_keep=Press :_input_key.inventory: to view your Shulk inventory
+entity.r4isen1920_originspe:entity_mark.name=§z
+entity.r4isen1920_originspe:floating_block.name=§z
+entity.r4isen1920_originspe:ore_highlight.name=§z
+entity.r4isen1920_originspe:shooting_star.name=§z
+entity.r4isen1920_originspe:vine_bind.name=§z
+entity.r4isen1920_originspe:zeus_trident.name=§z
 
 potion.potency.6=VI
 potion.potency.7=VII

@@ -1,17 +1,4 @@
 {
-	//? see `packs/data/jsonte/cleric_potions.json`
-	//?
-	//? Emits `splash_potion.se.json` and `lingering_potion.se.json`.
-	//?
-	//? These are deliberately inert shells. The legacy definitions encoded the
-	//? potion identity as `minecraft:variant` component groups and applied
-	//? effects through hundreds of lines of `queue_command`, which was both
-	//? unmaintainable and quietly broken in several places. Identity now lives
-	//? in a client-synced actor property so the render controller can read it,
-	//? and every gameplay consequence is handled by ClericPotionService.
-	//?
-	//? Numbers below are vanilla's own projectile tuning, matched exactly.
-
 	"$files": {
 		"array": "cleric_potion_deliveries.filter(d => d.throwable)",
 		"filename": "{{id}}.se"

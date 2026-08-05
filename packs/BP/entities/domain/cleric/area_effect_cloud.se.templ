@@ -1,15 +1,4 @@
 {
-	//? see `packs/data/jsonte/cleric_potions.json`
-	//?
-	//? The lingering cloud. Previously this carried a looping `minecraft:timer`
-	//? plus an `environment_sensor` keyed on `distance_to_nearest_player <= 128`,
-	//? which refired continuously and turned into a command storm; the effect
-	//? table was also duplicated four times over, once per radius stage.
-	//?
-	//? Staging and effect application now live in ClericPotionService, driven by
-	//? `cleric_potion_cloud` in the data file. What remains is a summonable,
-	//? inert, non-interactive marker.
-
 	"$template": {
 		"format_version": "1.21.0",
 		"minecraft:entity": {
