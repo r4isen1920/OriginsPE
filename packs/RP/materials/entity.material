@@ -22,6 +22,28 @@
       "depthFunc": "Always"
     },
 
+		"highlight_base_uv_anim:entity_alphatest": {
+			"+defines": [ "USE_UV_ANIM" ],
+			"+states": [
+				"EnableStencilTest",
+				"StencilWrite"
+			],
+
+			"frontFace": {
+				"stencilFunc": "Always",
+				"stencilFailOp": "Replace",
+				"stencilDepthFailOp": "Replace",
+				"stencilPassOp": "Replace"
+			},
+			"backFace": {
+				"stencilFunc": "Always",
+				"stencilFailOp": "Replace",
+				"stencilDepthFailOp": "Replace",
+				"stencilPassOp": "Replace"
+			},
+
+			"stencilRef": 3
+		},
 		"highlight_base:entity_alphatest": {
 			"+states": [
 				"EnableStencilTest",
