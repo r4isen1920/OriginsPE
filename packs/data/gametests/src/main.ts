@@ -218,7 +218,7 @@ import './domain/perks/CheaperTrades';
 import './domain/perks/WanderingTraderSpawn';
 import './domain/perks/NoSprintExhaustion';
 import './domain/perks/MoreBirths';
-import './domain/perks/ShieldWield';
+import './domain/perks/LessShieldSlowdown';
 import './domain/perks/MoreAnimalLoot';
 import './domain/perks/FastGrowCrop';
 import './domain/perks/MoreCropsDrop';

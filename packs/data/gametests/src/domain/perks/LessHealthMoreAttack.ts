@@ -1,33 +1,32 @@
-import { Player, TicksPerSecond } from '@minecraft/server';
+import { EntityComponentTypes, Player, TicksPerSecond } from '@minecraft/server';
 import { Perk } from '../../core/abilities/Ability';
 import { RegisterPerk } from '../../core/abilities/Registries';
 import { EntityUtils } from '../../utils/EntityUtils';
+import { AttributeSourceInstance } from '../../services';
 
-/**
- * Warrior signature perk: trades max health for higher base attack. Both
- * values are applied via the data-driven attribute layer.
- */
+
+
 @RegisterPerk
 export class LessHealthMoreAttack implements Perk {
 	readonly id = 'less_health_more_attack';
-	readonly tickInterval = 10;
+	readonly tickInterval = 1;
 
-	onTick(player: Player): void {
-		const component = EntityUtils.getComponent(player, 'health');
+	/** This amount of health lost (in percentage) equates to 1 attack increase */
+	private readonly HP_LOST_PER_ATK_INCREASE = 0.25;
+
+	onTick(player: Player, attribute: AttributeSourceInstance): void {
+		const component = EntityUtils.getComponent(player, EntityComponentTypes.Health);
 		if (!component) return;
 
-		const ratio = component.currentValue / component.effectiveMax;
-
-		if (ratio > 0.5) {
-			player.removeEffect('strength');
+		const percent = component.currentValue / component.effectiveMax;
+		const atkIncrease = Math.floor((1 - percent) / this.HP_LOST_PER_ATK_INCREASE);
+		if (atkIncrease <= 0) {
+			attribute.clear();
 			return;
 		}
 
-		const amplifier = ratio <= 0.25 ? 1 : 0;
-
-		player.addEffect('strength', TicksPerSecond * 15, {
-			amplifier,
-			showParticles: false
+		attribute.set({
+			attack: { add: atkIncrease }
 		});
 	}
 }
