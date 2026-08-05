@@ -9,6 +9,7 @@ import {
 import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { EntityUtils } from '../../utils/EntityUtils';
+import { ItemBonuses } from '../../core/platform/ItemBonuses';
 
 
 
@@ -16,7 +17,7 @@ import { EntityUtils } from '../../utils/EntityUtils';
 export class Elytra implements Power {
 	readonly id = 'elytra';
 	readonly tickInterval = 100;
-	private static readonly ELYTRA_LORE = '§r§6Elytrian§r';
+	private static readonly ELYTRA_BONUS = 'elytra';
 
 	onAcquire(player: Player): void {
 		this.ensureElytra(player);
@@ -30,7 +31,7 @@ export class Elytra implements Power {
 		const isCustomElytra =
 			chestItem &&
 			chestItem.typeId === 'minecraft:elytra' &&
-			chestItem.getLore()?.includes(Elytra.ELYTRA_LORE);
+			ItemBonuses.hasBonus(chestItem, Elytra.ELYTRA_BONUS);
 
 		if (isCustomElytra) {
 			equippableComp.setEquipment(EquipmentSlot.Chest, undefined);
@@ -49,7 +50,7 @@ export class Elytra implements Power {
 		const isCustomElytra =
 			chestItem &&
 			chestItem.typeId === 'minecraft:elytra' &&
-			chestItem.getLore()?.includes(Elytra.ELYTRA_LORE);
+			ItemBonuses.hasBonus(chestItem, Elytra.ELYTRA_BONUS);
 
 		if (isCustomElytra) {
 			if (!chestItem) return;
@@ -61,10 +62,14 @@ export class Elytra implements Power {
 			return;
 		}
 
+		if (chestItem) {
+			player.dimension.spawnItem(chestItem, player.location);
+		}
+
 		const newElytra = new ItemStack('minecraft:elytra', 1);
 		newElytra.lockMode = ItemLockMode.slot;
 		newElytra.keepOnDeath = true;
-		newElytra.setLore([Elytra.ELYTRA_LORE]);
+		ItemBonuses.write(newElytra, [Elytra.ELYTRA_BONUS]);
 
 		const durability = newElytra.getComponent(ItemComponentTypes.Durability);
 		if (durability) durability.damage = 0;

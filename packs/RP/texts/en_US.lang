@@ -152,6 +152,7 @@ origins.trait.launch_into_air.name=Gift of the Winds
 origins.trait.launch_into_air.description=Propel yourself high up into the air. Has a 30-second cooldown before each use.
 origins.trait.elytra.name=Winged
 origins.trait.elytra.description=You have Elytra wings without needing to equip any, and is never lost nor can be removed.
+origins.trait.elytra.item_lore=Elytrian's Equipment
 origins.trait.light_armor.name=Need for Mobility
 origins.trait.light_armor.description=You become heavy when wearing armor made out of iron, diamond or netherite pieces.
 origins.trait.claustrophobia.name=Claustrophobia
