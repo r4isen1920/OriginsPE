@@ -55,8 +55,8 @@ jobs:
               with:
                   name: release-build
                   path: ./release-files
-            - name: Generate release notes (issues/PRs since last tag)
-              id: generate_release_notes
+            - name: Collect changes since last tag
+              id: collect_changes
               uses: actions/github-script@v7
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -67,84 +67,176 @@ jobs:
                       const currentRef = context.ref || '';
                       const currentTag = currentRef.replace('refs/tags/', '');
 
-                      const itemLine = (n, title, url, user) => `- [[#${n}]](${url}) ${title} (by @${user})`;
-                      const getAssigneeOrCreator = (issue) => {
-                        const assignees = issue.assignees || [];
-                        if (assignees.length === 0) {
-                          return issue.user?.login || 'unknown';
-                        }
-                        const names = assignees.slice(0, 4).map(a => a.login).join(', @');
-                        return assignees.length > 4 ? `${names} et al.` : names;
-                      };
-
                       const tagsRes = await github.rest.repos.listTags({ owner, repo, per_page: 100 });
                       const tags = tagsRes.data || [];
                       const idx = tags.findIndex(t => t.name === currentTag);
                       const prevTagObj = idx >= 0 && idx + 1 < tags.length ? tags[idx + 1] : (tags.length > 1 && tags[0].name !== currentTag ? tags[0] : null);
 
                       let sinceISO;
-                      let compareLine = '';
+                      let compareUrl = '';
                       if (prevTagObj) {
                         try {
                           const commit = await github.rest.repos.getCommit({ owner, repo, ref: prevTagObj.commit.sha });
                           sinceISO = commit.data.commit.author?.date || commit.data.commit.committer?.date;
-                          compareLine = `Changes since ${prevTagObj.name}: https://github.com/${owner}/${repo}/compare/${prevTagObj.name}...${currentTag}`;
+                          compareUrl = `https://github.com/${owner}/${repo}/compare/${prevTagObj.name}...${currentTag}`;
                         } catch (e) {
-                          // Fallback to 30 days ago if commit lookup fails
                           sinceISO = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
                         }
                       } else {
-                        // No previous tag found: default to last 30 days
                         sinceISO = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
                       }
 
                       const sinceDate = new Date(sinceISO);
 
-                      // Fetch issues (state: all) updated since, then split into categories and exclude PRs
                       const allIssues = await github.paginate(
                         github.rest.issues.listForRepo,
                         { owner, repo, state: 'all', since: sinceISO, per_page: 100 }
                       );
-                      const isIssue = (it) => !it.pull_request; // issues endpoint returns PRs too
-                      const issuesClosed = allIssues.filter(it => isIssue(it) && it.state === 'closed' && it.closed_at && new Date(it.closed_at) >= sinceDate);
-                      const issuesOpened = allIssues.filter(it => isIssue(it) && new Date(it.created_at) >= sinceDate);
 
-                      // Fetch closed PRs and filter by merged_at within window
+                      const isIssue = (it) => !it.pull_request;
+                      const getAssigneeOrCreator = (issue) => {
+                        const assignees = issue.assignees || [];
+                        if (assignees.length === 0) return issue.user?.login || 'unknown';
+                        const names = assignees.slice(0, 4).map(a => a.login).join(', @');
+                        return assignees.length > 4 ? `${names} et al.` : names;
+                      };
+
+                      const issuesClosed = allIssues
+                        .filter(it => isIssue(it) && it.state === 'closed' && it.closed_at && new Date(it.closed_at) >= sinceDate)
+                        .map(it => ({
+                          number: it.number,
+                          title: it.title,
+                          url: it.html_url,
+                          actor: getAssigneeOrCreator(it)
+                        }));
+
+                      const issuesOpened = allIssues
+                        .filter(it => isIssue(it) && new Date(it.created_at) >= sinceDate)
+                        .map(it => ({
+                          number: it.number,
+                          title: it.title,
+                          url: it.html_url,
+                          actor: it.user?.login || 'unknown'
+                        }));
+
                       const closedPRs = await github.paginate(
                         github.rest.pulls.list,
                         { owner, repo, state: 'closed', per_page: 100 }
                       );
-                      const prsMerged = closedPRs.filter(pr => pr.merged_at && new Date(pr.merged_at) >= sinceDate);
 
-                      const lines = [];
-                      lines.push(`# Release ${currentTag}`);
-                      if (compareLine) lines.push('', compareLine);
-                      lines.push('', `## Pull requests merged (${prsMerged.length})`);
-                      if (prsMerged.length) {
-                        for (const pr of prsMerged) {
-                          lines.push(itemLine(pr.number, pr.title, pr.html_url, pr.user?.login || 'unknown'));
-                        }
-                      } else {
-                        lines.push('- None');
-                      }
-                      lines.push('', `## Issues closed (${issuesClosed.length})`);
-                      if (issuesClosed.length) {
-                        for (const it of issuesClosed) {
-                          lines.push(itemLine(it.number, it.title, it.html_url, getAssigneeOrCreator(it)));
-                        }
-                      } else {
-                        lines.push('- None');
-                      }
-                      lines.push('', `## Issues opened (${issuesOpened.length})`);
-                      if (issuesOpened.length) {
-                        for (const it of issuesOpened) {
-                          lines.push(itemLine(it.number, it.title, it.html_url, it.user?.login || 'unknown'));
-                        }
-                      } else {
-                        lines.push('- None');
-                      }
+                      const prsMerged = closedPRs
+                        .filter(pr => pr.merged_at && new Date(pr.merged_at) >= sinceDate)
+                        .map(pr => ({
+                          number: pr.number,
+                          title: pr.title,
+                          url: pr.html_url,
+                          actor: pr.user?.login || 'unknown'
+                        }));
 
-                      return lines.join('\n');
+                      return JSON.stringify({
+                        currentTag,
+                        previousTag: prevTagObj?.name || null,
+                        compareUrl,
+                        sinceISO,
+                        pullRequests: prsMerged,
+                        issuesClosed,
+                        issuesOpened
+                      });
+            - name: Generate release notes with Gemini
+              id: generate_release_notes
+              env:
+                  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+                  CHANGE_CONTEXT: ${{ steps.collect_changes.outputs.result }}
+              run: |
+                  set -euo pipefail
+
+                  if [ -z "${GEMINI_API_KEY:-}" ]; then
+                    echo "GEMINI_API_KEY secret is missing" >&2
+                    exit 1
+                  fi
+
+                  current_tag="$(echo "$CHANGE_CONTEXT" | jq -r '.currentTag')"
+                  previous_tag="$(echo "$CHANGE_CONTEXT" | jq -r '.previousTag // empty')"
+                  compare_url="$(echo "$CHANGE_CONTEXT" | jq -r '.compareUrl // empty')"
+
+                  prompt="$(cat <<EOF
+                  Create concise GitHub release notes in markdown for tag ${current_tag}.
+                  Focus on high impact changes, gameplay impact, fixes, and upgrade notes.
+                  Use this structure exactly:
+                  # Release ${current_tag}
+                  ## Highlights
+                  ## Pull requests merged
+                  ## Issues closed
+                  ## Issues opened
+                  ## Notes
+                  Rules:
+                  - Keep Highlights to 3-6 bullets.
+                  - Include markdown links for PRs and issues using the provided URLs.
+                  - Mention contributors with @username where available.
+                  - If a section has no items, write '- None'.
+                  - Do not invent changes that are not in the data.
+
+                  Input data (JSON):
+                  ${CHANGE_CONTEXT}
+                  EOF
+                  )"
+
+                  payload="$(jq -n --arg prompt "$prompt" '{contents: [{parts: [{text: $prompt}]}]}')"
+
+                  response="$(curl -sS -X POST \
+                    -H 'Content-Type: application/json' \
+                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}" \
+                    -d "$payload" || true)"
+
+                  generated="$(echo "$response" | jq -r '.candidates[0].content.parts[0].text // empty')"
+
+                  if [ -z "$generated" ]; then
+                    echo "Gemini response missing content, using fallback release notes" >&2
+                    prs="$(echo "$CHANGE_CONTEXT" | jq -r '.pullRequests[]? | "- [#\(.number)](\(.url)) \(.title) (by @\(.actor))"')"
+                    closed="$(echo "$CHANGE_CONTEXT" | jq -r '.issuesClosed[]? | "- [#\(.number)](\(.url)) \(.title) (by @\(.actor))"')"
+                    opened="$(echo "$CHANGE_CONTEXT" | jq -r '.issuesOpened[]? | "- [#\(.number)](\(.url)) \(.title) (by @\(.actor))"')"
+
+                    fallback_file="$(mktemp)"
+                    {
+                      echo "# Release ${current_tag}"
+                      if [ -n "$previous_tag" ] && [ -n "$compare_url" ]; then
+                        echo
+                        echo "Changes since ${previous_tag}: ${compare_url}"
+                      fi
+
+                      echo
+                      echo "## Pull requests merged"
+                      if [ -n "$prs" ]; then
+                        echo "$prs"
+                      else
+                        echo "- None"
+                      fi
+
+                      echo
+                      echo "## Issues closed"
+                      if [ -n "$closed" ]; then
+                        echo "$closed"
+                      else
+                        echo "- None"
+                      fi
+
+                      echo
+                      echo "## Issues opened"
+                      if [ -n "$opened" ]; then
+                        echo "$opened"
+                      else
+                        echo "- None"
+                      fi
+                    } > "$fallback_file"
+
+                    generated="$(cat "$fallback_file")"
+                  fi
+
+                  {
+                    echo "result<<EOF"
+                    echo "$generated"
+                    echo "EOF"
+                  } >> "$GITHUB_OUTPUT"
             - name: List downloaded files
               run: ls -la ./release-files/
             - uses: softprops/action-gh-release@v1
