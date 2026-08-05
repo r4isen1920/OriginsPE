@@ -10,13 +10,10 @@ import { RegisterPower } from '../../core/abilities/Registries';
 import { Power } from '../../core/abilities/Ability';
 import { EntityUtils } from '../../utils/EntityUtils';
 
-/**
- * Winged is a passive power that grants the holder a custom Elytra item when equipped.
- * Loose: dispatched to whoever is granted the power, with no origin coupling.
- */
+
 
 @RegisterPower
-export class Winged implements Power {
+export class Elytra implements Power {
 	readonly id = 'elytra';
 	readonly tickInterval = 100;
 	private static readonly ELYTRA_LORE = '§r§6Elytrian§r';
@@ -33,7 +30,7 @@ export class Winged implements Power {
 		const isCustomElytra =
 			chestItem &&
 			chestItem.typeId === 'minecraft:elytra' &&
-			chestItem.getLore()?.includes(Winged.ELYTRA_LORE);
+			chestItem.getLore()?.includes(Elytra.ELYTRA_LORE);
 
 		if (isCustomElytra) {
 			equippableComp.setEquipment(EquipmentSlot.Chest, undefined);
@@ -52,7 +49,7 @@ export class Winged implements Power {
 		const isCustomElytra =
 			chestItem &&
 			chestItem.typeId === 'minecraft:elytra' &&
-			chestItem.getLore()?.includes(Winged.ELYTRA_LORE);
+			chestItem.getLore()?.includes(Elytra.ELYTRA_LORE);
 
 		if (isCustomElytra) {
 			if (!chestItem) return;
@@ -67,7 +64,7 @@ export class Winged implements Power {
 		const newElytra = new ItemStack('minecraft:elytra', 1);
 		newElytra.lockMode = ItemLockMode.slot;
 		newElytra.keepOnDeath = true;
-		newElytra.setLore([Winged.ELYTRA_LORE]);
+		newElytra.setLore([Elytra.ELYTRA_LORE]);
 
 		const durability = newElytra.getComponent(ItemComponentTypes.Durability);
 		if (durability) durability.damage = 0;

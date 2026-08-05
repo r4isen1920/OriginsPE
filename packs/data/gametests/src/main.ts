@@ -118,7 +118,7 @@ import './domain/powers/Elegant';
 import './domain/powers/Swift';
 import './domain/powers/Permeable';
 import './domain/powers/GiftOfTheWinds';
-import './domain/powers/Winged';
+import './domain/powers/Elytra';
 import './domain/powers/NeedForMobility';
 import './domain/powers/Claustrophobia';
 import './domain/powers/BrittleBones';
