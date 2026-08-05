@@ -29,7 +29,7 @@
 				"created_by@origin_common.image_with_text_description": {
 					"$image_icon": "textures/origins/r4isen1920",
 					"$text_header": "© r4isen1920",
-					"$text_body": "Original by APACE100",
+					"$text_body": "Original mod by Apace100",
 					"$show_header_underline": false
 				}
 			},
@@ -62,8 +62,8 @@
 			{
 				"version@origin_common.image_with_text_description": {
 					"$image_icon": "textures/items/paper",
-					"$text_header": "v6.0 patch notes",
-					"$text_body": " - §fOverhauled ability selector§r\n - §fNew Origins: Zeus & Vampire§r\n - §fRe-wrote backend from the ground up to resolve many bugs, issues, and glitchiness"
+					"$text_header": "origins.patch_notes.title",
+					"$text_body": "origins.patch_notes.content"
 				}
 			},
 			{
@@ -74,8 +74,8 @@
 			{
 				"contributors@origin_common.image_with_text_description": {
 					"$image_icon": "textures/items/map_locked",
-					"$text_header": "Contributors",
-					"$text_body": " - §fr4isen1920§r\n - §fyardy§r\n - §fR4M§r\n"
+					"$text_header": "origins.contributors.title",
+					"$text_body": " - r4isen1920\n - R4M\n - yardy\n"
 				}
 			}
 		]

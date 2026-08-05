@@ -13,6 +13,10 @@
 				"script": "./filters/emit_domain/emit_domain.js",
 				"requirements": "./filters/emit_domain"
 			},
+			"patch_notes": {
+				"runWith": "nodejs",
+				"script": "./filters/patch_notes/patch_notes.js"
+			},
 			"gametests": {
 				"url": "github.com/Bedrock-OSS/regolith-filters",
 				"version": "1.7.4"
@@ -57,6 +61,9 @@
 					},
 					{
 						"filter": "emit_domain"
+					},
+					{
+						"filter": "patch_notes"
 					},
 					{
 						"filter": "jsonte"

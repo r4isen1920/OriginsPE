@@ -371,8 +371,8 @@
 			},
 			{
 				"patch_notes@common.empty_panel": {
-					"size": ["100%", "100%"],
-					"offset": [0, 4],
+					"size": ["100%", "100% + 12px"],
+					"offset": [0, 10],
 					"layer": 4,
 
 					"controls": [
@@ -380,8 +380,8 @@
 							"scrollable_panel@origin_common.scrolling_panel": {
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
-								"size": ["100% - 4px", "100% - 4px"],
-								"offset": [2, 0],
+								"size": ["100% - 8px", "100%"],
+								"offset": [4, 0],
 
 								"$scrolling_pane_size": ["100%", "100%"],
 								"$scrolling_pane_offset": [0, 0],
@@ -391,7 +391,7 @@
 								"$scroll_track_image_control": "common.container_scrollbar_track",
 
 								"$scroll_view_port_size": ["100% - 10px", "100%"],
-								"$scrolling_content": "origin_options_screen.patch_notes_scroll_content"
+								"$scrolling_content": "origin_patch_notes.patch_notes_scroll_content"
 							}
 						}
 					],
@@ -409,21 +409,6 @@
 					]
 				}
 			}
-		]
-	},
-
-	"patch_notes_scroll_content@origin_common.verti_stack": {
-		"size": ["100%", "100%c"],
-
-		"controls": [
-			// {
-			// 	"entry_0@origin_common.image_with_text_description": {
-			// 		"$image_icon": "textures/items/paper",
-			// 		"$text_header": "Lorem ipsum v1.2",
-			// 		"$text_body": " - §fLorem ipsum dolor sit amet, consectetur adipiscing elit§r\n - §fSed do eiusmod tempor incididunt ut labore et dolore§r\n - §fUt enim ad minim veniam, quis nostrud exercitation§r"
-			// 	}
-			// },
-			{ "padding_0@common.empty_panel": { "size": ["100%", 10] } }
 		]
 	},
 

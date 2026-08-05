@@ -214,7 +214,7 @@
 					"layer": 100,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [20, 4],
+					"offset": [22, 4],
 					"size": ["default", "default"],
 					"text": "$text_header",
 					"controls": [
@@ -239,7 +239,7 @@
 					"layer": 100,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [20, 16],
+					"offset": [22, 16],
 					"size": ["100% - 32px", "default"],
 					"text": "$text_body",
 					"color": "$7_color_format",
