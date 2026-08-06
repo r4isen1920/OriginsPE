@@ -238,7 +238,7 @@
 					"variables": [
 						{
 							"requires": "($is_creative)",
-							"$padding_offset": [ 0, 24 ]
+							"$padding_offset": [ 0, 20 ]
 						},
 
 						{
