@@ -33,6 +33,10 @@ import { Log } from '../../utils/Log';
 import OverheadText from '../../ui/OverheadText';
 import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
 
+const BAR_FULL = 100;
+const BAR_TWO_THIRDS = 71;
+const BAR_ONE_THIRD = 29;
+
 
 //#region CONSTANTS
 
@@ -311,10 +315,51 @@ export class DivinerLink {
 	private static pushLinkBar(player: Player, memberCount: number): void {
 		if (!player?.isValid) return;
 		const state = PlayerState.for(player);
-		if (state.getFlag<number>(LinkFlag.BarLevel) === memberCount) return;
-		state.setFlag(LinkFlag.BarLevel, memberCount);
-		const value = Math.round((Math.min(memberCount, MAX_MEMBERS) / MAX_MEMBERS) * 100);
-		ResourceBarService.push(player, { id: LINK_BAR_ID, from: value, to: value, persist: true });
+	
+		const link = state.getFlag<number>('LinkFlag') ?? null;
+		
+		switch (memberCount) {
+			case 3:
+				if ( link === 3) {
+					break;
+				}
+
+				ResourceBarService.push(player, {
+					id: 26,
+					from: BAR_FULL,
+					to: BAR_FULL,
+					persist: true
+				});
+				break;
+
+			case 2:
+
+				if (link === 2) {
+					break;
+				}
+
+				ResourceBarService.push(player, {
+					id: 26,
+					from: BAR_TWO_THIRDS,
+					to: BAR_TWO_THIRDS,
+					persist: true
+				});
+				break;
+
+			case 1:
+
+				if (link === 1) {
+					break;
+				}
+
+				ResourceBarService.push(player, {
+					id: 26,
+					from: BAR_ONE_THIRD,
+					to: BAR_ONE_THIRD,
+					persist: true
+				});
+				break;
+				}
 	}
 
 	/** Removes the persistent Prescience bar if present. */
