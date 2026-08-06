@@ -16,7 +16,7 @@ import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
 export class StaticEnergy implements Power {
 	readonly id = 'static_energy';
 
-	private static readonly SLOWNESS_DURATION_TICKS = 2 * TicksPerSecond;
+	private static readonly SLOWNESS_DURATION_TICKS = 6 * TicksPerSecond;
 	private static readonly SLOWNESS_AMPLIFIER = 1;
 
 
