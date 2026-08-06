@@ -25,7 +25,7 @@ export class Discharge implements Power {
 
 	private static readonly STUN_CHANCE = 0.3;
 	private static readonly STUN_DURATION_TICKS = [20, 30];
-	private static readonly DMG_MULT = 3;
+	private static readonly DMG_MULT = 1;
 
 	private static readonly METALLIC_ITEM_TYPES: Set<string> = new Set([
 		//irons
