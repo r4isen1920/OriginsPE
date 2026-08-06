@@ -498,6 +498,8 @@ origins.change.announce.class=%1 has changed their Class to [%2]
 origins.change.fail.race=The Orb of Origins has been disabled
 origins.change.fail.class=The Resignation Paper has been disabled
 origins.change.fail.not_on_ground=You must be on ground to use this item
+origins.change.fail.moving=You must stand still to use this item
+origins.change.fail.in_combat=You cannot use this item while in combat
 
 origins.item_lore.bonuses=Bonuses:
 

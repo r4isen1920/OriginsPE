@@ -497,6 +497,8 @@ origins.change.announce.class=%1 alterou sua Classe para [%2]
 origins.change.fail.race=O Orbe das Origens foi desativado
 origins.change.fail.class=O Papel de Demissão foi desativado
 origins.change.fail.not_on_ground=Você deve estar no chão para usar este item
+origins.change.fail.moving=Você deve ficar parado para usar este item
+origins.change.fail.in_combat=Você não pode usar este item durante o combate
 
 origins.item_lore.bonuses=Bônus:
 

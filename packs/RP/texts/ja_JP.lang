@@ -497,6 +497,8 @@ origins.change.announce.class=%1 がクラスを [%2] に変更しました
 origins.change.fail.race=オリジンの宝珠は無効化されています
 origins.change.fail.class=辞職願は無効化されています
 origins.change.fail.not_on_ground=このアイテムを使用するには地面に立っている必要があります
+origins.change.fail.moving=このアイテムを使用するには静止している必要があります
+origins.change.fail.in_combat=戦闘中はこのアイテムを使用できません
 
 origins.item_lore.bonuses=ボーナス:
 

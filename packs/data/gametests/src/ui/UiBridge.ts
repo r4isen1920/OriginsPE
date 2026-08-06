@@ -13,6 +13,7 @@ import { Log } from '../utils/Log';
 import { PlayerState } from '../core/platform/PlayerState';
 import { buildPayload, pickerSceneTag, PickerKind, PickerMode } from './UiPayload';
 import { ResourceBarService } from '../services/ResourceBarService';
+import ChangeProtectionService from '../services/ChangeProtectionService';
 import { Registry } from '../core/platform/Registry';
 import { getDifficulty } from './PickerRegistry';
 
@@ -58,6 +59,7 @@ export class UiBridge {
 	static closeScreen(player: Player): void {
 		player.onScreenDisplay.resetHudElementsVisibility();
 		ResourceBarService.resume(player);
+		ChangeProtectionService.release(player);
 	}
 
 	/** Opens the origin/class picker dialogue for the given player. */

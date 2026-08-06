@@ -9,6 +9,7 @@ import { UiBridge } from './UiBridge';
 import { PickerKind, PickerMode } from './UiPayload';
 import { isToggleOn } from './OptionsState';
 import OverheadText from './OverheadText';
+import ChangeProtectionService from '../services/ChangeProtectionService';
 
 
 //#region TYPES
@@ -16,6 +17,26 @@ import OverheadText from './OverheadText';
 interface ItemHandler {
 	id: string;
 	onStartUse(player: Player): void;
+}
+
+
+//#region GUARD
+
+/**
+ * Reports whether `player` is currently allowed to open a change picker,
+ * showing the matching overhead message when they are not.
+ */
+function canStartChange(player: Player): boolean {
+	if (!player.isOnGround) {
+		OverheadText.show(player, 'origins.change.fail.not_on_ground');
+		return false;
+	}
+	const blocked = ChangeProtectionService.blockReason(player);
+	if (blocked) {
+		OverheadText.show(player, `origins.change.fail.${blocked}`);
+		return false;
+	}
+	return true;
 }
 
 
@@ -28,11 +49,9 @@ const ORB_OF_ORIGINS: ItemHandler = {
 			OverheadText.show(player, 'origins.change.fail.race');
 			return;
 		}
-		if (!player.isOnGround) {
-			OverheadText.show(player, 'origins.change.fail.not_on_ground');
-			return;
-		}
+		if (!canStartChange(player)) return;
 		PlayerState.for(player).setFlag('change_resign', true);
+		ChangeProtectionService.protect(player);
 		UiBridge.openPicker(player, PickerKind.Race, PickerMode.Change);
 		player.playSound('ui.wood_click');
 	},
@@ -45,11 +64,9 @@ const RESIGNATION_PAPER: ItemHandler = {
 			OverheadText.show(player, 'origins.change.fail.class');
 			return;
 		}
-		if (!player.isOnGround) {
-			OverheadText.show(player, 'origins.change.fail.not_on_ground');
-			return;
-		}
+		if (!canStartChange(player)) return;
 		PlayerState.for(player).setFlag('change_resign', true);
+		ChangeProtectionService.protect(player);
 		UiBridge.openPicker(player, PickerKind.Class, PickerMode.Change);
 		player.playSound('ui.wood_click');
 	},

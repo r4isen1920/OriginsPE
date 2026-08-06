@@ -497,6 +497,8 @@ origins.change.announce.class=%1 cambió su Clase a [%2]
 origins.change.fail.race=El Orbe de Orígenes ha sido deshabilitado
 origins.change.fail.class=El Papel de renuncia ha sido deshabilitado
 origins.change.fail.not_on_ground=Debes estar en el suelo para usar este objeto
+origins.change.fail.moving=Debes quedarte quieto para usar este objeto
+origins.change.fail.in_combat=No puedes usar este objeto mientras estás en combate
 
 origins.item_lore.bonuses=Bonificaciones:
 

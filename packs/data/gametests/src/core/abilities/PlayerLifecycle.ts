@@ -22,6 +22,7 @@ import { type OriginEffects, Perk, Power } from './Ability';
 import { AbilityDispatch } from './AbilityDispatch';
 import { ClassRegistry, OriginRegistry, PerkRegistry, PowerRegistry } from './Registries';
 import DamageService from '../../services/DamageService';
+import ChangeProtectionService from '../../services/ChangeProtectionService';
 
 
 
@@ -52,6 +53,9 @@ export class PlayerLifecycle {
 		Version.resetPlayerRecordIfUpgradePending(player);
 		const state = PlayerState.for(player);
 
+		// Shield the player for the whole onboarding flow, before any UI is even queued.
+		ChangeProtectionService.protect(player);
+
 		// Reset transient state.
 		state.clearFlagPrefix('cooldown_');
 		state.setFlag('controls_opened', false);
@@ -69,6 +73,7 @@ export class PlayerLifecycle {
 		AttributeService.forget(ev.playerId);
 		CameraService.forget(ev.playerId);
 		DamageService.forgetDamageOverrides(ev.playerId);
+		ChangeProtectionService.forget(ev.playerId);
 	}
 
 	static onJoinDialogueLoaded(player: Player): void {
@@ -80,6 +85,7 @@ export class PlayerLifecycle {
 		if (!state.getOrigin() || !state.getClass()) return;
 		if (!state.isWelcomed()) return;
 		this.applyOriginAndClass(player);
+		ChangeProtectionService.release(player);
 	}
 
 	private static openJoinDialogue(player: Player): void {
@@ -104,6 +110,9 @@ export class PlayerLifecycle {
 			system.runTimeout(() => this.openJoinDialogue(player), 20);
 			return;
 		}
+
+		// Nothing left to prompt: the onboarding flow is done.
+		ChangeProtectionService.release(player);
 	}
 
 

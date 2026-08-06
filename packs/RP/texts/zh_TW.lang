@@ -497,6 +497,8 @@ origins.change.announce.class=%1 已將其職業更改為 [%2]
 origins.change.fail.race=起源之球已被禁用
 origins.change.fail.class=辭職證明已被禁用
 origins.change.fail.not_on_ground=您必須在地面上才能使用此物品
+origins.change.fail.moving=您必須靜止不動才能使用此物品
+origins.change.fail.in_combat=戰鬥中無法使用此物品
 
 origins.item_lore.bonuses=加成：
 

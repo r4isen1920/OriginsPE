@@ -497,6 +497,8 @@ origins.change.announce.class=%1 telah mengubah Kelas mereka menjadi [%2]
 origins.change.fail.race=Orb Origins telah dinonaktifkan
 origins.change.fail.class=Surat Pengunduran Diri telah dinonaktifkan
 origins.change.fail.not_on_ground=Kamu harus berada di darat untuk menggunakan item ini
+origins.change.fail.moving=Kamu harus diam untuk menggunakan item ini
+origins.change.fail.in_combat=Kamu tidak dapat menggunakan item ini saat dalam pertempuran
 
 origins.item_lore.bonuses=Bonus:
 

@@ -8,6 +8,7 @@ Logger.setTagsOutputVisibility(true);
 
 
 import './services/DamageService';
+import './services/ChangeProtectionService';
 import './services/ResourceBarService';
 
 import './core/Commands';

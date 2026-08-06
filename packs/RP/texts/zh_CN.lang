@@ -497,6 +497,8 @@ origins.change.announce.class=%1 已将其职业更改为 [%2]
 origins.change.fail.race=起源之珠已被禁用
 origins.change.fail.class=辞职信已被禁用
 origins.change.fail.not_on_ground=你必须站在地面上才能使用此物品
+origins.change.fail.moving=你必须静止不动才能使用此物品
+origins.change.fail.in_combat=战斗中无法使用此物品
 
 origins.item_lore.bonuses=加成：
 
