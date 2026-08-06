@@ -69,8 +69,7 @@ export class HighJump implements Power {
 
 		const query: EntityQueryOptions = {
 			location: player.location,
-			maxDistance: HighJump.IMPACT_RADIUS,
-			excludeTypes: ['minecraft:player']
+			maxDistance: HighJump.IMPACT_RADIUS
 		};
 
 		const nearby = player.dimension.getEntities(query);
