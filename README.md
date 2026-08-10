@@ -11,7 +11,7 @@ OriginsPE is a Minecraft Bedrock Add-On that allows you to select an Origin at t
 We have maintained a Wiki that includes in-depth guides and tutorials on what you can do with this Add-On. See the following links below:
 
 - [GitHub Wiki](https://github.com/r4isen1920/OriginsPE/wiki)
-- [Read the Docs Wiki](https://originspe-wiki.readthedocs.io/en/latest/)
+- [Read the Docs Wiki](https://originspe.r4isen.net)
 
 # Contributing
 
