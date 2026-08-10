@@ -6,37 +6,17 @@ OriginsPE is a Minecraft Bedrock Add-On that allows you to select an Origin at t
 
 **This repository is intended for developers and modders, if you'd like to download the Add-On, please visit the [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/originspe-be-add-on-1-2) / [MCPEDL](https://mcpedl.com/originspe-be-add-on-1-2/) page, or check the [releases page](https://github.com/r4isen1920/OriginsPE/releases) to download the pack directly.**
 
-If you want to contribute to the development of this Add-On, please refer to the information below:
+# Wiki
 
-## Prerequisites
+We have maintained a Wiki that includes in-depth guides and tutorials on what you can do with this Add-On. See the following links below:
 
-- [regolith](https://github.com/Bedrock-OSS/regolith/releases) (follow the [installation guide](https://regolith-docs.readthedocs.io/en/latest/introduction/installation/)).
-- [Node.js](https://nodejs.org/en/download/)
-- [Python](https://www.python.org/downloads/)
-- [Visual Studio Code](https://code.visualstudio.com/) or any IDE you want
-    - [regolith extension](https://marketplace.visualstudio.com/items?itemName=BedrockOSS.regolith)
+- [GitHub Wiki](https://github.com/r4isen1920/OriginsPE/wiki)
+- [Read the Docs Wiki](https://originspe-wiki.readthedocs.io/en/latest/)
 
-## Initial setup
+# Contributing
 
-1. Clone the repository and open it in your preferred IDE.
-2. Run `regolith install-all` once to download filter dependencies.
+See [CONTRIBUTING](CONTRIBUTING.md).
 
-## File naming convention
+# License
 
-Please follow the standard naming convention below for readability and cleanliness:
-
-| File name         | Description                         |
-| ----------------- | ----------------------------------- |
-| `*.b.json`        | Block definition                    |
-| `*.se.json`       | Server entity (BP/entity)           |
-| `*.ce.json`       | Client entity (RP/entity)           |
-| `*.i.json`        | Item definition                     |
-| `*.r.json`        | Recipe                              |
-| `*.rp_ac.json`    | Resource Pack animation controllers |
-| `*.bp_ac.json`    | Behavior Pack animation controllers |
-| `*.rp_a.json`     | Resource Pack animations            |
-| `*.bp_a.json`     | Behavior Pack animations            |
-| `*.geo.json`      | Geometry file                       |
-| `*.particle.json` | Particle definition file            |
-| `*.rc.json`       | Render controller                   |
-| `*.ui.json`       | JSON UI file                        |
+This project is copyrighted under [MIT License](license).
